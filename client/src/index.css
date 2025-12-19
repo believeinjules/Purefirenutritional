@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
@@ -45,13 +47,13 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
+}
 
+@layer base {
   * {
-    border-color: hsl(var(--border));
+    @apply border-border;
   }
-  
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    @apply bg-background text-foreground;
   }
 }
