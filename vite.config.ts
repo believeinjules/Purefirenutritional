@@ -1,9 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client/src"),
@@ -17,7 +21,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        chunkSizeWarningLimit: 1000, // Increase from default 500kb to 1000kb
+        chunkSizeWarningLimit: 1000,
       },
     },
   },
