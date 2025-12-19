@@ -1,120 +1,160 @@
+import { Link } from "wouter";
+import { ShoppingCart, User, Heart, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { Menu, X, ShoppingCart, Flame, User, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import { useAuth } from "@/contexts/AuthContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [location] = useLocation();
-  const { getTotalItems } = useCart();
-  const cartCount = getTotalItems();
-  const { user } = useAuth();
-  const { getWishlistCount } = useWishlist();
-  const wishlistCount = getWishlistCount();
-
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/products", label: "Products" },
-    { href: "/science", label: "Science" },
-    { href: "/about", label: "About" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/ai-assistant", label: "AI Assistant" },
-  ];
-
-  const isActive = (href: string) => {
-    if (href === "/") return location === "/";
-    return location.startsWith(href);
-  };
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { items } = useCart();
+  const { items: wishlistItems } = useWishlist();
+  
+  const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className="sticky top-0 z-50 shadow-lg" style={{background: 'linear-gradient(to right, rgb(253, 186, 116), rgb(253, 186, 116), rgb(251, 113, 133)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="bg-gradient-to-r from-orange-400 via-orange-300 to-rose-400 shadow-lg sticky top-0 z-50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 text-white font-bold text-xl">
-            <div className="bg-white rounded-full p-0.5 h-12 w-12 flex items-center justify-center overflow-hidden">
-              <img src="/logo-flame.jpeg" alt="Pure Fire Nutritional Logo" className="h-full w-full object-cover rounded-full" />
-            </div>
-            <span className="hidden sm:inline text-lg font-bold">Pure Fire Nutritional</span>
+          <Link href="/">
+            <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <div className="w-14 h-14 rounded-full bg-white shadow-md flex items-center justify-center border-2 border-orange-200">
+                <img 
+                  src="/logo.png" 
+                  alt="Pure Fire Nutritional" 
+                  className="w-10 h-10 object-contain"
+                />
+              </div>
+              <span className="text-2xl font-bold text-white hidden sm:block">
+                Pure Fire Nutritional
+              </span>
+            </a>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-white hover:text-yellow-200 transition-colors font-medium ${
-                  isActive(link.href) ? "text-yellow-200 underline underline-offset-4" : ""
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/">
+              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+                Home
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
+              </a>
+            </Link>
+            <Link href="/products">
+              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+                Products
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
+              </a>
+            </Link>
+            <Link href="/science">
+              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+                Science
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
+              </a>
+            </Link>
+            <Link href="/about">
+              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+                About
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
+              </a>
+            </Link>
+            <Link href="/faq">
+              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+                FAQ
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
+              </a>
+            </Link>
+            <Link href="/ai-assistant">
+              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+                AI Assistant
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
+              </a>
+            </Link>
           </div>
 
-          {/* Right side buttons */}
+          {/* Right side icons */}
           <div className="flex items-center gap-4">
-            {/* Peptalk Logo */}
-            <Link href="/peptalk" className="flex items-center">
-              <img src="/peptalk-logo.png" alt="Peptalk! The Podcast" className="h-8 hover:opacity-80 transition-opacity" />
+            {/* Peptalk Podcast Logo - Larger */}
+            <Link href="/peptalk">
+              <a className="hover:opacity-80 transition-opacity">
+                <img 
+                  src="/peptalk-logo.png" 
+                  alt="Peptalk Podcast" 
+                  className="h-12 w-auto object-contain"
+                />
+              </a>
             </Link>
 
-            {/* User Account */}
-            <Link href={user ? "/dashboard" : "/login"} className="text-white hover:text-yellow-200">
-              <User className="w-6 h-6" />
+            <Link href="/dashboard">
+              <a className="text-white hover:text-orange-700 transition-colors">
+                <User className="h-6 w-6" />
+              </a>
             </Link>
-
-            {/* Wishlist */}
-            <Link href="/wishlist" className="relative text-white hover:text-yellow-200">
-              <Heart className="w-6 h-6" />
-              {wishlistCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {wishlistCount}
-                </span>
-              )}
+            
+            <Link href="/wishlist">
+              <a className="text-white hover:text-orange-700 transition-colors relative">
+                <Heart className="h-6 w-6" />
+                {wishlistItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-orange-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {wishlistItems.length}
+                  </span>
+                )}
+              </a>
             </Link>
-
-            {/* Cart */}
-            <Link href="/cart" className="relative text-white hover:text-yellow-200">
-              <ShoppingCart className="w-6 h-6" />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
+            
+            <Link href="/cart">
+              <a className="text-white hover:text-orange-700 transition-colors relative">
+                <ShoppingCart className="h-6 w-6" />
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-orange-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </a>
             </Link>
 
             {/* Mobile menu button */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-white hover:text-orange-700 transition-colors"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pb-4">
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`text-white hover:text-yellow-200 py-2 px-4 rounded transition-colors ${
-                    isActive(link.href) ? "bg-white/20 text-yellow-200" : ""
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+        {isMenuOpen && (
+          <div className="md:hidden pb-4 space-y-2">
+            <Link href="/">
+              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+                Home
+              </a>
+            </Link>
+            <Link href="/products">
+              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+                Products
+              </a>
+            </Link>
+            <Link href="/science">
+              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+                Science
+              </a>
+            </Link>
+            <Link href="/about">
+              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+                About
+              </a>
+            </Link>
+            <Link href="/faq">
+              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+                FAQ
+              </a>
+            </Link>
+            <Link href="/ai-assistant">
+              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+                AI Assistant
+              </a>
+            </Link>
           </div>
         )}
       </div>
