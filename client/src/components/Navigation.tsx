@@ -34,46 +34,40 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/">
-              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+              <a className="text-white font-medium transition-all duration-300 hover:text-red-300 hover:drop-shadow-[0_0_8px_rgba(252,165,165,0.8)]">
                 Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
               </a>
             </Link>
             <Link href="/products">
-              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+              <a className="text-white font-medium transition-all duration-300 hover:text-red-300 hover:drop-shadow-[0_0_8px_rgba(252,165,165,0.8)]">
                 Products
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
               </a>
             </Link>
             <Link href="/science">
-              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+              <a className="text-white font-medium transition-all duration-300 hover:text-red-300 hover:drop-shadow-[0_0_8px_rgba(252,165,165,0.8)]">
                 Science
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
               </a>
             </Link>
             <Link href="/about">
-              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+              <a className="text-white font-medium transition-all duration-300 hover:text-red-300 hover:drop-shadow-[0_0_8px_rgba(252,165,165,0.8)]">
                 About
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
               </a>
             </Link>
             <Link href="/faq">
-              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+              <a className="text-white font-medium transition-all duration-300 hover:text-red-300 hover:drop-shadow-[0_0_8px_rgba(252,165,165,0.8)]">
                 FAQ
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
               </a>
             </Link>
             <Link href="/ai-assistant">
-              <a className="text-white font-medium hover:text-orange-700 transition-colors relative group">
+              <a className="text-white font-medium transition-all duration-300 hover:text-red-300 hover:drop-shadow-[0_0_8px_rgba(252,165,165,0.8)]">
                 AI Assistant
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-700 transition-all group-hover:w-full"></span>
               </a>
             </Link>
           </div>
 
           {/* Right side icons */}
           <div className="flex items-center gap-4">
-            {/* Peptalk Podcast Logo - Larger */}
+            {/* Peptalk Podcast Logo */}
             <Link href="/peptalk">
               <a className="hover:opacity-80 transition-opacity">
                 <img 
@@ -85,16 +79,16 @@ export default function Navigation() {
             </Link>
 
             <Link href="/dashboard">
-              <a className="text-white hover:text-orange-700 transition-colors">
+              <a className="text-white hover:text-red-300 transition-colors">
                 <User className="h-6 w-6" />
               </a>
             </Link>
             
             <Link href="/wishlist">
-              <a className="text-white hover:text-orange-700 transition-colors relative">
+              <a className="text-white hover:text-red-300 transition-colors relative">
                 <Heart className="h-6 w-6" />
                 {wishlistItems.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-orange-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {wishlistItems.length}
                   </span>
                 )}
@@ -102,10 +96,10 @@ export default function Navigation() {
             </Link>
             
             <Link href="/cart">
-              <a className="text-white hover:text-orange-700 transition-colors relative">
+              <a className="text-white hover:text-red-300 transition-colors relative">
                 <ShoppingCart className="h-6 w-6" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-orange-700 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {cartItemsCount}
                   </span>
                 )}
@@ -115,7 +109,7 @@ export default function Navigation() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white hover:text-orange-700 transition-colors"
+              className="md:hidden text-white hover:text-red-300 transition-colors"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -126,32 +120,32 @@ export default function Navigation() {
         {isMenuOpen && (
           <div className="md:hidden pb-4 space-y-2">
             <Link href="/">
-              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+              <a className="block text-white font-medium hover:text-red-300 transition-colors py-2">
                 Home
               </a>
             </Link>
             <Link href="/products">
-              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+              <a className="block text-white font-medium hover:text-red-300 transition-colors py-2">
                 Products
               </a>
             </Link>
             <Link href="/science">
-              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+              <a className="block text-white font-medium hover:text-red-300 transition-colors py-2">
                 Science
               </a>
             </Link>
             <Link href="/about">
-              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+              <a className="block text-white font-medium hover:text-red-300 transition-colors py-2">
                 About
               </a>
             </Link>
             <Link href="/faq">
-              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+              <a className="block text-white font-medium hover:text-red-300 transition-colors py-2">
                 FAQ
               </a>
             </Link>
             <Link href="/ai-assistant">
-              <a className="block text-white font-medium hover:text-orange-700 transition-colors py-2">
+              <a className="block text-white font-medium hover:text-red-300 transition-colors py-2">
                 AI Assistant
               </a>
             </Link>
