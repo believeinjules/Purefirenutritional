@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 
 interface QuickAddToCartProps {
   product: Product;
-  onAddToCart: (product: Product, quantity: number) => void;
+  onAddToCart: (product: Product, quantity: number, size: "20" | "60") => void;
   className?: string;
   fullWidth?: boolean;
 }
@@ -30,8 +30,8 @@ export default function QuickAddToCart({
   const [selectedSize, setSelectedSize] = useState<"20" | "60">("20");
 
   const handleAddToCart = () => {
-    const quantity = selectedSize === "20" ? 1 : 3; // 60 caps = 3x 20 cap bottles
-    onAddToCart(product, quantity);
+    const quantity = 1; // Always add 1 item, size multiplier is handled in cart context
+    onAddToCart(product, quantity, selectedSize);
     setOpen(false);
   };
 

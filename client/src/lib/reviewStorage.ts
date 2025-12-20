@@ -76,7 +76,7 @@ export async function addReview(review: Omit<ProductReview, 'id' | 'createdAt' |
       review_text: review.reviewText,
       verified_purchase: review.verifiedPurchase,
       helpful_count: 0,
-      status: 'approved'
+      status: 'pending'  // Changed from 'approved' to 'pending' for moderation
     })
     .select()
     .single();

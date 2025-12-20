@@ -57,10 +57,12 @@ async function startServer() {
         responseTime: Date.now() - startTime
       });
 
+      // Return logged recommendations with success status
       res.json({ 
         success: true,
         message: "Recommendation logged successfully",
-        query 
+        query,
+        recommendedProductIds
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);

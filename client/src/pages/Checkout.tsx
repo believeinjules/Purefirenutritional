@@ -43,9 +43,10 @@ export default function Checkout() {
           items: items.map(item => ({
             name: item.product.name,
             description: item.product.description,
-            price: item.product.priceUSD,
+            price: item.product.priceUSD * (item.size === "60" ? 2.5 : 1),
             quantity: item.quantity,
             image: item.product.image,
+            size: item.size
           })),
           customerEmail: formData.email,
           customerName: `${formData.firstName} ${formData.lastName}`,
