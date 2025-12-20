@@ -154,12 +154,9 @@ export default function Products() {
                     <QuickAddToCart
                       product={product}
                       onAddToCart={(prod, qty, size) => {
-                        addToCart(prod, qty, size);
+                        addToCart(prod, qty, size || "20");
                       }}
                       className="w-full"
-                    />
-                  </CardContent>
-                      fullWidth
                     />
                   </CardContent>
                 </Card>
