@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import Stripe from 'stripe';
 import { logError, logAPICall } from '../logger.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -12,6 +13,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 // POST /api/stripe/create-checkout-session
 // Create a Stripe Checkout session for payment
+// Optional auth - allow guest checkout
 router.post('/create-checkout-session', async (req, res) => {
   const startTime = Date.now();
   
@@ -28,6 +30,13 @@ router.post('/create-checkout-session', async (req, res) => {
         error: 'Invalid or missing items'
       });
       return res.status(400).json({ error: 'Invalid or missing items' });
+    }
+    
+    // Validate items have required fields
+    for (const item of items) {
+      if (!item.name || !item.price || !item.quantity) {
+        return res.status(400).json({ error: 'Item missing required fields (name, price, quantity)' });
+      }
     }
     
     // Convert cart items to Stripe line items

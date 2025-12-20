@@ -41,7 +41,10 @@ export async function saveCart(items: CartItem[], customerEmail?: string, custom
   if (items.length === 0 || !isSupabaseConfigured()) return;
 
   const sessionId = getSessionId();
-  const totalAmount = items.reduce((sum, item) => sum + (item.product.priceUSD * item.quantity), 0);
+  const totalAmount = items.reduce((sum, item) => {
+    const priceMultiplier = item.size === "60" ? 2.5 : 1;
+    return sum + (item.product.priceUSD * priceMultiplier * item.quantity);
+  }, 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   try {
@@ -56,7 +59,7 @@ export async function saveCart(items: CartItem[], customerEmail?: string, custom
       session_id: sessionId,
       customer_email: customerEmail,
       customer_name: customerName,
-      cart_data: items,
+      items: items,
       total_amount: totalAmount,
       item_count: itemCount,
       last_activity_at: new Date().toISOString()

@@ -70,7 +70,7 @@ export default function FrequentlyBoughtTogether({
     });
 
     productsToAdd.forEach(product => {
-      addToCart(product);
+      addToCart(product, 1, "20");
     });
 
     toast.success(

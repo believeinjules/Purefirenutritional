@@ -9,7 +9,7 @@ import { useCart } from "@/contexts/CartContext";
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, getTotal, clearCart } = useCart();
 
-  if (items.length === 0) {
+  if (!items || items.length === 0) {
     return (
       <div className="min-h-screen flex flex-col">
         <Navigation />
@@ -42,7 +42,7 @@ export default function Cart() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => (
-                <Card key={item.product.id}>
+                <Card key={`${item.product.id}-${item.size}`}>
                   <CardContent className="p-4 flex gap-4">
                     {/* Product Image */}
                     <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded flex items-center justify-center flex-shrink-0">
@@ -57,8 +57,9 @@ export default function Cart() {
                         </h3>
                       </Link>
                       <p className="text-sm text-gray-500">{item.product.category}</p>
+                      <p className="text-sm text-gray-500">Size: {item.size} caps</p>
                       <p className="text-orange-600 font-bold mt-1">
-                        ${item.product.priceUSD.toFixed(2)}
+                        ${(item.product.priceUSD * (item.size === "60" ? 2.5 : 1)).toFixed(2)}
                       </p>
                     </div>
 

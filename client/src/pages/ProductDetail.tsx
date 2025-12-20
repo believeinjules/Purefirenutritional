@@ -188,10 +188,13 @@ export default function ProductDetail() {
                   size="lg"
                   className="flex-1 bg-green-600 hover:bg-green-700 text-lg py-6"
                   disabled={!!(selectedVariant && !selectedVariant.inStock)}
-                  onClick={() => addToCart(product, quantity)}
+                  onClick={() => {
+                    const size = selectedVariant?.name.includes("60") ? "60" : "20";
+                    addToCart(product, quantity, size as "20" | "60");
+                  }}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
-                  Add to Cart - ${(product.priceUSD * quantity).toFixed(2)}
+                  Add to Cart - ${(currentPrice * quantity).toFixed(2)}
                 </Button>
                 <Button
                   size="lg"

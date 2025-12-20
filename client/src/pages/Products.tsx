@@ -153,11 +153,12 @@ export default function Products() {
                     </div>
                     <QuickAddToCart
                       product={product}
-                      onAddToCart={(prod, qty) => {
-                        for (let i = 0; i < qty; i++) {
-                          addToCart(prod);
-                        }
+                      onAddToCart={(prod, qty, size) => {
+                        addToCart(prod, qty, size);
                       }}
+                      className="w-full"
+                    />
+                  </CardContent>
                       fullWidth
                     />
                   </CardContent>
@@ -206,10 +207,8 @@ export default function Products() {
                       <p className="text-gray-600 mb-4">{product.description}</p>
                       <QuickAddToCart
                         product={product}
-                        onAddToCart={(prod, qty) => {
-                          for (let i = 0; i < qty; i++) {
-                            addToCart(prod);
-                          }
+                        onAddToCart={(prod, qty, size) => {
+                          addToCart(prod, qty, size || "20");
                         }}
                         className="w-full md:w-auto"
                       />

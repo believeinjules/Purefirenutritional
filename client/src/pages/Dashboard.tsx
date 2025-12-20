@@ -13,9 +13,11 @@ import { toast } from "sonner";
 interface Order {
   id: string;
   created_at: string;
-  total_amount: number;
+  total: number;
   status: string;
   items: any[];
+  customer_email: string;
+  order_number: string;
 }
 
 export default function Dashboard() {
@@ -43,7 +45,7 @@ export default function Dashboard() {
       const { data, error } = await supabase
         .from('orders')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('customer_email', user.email)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

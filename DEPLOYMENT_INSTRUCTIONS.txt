@@ -1,0 +1,442 @@
+================================================================================
+    PURE FIRE NUTRITIONAL - COMPLETE DEPLOYMENT GUIDE
+    Step-by-Step Instructions for GitHub, Terminal, and Vercel
+================================================================================
+
+This document walks you through EVERY step needed to deploy your app to production.
+Don't worry if you're new to GitHub, terminal, or Vercel - each step is explained in detail.
+
+ESTIMATED TIME: 30-40 minutes
+DIFFICULTY: Beginner-friendly (just follow the steps)
+
+================================================================================
+PART 1: MERGE YOUR PULL REQUEST (10 minutes)
+================================================================================
+
+Step 1.1: Go to GitHub in Your Browser
+------------------------------------------
+1. Open your browser and go to: https://github.com/believeinjules/Purefirenutritional
+2. You should see a message at the top saying "Pull request #1 is ready to be merged"
+3. Click on "Pull Requests" in the top menu (you might see it highlighted)
+
+Step 1.2: View the Pull Request
+------------------------------------------
+1. You should now see "Add DEBUG_GEMINI.md for pull request purposes" - click on it
+2. This shows you what files changed - you'll see only 1 file: DEBUG_GEMINI.md
+3. This is safe to merge - it's just a test file that allows us to use Gemini Code Assist
+
+Step 1.3: Merge the Pull Request
+------------------------------------------
+1. Scroll down to the bottom where you see a green button that says "Merge pull request"
+2. Click the "Merge pull request" button
+3. A text box will appear - just click "Confirm merge" (the default text is fine)
+4. GitHub will process this (takes 5-10 seconds)
+5. You should see a message: "Pull request successfully merged and closed"
+
+Step 1.4: Delete the Branch (Optional but Recommended)
+------------------------------------------
+1. After merging, you might see "Delete branch" button
+2. Click it - this keeps your GitHub repo clean
+3. The debug-gemini branch will be deleted (don't worry, main branch still has everything)
+
+✅ COMPLETED: Your code is now on the main branch!
+
+================================================================================
+PART 2: PUSH YOUR CODE TO DEPLOY (5 minutes)
+================================================================================
+
+NOTE: The merge in Part 1 already pushed your code! But let's verify it worked.
+
+Step 2.1: Check That Vercel Started Deploying
+------------------------------------------
+1. Stay on the GitHub page (https://github.com/believeinjules/Purefirenutritional)
+2. Click on "Commits" in the top menu
+3. You should see a recent commit that says "Merge pull request #1..."
+4. To the right of that commit, you should see a small status icon:
+   - 🟢 Green checkmark = deployment in progress or successful
+   - 🟡 Yellow circle = deployment in progress
+   - 🔴 Red X = something went wrong (contact me)
+
+Step 2.2: Wait for Vercel to Deploy
+------------------------------------------
+1. Vercel automatically builds and deploys when you push to main
+2. This usually takes 2-5 minutes
+3. You can watch the progress by clicking the green checkmark
+4. When it shows a green checkmark with "Vercel" next to it, deployment is done
+
+✅ COMPLETED: Your app is now deployed to Vercel!
+
+================================================================================
+PART 3: ADD STRIPE ENVIRONMENT VARIABLES (10 minutes)
+================================================================================
+
+These are secret keys that your app needs to process payments and handle webhooks.
+Vercel won't let your app work without these.
+
+Step 3.1: Get Your Stripe Test Keys
+------------------------------------------
+1. Open a NEW browser tab (don't close GitHub!)
+2. Go to: https://dashboard.stripe.com/test/apikeys
+3. Log in with your Stripe account (create one if needed at stripe.com)
+4. You should see:
+   - "Publishable key" starting with "pk_test_"
+   - "Secret key" starting with "sk_test_"
+   - DO NOT share these with anyone or put them on GitHub
+
+Step 3.2: Copy Your Secret Key
+------------------------------------------
+1. Find the "Secret key" (starts with sk_test_)
+2. Click the copy icon next to it (two overlapping squares)
+3. The key is now in your clipboard
+
+Step 3.3: Go to Vercel Dashboard
+------------------------------------------
+1. Open a NEW browser tab
+2. Go to: https://vercel.com/dashboard
+3. You should see "purefirenutritional" in your projects
+4. Click on it
+
+Step 3.4: Open Project Settings
+------------------------------------------
+1. You should now be viewing your project
+2. Click on "Settings" in the top menu
+3. Click "Environment Variables" in the left sidebar
+
+Step 3.5: Add STRIPE_SECRET_KEY
+------------------------------------------
+1. Click the "Add New" button
+2. In the "Name" field, type exactly: STRIPE_SECRET_KEY
+3. In the "Value" field, paste the secret key you copied in Step 3.2 (sk_test_...)
+4. CHECK THE BOXES: Make sure all three are checked:
+   - ☑ Production
+   - ☑ Preview  
+   - ☑ Development
+5. Click "Save"
+6. You should see it appear in the list below
+
+Step 3.6: Add VITE_STRIPE_PUBLISHABLE_KEY
+------------------------------------------
+1. Go back to your Stripe dashboard tab
+2. Copy the "Publishable key" (starts with pk_test_)
+3. Back in Vercel, click "Add New" again
+4. In the "Name" field, type exactly: VITE_STRIPE_PUBLISHABLE_KEY
+5. In the "Value" field, paste the publishable key (pk_test_...)
+6. CHECK THE BOXES again:
+   - ☑ Production
+   - ☑ Preview
+   - ☑ Development
+7. Click "Save"
+
+Step 3.7: Add SUPABASE_SERVICE_ROLE_KEY
+------------------------------------------
+1. You should have received this when you set up Supabase
+2. If you don't have it, go to: https://supabase.com/dashboard
+3. Click on your project
+4. Click "Settings" → "API"
+5. Copy "service_role key" (it's long and private!)
+6. Back in Vercel, click "Add New"
+7. In the "Name" field, type: SUPABASE_SERVICE_ROLE_KEY
+8. In the "Value" field, paste the key
+9. CHECK THE BOXES:
+   - ☑ Production
+   - ☑ Preview
+   - ☑ Development
+10. Click "Save"
+
+✅ COMPLETED: Your Stripe and Supabase keys are now set!
+
+================================================================================
+PART 4: WAIT FOR VERCEL TO REDEPLOY (5 minutes)
+================================================================================
+
+Step 4.1: Vercel Auto-Redeploys
+------------------------------------------
+1. When you add environment variables in Vercel, it automatically redeploys
+2. You should see a progress bar or notification at the top of the page
+3. Wait until you see "✅ Production" with a green checkmark
+4. This usually takes 2-3 minutes
+
+Step 4.2: Check Deployment Status
+------------------------------------------
+1. Click on "Deployments" in the left menu
+2. You should see the most recent deployment at the top
+3. The status should say "Ready" in green
+4. If it says "Failed", click on it and contact me with the error message
+
+✅ COMPLETED: Your app is redeployed with environment variables!
+
+================================================================================
+PART 5: SET UP STRIPE WEBHOOK (10 minutes)
+================================================================================
+
+A webhook tells Stripe to notify your app when a payment is successful.
+This is how your app knows to create an order in the database.
+
+Step 5.1: Get Your Vercel Domain URL
+------------------------------------------
+1. Go back to your Vercel dashboard (https://vercel.com/dashboard)
+2. Click on "purefirenutritional" project
+3. At the top, you should see your production URL
+4. It looks like: https://purefirenutritional.vercel.app
+   (or your custom domain if you set one up)
+5. Copy this URL - you'll need it in a minute
+
+Step 5.2: Go to Stripe Webhooks Page
+------------------------------------------
+1. Go back to your Stripe dashboard tab (https://dashboard.stripe.com)
+2. Click on "Developers" in the top menu
+3. Click "Webhooks" in the left sidebar
+4. You should see "Endpoints" section
+
+Step 5.3: Create a New Webhook Endpoint
+------------------------------------------
+1. Click the "+ Add endpoint" button
+2. In the "Endpoint URL" field, paste your Vercel URL + webhook path:
+   YOUR_VERCEL_URL/api/stripe/webhook
+   
+   EXAMPLE:
+   https://purefirenutritional.vercel.app/api/stripe/webhook
+
+Step 5.4: Select Events to Listen For
+------------------------------------------
+1. After entering the URL, click "Select events"
+2. You'll see a list of events
+3. Find and CHECK these boxes:
+   - ☑ checkout.session.completed (REQUIRED - when payment succeeds)
+   - ☑ charge.failed (Optional but recommended - when payment fails)
+4. Click "Add events"
+
+Step 5.5: Create the Webhook
+------------------------------------------
+1. Click "Add endpoint" button at the bottom
+2. Stripe will create the webhook endpoint
+3. You'll see a new endpoint appear in the list
+4. Important: You should see "Signing secret" starting with "whsec_test_"
+
+Step 5.6: Copy the Webhook Signing Secret
+------------------------------------------
+1. Find the "Signing secret" for your new webhook
+2. It starts with "whsec_test_" and is very long
+3. Click the copy icon next to it (two overlapping squares)
+4. The secret is now in your clipboard
+
+Step 5.7: Add Webhook Secret to Vercel
+------------------------------------------
+1. Go back to Vercel (https://vercel.com/dashboard)
+2. Click on "purefirenutritional" 
+3. Click "Settings" → "Environment Variables"
+4. Click "Add New"
+5. In the "Name" field, type exactly: STRIPE_WEBHOOK_SECRET
+6. In the "Value" field, paste the signing secret (whsec_test_...)
+7. CHECK THE BOXES:
+   - ☑ Production
+   - ☑ Preview
+   - ☑ Development
+8. Click "Save"
+
+Step 5.8: Wait for Redeploy
+------------------------------------------
+1. Vercel will automatically redeploy again
+2. Wait until you see "✅ Production" with green checkmark
+3. This takes 2-3 minutes
+
+✅ COMPLETED: Your webhook is now set up!
+
+================================================================================
+PART 6: TEST YOUR APP (10 minutes)
+================================================================================
+
+Step 6.1: Open Your App in a Browser
+------------------------------------------
+1. Go to your Vercel URL in a new browser tab
+2. Example: https://purefirenutritional.vercel.app
+3. You should see your Pure Fire Nutritional website
+4. If you see an error, wait 30 seconds and refresh
+
+Step 6.2: Test the Homepage
+------------------------------------------
+1. Browse around the website
+2. Look for products (peptides, supplements, etc.)
+3. Everything should load without errors
+
+Step 6.3: Test Adding to Cart
+------------------------------------------
+1. Click on a product to view its details
+2. Select a size (20-cap or 60-cap)
+3. Click "Add to Cart"
+4. You should see a notification that it was added
+5. Your cart count should increase (usually in top right)
+
+Step 6.4: Test Checkout with Stripe Test Card
+------------------------------------------
+1. Click on your cart (usually icon in top right)
+2. Review your items
+3. Click "Checkout" or "Proceed to Checkout"
+4. Fill in:
+   - Email: test@example.com (or any test email)
+   - Name: Test User
+   - Address: 123 Test St, Test City, ST 12345
+   - Card Number: 4242 4242 4242 4242 (This is Stripe's test card)
+   - Expiration: Any future date (like 12/25)
+   - CVC: Any 3 digits (like 123)
+5. Click "Pay" or "Complete Purchase"
+6. You should see "Payment successful" or "Order created"
+
+Step 6.5: Check Your Supabase Database
+------------------------------------------
+1. Go to https://supabase.com/dashboard
+2. Click on your project
+3. Click "Table Editor" on the left
+4. Click "orders" table
+5. You should see your test order in the list:
+   - Email: test@example.com
+   - Status: completed
+   - Amount: (the product price)
+
+Step 6.6: Check Your Email
+------------------------------------------
+1. Check the email address you entered (test@example.com)
+2. Look for an order confirmation email from Pure Fire Nutritional
+3. If you don't see it:
+   - Check your spam folder
+   - Wait 30 seconds and refresh
+   - Contact me if it still doesn't arrive
+
+✅ COMPLETED: Your app is fully functional!
+
+================================================================================
+PART 7: SWITCH TO STRIPE LIVE MODE (OPTIONAL - For Real Sales)
+================================================================================
+
+WARNING: Only do this when you're ready to accept real payments!
+
+Step 7.1: Get Your Live Stripe Keys
+------------------------------------------
+1. Go to https://dashboard.stripe.com/apikeys
+2. Make sure you're NOT in test mode (toggle at top right)
+3. Copy your live keys:
+   - Publishable key (starts with pk_live_)
+   - Secret key (starts with sk_live_)
+
+Step 7.2: Update Vercel Environment Variables
+------------------------------------------
+1. Go to Vercel dashboard
+2. Click on "purefirenutritional" → "Settings" → "Environment Variables"
+3. Find STRIPE_SECRET_KEY
+4. Click the pencil icon to edit it
+5. Replace the value with your LIVE secret key (sk_live_...)
+6. Click "Save"
+7. Repeat for VITE_STRIPE_PUBLISHABLE_KEY with your LIVE publishable key (pk_live_...)
+
+Step 7.3: Create New Live Webhook
+------------------------------------------
+1. Go back to Stripe dashboard
+2. Make sure you're in LIVE mode (not test mode)
+3. Go to "Developers" → "Webhooks"
+4. Repeat Steps 5.3-5.7, but this time your webhook secret will start with "whsec_live_"
+5. Copy the LIVE webhook secret to Vercel as STRIPE_WEBHOOK_SECRET
+
+Step 7.4: Test with Real Card
+------------------------------------------
+1. Your site is now accepting REAL payments
+2. When someone enters their real credit card, the payment will go through
+3. Check Stripe dashboard to see real transactions
+4. Orders will appear in your Supabase database
+
+⚠️ BE CAREFUL: Real money will be charged!
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Q: I see an error on my website
+------------------------------------------
+A: 
+1. Wait 30 seconds and refresh the page
+2. Check Vercel deployments - make sure it says "Ready" (green checkmark)
+3. Open browser developer console (press F12) and look for red errors
+4. Contact me with the error message
+
+Q: My Stripe checkout doesn't work
+------------------------------------------
+A:
+1. Make sure STRIPE_SECRET_KEY is in Vercel environment variables
+2. Make sure all checkboxes are checked (Production, Preview, Development)
+3. Wait for Vercel to redeploy (check Deployments page)
+4. Try again in an incognito/private browser window
+
+Q: I don't receive order confirmation email
+------------------------------------------
+A:
+1. Check spam/junk folder
+2. Email is sent to the address you enter at checkout
+3. It can take 1-2 minutes to arrive
+4. Make sure EMAIL_USER and EMAIL_PASS are set in Vercel (they should already be)
+5. Run: node test-email.mjs (in terminal) to test email sending
+
+Q: My database doesn't show new orders
+------------------------------------------
+A:
+1. Make sure SUPABASE_SERVICE_ROLE_KEY is in Vercel env vars
+2. Refresh your Supabase dashboard
+3. Make sure you're looking at the "orders" table
+4. Wait 30 seconds - sometimes there's a delay
+
+Q: I can't find something in Vercel/Stripe/Supabase
+------------------------------------------
+A:
+1. Make sure you're logged in to the right account
+2. Make sure you're in "Test Mode" for Stripe (unless you're going live)
+3. Try logging out and back in
+4. Contact me with a screenshot
+
+================================================================================
+FINAL CHECKLIST
+================================================================================
+
+Before you consider the deployment complete, check off these items:
+
+GITHUB:
+  ☐ Pull request #1 is merged to main
+  ☐ You deleted the debug-gemini branch
+
+VERCEL DEPLOYMENT:
+  ☐ Your app is visible at https://purefirenutritional.vercel.app
+  ☐ Pages load without errors
+  ☐ "Deployments" page shows "Ready" (green)
+
+ENVIRONMENT VARIABLES (in Vercel):
+  ☐ STRIPE_SECRET_KEY is set (sk_test_...)
+  ☐ VITE_STRIPE_PUBLISHABLE_KEY is set (pk_test_...)
+  ☐ STRIPE_WEBHOOK_SECRET is set (whsec_test_...)
+  ☐ SUPABASE_SERVICE_ROLE_KEY is set
+  ☐ All variables have Production, Preview, Development checked
+
+STRIPE WEBHOOK:
+  ☐ Webhook endpoint created in Stripe
+  ☐ URL is: https://your-domain.vercel.app/api/stripe/webhook
+  ☐ Events: checkout.session.completed selected
+  ☐ Signing secret copied to Vercel
+
+FUNCTIONALITY TEST:
+  ☐ You can add products to cart
+  ☐ Checkout page loads
+  ☐ Test payment succeeds (using 4242 4242 4242 4242)
+  ☐ Order appears in Supabase "orders" table
+  ☐ Confirmation email received
+
+✅ ALL COMPLETE = Your app is production-ready!
+
+================================================================================
+NEED HELP?
+================================================================================
+
+If you get stuck:
+1. Re-read the step that's giving you trouble
+2. Check the TROUBLESHOOTING section above
+3. Take a screenshot of the error and message me
+4. Don't hesitate to ask - I'm here to help!
+
+Good luck! You're doing great! 🚀
+
+================================================================================

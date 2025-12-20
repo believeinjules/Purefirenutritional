@@ -276,7 +276,7 @@ export default function AIAssistant() {
                                 <Button
                                   size="sm"
                                   className="w-full mt-2 bg-green-600 hover:bg-green-700 text-xs"
-                                  onClick={() => addToCart(product)}
+                                  onClick={() => addToCart(product, 1, "20")}
                                 >
                                   <ShoppingCart className="w-3 h-3 mr-1" />
                                   Add to Cart

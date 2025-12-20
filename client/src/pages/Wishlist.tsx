@@ -30,7 +30,7 @@ export default function Wishlist() {
   const handleAddToCart = (productId: string) => {
     const product = getProduct(productId);
     if (product) {
-      addToCart(product);
+      addToCart(product, 1, "20");
       toast.success('Added to cart');
     }
   };

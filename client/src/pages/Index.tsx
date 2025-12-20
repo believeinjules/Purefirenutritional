@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,8 +17,45 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { toast } from "sonner";
 
 export default function Index() {
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleNewsletterSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+
+    setIsSubscribing(true);
+
+    try {
+      const response = await fetch("/api/mailing-list/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.error || "Failed to subscribe");
+        return;
+      }
+
+      toast.success(data.message || "Successfully subscribed!");
+      setEmail("");
+    } catch (error) {
+      toast.error("Failed to subscribe. Please try again.");
+      console.error("Newsletter signup error:", error);
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
@@ -94,16 +132,24 @@ export default function Index() {
           <p className="text-gray-600 mb-6">
             Get exclusive access to new products, health insights, and special offers. Join thousands of health enthusiasts on their longevity journey.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input 
               type="email" 
               placeholder="Enter your email address" 
               className="flex-1"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isSubscribing}
+              required
             />
-            <Button className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600">
-              Subscribe
+            <Button 
+              type="submit"
+              className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600"
+              disabled={isSubscribing}
+            >
+              {isSubscribing ? "Subscribing..." : "Subscribe"}
             </Button>
-          </div>
+          </form>
           <p className="text-xs text-gray-500 mt-4">
             No spam, unsubscribe at any time. Read our <Link href="/privacy" className="text-orange-500 hover:underline">Privacy Policy</Link>
           </p>
