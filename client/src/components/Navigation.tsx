@@ -12,7 +12,11 @@ export default function Navigation() {
   const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className="sticky top-0 z-50 md:backdrop-blur-md md:bg-gradient-to-r md:from-orange-400/90 md:via-orange-300/90 md:to-rose-400/90 bg-gradient-to-r from-orange-400 via-orange-300 to-rose-400 shadow-lg">
+    <nav
+      className="sticky top-0 z-50 bg-gradient-to-r from-orange-400 via-orange-300 to-rose-400 shadow-lg md:bg-gradient-to-r md:from-orange-400/80 md:via-orange-300/80 md:to-rose-400/80 md:backdrop-blur"
+      // Ensure Safari gets the backdrop filter as well
+      style={{ WebkitBackdropFilter: 'blur(8px)' }}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
