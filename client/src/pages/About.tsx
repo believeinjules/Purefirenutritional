@@ -15,7 +15,7 @@ export default function About() {
           <div className="flex items-center justify-center mb-6">
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-4">
               <img 
-                src="/logo-flame.png" 
+                src="/logo-flame.jpeg" 
                 alt="Pure Fire Nutritional" 
                 className="w-10 h-10 object-contain"
               />
