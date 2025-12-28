@@ -21,6 +21,14 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
 
+  // Initialize selected variant when product loads
+  useEffect(() => {
+    if (product && product.variants && product.variants.length > 0) {
+      const firstInStock = product.variants.find(v => v.inStock) || product.variants[0];
+      setSelectedVariant(firstInStock);
+    }
+  }, [product]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
