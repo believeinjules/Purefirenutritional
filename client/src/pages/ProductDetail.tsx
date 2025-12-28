@@ -8,12 +8,11 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from 'sonner';
-import { getProductById, products } from "@/data/products";
+import { getProductById, products, type Product, type ProductVariant } from "@/data/products";
 import { getRecommendations } from "@/data/productRecommendations";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import VariantSelector from "@/components/VariantSelector";
-import type { ProductVariant } from "@/data/products";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -35,14 +34,14 @@ export default function ProductDetail() {
   const currentImage = selectedVariant?.image || product?.image;
   const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product?.images || []);
   const { addToCart } = useCart();
-  const { addItem, removeItem, isItemInWishlist } = useWishlist();
+  const { addItem, removeItem, isInWishlist } = useWishlist();
   const [inWishlist, setInWishlist] = useState(false);
 
   useEffect(() => {
     if (product) {
-      setInWishlist(isItemInWishlist(product.id));
+      setInWishlist(isInWishlist(product.id));
     }
-  }, [product, isItemInWishlist]);
+  }, [product, isInWishlist]);
 
   const handleWishlistToggle = async () => {
     if (!product) return;
@@ -83,7 +82,10 @@ export default function ProductDetail() {
     );
   }
 
-  const relatedProducts = getRecommendations(product.id).slice(0, 4);
+  const relatedProducts = getRecommendations(product.id)
+    .map(rec => products.find(p => p.id === rec.productId))
+    .filter((p): p is Product => p !== undefined)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -154,7 +156,7 @@ export default function ProductDetail() {
               )}
 
               {/* Variants */}
-              {product.variants && product.variants.length > 1 && (
+              {product.variants && product.variants.length > 1 && selectedVariant && (
                 <div>
                   <h3 className="font-semibold mb-3">Select Option</h3>
                   <VariantSelector
@@ -184,14 +186,7 @@ export default function ProductDetail() {
                 </div>
                 <Button
                   onClick={() => {
-                    addToCart({
-                      id: product.id,
-                      name: product.name,
-                      price: currentPrice,
-                      quantity,
-                      image: currentImage,
-                      variant: selectedVariant?.name
-                    });
+                    addToCart(product, quantity, selectedVariant?.name as "20" | "60" | undefined);
                     toast.success('Added to cart!');
                   }}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-6"
@@ -215,7 +210,22 @@ export default function ProductDetail() {
 
           {/* Frequently Bought Together */}
           <div className="mt-16">
-            <FrequentlyBoughtTogether productId={product.id} />
+            {product && (() => {
+              const recommendationIds = getRecommendations(product.id);
+              const recommendedProducts = recommendationIds
+                .map(rec => {
+                  const prod = products.find(p => p.id === rec.productId);
+                  return prod ? { product: prod, reason: rec.reason } : null;
+                })
+                .filter((item) => item !== null) as Array<{ product: Product; reason?: string }>;
+              
+              return recommendedProducts.length > 0 ? (
+                <FrequentlyBoughtTogether 
+                  currentProduct={product} 
+                  recommendations={recommendedProducts}
+                />
+              ) : null;
+            })()}
           </div>
 
           {/* Related Products */}

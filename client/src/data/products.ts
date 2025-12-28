@@ -17,6 +17,7 @@ export interface Product {
   priceUSD: number;
   priceEUR: number;
   rating: number;
+  reviews?: number;
   sizes: number;
   image?: string;
   imageAlt?: string;
