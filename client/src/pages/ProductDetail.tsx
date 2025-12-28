@@ -23,7 +23,7 @@ export default function ProductDetail() {
 
   // Initialize selected variant when product loads
   useEffect(() => {
-    if (product?.variants && product.variants.length > 0) {
+    if (product && product.variants && product.variants.length > 0) {
       // Select first in-stock variant by default
       const firstInStock = product.variants.find(v => v.inStock) || product.variants[0];
       setSelectedVariant(firstInStock);
