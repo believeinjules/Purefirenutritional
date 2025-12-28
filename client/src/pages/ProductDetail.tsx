@@ -83,7 +83,10 @@ export default function ProductDetail() {
     );
   }
 
-  const relatedProducts = getRecommendations(product.id).slice(0, 4);
+  const recommendationIds = getRecommendations(product.id).slice(0, 4);
+  const relatedProducts = recommendationIds
+    .map(rec => getProductById(rec.productId))
+    .filter(prod => prod !== null) as typeof products;
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
