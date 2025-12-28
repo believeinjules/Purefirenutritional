@@ -61,7 +61,7 @@ export default function Index() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-orange-600 via-orange-500 to-rose-600 text-white py-20 px-4">
+      <section className="bg-gradient-to-br from-orange-400 via-orange-300 to-rose-400 text-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           {/* Logo Badge */}
           <div className="flex justify-center mb-6">
