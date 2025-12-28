@@ -29,6 +29,15 @@ export default function ProductDetail() {
     }
   }, [product]);
 
+  // Get current price and image based on variant selection
+  const currentPrice = selectedVariant ? selectedVariant.priceUSD : product?.priceUSD || 0;
+  const currentPriceEUR = selectedVariant ? selectedVariant.priceEUR : product?.priceEUR || 0;
+  const currentImage = selectedVariant?.image || product?.image;
+  const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product?.images || []);
+  const { addToCart } = useCart();
+  const { addItem, removeItem, isItemInWishlist } = useWishlist();
+  const [inWishlist, setInWishlist] = useState(false);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
