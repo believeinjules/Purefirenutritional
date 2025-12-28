@@ -17,7 +17,9 @@ import type { ProductVariant } from "@/data/products";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
+  console.log('ProductDetail mounted with id:', id);
   const product = getProductById(id || "");
+  console.log('Product loaded:', product);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
 
