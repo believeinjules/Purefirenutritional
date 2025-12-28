@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
 
+// Basic email validation regex - validates format: local@domain.tld
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function MailingListSignup() {
