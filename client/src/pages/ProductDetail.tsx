@@ -8,29 +8,56 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from 'sonner';
-import { getProductById } from "@/data/products";
+import { fetchProductById, Product } from "@/lib/productsStorage";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import VariantSelector from "@/components/VariantSelector";
-import type { ProductVariant } from "@/data/products";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
-  const product = getProductById(id || "");
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  const [selectedVariant, setSelectedVariant] = useState<any>(null);
   const [inWishlist, setInWishlist] = useState(false);
   
   const { addToCart } = useCart();
   const { addItem, removeItem, isItemInWishlist } = useWishlist();
 
-  // Initialize variant
   useEffect(() => {
-    if (product?.variants?.length) {
-      const firstInStock = product.variants.find(v => v.inStock) || product.variants[0];
-      setSelectedVariant(firstInStock);
-      setInWishlist(isItemInWishlist(product.id));
+    loadProduct();
+  }, [id]);
+
+  const loadProduct = async () => {
+    if (!id) return;
+    setLoading(true);
+    try {
+      const data = await fetchProductById(id);
+      setProduct(data);
+      if (data?.variants?.length) {
+        const firstInStock = data.variants.find((v: any) => v.inStock) || data.variants[0];
+        setSelectedVariant(firstInStock);
+        setInWishlist(isItemInWishlist(data.id));
+      }
+    } catch (error) {
+      console.error('Error loading product:', error);
+    } finally {
+      setLoading(false);
     }
-  }, [product?.id]);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navigation />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-gray-600">Loading product...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!product) {
     return (
