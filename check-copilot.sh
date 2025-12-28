@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Script to check GitHub Copilot status
-# Usage: ./check-copilot.sh
+# Usage: bash check-copilot.sh
+# Or: chmod +x check-copilot.sh && ./check-copilot.sh
 
 echo "================================================"
 echo "GitHub Copilot Status Checker"

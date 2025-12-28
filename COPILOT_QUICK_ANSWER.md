@@ -8,7 +8,8 @@
 
 1. **Run the checker script:**
    ```bash
-   ./check-copilot.sh
+   bash check-copilot.sh
+   # Or: chmod +x check-copilot.sh && ./check-copilot.sh
    ```
 
 2. **Or manually check:**
