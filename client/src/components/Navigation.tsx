@@ -13,7 +13,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-gradient-to-r from-fuchsia-600/60 via-rose-600/60 via-orange-600/60 to-orange-700/60 shadow-lg md:backdrop-blur-lg"
+      className="sticky top-0 z-50 bg-gradient-to-r from-fuchsia-600/40 via-rose-600/40 via-orange-600/40 to-orange-700/40 shadow-lg md:backdrop-blur-lg"
       // Ensure Safari gets the backdrop filter as well
       style={{ WebkitBackdropFilter: 'blur(16px)' }}
     >
@@ -29,7 +29,7 @@ export default function Navigation() {
                   className="w-12 h-12 object-contain"
                 />
               </div>
-              <span className="text-3xl font-bold text-white hidden sm:block">
+              <span className="text-2xl font-bold text-white hidden sm:block">
                 Pure Fire Nutritional
               </span>
             </a>
