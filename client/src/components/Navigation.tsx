@@ -22,7 +22,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/">
             <a className="flex items-center gap-4 hover:opacity-85 transition-opacity">
-              <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center border-2 border-orange-200">
+              <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center ring-2 ring-orange-200 overflow-hidden">
                 <img 
                   src="/logo-flame.jpeg" 
                   alt="Pure Fire Nutritional" 
@@ -38,32 +38,32 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-9">
             <Link href="/">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 Home
               </a>
             </Link>
             <Link href="/products">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 Products
               </a>
             </Link>
             <Link href="/science">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 Science
               </a>
             </Link>
             <Link href="/about">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 About
               </a>
             </Link>
             <Link href="/faq">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 FAQ
               </a>
             </Link>
             <Link href="/ai-assistant">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 AI Assistant
               </a>
             </Link>
@@ -124,32 +124,32 @@ export default function Navigation() {
         {isMenuOpen && (
           <div className="md:hidden pb-4 space-y-2">
             <Link href="/">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 Home
               </a>
             </Link>
             <Link href="/products">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 Products
               </a>
             </Link>
             <Link href="/science">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 Science
               </a>
             </Link>
             <Link href="/about">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 About
               </a>
             </Link>
             <Link href="/faq">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 FAQ
               </a>
             </Link>
             <Link href="/ai-assistant">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-6 hover:scale-105">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:[text-shadow:0_0_7px_rgba(200,50,50,0.9)] hover:underline hover:underline-offset-8 hover:scale-125">
                 AI Assistant
               </a>
             </Link>
