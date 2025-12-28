@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from 'sonner';
-import { getProductById, products } from "@/data/products";
+import { getProductById, products, type Product } from "@/data/products";
 import { getRecommendations } from "@/data/productRecommendations";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import ProductImageGallery from "@/components/ProductImageGallery";
@@ -86,7 +86,7 @@ export default function ProductDetail() {
   const recommendationIds = getRecommendations(product.id).slice(0, 4);
   const relatedProducts = recommendationIds
     .map(rec => getProductById(rec.productId))
-    .filter(prod => prod !== null) as typeof products;
+    .filter((prod): prod is Product => prod !== undefined);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
