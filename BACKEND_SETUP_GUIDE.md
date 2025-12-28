@@ -167,13 +167,13 @@ Processes credit card payments securely. You'll use LIVE mode from the start to 
 
    **Publishable key (starts with pk_live_):**
    ```
-   pk_live_51Hxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   pk_live_51H... (copy your actual key from Stripe)
    ```
    Copy this ↑
 
    **Secret key (starts with sk_live_):**
    ```
-   sk_live_51Hxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   sk_live_51H... (copy your actual key from Stripe)
    ```
    Click "Reveal live key", then copy ↑
 
