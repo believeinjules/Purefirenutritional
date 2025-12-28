@@ -53,7 +53,12 @@ export default function ProductDetail() {
         setInWishlist(false);
         toast.success('Removed from wishlist');
       } else {
-        await addItem(product.id);
+        await addItem({
+          id: product.id,
+          name: product.name,
+          price: currentPrice,
+          image: currentImage
+        });
         setInWishlist(true);
         toast.success('Added to wishlist');
       }
