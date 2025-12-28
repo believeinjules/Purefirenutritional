@@ -203,6 +203,16 @@ pnpm test         # Run unit tests
 pnpm preview      # Preview production build locally
 ```
 
+## 🤖 GitHub Copilot
+
+This repository is fully compatible with GitHub Copilot! To check if you have Copilot enabled:
+
+```bash
+./check-copilot.sh
+```
+
+For detailed information about GitHub Copilot status, features, and setup instructions, see [COPILOT_STATUS.md](./COPILOT_STATUS.md).
+
 ## 📞 Support
 
 For issues or questions:
