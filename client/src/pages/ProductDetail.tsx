@@ -16,11 +16,14 @@ import VariantSelector from "@/components/VariantSelector";
 import type { ProductVariant } from "@/data/products";
 
 export default function ProductDetail() {
+  const { id } = useParams<{ id: string }>();
+  const product = getProductById(id || "");
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1 flex items-center justify-center">
-        <h1 className="text-2xl font-bold">Product Detail Test</h1>
+        <h1 className="text-2xl font-bold">Product: {product?.name || 'Not found'}</h1>
       </main>
       <Footer />
     </div>
