@@ -79,9 +79,11 @@ export default function ProductDetail() {
     );
   }
 
-  const relatedProducts = products
-    .filter(p => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  const relatedProducts = product
+    ? products
+        .filter(p => p.category === product.category && p.id !== product.id)
+        .slice(0, 4)
+    : [];
 
   return (
     <div className="min-h-screen flex flex-col">
