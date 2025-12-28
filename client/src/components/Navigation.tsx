@@ -13,7 +13,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-gradient-to-r from-orange-600/60 via-rose-600/60 via-pink-600/60 to-pink-700/60 shadow-lg md:backdrop-blur-lg"
+      className="sticky top-0 z-50 bg-gradient-to-r from-orange-600/50 via-rose-600/50 via-pink-600/50 to-pink-700/50 shadow-lg md:backdrop-blur-lg"
       // Ensure Safari gets the backdrop filter as well
       style={{ WebkitBackdropFilter: 'blur(16px)' }}
     >
