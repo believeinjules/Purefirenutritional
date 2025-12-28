@@ -4,6 +4,11 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
+console.log('Supabase Config:', {
+  url: supabaseUrl ? 'SET' : 'MISSING',
+  serviceKey: supabaseServiceKey ? 'SET' : 'MISSING'
+});
+
 if (!supabaseUrl || !supabaseServiceKey) {
   console.error('Missing Supabase environment variables');
   console.error('Please set VITE_SUPABASE_URL and SUPABASE_SERVICE_KEY in your environment');
