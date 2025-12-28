@@ -186,7 +186,11 @@ export default function ProductDetail() {
                 </div>
                 <Button
                   onClick={() => {
-                    addToCart(product, quantity, selectedVariant?.name as "20" | "60" | undefined);
+                    // Extract size from variant ID (e.g., "20-capsules" -> "20")
+                    const size = selectedVariant?.id.includes('20') ? "20" as const : 
+                                selectedVariant?.id.includes('60') ? "60" as const : 
+                                "20" as const;
+                    addToCart(product, quantity, size);
                     toast.success('Added to cart!');
                   }}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-6"
