@@ -22,7 +22,8 @@ To check if GitHub Copilot is enabled for this repository:
 1. **Check Organization/Personal Settings:**
    - Go to [GitHub Copilot Settings](https://github.com/settings/copilot)
    - Verify you have an active Copilot subscription (Individual, Business, or Enterprise)
-   - For organizations: Check [Organization Copilot Settings](https://github.com/organizations/believeinjules/settings/copilot)
+   - For this organization: Check [believeinjules Organization Copilot Settings](https://github.com/organizations/believeinjules/settings/copilot)
+   - For other organizations: `https://github.com/organizations/YOUR_ORG_NAME/settings/copilot`
 
 2. **Verify Repository Access:**
    - GitHub Copilot Individual: Available for all your repositories
@@ -87,7 +88,9 @@ If you don't have access to GitHub Copilot:
 
 ### Organization Access (For Team/Business)
 
-1. Organization owner goes to [Organization Settings](https://github.com/organizations/believeinjules/settings/copilot)
+1. Organization owner goes to Organization Settings:
+   - For this organization: [believeinjules Organization Settings](https://github.com/organizations/believeinjules/settings/copilot)
+   - For other organizations: `https://github.com/organizations/YOUR_ORG_NAME/settings/copilot`
 2. Navigate to "Copilot" settings
 3. Enable Copilot for the organization
 4. Choose which repositories or teams have access
