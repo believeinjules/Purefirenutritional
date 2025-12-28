@@ -209,13 +209,16 @@ export default function ProductDetail() {
           </div>
 
           {/* Frequently Bought Together */}
-          <FrequentlyBoughtTogether
-            currentProduct={product}
-            recommendations={getRecommendations(product.id).map(rec => ({
-              product: getProductById(rec.productId)!,
-              reason: rec.reason
-            })).filter(rec => rec.product !== undefined)}
-          />
+          {(() => {
+            const recs = getRecommendations(product.id)
+              .map(rec => {
+                const p = getProductById(rec.productId);
+                return p ? { product: p, reason: rec.reason } : null;
+              })
+              .filter((item) => item !== null) as Array<{ product: typeof product; reason?: string }>;
+            return <FrequentlyBoughtTogether currentProduct={product} recommendations={recs} />;
+          })()}
+
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (

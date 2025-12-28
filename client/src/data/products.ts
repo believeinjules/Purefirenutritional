@@ -35,8 +35,8 @@ export const products: Product[] = [
     name: "Bonomarlot",
     description: "Bone marrow peptide complex for immune system and hematopoietic support.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 3,
     benefits: ["Immune system support", "Blood cell production", "Bone marrow health"],
@@ -44,8 +44,8 @@ export const products: Product[] = [
       {
         id: "20-capsules",
         name: "20 Capsules",
-        priceUSD: 93.01,
-        priceEUR: 37.99,
+        priceUSD: 46.50,
+        priceEUR: 19.00,
         image: "/products/Banomarlot.png",
         imageAlt: "Bonomarlot 20 capsules",
         inStock: true
@@ -53,8 +53,8 @@ export const products: Product[] = [
       {
         id: "60-capsules",
         name: "60 Capsules",
-        priceUSD: 232.53,
-        priceEUR: 94.98,
+        priceUSD: 93.01,
+        priceEUR: 37.99,
         image: "/products/bonomarlot-a-20-20-capsules__00163.1738113876.jpg",
         imageAlt: "Bonomarlot 60 capsules",
         inStock: true
@@ -77,8 +77,8 @@ export const products: Product[] = [
     name: "Cartalax",
     description: "Cartilage peptide bioregulator for joint health and connective tissue support.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Joint health", "Cartilage support", "Connective tissue"]
@@ -90,8 +90,8 @@ export const products: Product[] = [
     name: "Chelohart",
     description: "Heart peptide bioregulator for cardiac muscle and cardiovascular function.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Heart health", "Cardiac muscle support", "Cardiovascular function"]
@@ -116,8 +116,8 @@ export const products: Product[] = [
     name: "Crystagen",
     description: "Immune system peptide bioregulator for enhanced defense and cellular immunity.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Immune defense", "Cellular immunity", "Overall health"]
@@ -153,8 +153,8 @@ export const products: Product[] = [
     name: "Endoluten",
     description: "Pineal gland peptide bioregulator for circadian rhythm and hormonal balance.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Circadian rhythm", "Hormonal balance", "Sleep support"]
@@ -166,8 +166,8 @@ export const products: Product[] = [
     name: "Gotratix",
     description: "Muscle peptide bioregulator for strength, recovery, and muscle tissue health.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Muscle strength", "Recovery", "Tissue health"]
@@ -195,8 +195,8 @@ export const products: Product[] = [
     name: "Pielotax",
     description: "Kidney peptide bioregulator for renal function and urinary system health.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Renal function", "Urinary health", "Kidney support"]
@@ -556,8 +556,8 @@ export const products: Product[] = [
     name: "Testoluten",
     description: "Testicular peptide complex for male reproductive health and hormonal balance.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Male reproductive health", "Hormonal balance", "Vitality"]
@@ -568,8 +568,8 @@ export const products: Product[] = [
     image: "/products/ventfort.png",
     description: "Vascular peptide complex for blood vessel health and circulation support.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Blood vessel health", "Circulation", "Vascular support"]
@@ -593,8 +593,8 @@ export const products: Product[] = [
     name: "Vesugen",
     description: "Blood vessel peptide bioregulator for vascular health and circulation.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Vascular health", "Circulation", "Blood vessel support"]
@@ -618,8 +618,8 @@ export const products: Product[] = [
     image: "/products/visoluten.png",
     description: "Eye peptide bioregulator for vision support and ocular health.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Vision support", "Eye health", "Ocular function"]
@@ -630,8 +630,8 @@ export const products: Product[] = [
     image: "/products/vladonix.png",
     description: "Thymus peptide complex for immune system regulation and cellular defense.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 93.01,
-    priceEUR: 37.99,
+    priceUSD: 46.50,
+    priceEUR: 19.00,
     rating: 4.8,
     sizes: 2,
     benefits: ["Immune regulation", "Cellular defense", "Thymus support"]
@@ -715,6 +715,20 @@ export const products: Product[] = [
       "Taurine"
     ],
     usage: "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year."
+  },
+  {
+    id: "test-product-free",
+    name: "Test Product - FREE",
+    description: "Free test product for checkout testing. Price: $0.00. Remove before going live!",
+    category: "NUTRITIONAL SUPPLEMENTS",
+    priceUSD: 0.00,
+    priceEUR: 0.00,
+    rating: 5.0,
+    sizes: 1,
+    image: "/products/test.png",
+    imageAlt: "Test product for checkout testing",
+    benefits: ["For testing checkout only", "Removes payment requirement", "Complete transaction without charges"],
+    usage: "Use this product to test the entire checkout flow without needing to make a real payment or use test API keys."
   }
 ];
 
