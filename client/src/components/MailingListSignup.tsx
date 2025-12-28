@@ -16,6 +16,13 @@ export default function MailingListSignup() {
       return;
     }
 
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -35,11 +42,11 @@ export default function MailingListSignup() {
           setEmail("");
         }
       } else {
-        toast.error(data.error || "Failed to subscribe");
+        toast.error(data.error || "Failed to subscribe. Please try again.");
       }
     } catch (error) {
       console.error("Subscription error:", error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Connection error. Please check your internet and try again.");
     } finally {
       setLoading(false);
     }
