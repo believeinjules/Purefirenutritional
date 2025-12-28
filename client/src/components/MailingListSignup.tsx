@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function MailingListSignup() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,8 +19,7 @@ export default function MailingListSignup() {
     }
 
     // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!EMAIL_REGEX.test(email)) {
       toast.error("Please enter a valid email address");
       return;
     }
