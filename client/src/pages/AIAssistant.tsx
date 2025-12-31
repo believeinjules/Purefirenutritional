@@ -16,6 +16,7 @@ interface Message {
   content: string;
   recommendations?: Product[];
   research?: { title: string; url: string }[];
+  productExplanations?: { [productId: string]: string };
 }
 
 // This mapping is now handled by aiRecommendations.ts
@@ -51,6 +52,66 @@ function getProductRecommendations(query: string): Product[] {
   
   // If no specific matches, return general recommendations
   return products.slice(0, 4);
+}
+
+function getProductExplanations(query: string, products: Product[]): { [productId: string]: string } {
+  const explanations: { [productId: string]: string } = {};
+  const lowerQuery = query.toLowerCase();
+  
+  products.forEach(product => {
+    const productNameLower = product.name.toLowerCase();
+    
+    if (lowerQuery.includes("energy") || lowerQuery.includes("fatigue")) {
+      if (productNameLower.includes("revilab")) {
+        explanations[product.id] = "Revilab provides multi-peptide support for cellular energy and mitochondrial function.";
+      } else if (productNameLower.includes("endoluten")) {
+        explanations[product.id] = "Endoluten supports pineal gland function to enhance energy and vitality.";
+      } else if (productNameLower.includes("cytomaxes") || productNameLower.includes("cytomax")) {
+        explanations[product.id] = "Cytomax peptides help restore organ-specific cellular energy and function.";
+      }
+    } else if (lowerQuery.includes("brain") || lowerQuery.includes("memory") || lowerQuery.includes("cognitive")) {
+      if (productNameLower.includes("cortexin")) {
+        explanations[product.id] = "Cortexin is a brain peptide that supports cognitive function and neural protection.";
+      } else if (productNameLower.includes("revilab")) {
+        explanations[product.id] = "Revilab supports brain health through peptide-based cellular restoration.";
+      }
+    } else if (lowerQuery.includes("sleep") || lowerQuery.includes("insomnia")) {
+      if (productNameLower.includes("endoluten")) {
+        explanations[product.id] = "Endoluten regulates circadian rhythm and melatonin production for better sleep.";
+      } else if (productNameLower.includes("cytomax")) {
+        explanations[product.id] = "Cytomax Pineal supports pineal gland function for improved sleep quality.";
+      }
+    } else if (lowerQuery.includes("joint") || lowerQuery.includes("cartilage") || lowerQuery.includes("bone")) {
+      if (productNameLower.includes("cartilage")) {
+        explanations[product.id] = "Cartilage matrix peptides directly support joint health and cartilage integrity.";
+      } else if (productNameLower.includes("revilab")) {
+        explanations[product.id] = "Revilab supports joint tissue repair and bone health through peptide therapy.";
+      }
+    } else if (lowerQuery.includes("immune") || lowerQuery.includes("immunity") || lowerQuery.includes("defense")) {
+      if (productNameLower.includes("thymalin")) {
+        explanations[product.id] = "Thymalin strengthens immune response by supporting thymus gland function.";
+      } else if (productNameLower.includes("cytomax")) {
+        explanations[product.id] = "Cytomax boosts immune cell production and function through peptide bioregulation.";
+      }
+    } else if (lowerQuery.includes("skin") || lowerQuery.includes("hair") || lowerQuery.includes("collagen")) {
+      if (productNameLower.includes("skin")) {
+        explanations[product.id] = "Skin peptide matrix supports dermal collagen and tissue regeneration.";
+      } else if (productNameLower.includes("revilab")) {
+        explanations[product.id] = "Revilab supports skin health and collagen production through peptide restoration.";
+      }
+    } else {
+      // Default explanation
+      if (productNameLower.includes("revilab")) {
+        explanations[product.id] = "Revilab is a comprehensive peptide complex that supports overall cellular health.";
+      } else if (productNameLower.includes("cytomax")) {
+        explanations[product.id] = "Cytomax bioregulator supports specific organ and tissue function through natural peptides.";
+      } else {
+        explanations[product.id] = "This peptide bioregulator supports healthy aging and cellular function.";
+      }
+    }
+  });
+  
+  return explanations;
 }
 
 function getRelevantResearch(query: string): { title: string; url: string }[] {
@@ -134,6 +195,7 @@ export default function AIAssistant() {
     const recommendations = getProductRecommendations(input);
     const research = getRelevantResearch(input);
     const response = getRecommendationExplanation(input);
+    const productExplanations = getProductExplanations(input, recommendations);
 
     // Log AI interaction to backend for quality assurance (no chat history stored)
     try {
@@ -154,6 +216,7 @@ export default function AIAssistant() {
       content: response,
       recommendations,
       research,
+      productExplanations,
     };
 
     setMessages(prev => [...prev, assistantMessage]);
@@ -213,7 +276,7 @@ export default function AIAssistant() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-rose-500 text-white px-6 py-2 rounded-full mb-4">
               <Sparkles className="w-5 h-5" />
-              <span className="font-semibold">Peptalk! AI Assistant</span>
+              <span className="font-semibold">Pure Fire AI Assistant</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">Your Personal Health Guide</h1>
             <p className="text-gray-600">
@@ -272,7 +335,10 @@ export default function AIAssistant() {
                                   </div>
                                 )}
                                 <h4 className="font-semibold text-sm line-clamp-1">{product.name}</h4>
-                                <p className="text-orange-600 font-bold text-sm">${product.priceUSD.toFixed(2)}</p>
+                                {message.productExplanations && message.productExplanations[product.id] && (
+                                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">{message.productExplanations[product.id]}</p>
+                                )}
+                                <p className="text-orange-600 font-bold text-sm mt-1">${product.priceUSD.toFixed(2)}</p>
                                 <Button
                                   size="sm"
                                   className="w-full mt-2 bg-green-600 hover:bg-green-700 text-xs"

@@ -35,13 +35,16 @@ export default function MailingListSignup() {
     setLoading(true);
 
     try {
+      console.log("Attempting to subscribe email:", email);
       const response = await fetch("/api/mailing-list/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
+      console.log("Response status:", response.status);
       const data = await response.json();
+      console.log("Response data:", data);
 
       if (response.ok) {
         if (data.alreadySubscribed) {
@@ -51,11 +54,13 @@ export default function MailingListSignup() {
           setSubscribedEmail(email);
           setShowThankYou(true);
           setEmail("");
+          toast.success("Successfully subscribed!");
           
           // Auto-close modal after 5 seconds
           setTimeout(() => setShowThankYou(false), 5000);
         }
       } else {
+        console.error("Subscription failed:", data);
         toast.error(data.error || "Failed to subscribe");
       }
     } catch (error) {
