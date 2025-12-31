@@ -127,6 +127,11 @@ export default function Cart() {
                     </div>
                   </div>
 
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
+                    <p className="font-semibold mb-1">📦 Shipping from Germany</p>
+                    <p>Delivery typically takes up to 3 weeks</p>
+                  </div>
+
                   <Link href="/checkout">
                     <Button className="w-full bg-green-600 hover:bg-green-700 text-lg py-6">
                       Proceed to Checkout <ArrowRight className="w-5 h-5 ml-2" />
