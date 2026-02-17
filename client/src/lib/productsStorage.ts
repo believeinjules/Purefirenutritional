@@ -1,4 +1,5 @@
-import { supabase } from './supabase';
+import { supabase, isSupabaseConfigured } from './supabase';
+import { products as localProducts } from '@/data/products';
 
 export interface ProductVariant {
   id: string;
@@ -28,9 +29,15 @@ export interface Product {
 }
 
 /**
- * Fetch all products from Supabase
+ * Fetch all products from Supabase, with fallback to local data
  */
 export async function fetchProducts(): Promise<Product[]> {
+  // Check if Supabase is configured
+  if (!isSupabaseConfigured()) {
+    console.log('Supabase not configured, using local product data');
+    return localProducts;
+  }
+
   try {
     const { data, error } = await supabase
       .from('products')
@@ -39,8 +46,14 @@ export async function fetchProducts(): Promise<Product[]> {
       .order('name');
 
     if (error) {
-      console.error('Error fetching products:', error);
-      return [];
+      console.error('Error fetching products from Supabase, falling back to local data:', error);
+      return localProducts;
+    }
+
+    // If no data in Supabase, fall back to local products
+    if (!data || data.length === 0) {
+      console.log('No products in Supabase, using local product data');
+      return localProducts;
     }
 
     // Transform database rows to Product interface
@@ -61,15 +74,21 @@ export async function fetchProducts(): Promise<Product[]> {
       variants: row.variants || [],
     }));
   } catch (error) {
-    console.error('Failed to fetch products:', error);
-    return [];
+    console.error('Failed to fetch products from Supabase, falling back to local data:', error);
+    return localProducts;
   }
 }
 
 /**
- * Fetch a single product by ID
+ * Fetch a single product by ID, with fallback to local data
  */
 export async function fetchProductById(id: string): Promise<Product | null> {
+  // Check if Supabase is configured
+  if (!isSupabaseConfigured()) {
+    console.log('Supabase not configured, searching local product data');
+    return localProducts.find(p => p.id === id) || null;
+  }
+
   try {
     const { data, error } = await supabase
       .from('products')
@@ -78,11 +97,14 @@ export async function fetchProductById(id: string): Promise<Product | null> {
       .single();
 
     if (error) {
-      console.error('Error fetching product:', error);
-      return null;
+      console.error('Error fetching product from Supabase, falling back to local data:', error);
+      return localProducts.find(p => p.id === id) || null;
     }
 
-    if (!data) return null;
+    if (!data) {
+      // Fall back to local data
+      return localProducts.find(p => p.id === id) || null;
+    }
 
     return {
       id: data.id,
@@ -101,15 +123,21 @@ export async function fetchProductById(id: string): Promise<Product | null> {
       variants: data.variants || [],
     };
   } catch (error) {
-    console.error('Failed to fetch product:', error);
-    return null;
+    console.error('Failed to fetch product from Supabase, falling back to local data:', error);
+    return localProducts.find(p => p.id === id) || null;
   }
 }
 
 /**
- * Fetch products by category
+ * Fetch products by category, with fallback to local data
  */
 export async function fetchProductsByCategory(category: string): Promise<Product[]> {
+  // Check if Supabase is configured
+  if (!isSupabaseConfigured()) {
+    console.log('Supabase not configured, filtering local product data');
+    return localProducts.filter(p => p.category === category);
+  }
+
   try {
     const { data, error } = await supabase
       .from('products')
@@ -119,8 +147,14 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       .order('name');
 
     if (error) {
-      console.error('Error fetching products:', error);
-      return [];
+      console.error('Error fetching products by category from Supabase, falling back to local data:', error);
+      return localProducts.filter(p => p.category === category);
+    }
+
+    // If no data in Supabase, fall back to local products
+    if (!data || data.length === 0) {
+      console.log('No products in Supabase for category, using local product data');
+      return localProducts.filter(p => p.category === category);
     }
 
     return (data || []).map((row: any) => ({
@@ -140,8 +174,8 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       variants: row.variants || [],
     }));
   } catch (error) {
-    console.error('Failed to fetch products by category:', error);
-    return [];
+    console.error('Failed to fetch products by category from Supabase, falling back to local data:', error);
+    return localProducts.filter(p => p.category === category);
   }
 }
 
