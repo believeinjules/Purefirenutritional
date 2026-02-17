@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import InventoryManagement from '@/components/InventoryManagement';
 import { useLocation } from 'wouter';
+import { supabase } from '@/lib/supabase';
 import {
   BarChart3,
   ShoppingCart,
@@ -10,7 +11,8 @@ import {
   TrendingUp,
   DollarSign,
   Package,
-  Mail
+  Mail,
+  Users
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -41,16 +43,44 @@ import {
 } from '@/lib/abandonedCartStorage';
 import { isSupabaseConfigured } from '@/lib/supabase';
 
+interface Order {
+  id: string;
+  order_number: string;
+  customer_email: string;
+  customer_name: string;
+  total: number;
+  status: string;
+  payment_status: string;
+  created_at: string;
+  items: any[];
+}
+
+interface Customer {
+  id: string;
+  email: string;
+  name: string;
+  total_orders: number;
+  total_spent: number;
+  created_at: string;
+}
+
 export default function Admin() {
   const [, setLocation] = useLocation();
   const [pendingReviews, setPendingReviews] = useState<ProductReview[]>([]);
   const [abandonedCarts, setAbandonedCarts] = useState<AbandonedCart[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [cartStats, setCartStats] = useState({
     totalAbandoned: 0,
     totalValue: 0,
     recoveryEmailsSent: 0,
     recovered: 0,
     recoveryRate: 0
+  });
+  const [orderStats, setOrderStats] = useState({
+    totalOrders: 0,
+    totalRevenue: 0,
+    totalCustomers: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -61,18 +91,59 @@ export default function Admin() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [reviews, carts, stats] = await Promise.all([
+      const [reviews, carts, stats, orderData, customerData] = await Promise.all([
         getPendingReviews(),
         getCartsNeedingRecovery(),
-        getAbandonedCartStats()
+        getAbandonedCartStats(),
+        fetchOrders(),
+        fetchCustomers()
       ]);
       setPendingReviews(reviews);
       setAbandonedCarts(carts);
       setCartStats(stats);
+      setOrders(orderData);
+      setCustomers(customerData);
+      
+      // Calculate order stats
+      setOrderStats({
+        totalOrders: orderData.length,
+        totalRevenue: orderData.reduce((sum, order) => sum + (order.total || 0), 0),
+        totalCustomers: customerData.length
+      });
     } catch (error) {
       console.error('Error loading admin data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchOrders = async (): Promise<Order[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      return [];
+    }
+  };
+
+  const fetchCustomers = async (): Promise<Customer[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('customers')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching customers:', error);
+      return [];
     }
   };
 
@@ -144,7 +215,46 @@ export default function Admin() {
           </div>
 
           {/* Stats Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+                <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{orderStats.totalOrders}</div>
+                <p className="text-xs text-muted-foreground">
+                  All time
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+                <DollarSign className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">${orderStats.totalRevenue.toFixed(2)}</div>
+                <p className="text-xs text-muted-foreground">
+                  From {orderStats.totalOrders} orders
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Customers</CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{orderStats.totalCustomers}</div>
+                <p className="text-xs text-muted-foreground">
+                  Active customers
+                </p>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Pending Reviews</CardTitle>
@@ -166,7 +276,7 @@ export default function Admin() {
               <CardContent>
                 <div className="text-2xl font-bold">{cartStats.totalAbandoned}</div>
                 <p className="text-xs text-muted-foreground">
-                  ${cartStats.totalValue.toFixed(2)} total value
+                  ${cartStats.totalValue.toFixed(2)} value
                 </p>
               </CardContent>
             </Card>
@@ -179,28 +289,31 @@ export default function Admin() {
               <CardContent>
                 <div className="text-2xl font-bold">{cartStats.recoveryRate.toFixed(1)}%</div>
                 <p className="text-xs text-muted-foreground">
-                  {cartStats.recovered} carts recovered
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Recovery Emails</CardTitle>
-                <Mail className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{cartStats.recoveryEmailsSent}</div>
-                <p className="text-xs text-muted-foreground">
-                  Sent to customers
+                  {cartStats.recovered} recovered
                 </p>
               </CardContent>
             </Card>
           </div>
 
           {/* Tabs */}
-          <Tabs defaultValue="reviews" className="space-y-4">
+          <Tabs defaultValue="orders" className="space-y-4">
             <TabsList>
+              <TabsTrigger value="orders">
+                Orders
+                {orders.length > 0 && (
+                  <Badge variant="secondary" className="ml-2">
+                    {orders.length}
+                  </Badge>
+                )}
+              </TabsTrigger>
+              <TabsTrigger value="customers">
+                Customers
+                {customers.length > 0 && (
+                  <Badge variant="secondary" className="ml-2">
+                    {customers.length}
+                  </Badge>
+                )}
+              </TabsTrigger>
               <TabsTrigger value="reviews">
                 Review Moderation
                 {pendingReviews.length > 0 && (
@@ -221,6 +334,124 @@ export default function Admin() {
                 Inventory Management
               </TabsTrigger>
             </TabsList>
+
+            {/* Orders Tab */}
+            <TabsContent value="orders" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Orders</CardTitle>
+                  <CardDescription>
+                    View and manage all customer orders
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {loading ? (
+                    <p className="text-center py-8 text-muted-foreground">Loading orders...</p>
+                  ) : orders.length === 0 ? (
+                    <p className="text-center py-8 text-muted-foreground">No orders yet</p>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Order #</TableHead>
+                          <TableHead>Customer</TableHead>
+                          <TableHead>Email</TableHead>
+                          <TableHead>Total</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Items</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {orders.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="font-medium">
+                              {order.order_number}
+                            </TableCell>
+                            <TableCell>
+                              {order.customer_name}
+                            </TableCell>
+                            <TableCell>
+                              <div className="text-sm text-muted-foreground">
+                                {order.customer_email}
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              ${order.total.toFixed(2)}
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant={order.status === 'completed' ? 'default' : 'secondary'}>
+                                {order.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-sm text-muted-foreground">
+                              {new Date(order.created_at).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>
+                              <span className="text-sm">{order.items?.length || 0} item(s)</span>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Customers Tab */}
+            <TabsContent value="customers" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Customers</CardTitle>
+                  <CardDescription>
+                    View all customers and their purchase history
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {loading ? (
+                    <p className="text-center py-8 text-muted-foreground">Loading customers...</p>
+                  ) : customers.length === 0 ? (
+                    <p className="text-center py-8 text-muted-foreground">No customers yet</p>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Name</TableHead>
+                          <TableHead>Email</TableHead>
+                          <TableHead>Orders</TableHead>
+                          <TableHead>Total Spent</TableHead>
+                          <TableHead>Joined</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {customers.map((customer) => (
+                          <TableRow key={customer.id}>
+                            <TableCell className="font-medium">
+                              {customer.name || 'N/A'}
+                            </TableCell>
+                            <TableCell>
+                              <div className="text-sm">{customer.email}</div>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="secondary">
+                                {customer.total_orders}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              ${customer.total_spent.toFixed(2)}
+                            </TableCell>
+                            <TableCell className="text-sm text-muted-foreground">
+                              {new Date(customer.created_at).toLocaleDateString()}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
 
             {/* Review Moderation Tab */}
             <TabsContent value="reviews" className="space-y-4">

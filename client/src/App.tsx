@@ -14,6 +14,7 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
 import AIAssistant from "./pages/AIAssistant";
 import FAQ from "./pages/FAQ";
 import Science from "./pages/Science";
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/products/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
+      <Route path="/checkout/success" component={CheckoutSuccess} />
       <Route path="/ai-assistant" component={AIAssistant} />
       <Route path="/faq" component={FAQ} />
       <Route path="/science" component={Science} />

@@ -231,6 +231,18 @@ export default function Checkout() {
                   </p>
                 </CardContent>
               </Card>
+
+              {/* Shipping Information */}
+              <Card className="bg-blue-50 border-blue-200">
+                <CardHeader>
+                  <CardTitle className="text-blue-900">📦 Shipping Information</CardTitle>
+                </CardHeader>
+                <CardContent className="text-blue-800 space-y-2">
+                  <p><strong>Ships from:</strong> Germany</p>
+                  <p><strong>Delivery timeframe:</strong> Up to 3 weeks</p>
+                  <p className="text-sm">Shipping costs will be calculated based on your order total and calculated at checkout.</p>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Order Summary */}

@@ -13,7 +13,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-gradient-to-r from-orange-600/50 via-rose-600/50 via-pink-600/50 to-pink-700/50 shadow-lg md:backdrop-blur-lg"
+      className="sticky top-0 z-50 bg-gradient-to-r from-orange-500 via-rose-500 to-orange-600 bg-opacity-10 shadow-lg md:backdrop-blur-lg"
       // Ensure Safari gets the backdrop filter as well
       style={{ WebkitBackdropFilter: 'blur(16px)' }}
     >
@@ -22,7 +22,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/">
             <a className="flex items-center gap-4 hover:opacity-85 transition-opacity">
-              <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center ring-2 ring-orange-200 overflow-hidden">
+              <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center ring-2 ring-red-200 overflow-hidden">
                 <img 
                   src="/logo-flame.jpeg" 
                   alt="Pure Fire Nutritional" 
@@ -38,32 +38,32 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-9">
             <Link href="/">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:underline hover:underline-offset-8 hover:scale-110 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
                 Home
               </a>
             </Link>
             <Link href="/products">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:underline hover:underline-offset-8 hover:scale-110 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
                 Products
               </a>
             </Link>
             <Link href="/science">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:underline hover:underline-offset-8 hover:scale-110 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
                 Science
               </a>
             </Link>
             <Link href="/about">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:underline hover:underline-offset-8 hover:scale-110 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
                 About
               </a>
             </Link>
             <Link href="/faq">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:underline hover:underline-offset-8 hover:scale-110 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
                 FAQ
               </a>
             </Link>
             <Link href="/ai-assistant">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:underline hover:underline-offset-8 hover:scale-110 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
                 AI Assistant
               </a>
             </Link>

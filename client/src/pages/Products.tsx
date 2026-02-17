@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Grid, List, Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,13 +10,32 @@ import Footer from "@/components/Footer";
 import ProductSearch from "@/components/ProductSearch";
 import { useCart } from "@/contexts/CartContext";
 import QuickAddToCart from "@/components/QuickAddToCart";
-import { products as localProducts, Product } from "@/data/products";
+import { fetchProducts, Product } from "@/lib/productsStorage";
 
 export default function Products() {
   const [sortBy, setSortBy] = useState("name-asc");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [searchResults, setSearchResults] = useState<Product[]>(localProducts);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchProducts();
+      setProducts(data);
+      setSearchResults(data);
+    } catch (error) {
+      console.error('Error loading products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const sortedProducts = useMemo(() => {
     let result = [...searchResults];

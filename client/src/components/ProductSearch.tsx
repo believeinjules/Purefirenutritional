@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/sheet';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
-import { products, type Product } from '@/data/products';
+import { fetchProducts, Product } from '@/lib/productsStorage';
 
 interface ProductSearchProps {
   onResultsChange: (results: Product[]) => void;
@@ -33,12 +33,26 @@ export default function ProductSearch({ onResultsChange, initialCategory }: Prod
   const [minRating, setMinRating] = useState<number>(0);
   const [selectedBenefits, setSelectedBenefits] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      const data = await fetchProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error loading products:', error);
+    }
+  };
 
   // Extract unique categories and benefits
   const categories = useMemo(() => {
     const cats = new Set(products.map(p => p.category));
     return ['all', ...Array.from(cats)];
-  }, []);
+  }, [products]);
 
   const allBenefits = useMemo(() => {
     const benefits = new Set<string>();
@@ -48,6 +62,7 @@ export default function ProductSearch({ onResultsChange, initialCategory }: Prod
       }
     });
     return Array.from(benefits).sort();
+
   }, []);
 
   // Filter products based on all criteria
