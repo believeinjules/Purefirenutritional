@@ -63,7 +63,7 @@ export default function ProductSearch({ onResultsChange, initialCategory }: Prod
     });
     return Array.from(benefits).sort();
 
-  }, []);
+  }, [products]);
 
   // Filter products based on all criteria
   const filteredProducts = useMemo(() => {
@@ -106,7 +106,7 @@ export default function ProductSearch({ onResultsChange, initialCategory }: Prod
 
       return true;
     });
-  }, [searchQuery, selectedCategory, priceRange, minRating, selectedBenefits]);
+  }, [products, searchQuery, selectedCategory, priceRange, minRating, selectedBenefits]);
 
   // Update parent component when results change
   useEffect(() => {
