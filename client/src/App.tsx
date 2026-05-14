@@ -27,6 +27,11 @@ import Admin from "./pages/Admin";
 import ProductManager from "./pages/admin/ProductManager";
 import Wishlist from "./pages/Wishlist";
 
+// Learn articles
+import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
+import ArticleCytomaxesCytogens from "./pages/learn/CytomaxesCytogens";
+import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
+
 function Router() {
   return (
     <Switch>
@@ -49,6 +54,9 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/admin/products" component={ProductManager} />
       <Route path="/wishlist" component={Wishlist} />
+      <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
+      <Route path="/learn/cytomaxes-vs-cytogens" component={ArticleCytomaxesCytogens} />
+      <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

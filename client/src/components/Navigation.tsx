@@ -67,6 +67,11 @@ export default function Navigation() {
                 AI Assistant
               </a>
             </Link>
+            <Link href="/learn/what-are-khavinson-peptide-bioregulators">
+              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
+                Learn
+              </a>
+            </Link>
           </div>
 
           {/* Right side icons */}
@@ -151,6 +156,11 @@ export default function Navigation() {
             <Link href="/ai-assistant">
               <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
                 AI Assistant
+              </a>
+            </Link>
+            <Link href="/learn/what-are-khavinson-peptide-bioregulators">
+              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
+                Learn
               </a>
             </Link>
           </div>
