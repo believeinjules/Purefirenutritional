@@ -1,21 +1,48 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
-import { Grid, List, Star, ShoppingCart } from "lucide-react";
+import { Star, ShoppingCart, Search, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import ProductSearch from "@/components/ProductSearch";
 import { useCart } from "@/contexts/CartContext";
-import QuickAddToCart from "@/components/QuickAddToCart";
 import { fetchProducts, Product } from "@/lib/productsStorage";
+
+const CATEGORIES = [
+  { label: "All Products", value: "all" },
+  { label: "Peptide Bioregulators", value: "PEPTIDE BIOREGULATORS" },
+  { label: "Anti-Aging & Longevity", value: "ANTI AGING-LONGEVITY" },
+  { label: "Nutritional Supplements", value: "NUTRITIONAL SUPPLEMENTS" },
+];
+
+const getCategoryAccent = (category: string) => {
+  switch (category) {
+    case "PEPTIDE BIOREGULATORS":
+      return { badge: "bg-orange-50 text-orange-700 border-orange-200", dot: "bg-orange-400" };
+    case "ANTI AGING-LONGEVITY":
+      return { badge: "bg-purple-50 text-purple-700 border-purple-200", dot: "bg-purple-400" };
+    case "NUTRITIONAL SUPPLEMENTS":
+      return { badge: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-400" };
+    default:
+      return { badge: "bg-gray-50 text-gray-700 border-gray-200", dot: "bg-gray-400" };
+  }
+};
+
+const getCategoryShort = (category: string) => {
+  switch (category) {
+    case "PEPTIDE BIOREGULATORS": return "Peptide";
+    case "ANTI AGING-LONGEVITY": return "Anti-Aging";
+    case "NUTRITIONAL SUPPLEMENTS": return "Supplement";
+    default: return category;
+  }
+};
 
 export default function Products() {
   const [sortBy, setSortBy] = useState("name-asc");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
@@ -29,16 +56,31 @@ export default function Products() {
     try {
       const data = await fetchProducts();
       setProducts(data);
-      setSearchResults(data);
     } catch (error) {
-      console.error('Error loading products:', error);
+      console.error("Error loading products:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const sortedProducts = useMemo(() => {
-    let result = [...searchResults];
+  const filteredAndSorted = useMemo(() => {
+    let result = [...products];
+
+    // Category filter
+    if (activeCategory !== "all") {
+      result = result.filter((p) => p.category === activeCategory);
+    }
+
+    // Search filter
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.description?.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+      );
+    }
 
     // Sort
     switch (sortBy) {
@@ -60,178 +102,203 @@ export default function Products() {
     }
 
     return result;
-  }, [searchResults, sortBy]);
+  }, [products, activeCategory, searchQuery, sortBy]);
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "PEPTIDE BIOREGULATORS":
-        return "bg-orange-100 text-orange-800";
-      case "ANTI AGING-LONGEVITY":
-        return "bg-purple-100 text-purple-800";
-      case "NUTRITIONAL SUPPLEMENTS":
-        return "bg-green-100 text-green-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: products.length };
+    products.forEach((p) => {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+    return counts;
+  }, [products]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navigation />
 
-      <main className="flex-1 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2">Our Products</h1>
-            <p className="text-gray-600">
-              Discover our comprehensive range of scientifically-backed supplements, anti-aging solutions, and exclusive peptide bioregulators for optimal health and longevity.
+      <main className="flex-1">
+        {/* Hero Banner */}
+        <div className="bg-white border-b">
+          <div className="max-w-7xl mx-auto px-4 py-10">
+            <h1 className="text-4xl font-bold tracking-tight mb-2">Our Products</h1>
+            <p className="text-gray-500 max-w-2xl">
+              Scientifically-backed peptide bioregulators, anti-aging solutions, and nutritional supplements for optimal health and longevity.
             </p>
           </div>
+        </div>
 
-          {/* Search and Filters */}
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <ProductSearch onResultsChange={setSearchResults} />
-
-            {/* Sort and View Controls */}
-            <div className="flex justify-between items-center mt-6 pt-6 border-t">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Search + Sort Bar */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9 bg-white"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <SlidersHorizontal className="text-gray-400 w-4 h-4 flex-shrink-0" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48">
+                <SelectTrigger className="w-48 bg-white">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="name-asc">Name (A-Z)</SelectItem>
-                  <SelectItem value="name-desc">Name (Z-A)</SelectItem>
-                  <SelectItem value="price-asc">Price (Low to High)</SelectItem>
-                  <SelectItem value="price-desc">Price (High to Low)</SelectItem>
+                  <SelectItem value="name-asc">Name (A–Z)</SelectItem>
+                  <SelectItem value="name-desc">Name (Z–A)</SelectItem>
+                  <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                  <SelectItem value="price-desc">Price: High to Low</SelectItem>
                   <SelectItem value="rating-desc">Highest Rated</SelectItem>
                 </SelectContent>
               </Select>
-
-              <div className="flex gap-2">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="icon"
-                  onClick={() => setViewMode("grid")}
-                >
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "outline"}
-                  size="icon"
-                  onClick={() => setViewMode("list")}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
           </div>
 
-          {/* Products Grid/List */}
-          {sortedProducts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
-              <p className="text-gray-400 mt-2">Try adjusting your filters or search query.</p>
-            </div>
-          ) : viewMode === "grid" ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sortedProducts.map((product) => (
-                <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <Link href={`/products/${product.id}`}>
-                    <div className="aspect-square bg-gradient-to-br from-orange-100 to-pink-100 relative overflow-hidden">
-                      {product.image ? (
-                        <img
-                          src={product.image}
-                          alt={product.imageAlt || product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <span className="text-6xl">🔬</span>
-                        </div>
-                      )}
-                      <Badge className={`absolute top-2 right-2 ${getCategoryColor(product.category)}`}>
-                        {product.category}
-                      </Badge>
-                    </div>
-                  </Link>
-                  <CardContent className="p-4">
-                    <Link href={`/products/${product.id}`}>
-                      <h3 className="font-semibold text-lg mb-2 hover:text-primary">{product.name}</h3>
-                    </Link>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{product.rating}</span>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-xl font-bold text-primary">${product.priceUSD}</div>
-                        <div className="text-xs text-gray-500">€{product.priceEUR}</div>
-                      </div>
-                    </div>
-                    <QuickAddToCart
-                      product={product}
-                      onAddToCart={(prod, qty, size) => {
-                        addToCart(prod, qty, size || "20");
-                      }}
-                      className="w-full"
-                    />
-                  </CardContent>
-                </Card>
+          {/* Category Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {CATEGORIES.map((cat) => {
+              const count = categoryCounts[cat.value] ?? 0;
+              const isActive = activeCategory === cat.value;
+              return (
+                <button
+                  key={cat.value}
+                  onClick={() => setActiveCategory(cat.value)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
+                    isActive
+                      ? "bg-gray-900 text-white border-gray-900 shadow-sm"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+                  }`}
+                >
+                  {cat.label}
+                  <span className={`ml-2 text-xs ${isActive ? "text-gray-300" : "text-gray-400"}`}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Results count */}
+          <p className="text-sm text-gray-500 mb-4">
+            {loading ? "Loading..." : `${filteredAndSorted.length} product${filteredAndSorted.length !== 1 ? "s" : ""}`}
+          </p>
+
+          {/* Product Grid */}
+          {loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="bg-white rounded-xl overflow-hidden animate-pulse">
+                  <div className="aspect-square bg-gray-100" />
+                  <div className="p-3 space-y-2">
+                    <div className="h-3 bg-gray-100 rounded w-1/2" />
+                    <div className="h-4 bg-gray-100 rounded w-3/4" />
+                    <div className="h-3 bg-gray-100 rounded w-full" />
+                    <div className="h-3 bg-gray-100 rounded w-2/3" />
+                    <div className="h-8 bg-gray-100 rounded" />
+                  </div>
+                </div>
               ))}
             </div>
+          ) : filteredAndSorted.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-gray-400 text-lg mb-2">No products found</p>
+              <p className="text-gray-400 text-sm">Try adjusting your search or category filter.</p>
+              <Button
+                variant="outline"
+                className="mt-4"
+                onClick={() => { setSearchQuery(""); setActiveCategory("all"); }}
+              >
+                Clear filters
+              </Button>
+            </div>
           ) : (
-            <div className="space-y-4">
-              {sortedProducts.map((product) => (
-                <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="flex flex-col md:flex-row">
-                    <Link href={`/products/${product.id}`} className="md:w-48 flex-shrink-0">
-                      <div className="aspect-square md:h-48 bg-gradient-to-br from-orange-100 to-pink-100 relative overflow-hidden">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {filteredAndSorted.map((product) => {
+                const accent = getCategoryAccent(product.category);
+                return (
+                  <div
+                    key={product.id}
+                    className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all duration-200 flex flex-col"
+                  >
+                    {/* Image */}
+                    <Link href={`/products/${product.id}`} className="block">
+                      <div className="aspect-square bg-gray-50 relative overflow-hidden">
                         {product.image ? (
                           <img
                             src={product.image}
                             alt={product.imageAlt || product.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <span className="text-6xl">🔬</span>
+                            <span className="text-5xl opacity-30">🔬</span>
                           </div>
                         )}
+                        {/* Category dot */}
+                        <span className={`absolute top-2 left-2 w-2 h-2 rounded-full ${accent.dot}`} />
                       </div>
                     </Link>
-                    <CardContent className="flex-1 p-6">
-                      <div className="flex justify-between items-start mb-3">
-                        <div className="flex-1">
-                          <Badge className={`${getCategoryColor(product.category)} mb-2`}>
-                            {product.category}
-                          </Badge>
-                          <Link href={`/products/${product.id}`}>
-                            <h3 className="font-semibold text-xl mb-2 hover:text-primary">{product.name}</h3>
-                          </Link>
-                          <div className="flex items-center gap-1 mb-3">
-                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                            <span className="text-sm font-medium">{product.rating}</span>
-                          </div>
-                        </div>
-                        <div className="text-right ml-4">
-                          <div className="text-2xl font-bold text-primary">${product.priceUSD}</div>
-                          <div className="text-sm text-gray-500">€{product.priceEUR}</div>
-                        </div>
+
+                    {/* Info */}
+                    <div className="p-3 flex flex-col flex-1">
+                      <span className={`text-[10px] font-semibold uppercase tracking-wide mb-1 ${accent.badge.split(" ").slice(1).join(" ")}`}>
+                        {getCategoryShort(product.category)}
+                      </span>
+                      <Link href={`/products/${product.id}`}>
+                        <h3 className="font-semibold text-sm leading-snug mb-1 hover:text-orange-600 transition-colors line-clamp-2">
+                          {product.name}
+                        </h3>
+                      </Link>
+                      <p className="text-xs text-gray-400 line-clamp-2 mb-2 flex-1">
+                        {product.description}
+                      </p>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-1 mb-2">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-3 h-3 ${
+                              i < Math.floor(product.rating || 5)
+                                ? "fill-amber-400 text-amber-400"
+                                : "text-gray-200"
+                            }`}
+                          />
+                        ))}
+                        <span className="text-xs text-gray-400 ml-1">{product.rating}</span>
                       </div>
-                      <p className="text-gray-600 mb-4">{product.description}</p>
-                      <QuickAddToCart
-                        product={product}
-                        onAddToCart={(prod, qty, size) => {
-                          addToCart(prod, qty, size || "20");
-                        }}
-                        className="w-full md:w-auto"
-                      />
-                    </CardContent>
+
+                      {/* Price + CTA */}
+                      <div className="flex items-center justify-between mt-auto">
+                        <div>
+                          <div className="text-base font-bold text-gray-900">
+                            ${product.priceUSD.toFixed(2)}
+                          </div>
+                          <div className="text-xs text-gray-400">€{product.priceEUR.toFixed(2)}</div>
+                        </div>
+                        <button
+                          onClick={() => {
+                            addToCart({
+                              id: product.id,
+                              name: product.name,
+                              price: product.priceUSD,
+                              quantity: 1,
+                              image: product.image,
+                            });
+                          }}
+                          className="p-2 rounded-lg bg-gray-900 text-white hover:bg-orange-600 transition-colors"
+                          aria-label={`Add ${product.name} to cart`}
+                        >
+                          <ShoppingCart className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </Card>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

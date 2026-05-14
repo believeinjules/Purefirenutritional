@@ -140,9 +140,9 @@ export default function Science() {
                 <FlaskConical className="w-10 h-10" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Science & Research</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">The Science Behind the Tools</h1>
             <p className="text-xl opacity-90 max-w-3xl mx-auto">
-              Our products are backed by decades of scientific research. Explore the peer-reviewed studies behind peptide bioregulators and longevity science.
+              Evidence-informed wellness starts with understanding the research. Explore the peer-reviewed science behind peptide bioregulators, cellular aging, neuroplasticity, and longevity.
             </p>
           </div>
         </section>
@@ -332,7 +332,7 @@ export default function Science() {
               <Badge className="bg-blue-600 text-white mb-4">Foundational Science</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Understanding Peptide Bioregulators</h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-                Peptides are the body's natural information carriers, regulating cellular function and protein synthesis at the molecular level.
+                Peptides are the body's natural information carriers — short chains of amino acids that signal cells to maintain, repair, and regulate their own function. As we age, peptide levels decline significantly, contributing to the gradual loss of organ function and resilience.
               </p>
             </div>
 

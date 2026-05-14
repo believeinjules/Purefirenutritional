@@ -54,11 +54,10 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Mail className="w-8 h-8" />
-            <h3 className="text-2xl font-bold">Stay Updated</h3>
+            <h3 className="text-2xl font-bold">Insights for the Informed</h3>
           </div>
           <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-            Get exclusive access to new products, health insights, and special offers. 
-            Join thousands of health enthusiasts on their longevity journey.
+            Occasional updates on new products, wellness research, and perspectives on resilience, longevity, and cognitive vitality. No noise — just substance.
           </p>
           <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input
@@ -96,10 +95,10 @@ export default function Footer() {
               <span className="font-bold text-xl">Pure Fire Nutritional</span>
             </div>
             <p className="text-gray-400 mb-4">
-              Premium Health & Longevity
+              Mind · Body · Resilience · Longevity
             </p>
             <p className="text-gray-400 text-sm">
-              Leading provider of scientifically-backed supplements, anti-aging solutions, and exclusive Khavinson peptide bioregulators for optimal health and longevity.
+              Evidence-informed wellness tools supporting cognitive vitality, recovery, healthy aging, and whole-person wellness. Exclusive US retailer of Khavinson peptide bioregulators.
             </p>
             {/* Social Links */}
             <div className="flex gap-4 mt-4">
@@ -157,21 +156,31 @@ export default function Footer() {
 
           {/* Product Categories */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Product Categories</h3>
+            <h3 className="font-semibold text-lg mb-4">Wellness Tools</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/products?category=NUTRITIONAL+SUPPLEMENTS" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Nutritional Supplements
+                <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-gray-400 hover:text-orange-500 transition-colors">
+                  Brain & Cognitive Vitality
+                </Link>
+              </li>
+              <li>
+                <Link href="/products" className="text-gray-400 hover:text-orange-500 transition-colors">
+                  Recovery & Resilience
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=ANTI+AGING-LONGEVITY" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Anti-Aging & Longevity
+                  Longevity & Healthy Aging
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Peptide Bioregulators
+                  Organ & Foundational Support
+                </Link>
+              </li>
+              <li>
+                <Link href="/products?category=NUTRITIONAL+SUPPLEMENTS" className="text-gray-400 hover:text-orange-500 transition-colors">
+                  Nutritional Supplements
                 </Link>
               </li>
             </ul>

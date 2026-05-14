@@ -25,14 +25,40 @@ export interface Product {
   benefits?: string[];
   ingredients?: string[];
   usage?: string;
+  seriesInfo?: string;
+  in_stock?: boolean;
   variants?: ProductVariant[];
 }
 
+// ─── Row → Product transform ──────────────────────────────────────────────────
+
+function rowToProduct(row: any): Product {
+  return {
+    id: row.id,
+    name: row.name,
+    description: row.description,
+    category: row.category,
+    priceUSD: parseFloat(row.price_usd) || 0,
+    priceEUR: parseFloat(row.price_eur || 0) || 0,
+    rating: parseFloat(row.rating) || 0,
+    sizes: row.sizes ?? 1,
+    image: row.image ?? undefined,
+    imageAlt: row.image_alt ?? undefined,
+    benefits: row.benefits || [],
+    ingredients: row.ingredients || [],
+    usage: row.usage || undefined,
+    seriesInfo: row.series_info || undefined,
+    in_stock: row.in_stock !== false,
+    variants: row.variants || [],
+  };
+}
+
+// ─── fetchProducts ────────────────────────────────────────────────────────────
+
 /**
- * Fetch all products from Supabase, with fallback to local data
+ * Fetch all products from Supabase, with fallback to local data.
  */
 export async function fetchProducts(): Promise<Product[]> {
-  // Check if Supabase is configured
   if (!isSupabaseConfigured()) {
     console.log('Supabase not configured, using local product data');
     return localProducts;
@@ -42,7 +68,6 @@ export async function fetchProducts(): Promise<Product[]> {
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .eq('in_stock', true)
       .order('name');
 
     if (error) {
@@ -50,42 +75,25 @@ export async function fetchProducts(): Promise<Product[]> {
       return localProducts;
     }
 
-    // If no data in Supabase, fall back to local products
     if (!data || data.length === 0) {
       console.log('No products in Supabase, using local product data');
       return localProducts;
     }
 
-    // Transform database rows to Product interface
-    return (data || []).map((row: any) => ({
-      id: row.id,
-      name: row.name,
-      description: row.description,
-      category: row.category,
-      priceUSD: parseFloat(row.price_usd),
-      priceEUR: parseFloat(row.price_eur || 0),
-      rating: parseFloat(row.rating),
-      sizes: row.sizes,
-      image: row.image,
-      imageAlt: row.image_alt,
-      benefits: row.benefits || [],
-      ingredients: row.ingredients || [],
-      usage: row.usage,
-      variants: row.variants || [],
-    }));
+    return data.map(rowToProduct);
   } catch (error) {
     console.error('Failed to fetch products from Supabase, falling back to local data:', error);
     return localProducts;
   }
 }
 
+// ─── fetchProductById ─────────────────────────────────────────────────────────
+
 /**
- * Fetch a single product by ID, with fallback to local data
+ * Fetch a single product by ID from Supabase, with fallback to local data.
  */
 export async function fetchProductById(id: string): Promise<Product | null> {
-  // Check if Supabase is configured
   if (!isSupabaseConfigured()) {
-    console.log('Supabase not configured, searching local product data');
     return localProducts.find(p => p.id === id) || null;
   }
 
@@ -97,42 +105,27 @@ export async function fetchProductById(id: string): Promise<Product | null> {
       .single();
 
     if (error) {
-      console.error('Error fetching product from Supabase, falling back to local data:', error);
+      console.error('Error fetching product by ID from Supabase, falling back to local data:', error);
       return localProducts.find(p => p.id === id) || null;
     }
 
     if (!data) {
-      // Fall back to local data
       return localProducts.find(p => p.id === id) || null;
     }
 
-    return {
-      id: data.id,
-      name: data.name,
-      description: data.description,
-      category: data.category,
-      priceUSD: parseFloat(data.price_usd),
-      priceEUR: parseFloat(data.price_eur || 0),
-      rating: parseFloat(data.rating),
-      sizes: data.sizes,
-      image: data.image,
-      imageAlt: data.image_alt,
-      benefits: data.benefits || [],
-      ingredients: data.ingredients || [],
-      usage: data.usage,
-      variants: data.variants || [],
-    };
+    return rowToProduct(data);
   } catch (error) {
-    console.error('Failed to fetch product from Supabase, falling back to local data:', error);
+    console.error('Failed to fetch product by ID from Supabase, falling back to local data:', error);
     return localProducts.find(p => p.id === id) || null;
   }
 }
 
+// ─── fetchProductsByCategory ──────────────────────────────────────────────────
+
 /**
- * Fetch products by category, with fallback to local data
+ * Fetch products by category from Supabase, with fallback to local data.
  */
 export async function fetchProductsByCategory(category: string): Promise<Product[]> {
-  // Check if Supabase is configured
   if (!isSupabaseConfigured()) {
     console.log('Supabase not configured, filtering local product data');
     return localProducts.filter(p => p.category === category);
@@ -143,7 +136,6 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       .from('products')
       .select('*')
       .eq('category', category)
-      .eq('in_stock', true)
       .order('name');
 
     if (error) {
@@ -151,36 +143,22 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       return localProducts.filter(p => p.category === category);
     }
 
-    // If no data in Supabase, fall back to local products
     if (!data || data.length === 0) {
       console.log('No products in Supabase for category, using local product data');
       return localProducts.filter(p => p.category === category);
     }
 
-    return (data || []).map((row: any) => ({
-      id: row.id,
-      name: row.name,
-      description: row.description,
-      category: row.category,
-      priceUSD: parseFloat(row.price_usd),
-      priceEUR: parseFloat(row.price_eur || 0),
-      rating: parseFloat(row.rating),
-      sizes: row.sizes,
-      image: row.image,
-      imageAlt: row.image_alt,
-      benefits: row.benefits || [],
-      ingredients: row.ingredients || [],
-      usage: row.usage,
-      variants: row.variants || [],
-    }));
+    return data.map(rowToProduct);
   } catch (error) {
     console.error('Failed to fetch products by category from Supabase, falling back to local data:', error);
     return localProducts.filter(p => p.category === category);
   }
 }
 
+// ─── createProduct ────────────────────────────────────────────────────────────
+
 /**
- * Create a new product (admin only)
+ * Create a new product (admin only).
  */
 export async function createProduct(product: Omit<Product, 'id'>): Promise<Product | null> {
   try {
@@ -201,8 +179,9 @@ export async function createProduct(product: Omit<Product, 'id'>): Promise<Produ
           benefits: product.benefits || [],
           ingredients: product.ingredients || [],
           usage: product.usage,
+          series_info: product.seriesInfo,
           variants: product.variants || [],
-          in_stock: true,
+          in_stock: product.in_stock !== false,
         },
       ])
       .select()
@@ -213,50 +192,37 @@ export async function createProduct(product: Omit<Product, 'id'>): Promise<Produ
       return null;
     }
 
-    if (!data) return null;
-
-    return {
-      id: data.id,
-      name: data.name,
-      description: data.description,
-      category: data.category,
-      priceUSD: parseFloat(data.price_usd),
-      priceEUR: parseFloat(data.price_eur || 0),
-      rating: parseFloat(data.rating),
-      sizes: data.sizes,
-      image: data.image,
-      imageAlt: data.image_alt,
-      benefits: data.benefits || [],
-      ingredients: data.ingredients || [],
-      usage: data.usage,
-      variants: data.variants || [],
-    };
+    return data ? rowToProduct(data) : null;
   } catch (error) {
     console.error('Failed to create product:', error);
     return null;
   }
 }
 
+// ─── updateProduct ────────────────────────────────────────────────────────────
+
 /**
- * Update a product (admin only)
+ * Update a product (admin only).
  */
 export async function updateProduct(id: string, updates: Partial<Product>): Promise<Product | null> {
   try {
     const payload: any = {};
-    
-    if (updates.name) payload.name = updates.name;
-    if (updates.description) payload.description = updates.description;
-    if (updates.category) payload.category = updates.category;
-    if (updates.priceUSD) payload.price_usd = updates.priceUSD;
-    if (updates.priceEUR) payload.price_eur = updates.priceEUR;
+
+    if (updates.name !== undefined) payload.name = updates.name;
+    if (updates.description !== undefined) payload.description = updates.description;
+    if (updates.category !== undefined) payload.category = updates.category;
+    if (updates.priceUSD !== undefined) payload.price_usd = updates.priceUSD;
+    if (updates.priceEUR !== undefined) payload.price_eur = updates.priceEUR;
     if (updates.rating !== undefined) payload.rating = updates.rating;
-    if (updates.image) payload.image = updates.image;
-    if (updates.imageAlt) payload.image_alt = updates.imageAlt;
-    if (updates.sizes) payload.sizes = updates.sizes;
-    if (updates.benefits) payload.benefits = updates.benefits;
-    if (updates.ingredients) payload.ingredients = updates.ingredients;
-    if (updates.usage) payload.usage = updates.usage;
-    if (updates.variants) payload.variants = updates.variants;
+    if (updates.image !== undefined) payload.image = updates.image;
+    if (updates.imageAlt !== undefined) payload.image_alt = updates.imageAlt;
+    if (updates.sizes !== undefined) payload.sizes = updates.sizes;
+    if (updates.benefits !== undefined) payload.benefits = updates.benefits;
+    if (updates.ingredients !== undefined) payload.ingredients = updates.ingredients;
+    if (updates.usage !== undefined) payload.usage = updates.usage;
+    if (updates.seriesInfo !== undefined) payload.series_info = updates.seriesInfo;
+    if (updates.variants !== undefined) payload.variants = updates.variants;
+    if (updates.in_stock !== undefined) payload.in_stock = updates.in_stock;
 
     const { data, error } = await supabase
       .from('products')
@@ -270,32 +236,17 @@ export async function updateProduct(id: string, updates: Partial<Product>): Prom
       return null;
     }
 
-    if (!data) return null;
-
-    return {
-      id: data.id,
-      name: data.name,
-      description: data.description,
-      category: data.category,
-      priceUSD: parseFloat(data.price_usd),
-      priceEUR: parseFloat(data.price_eur || 0),
-      rating: parseFloat(data.rating),
-      sizes: data.sizes,
-      image: data.image,
-      imageAlt: data.image_alt,
-      benefits: data.benefits || [],
-      ingredients: data.ingredients || [],
-      usage: data.usage,
-      variants: data.variants || [],
-    };
+    return data ? rowToProduct(data) : null;
   } catch (error) {
     console.error('Failed to update product:', error);
     return null;
   }
 }
 
+// ─── deleteProduct ────────────────────────────────────────────────────────────
+
 /**
- * Delete a product (admin only)
+ * Delete a product (admin only).
  */
 export async function deleteProduct(id: string): Promise<boolean> {
   try {

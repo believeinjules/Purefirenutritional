@@ -26,12 +26,11 @@ export default function About() {
           </div>
           
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            About Pure Fire Nutritional
+            Where Mind Meets Body
           </h1>
           
           <p className="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto leading-relaxed">
-            Pioneering the future of health optimization through scientifically-backed supplements, 
-            anti-aging solutions, and exclusive peptide bioregulators
+            Pure Fire Nutritional was built at the intersection of mental wellness and physical performance — because true resilience requires both.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -222,14 +221,13 @@ export default function About() {
                 Our Mission
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                At Pure Fire Nutritional, we believe that optimal health and longevity should be 
-                accessible to everyone. Our mission is to bridge the gap between cutting-edge 
-                scientific research and practical health solutions.
+                We believe wellness begins with understanding. The body and mind are adaptive systems — constantly responding to environment, stress, recovery, behavior, and awareness.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
-                We are committed to providing the highest quality supplements, backed by rigorous 
-                research and manufactured to pharmaceutical standards, helping our customers achieve 
-                their health and longevity goals.
+              <p className="text-lg text-gray-600 mb-6">
+                Our goal is not simply to offer products, but to support informed, empowered approaches to cognitive vitality, resilience, longevity, and whole-person wellness. We curate only what we trust — products we use ourselves and would give to our families.
+              </p>
+              <p className="text-lg text-gray-800 font-medium italic mb-8">
+                "Because some perspectives create limitation. Others create possibility."
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/products">
@@ -364,10 +362,10 @@ export default function About() {
       <section className="py-20 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Join Our Health Community
+            Begin with Understanding
           </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Start your journey to optimal health and longevity with Pure Fire Nutritional
+          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+            Explore our evidence-informed wellness tools — or let our AI Assistant help you find what aligns with your goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/products">
@@ -375,17 +373,17 @@ export default function About() {
                 size="lg" 
                 className="bg-white text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg font-semibold rounded-full"
               >
-                Shop Products
+                Explore Wellness Tools
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/signup">
+            <Link to="/ai-assistant">
               <Button 
                 variant="outline" 
                 size="lg"
                 className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg rounded-full backdrop-blur-sm"
               >
-                Create Account
+                Talk to the AI Assistant
                 <Users className="ml-2 h-5 w-5" />
               </Button>
             </Link>
