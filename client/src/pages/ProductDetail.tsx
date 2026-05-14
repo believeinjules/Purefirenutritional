@@ -107,6 +107,22 @@ export default function ProductDetail() {
       <Helmet>
         <title>{product.name} | Pure Fire Nutritional</title>
         <meta name="description" content={`${product.name} — ${product.description?.slice(0, 150) ?? "Premium peptide bioregulator from Pure Fire Nutritional."}`.replace(/\s+/g, " ").trim()} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": product.name,
+          "description": product.description ?? "",
+          "brand": { "@type": "Brand", "name": "Pure Fire Nutritional" },
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": currentPrice.toFixed(2),
+            "availability": (selectedVariant ? selectedVariant.inStock : product.in_stock) !== false
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+            "url": `https://www.purefirenutritional.com/products/${product.id}`
+          }
+        })}</script>
       </Helmet>
       <Navigation />
       <main className="flex-1">

@@ -9,6 +9,15 @@ export default function ArticleCytomaxesCytogens() {
       <Helmet>
         <title>Cytomaxes vs Cytogens: What's the Difference? | Pure Fire Nutritional</title>
         <meta name="description" content="Understand the difference between natural Cytomaxes and synthetic Cytogens — two types of Khavinson peptide bioregulators — and how to choose between them for your wellness goals." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Cytomaxes vs Cytogens: Understanding the Two Types of Khavinson Peptides",
+          "description": "Understand the difference between natural Cytomaxes and synthetic Cytogens — two types of Khavinson peptide bioregulators — and how to choose between them.",
+          "datePublished": "2026-05-14",
+          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "url": "https://www.purefirenutritional.com/learn/cytomaxes-vs-cytogens"
+        })}</script>
       </Helmet>
       <Navigation />
       <main className="flex-1">

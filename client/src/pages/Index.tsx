@@ -133,6 +133,23 @@ export default function Index() {
       <Helmet>
         <title>Khavinson Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional</title>
         <meta name="description" content="Pure Fire Nutritional is the exclusive US retailer of Khavinson peptide bioregulators. Shop Cytomaxes, Cytogens, anti-aging supplements, and longevity solutions backed by 40+ years of research." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Pure Fire Nutritional",
+          "url": "https://www.purefirenutritional.com",
+          "logo": "https://www.purefirenutritional.com/logo-flame.jpeg",
+          "telephone": "(315) 567-7931",
+          "email": "info@purefirenutritional.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "505 Brighton Beach Ave 2nd FL",
+            "addressLocality": "Brooklyn",
+            "addressRegion": "NY",
+            "postalCode": "11234",
+            "addressCountry": "US"
+          }
+        })}</script>
       </Helmet>
       <Navigation />
 

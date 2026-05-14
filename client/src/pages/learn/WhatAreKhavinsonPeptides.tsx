@@ -9,6 +9,15 @@ export default function ArticleKhavinsonPeptides() {
       <Helmet>
         <title>What Are Khavinson Peptide Bioregulators? | Pure Fire Nutritional</title>
         <meta name="description" content="Learn what peptide bioregulators are, who Professor Vladimir Khavinson is, and the 40+ years of research behind Cytomaxes and Cytogens — available exclusively in the US through Pure Fire Nutritional." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "What Are Khavinson Peptide Bioregulators?",
+          "description": "Learn what peptide bioregulators are, who Professor Vladimir Khavinson is, and the 40+ years of research behind Cytomaxes and Cytogens.",
+          "datePublished": "2026-05-14",
+          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "url": "https://www.purefirenutritional.com/learn/what-are-khavinson-peptide-bioregulators"
+        })}</script>
       </Helmet>
       <Navigation />
       <main className="flex-1">

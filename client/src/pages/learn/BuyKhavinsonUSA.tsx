@@ -9,6 +9,15 @@ export default function ArticleBuyKhavinsonUSA() {
       <Helmet>
         <title>Where to Buy Khavinson Peptides in the United States | Pure Fire Nutritional</title>
         <meta name="description" content="Khavinson peptide bioregulators are largely unavailable in the US market. Learn about the authenticity problem with other sources and why Pure Fire Nutritional is the verified exclusive US retailer." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Khavinson Peptides in the United States: What You Need to Know",
+          "description": "Khavinson peptide bioregulators are largely unavailable in the US market. Learn about the authenticity problem with other sources and why Pure Fire Nutritional is the verified exclusive US retailer.",
+          "datePublished": "2026-05-14",
+          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "url": "https://www.purefirenutritional.com/learn/buy-khavinson-peptides-usa"
+        })}</script>
       </Helmet>
       <Navigation />
       <main className="flex-1">
