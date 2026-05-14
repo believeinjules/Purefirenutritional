@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, Star, ShoppingCart, Plus, Minus, Heart, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -103,6 +104,10 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <Helmet>
+        <title>{product.name} | Pure Fire Nutritional</title>
+        <meta name="description" content={`${product.name} — ${product.description?.slice(0, 150) ?? "Premium peptide bioregulator from Pure Fire Nutritional."}`.replace(/\s+/g, " ").trim()} />
+      </Helmet>
       <Navigation />
       <main className="flex-1">
         <div className="max-w-7xl mx-auto px-4 py-8">
