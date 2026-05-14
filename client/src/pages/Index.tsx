@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -129,6 +130,10 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <Helmet>
+        <title>Khavinson Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional</title>
+        <meta name="description" content="Pure Fire Nutritional is the exclusive US retailer of Khavinson peptide bioregulators. Shop Cytomaxes, Cytogens, anti-aging supplements, and longevity solutions backed by 40+ years of research." />
+      </Helmet>
       <Navigation />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}

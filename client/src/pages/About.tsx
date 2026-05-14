@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +9,10 @@ import { Link } from 'wouter';
 export default function About() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-orange-50 to-amber-50">
+      <Helmet>
+        <title>About Pure Fire Nutritional | Exclusive US Khavinson Peptide Retailer</title>
+        <meta name="description" content="Learn about Pure Fire Nutritional — the exclusive US retailer of Khavinson peptide bioregulators. Our mission is evidence-informed wellness for cognitive vitality, resilience, and longevity." />
+      </Helmet>
       {/* Hero Section */}
       <section className="relative py-16 sm:py-20 md:py-24 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white">
         <div className="absolute inset-0 bg-white/10"></div>

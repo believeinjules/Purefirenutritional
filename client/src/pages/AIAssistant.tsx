@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, ShoppingCart, AlertTriangle, ExternalLink, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -234,6 +235,10 @@ export default function AIAssistant() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>AI Health Optimizer | Pure Fire Nutritional</title>
+        <meta name="description" content="Use our AI Health Optimizer to find the right peptide bioregulators and longevity supplements for your wellness goals. Personalized recommendations backed by science." />
+      </Helmet>
       <Navigation />
 
       {/* Disclaimer Modal */}

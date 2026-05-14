@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Star, ShoppingCart, Search, SlidersHorizontal } from "lucide-react";
@@ -114,6 +115,10 @@ export default function Products() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      <Helmet>
+        <title>Shop Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional</title>
+        <meta name="description" content="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Exclusive US retailer." />
+      </Helmet>
       <Navigation />
 
       <main className="flex-1">

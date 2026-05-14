@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { ChevronDown, Phone, Mail, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -139,6 +140,10 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>Frequently Asked Questions | Pure Fire Nutritional</title>
+        <meta name="description" content="Get answers to common questions about Khavinson peptide bioregulators, ordering, shipping, and how our products support longevity and wellness." />
+      </Helmet>
       <Navigation />
 
       <main className="flex-1 bg-gray-50 py-12">
