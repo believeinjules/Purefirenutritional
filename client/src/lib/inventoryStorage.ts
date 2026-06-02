@@ -1,4 +1,17 @@
-import { supabase, isSupabaseConfigured } from './supabase';
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  setDoc,
+  updateDoc,
+  query,
+  where,
+  orderBy,
+  limit,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db, isFirebaseConfigured } from "./firebase";
 
 export interface ProductInventory {
   id: string;
@@ -15,7 +28,7 @@ export interface ProductInventory {
 export interface InventoryHistory {
   id: string;
   productId: string;
-  changeType: 'restock' | 'sale' | 'adjustment' | 'return';
+  changeType: "restock" | "sale" | "adjustment" | "return";
   quantityChange: number;
   quantityBefore: number;
   quantityAfter: number;
@@ -24,189 +37,148 @@ export interface InventoryHistory {
   createdAt: string;
 }
 
-// Get inventory for a specific product
+function docToInventory(id: string, data: any): ProductInventory {
+  return {
+    id,
+    productId: data.productId,
+    stockQuantity: data.stockQuantity ?? 0,
+    lowStockThreshold: data.lowStockThreshold ?? 10,
+    isInStock: data.isInStock ?? true,
+    isAvailable: data.isAvailable ?? true,
+    lastRestockedAt: data.lastRestockedAt?.toDate?.()?.toISOString(),
+    lastUpdatedAt: data.lastUpdatedAt?.toDate?.()?.toISOString() ?? new Date().toISOString(),
+    createdAt: data.createdAt?.toDate?.()?.toISOString() ?? new Date().toISOString(),
+  };
+}
+
+function docToHistory(id: string, data: any): InventoryHistory {
+  return {
+    id,
+    productId: data.productId,
+    changeType: data.changeType,
+    quantityChange: data.quantityChange,
+    quantityBefore: data.quantityBefore,
+    quantityAfter: data.quantityAfter,
+    notes: data.notes,
+    adminUser: data.adminUser,
+    createdAt: data.createdAt?.toDate?.()?.toISOString() ?? new Date().toISOString(),
+  };
+}
+
 export async function getProductInventory(productId: string): Promise<ProductInventory | null> {
-  if (!isSupabaseConfigured()) {
-    return getLocalInventory(productId);
-  }
+  if (!isFirebaseConfigured()) return getLocalInventory(productId);
 
   try {
-    const { data, error } = await supabase
-      .from('product_inventory')
-      .select('*')
-      .eq('product_id', productId)
-      .single();
-
-    if (error) throw error;
-    
-    return data ? mapInventoryFromDb(data) : null;
-  } catch (error) {
-    console.error('Error fetching inventory:', error);
+    const snap = await getDoc(doc(db, "product_inventory", productId));
+    return snap.exists() ? docToInventory(snap.id, snap.data()) : null;
+  } catch (err) {
+    console.error("Error fetching inventory:", err);
     return getLocalInventory(productId);
   }
 }
 
-// Get all inventory records
 export async function getAllInventory(): Promise<ProductInventory[]> {
-  if (!isSupabaseConfigured()) {
-    return getAllLocalInventory();
-  }
+  if (!isFirebaseConfigured()) return getAllLocalInventory();
 
   try {
-    const { data, error } = await supabase
-      .from('product_inventory')
-      .select('*')
-      .order('last_updated_at', { ascending: false });
-
-    if (error) throw error;
-    
-    return data ? data.map(mapInventoryFromDb) : [];
-  } catch (error) {
-    console.error('Error fetching all inventory:', error);
+    const q = query(collection(db, "product_inventory"), orderBy("lastUpdatedAt", "desc"));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((d) => docToInventory(d.id, d.data()));
+  } catch (err) {
+    console.error("Error fetching all inventory:", err);
     return getAllLocalInventory();
   }
 }
 
-// Get low stock products
 export async function getLowStockProducts(): Promise<ProductInventory[]> {
-  if (!isSupabaseConfigured()) {
-    return getAllLocalInventory().filter(inv => 
-      inv.stockQuantity <= inv.lowStockThreshold && inv.isAvailable
+  if (!isFirebaseConfigured()) {
+    return getAllLocalInventory().filter(
+      (inv) => inv.stockQuantity <= inv.lowStockThreshold && inv.isAvailable
     );
   }
 
   try {
-    const { data, error } = await supabase
-      .from('product_inventory')
-      .select('*')
-      .filter('is_available', 'eq', true)
-      .filter('stock_quantity', 'lte', 'low_stock_threshold');
-
-    if (error) throw error;
-    
-    return data ? data.map(mapInventoryFromDb) : [];
-  } catch (error) {
-    console.error('Error fetching low stock products:', error);
+    const q = query(
+      collection(db, "product_inventory"),
+      where("isAvailable", "==", true)
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs
+      .map((d) => docToInventory(d.id, d.data()))
+      .filter((inv) => inv.stockQuantity <= inv.lowStockThreshold);
+  } catch (err) {
+    console.error("Error fetching low stock products:", err);
     return [];
   }
 }
 
-// Update inventory
 export async function updateInventory(
   productId: string,
   updates: Partial<ProductInventory>
 ): Promise<ProductInventory | null> {
-  if (!isSupabaseConfigured()) {
-    return updateLocalInventory(productId, updates);
-  }
+  if (!isFirebaseConfigured()) return updateLocalInventory(productId, updates);
 
   try {
-    const dbUpdates: any = {};
-    if (updates.stockQuantity !== undefined) dbUpdates.stock_quantity = updates.stockQuantity;
-    if (updates.lowStockThreshold !== undefined) dbUpdates.low_stock_threshold = updates.lowStockThreshold;
-    if (updates.isInStock !== undefined) dbUpdates.is_in_stock = updates.isInStock;
-    if (updates.isAvailable !== undefined) dbUpdates.is_available = updates.isAvailable;
-    if (updates.lastRestockedAt !== undefined) dbUpdates.last_restocked_at = updates.lastRestockedAt;
+    const payload: any = { lastUpdatedAt: serverTimestamp() };
+    if (updates.stockQuantity !== undefined) payload.stockQuantity = updates.stockQuantity;
+    if (updates.lowStockThreshold !== undefined) payload.lowStockThreshold = updates.lowStockThreshold;
+    if (updates.isInStock !== undefined) payload.isInStock = updates.isInStock;
+    if (updates.isAvailable !== undefined) payload.isAvailable = updates.isAvailable;
+    if (updates.lastRestockedAt !== undefined) payload.lastRestockedAt = updates.lastRestockedAt;
 
-    const { data, error } = await supabase
-      .from('product_inventory')
-      .update(dbUpdates)
-      .eq('product_id', productId)
-      .select()
-      .single();
-
-    if (error) throw error;
-    
-    return data ? mapInventoryFromDb(data) : null;
-  } catch (error) {
-    console.error('Error updating inventory:', error);
+    const ref = doc(db, "product_inventory", productId);
+    await updateDoc(ref, payload);
+    const snap = await getDoc(ref);
+    return snap.exists() ? docToInventory(snap.id, snap.data()) : null;
+  } catch (err) {
+    console.error("Error updating inventory:", err);
     return updateLocalInventory(productId, updates);
   }
 }
 
-// Create inventory record
-export async function createInventory(inventory: Omit<ProductInventory, 'id' | 'createdAt' | 'lastUpdatedAt'>): Promise<ProductInventory | null> {
-  if (!isSupabaseConfigured()) {
-    return createLocalInventory(inventory);
-  }
+export async function createInventory(
+  inventory: Omit<ProductInventory, "id" | "createdAt" | "lastUpdatedAt">
+): Promise<ProductInventory | null> {
+  if (!isFirebaseConfigured()) return createLocalInventory(inventory);
 
   try {
-    const { data, error } = await supabase
-      .from('product_inventory')
-      .insert({
-        product_id: inventory.productId,
-        stock_quantity: inventory.stockQuantity,
-        low_stock_threshold: inventory.lowStockThreshold,
-        is_in_stock: inventory.isInStock,
-        is_available: inventory.isAvailable,
-        last_restocked_at: inventory.lastRestockedAt
-      })
-      .select()
-      .single();
-
-    if (error) throw error;
-    
-    return data ? mapInventoryFromDb(data) : null;
-  } catch (error) {
-    console.error('Error creating inventory:', error);
+    const data = {
+      productId: inventory.productId,
+      stockQuantity: inventory.stockQuantity,
+      lowStockThreshold: inventory.lowStockThreshold,
+      isInStock: inventory.isInStock,
+      isAvailable: inventory.isAvailable,
+      lastRestockedAt: inventory.lastRestockedAt ?? null,
+      createdAt: serverTimestamp(),
+      lastUpdatedAt: serverTimestamp(),
+    };
+    await setDoc(doc(db, "product_inventory", inventory.productId), data);
+    return docToInventory(inventory.productId, { ...data, createdAt: { toDate: () => new Date() }, lastUpdatedAt: { toDate: () => new Date() } });
+  } catch (err) {
+    console.error("Error creating inventory:", err);
     return createLocalInventory(inventory);
   }
 }
 
-// Get inventory history
 export async function getInventoryHistory(productId: string): Promise<InventoryHistory[]> {
-  if (!isSupabaseConfigured()) {
-    return getLocalInventoryHistory(productId);
-  }
+  if (!isFirebaseConfigured()) return getLocalInventoryHistory(productId);
 
   try {
-    const { data, error } = await supabase
-      .from('inventory_history')
-      .select('*')
-      .eq('product_id', productId)
-      .order('created_at', { ascending: false })
-      .limit(50);
-
-    if (error) throw error;
-    
-    return data ? data.map(mapHistoryFromDb) : [];
-  } catch (error) {
-    console.error('Error fetching inventory history:', error);
+    const q = query(
+      collection(db, "inventory_history"),
+      where("productId", "==", productId),
+      orderBy("createdAt", "desc"),
+      limit(50)
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((d) => docToHistory(d.id, d.data()));
+  } catch (err) {
+    console.error("Error fetching inventory history:", err);
     return getLocalInventoryHistory(productId);
   }
 }
 
-// Helper: Map database record to ProductInventory
-function mapInventoryFromDb(data: any): ProductInventory {
-  return {
-    id: data.id,
-    productId: data.product_id,
-    stockQuantity: data.stock_quantity,
-    lowStockThreshold: data.low_stock_threshold,
-    isInStock: data.is_in_stock,
-    isAvailable: data.is_available,
-    lastRestockedAt: data.last_restocked_at,
-    lastUpdatedAt: data.last_updated_at,
-    createdAt: data.created_at
-  };
-}
-
-// Helper: Map database record to InventoryHistory
-function mapHistoryFromDb(data: any): InventoryHistory {
-  return {
-    id: data.id,
-    productId: data.product_id,
-    changeType: data.change_type,
-    quantityChange: data.quantity_change,
-    quantityBefore: data.quantity_before,
-    quantityAfter: data.quantity_after,
-    notes: data.notes,
-    adminUser: data.admin_user,
-    createdAt: data.created_at
-  };
-}
-
-// ===== LOCAL STORAGE FALLBACK =====
+// ─── localStorage fallback ────────────────────────────────────────────────────
 
 function getLocalInventory(productId: string): ProductInventory | null {
   const stored = localStorage.getItem(`inventory_${productId}`);
@@ -217,7 +189,7 @@ function getAllLocalInventory(): ProductInventory[] {
   const inventory: ProductInventory[] = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key?.startsWith('inventory_')) {
+    if (key?.startsWith("inventory_")) {
       const data = localStorage.getItem(key);
       if (data) inventory.push(JSON.parse(data));
     }
@@ -225,29 +197,33 @@ function getAllLocalInventory(): ProductInventory[] {
   return inventory;
 }
 
-function updateLocalInventory(productId: string, updates: Partial<ProductInventory>): ProductInventory {
+function updateLocalInventory(
+  productId: string,
+  updates: Partial<ProductInventory>
+): ProductInventory {
   const existing = getLocalInventory(productId) || {
-    id: crypto.randomUUID(),
+    id: productId,
     productId,
     stockQuantity: 100,
     lowStockThreshold: 10,
     isInStock: true,
     isAvailable: true,
     lastUpdatedAt: new Date().toISOString(),
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
-
   const updated = { ...existing, ...updates, lastUpdatedAt: new Date().toISOString() };
   localStorage.setItem(`inventory_${productId}`, JSON.stringify(updated));
   return updated;
 }
 
-function createLocalInventory(inventory: Omit<ProductInventory, 'id' | 'createdAt' | 'lastUpdatedAt'>): ProductInventory {
+function createLocalInventory(
+  inventory: Omit<ProductInventory, "id" | "createdAt" | "lastUpdatedAt">
+): ProductInventory {
   const newInventory: ProductInventory = {
     ...inventory,
-    id: crypto.randomUUID(),
+    id: inventory.productId,
     createdAt: new Date().toISOString(),
-    lastUpdatedAt: new Date().toISOString()
+    lastUpdatedAt: new Date().toISOString(),
   };
   localStorage.setItem(`inventory_${inventory.productId}`, JSON.stringify(newInventory));
   return newInventory;

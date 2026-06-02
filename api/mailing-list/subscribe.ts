@@ -1,82 +1,59 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-import { createClient } from '@supabase/supabase-js';
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import { initializeApp, getApps, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+if (getApps().length === 0) {
+  initializeApp({
+    credential: cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    }),
+  });
+}
 
-const supabase = createClient(
-  supabaseUrl || '',
-  supabaseServiceKey || '',
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
-    }
-  }
-);
+const db = getFirestore();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { email, name, source = 'website' } = req.body;
+    const { email, name, source = "website" } = req.body;
 
     if (!email) {
-      return res.status(400).json({ error: 'Email is required' });
+      return res.status(400).json({ error: "Email is required" });
     }
 
-    // Check if already subscribed
-    const { data: existing } = await supabase
-      .from('mailing_list')
-      .select('*')
-      .eq('email', email)
-      .single();
+    const ref = db.collection("mailing_list").doc(email.toLowerCase());
+    const existing = await ref.get();
 
-    if (existing) {
-      if (existing.subscribed) {
-        return res.json({
-          message: 'Already subscribed',
-          alreadySubscribed: true
-        });
-      } else {
-        // Resubscribe
-        await supabase
-          .from('mailing_list')
-          .update({
-            subscribed: true,
-            subscribed_at: new Date().toISOString(),
-            unsubscribed_at: null
-          })
-          .eq('email', email);
-
-        return res.json({
-          message: 'Successfully resubscribed!',
-          success: true
-        });
+    if (existing.exists) {
+      const data = existing.data()!;
+      if (data.subscribed) {
+        return res.json({ message: "Already subscribed", alreadySubscribed: true });
       }
+      await ref.update({
+        subscribed: true,
+        subscribedAt: new Date().toISOString(),
+        unsubscribedAt: null,
+      });
+      return res.json({ message: "Successfully resubscribed!", success: true });
     }
 
-    // New subscription
-    const { error } = await supabase
-      .from('mailing_list')
-      .insert({
-        email,
-        name,
-        source,
-        subscribed: true,
-        confirmed: false
-      });
-
-    if (error) throw error;
-
-    res.json({
-      message: 'Successfully subscribed!',
-      success: true
+    await ref.set({
+      email: email.toLowerCase(),
+      name: name || null,
+      source,
+      subscribed: true,
+      confirmed: false,
+      subscribedAt: new Date().toISOString(),
     });
+
+    res.json({ message: "Successfully subscribed!", success: true });
   } catch (error) {
-    console.error('Mailing list subscription error:', error);
-    res.status(500).json({ error: 'Failed to subscribe' });
+    console.error("Mailing list subscription error:", error);
+    res.status(500).json({ error: "Failed to subscribe" });
   }
 }

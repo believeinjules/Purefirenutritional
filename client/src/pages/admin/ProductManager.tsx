@@ -54,7 +54,10 @@ import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { fetchProducts, Product } from "@/lib/productsStorage";
-import { supabase } from "@/lib/supabase";
+import { db, storage } from "@/lib/firebase";
+import { doc, deleteDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { setDoc, updateDoc } from "firebase/firestore";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -253,19 +256,12 @@ export default function ProductManager() {
     try {
       const ext = file.name.split(".").pop();
       const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      const path = `products/${filename}`;
+      const storageRef = ref(storage, `products/${filename}`);
 
-      const { error: uploadError } = await supabase.storage
-        .from("product-images")
-        .upload(path, file, { upsert: true });
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
 
-      if (uploadError) throw uploadError;
-
-      const { data } = supabase.storage
-        .from("product-images")
-        .getPublicUrl(path);
-
-      setForm((prev) => ({ ...prev, image: data.publicUrl }));
+      setForm((prev) => ({ ...prev, image: downloadURL }));
       toast.success("Image uploaded");
     } catch (err: any) {
       toast.error(`Upload failed: ${err?.message ?? "Unknown error"}`);
@@ -289,8 +285,12 @@ export default function ProductManager() {
     setSaving(true);
     try {
       const row = formToRow(form);
-      const { error } = await supabase.from("products").upsert(row);
-      if (error) throw error;
+      const docRef = doc(db, "products", row.id);
+      if (isEditing) {
+        await updateDoc(docRef, row);
+      } else {
+        await setDoc(docRef, row);
+      }
 
       toast.success(isEditing ? "Product updated" : "Product created");
       setSheetOpen(false);
@@ -308,12 +308,7 @@ export default function ProductManager() {
     if (!deleteTarget) return;
     setDeleting(true);
     try {
-      const { error } = await supabase
-        .from("products")
-        .delete()
-        .eq("id", deleteTarget);
-      if (error) throw error;
-
+      await deleteDoc(doc(db, "products", deleteTarget));
       toast.success("Product deleted");
       setDeleteTarget(null);
       await loadProducts();

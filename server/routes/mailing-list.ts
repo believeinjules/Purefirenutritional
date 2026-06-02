@@ -1,150 +1,121 @@
-import { Router, Request, Response } from 'express';
-import { supabase } from '../lib/supabase.js';
-import { logError, logAPICall } from '../logger.js';
+import { Router, Request, Response } from "express";
+import { adminDb } from "../lib/firebase.js";
+import { logError, logAPICall } from "../logger.js";
 
 const router = Router();
 
 // POST /api/mailing-list/subscribe
-// Subscribe to mailing list
-router.post('/subscribe', async (req: Request, res: Response) => {
+router.post("/subscribe", async (req: Request, res: Response) => {
   const startTime = Date.now();
-  
+
   try {
-    const { email, name, source = 'website' } = req.body;
-    
+    const { email, name, source = "website" } = req.body;
+
     if (!email) {
-      return res.status(400).json({ error: 'Email is required' });
+      return res.status(400).json({ error: "Email is required" });
     }
-    
-    // Check if already subscribed
-    const { data: existing } = await supabase
-      .from('mailing_list')
-      .select('*')
-      .eq('email', email)
-      .single();
-    
-    if (existing) {
-      if (existing.subscribed) {
-        return res.json({ 
-          message: 'Already subscribed',
-          alreadySubscribed: true 
-        });
-      } else {
-        // Resubscribe
-        await supabase
-          .from('mailing_list')
-          .update({ 
-            subscribed: true,
-            subscribed_at: new Date().toISOString(),
-            unsubscribed_at: null
-          })
-          .eq('email', email);
-        
-        return res.json({ 
-          message: 'Successfully resubscribed!',
-          success: true 
-        });
+
+    const ref = adminDb.collection("mailing_list").doc(email.toLowerCase());
+    const existing = await ref.get();
+
+    if (existing.exists) {
+      const data = existing.data()!;
+      if (data.subscribed) {
+        return res.json({ message: "Already subscribed", alreadySubscribed: true });
       }
-    }
-    
-    // New subscription
-    const { error } = await supabase
-      .from('mailing_list')
-      .insert({
-        email,
-        name,
-        source,
+      // Resubscribe
+      await ref.update({
         subscribed: true,
-        confirmed: false,
+        subscribedAt: new Date().toISOString(),
+        unsubscribedAt: null,
       });
-    
-    if (error) throw error;
-    
+      return res.json({ message: "Successfully resubscribed!", success: true });
+    }
+
+    // New subscription
+    await ref.set({
+      email: email.toLowerCase(),
+      name: name || null,
+      source,
+      subscribed: true,
+      confirmed: false,
+      subscribedAt: new Date().toISOString(),
+    });
+
     logAPICall({
-      endpoint: '/api/mailing-list/subscribe',
-      method: 'POST',
+      endpoint: "/api/mailing-list/subscribe",
+      method: "POST",
       statusCode: 200,
-      responseTime: Date.now() - startTime
+      responseTime: Date.now() - startTime,
     });
-    
-    res.json({ 
-      message: 'Successfully subscribed!',
-      success: true 
-    });
+
+    res.json({ message: "Successfully subscribed!", success: true });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    
+
     logError({
       error: errorMessage,
       stack: error instanceof Error ? error.stack : undefined,
-      endpoint: '/api/mailing-list/subscribe',
-      context: 'Mailing list subscription'
+      endpoint: "/api/mailing-list/subscribe",
+      context: "Mailing list subscription",
     });
-    
+
     logAPICall({
-      endpoint: '/api/mailing-list/subscribe',
-      method: 'POST',
+      endpoint: "/api/mailing-list/subscribe",
+      method: "POST",
       statusCode: 500,
       responseTime: Date.now() - startTime,
-      error: errorMessage
+      error: errorMessage,
     });
-    
-    res.status(500).json({ error: 'Failed to subscribe' });
+
+    res.status(500).json({ error: "Failed to subscribe" });
   }
 });
 
 // POST /api/mailing-list/unsubscribe
-// Unsubscribe from mailing list
-router.post('/unsubscribe', async (req: Request, res: Response) => {
+router.post("/unsubscribe", async (req: Request, res: Response) => {
   const startTime = Date.now();
-  
+
   try {
     const { email } = req.body;
-    
+
     if (!email) {
-      return res.status(400).json({ error: 'Email is required' });
+      return res.status(400).json({ error: "Email is required" });
     }
-    
-    const { error } = await supabase
-      .from('mailing_list')
-      .update({ 
-        subscribed: false,
-        unsubscribed_at: new Date().toISOString()
-      })
-      .eq('email', email);
-    
-    if (error) throw error;
-    
+
+    const ref = adminDb.collection("mailing_list").doc(email.toLowerCase());
+    await ref.update({
+      subscribed: false,
+      unsubscribedAt: new Date().toISOString(),
+    });
+
     logAPICall({
-      endpoint: '/api/mailing-list/unsubscribe',
-      method: 'POST',
+      endpoint: "/api/mailing-list/unsubscribe",
+      method: "POST",
       statusCode: 200,
-      responseTime: Date.now() - startTime
+      responseTime: Date.now() - startTime,
     });
-    
-    res.json({ 
-      message: 'Successfully unsubscribed',
-      success: true 
-    });
+
+    res.json({ message: "Successfully unsubscribed", success: true });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    
+
     logError({
       error: errorMessage,
       stack: error instanceof Error ? error.stack : undefined,
-      endpoint: '/api/mailing-list/unsubscribe',
-      context: 'Mailing list unsubscribe'
+      endpoint: "/api/mailing-list/unsubscribe",
+      context: "Mailing list unsubscribe",
     });
-    
+
     logAPICall({
-      endpoint: '/api/mailing-list/unsubscribe',
-      method: 'POST',
+      endpoint: "/api/mailing-list/unsubscribe",
+      method: "POST",
       statusCode: 500,
       responseTime: Date.now() - startTime,
-      error: errorMessage
+      error: errorMessage,
     });
-    
-    res.status(500).json({ error: 'Failed to unsubscribe' });
+
+    res.status(500).json({ error: "Failed to unsubscribe" });
   }
 });
 

@@ -154,54 +154,123 @@ export default function Index() {
       <Navigation />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-orange-400 via-orange-300 to-rose-400 text-white py-24 px-4">
-        <div className="max-w-5xl mx-auto text-center">
+      <section style={{ backgroundColor: "#0d0d0d", padding: "72px 24px" }}>
+        <div style={{ maxWidth: "680px", margin: "0 auto", textAlign: "center" }}>
 
-          {/* Logo */}
-          <div className="flex justify-center mb-8">
-            <div className="relative w-28 h-28">
-              <div className="absolute inset-0 bg-white/30 rounded-full blur-md" />
-              <div className="relative w-full h-full bg-white rounded-full flex items-center justify-center shadow-xl border-4 border-white/60 overflow-hidden">
-                <img src="/logo-flame.jpeg" alt="Pure Fire Nutritional" className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-
-          {/* Eyebrow */}
-          <div className="inline-block bg-white/20 backdrop-blur-sm rounded-full px-5 py-1.5 mb-6 text-sm font-medium tracking-wide">
-            Exclusive US Retailer · Khavinson Peptide Bioregulators
+          {/* Badge */}
+          <div style={{
+            display: "inline-block",
+            marginBottom: "32px",
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 400,
+            fontSize: "10px",
+            letterSpacing: "0.24em",
+            textTransform: "uppercase",
+            color: "#E8622A",
+          }}>
+            Premium Health &amp; Longevity
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-            Support the Mind and Body's Natural Capacity to Recover, Adapt, and Thrive.
+          <h1 style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 600,
+            fontSize: "clamp(44px, 6vw, 66px)",
+            color: "white",
+            lineHeight: 1.0,
+            marginBottom: "28px",
+          }}>
+            Support the Mind and Body's Natural Capacity to{" "}
+            <span style={{
+              fontStyle: "italic",
+              fontWeight: 300,
+              background: "linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              Recover, Adapt, and Thrive.
+            </span>
           </h1>
 
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl opacity-90 max-w-3xl mx-auto mb-10 leading-relaxed">
+          {/* Subtitle */}
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 300,
+            fontSize: "13px",
+            color: "#666",
+            lineHeight: 1.85,
+            maxWidth: "400px",
+            margin: "0 auto 36px",
+          }}>
             Evidence-informed wellness tools designed to support cognitive vitality, resilience, healthy aging, recovery, and whole-person wellness.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* CTA Buttons */}
+          <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/products">
-              <Button size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-semibold px-8 py-6 text-base rounded-full shadow-lg">
-                Explore Wellness Tools <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+              <a className="btn-primary">
+                Explore Wellness Tools
+              </a>
             </Link>
             <Link href="/about">
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/15 font-semibold px-8 py-6 text-base rounded-full">
+              <a className="btn-secondary">
                 Learn the Philosophy
-              </Button>
+              </a>
             </Link>
           </div>
+
+          {/* Stats row */}
+          <div style={{
+            marginTop: "60px",
+            borderTop: "0.5px solid #222",
+            paddingTop: "36px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "stretch",
+          }}>
+            {[
+              { value: "US", label: "Exclusive Retailer" },
+              { value: "40+", label: "Years of Research" },
+              { value: "Sci.", label: "Validated" },
+            ].map((stat, i) => (
+              <div key={stat.label} style={{ display: "flex", alignItems: "stretch" }}>
+                {i > 0 && (
+                  <div style={{ width: "0.5px", backgroundColor: "#2a2a2a", margin: "0 40px" }} />
+                )}
+                <div style={{ textAlign: "center" }}>
+                  <div style={{
+                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontWeight: 600,
+                    fontSize: "28px",
+                    color: "white",
+                    lineHeight: 1,
+                    marginBottom: "8px",
+                  }}>
+                    {stat.value}
+                  </div>
+                  <div style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "9px",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "#555",
+                  }}>
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── Philosophy ────────────────────────────────────────────────────── */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-4">Our Approach</p>
+          <p className="section-label mb-4">Our Approach</p>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-snug">
             Wellness begins with understanding.
           </h2>
@@ -233,7 +302,7 @@ export default function Index() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">Wellness Tools</p>
+            <p className="section-label mb-3">Wellness Tools</p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Guided by System. Grounded in Science.
             </h2>
@@ -266,9 +335,9 @@ export default function Index() {
 
           <div className="text-center mt-10">
             <Link href="/products">
-              <Button className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 text-white px-8 py-5 rounded-full text-sm font-semibold">
-                View All Products <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+              <a className="btn-primary">
+                View All Products →
+              </a>
             </Link>
           </div>
         </div>
@@ -279,7 +348,7 @@ export default function Index() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-4">The Science</p>
+              <p className="section-label mb-4">The Science</p>
               <h2 className="text-3xl font-bold text-gray-900 mb-5 leading-snug">
                 What are peptide bioregulators — and why do they matter?
               </h2>
@@ -290,9 +359,9 @@ export default function Index() {
                 Developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson, peptide bioregulators are tissue-specific formulas that work at the cellular level — supporting the body's own regulatory systems rather than overriding them.
               </p>
               <Link href="/science">
-                <Button variant="outline" className="border-orange-300 text-orange-600 hover:bg-orange-50 rounded-full px-6">
-                  Explore the Research <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <a className="btn-secondary" style={{ color: "#E8793A", borderColor: "#E8793A40" }}>
+                  Explore the Research →
+                </a>
               </Link>
             </div>
             <div className="space-y-4">
@@ -331,7 +400,7 @@ export default function Index() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">Why Pure Fire</p>
+            <p className="section-label mb-3">Why Pure Fire</p>
             <h2 className="text-3xl font-bold text-gray-900">
               Premium. Informed. Purposeful.
             </h2>
@@ -378,21 +447,21 @@ export default function Index() {
       {/* ── AI Assistant Callout ───────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gradient-to-r from-orange-500 via-rose-500 to-pink-500 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-white/70 text-sm font-medium uppercase tracking-widest mb-3">Personalized Guidance</p>
+          <p className="section-label mb-3">Personalized Guidance</p>
           <h2 className="text-3xl font-bold mb-4">Not sure where to start?</h2>
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
             Our AI Wellness Assistant can help you understand which products align with your health goals, lifestyle, and areas of focus — with no pressure, no upsell.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/ai-assistant">
-              <Button size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-semibold px-8 py-5 rounded-full">
-                <Sparkles className="mr-2 w-4 h-4" /> Talk to the AI Assistant
-              </Button>
+              <a className="btn-primary">
+                <span className="inline-flex items-center gap-2"><Sparkles className="w-4 h-4" /> Talk to the AI Assistant</span>
+              </a>
             </Link>
             <Link href="/products">
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/15 font-semibold px-8 py-5 rounded-full">
-                Browse All Products <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+              <a className="btn-secondary">
+                Browse All Products →
+              </a>
             </Link>
           </div>
         </div>
@@ -401,7 +470,7 @@ export default function Index() {
       {/* ── Newsletter ─────────────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-xl mx-auto text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">Stay Connected</p>
+          <p className="section-label mb-3">Stay Connected</p>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Insights for the informed.</h2>
           <p className="text-gray-500 mb-6 text-sm">
             Occasional updates on new products, wellness research, and perspectives on resilience, longevity, and cognitive vitality. No noise.

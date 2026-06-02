@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/lib/supabase";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,14 +43,13 @@ export default function Dashboard() {
     if (!user) return;
 
     try {
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('customer_email', user.email)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setOrders(data || []);
+      const q = query(
+        collection(db, "orders"),
+        where("customer_email", "==", user.email),
+        orderBy("created_at", "desc")
+      );
+      const snapshot = await getDocs(q);
+      setOrders(snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Order)));
     } catch (error) {
       console.error("Error fetching orders:", error);
       toast.error("Failed to load orders");
@@ -101,7 +101,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-center mb-8">
             <div>
               <h1 className="text-3xl font-bold">My Dashboard</h1>
-              <p className="text-gray-600 mt-1">Welcome back, {user.user_metadata?.full_name || user.email}!</p>
+              <p className="text-gray-600 mt-1">Welcome back, {user.displayName || user.email}!</p>
             </div>
             <Button onClick={handleSignOut} variant="outline">
               <LogOut className="w-4 h-4 mr-2" />
@@ -121,7 +121,7 @@ export default function Dashboard() {
               <CardContent className="space-y-3">
                 <div>
                   <p className="text-sm text-gray-600">Name</p>
-                  <p className="font-medium">{user.user_metadata?.full_name || "Not set"}</p>
+                  <p className="font-medium">{user.displayName || "Not set"}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Email</p>
@@ -130,7 +130,9 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm text-gray-600">Member Since</p>
                   <p className="font-medium">
-                    {new Date(user.created_at).toLocaleDateString()}
+                    {user.metadata?.creationTime
+                      ? new Date(user.metadata.creationTime).toLocaleDateString()
+                      : "N/A"}
                   </p>
                 </div>
               </CardContent>
@@ -178,7 +180,7 @@ export default function Dashboard() {
                             {order.items?.length || 0} item(s)
                           </p>
                           <p className="font-bold text-orange-600">
-                            ${order.total_amount.toFixed(2)}
+                            ${(order as any).total_amount?.toFixed(2) ?? order.total?.toFixed(2) ?? "0.00"}
                           </p>
                         </div>
                       </div>

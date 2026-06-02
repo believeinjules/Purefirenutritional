@@ -8,161 +8,115 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items } = useCart();
   const { items: wishlistItems } = useWishlist();
-  
   const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
+    { label: "Science", href: "/science" },
+    { label: "About", href: "/about" },
+    { label: "FAQ", href: "/faq" },
+    { label: "AI Assistant", href: "/ai-assistant" },
+  ];
+
   return (
-    <nav
-      className="sticky top-0 z-50 bg-gradient-to-r from-orange-500 via-rose-500 to-orange-600 bg-opacity-10 shadow-lg md:backdrop-blur-lg"
-      // Ensure Safari gets the backdrop filter as well
-      style={{ WebkitBackdropFilter: 'blur(16px)' }}
-    >
+    <nav style={{ backgroundColor: "rgba(13, 13, 13, 0.82)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center gap-4 hover:opacity-85 transition-opacity">
-              <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center ring-2 ring-red-200 overflow-hidden">
-                <img 
-                  src="/logo-flame.jpeg" 
-                  alt="Pure Fire Nutritional" 
-                  className="w-12 h-12 object-contain"
+
+          {/* Logo + Wordmark */}
+          <Link href="/" className="nav-scale flex items-center gap-3">
+              {/* Flame logo — mix-blend-mode: lighten removes white bg on dark nav */}
+              <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center"
+                style={{ backgroundColor: "transparent" }}>
+                <img
+                  src="/logo-flame.jpeg"
+                  alt="Pure Fire Nutritional"
+                  className="w-[115%] h-[115%] object-cover"
+                  style={{ mixBlendMode: "lighten" }}
                 />
               </div>
-              <span className="text-2xl font-bold text-white hidden sm:block">
-                Pure Fire Nutritional
+              <span
+                style={{
+                  fontFamily: "'Inter', system-ui, sans-serif",
+                  fontWeight: 300,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  fontSize: "13px",
+                  color: "#fff",
+                  lineHeight: 1.3,
+                }}
+                className="hidden sm:block"
+              >
+                Pure Fire<br />Nutritional
               </span>
-            </a>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-9">
-            <Link href="/">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                Home
-              </a>
-            </Link>
-            <Link href="/products">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                Products
-              </a>
-            </Link>
-            <Link href="/science">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                Science
-              </a>
-            </Link>
-            <Link href="/about">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                About
-              </a>
-            </Link>
-            <Link href="/faq">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                FAQ
-              </a>
-            </Link>
-            <Link href="/ai-assistant">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                AI Assistant
-              </a>
-            </Link>
-            <Link href="/learn/what-are-khavinson-peptide-bioregulators">
-              <a className="text-white font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-200 hover:[text-shadow:0_0_10px_rgba(255,255,255,0.8)] hover:underline hover:underline-offset-8">
-                Learn
-              </a>
-            </Link>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-7">
+            {navLinks.map(({ label, href }) => (
+              <Link key={href} href={href} className="nav-link">{label}</Link>
+            ))}
           </div>
 
-          {/* Right side icons */}
+          {/* Right Icons */}
           <div className="flex items-center gap-4">
-            {/* Peptalk Podcast Logo */}
-            <Link href="/peptalk">
-              <a className="transition-all duration-200 hover:scale-110 inline-block">
-                <img 
-                  src="/peptalk-logo.png" 
-                  alt="Peptalk Podcast" 
-                  className="h-14 w-auto object-contain hover:drop-shadow-[0_0_10px_rgba(200,50,50,0.9)]"
+            {/* Peptalk */}
+            <Link href="/peptalk" className="nav-scale inline-block">
+                <img
+                  src="/peptalk-logo.png"
+                  alt="Peptalk Podcast"
+                  className="h-12 w-auto object-contain"
                 />
-              </a>
             </Link>
 
-            <Link href="/dashboard">
-              <a className="text-white transition-all hover:drop-shadow-[0_0_10px_rgba(200,50,50,0.9)] hover:scale-110 inline-block">
-                <User className="h-7 w-7" />
-              </a>
+            <Link href="/dashboard" className="nav-scale inline-block text-[#777] hover:text-white transition-colors">
+                <User className="h-5 w-5" />
             </Link>
-            
-            <Link href="/wishlist">
-              <a className="text-white transition-all hover:drop-shadow-[0_0_10px_rgba(200,50,50,0.9)] hover:scale-110 relative inline-block">
-                <Heart className="h-7 w-7" />
+
+            <Link href="/wishlist" className="nav-scale inline-block relative text-[#777] hover:text-white transition-colors">
+                <Heart className="h-5 w-5" />
                 {wishlistItems.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-medium rounded-full h-3.5 w-3.5 flex items-center justify-center"
+                    style={{ background: "linear-gradient(135deg, #E8793A, #B83870)" }}>
                     {wishlistItems.length}
                   </span>
                 )}
-              </a>
             </Link>
-            
-            <Link href="/cart">
-              <a className="text-white transition-all hover:drop-shadow-[0_0_10px_rgba(200,50,50,0.9)] hover:scale-110 relative inline-block">
-                <ShoppingCart className="h-7 w-7" />
+
+            <Link href="/cart" className="nav-scale inline-block relative text-[#777] hover:text-white transition-colors">
+                <ShoppingCart className="h-5 w-5" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-medium rounded-full h-3.5 w-3.5 flex items-center justify-center"
+                    style={{ background: "linear-gradient(135deg, #E8793A, #B83870)" }}>
                     {cartItemsCount}
                   </span>
                 )}
-              </a>
             </Link>
 
-            {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white transition-all hover:drop-shadow-[0_0_10px_rgba(200,50,50,0.9)]"
+              className="nav-scale md:hidden text-[#777] hover:text-white transition-colors"
+              aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden pb-4 space-y-2">
-            <Link href="/">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                Home
-              </a>
-            </Link>
-            <Link href="/products">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                Products
-              </a>
-            </Link>
-            <Link href="/science">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                Science
-              </a>
-            </Link>
-            <Link href="/about">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                About
-              </a>
-            </Link>
-            <Link href="/faq">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                FAQ
-              </a>
-            </Link>
-            <Link href="/ai-assistant">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                AI Assistant
-              </a>
-            </Link>
-            <Link href="/learn/what-are-khavinson-peptide-bioregulators">
-              <a className="block text-white font-semibold text-lg transition-all py-2 hover:underline hover:underline-offset-8 hover:scale-105 hover:[text-shadow:_-1px_-1px_0_#8b4513,_1px_-1px_0_#8b4513,_-1px_1px_0_#8b4513,_1px_1px_0_#8b4513,_0_0_10px_rgba(200,50,50,0.9)]">
-                Learn
-              </a>
-            </Link>
+          <div className="md:hidden pb-5 pt-3 space-y-1 border-t border-white/10">
+            {[...navLinks, { label: "Peptalk Podcast", href: "/peptalk" }].map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="block py-2.5 nav-link"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         )}
       </div>

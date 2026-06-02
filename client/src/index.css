@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -24,6 +34,7 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
+    --brand-gradient: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
   }
 
   .dark {
@@ -56,4 +67,119 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ── Brand gradient text utility ─────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section label utility ───────────────────────────────────────────────── */
+.section-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Nav link gradient hover ─────────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #777;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  background: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.07);
+}
+
+.nav-scale {
+  transition: transform 0.2s ease;
+}
+.nav-scale:hover {
+  transform: scale(1.07);
+}
+
+/* ── Site-wide CTA buttons ───────────────────────────────────────────────── */
+
+/* Primary: gradient fill, brightens on hover */
+.btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, #E8793A, #CC4472);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(232, 121, 58, 0.35);
+}
+
+/* Secondary: dark outline, gradient fill on hover */
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 4px;
+  border: 0.5px solid #444;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #E8793A, #CC4472);
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(232, 121, 58, 0.3);
 }

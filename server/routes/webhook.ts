@@ -1,139 +1,108 @@
-// Stripe webhook handler
-import { Router, Request, Response } from 'express';
-import Stripe from 'stripe';
-import { logError, logAPICall } from '../logger.js';
-import { sendOrderConfirmation } from '../email.js';
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase
-const supabase = createClient(
-  process.env.VITE_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { Router, Request, Response } from "express";
+import Stripe from "stripe";
+import { logError, logAPICall } from "../logger.js";
+import { sendOrderConfirmation } from "../email.js";
+import { adminDb } from "../lib/firebase.js";
 
 const router = Router();
 
-// Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-12-15.clover',
+  apiVersion: "2025-12-15.clover" as any,
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 // POST /api/stripe/webhook
-// Handle Stripe webhook events
-router.post('/webhook', async (req: Request, res: Response) => {
+router.post("/webhook", async (req: Request, res: Response) => {
   const startTime = Date.now();
-  const sig = req.headers['stripe-signature'] as string;
-  
+  const sig = req.headers["stripe-signature"] as string;
+
   let event: Stripe.Event;
-  
+
   try {
-    // Verify webhook signature
-    event = stripe.webhooks.constructEvent(
-      req.body,
-      sig,
-      webhookSecret
-    );
-    
+    event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+
     // Handle test events
-    if (event.id.startsWith('evt_test_')) {
-      console.log('[Webhook] Test event detected, returning verification response');
-      logAPICall({
-        endpoint: '/api/stripe/webhook',
-        method: 'POST',
-        statusCode: 200,
-        responseTime: Date.now() - startTime
-      });
+    if (event.id.startsWith("evt_test_")) {
+      console.log("[Webhook] Test event detected");
       return res.json({ verified: true });
     }
-    
+
     console.log(`[Webhook] Received event: ${event.type}`);
-    
-    // Handle different event types
+
     switch (event.type) {
-      case 'checkout.session.completed': {
+      case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-        
-        console.log('[Webhook] Checkout session completed:', session.id);
-        
-        // Extract customer information
-        const customerEmail = session.customer_email || session.metadata?.customer_email;
-        const customerName = session.metadata?.customer_name || session.customer_details?.name;
-        const userId = session.client_reference_id || session.metadata?.user_id;
-        
-        // Get line items
+        console.log("[Webhook] Checkout session completed:", session.id);
+
+        const customerEmail =
+          session.customer_email || session.metadata?.customer_email;
+        const customerName =
+          session.metadata?.customer_name || session.customer_details?.name;
+
         const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-        
-        // Format items for email
-        const items = lineItems.data.map(item => ({
-          name: item.description || 'Product',
+        const items = lineItems.data.map((item) => ({
+          name: item.description || "Product",
           quantity: item.quantity || 1,
-          price: (item.amount_total || 0) / 100
+          price: (item.amount_total || 0) / 100,
         }));
-        
-        // Generate order number
-        const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
-        // Create or update customer
+        const orderNumber = `ORD-${Date.now()}-${Math.random()
+          .toString(36)
+          .substr(2, 9)
+          .toUpperCase()}`;
+
         if (customerEmail) {
-          const { data: existingCustomer } = await supabase
-            .from('customers')
-            .select('*')
-            .eq('email', customerEmail)
-            .single();
+          // Upsert customer document (keyed by email)
+          const customerRef = adminDb
+            .collection("customers")
+            .doc(customerEmail.toLowerCase());
+          const existingCustomer = await customerRef.get();
 
-          let customerId;
-          if (existingCustomer) {
-            customerId = existingCustomer.id;
-            // Update customer stats
-            await supabase
-              .from('customers')
-              .update({
-                total_orders: existingCustomer.total_orders + 1,
-                total_spent: Number(existingCustomer.total_spent) + ((session.amount_total || 0) / 100),
-                stripe_customer_id: session.customer,
-              })
-              .eq('id', customerId);
+          if (existingCustomer.exists) {
+            const d = existingCustomer.data()!;
+            await customerRef.update({
+              totalOrders: (d.totalOrders || 0) + 1,
+              totalSpent:
+                (d.totalSpent || 0) + (session.amount_total || 0) / 100,
+              stripeCustomerId: session.customer,
+            });
           } else {
-            const { data: newCustomer } = await supabase
-              .from('customers')
-              .insert({
-                email: customerEmail,
-                name: customerName,
-                stripe_customer_id: session.customer,
-                total_orders: 1,
-                total_spent: (session.amount_total || 0) / 100,
-              })
-              .select()
-              .single();
-            customerId = newCustomer?.id;
+            await customerRef.set({
+              email: customerEmail.toLowerCase(),
+              name: customerName || null,
+              stripeCustomerId: session.customer || null,
+              totalOrders: 1,
+              totalSpent: (session.amount_total || 0) / 100,
+              created_at: new Date().toISOString(),
+            });
           }
 
-          // Save order to database
-          await supabase.from('orders').insert({
+          // Save order
+          await adminDb.collection("orders").add({
             order_number: orderNumber,
-            customer_id: customerId,
-            customer_email: customerEmail,
-            customer_name: customerName,
+            customer_email: customerEmail.toLowerCase(),
+            customer_name: customerName || null,
             stripe_session_id: session.id,
             stripe_payment_intent: session.payment_intent,
-            items: items,
+            items,
             subtotal: (session.amount_subtotal || 0) / 100,
             tax: (session.total_details?.amount_tax || 0) / 100,
             shipping: (session.total_details?.amount_shipping || 0) / 100,
             total: (session.amount_total || 0) / 100,
-            currency: session.currency?.toUpperCase() || 'USD',
-            status: 'processing',
-            payment_status: 'paid',
-            shipping_address: (session as any).shipping_details?.address || null,
+            currency: session.currency?.toUpperCase() || "USD",
+            status: "processing",
+            payment_status: "paid",
+            shipping_address:
+              (session as any).shipping_details?.address || null,
             billing_address: session.customer_details?.address || null,
+            created_at: new Date().toISOString(),
           });
 
-          console.log(`[Webhook] Order ${orderNumber} saved to database`);
+          console.log(`[Webhook] Order ${orderNumber} saved to Firestore`);
         }
 
-        // Send order confirmation email
+        // Send confirmation email
         if (customerEmail && customerName) {
           await sendOrderConfirmation({
             orderId: orderNumber,
@@ -141,57 +110,56 @@ router.post('/webhook', async (req: Request, res: Response) => {
             customerEmail,
             items,
             total: (session.amount_total || 0) / 100,
-            orderDate: new Date().toISOString()
+            orderDate: new Date().toISOString(),
           });
         }
-        
-        console.log('[Webhook] Order processed for user:', userId);
-        
+
         break;
       }
-      
-      case 'payment_intent.succeeded': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log('[Webhook] Payment succeeded:', paymentIntent.id);
+
+      case "payment_intent.succeeded": {
+        const pi = event.data.object as Stripe.PaymentIntent;
+        console.log("[Webhook] Payment succeeded:", pi.id);
         break;
       }
-      
-      case 'payment_intent.payment_failed': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log('[Webhook] Payment failed:', paymentIntent.id);
+
+      case "payment_intent.payment_failed": {
+        const pi = event.data.object as Stripe.PaymentIntent;
+        console.log("[Webhook] Payment failed:", pi.id);
         break;
       }
-      
+
       default:
         console.log(`[Webhook] Unhandled event type: ${event.type}`);
     }
-    
+
     logAPICall({
-      endpoint: '/api/stripe/webhook',
-      method: 'POST',
+      endpoint: "/api/stripe/webhook",
+      method: "POST",
       statusCode: 200,
-      responseTime: Date.now() - startTime
+      responseTime: Date.now() - startTime,
     });
-    
+
     res.json({ received: true });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    
+    const errorMessage =
+      error instanceof Error ? error.message : String(error);
+
     logError({
       error: errorMessage,
       stack: error instanceof Error ? error.stack : undefined,
-      endpoint: '/api/stripe/webhook',
-      context: 'Stripe webhook processing'
+      endpoint: "/api/stripe/webhook",
+      context: "Stripe webhook processing",
     });
-    
+
     logAPICall({
-      endpoint: '/api/stripe/webhook',
-      method: 'POST',
+      endpoint: "/api/stripe/webhook",
+      method: "POST",
       statusCode: 400,
       responseTime: Date.now() - startTime,
-      error: errorMessage
+      error: errorMessage,
     });
-    
+
     res.status(400).send(`Webhook Error: ${errorMessage}`);
   }
 });

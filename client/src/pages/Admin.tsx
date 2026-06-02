@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import InventoryManagement from '@/components/InventoryManagement';
 import { useLocation } from 'wouter';
-import { supabase } from '@/lib/supabase';
-import {
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { db, isFirebaseConfigured } from "@/lib/firebase";import {
   BarChart3,
   ShoppingCart,
   MessageSquare,
@@ -41,7 +41,6 @@ import {
   markRecoveryEmailSent,
   type AbandonedCart
 } from '@/lib/abandonedCartStorage';
-import { isSupabaseConfigured } from '@/lib/supabase';
 
 interface Order {
   id: string;
@@ -119,13 +118,9 @@ export default function Admin() {
 
   const fetchOrders = async (): Promise<Order[]> => {
     try {
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      return data || [];
+      const q = query(collection(db, "orders"), orderBy("created_at", "desc"));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Order));
     } catch (error) {
       console.error('Error fetching orders:', error);
       return [];
@@ -134,13 +129,9 @@ export default function Admin() {
 
   const fetchCustomers = async (): Promise<Customer[]> => {
     try {
-      const { data, error } = await supabase
-        .from('customers')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      return data || [];
+      const q = query(collection(db, "customers"), orderBy("created_at", "desc"));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Customer));
     } catch (error) {
       console.error('Error fetching customers:', error);
       return [];
@@ -169,21 +160,21 @@ export default function Admin() {
     loadData();
   };
 
-  if (!isSupabaseConfigured()) {
+  if (!isFirebaseConfigured()) {
     return (
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main className="flex-1 flex items-center justify-center bg-gray-50">
           <Card className="max-w-md">
             <CardHeader>
-              <CardTitle>Supabase Not Configured</CardTitle>
+              <CardTitle>Firebase Not Configured</CardTitle>
               <CardDescription>
-                The admin dashboard requires Supabase to be set up.
+                The admin dashboard requires Firebase to be set up.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                Please follow the setup instructions in DEPLOYMENT.md to configure your Supabase database.
+                Please add your Firebase environment variables to get started.
               </p>
               <Button onClick={() => setLocation('/')}>Return to Home</Button>
             </CardContent>
