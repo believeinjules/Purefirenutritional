@@ -20,7 +20,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav style={{ backgroundColor: "rgba(51, 9, 22, 0.82)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
+    <nav style={{ backgroundColor: "rgba(45, 5, 18, 0.88)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
 
@@ -70,11 +70,11 @@ export default function Navigation() {
                 />
             </Link>
 
-            <Link href="/dashboard" className="nav-scale inline-block text-[#777] hover:text-white transition-colors">
+            <Link href="/dashboard" className="nav-scale inline-block text-white/80 hover:text-white transition-colors">
                 <User className="h-5 w-5" />
             </Link>
 
-            <Link href="/wishlist" className="nav-scale inline-block relative text-[#777] hover:text-white transition-colors">
+            <Link href="/wishlist" className="nav-scale inline-block relative text-white/80 hover:text-white transition-colors">
                 <Heart className="h-5 w-5" />
                 {wishlistItems.length > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-medium rounded-full h-3.5 w-3.5 flex items-center justify-center"
@@ -84,7 +84,7 @@ export default function Navigation() {
                 )}
             </Link>
 
-            <Link href="/cart" className="nav-scale inline-block relative text-[#777] hover:text-white transition-colors">
+            <Link href="/cart" className="nav-scale inline-block relative text-white/80 hover:text-white transition-colors">
                 <ShoppingCart className="h-5 w-5" />
                 {cartItemsCount > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-medium rounded-full h-3.5 w-3.5 flex items-center justify-center"
@@ -96,7 +96,7 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="nav-scale md:hidden text-[#777] hover:text-white transition-colors"
+              className="nav-scale md:hidden text-white/80 hover:text-white transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

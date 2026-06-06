@@ -102,10 +102,10 @@
   position: relative;
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 12.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #777;
+  color: #fff;
   transition: transform 0.2s ease;
   text-decoration: none;
 }
