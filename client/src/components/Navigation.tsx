@@ -20,7 +20,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav style={{ backgroundColor: "rgba(45, 5, 18, 0.88)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
+    <nav style={{ background: "linear-gradient(135deg, rgba(60, 8, 28, 0.88), rgba(35, 5, 15, 0.9), rgba(10, 2, 5, 0.92))", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
 
