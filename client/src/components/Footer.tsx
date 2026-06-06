@@ -50,7 +50,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       {/* Newsletter Section */}
-      <div className="bg-gradient-to-r from-orange-500 via-rose-500 to-orange-600 py-12">
+      <div className="bg-brand-gradient py-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Mail className="w-8 h-8" />
@@ -89,7 +89,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-rose-500 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-brand-gradient rounded-full flex items-center justify-center">
                 <Flame className="w-6 h-6 text-white" />
               </div>
               <span className="font-bold text-xl">Pure Fire Nutritional</span>

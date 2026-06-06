@@ -267,7 +267,7 @@ export default function AIAssistant() {
           <DialogFooter>
             <Button 
               onClick={() => setShowDisclaimer(false)}
-              className="w-full bg-gradient-to-r from-orange-500 to-rose-500"
+              className="w-full bg-brand-gradient"
             >
               I Understand and Agree
             </Button>
@@ -279,7 +279,7 @@ export default function AIAssistant() {
         <div className="max-w-4xl mx-auto px-4 py-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-rose-500 text-white px-6 py-2 rounded-full mb-4">
+            <div className="inline-flex items-center gap-2 bg-brand-gradient text-white px-6 py-2 rounded-full mb-4">
               <Sparkles className="w-5 h-5" />
               <span className="font-semibold">Pure Fire AI Assistant</span>
             </div>
@@ -305,7 +305,7 @@ export default function AIAssistant() {
                 {messages.map((message, index) => (
                   <div key={index} className={`flex gap-3 ${message.role === "user" ? "justify-end" : ""}`}>
                     {message.role === "assistant" && (
-                      <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-rose-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 bg-brand-gradient rounded-full flex items-center justify-center flex-shrink-0">
                         <Bot className="w-5 h-5 text-white" />
                       </div>
                     )}
@@ -389,7 +389,7 @@ export default function AIAssistant() {
 
                 {isTyping && (
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-rose-500 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-brand-gradient rounded-full flex items-center justify-center">
                       <Bot className="w-5 h-5 text-white" />
                     </div>
                     <div className="bg-white border rounded-lg p-3 shadow-sm">
@@ -438,7 +438,7 @@ export default function AIAssistant() {
                 />
                 <Button 
                   onClick={handleSend}
-                  className="bg-gradient-to-r from-orange-500 to-rose-500"
+                  className="bg-brand-gradient"
                   disabled={!input.trim() || isTyping}
                 >
                   <Send className="w-5 h-5" />

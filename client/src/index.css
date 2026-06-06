@@ -69,7 +69,14 @@
   }
 }
 
-/* ── Brand gradient text utility ─────────────────────────────────────────── */
+/* ── Brand gradient backgrounds ───────────────────────────────────────────── */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
+}
+
+.bg-brand-dark {
+  background-color: #0d0d0d;
+}
 .gradient-text {
   background: linear-gradient(135deg, #E8793A, #E06050, #CC4472, #B83870);
   -webkit-background-clip: text;

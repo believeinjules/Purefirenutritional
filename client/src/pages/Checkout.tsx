@@ -80,7 +80,7 @@ export default function Checkout() {
             <h1 className="text-2xl font-bold mb-2">Order Complete!</h1>
             <p className="text-gray-600 mb-6">Thank you for your purchase.</p>
             <Link href="/products">
-              <Button className="bg-gradient-to-r from-orange-500 to-rose-500">
+              <Button className="bg-brand-gradient">
                 Continue Shopping
               </Button>
             </Link>

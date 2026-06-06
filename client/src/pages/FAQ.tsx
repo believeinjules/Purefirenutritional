@@ -163,7 +163,7 @@ export default function FAQ() {
                 key={category}
                 variant={activeCategory === category ? "default" : "outline"}
                 onClick={() => setActiveCategory(category)}
-                className={activeCategory === category ? "bg-gradient-to-r from-orange-500 to-rose-500" : ""}
+                className={activeCategory === category ? "bg-brand-gradient" : ""}
               >
                 {category}
               </Button>
@@ -196,7 +196,7 @@ export default function FAQ() {
           </div>
 
           {/* Contact Section */}
-          <Card className="bg-gradient-to-r from-orange-500 to-rose-500 text-white">
+          <Card className="bg-brand-gradient text-white">
             <CardContent className="p-8 text-center">
               <h2 className="text-2xl font-bold mb-4">Still Have Questions?</h2>
               <p className="mb-6 opacity-90">

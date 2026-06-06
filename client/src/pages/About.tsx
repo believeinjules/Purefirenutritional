@@ -8,13 +8,13 @@ import { Link } from 'wouter';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-orange-50 to-amber-50">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>About Pure Fire Nutritional | Exclusive US Khavinson Peptide Retailer</title>
         <meta name="description" content="Learn about Pure Fire Nutritional — the exclusive US retailer of Khavinson peptide bioregulators. Our mission is evidence-informed wellness for cognitive vitality, resilience, and longevity." />
       </Helmet>
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-24 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white">
+      <section className="relative py-16 sm:py-20 md:py-24 bg-brand-gradient text-white">
         <div className="absolute inset-0 bg-white/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <div className="flex items-center justify-center mb-6">
@@ -42,7 +42,7 @@ export default function About() {
             <Link to="/products">
               <Button 
                 size="lg" 
-                className="bg-white text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg font-semibold rounded-full"
+                className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full"
               >
                 Explore Products
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -236,7 +236,7 @@ export default function About() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/products">
-                  <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                  <Button className="bg-brand-gradient hover:brightness-110">
                     Shop Now
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -364,7 +364,7 @@ export default function About() {
 
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white">
+      <section className="py-20 bg-brand-gradient text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Begin with Understanding
@@ -376,7 +376,7 @@ export default function About() {
             <Link to="/products">
               <Button 
                 size="lg" 
-                className="bg-white text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg font-semibold rounded-full"
+                className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full"
               >
                 Explore Wellness Tools
                 <ArrowRight className="ml-2 h-5 w-5" />

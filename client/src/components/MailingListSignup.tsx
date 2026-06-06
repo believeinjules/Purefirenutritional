@@ -128,7 +128,7 @@ export default function MailingListSignup() {
 
           <Button
             onClick={() => setShowThankYou(false)}
-            className="w-full mt-6 bg-gradient-to-r from-orange-500 to-rose-500"
+            className="w-full mt-6 bg-brand-gradient"
           >
             Got It!
           </Button>

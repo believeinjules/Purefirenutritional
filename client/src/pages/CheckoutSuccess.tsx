@@ -145,7 +145,7 @@ export default function CheckoutSuccess() {
             </Button>
             <Button
               onClick={() => setLocation("/dashboard")}
-              className="bg-gradient-to-r from-orange-500 to-rose-500 sm:w-auto"
+              className="bg-brand-gradient sm:w-auto"
             >
               View Orders
             </Button>

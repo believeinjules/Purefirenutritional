@@ -347,7 +347,7 @@ export default function ProductManager() {
             </div>
             <Button
               onClick={openAdd}
-              className="bg-gradient-to-r from-orange-500 to-rose-500 text-white"
+              className="bg-brand-gradient text-white"
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Product
@@ -761,7 +761,7 @@ export default function ProductManager() {
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="w-full bg-gradient-to-r from-orange-500 to-rose-500 text-white"
+              className="w-full bg-brand-gradient text-white"
             >
               {saving ? (
                 <>

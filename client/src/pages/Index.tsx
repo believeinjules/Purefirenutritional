@@ -445,7 +445,7 @@ export default function Index() {
       </section>
 
       {/* ── AI Assistant Callout ───────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gradient-to-r from-orange-500 via-rose-500 to-pink-500 text-white">
+      <section className="py-16 px-4 bg-brand-gradient text-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="section-label mb-3">Personalized Guidance</p>
           <h2 className="text-3xl font-bold mb-4">Not sure where to start?</h2>
@@ -487,7 +487,7 @@ export default function Index() {
             />
             <Button
               type="submit"
-              className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full px-6"
+              className="bg-brand-gradient hover:brightness-110 rounded-full px-6"
               disabled={isSubscribing}
             >
               {isSubscribing ? "Subscribing…" : "Subscribe"}

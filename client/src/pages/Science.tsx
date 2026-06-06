@@ -321,7 +321,7 @@ export default function Science() {
 
             <div className="mt-8 text-center">
               <a href="/products">
-                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white">
+                <Button size="lg" className="bg-brand-gradient hover:brightness-110 text-white">
                   Explore Prime Peptide® Products
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>

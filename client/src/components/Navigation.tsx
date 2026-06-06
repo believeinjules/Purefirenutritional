@@ -20,7 +20,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav style={{ backgroundColor: "rgba(13, 13, 13, 0.82)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
+    <nav style={{ backgroundColor: "rgba(51, 9, 22, 0.82)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
 
