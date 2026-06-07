@@ -866,7 +866,7 @@ export const products: Product[] = [
     name: "Revilab Anti-A.G.E.",
     description: "Powerful anti-glycation supplement with deglycating and antioxidant effects. Contains carnosine, astaxanthin, and alpha-lipoic acid to prevent protein degradation.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 250,
+    priceUSD: 350,
     priceEUR: 115,
     rating: 4.9,
     sizes: 1,
