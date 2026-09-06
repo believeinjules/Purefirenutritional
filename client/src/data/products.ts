@@ -891,6 +891,7 @@ export const products: Product[] = [
   },
   {
     id: "alvenorm-forte",
+    image: "/products/Alvenorm.jpg",
     name: "Alvenorm Forte",
     description: "Advanced formula for brain health and sleep architecture support. Helps normalize healthy sleep patterns, supports deep restorative sleep, and promotes optimal brain function during rest. Beneficial for those experiencing sleep disturbances, irregular sleep-wake cycles, or reduced sleep quality due to stress and aging.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -915,6 +916,7 @@ export const products: Product[] = [
   },
   {
     id: "getrufline",
+    image: "/products/getruflineINFO.jpg",
     name: "Getrufline",
     description: "Europe's first herbal truffle-form antiparasitic complex, developed in conjunction with leading experts at the Institute of Innovative Biomedical Technology. 100% natural composition, EU-certified, GMO-free, and low in fat. Getrufline provides a threefold benefit in one truffle: anthelmintic action (interferes with reproduction of the majority of helminths), antibacterial action (against intestinal bacteria), and fungistatic action (effective against Candida fungi). The truffle form is uniquely effective — chewing creates a 'lump' that treats the intestinal mucosa along its entire length, while the bitterness activates non-specific immunity and triggers bile secretion with bacteriostatic properties. Also beneficial for dysbacteriosis following antibiotic therapy.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -927,6 +929,7 @@ export const products: Product[] = [
   },
   {
     id: "gelmigon",
+    image: "/products/cleantestin.jpg",
     name: "Gelmigon",
     description: "Natural antiparasitic complex with choleretic, antispasmodic, anti-toxic, and anti-inflammatory effects. Contains plant extracts for prevention and support against helminthiasis. Supports liver and digestive tract health during and after antiparasitic protocols.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -938,6 +941,7 @@ export const products: Product[] = [
   },
   {
     id: "digemax",
+    image: "/products/digimax2.jpg",
     name: "Digemax",
     description: "Digestive enzyme and support complex for optimal gastrointestinal function. Helps normalize digestion, supports nutrient absorption, and reduces digestive discomfort. Beneficial for those with digestive insufficiency or irregular digestive function.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -949,6 +953,7 @@ export const products: Product[] = [
   },
   {
     id: "imusil",
+    image: "/products/imusil.jpg",
     name: "Imusil",
     description: "Immune and skin support complex with immunomodulatory and adaptogenic properties. Strengthens natural defense mechanisms, supports cellular immunity, promotes healthy skin barrier function, and helps the body adapt to physical and environmental stress. Beneficial for those with weakened immunity or skin health concerns.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -960,6 +965,7 @@ export const products: Product[] = [
   },
   {
     id: "indosine",
+    image: "/products/indosine.jpg",
     name: "Indosine",
     description: "Complex bioregulator for cancer prevention combining indole-3-carbinol, broccoli extract, Coenzyme Q10, superoxide dismutase, catalase, and milky white iris grass. Regulates cell proliferation, modulates immunity, reduces risk of gastrointestinal and respiratory tumors, and prevents hormone-dependent tumor development. Provides powerful antioxidant and oncoprotective defense.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -973,6 +979,7 @@ export const products: Product[] = [
   },
   {
     id: "calsil-t",
+    image: "/products/calsilt.jpg",
     name: "Calsil-T",
     description: "Potent, balanced calcium and magnesium formula for bone, teeth, muscle, and nervous system health. Calcium strengthens bones and teeth and supports muscle function. Magnesium promotes energy metabolism and nervous system balance. A solid foundation for structural and functional health.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -984,6 +991,7 @@ export const products: Product[] = [
   },
   {
     id: "complex-3d",
+    image: "/products/complex3d.jpg",
     name: "Complex 3D",
     description: "Advanced cellular detoxification complex based on powerful detoxifiers and antioxidants, designed to accelerate the second phase of detoxification. Reduces oxidative stress at the cellular level, prevents intoxication caused by glycation, reduces chronic inflammation in connective tissue and the vascular wall, and provides immunoprotective and hepatoprotective effects. Contains ascorbyl palmitate (Vitamin C), selenium yeast, L-cysteine (glutathione precursor), dihydroquercetin, catalase, Vitamin E, barley sprout extract (superoxide dismutase, cytochrome oxidase), retinol palmitate (Vitamin A), and glutathione. Especially beneficial when the body's natural detox capacity is reduced by lack of sleep, stress, chronic disease, or nutritional deficiencies.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -997,6 +1005,7 @@ export const products: Product[] = [
   },
   {
     id: "complex-3r",
+    image: "/products/complex3r.jpg",
     name: "Complex 3R",
     description: "Multi-component antioxidant bioregulator combining three of the most powerful antioxidants: dihydroquercetin, resveratrol, and Coenzyme Q10. Dihydroquercetin impedes lipid peroxidation in cell membranes, protects vascular endothelium, enhances vascular elasticity, reduces edema, and prevents early cellular aging. Resveratrol binds and removes free radicals, exhibits anti-inflammatory and cancer-protective properties, regulates blood lipid levels and cholesterol, and reduces blood viscosity for unobstructed blood flow. Coenzyme Q10 is a natural immunomodulator that restores immune function, exerts antihypertensive effects, maintains energy metabolism in the heart muscle, and possesses geroprotective properties. Recommended for immunodeficiencies, chronic diseases, frequent viral infections, lipid metabolism disorders, cardiovascular prevention, and oncoprophylaxis.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1010,6 +1019,7 @@ export const products: Product[] = [
   },
   {
     id: "levain",
+    image: "/products/levain.jpg",
     name: "Levain",
     description: "Modern adaptogenic complex from Peptides' oncoprotection line, combining nine powerful plant-based adaptogens. Activates the body's internal immune defenses while improving lymphatic circulation to reduce inflammation and stagnation. Has antidepressant, immunoregulatory, and sedative effects. Increases the performance of tired skeletal muscles, improves lipid metabolism, normalizes blood pressure, and boosts immunity. Designed for those recovering under intense stress, frequent illness, weakened immunity, and chronic fatigue. Whether dealing with a cold brought on by overwork or recovering from a serious condition, Levain delivers targeted support where the body needs it most.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1021,6 +1031,7 @@ export const products: Product[] = [
   },
   {
     id: "likam",
+    image: "/products/likam.png",
     name: "Likam",
     description: "Comprehensive liver and bile duct support complex. Strengthens hepatic function, supports bile flow optimization, promotes liver cell regeneration, and helps normalize metabolic processes for sustained energy and vitality. Beneficial for those with biliary dysfunction or seeking preventive liver care.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1032,6 +1043,7 @@ export const products: Product[] = [
   },
   {
     id: "mamiton",
+    image: "/products/felicita.jpg",
     name: "Mamiton",
     description: "Natural oncoprotector designed specifically for the female reproductive system, combining the best of herbal tradition and modern science. Offers protective benefits against cancer, fights oxidative stress, slows abnormal cell division, and helps balance estrogen levels. Reduces risks linked to hormonal imbalances and aging. Active ingredients include resveratrol (oncoprotective and antioxidant), motherwort and mint (sedative and antispasmodic), rosehip, nettle and knotweed (anti-inflammatory and regenerative), hops and laminaria (hormonal homeostasis and thyroid support), vitamins A and E (antioxidant and immune modulation), field horsetail (vascular and connective tissue strength), and Juglans regia pericarp (immunostimulatory and antiparasitic). Recommended for women over 35 seeking oncoprotection, during menopause and perimenopause, for PMS, and during recovery after gynecological procedures.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1044,6 +1056,7 @@ export const products: Product[] = [
   },
   {
     id: "mesotel",
+    image: "/products/mes.jpg",
     name: "Mesotel",
     description: "Foundational choline-based revitalization formula for brain, liver, and cardiovascular health. Supports cellular membrane integrity, promotes healthy neurotransmitter function, and provides antioxidant and antiviral protection for deep systemic renewal.",
     category: "ANTI AGING-LONGEVITY",
@@ -1055,6 +1068,7 @@ export const products: Product[] = [
   },
   {
     id: "mesotel-beauty",
+    image: "/products/mesbeauty.jpg",
     name: "Mesotel Beauty",
     description: "Choline-based antioxidant and neurotransmitter complex enriched with gotu kola extract, wolfberry (goji), zinc, and vitamins. Provides pronounced antioxidant, antiviral, and antimicrobial effects. Enhances immunity, reduces cancer risk, supports skin beauty, and promotes youthful cellular regeneration.",
     category: "ANTI AGING-LONGEVITY",
@@ -1066,6 +1080,7 @@ export const products: Product[] = [
   },
   {
     id: "olecap",
+    image: "/products/panaxod.jpg",
     name: "Olecap",
     description: "Omega-3 angiorestorer combining premium salmon oil and flaxseed oil for comprehensive cardiovascular and metabolic health. Rich in EPA, DHA, and alpha-linolenic acid for arterial flexibility, healthy cholesterol levels, and anti-inflammatory vascular protection. Supports healthy endothelium function and promotes optimal blood flow.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1077,6 +1092,7 @@ export const products: Product[] = [
   },
   {
     id: "panaxod",
+    image: "/products/panaxod.jpg",
     name: "Panaxod",
     description: "Premium ginseng adaptogen complex based on Panax ginseng and complementary botanicals. Enhances physical and mental performance, supports adrenal function, boosts immune resilience, and promotes healthy stress response. Helps combat fatigue, supports overall vitality, and promotes sustained energy through adaptogenic mechanisms.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1088,6 +1104,7 @@ export const products: Product[] = [
   },
   {
     id: "pinalex-tab",
+    image: "/products/pinalex.jpg",
     name: "Pinalex Tab",
     description: "Innovative pineal gland bioregulator in tablet form for sleep optimization and circadian rhythm support. Promotes healthy melatonin production, supports deep restorative sleep architecture, and helps normalize the body's natural sleep-wake cycle. Designed for those with pineal gland dysfunction, sleep disturbances, jet lag, and age-related sleep changes.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1099,6 +1116,7 @@ export const products: Product[] = [
   },
   {
     id: "pangluin",
+    image: "/products/pangluin.jpg",
     name: "Pangluin",
     description: "Pancreatic and metabolic support complex for healthy glucose metabolism and insulin sensitivity. Supports normal pancreatic function, promotes balanced blood sugar levels throughout the day, and helps maintain insulin receptor sensitivity. Beneficial for metabolic syndrome, pre-diabetes prevention, and those seeking optimal pancreatic health.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1110,6 +1128,7 @@ export const products: Product[] = [
   },
   {
     id: "previn",
+    image: "/products/renefort.jpg",
     name: "Previn",
     description: "Natural and safe cardio- and vasoprotective nutraceutical containing two key active components: hesperidin and niacinamide (Vitamin B3/PP). Hesperidin is a bioflavonoid from citrus fruits that normalizes blood pressure, improves endothelium function, strengthens blood vessel walls, maintains vascular tone and contractility, provides a sugar-reducing effect, reduces 'bad' cholesterol, and normalizes free fatty acid levels. Niacinamide mitigates oxidative stress, prevents heart failure, ischemic heart disease, and atrial fibrillation, slows premature cell senescence, and reduces the risk of myocardial fibrosis and endothelial dysfunction. Recommended for arterial hypertension, ischemic heart disease, arrhythmia, cardiomyopathy, diabetes, obesity, dyslipidemia, and as preventive care for cognitive impairment in the elderly.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1123,6 +1142,7 @@ export const products: Product[] = [
   },
   {
     id: "revimite",
+    image: "/products/revimite.jpg",
     name: "Revimite",
     description: "Innovative nutraceutical for those who want to preserve natural energy, strong vitality, and active longevity. Its formula combines natural extracts, B vitamins, and iron to restore nutrient balance and support the hematopoietic system. Contains pomegranate, green tea, echinacea, oats, grape seeds, ginger, soy, iron, B vitamins, and soy lecithin. These ingredients saturate the body with antioxidants, increase stress resistance, strengthen blood vessels, and help cells generate energy. Iron and B vitamins support blood formation and metabolism, while soy lecithin contributes to healthy brain and nervous system function. Recommended for anemia, weight loss, physical or emotional strain, reduced productivity, and recovery after exertion.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1135,6 +1155,7 @@ export const products: Product[] = [
   },
   {
     id: "reviplant",
+    image: "/products/Reviform_3.jpg",
     name: "Reviplant",
     description: "Premium phytonutrient complex for liver and immune system support. Combines powerful botanical extracts to promote cellular regeneration, enhance hepatic detoxification pathways, support immune function, and provide broad-spectrum antioxidant and anti-inflammatory protection for systemic wellness.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1159,6 +1180,7 @@ export const products: Product[] = [
   },
   {
     id: "revifort",
+    image: "/products/Reviform.jpg",
     name: "Revifort",
     description: "Broad-spectrum oncoprotector combining four medicinal mushrooms — Shiitake, Reishi, Maitake, and Cordyceps — for the first time in a single formula. Contains glucans that stimulate the immune system and lead to active multi-phase destruction of cancer cells. Promotes liver and cellular recovery after damage, stimulates the immune system, supports hematopoiesis, and provides bacteriostatic effects with natural detoxification support. Part of the immunity and energy activation trio alongside Ensil and Pinalex Tab. Clinically supported for oncoprophylaxis and immune fortification.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1171,6 +1193,7 @@ export const products: Product[] = [
   },
   {
     id: "regenart",
+    image: "/products/renefort.jpg",
     name: "Regenart",
     description: "Joint regeneration complex for cartilage tissue repair and musculoskeletal health. Supports cartilage matrix restoration, promotes collagen synthesis in joint structures, provides anti-inflammatory protection, and helps maintain joint mobility and comfort. Beneficial for osteoarthritis, post-injury recovery, and age-related joint changes.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1182,6 +1205,7 @@ export const products: Product[] = [
   },
   {
     id: "renefort",
+    image: "/products/rene1.jpg",
     name: "Renefort",
     description: "Nephroprotective complex for kidney health and renal function support. Helps maintain healthy kidney filtration, supports kidney tissue regeneration, protects against oxidative stress in renal tissue, and promotes balanced urinary system function. Beneficial for those with chronic kidney concerns or seeking preventive renal care.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1193,6 +1217,7 @@ export const products: Product[] = [
   },
   {
     id: "retisil",
+    image: "/products/retisil4.jpg",
     name: "Retisil",
     description: "Advanced eye health formula with lutein, zeaxanthin, and complementary nutrients for comprehensive visual protection. Supports retinal health, protects against blue light and oxidative damage, maintains macular integrity, and promotes visual acuity. Beneficial for those with high screen exposure, age-related vision changes, or seeking preventive eye care.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1204,6 +1229,7 @@ export const products: Product[] = [
   },
   {
     id: "rinolax",
+    image: "/products/Alvenorm.jpg",
     name: "Rinolax",
     description: "Natural upper respiratory and ENT health complex for sinus, nasal, and throat support. Helps normalize nasal breathing, reduces inflammation in the respiratory mucosa, supports healthy sinus function, and strengthens immune defense of the upper airways. Beneficial for chronic rhinitis, sinusitis, and frequent upper respiratory infections.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1215,6 +1241,7 @@ export const products: Product[] = [
   },
   {
     id: "temero-genero",
+    image: "/products/felicita.jpg",
     name: "Temero Genero",
     description: "Daily anti-aging formula combining two complementary complexes that together create a strong foundation for health and active longevity. Supports cellular renewal, hormonal balance, and systemic rejuvenation for sustained vitality.",
     category: "ANTI AGING-LONGEVITY",
@@ -1226,6 +1253,7 @@ export const products: Product[] = [
   },
   {
     id: "trezvon",
+    image: "/products/felicita.jpg",
     name: "Trezvon",
     description: "Natural support formula for alcohol metabolism and liver protection. Helps accelerate alcohol breakdown, reduces toxic acetaldehyde accumulation, supports liver detoxification pathways, and promotes faster recovery after alcohol consumption. Essential for those seeking rapid alcohol recovery and hepatoprotective support.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1237,6 +1265,7 @@ export const products: Product[] = [
   },
   {
     id: "felicita",
+    image: "/products/felicita.jpg",
     name: "Felicita",
     description: "Mood, serotonin, and dopamine support complex with adaptogenic and anxiolytic properties. Promotes healthy neurotransmitter balance for positive mood, supports stress resilience, and helps maintain emotional stability. Formulated to enhance serotonin and dopamine pathways for sustained wellbeing and mental clarity.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1248,6 +1277,7 @@ export const products: Product[] = [
   },
   {
     id: "femalin",
+    image: "/products/felicita.jpg",
     name: "Femalin",
     description: "Comprehensive female health formula that normalizes functions of the female organism. Supports hormonal balance, promotes healthy menstrual cycle regulation, and provides immune and metabolic support tailored to women's physiological needs.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1259,6 +1289,7 @@ export const products: Product[] = [
   },
   {
     id: "zinsil-t",
+    image: "/products/zinsil1.jpg",
     name: "Zinsil-T",
     description: "Comprehensive zinc, glycine, and pyridoxine (Vitamin B6) complex for prolonging active longevity. Affects key links in the pathogenesis of accelerated aging, corrects the work of many enzymes and hormones, and restores disturbed immune and antioxidant status. A proven means of cancer prevention. Glycine (500mg) reduces psycho-emotional stress, aggressiveness, and conflict; enhances mood; facilitates and normalizes sleep; increases mental performance; reduces toxic effects of alcohol; and significantly improves zinc absorption. Zinc (8.6mg) is required for healthy functioning of all body cells, inhibits viral infection, stimulates leukocyte production, supports T-lymphocytes and natural killer cells, corrects blood sugar levels, helps the pancreas produce insulin, reduces high cholesterol, improves skin conditions, and supports protein synthesis. Vitamin B6 ensures substance exchange, participates in neurotransmitter metabolism (serotonin, dopamine), supports red blood cell production, and is essential for protein, fat, and carbohydrate metabolism.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1272,6 +1303,7 @@ export const products: Product[] = [
   },
   {
     id: "ensil",
+    image: "/products/ensil2.jpg",
     name: "Ensil",
     description: "Powerful oncoprotector of the latest generation, developed over more than six years of research. Markedly enhances tissue respiration processes and facilitates regeneration. Clinically evidenced for cancer prevention. Contains Coenzyme Q10 (cellular energizer, antioxidant, antitumor, anti-atherosclerotic, antiarrhythmic, hypotensive, immunomodulatory, hepatoprotective), nicotinamide (vital for NAD/NADPH coenzymes, tissue respiration, fat/protein/amino acid metabolism), folic acid (DNA replication, hematopoiesis, immune system development), echinacea (immune system fortification, anti-inflammatory), amber acid/succinic acid (prevents tumor emergence, inhibits existing tumor growth, strengthens immunity, stimulates insulin production, normalizes nervous system, counteracts stress, neutralizes toxins), L-carnitine (fatty acid transport, cardiac muscle and immune support), B vitamins B1/B5/B6 (energy metabolism, immune and nervous system function), and Vitamins C and E (antioxidants, tissue regeneration). Part of the immunity and energy activation trio.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1285,6 +1317,7 @@ export const products: Product[] = [
   },
   {
     id: "anti-age-nb-activity",
+    image: "/products/energystar3.jpg",
     name: "Anti-Age Complex NB Activity",
     description: "Energy concentrate and collagen activator from the Anti-Age Complex NB line. Stimulates collagen production, boosts cellular energy metabolism, and provides comprehensive anti-aging support for skin, connective tissue, and overall vitality.",
     category: "ANTI AGING-LONGEVITY",
@@ -1296,6 +1329,7 @@ export const products: Product[] = [
   },
   {
     id: "anti-age-nb-health",
+    image: "/products/energystar1.jpg",
     name: "Anti-Age Complex NB Health",
     description: "AGE protector from the Anti-Age Complex NB line. Provides advanced protection against advanced glycation end-products (AGEs), the primary drivers of accelerated aging. Supports protein structure integrity, reduces oxidative damage, and promotes deep cellular rejuvenation.",
     category: "ANTI AGING-LONGEVITY",
@@ -1339,6 +1373,7 @@ export const products: Product[] = [
   },
   {
     id: "gpl-femme",
+    image: "/products/gplF.jpg",
     name: "GPL Femme",
     description: "Comprehensive female health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Thyroid + Ovarian peptides + Alpha-lipoic acid. Designed to restore and maintain optimal function of the female reproductive, endocrine, cardiovascular, and nervous systems. Provides broad-spectrum support for hormonal balance, immune resilience, and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
@@ -1351,6 +1386,7 @@ export const products: Product[] = [
   },
   {
     id: "gpl-man",
+    image: "/products/GPL_M.jpg",
     name: "GPL Man",
     description: "Comprehensive male health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Pancreatic + Testicular peptides + Alpha-lipoic acid. Minimizes post-illness changes and disorders in the male body, restoring normal functioning of the cardiovascular, nervous, endocrine, and reproductive systems. Provides broad-spectrum support for male vitality and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
