@@ -528,6 +528,7 @@ export default function Index() {
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
             Our AI Wellness Assistant can help you understand which products align with your health goals, lifestyle, and areas of focus — with no pressure, no upsell.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/ai-assistant">
               <a className="btn-primary">
                 <span className="inline-flex items-center gap-2"><Sparkles className="w-4 h-4" /> Talk to the AI Assistant</span>
