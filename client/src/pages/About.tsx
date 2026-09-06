@@ -111,26 +111,32 @@ export default function About() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  Holistic Wellness Expert, Family Therapist, Wellness Coach, and Hypnotherapist dedicated to empowering individuals and families to lead fulfilling lives.
+                  Julia is co-founder of Pure Fire Nutritional. She leads research, education, and product curation — with a focus on peptide bioregulation and making Khavinson short regulatory peptides clearer for a U.S. audience.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  Her background is in psychology and behavior change. Longevity work led her to Vladimir Khavinson's research and the Eastern European tradition around short regulatory peptides. That interest became years of study, manufacturer relationships, and careful sourcing.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  At Pure Fire, she chooses what the store carries and how the science is explained — so customers get real products and real context, not hype.
                 </p>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold text-gray-800">Academic Background:</p>
+                  <p className="text-sm font-semibold text-gray-800">Academic background</p>
                   <ul className="text-sm text-gray-600 space-y-1 ml-4">
-                    <li>• MA in Forensic Mental Health Counseling (John Jay College)</li>
-                    <li>• MS in History & Theory of Psychology (University of Edinburgh)</li>
-                    <li>• BA Cum Laude in Forensic Psychology (John Jay College)</li>
+                    <li>• MSc, History &amp; Theory of Psychology — University of Edinburgh</li>
+                    <li>• Graduate training in Forensic Mental Health Counseling — John Jay College</li>
+                    <li>• BA, Forensic Psychology, cum laude — John Jay College</li>
                   </ul>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold text-gray-800">Certifications:</p>
+                  <p className="text-sm font-semibold text-gray-800">Professional background</p>
                   <ul className="text-sm text-gray-600 space-y-1 ml-4">
-                    <li>• LIBERATE Certified Meditation Coach</li>
-                    <li>• Emotional Freedom Technique (EFT) Certified</li>
-                    <li>• Komyo ReikiDo Shihan/Master</li>
+                    <li>• National Guild of Hypnotists–certified hypnotherapist</li>
+                    <li>• 10+ years in hypnotherapy, behavior change &amp; wellness education</li>
+                    <li>• Founder, Mindscaping NYC</li>
                   </ul>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  Founder of <strong>Mindscaping NYC</strong>, a successful wellness and hypnotherapy practice focused on personalized plans for stress management, holistic health, and personal development.
+                  She also founded Mindscaping NYC, her private wellness and hypnotherapy practice.
                 </p>
               </CardContent>
             </Card>
