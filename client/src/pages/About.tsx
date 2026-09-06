@@ -10,8 +10,8 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>About Pure Fire Nutritional | Exclusive US Khavinson Peptide Retailer</title>
-        <meta name="description" content="Learn about Pure Fire Nutritional — the exclusive US retailer of Khavinson peptide bioregulators. Our mission is evidence-informed wellness for cognitive vitality, resilience, and longevity." />
+        <title>About Pure Fire Nutritional | Nutrition Supplements & Peptide Bioregulators</title>
+        <meta name="description" content="Learn about Pure Fire Nutritional — we sell nutrition supplements we trust. Peptide bioregulators are the specialty. Evidence-backed products for cognitive vitality, resilience, and healthy aging." />
       </Helmet>
       {/* Hero Section */}
       <section className="relative py-16 sm:py-20 md:py-24 bg-brand-gradient text-white">
@@ -35,7 +35,7 @@ export default function About() {
           </h1>
           
           <p className="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto leading-relaxed">
-            Pure Fire Nutritional was built at the intersection of mental wellness and physical performance — because true resilience requires both.
+            We sell nutrition supplements we trust. Peptide bioregulators are the specialty.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -229,7 +229,7 @@ export default function About() {
                 We believe wellness begins with understanding. The body and mind are adaptive systems — constantly responding to environment, stress, recovery, behavior, and awareness.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                Our goal is not simply to offer products, but to support informed, empowered approaches to cognitive vitality, resilience, longevity, and whole-person wellness. We curate only what we trust — products we use ourselves and would give to our families.
+                Our goal is not simply to offer products, but to support informed, empowered approaches to cognitive vitality, resilience, longevity, and healthy aging. We curate only what we trust — products we use ourselves and would give to our families.
               </p>
               <p className="text-lg text-gray-800 font-medium italic mb-8">
                 "Because some perspectives create limitation. Others create possibility."
@@ -254,7 +254,7 @@ export default function About() {
                     <Award className="h-6 w-6 text-white" />
                   </div>
                   <CardTitle className="text-xl">40+ Years</CardTitle>
-                  <CardDescription>Research Foundation</CardDescription>
+                  <CardDescription>Khavinson Research Program</CardDescription>
                 </CardHeader>
               </Card>
               <Card className="text-center">
@@ -262,7 +262,7 @@ export default function About() {
                   <div className="bg-gradient-to-r from-green-500 to-emerald-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
                     <Shield className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl">Exclusive</CardTitle>
+                  <CardTitle className="text-xl">Authorized</CardTitle>
                   <CardDescription>US Khavinson Retailer</CardDescription>
                 </CardHeader>
               </Card>
@@ -370,7 +370,7 @@ export default function About() {
             Begin with Understanding
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Explore our evidence-informed wellness tools — or let our AI Assistant help you find what aligns with your goals.
+            Explore our evidence-backed nutrition supplements and peptide bioregulators — or let our AI Assistant help you find what aligns with your goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/products">
@@ -378,7 +378,7 @@ export default function About() {
                 size="lg" 
                 className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full"
               >
-                Explore Wellness Tools
+                Explore Products
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

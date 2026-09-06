@@ -198,6 +198,16 @@ export default function ProductDetail() {
                 </Button>
               </div>
 
+              {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
+              {product.category === "PEPTIDE BIOREGULATORS" && (
+                <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">
+                  <span className="text-orange-500 text-sm mt-0.5 flex-shrink-0">ⓘ</span>
+                  <p className="text-xs text-orange-800 leading-relaxed">
+                    <strong>Oral bioregulator dietary supplement.</strong> Not an injectable peptide. These are short, tissue-specific Khavinson peptide bioregulators taken orally as capsules or lingual drops — a different class from injectable research peptides or GLP-1 medications.
+                  </p>
+                </div>
+              )}
+
               {/* Usage callout */}
               {product.usage && (
                 <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">

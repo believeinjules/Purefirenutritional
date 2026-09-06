@@ -3,5 +3,15 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/products/:slug*",
+      "destination": "/products/index.html"
+    },
+    {
+      "source": "/((?!api|_next|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

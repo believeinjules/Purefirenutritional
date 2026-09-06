@@ -98,7 +98,7 @@ export default function Footer() {
               Mind · Body · Resilience · Longevity
             </p>
             <p className="text-gray-400 text-sm">
-              Evidence-informed wellness tools supporting cognitive vitality, recovery, healthy aging, and whole-person wellness. Exclusive US retailer of Khavinson peptide bioregulators.
+              Nutrition supplements and oral peptide bioregulators for cognitive vitality, recovery, healthy aging, and resilience. Authorized US retailer of Khavinson peptide bioregulators.
             </p>
             {/* Social Links */}
             <div className="flex gap-4 mt-4">
@@ -156,7 +156,7 @@ export default function Footer() {
 
           {/* Product Categories */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Wellness Tools</h3>
+            <h3 className="font-semibold text-lg mb-4">Our Products</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-gray-400 hover:text-orange-500 transition-colors">

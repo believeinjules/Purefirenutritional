@@ -49,27 +49,27 @@ const researchPapers: ResearchPaper[] = [
     authors: "Imai S, Guarente L",
     journal: "Trends in Cell Biology",
     year: 2018,
-    abstract: "Comprehensive review of NAD+ metabolism and its role in aging. NAD+ decline is a hallmark of aging, and NAD+ supplementation has shown promise in extending healthspan in various model organisms.",
+    abstract: "Comprehensive review of NAD+ metabolism and its role in aging. NAD+ decline is a hallmark of aging, and NAD+ supplementation has shown promise in extending healthspan in various model organisms. (Adjacent longevity research — not a peptide bioregulator study.)",
     url: "https://pubmed.ncbi.nlm.nih.gov/29432159/",
-    category: "NAD+ Research"
+    category: "Adjacent Longevity Research"
   },
   {
     title: "Spermidine Induces Autophagy and Extends Lifespan",
     authors: "Eisenberg T, Knauer H, Schauer A, et al.",
     journal: "Nature Cell Biology",
     year: 2016,
-    abstract: "This landmark study demonstrates that spermidine supplementation triggers autophagy and extends lifespan in yeast, flies, worms, and human cells. The findings support spermidine as a promising longevity intervention.",
+    abstract: "This landmark study demonstrates that spermidine supplementation triggers autophagy and extends lifespan in yeast, flies, worms, and human cells. (Adjacent longevity research — not a peptide bioregulator study.)",
     url: "https://pubmed.ncbi.nlm.nih.gov/27411589/",
-    category: "Autophagy"
+    category: "Adjacent Longevity Research"
   },
   {
     title: "Coenzyme Q10 and Mitochondrial Function in Aging",
     authors: "Hernández-Camacho JD, Bernier M, López-Lluch G, Navas P",
     journal: "Frontiers in Physiology",
     year: 2018,
-    abstract: "Review of CoQ10's essential role in mitochondrial energy production and its decline with age. Supplementation has shown benefits for cardiovascular health, energy levels, and cellular protection.",
+    abstract: "Review of CoQ10's essential role in mitochondrial energy production and its decline with age. Supplementation has shown benefits for cardiovascular health, energy levels, and cellular protection. (Adjacent longevity research — not a peptide bioregulator study.)",
     url: "https://pubmed.ncbi.nlm.nih.gov/24389208/",
-    category: "Mitochondria"
+    category: "Adjacent Longevity Research"
   },
   {
     title: "Pineal Peptides and Melatonin: Circadian Rhythm Regulation",
@@ -94,9 +94,9 @@ const researchPapers: ResearchPaper[] = [
     authors: "Baur JA, Sinclair DA",
     journal: "Nature Reviews Drug Discovery",
     year: 2006,
-    abstract: "Comprehensive review of resveratrol's mechanisms of action, including sirtuin activation, and its potential as a calorie restriction mimetic for extending healthspan.",
+    abstract: "Comprehensive review of resveratrol's mechanisms of action, including sirtuin activation, and its potential as a calorie restriction mimetic for extending healthspan. (Adjacent longevity research — not a peptide bioregulator study.)",
     url: "https://pubmed.ncbi.nlm.nih.gov/16883309/",
-    category: "Sirtuins"
+    category: "Adjacent Longevity Research"
   },
   {
     title: "Cartilage Peptides for Joint Health and Regeneration",
@@ -152,25 +152,28 @@ export default function Science() {
           </div>
         </section>
 
-        {/* Key Stats */}
         <section className="py-12 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-4xl font-bold text-orange-600 mb-2">40+</div>
-                <div className="text-gray-600">Years of Research</div>
+                <div className="text-gray-600">Years of Khavinson Research</div>
+                <div className="text-gray-400 text-xs mt-1">St. Petersburg Institute of Bioregulation</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-orange-600 mb-2">200+</div>
                 <div className="text-gray-600">Clinical Studies</div>
+                <div className="text-gray-400 text-xs mt-1">Peer-reviewed publications from the research program</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-orange-600 mb-2">15M+</div>
-                <div className="text-gray-600">Patients Treated</div>
+                <div className="text-gray-600">Patients Supported</div>
+                <div className="text-gray-400 text-xs mt-1">Across clinical applications of the research program</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-orange-600 mb-2">100+</div>
                 <div className="text-gray-600">Patents Worldwide</div>
+                <div className="text-gray-400 text-xs mt-1">Khavinson peptide bioregulator innovations</div>
               </div>
             </div>
           </div>
@@ -184,10 +187,10 @@ export default function Science() {
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Pioneer in Peptide Research</Badge>
                 <h2 className="text-3xl font-bold mb-4">Professor Vladimir Khavinson</h2>
                 <p className="text-gray-600 mb-4">
-                  Professor Vladimir Khavinson is a world-renowned gerontologist and the pioneer of peptide bioregulator research. As the President of the European Academy of Gerontology and Geriatrics, he has dedicated over 40 years to studying the effects of short peptides on aging and disease.
+                  Professor Vladimir Khavinson (1946–2024) was a world-renowned gerontologist and the pioneer of peptide bioregulator research. As the President of the European Academy of Gerontology and Geriatrics, he dedicated over 40 years to studying the effects of short peptides on aging and disease at the St. Petersburg Institute of Bioregulation and Gerontology.
                 </p>
                 <p className="text-gray-600 mb-4">
-                  His groundbreaking research has resulted in the development of numerous peptide bioregulators that are now used worldwide to support healthy aging and organ function.
+                  His research program produced numerous peptide bioregulators that are used worldwide to support healthy aging and organ function. The 200+ publications, 100+ patents, and clinical work cited throughout this site refer to this research program and its collaborators, not to Pure Fire Nutritional.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline"><Award className="w-3 h-3 mr-1" /> 200+ Publications</Badge>
@@ -260,6 +263,10 @@ export default function Science() {
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="text-orange-600 font-bold">•</span>
+                      <span>Cellular protective properties</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-600 font-bold">•</span>
                       <span>Promotes comprehensive cellular protection</span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -268,11 +275,7 @@ export default function Science() {
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-orange-600 font-bold">•</span>
-                      <span>Modulates expression of tumor suppressor proteins</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-orange-600 font-bold">•</span>
-                      <span>Clinically validated for effectiveness</span>
+                      <span>Supports gene expression regulation</span>
                     </li>
                   </ul>
                 </CardContent>
@@ -354,7 +357,7 @@ export default function Science() {
                   A peptide is a molecule consisting of two or more amino acids linked together with a peptide bond. With a size of up to 1 nanometer, peptides are part of the nanoworld. Conventionally, a peptide molecule consists of under 100 amino acids, while a protein molecule contains over 100. Peptides can be derived from plants or animals as well as artificially synthesized.
                 </p>
                 <p className="text-gray-700">
-                  In the body, peptides carry information, transferring biological signals from one cell to another to ensure proper functioning. When cells work correctly, the whole body functions optimally. Natural peptides are organic substances that regulate cellular condition, enabling the body to heal itself through cellular-level normalization.
+                  In the body, peptides carry information, transferring biological signals from one cell to another to ensure proper functioning. When cells work correctly, the whole body functions optimally. Natural peptides are organic substances that regulate cellular condition, supporting cellular-level normalization over time.
                 </p>
               </CardContent>
             </Card>
@@ -370,10 +373,10 @@ export default function Science() {
                 </CardHeader>
                 <CardContent className="text-gray-700">
                   <p className="mb-3">
-                    Life exists because of two kinds of molecules: peptides that carry information and DNA that stores genetic information. When peptides enter the body, they immediately begin their work, giving new life to cells by replacing old, damaged cells with new ones.
+                    Life exists because of two kinds of molecules: peptides that carry information and DNA that stores genetic information. When peptides enter the body, they act as regulatory signals — supporting the renewal of cells and the replacement of old, damaged cells with new ones over time.
                   </p>
                   <p>
-                    Peptides can increase cell lifetime by 30-40%, launching an active recovery process throughout the body.
+                    Research indicates peptides can support cell longevity and launch recovery processes, though results vary by individual and take time to develop.
                   </p>
                 </CardContent>
               </Card>
@@ -506,9 +509,9 @@ export default function Science() {
                     <div className="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-3">
                       <FlaskConical className="w-6 h-6" />
                     </div>
-                    <h4 className="font-bold mb-2">Immediate Action</h4>
+                    <h4 className="font-bold mb-2">Oral Bioavailability</h4>
                     <p className="text-sm text-gray-700">
-                      Unlike supplements that may take time to show effects, peptides begin working immediately upon entering the body.
+                      These are oral dietary supplements — capsules and lingual formats. Not injectable peptides. Short peptide chains are absorbed through the digestive tract and mucous membranes.
                     </p>
                   </div>
                   <div>
@@ -523,11 +526,50 @@ export default function Science() {
                 </div>
                 <div className="mt-6 p-4 bg-white rounded-lg">
                   <p className="text-gray-700 text-center">
-                    <strong>Scientific Foundation:</strong> The Institute of Gerontology and Bio-Regulation led by Prof. V.Kh. Khavinson developed a comprehensive program after 20 years of research focusing on prevention of age-related problems, decreased mortality, and increased working period.
+                    <strong>Research Foundation:</strong> The St. Petersburg Institute of Bioregulation and Gerontology, led by Prof. V.Kh. Khavinson, developed these bioregulators through a program spanning 40+ years, focusing on prevention of age-related decline, decreased mortality, and extended working life.
                   </p>
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </section>
+
+        {/* Is / Isn't Class Section */}
+        <section className="py-16 px-4 bg-gray-900 text-white">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <Badge className="bg-orange-600 text-white mb-4">Know the Difference</Badge>
+              <h2 className="text-3xl font-bold mb-4">What class is this, exactly?</h2>
+              <p className="text-gray-300 text-lg">
+                These are not the peptides most people mean right now.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+                <div className="text-red-400 font-semibold text-sm uppercase tracking-wide mb-2">Not This</div>
+                <h3 className="font-bold text-white mb-2">GLP-1 Medications</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  GLP-1 receptor agonists (semaglutide, tirzepatide) are pharmaceutical drugs prescribed for weight loss and diabetes. Administered by injection. Regulated as medicines.
+                </p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+                <div className="text-red-400 font-semibold text-sm uppercase tracking-wide mb-2">Not This Either</div>
+                <h3 className="font-bold text-white mb-2">Injectable Research Peptides</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  BPC-157, TB-500, and similar compounds sold as research chemicals. Typically injected subcutaneously. Not dietary supplements.
+                </p>
+              </div>
+              <div className="bg-orange-600/20 border border-orange-500/30 rounded-xl p-5">
+                <div className="text-orange-400 font-semibold text-sm uppercase tracking-wide mb-2">This</div>
+                <h3 className="font-bold text-white mb-2">Khavinson Peptide Bioregulators</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Oral dietary supplements — capsules and lingual formats. Short, tissue-specific. Taken in courses, not shots. Developed over 40+ years at the St. Petersburg Institute of Bioregulation and Gerontology.
+                </p>
+              </div>
+            </div>
+            <div className="text-center text-gray-400 text-sm">
+              The mechanism is regulatory, not pharmacological: these peptides support the cell's own signaling rather than overriding it.
+            </div>
           </div>
         </section>
 

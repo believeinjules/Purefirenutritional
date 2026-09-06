@@ -38,7 +38,7 @@ const wellnessCategories = [
     border: "hover:border-rose-300",
     title: "Recovery & Resilience",
     description:
-      "Resilience is not the absence of stress — it's the capacity to return to balance. These tools support the body's natural recovery systems: muscle, cardiovascular, immune, and nervous system.",
+      "Resilience is not the absence of stress — it's the capacity to return to balance. These products support the body's natural recovery systems: muscle, cardiovascular, immune, and nervous system.",
     products: ["Gotratix", "Chelohart", "Revilab ML 04", "Revilab SL 07", "Chondromix"],
     href: "/products",
     cta: "Explore Recovery Tools",
@@ -82,7 +82,7 @@ const pillars = [
   },
   {
     icon: Heart,
-    label: "Whole-Person Wellness",
+    label: "Integrated Approach",
     text: "Mental clarity and physical vitality are not separate. They are expressions of the same underlying biological balance.",
   },
   {
@@ -131,8 +131,8 @@ export default function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Helmet>
-        <title>Khavinson Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional</title>
-        <meta name="description" content="Pure Fire Nutritional is the exclusive US retailer of Khavinson peptide bioregulators. Shop Cytomaxes, Cytogens, anti-aging supplements, and longevity solutions backed by 40+ years of research." />
+        <title>Khavinson Peptide Bioregulators & Nutrition Supplements | Pure Fire Nutritional</title>
+        <meta name="description" content="Pure Fire Nutritional sells evidence-backed nutrition supplements and oral Khavinson peptide bioregulators. Shop Cytomaxes, Cytogens, anti-aging supplements, and longevity solutions." />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
@@ -178,7 +178,7 @@ export default function Index() {
             fontSize: "clamp(44px, 6vw, 66px)",
             color: "white",
             lineHeight: 1.0,
-            marginBottom: "28px",
+            marginBottom: "16px",
           }}>
             Support the Mind and Body's Natural Capacity to{" "}
             <span style={{
@@ -193,6 +193,19 @@ export default function Index() {
             </span>
           </h1>
 
+          {/* Product line clarifier */}
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 400,
+            fontSize: "12px",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "#888",
+            marginBottom: "20px",
+          }}>
+            Evidence-backed nutrition supplements and peptide bioregulators.
+          </p>
+
           {/* Subtitle */}
           <p style={{
             fontFamily: "'Inter', sans-serif",
@@ -203,19 +216,19 @@ export default function Index() {
             maxWidth: "400px",
             margin: "0 auto 36px",
           }}>
-            Evidence-informed wellness tools designed to support cognitive vitality, resilience, healthy aging, recovery, and whole-person wellness.
+            Evidence-backed nutrition supplements for cognitive vitality, resilience, healthy aging, and recovery.
           </p>
 
           {/* CTA Buttons */}
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/products">
               <a className="btn-primary">
-                Explore Wellness Tools
+                Explore Products
               </a>
             </Link>
             <Link href="/about">
               <a className="btn-secondary">
-                Learn the Philosophy
+                Why we carry these
               </a>
             </Link>
           </div>
@@ -230,9 +243,9 @@ export default function Index() {
             alignItems: "stretch",
           }}>
             {[
-              { value: "US", label: "Exclusive Retailer" },
-              { value: "40+", label: "Years of Research" },
-              { value: "Sci.", label: "Validated" },
+              { value: "Authorized", label: "US Retailer" },
+              { value: "40+", label: "Years of Khavinson Research" },
+              { value: "Evidence", label: "Backed" },
             ].map((stat, i) => (
               <div key={stat.label} style={{ display: "flex", alignItems: "stretch" }}>
                 {i > 0 && (
@@ -276,7 +289,7 @@ export default function Index() {
           </h2>
           <div className="space-y-5 text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
             <p>
-              The body and mind are adaptive systems — constantly responding to environment, stress, recovery, behavior, and awareness. Our goal is not simply to offer products, but to support informed, empowered approaches to cognitive vitality, resilience, longevity, and whole-person wellness.
+              The body and mind are adaptive systems — constantly responding to environment, stress, recovery, behavior, and awareness. Our goal is not simply to offer products, but to support informed, empowered approaches to cognitive vitality, resilience, longevity, and healthy aging.
             </p>
             <p className="text-gray-800 font-medium italic">
               "Because some perspectives create limitation. Others create possibility."
@@ -302,7 +315,7 @@ export default function Index() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="section-label mb-3">Wellness Tools</p>
+            <p className="section-label mb-3">Our Products</p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Guided by System. Grounded in Science.
             </h2>
@@ -381,6 +394,69 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ── Is / Isn't Cut ────────────────────────────────────────────── */}
+      <section className="py-16 px-4 bg-gray-900">
+        <div className="max-w-2xl mx-auto text-center">
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 400,
+            fontSize: "11px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "#E8622A",
+            marginBottom: "24px",
+          }}>
+            Know the Difference
+          </p>
+          <h2 style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 600,
+            fontSize: "clamp(28px, 4vw, 38px)",
+            color: "white",
+            lineHeight: 1.1,
+            marginBottom: "28px",
+          }}>
+            These are not the peptides most people mean right now.
+          </h2>
+          <div style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 300,
+            fontSize: "14px",
+            color: "#999",
+            lineHeight: 2,
+            marginBottom: "32px",
+          }}>
+            <p style={{ marginBottom: "4px" }}>Not GLP-1 medications.</p>
+            <p style={{ marginBottom: "20px" }}>Not injectable research peptides.</p>
+            <p style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontStyle: "italic",
+              fontSize: "20px",
+              color: "#ccc",
+              marginBottom: "16px",
+            }}>
+              Khavinson peptide bioregulators: a different class.
+            </p>
+            <p style={{ marginBottom: "4px" }}>Short. Tissue-specific. Courses, not shots.</p>
+            <p>Deeper action. So cells start regulating themselves.</p>
+          </div>
+          <Link href="/faq">
+            <a style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "12px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#E8622A",
+              textDecoration: "none",
+              borderBottom: "0.5px solid #E8622A44",
+              paddingBottom: "2px",
+            }}>
+              See FAQ for full comparison →
+            </a>
+          </Link>
+        </div>
+      </section>
+
       {/* ── Trust / Credibility ────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
         <div className="max-w-5xl mx-auto">
@@ -416,8 +492,8 @@ export default function Index() {
               {
                 icon: Shield,
                 color: "bg-orange-100 text-orange-600",
-                title: "Exclusive Access",
-                text: "The only verified Khavinson peptide bioregulator retailer in the United States.",
+                title: "Authorized US Retailer",
+                text: "An authorized US retailer of authentic Khavinson peptide bioregulators, sourced directly from verified manufacturers.",
               },
               {
                 icon: Sparkles,
@@ -452,7 +528,6 @@ export default function Index() {
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
             Our AI Wellness Assistant can help you understand which products align with your health goals, lifestyle, and areas of focus — with no pressure, no upsell.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/ai-assistant">
               <a className="btn-primary">
                 <span className="inline-flex items-center gap-2"><Sparkles className="w-4 h-4" /> Talk to the AI Assistant</span>

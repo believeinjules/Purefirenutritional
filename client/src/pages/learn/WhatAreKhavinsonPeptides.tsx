@@ -82,7 +82,7 @@ export default function ArticleKhavinsonPeptides() {
             </p>
 
             <p>
-              Pure Fire Nutritional is the exclusive US retailer of authentic Khavinson peptide bioregulators. We source directly from the original manufacturers and carry the full range of Cytomaxes, Cytogens, and the Revilab series — ensuring that what you receive is the same formulation used in the clinical research, not a generic imitation.
+              Pure Fire Nutritional is an authorized US retailer of authentic Khavinson peptide bioregulators. We source directly from the original manufacturers and carry the full range of Cytomaxes, Cytogens, and the Revilab series — ensuring that what you receive is the same formulation used in the clinical research, not a generic imitation.
             </p>
 
             <p>

@@ -73,12 +73,19 @@ export async function fetchProducts(): Promise<Product[]> {
     return localProducts;
   }
 
+  // Wrap with a timeout so a hanging Firestore connection never blocks the UI
+  const withTimeout = <T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> =>
+    Promise.race([
+      promise,
+      new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+    ]);
+
   try {
     const q = query(collection(db, "products"), orderBy("name"));
-    const snapshot = await getDocs(q);
+    const snapshot = await withTimeout(getDocs(q), 6000, null as any);
 
-    if (snapshot.empty) {
-      console.log("No products in Firestore, using local product data");
+    if (!snapshot || snapshot.empty) {
+      console.log("No products in Firestore (empty or timed out), using local product data");
       return localProducts;
     }
 
@@ -97,8 +104,12 @@ export async function fetchProductById(id: string): Promise<Product | null> {
   }
 
   try {
-    const snap = await getDoc(doc(db, "products", id));
-    if (!snap.exists()) {
+    const snapPromise = getDoc(doc(db, "products", id));
+    const snap = await Promise.race([
+      snapPromise,
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 6000)),
+    ]);
+    if (!snap || !snap.exists()) {
       return localProducts.find((p) => p.id === id) || null;
     }
     return docToProduct(snap.id, snap.data());

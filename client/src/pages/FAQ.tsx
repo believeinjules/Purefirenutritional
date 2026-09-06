@@ -18,7 +18,12 @@ const faqs: FAQItem[] = [
   {
     category: "General",
     question: "What are peptide bioregulators?",
-    answer: "Peptide bioregulators are short-chain amino acid sequences that help regulate gene expression in specific tissues. Developed through over 40 years of research by Professor Vladimir Khavinson, these peptides work at the cellular level to support optimal organ function and promote healthy aging."
+    answer: "Peptide bioregulators are short-chain amino acid sequences that help regulate gene expression in specific tissues. Developed through over 40 years of research by Professor Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology, these peptides work at the cellular level to support optimal organ function and promote healthy aging."
+  },
+  {
+    category: "General",
+    question: "How is this different from other peptides people talk about?",
+    answer: "These are not the peptides most people mean right now. Not GLP-1 weight-loss medications. Not injectable research peptides (BPC-157, TB-500, and the rest). Pure Fire Nutritional carries oral, short, tissue-specific Khavinson peptide bioregulators — courses, not shots. Our capsules and lingual products are dietary supplements, not clinic injectables."
   },
   {
     category: "General",
@@ -33,7 +38,7 @@ const faqs: FAQItem[] = [
   {
     category: "General",
     question: "Is Pure Fire Nutritional an authorized Khavinson retailer?",
-    answer: "Yes, Pure Fire Nutritional is the exclusive authorized retailer of authentic Khavinson peptide bioregulators in the United States. We source directly from verified manufacturers to ensure authenticity and quality."
+    answer: "Yes, Pure Fire Nutritional is an authorized US retailer of authentic Khavinson peptide bioregulators. We source directly from verified manufacturers to ensure authenticity and quality."
   },
   // Products
   {
