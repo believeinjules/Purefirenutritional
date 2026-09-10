@@ -1,7 +1,25 @@
 import { describe, it, expect } from 'vitest';
-import { getAIRecommendations, getRecommendationExplanation } from './aiRecommendations';
+import { getAIRecommendations, getRecommendationExplanation, healthKeywordMap } from './aiRecommendations';
+import { products } from './products';
 
 describe('AI Recommendations', () => {
+  describe('catalog integrity', () => {
+    it('every recommended productId exists in the products catalog', () => {
+      const catalogIds = new Set(products.map((p) => p.id));
+      const missing: string[] = [];
+
+      Object.entries(healthKeywordMap).forEach(([keyword, recommendation]) => {
+        recommendation.productIds.forEach((id) => {
+          if (!catalogIds.has(id)) {
+            missing.push(`${keyword}:${id}`);
+          }
+        });
+      });
+
+      expect(missing, `Missing catalog IDs: ${missing.join(', ')}`).toEqual([]);
+    });
+  });
+
   describe('getAIRecommendations', () => {
     it('should return heart-related products for cardiovascular queries', () => {
       const results = getAIRecommendations('I have heart problems', 4);
@@ -12,7 +30,7 @@ describe('AI Recommendations', () => {
 
     it('should return brain products for cognitive queries', () => {
       const results = getAIRecommendations('I need help with memory and focus', 4);
-      expect(results).toContain('pinealon');
+      expect(results).toContain('prime-peptide-brain');
       expect(results).toContain('revilab-ml-07');
       expect(results.length).toBeLessThanOrEqual(4);
     });
@@ -20,14 +38,14 @@ describe('AI Recommendations', () => {
     it('should return anti-aging products for aging queries', () => {
       const results = getAIRecommendations('anti-aging solutions', 4);
       expect(results).toContain('revilab-sl-01');
-      expect(results).toContain('nmn-powder');
+      expect(results).toContain('endoluten');
       expect(results.length).toBeLessThanOrEqual(4);
     });
 
     it('should return joint products for arthritis queries', () => {
       const results = getAIRecommendations('joint pain and arthritis', 4);
       expect(results).toContain('cartalax');
-      expect(results).toContain('collagen-peptides');
+      expect(results).toContain('prime-peptide-collagen');
       expect(results.length).toBeLessThanOrEqual(4);
     });
 
@@ -40,7 +58,7 @@ describe('AI Recommendations', () => {
 
     it('should return energy products for fatigue queries', () => {
       const results = getAIRecommendations('I am always tired and have no energy', 4);
-      expect(results).toContain('coq10-ubiquinol');
+      expect(results).toContain('panaxod');
       expect(results).toContain('revilab-ml-02');
       expect(results.length).toBeLessThanOrEqual(4);
     });
@@ -59,6 +77,27 @@ describe('AI Recommendations', () => {
     it('should respect maxResults parameter', () => {
       const results = getAIRecommendations('anti-aging longevity health', 2);
       expect(results.length).toBeLessThanOrEqual(2);
+    });
+
+    it('resolved recommendations should all exist in catalog', () => {
+      const catalogIds = new Set(products.map((p) => p.id));
+      const queries = [
+        'heart health',
+        'brain memory',
+        'anti-aging longevity',
+        'joint arthritis',
+        'immune infection',
+        'energy fatigue',
+        'liver detox',
+        'testosterone mens health',
+        'thyroid hormone',
+        'sleep stress',
+      ];
+      for (const q of queries) {
+        for (const id of getAIRecommendations(q, 8)) {
+          expect(catalogIds.has(id), `${q} → missing ${id}`).toBe(true);
+        }
+      }
     });
   });
 
@@ -84,6 +123,13 @@ describe('AI Recommendations', () => {
       const explanation = getRecommendationExplanation('I want anti-aging and also better sleep');
       // Anti-aging has priority 10, sleep has priority 9
       expect(explanation).toContain('anti-aging');
+    });
+
+    it('uses structure/function language for disease-style queries', () => {
+      expect(getRecommendationExplanation('blood pressure concerns')).toMatch(/vascular|circulatory/i);
+      expect(getRecommendationExplanation('arthritis support')).toMatch(/joint comfort|flexibility|connective/i);
+      expect(getRecommendationExplanation('infection season')).toMatch(/immune system resilience|seasonal wellness/i);
+      expect(getRecommendationExplanation('alzheimer support')).toMatch(/cognitive function|neural/i);
     });
   });
 });

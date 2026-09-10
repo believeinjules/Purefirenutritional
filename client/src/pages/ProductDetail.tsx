@@ -11,6 +11,9 @@ import { toast } from 'sonner';
 import { fetchProductById, Product } from "@/lib/productsStorage";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import VariantSelector from "@/components/VariantSelector";
+import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
+import { getProductById } from "@/data/products";
+import { getRecommendations } from "@/data/productRecommendations";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -272,6 +275,27 @@ export default function ProductDetail() {
               </div>
             )}
           </div>
+
+          {/* Frequently bought together — catalog-backed companions only */}
+          {(() => {
+            const catalogProduct = getProductById(product.id);
+            if (!catalogProduct) return null;
+            const recommendations = getRecommendations(catalogProduct.id, 2)
+              .map((rec) => {
+                const companion = getProductById(rec.productId);
+                return companion ? { product: companion, reason: rec.reason } : null;
+              })
+              .filter((r): r is { product: NonNullable<ReturnType<typeof getProductById>>; reason?: string } => r !== null);
+            if (recommendations.length === 0) return null;
+            return (
+              <div className="mt-12">
+                <FrequentlyBoughtTogether
+                  currentProduct={catalogProduct}
+                  recommendations={recommendations}
+                />
+              </div>
+            );
+          })()}
 
         </div>
       </main>

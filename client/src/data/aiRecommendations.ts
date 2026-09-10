@@ -1,5 +1,6 @@
 // AI Assistant keyword-to-product recommendation mapping
-// Maps health concerns/keywords to relevant product recommendations
+// Maps health concerns/keywords to relevant product recommendations.
+// All productIds MUST exist in products.ts (enforced by aiRecommendations.test.ts).
 
 export interface AIRecommendation {
   productIds: string[];
@@ -11,178 +12,202 @@ export interface AIRecommendation {
 export const healthKeywordMap: Record<string, AIRecommendation> = {
   // Anti-aging & longevity
   "anti-aging": {
-    productIds: ["revilab-sl-01", "revilab-ml-01", "nmn-powder", "revilab-anti-age"],
-    explanation: "Comprehensive anti-aging support with peptide bioregulators and NAD+ boosters",
+    productIds: ["revilab-sl-01", "revilab-ml-01", "endoluten", "revilab-anti-age"],
+    explanation: "Comprehensive anti-aging support with peptide bioregulators and pineal longevity peptides",
     priority: 10
   },
   "aging": {
-    productIds: ["revilab-sl-01", "revilab-ml-01", "nmn-powder", "coq10-ubiquinol"],
+    productIds: ["revilab-sl-01", "revilab-ml-01", "endoluten", "olecap"],
     explanation: "Cellular rejuvenation and longevity optimization",
     priority: 10
   },
   "wrinkles": {
-    productIds: ["anti-wrinkle-serum-7", "revilab-anti-age", "collagen-peptides"],
-    explanation: "Topical and internal wrinkle reduction with peptides and collagen",
+    productIds: ["anti-wrinkle-serum-7", "revilab-anti-age", "prime-peptide-collagen"],
+    explanation: "Topical and internal wrinkle reduction with peptides and collagen support",
     priority: 9
   },
   "longevity": {
-    productIds: ["nmn-powder", "resveratrol-trans", "revilab-ml-01", "coq10-ubiquinol"],
+    productIds: ["endoluten", "revilab-anti-age", "revilab-ml-01", "vladonix"],
     explanation: "Science-backed longevity stack for healthy aging",
     priority: 10
   },
 
   // Cardiovascular health
   "heart": {
-    productIds: ["chelohart", "revilab-ml-04", "coq10-ubiquinol", "omega-3-triglyceride"],
-    explanation: "Comprehensive cardiovascular support with heart peptides and CoQ10",
+    productIds: ["chelohart", "revilab-ml-04", "olecap", "prime-peptide-omega"],
+    explanation: "Comprehensive cardiovascular support with heart peptides and omega nutrition",
     priority: 10
   },
   "cardiovascular": {
-    productIds: ["chelohart", "revilab-ml-04", "coq10-ubiquinol", "omega-3-triglyceride"],
+    productIds: ["chelohart", "revilab-ml-04", "olecap", "prime-peptide-omega"],
     explanation: "Heart health optimization with peptide bioregulators",
     priority: 10
   },
+  // Softened: disease-style "blood pressure" → vascular / circulatory structure-function
+  "vascular": {
+    productIds: ["chelohart", "revilab-sl-04", "ventfort", "prime-peptide-omega"],
+    explanation: "Supports healthy vascular function and circulatory wellness",
+    priority: 9
+  },
   "blood pressure": {
-    productIds: ["chelohart-lingual", "revilab-sl-04", "omega-3-triglyceride"],
-    explanation: "Cardiovascular support for healthy blood pressure",
+    productIds: ["chelohart", "revilab-sl-04", "ventfort"],
+    explanation: "Supports healthy vascular function and circulatory wellness",
     priority: 9
   },
   "circulation": {
-    productIds: ["chelohart", "revilab-ml-04", "coq10-ubiquinol"],
+    productIds: ["chelohart", "revilab-ml-04", "ventfort", "olecap"],
     explanation: "Enhanced blood flow and circulatory system support",
     priority: 9
   },
 
   // Brain & cognitive
   "brain": {
-    productIds: ["pinealon", "revilab-ml-07", "nmn-powder", "omega-3-triglyceride"],
-    explanation: "Cognitive enhancement with brain peptides and omega-3",
+    productIds: ["prime-peptide-brain", "revilab-ml-07", "endoluten", "prime-peptide-omega"],
+    explanation: "Cognitive enhancement with brain peptides and omega nutrition",
     priority: 10
   },
   "memory": {
-    productIds: ["pinealon", "revilab-ml-07", "nmn-powder"],
+    productIds: ["prime-peptide-brain", "revilab-ml-07", "endoluten"],
     explanation: "Memory support and cognitive function optimization",
     priority: 9
   },
   "focus": {
-    productIds: ["pinealon-lingual", "revilab-sl-07", "coq10-ubiquinol"],
+    productIds: ["prime-peptide-brain", "revilab-sl-07", "endoluten"],
     explanation: "Mental clarity and concentration enhancement",
     priority: 9
   },
   "cognitive": {
-    productIds: ["pinealon", "revilab-ml-07", "nmn-powder", "omega-3-triglyceride"],
+    productIds: ["prime-peptide-brain", "revilab-ml-07", "endoluten", "prime-peptide-omega"],
     explanation: "Comprehensive cognitive performance support",
     priority: 10
   },
+  // Softened: "alzheimer" → cognitive aging / neural structure-function
+  "cognitive aging": {
+    productIds: ["prime-peptide-brain", "revilab-ml-07", "endoluten"],
+    explanation: "Supports healthy cognitive function and neural communication with age",
+    priority: 10
+  },
   "alzheimer": {
-    productIds: ["pinealon", "revilab-ml-07", "omega-3-triglyceride"],
-    explanation: "Neuroprotective support for brain health",
+    productIds: ["prime-peptide-brain", "revilab-ml-07", "endoluten"],
+    explanation: "Supports healthy cognitive function and neural communication with age",
     priority: 10
   },
 
   // Energy & metabolism
   "energy": {
-    productIds: ["revilab-ml-02", "revilab-sl-02", "coq10-ubiquinol", "nmn-powder"],
+    productIds: ["revilab-ml-02", "revilab-sl-02", "panaxod", "endoluten"],
     explanation: "Cellular energy production and metabolic optimization",
     priority: 10
   },
   "fatigue": {
-    productIds: ["revilab-ml-02", "coq10-ubiquinol", "nmn-powder"],
-    explanation: "Combat fatigue with mitochondrial support",
+    productIds: ["revilab-ml-02", "panaxod", "endoluten"],
+    explanation: "Combat fatigue with mitochondrial and adaptogenic support",
     priority: 9
   },
   "metabolism": {
-    productIds: ["revilab-ml-02", "revilab-sl-02", "nmn-powder"],
+    productIds: ["revilab-ml-02", "revilab-sl-02", "endoluten"],
     explanation: "Metabolic optimization and energy boost",
     priority: 9
   },
 
   // Immune system
   "immune": {
-    productIds: ["crystagen", "revilab-ml-03", "thymalin", "revilab-sl-03"],
+    productIds: ["crystagen", "revilab-ml-03", "vladonix", "revilab-sl-03"],
     explanation: "Immune system strengthening with thymus peptides",
     priority: 10
   },
   "immunity": {
-    productIds: ["crystagen", "revilab-ml-03", "thymalin"],
+    productIds: ["crystagen", "revilab-ml-03", "vladonix"],
     explanation: "Enhanced immune defense and cellular protection",
     priority: 10
   },
+  // Softened: "infection" → immune resilience / seasonal wellness
+  "immune resilience": {
+    productIds: ["crystagen", "vladonix", "revilab-ml-03"],
+    explanation: "Supports immune system resilience and seasonal wellness",
+    priority: 9
+  },
   "infection": {
-    productIds: ["crystagen", "thymalin", "revilab-ml-03"],
-    explanation: "Immune support for infection resistance",
+    productIds: ["crystagen", "vladonix", "revilab-ml-03"],
+    explanation: "Supports immune system resilience and seasonal wellness",
     priority: 9
   },
 
   // Joint & musculoskeletal
   "joint": {
-    productIds: ["cartalax", "revilab-ml-09", "collagen-peptides", "revilab-sl-06"],
+    productIds: ["cartalax", "revilab-ml-09", "prime-peptide-collagen", "revilab-sl-06"],
     explanation: "Joint health and cartilage support",
     priority: 10
   },
   "joints": {
-    productIds: ["cartalax", "revilab-ml-09", "collagen-peptides"],
+    productIds: ["cartalax", "revilab-ml-09", "prime-peptide-joints"],
     explanation: "Comprehensive musculoskeletal support",
     priority: 10
   },
+  // Softened: "arthritis" → mobility / joint comfort structure-function
+  "mobility": {
+    productIds: ["cartalax", "prime-peptide-joints", "revilab-ml-09"],
+    explanation: "Supports joint comfort, flexibility, and connective tissue",
+    priority: 9
+  },
   "arthritis": {
-    productIds: ["cartalax", "collagen-peptides", "revilab-ml-09"],
-    explanation: "Joint inflammation and mobility support",
+    productIds: ["cartalax", "prime-peptide-joints", "revilab-ml-09"],
+    explanation: "Supports joint comfort, flexibility, and connective tissue",
     priority: 9
   },
   "cartilage": {
-    productIds: ["cartalax", "collagen-peptides"],
+    productIds: ["cartalax", "prime-peptide-collagen"],
     explanation: "Cartilage regeneration and joint structure",
     priority: 9
   },
   "bone": {
-    productIds: ["revilab-ml-09", "collagen-peptides", "cartalax"],
+    productIds: ["revilab-ml-09", "bonomarlot", "cartalax"],
     explanation: "Bone density and skeletal health",
     priority: 9
   },
 
   // Digestive & liver
   "liver": {
-    productIds: ["svetinorm", "revilab-ml-06", "revilab-sl-05"],
-    explanation: "Liver function optimization and detoxification",
+    productIds: ["revilab-ml-06", "digemax", "revilab-sl-05"],
+    explanation: "Liver function optimization and digestive support",
     priority: 10
   },
   "digestive": {
-    productIds: ["revilab-ml-06", "revilab-sl-05", "probiotics-blend"],
+    productIds: ["revilab-ml-06", "revilab-sl-05", "digemax"],
     explanation: "Digestive system health and gut support",
     priority: 9
   },
   "gut": {
-    productIds: ["revilab-sl-05", "probiotics-blend", "revilab-ml-06"],
+    productIds: ["revilab-sl-05", "digemax", "revilab-ml-06"],
     explanation: "Gut health and microbiome balance",
     priority: 9
   },
   "detox": {
-    productIds: ["svetinorm", "revilab-ml-06"],
+    productIds: ["revilab-ml-06", "digemax"],
     explanation: "Liver detoxification and cleansing support",
     priority: 8
   },
 
   // Stress & nervous system
   "stress": {
-    productIds: ["revilab-sl-07", "revilab-ml-07", "pinealon"],
+    productIds: ["revilab-sl-07", "revilab-ml-07", "endoluten"],
     explanation: "Stress response optimization and nervous system support",
     priority: 9
   },
   "anxiety": {
-    productIds: ["revilab-sl-07", "pinealon-lingual"],
+    productIds: ["revilab-sl-07", "endoluten"],
     explanation: "Calm and nervous system balance",
     priority: 9
   },
   "sleep": {
-    productIds: ["revilab-sl-07", "pinealon"],
+    productIds: ["revilab-sl-07", "endoluten"],
     explanation: "Sleep quality and nervous system regulation",
     priority: 9
   },
 
   // Hormonal & endocrine
   "hormone": {
-    productIds: ["revilab-ml-08", "revilab-sl-08", "thymalin"],
+    productIds: ["revilab-ml-08", "revilab-sl-08", "thyreogen"],
     explanation: "Hormonal balance and endocrine system support",
     priority: 9
   },
@@ -192,36 +217,36 @@ export const healthKeywordMap: Record<string, AIRecommendation> = {
     priority: 9
   },
   "thyroid": {
-    productIds: ["revilab-ml-08", "thymalin"],
+    productIds: ["thyreogen", "revilab-ml-08"],
     explanation: "Thyroid and endocrine health support",
     priority: 9
   },
 
   // Men's health
   "testosterone": {
-    productIds: ["testagen", "revilab-sl-09", "revilab-ml-08"],
+    productIds: ["testoluten", "revilab-sl-09", "revilab-ml-08"],
     explanation: "Testosterone support and men's vitality",
     priority: 9
   },
   "prostate": {
-    productIds: ["testagen", "revilab-sl-09"],
+    productIds: ["testoluten", "revilab-sl-09"],
     explanation: "Prostate health and urogenital support",
     priority: 9
   },
   "mens health": {
-    productIds: ["testagen", "revilab-sl-09", "revilab-ml-08"],
+    productIds: ["testoluten", "revilab-sl-09", "revilab-ml-08"],
     explanation: "Comprehensive men's health optimization",
     priority: 9
   },
 
   // Skin health
   "skin": {
-    productIds: ["anti-wrinkle-serum-7", "collagen-peptides", "revilab-anti-age"],
+    productIds: ["anti-wrinkle-serum-7", "prime-peptide-collagen", "revilab-anti-age"],
     explanation: "Skin rejuvenation and anti-aging support",
     priority: 9
   },
   "collagen": {
-    productIds: ["collagen-peptides", "anti-wrinkle-serum-7"],
+    productIds: ["prime-peptide-collagen", "anti-wrinkle-serum-7"],
     explanation: "Collagen production for skin and joints",
     priority: 9
   }

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "wouter";
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, ShoppingCart, AlertTriangle, ExternalLink, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,17 @@ import { useCart } from "@/contexts/CartContext";
 import { products, Product, getProductById } from "@/data/products";
 import { getAIRecommendations, getRecommendationExplanation } from "@/data/aiRecommendations";
 import { getRecommendations as getFrequentlyBought } from "@/data/productRecommendations";
+
+/** Prefer product default/variant capsule count for cart size. */
+function getDefaultCartSize(product: Product): "20" | "60" {
+  const variant = product.variants?.find((v) => v.inStock) ?? product.variants?.[0];
+  if (variant) {
+    if (variant.id === "60-count" || /\b60\b/.test(variant.name)) return "60";
+    if (variant.id === "20-count" || /\b20\b/.test(variant.name)) return "20";
+  }
+  return "20";
+}
+
 
 interface Message {
   role: "user" | "assistant";
@@ -152,7 +164,7 @@ function generateResponse(query: string): string {
   }
   
   if (lowerQuery.includes("joint") || lowerQuery.includes("arthritis") || lowerQuery.includes("mobility")) {
-    return "For joint health, Cartalax is a cartilage peptide bioregulator that supports connective tissue. Prime Peptide Joints offers comprehensive joint support, while Revilab ML 06 targets the entire musculoskeletal system. Omega-3s can also help with inflammation.";
+    return "For joint comfort and mobility, Cartalax is a cartilage peptide bioregulator that supports connective tissue. Prime Peptide Joints offers comprehensive musculoskeletal support, while Revilab ML 09 targets joint and bone wellness. Prime Peptide Omega can complement an active lifestyle.";
   }
   
   if (lowerQuery.includes("aging") || lowerQuery.includes("longevity") || lowerQuery.includes("anti-aging")) {
@@ -344,14 +356,25 @@ export default function AIAssistant() {
                                   <p className="text-xs text-gray-600 mt-1 line-clamp-2">{message.productExplanations[product.id]}</p>
                                 )}
                                 <p className="text-orange-600 font-bold text-sm mt-1">${product.priceUSD.toFixed(2)}</p>
-                                <Button
-                                  size="sm"
-                                  className="w-full mt-2 bg-green-600 hover:bg-green-700 text-xs"
-                                  onClick={() => addToCart(product, 1, "20")}
-                                >
-                                  <ShoppingCart className="w-3 h-3 mr-1" />
-                                  Add to Cart
-                                </Button>
+                                <div className="flex gap-1 mt-2">
+                                  <Link href={`/products/${product.id}`} className="flex-1">
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      className="w-full text-xs"
+                                    >
+                                      View product
+                                    </Button>
+                                  </Link>
+                                  <Button
+                                    size="sm"
+                                    className="flex-1 bg-green-600 hover:bg-green-700 text-xs"
+                                    onClick={() => addToCart(product, 1, getDefaultCartSize(product))}
+                                  >
+                                    <ShoppingCart className="w-3 h-3 mr-1" />
+                                    Add to Cart
+                                  </Button>
+                                </div>
                               </div>
                             ))}
                           </div>
