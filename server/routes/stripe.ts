@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import Stripe from 'stripe';
 import { logError, logAPICall } from '../logger.js';
-import { requireAuth } from '../middleware/auth.js';
+import { resolveCheckoutLines } from '../../shared/product-prices.js';
 
 const router = Router();
 
@@ -11,44 +11,54 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-12-15.clover',
 });
 
+function siteOrigin(req: { headers: { origin?: string } }): string {
+  if (req.headers.origin) return req.headers.origin.replace(/\/$/, '');
+  if (process.env.PUBLIC_SITE_URL) return process.env.PUBLIC_SITE_URL.replace(/\/$/, '');
+  return 'https://www.purefirenutritional.com';
+}
+
 // POST /api/stripe/create-checkout-session
 // Create a Stripe Checkout session for payment
 // Optional auth - allow guest checkout
+// Prices resolved server-side from catalog — do not trust client price.
 router.post('/create-checkout-session', async (req, res) => {
   const startTime = Date.now();
   
   try {
     const { items, customerEmail, customerName, userId } = req.body;
-    
-    // Validate required fields
-    if (!items || !Array.isArray(items) || items.length === 0) {
+
+    let resolved;
+    try {
+      resolved = resolveCheckoutLines(items);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Invalid or missing items';
       logAPICall({
         endpoint: '/api/stripe/create-checkout-session',
         method: 'POST',
         statusCode: 400,
         responseTime: Date.now() - startTime,
-        error: 'Invalid or missing items'
+        error: message,
       });
-      return res.status(400).json({ error: 'Invalid or missing items' });
+      return res.status(400).json({ error: message });
     }
-    
-    // Validate items have required fields
-    for (const item of items) {
-      if (!item.name || !item.price || !item.quantity) {
-        return res.status(400).json({ error: 'Item missing required fields (name, price, quantity)' });
-      }
-    }
-    
-    // Convert cart items to Stripe line items
-    const lineItems = items.map((item: any) => ({
+
+    const origin = siteOrigin(req);
+
+    const lineItems = resolved.map((item) => ({
       price_data: {
         currency: 'usd',
         product_data: {
           name: item.name,
           description: item.description || '',
-          images: item.image ? [`${req.headers.origin}${item.image}`] : [],
+          images: item.image
+            ? [
+                item.image.startsWith('http')
+                  ? item.image
+                  : `${origin}${item.image.startsWith('/') ? '' : '/'}${item.image}`,
+              ]
+            : [],
         },
-        unit_amount: Math.round(item.price * 100), // Convert to cents
+        unit_amount: item.unitAmountCents,
       },
       quantity: item.quantity,
     }));
@@ -58,14 +68,15 @@ router.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${req.headers.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/cart`,
+      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/cart`,
       customer_email: customerEmail,
       client_reference_id: userId?.toString(),
       metadata: {
         user_id: userId?.toString() || '',
         customer_email: customerEmail || '',
         customer_name: customerName || '',
+        product_ids: resolved.map((r) => r.productId).join(','),
       },
       allow_promotion_codes: true,
       shipping_address_collection: {

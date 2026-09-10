@@ -21,6 +21,7 @@ VITE_SUPABASE_ANON_KEY=your-anon-key-here
 STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
 STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+PUBLIC_SITE_URL=https://www.purefirenutritional.com
 ```
 
 **How to get these:**
@@ -130,3 +131,9 @@ You should see these tables:
 - Keep your Supabase service role key secret (not needed for this app)
 - Rotate API keys regularly
 - Enable Row Level Security (RLS) in Supabase (already configured in schema)
+
+
+## See also
+
+- `STRIPE_VERCEL_SETUP.md` — Vercel serverless Stripe routes + webhook URL
+- `FIREBASE_AUTH_DOMAINS.md` — authorize www + apex for Firebase Auth
