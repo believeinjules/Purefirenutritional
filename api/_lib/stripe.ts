@@ -10,7 +10,7 @@ export function getStripe(): Stripe {
   if (!stripe) {
     stripe = new Stripe(key, {
       // Keep in sync with server/routes/stripe.ts
-      apiVersion: "2025-12-15.clover" as any,
+      apiVersion: "2026-02-25.clover",
     });
   }
   return stripe;
