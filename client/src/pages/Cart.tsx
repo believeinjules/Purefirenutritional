@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
+import { getUnitPriceUSD } from "@shared/product-prices";
 
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, getTotal, clearCart } = useCart();
@@ -59,7 +60,7 @@ export default function Cart() {
                       <p className="text-sm text-gray-500">{item.product.category}</p>
                       <p className="text-sm text-gray-500">Size: {item.size} caps</p>
                       <p className="text-orange-600 font-bold mt-1">
-                        ${(item.product.priceUSD * (item.size === "60" ? 2.5 : 1)).toFixed(2)}
+                        ${getUnitPriceUSD(item.product, item.size).toFixed(2)}
                       </p>
                     </div>
 

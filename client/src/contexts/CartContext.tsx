@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Product } from "@/data/products";
+import { getUnitPriceUSD } from "@shared/product-prices";
 
 export interface CartItem {
   product: Product;
@@ -86,10 +87,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotal = (): number => {
     return items.reduce(
-      (sum, item) => {
-        const priceMultiplier = item.size === "60" ? 2.5 : 1;
-        return sum + (item.product.priceUSD * priceMultiplier * item.quantity);
-      },
+      (sum, item) => sum + getUnitPriceUSD(item.product, item.size) * item.quantity,
       0
     );
   };

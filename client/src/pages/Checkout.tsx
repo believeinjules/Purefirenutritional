@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { stripePromise } from "@/lib/stripe";
+import { getUnitPriceUSD } from "@shared/product-prices";
 
 export default function Checkout() {
   const { items, getTotal, clearCart } = useCart();
@@ -41,12 +41,11 @@ export default function Checkout() {
         },
         body: JSON.stringify({
           items: items.map(item => ({
+            productId: item.product.id,
             name: item.product.name,
-            description: item.product.description,
-            price: item.product.priceUSD * (item.size === "60" ? 2.5 : 1),
             quantity: item.quantity,
-            image: item.product.image,
-            size: item.size
+            size: item.size,
+            // price intentionally omitted as sole source — server looks up catalog
           })),
           customerEmail: formData.email,
           customerName: `${formData.firstName} ${formData.lastName}`,
@@ -255,11 +254,11 @@ export default function Checkout() {
                   {/* Items */}
                   <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
                     {items.map((item) => (
-                      <div key={item.product.id} className="flex justify-between text-sm">
+                      <div key={`${item.product.id}-${item.size || "20"}`} className="flex justify-between text-sm">
                         <span>
-                          {item.product.name} × {item.quantity}
+                          {item.product.name}{item.size ? ` (${item.size})` : ""} × {item.quantity}
                         </span>
-                        <span>${(item.product.priceUSD * item.quantity).toFixed(2)}</span>
+                        <span>${(getUnitPriceUSD(item.product, item.size) * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
