@@ -221,7 +221,7 @@ export async function deleteProduct(id: string): Promise<boolean> {
 // Calls POST /api/admin/seed-products (Firebase Admin SDK) so writes succeed
 // even when Firestore rules have `allow write: if false` on products.
 // Client never holds ADMIN_SEED_SECRET — uses the signed-in user's ID token.
-// Server checks ADMIN_EMAILS allowlist (see docs/import-catalog-from-code.md).
+// Server checks ADMIN_EMAILS + email_verified (see docs/import-catalog-from-code.md).
 
 export type ImportCatalogResult = {
   written: number;

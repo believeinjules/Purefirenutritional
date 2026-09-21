@@ -32,12 +32,16 @@ In Vercel → Project → Settings → Environment Variables:
 6. Refresh the shop (`/products`). It should load from Firestore instead of the local fallback.
 
 The browser only sends your Firebase **ID token**. The secret never ships in the
-client bundle. The API verifies the token with Admin Auth and checks the email
-against `ADMIN_EMAILS`.
+client bundle. The API verifies the token with Admin Auth, checks the email
+against `ADMIN_EMAILS`, and requires `email_verified === true` on the token
+(or a custom claim `admin: true` as an equivalent verified-admin gate).
+Unverified emails get **403**.
 
-## One-shot curl (optional)
+## One-shot curl (optional / emergency ops)
 
-Only if you set `ADMIN_SEED_SECRET` in Vercel:
+Only if you set `ADMIN_SEED_SECRET` in Vercel. This shared-secret path is for
+emergency ops and **does not** require a Firebase ID token or `email_verified`
+(the secret itself is the gate — keep it long, random, and server-only):
 
 ```bash
 curl -X POST "https://www.purefirenutritional.com/api/admin/seed-products" \
@@ -75,5 +79,6 @@ Successful response shape: `{ "written": 79, "failed": 0 }` (plus `errors` only 
 |-------|-----|
 | You must be signed in… | Log in first (same account as `ADMIN_EMAILS`) |
 | Forbidden — email is not in ADMIN_EMAILS | Add your email to `ADMIN_EMAILS` in Vercel and redeploy |
+| Forbidden — admin email must be verified | Verify the Firebase Auth email (check inbox / Auth console), then sign in again |
 | ADMIN_EMAILS is not configured | Set the env var and redeploy |
 | Firebase Admin is not configured | Check `FIREBASE_*` service-account env vars |

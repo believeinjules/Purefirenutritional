@@ -33,8 +33,10 @@ function getSeedSecretHeader(req: VercelRequest): string | null {
 /**
  * Auth:
  * 1) Preferred — Firebase Auth ID token whose email is in ADMIN_EMAILS
+ *    and email_verified === true (or custom claim admin === true)
  * 2) Fallback — ADMIN_SEED_SECRET via Authorization: Bearer <secret>
- *    or x-admin-seed-secret (for one-shot curl; do not put in the browser)
+ *    or x-admin-seed-secret (emergency/ops curl; skips email_verified —
+ *    do not put in the browser)
  */
 async function assertAuthorized(req: VercelRequest): Promise<
   { ok: true } | { ok: false; status: number; error: string }
@@ -87,6 +89,17 @@ async function assertAuthorized(req: VercelRequest): Promise<
         ok: false,
         status: 403,
         error: "Forbidden — email is not in ADMIN_EMAILS",
+      };
+    }
+    // Require verified email on the ID-token path (secret path above may skip).
+    // Custom claim `admin: true` is treated as an equivalent verified-admin gate.
+    const hasVerifiedAdminClaim = decoded.admin === true;
+    if (!decoded.email_verified && !hasVerifiedAdminClaim) {
+      return {
+        ok: false,
+        status: 403,
+        error:
+          "Forbidden — admin email must be verified (Firebase email_verified)",
       };
     }
     return { ok: true };

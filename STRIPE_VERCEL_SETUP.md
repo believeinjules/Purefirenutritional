@@ -61,7 +61,7 @@ For `POST /api/admin/seed-products` (Import catalog from code):
 
 | Variable | Notes |
 |----------|--------|
-| `ADMIN_EMAILS` | Comma-separated Firebase Auth emails allowed to seed (e.g. `julesxshulman@gmail.com`) |
-| `ADMIN_SEED_SECRET` | Optional; curl-only shared secret — never `VITE_` |
+| `ADMIN_EMAILS` | Comma-separated Firebase Auth emails allowed to seed (e.g. `julesxshulman@gmail.com`); ID-token path also requires `email_verified` |
+| `ADMIN_SEED_SECRET` | Optional; emergency/ops curl shared secret (skips `email_verified`) — never `VITE_` |
 
 See `docs/import-catalog-from-code.md`.
