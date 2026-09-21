@@ -39,13 +39,26 @@ export default function Signup() {
 
     setIsLoading(true);
 
-    const { error } = await signUp(email, password, fullName, birthday);
+    const { error, verificationEmailSent, verificationEmailError } = await signUp(
+      email,
+      password,
+      fullName,
+      birthday
+    );
 
     if (error) {
       toast.error(error.message || "Failed to create account");
+    } else if (verificationEmailSent) {
+      toast.success(
+        "Account created! We sent a verification email — check your inbox (and spam)."
+      );
+      setLocation("/dashboard");
     } else {
-      toast.success("Account created! Please check your email to verify.");
-      setLocation("/login");
+      toast.error(
+        verificationEmailError?.message ||
+          "Account created, but we couldn’t send the verification email. Sign in and use Resend."
+      );
+      setLocation("/dashboard");
     }
 
     setIsLoading(false);

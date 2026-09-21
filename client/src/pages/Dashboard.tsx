@@ -10,6 +10,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Package, User, LogOut } from "lucide-react";
 import { toast } from "sonner";
+import EmailVerificationBanner from "@/components/EmailVerificationBanner";
 
 interface Order {
   id: string;
@@ -97,6 +98,8 @@ export default function Dashboard() {
       
       <main className="flex-1 bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
+          <EmailVerificationBanner />
+
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <div>

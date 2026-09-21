@@ -28,7 +28,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useAuth();
+  const [resending, setResending] = useState(false);
+  const { signIn, user, resendVerificationEmail, refreshUser } = useAuth();
   const [, setLocation] = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,12 +41,29 @@ export default function Login() {
     if (error) {
       toast.error(error.message || "Failed to sign in");
     } else {
+      const refreshed = await refreshUser();
       toast.success("Successfully signed in!");
+      if (refreshed && !refreshed.emailVerified) {
+        toast.message("Please verify your email — you can resend from your dashboard.");
+      }
       const params = new URLSearchParams(window.location.search);
       setLocation(safeNextPath(params.get("next")));
     }
 
     setIsLoading(false);
+  };
+
+  const handleResend = async () => {
+    setResending(true);
+    const { error, sent } = await resendVerificationEmail();
+    setResending(false);
+    if (error) {
+      toast.error(error.message || "Couldn’t send verification email.");
+      return;
+    }
+    if (sent) {
+      toast.success("Verification email sent. Check inbox and spam.");
+    }
   };
 
   return (
@@ -91,6 +109,23 @@ export default function Login() {
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
+
+              {user && !user.emailVerified && (
+                <div className="rounded-md border border-orange-200 bg-orange-50 p-3 text-sm text-orange-950 space-y-2">
+                  <p>
+                    You’re signed in but your email isn’t verified yet.
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full border-orange-300"
+                    disabled={resending}
+                    onClick={handleResend}
+                  >
+                    {resending ? "Sending…" : "Resend verification email"}
+                  </Button>
+                </div>
+              )}
 
               <div className="text-center text-sm text-gray-600">
                 Don&apos;t have an account?{" "}
