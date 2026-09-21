@@ -1,5 +1,6 @@
 // Product recommendation logic for "Frequently Bought Together"
-// Maps product IDs to recommended complementary products
+// Maps product IDs to recommended complementary products.
+// All productIds MUST exist in products.ts.
 
 export interface ProductRecommendation {
   productId: string;
@@ -10,53 +11,57 @@ export const productRecommendations: Record<string, ProductRecommendation[]> = {
   // Anti-Aging Cosmetics - pair with supplements
   "anti-wrinkle-serum-7": [
     { productId: "revilab-anti-age", reason: "Internal anti-aging support" },
-    { productId: "coq10-ubiquinol", reason: "Cellular energy & antioxidants" }
+    { productId: "prime-peptide-collagen", reason: "Collagen for skin structure" }
   ],
   "revilab-anti-age": [
     { productId: "anti-wrinkle-serum-7", reason: "Topical wrinkle reduction" },
-    { productId: "nmn-powder", reason: "NAD+ boost for longevity" }
+    { productId: "endoluten", reason: "Pineal longevity support" }
   ],
 
   // Cardiovascular support combinations
   "chelohart": [
     { productId: "revilab-ml-04", reason: "Enhanced cardiovascular support" },
-    { productId: "coq10-ubiquinol", reason: "Heart energy & protection" }
-  ],
-  "chelohart-lingual": [
-    { productId: "revilab-sl-04", reason: "Sublingual cardiovascular boost" },
-    { productId: "omega-3-triglyceride", reason: "Heart health & inflammation" }
+    { productId: "olecap", reason: "Heart energy & protection" }
   ],
   "revilab-ml-04": [
     { productId: "chelohart", reason: "Targeted heart peptides" },
-    { productId: "coq10-ubiquinol", reason: "Mitochondrial support" }
+    { productId: "olecap", reason: "Mitochondrial support" }
   ],
   "revilab-sl-04": [
-    { productId: "chelohart-lingual", reason: "Fast-acting heart support" },
-    { productId: "omega-3-triglyceride", reason: "Cardiovascular health" }
+    { productId: "chelohart", reason: "Fast-acting heart support" },
+    { productId: "prime-peptide-omega", reason: "Cardiovascular health" }
+  ],
+  "ventfort": [
+    { productId: "chelohart", reason: "Heart + vessel pairing" },
+    { productId: "revilab-ml-04", reason: "Cardiovascular complex" }
   ],
 
   // Brain & cognitive support
-  "pinealon": [
+  "prime-peptide-brain": [
     { productId: "revilab-ml-07", reason: "Comprehensive brain support" },
-    { productId: "nmn-powder", reason: "Cognitive energy boost" }
+    { productId: "endoluten", reason: "Cognitive energy boost" }
   ],
-  "pinealon-lingual": [
-    { productId: "revilab-sl-07", reason: "Nervous system support" },
-    { productId: "coq10-ubiquinol", reason: "Brain energy" }
+  "endoluten": [
+    { productId: "vladonix", reason: "Foundational longevity pairing" },
+    { productId: "revilab-anti-age", reason: "Anti-glycation support" }
   ],
   "revilab-ml-07": [
-    { productId: "pinealon", reason: "Brain peptide bioregulator" },
-    { productId: "nmn-powder", reason: "Mental clarity & focus" }
+    { productId: "prime-peptide-brain", reason: "Brain peptide bioregulator" },
+    { productId: "endoluten", reason: "Mental clarity & focus" }
   ],
   "revilab-sl-07": [
-    { productId: "pinealon-lingual", reason: "Rapid brain support" },
-    { productId: "omega-3-triglyceride", reason: "Brain health" }
+    { productId: "endoluten", reason: "Nervous system support" },
+    { productId: "prime-peptide-omega", reason: "Brain health" }
   ],
 
   // Immune system support
   "crystagen": [
     { productId: "revilab-ml-03", reason: "Enhanced immune defense" },
-    { productId: "thymalin", reason: "Thymus support" }
+    { productId: "vladonix", reason: "Thymus support" }
+  ],
+  "vladonix": [
+    { productId: "endoluten", reason: "Foundational longevity pairing" },
+    { productId: "crystagen", reason: "Immune bioregulation" }
   ],
   "revilab-ml-03": [
     { productId: "crystagen", reason: "Immune bioregulation" },
@@ -64,95 +69,99 @@ export const productRecommendations: Record<string, ProductRecommendation[]> = {
   ],
   "revilab-sl-03": [
     { productId: "crystagen", reason: "Immune system strength" },
-    { productId: "thymalin-lingual", reason: "Thymus health" }
+    { productId: "vladonix", reason: "Thymus health" }
   ],
 
   // Joint & musculoskeletal
   "cartalax": [
     { productId: "revilab-ml-09", reason: "Comprehensive joint support" },
-    { productId: "collagen-peptides", reason: "Connective tissue" }
+    { productId: "prime-peptide-collagen", reason: "Connective tissue" }
+  ],
+  "prime-peptide-joints": [
+    { productId: "cartalax", reason: "Cartilage bioregulation" },
+    { productId: "prime-peptide-collagen", reason: "Joint structure" }
   ],
   "revilab-ml-09": [
     { productId: "cartalax", reason: "Cartilage bioregulation" },
-    { productId: "collagen-peptides", reason: "Joint structure" }
+    { productId: "prime-peptide-collagen", reason: "Joint structure" }
   ],
   "revilab-sl-06": [
     { productId: "cartalax", reason: "Musculoskeletal health" },
-    { productId: "collagen-peptides", reason: "Joint support" }
+    { productId: "prime-peptide-collagen", reason: "Joint support" }
   ],
 
   // Digestive & liver support
-  "svetinorm": [
+  "digemax": [
     { productId: "revilab-ml-06", reason: "Liver optimization" },
     { productId: "revilab-sl-05", reason: "Digestive health" }
   ],
   "revilab-ml-06": [
-    { productId: "svetinorm", reason: "Liver peptides" },
-    { productId: "omega-3-triglyceride", reason: "Liver health" }
+    { productId: "digemax", reason: "Digestive support" },
+    { productId: "prime-peptide-omega", reason: "Liver health" }
   ],
   "revilab-sl-05": [
-    { productId: "svetinorm", reason: "Liver function" },
-    { productId: "probiotics-blend", reason: "Gut health" }
+    { productId: "digemax", reason: "Gut health" },
+    { productId: "revilab-ml-06", reason: "Liver function" }
   ],
 
-  // Longevity & anti-aging stacks
-  "nmn-powder": [
-    { productId: "revilab-anti-age", reason: "Anti-glycation support" },
-    { productId: "resveratrol-trans", reason: "Sirtuins activation" }
+  // Longevity & energy stacks
+  "olecap": [
+    { productId: "endoluten", reason: "Longevity + vascular support" },
+    { productId: "panaxod", reason: "Adaptogenic energy" }
   ],
-  "coq10-ubiquinol": [
-    { productId: "nmn-powder", reason: "NAD+ & mitochondria" },
-    { productId: "pqq-pyrroloquinoline", reason: "Mitochondrial biogenesis" }
+  "panaxod": [
+    { productId: "revilab-ml-02", reason: "Metabolic energy" },
+    { productId: "olecap", reason: "Cardiovascular support" }
   ],
 
   // Comprehensive anti-aging (Revilab SL 01 & ML 01)
   "revilab-sl-01": [
     { productId: "revilab-ml-01", reason: "Multi-level anti-aging" },
-    { productId: "nmn-powder", reason: "Cellular rejuvenation" }
+    { productId: "endoluten", reason: "Cellular rejuvenation" }
   ],
   "revilab-ml-01": [
     { productId: "revilab-sl-01", reason: "Fast-acting anti-aging" },
-    { productId: "coq10-ubiquinol", reason: "Energy & longevity" }
+    { productId: "olecap", reason: "Energy & longevity" }
   ],
 
   // Metabolic & energy (Revilab SL 02 & ML 02)
   "revilab-sl-02": [
     { productId: "revilab-ml-02", reason: "Metabolic optimization" },
-    { productId: "coq10-ubiquinol", reason: "Energy production" }
+    { productId: "panaxod", reason: "Energy production" }
   ],
   "revilab-ml-02": [
     { productId: "revilab-sl-02", reason: "Rapid energy boost" },
-    { productId: "nmn-powder", reason: "Cellular energy" }
+    { productId: "endoluten", reason: "Cellular energy" }
   ],
 
   // Endocrine & hormonal
+  "thyreogen": [
+    { productId: "revilab-ml-08", reason: "Endocrine optimization" },
+    { productId: "revilab-sl-08", reason: "Hormonal balance" }
+  ],
   "revilab-ml-08": [
     { productId: "revilab-sl-08", reason: "Hormonal balance" },
-    { productId: "thymalin", reason: "Endocrine support" }
+    { productId: "thyreogen", reason: "Thyroid support" }
   ],
   "revilab-sl-08": [
     { productId: "revilab-ml-08", reason: "Endocrine optimization" },
-    { productId: "pinealon", reason: "Hormonal regulation" }
+    { productId: "thyreogen", reason: "Thyroid health" }
   ],
 
   // Reproductive health (men)
-  "testagen": [
+  "testoluten": [
     { productId: "revilab-sl-09", reason: "Urogenital support" },
     { productId: "revilab-ml-08", reason: "Hormonal balance" }
   ],
   "revilab-sl-09": [
-    { productId: "revilab-ml-07", reason: "Men's health support" },
-    { productId: "testagen", reason: "Testosterone support" }
+    { productId: "testoluten", reason: "Testosterone support" },
+    { productId: "revilab-ml-08", reason: "Men's endocrine support" }
   ],
 
   // Respiratory system
-  "ventfort": [
-    { productId: "revilab-ml-05", reason: "Respiratory optimization" },
-    { productId: "crystagen", reason: "Immune & respiratory" }
-  ],
   "revilab-ml-05": [
-    { productId: "revilab-sl-06", reason: "Fast respiratory support" },
-    { productId: "omega-3-triglyceride", reason: "Anti-inflammatory" }
+    { productId: "ventfort", reason: "Vessel + respiratory support" },
+    { productId: "crystagen", reason: "Immune & respiratory" }
   ]
 };
 
