@@ -860,9 +860,11 @@ export default function ProductManager() {
           <AlertDialogHeader>
             <AlertDialogTitle>Import catalog from code?</AlertDialogTitle>
             <AlertDialogDescription>
-              This writes every product from the site catalog (products.ts) into
-              Firestore, merging by product ID. Existing Firestore-only products
-              are not deleted. Safe to run more than once.
+              This calls a protected server API that upserts every product from
+              the site catalog (products.ts) into Firestore via the Admin SDK,
+              merging by product ID. You must be signed in with an email listed
+              in ADMIN_EMAILS. Firestore-only products are not deleted. Safe to
+              run more than once.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

@@ -6,12 +6,11 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-  writeBatch,
   query,
   where,
   orderBy,
 } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "./firebase";
+import { auth, db, isFirebaseConfigured } from "./firebase";
 import { products as localProducts } from "@/data/products";
 
 export interface ProductVariant {
@@ -219,9 +218,10 @@ export async function deleteProduct(id: string): Promise<boolean> {
 }
 
 // ─── importCatalogFromCode ────────────────────────────────────────────────────
-// One-shot / idempotent seed: merge every product from local products.ts into
-// Firestore `products/{id}`. Does NOT delete Firestore-only products.
-// Safe to run twice (overwrite/merge by document id).
+// Calls POST /api/admin/seed-products (Firebase Admin SDK) so writes succeed
+// even when Firestore rules have `allow write: if false` on products.
+// Client never holds ADMIN_SEED_SECRET — uses the signed-in user's ID token.
+// Server checks ADMIN_EMAILS allowlist (see docs/import-catalog-from-code.md).
 
 export type ImportCatalogResult = {
   written: number;
@@ -229,73 +229,39 @@ export type ImportCatalogResult = {
   errors: { id: string; message: string }[];
 };
 
-function productToFirestoreDoc(product: (typeof localProducts)[number] | Product) {
-  const inStockFlag =
-    "in_stock" in product ? (product as Product).in_stock !== false : true;
-  return {
-    name: product.name,
-    description: product.description,
-    category: product.category,
-    priceUSD: product.priceUSD,
-    priceEUR: product.priceEUR,
-    rating: product.rating,
-    sizes: product.sizes ?? 1,
-    image: product.image ?? null,
-    imageAlt: product.imageAlt ?? null,
-    benefits: product.benefits || [],
-    ingredients: product.ingredients || [],
-    usage: product.usage ?? null,
-    seriesInfo: product.seriesInfo ?? null,
-    variants: (product.variants || []).map((v) => ({
-      id: v.id,
-      name: v.name,
-      priceUSD: v.priceUSD,
-      priceEUR: v.priceEUR,
-      image: v.image ?? null,
-      imageAlt: v.imageAlt ?? null,
-      inStock: v.inStock !== false,
-    })),
-    in_stock: inStockFlag,
-  };
-}
-
 export async function importCatalogFromCode(): Promise<ImportCatalogResult> {
   if (!isFirebaseConfigured()) {
     throw new Error("Firebase is not configured");
   }
 
-  const result: ImportCatalogResult = { written: 0, failed: 0, errors: [] };
-
-  // Firestore batches are capped at 500 ops; catalog is well under that.
-  const BATCH_SIZE = 400;
-  for (let i = 0; i < localProducts.length; i += BATCH_SIZE) {
-    const chunk = localProducts.slice(i, i + BATCH_SIZE);
-    const batch = writeBatch(db);
-    for (const product of chunk) {
-      const ref = doc(db, "products", product.id);
-      batch.set(ref, productToFirestoreDoc(product), { merge: true });
-    }
-    try {
-      await batch.commit();
-      result.written += chunk.length;
-    } catch {
-      // Fall back to per-doc writes so we can report a partial count
-      for (const product of chunk) {
-        try {
-          await setDoc(doc(db, "products", product.id), productToFirestoreDoc(product), {
-            merge: true,
-          });
-          result.written += 1;
-        } catch (docErr: any) {
-          result.failed += 1;
-          result.errors.push({
-            id: product.id,
-            message: docErr?.message ?? String(docErr),
-          });
-        }
-      }
-    }
+  const user = auth?.currentUser;
+  if (!user) {
+    throw new Error("You must be signed in as an admin to import the catalog");
   }
 
-  return result;
+  const idToken = await user.getIdToken();
+  const res = await fetch("/api/admin/seed-products", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  const body = (await res.json().catch(() => ({}))) as {
+    written?: number;
+    failed?: number;
+    errors?: { id: string; message: string }[];
+    error?: string;
+  };
+
+  if (!res.ok) {
+    throw new Error(body.error || `Seed failed (HTTP ${res.status})`);
+  }
+
+  return {
+    written: body.written ?? 0,
+    failed: body.failed ?? 0,
+    errors: body.errors ?? [],
+  };
 }
