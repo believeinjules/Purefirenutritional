@@ -9,6 +9,21 @@ import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
+/** Allow only same-origin relative paths (no protocol-relative //evil). */
+function safeNextPath(raw: string | null): string {
+  if (!raw) return "/dashboard";
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    return "/dashboard";
+  }
+  if (!decoded.startsWith("/") || decoded.startsWith("//")) {
+    return "/dashboard";
+  }
+  return decoded;
+}
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +41,8 @@ export default function Login() {
       toast.error(error.message || "Failed to sign in");
     } else {
       toast.success("Successfully signed in!");
-      setLocation("/dashboard");
+      const params = new URLSearchParams(window.location.search);
+      setLocation(safeNextPath(params.get("next")));
     }
 
     setIsLoading(false);
@@ -77,7 +93,7 @@ export default function Login() {
               </Button>
 
               <div className="text-center text-sm text-gray-600">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href="/signup" className="text-orange-600 hover:underline">
                   Sign up
                 </Link>

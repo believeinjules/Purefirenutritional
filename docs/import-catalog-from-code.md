@@ -12,15 +12,17 @@ Seeding goes through **`POST /api/admin/seed-products`**, which uses the Firebas
 
 | Variable | Purpose |
 |----------|---------|
-| `ADMIN_EMAILS` | Comma-separated allowlist of admin emails (required for the Admin UI button). Example: `julesxshulman@gmail.com` |
+| `ADMIN_EMAILS` | Comma-separated allowlist of admin emails (required for the Admin UI button / seed API). Example: `julesxshulman@gmail.com` |
+| `VITE_ADMIN_EMAILS` | Same emails for the **client** Admin UI gate (`/admin`). See `docs/admin-ui-lock.md`. Must match `ADMIN_EMAILS`; redeploy after changing. |
 | `ADMIN_SEED_SECRET` | Optional shared secret for one-shot `curl` (never put this in the browser / Vite env) |
 | `FIREBASE_PROJECT_ID` / `FIREBASE_CLIENT_EMAIL` / `FIREBASE_PRIVATE_KEY` | Already required for Admin SDK order persistence |
 
 In Vercel → Project → Settings → Environment Variables:
 
 1. Add `ADMIN_EMAILS` = your Firebase Auth / Gmail address (the one you use to sign in).
-2. Optionally add `ADMIN_SEED_SECRET` = a long random string (for curl only).
-3. Redeploy Production so the new env vars are live.
+2. Add `VITE_ADMIN_EMAILS` = the same comma-separated list (Admin UI lock — see `docs/admin-ui-lock.md`).
+3. Optionally add `ADMIN_SEED_SECRET` = a long random string (for curl only).
+4. Redeploy Production so the new env vars are live (`VITE_*` is baked in at build time).
 
 ## How to use (Admin UI — preferred)
 

@@ -25,6 +25,7 @@ import Dashboard from "./pages/Dashboard";
 import Peptalk from "./pages/Peptalk";
 import Admin from "./pages/Admin";
 import ProductManager from "./pages/admin/ProductManager";
+import RequireAdmin from "./components/RequireAdmin";
 import Wishlist from "./pages/Wishlist";
 
 // Learn articles
@@ -51,8 +52,20 @@ function Router() {
       <Route path="/signup" component={Signup} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/peptalk" component={Peptalk} />
-      <Route path="/admin" component={Admin} />
-      <Route path="/admin/products" component={ProductManager} />
+      <Route path="/admin">
+        {() => (
+          <RequireAdmin>
+            <Admin />
+          </RequireAdmin>
+        )}
+      </Route>
+      <Route path="/admin/products">
+        {() => (
+          <RequireAdmin>
+            <ProductManager />
+          </RequireAdmin>
+        )}
+      </Route>
       <Route path="/wishlist" component={Wishlist} />
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/cytomaxes-vs-cytogens" component={ArticleCytomaxesCytogens} />
