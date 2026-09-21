@@ -18,7 +18,10 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
-import { getEmailVerificationActionCodeSettings } from "@/lib/emailVerification";
+import {
+  getEmailVerificationActionCodeSettings,
+  isEmailVerificationConfirmed,
+} from "@/lib/emailVerification";
 
 export type SignUpResult = {
   error: any;
@@ -41,8 +44,10 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   /** Resend verification for the currently signed-in unverified user. */
   resendVerificationEmail: () => Promise<{ error: any; sent: boolean }>;
-  /** Apply oobCode from the email link, then refresh the local user. */
-  completeEmailVerification: (oobCode: string) => Promise<{ error: any }>;
+  /** Apply oobCode from the email link, then refresh; verified only if emailVerified. */
+  completeEmailVerification: (
+    oobCode: string
+  ) => Promise<{ error: any; verified: boolean }>;
   /** Reload Firebase user so emailVerified reflects server state. */
   refreshUser: () => Promise<User | null>;
 }
@@ -163,14 +168,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const completeEmailVerification = useCallback(
-    async (oobCode: string): Promise<{ error: any }> => {
+    async (
+      oobCode: string
+    ): Promise<{ error: any; verified: boolean }> => {
       try {
         await applyActionCode(auth, oobCode);
-        await refreshUser();
-        return { error: null };
       } catch (err: any) {
-        return { error: err };
+        return { error: err, verified: false };
       }
+
+      let refreshed: User | null = null;
+      try {
+        refreshed = await refreshUser();
+      } catch (reloadErr: any) {
+        return {
+          error:
+            reloadErr ||
+            new Error(
+              "Verification may have completed, but we couldn’t refresh your account. Sign in and use Resend if needed."
+            ),
+          verified: false,
+        };
+      }
+
+      if (!isEmailVerificationConfirmed(refreshed)) {
+        return {
+          error: new Error(
+            "We couldn’t confirm your email is verified yet. Sign in and use Resend if you need a new link."
+          ),
+          verified: false,
+        };
+      }
+
+      return { error: null, verified: true };
     },
     [refreshUser]
   );

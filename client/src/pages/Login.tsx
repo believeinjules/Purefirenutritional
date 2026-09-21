@@ -36,21 +36,35 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    const { error } = await signIn(email, password);
+    try {
+      const { error } = await signIn(email, password);
 
-    if (error) {
-      toast.error(error.message || "Failed to sign in");
-    } else {
-      const refreshed = await refreshUser();
+      if (error) {
+        toast.error(error.message || "Failed to sign in");
+        return;
+      }
+
+      // Best-effort refresh so a failed reload never leaves the form hung.
+      let refreshed: { emailVerified?: boolean } | null = null;
+      try {
+        refreshed = await refreshUser();
+      } catch {
+        toast.message(
+          "Signed in, but we couldn’t refresh verification status. Use Resend on your dashboard if needed."
+        );
+      }
+
       toast.success("Successfully signed in!");
       if (refreshed && !refreshed.emailVerified) {
-        toast.message("Please verify your email — you can resend from your dashboard.");
+        toast.message(
+          "Please verify your email — you can resend from your dashboard."
+        );
       }
       const params = new URLSearchParams(window.location.search);
       setLocation(safeNextPath(params.get("next")));
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const handleResend = async () => {

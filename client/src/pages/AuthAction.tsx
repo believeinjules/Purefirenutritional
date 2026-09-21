@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
+import { isEmailVerificationConfirmed } from "@/lib/emailVerification";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
@@ -22,25 +23,52 @@ export default function AuthAction() {
   useEffect(() => {
     let cancelled = false;
 
+    const showVerifiedSuccess = () => {
+      setStatus("success");
+      setMessage("Your email is verified. You’re all set.");
+    };
+
+    const showNotVerifiedError = (detail?: string) => {
+      setStatus("error");
+      setMessage(
+        detail ||
+          "We couldn’t confirm your email is verified. Sign in and use Resend verification."
+      );
+    };
+
     const run = async () => {
       const params = new URLSearchParams(window.location.search);
       const mode = params.get("mode");
       const oobCode = params.get("oobCode");
 
       // Firebase hosted handler may redirect here after verifying (no oobCode).
+      // Query flags alone are not proof — only show success if reload shows emailVerified.
       if (!oobCode && (params.get("verified") === "1" || params.get("emailVerified") === "1")) {
-        await refreshUser();
-        if (!cancelled) {
-          setStatus("success");
-          setMessage("Your email is verified. Welcome to Pure Fire.");
+        try {
+          const refreshed = await refreshUser();
+          if (cancelled) return;
+          if (isEmailVerificationConfirmed(refreshed)) {
+            setStatus("success");
+            setMessage("Your email is verified. Welcome to Pure Fire.");
+          } else {
+            showNotVerifiedError(
+              "We couldn’t confirm your email is verified yet. Sign in and use Resend if you need a new link."
+            );
+          }
+        } catch {
+          if (!cancelled) {
+            showNotVerifiedError(
+              "Couldn’t refresh your account status. Sign in and try again, or use Resend verification."
+            );
+          }
         }
         return;
       }
 
       if (mode === "verifyEmail" && oobCode) {
-        const { error } = await completeEmailVerification(oobCode);
+        const { error, verified } = await completeEmailVerification(oobCode);
         if (cancelled) return;
-        if (error) {
+        if (error || !verified) {
           setStatus("error");
           setMessage(
             error?.message ||
@@ -48,8 +76,7 @@ export default function AuthAction() {
           );
           return;
         }
-        setStatus("success");
-        setMessage("Your email is verified. You’re all set.");
+        showVerifiedSuccess();
         return;
       }
 

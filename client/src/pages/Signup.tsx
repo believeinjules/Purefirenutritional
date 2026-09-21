@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
+import { formatVerificationSendFailureMessage } from "@/lib/emailVerification";
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -54,10 +55,7 @@ export default function Signup() {
       );
       setLocation("/dashboard");
     } else {
-      toast.error(
-        verificationEmailError?.message ||
-          "Account created, but we couldn’t send the verification email. Sign in and use Resend."
-      );
+      toast.error(formatVerificationSendFailureMessage(verificationEmailError));
       setLocation("/dashboard");
     }
 

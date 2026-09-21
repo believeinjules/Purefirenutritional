@@ -3,6 +3,8 @@ import {
   getEmailVerificationContinueUrl,
   getEmailVerificationActionCodeSettings,
   getSiteOrigin,
+  formatVerificationSendFailureMessage,
+  isEmailVerificationConfirmed,
 } from "./emailVerification";
 
 describe("emailVerification", () => {
@@ -32,5 +34,26 @@ describe("emailVerification", () => {
     expect(settings.url).toBe(
       "https://www.purefirenutritional.com/auth/action"
     );
+  });
+});
+
+describe("verification UX helpers", () => {
+  it("always includes Resend guidance when send fails after signup", () => {
+    const withFirebase = formatVerificationSendFailureMessage({
+      message: "Firebase: Error (auth/too-many-requests).",
+    });
+    expect(withFirebase).toContain("auth/too-many-requests");
+    expect(withFirebase.toLowerCase()).toContain("resend");
+
+    const without = formatVerificationSendFailureMessage(null);
+    expect(without.toLowerCase()).toContain("resend");
+    expect(without).toContain("couldn’t send");
+  });
+
+  it("only confirms verification when emailVerified is true", () => {
+    expect(isEmailVerificationConfirmed({ emailVerified: true })).toBe(true);
+    expect(isEmailVerificationConfirmed({ emailVerified: false })).toBe(false);
+    expect(isEmailVerificationConfirmed(null)).toBe(false);
+    expect(isEmailVerificationConfirmed(undefined)).toBe(false);
   });
 });

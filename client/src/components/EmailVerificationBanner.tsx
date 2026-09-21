@@ -7,6 +7,7 @@ import { Mail } from "lucide-react";
 /**
  * On-brand banner for signed-in users who have not verified email yet.
  * Offers a resend that only toasts success after Firebase accepts the send.
+ * Copy stays neutral so we never claim a link was sent when signup send failed.
  */
 export default function EmailVerificationBanner() {
   const { user, resendVerificationEmail } = useAuth();
@@ -45,8 +46,10 @@ export default function EmailVerificationBanner() {
           <div>
             <p className="font-medium">Verify your email</p>
             <p className="text-sm text-orange-900/80">
-              We sent a link to <span className="font-medium">{user.email}</span>.
-              Check spam if you don’t see it. You can resend anytime.
+              Confirm{" "}
+              <span className="font-medium">{user.email}</span> with a
+              verification link. Check spam if you already requested one, or use
+              Resend below.
             </p>
           </div>
         </div>
