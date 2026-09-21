@@ -190,3 +190,65 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 24px rgba(232, 121, 58, 0.3);
 }
+
+/* ── Product listing image flip (3D) ─────────────────────────────────────── */
+.product-flip {
+  perspective: 1000px;
+}
+
+.product-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s ease;
+}
+
+.product-flip:hover .product-flip-inner,
+.product-flip:focus-within .product-flip-inner,
+.product-flip[data-flipped="true"] .product-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.product-flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.product-flip-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-flip-inner {
+    transition: none;
+    transform: none !important;
+  }
+
+  .product-flip-back {
+    transform: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .product-flip:hover .product-flip-back,
+  .product-flip:focus-within .product-flip-back,
+  .product-flip[data-flipped="true"] .product-flip-back {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .product-flip:hover .product-flip-front,
+  .product-flip:focus-within .product-flip-front,
+  .product-flip[data-flipped="true"] .product-flip-front {
+    opacity: 0;
+  }
+
+  .product-flip-front {
+    transition: opacity 0.2s ease;
+  }
+}
