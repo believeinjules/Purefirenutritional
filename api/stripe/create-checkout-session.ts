@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getStripe, getSiteOrigin } from "../_lib/stripe";
-import { resolveCheckoutLines } from "../../shared/product-prices";
+import { getStripe, getSiteOrigin } from "../_lib/stripe.js";
+import { resolveCheckoutLines } from "../../shared/product-prices.js";
 
 /**
  * POST /api/stripe/create-checkout-session

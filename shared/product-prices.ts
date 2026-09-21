@@ -3,7 +3,7 @@
  * Uses the same catalog as the SPA (`client/src/data/products.ts`).
  * Never trust client-sent `price` as the sole source of truth.
  */
-import { products, type Product, type ProductVariant } from "../client/src/data/products";
+import { products, type Product, type ProductVariant } from "../client/src/data/products.js";
 
 export type CheckoutLineInput = {
   productId?: string;
