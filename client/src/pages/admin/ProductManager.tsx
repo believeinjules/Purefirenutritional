@@ -49,11 +49,12 @@ import {
   Upload,
   Loader2,
   ImageOff,
+  Database,
 } from "lucide-react";
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { fetchProducts, Product } from "@/lib/productsStorage";
+import { fetchProducts, importCatalogFromCode, Product } from "@/lib/productsStorage";
 import { db, storage } from "@/lib/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -194,6 +195,10 @@ export default function ProductManager() {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
 
+  // Catalog import (seed from products.ts)
+  const [importing, setImporting] = useState(false);
+  const [importConfirmOpen, setImportConfirmOpen] = useState(false);
+
   // ── Load ──────────────────────────────────────────────────────────────────
 
   useEffect(() => {
@@ -319,6 +324,30 @@ export default function ProductManager() {
     }
   }
 
+
+  // ── Import catalog from code ──────────────────────────────────────────────
+
+  async function handleImportCatalog() {
+    setImportConfirmOpen(false);
+    setImporting(true);
+    try {
+      const result = await importCatalogFromCode();
+      if (result.failed > 0) {
+        toast.error(
+          `Imported ${result.written} products; ${result.failed} failed` +
+            (result.errors[0] ? `: ${result.errors[0].message}` : "")
+        );
+      } else {
+        toast.success(`Imported ${result.written} products into Firestore`);
+      }
+      await loadProducts();
+    } catch (err: any) {
+      toast.error(`Import failed: ${err?.message ?? "Unknown error"}`);
+    } finally {
+      setImporting(false);
+    }
+  }
+
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
@@ -345,13 +374,27 @@ export default function ProductManager() {
                 {products.length} product{products.length !== 1 ? "s" : ""} in catalog
               </p>
             </div>
-            <Button
-              onClick={openAdd}
-              className="bg-brand-gradient text-white"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Product
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setImportConfirmOpen(true)}
+                disabled={importing}
+              >
+                {importing ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Database className="h-4 w-4 mr-2" />
+                )}
+                Import catalog from code
+              </Button>
+              <Button
+                onClick={openAdd}
+                className="bg-brand-gradient text-white"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Product
+              </Button>
+            </div>
           </div>
 
           {/* Search + category filter */}
@@ -810,6 +853,27 @@ export default function ProductManager() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Import catalog confirm */}
+      <AlertDialog open={importConfirmOpen} onOpenChange={setImportConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Import catalog from code?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This writes every product from the site catalog (products.ts) into
+              Firestore, merging by product ID. Existing Firestore-only products
+              are not deleted. Safe to run more than once.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={importing}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleImportCatalog} disabled={importing}>
+              {importing ? "Importing…" : "Import catalog"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
     </div>
   );
 }
