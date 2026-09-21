@@ -37,3 +37,25 @@ export function getEmailVerificationActionCodeSettings() {
     handleCodeInApp: true,
   };
 }
+
+
+/** Toast copy when account exists but sendEmailVerification failed. Always mentions Resend. */
+export function formatVerificationSendFailureMessage(
+  firebaseError?: { message?: string } | null
+): string {
+  const detail =
+    firebaseError?.message && String(firebaseError.message).trim()
+      ? ` (${String(firebaseError.message).trim()})`
+      : "";
+  return `Account created, but we couldn’t send the verification email${detail}. Use Resend on your dashboard.`;
+}
+
+/**
+ * After applyActionCode + reload (or verified=1 redirect + reload), only treat as success
+ * when the refreshed user reports emailVerified === true.
+ */
+export function isEmailVerificationConfirmed(
+  refreshed: { emailVerified?: boolean } | null | undefined
+): boolean {
+  return refreshed?.emailVerified === true;
+}
