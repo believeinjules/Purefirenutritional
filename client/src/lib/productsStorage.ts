@@ -6,6 +6,7 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  writeBatch,
   query,
   where,
   orderBy,
@@ -89,7 +90,7 @@ export async function fetchProducts(): Promise<Product[]> {
       return localProducts;
     }
 
-    return snapshot.docs.map((d) => docToProduct(d.id, d.data()));
+    return snapshot.docs.map((d: { id: string; data: () => any }) => docToProduct(d.id, d.data()));
   } catch (err) {
     console.error("Error fetching products from Firestore, falling back to local data:", err);
     return localProducts;
@@ -138,7 +139,7 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       return localProducts.filter((p) => p.category === category);
     }
 
-    return snapshot.docs.map((d) => docToProduct(d.id, d.data()));
+    return snapshot.docs.map((d: { id: string; data: () => any }) => docToProduct(d.id, d.data()));
   } catch (err) {
     console.error("Error fetching products by category from Firestore:", err);
     return localProducts.filter((p) => p.category === category);
@@ -215,4 +216,86 @@ export async function deleteProduct(id: string): Promise<boolean> {
     console.error("Error deleting product:", err);
     return false;
   }
+}
+
+// ─── importCatalogFromCode ────────────────────────────────────────────────────
+// One-shot / idempotent seed: merge every product from local products.ts into
+// Firestore `products/{id}`. Does NOT delete Firestore-only products.
+// Safe to run twice (overwrite/merge by document id).
+
+export type ImportCatalogResult = {
+  written: number;
+  failed: number;
+  errors: { id: string; message: string }[];
+};
+
+function productToFirestoreDoc(product: (typeof localProducts)[number] | Product) {
+  const inStockFlag =
+    "in_stock" in product ? (product as Product).in_stock !== false : true;
+  return {
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    priceUSD: product.priceUSD,
+    priceEUR: product.priceEUR,
+    rating: product.rating,
+    sizes: product.sizes ?? 1,
+    image: product.image ?? null,
+    imageAlt: product.imageAlt ?? null,
+    benefits: product.benefits || [],
+    ingredients: product.ingredients || [],
+    usage: product.usage ?? null,
+    seriesInfo: product.seriesInfo ?? null,
+    variants: (product.variants || []).map((v) => ({
+      id: v.id,
+      name: v.name,
+      priceUSD: v.priceUSD,
+      priceEUR: v.priceEUR,
+      image: v.image ?? null,
+      imageAlt: v.imageAlt ?? null,
+      inStock: v.inStock !== false,
+    })),
+    in_stock: inStockFlag,
+  };
+}
+
+export async function importCatalogFromCode(): Promise<ImportCatalogResult> {
+  if (!isFirebaseConfigured()) {
+    throw new Error("Firebase is not configured");
+  }
+
+  const result: ImportCatalogResult = { written: 0, failed: 0, errors: [] };
+
+  // Firestore batches are capped at 500 ops; catalog is well under that.
+  const BATCH_SIZE = 400;
+  for (let i = 0; i < localProducts.length; i += BATCH_SIZE) {
+    const chunk = localProducts.slice(i, i + BATCH_SIZE);
+    const batch = writeBatch(db);
+    for (const product of chunk) {
+      const ref = doc(db, "products", product.id);
+      batch.set(ref, productToFirestoreDoc(product), { merge: true });
+    }
+    try {
+      await batch.commit();
+      result.written += chunk.length;
+    } catch {
+      // Fall back to per-doc writes so we can report a partial count
+      for (const product of chunk) {
+        try {
+          await setDoc(doc(db, "products", product.id), productToFirestoreDoc(product), {
+            merge: true,
+          });
+          result.written += 1;
+        } catch (docErr: any) {
+          result.failed += 1;
+          result.errors.push({
+            id: product.id,
+            message: docErr?.message ?? String(docErr),
+          });
+        }
+      }
+    }
+  }
+
+  return result;
 }
