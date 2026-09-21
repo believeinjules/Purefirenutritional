@@ -8,6 +8,10 @@
  * This is NOT a data-security boundary: Firestore rules and server ADMIN_EMAILS
  * still gate writes. The UI gate only keeps the Admin screens from rendering
  * for logged-out / non-allowlisted users.
+ *
+ * Admin UI does NOT require emailVerified (Firebase Console may not let you
+ * flip that flag). POST /api/admin/seed-products still requires email_verified
+ * on the ID-token path — see docs/admin-ui-lock.md.
  */
 
 import type { User } from "firebase/auth";
@@ -35,13 +39,13 @@ export function isAdminEmail(
 
 /**
  * True when the Firebase user may see Admin UI:
- * signed in, email on VITE_ADMIN_EMAILS, and emailVerified.
+ * signed in with email on VITE_ADMIN_EMAILS.
+ * Does not require emailVerified (UI unlock priority).
  */
 export function isAdminUser(
   user: User | null | undefined,
   allowlist: string[] = getAdminEmails()
 ): boolean {
   if (!user?.email) return false;
-  if (!user.emailVerified) return false;
   return isAdminEmail(user.email, allowlist);
 }

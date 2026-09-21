@@ -8,7 +8,7 @@ type RequireAdminProps = {
 };
 
 /**
- * Gate Admin pages: require Firebase Auth + allowlisted verified email.
+ * Gate Admin pages: require Firebase Auth + allowlisted email (not emailVerified).
  * Does not render admin children until authorized (avoids flashing dashboard HTML).
  */
 export default function RequireAdmin({ children }: RequireAdminProps) {
@@ -27,7 +27,7 @@ export default function RequireAdmin({ children }: RequireAdminProps) {
     }
 
     if (!authorized) {
-      // Signed in but not allowlisted / not verified — do not show Admin UI
+      // Signed in but not allowlisted — do not show Admin UI
       setLocation("/");
     }
   }, [user, loading, authorized, location, setLocation]);
