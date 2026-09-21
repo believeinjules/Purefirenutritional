@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getStripe } from "../../_lib/stripe";
+import { getStripe } from "../../_lib/stripe.js";
 
 /**
  * GET /api/stripe/session/:id

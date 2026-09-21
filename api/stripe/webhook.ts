@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import type Stripe from "stripe";
-import { getStripe } from "../_lib/stripe";
-import { getAdminDb } from "../_lib/firebase";
-import { sendOrderConfirmation } from "../_lib/email";
-import { readRawBody } from "../_lib/read-raw-body";
+import { getStripe } from "../_lib/stripe.js";
+import { getAdminDb } from "../_lib/firebase.js";
+import { sendOrderConfirmation } from "../_lib/email.js";
+import { readRawBody } from "../_lib/read-raw-body.js";
 
 /** Required so Stripe signature verification gets the unmodified body. */
 export const config = {
