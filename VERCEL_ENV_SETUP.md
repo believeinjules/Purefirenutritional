@@ -43,6 +43,13 @@ EMAIL_FROM=Pure Fire Nutritional <noreply@purefirenutritional.com>
 
 **Note:** If you don't configure email, orders will still work but customers won't receive email confirmations.
 
+### Admin UI lock (client allowlist)
+```
+VITE_ADMIN_EMAILS=julesxshulman@gmail.com
+```
+
+Keep this identical to server `ADMIN_EMAILS`. Required for `/admin` pages to render after sign-in. See `docs/admin-ui-lock.md`. Redeploy after adding (`VITE_*` is build-time).
+
 ## How to Add Environment Variables in Vercel
 
 1. Go to your Vercel project dashboard
