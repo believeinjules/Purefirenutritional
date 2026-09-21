@@ -42,7 +42,7 @@ describe("isAdminEmail", () => {
 describe("isAdminUser", () => {
   const allowlist = ["julesxshulman@gmail.com"];
 
-  it("requires emailVerified and allowlisted email", () => {
+  it("requires allowlisted email only (not emailVerified)", () => {
     expect(
       isAdminUser(
         { email: "julesxshulman@gmail.com", emailVerified: true } as any,
@@ -54,13 +54,22 @@ describe("isAdminUser", () => {
         { email: "julesxshulman@gmail.com", emailVerified: false } as any,
         allowlist
       )
-    ).toBe(false);
+    ).toBe(true);
     expect(
       isAdminUser(
         { email: "stranger@example.com", emailVerified: true } as any,
         allowlist
       )
     ).toBe(false);
+    expect(
+      isAdminUser(
+        { email: "stranger@example.com", emailVerified: false } as any,
+        allowlist
+      )
+    ).toBe(false);
     expect(isAdminUser(null, allowlist)).toBe(false);
+    expect(isAdminUser({ email: null, emailVerified: false } as any, allowlist)).toBe(
+      false
+    );
   });
 });
