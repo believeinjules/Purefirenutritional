@@ -54,3 +54,14 @@ Checkout line amounts are resolved from `client/src/data/products.ts` via `share
 ## Guest checkout
 
 No auth is required for `create-checkout-session` (same as the Express route).
+
+## Admin product seed (related)
+
+For `POST /api/admin/seed-products` (Import catalog from code):
+
+| Variable | Notes |
+|----------|--------|
+| `ADMIN_EMAILS` | Comma-separated Firebase Auth emails allowed to seed (e.g. `julesxshulman@gmail.com`) |
+| `ADMIN_SEED_SECRET` | Optional; curl-only shared secret — never `VITE_` |
+
+See `docs/import-catalog-from-code.md`.

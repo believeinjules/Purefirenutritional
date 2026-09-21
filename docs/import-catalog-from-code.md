@@ -1,14 +1,59 @@
 # Import catalog from code (Firestore seed)
 
-One-time (or anytime) way to copy every product from `client/src/data/products.ts` into the Firestore `products` collection.
+One-time (or anytime) way to copy every product from `client/src/data/products.ts`
+into the Firestore `products` collection **without loosening security rules**.
 
-## How to use (no engineering needed)
+Client SDK writes are blocked (`match /products/{id} { allow write: if false }`).
+Seeding goes through **`POST /api/admin/seed-products`**, which uses the Firebase
+**Admin SDK** (same credentials as the mailing-list / Stripe webhook:
+`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`).
 
-1. Open the live site and go to **Admin → Manage Products** (`/admin/products`).
-2. Click **Import catalog from code**.
-3. Confirm in the dialog.
-4. Wait for the toast: it shows how many products were written (about 79).
-5. Refresh the shop (`/products`). It should load from Firestore instead of the local fallback.
+## Env vars to set in Vercel (once)
+
+| Variable | Purpose |
+|----------|---------|
+| `ADMIN_EMAILS` | Comma-separated allowlist of admin emails (required for the Admin UI button). Example: `julesxshulman@gmail.com` |
+| `ADMIN_SEED_SECRET` | Optional shared secret for one-shot `curl` (never put this in the browser / Vite env) |
+| `FIREBASE_PROJECT_ID` / `FIREBASE_CLIENT_EMAIL` / `FIREBASE_PRIVATE_KEY` | Already required for Admin SDK order persistence |
+
+In Vercel → Project → Settings → Environment Variables:
+
+1. Add `ADMIN_EMAILS` = your Firebase Auth / Gmail address (the one you use to sign in).
+2. Optionally add `ADMIN_SEED_SECRET` = a long random string (for curl only).
+3. Redeploy Production so the new env vars are live.
+
+## How to use (Admin UI — preferred)
+
+1. Sign in on the live site with the email listed in `ADMIN_EMAILS`.
+2. Open **Admin → Manage Products** (`/admin/products`).
+3. Click **Import catalog from code**.
+4. Confirm in the dialog.
+5. Wait for the toast: it shows how many products were written (~79).
+6. Refresh the shop (`/products`). It should load from Firestore instead of the local fallback.
+
+The browser only sends your Firebase **ID token**. The secret never ships in the
+client bundle. The API verifies the token with Admin Auth and checks the email
+against `ADMIN_EMAILS`.
+
+## One-shot curl (optional)
+
+Only if you set `ADMIN_SEED_SECRET` in Vercel:
+
+```bash
+curl -X POST "https://www.purefirenutritional.com/api/admin/seed-products" \
+  -H "Authorization: Bearer $ADMIN_SEED_SECRET" \
+  -H "Content-Type: application/json"
+```
+
+Or:
+
+```bash
+curl -X POST "https://www.purefirenutritional.com/api/admin/seed-products" \
+  -H "x-admin-seed-secret: $ADMIN_SEED_SECRET" \
+  -H "Content-Type: application/json"
+```
+
+Successful response shape: `{ "written": 79, "failed": 0 }` (plus `errors` only on partial failure).
 
 ## Behavior
 
@@ -16,11 +61,19 @@ One-time (or anytime) way to copy every product from `client/src/data/products.t
 - Uses merge/overwrite by ID — **safe to run twice**.
 - Does **not** delete products that exist only in Firestore.
 - Does **not** change Stripe checkout pricing (`shared/product-prices.ts` still reads `products.ts`).
+- Firestore security rules stay unchanged (`write: if false` for products).
 
 ## Fields written
 
-`name`, `description`, `category`, `priceUSD`, `priceEUR`, `rating`, `sizes`, `image`, `imageAlt`, `benefits`, `ingredients`, `usage`, `seriesInfo`, `variants`, `in_stock` (defaults to `true` when missing in code).
+`name`, `description`, `category`, `priceUSD`, `priceEUR`, `rating`, `sizes`,
+`image`, `imageAlt`, `benefits`, `ingredients`, `usage`, `seriesInfo`,
+`variants`, `in_stock` (defaults to `true` for catalog seed).
 
 ## If the button fails
 
-Usually Firestore security rules blocked the write. Product Manager create/edit uses the same client write path — if Add Product works, Import should too.
+| Error | Fix |
+|-------|-----|
+| You must be signed in… | Log in first (same account as `ADMIN_EMAILS`) |
+| Forbidden — email is not in ADMIN_EMAILS | Add your email to `ADMIN_EMAILS` in Vercel and redeploy |
+| ADMIN_EMAILS is not configured | Set the env var and redeploy |
+| Firebase Admin is not configured | Check `FIREBASE_*` service-account env vars |
