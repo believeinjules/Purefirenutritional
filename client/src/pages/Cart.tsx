@@ -7,6 +7,12 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { getUnitPriceUSD } from "@shared/product-prices";
 
+/** Missing catalog prices are undefined. Never call toFixed on them. */
+function formatCartUSD(amount: number | undefined | null): string {
+  if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
+  return `$${amount.toFixed(2)}`;
+}
+
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, getTotal, clearCart } = useCart();
 
@@ -60,7 +66,7 @@ export default function Cart() {
                       <p className="text-sm text-gray-500">{item.product.category}</p>
                       <p className="text-sm text-gray-500">Size: {item.size} caps</p>
                       <p className="text-orange-600 font-bold mt-1">
-                        ${getUnitPriceUSD(item.product, item.size).toFixed(2)}
+                        {formatCartUSD(getUnitPriceUSD(item.product, item.size))}
                       </p>
                     </div>
 
@@ -113,7 +119,7 @@ export default function Cart() {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-gray-600">
                       <span>Subtotal ({items.reduce((acc, item) => acc + item.quantity, 0)} items)</span>
-                      <span>${getTotal().toFixed(2)}</span>
+                      <span>{formatCartUSD(getTotal())}</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Shipping</span>
@@ -124,7 +130,7 @@ export default function Cart() {
                   <div className="border-t pt-4 mb-6">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-orange-600">${getTotal().toFixed(2)}</span>
+                      <span className="text-orange-600">{formatCartUSD(getTotal())}</span>
                     </div>
                   </div>
 

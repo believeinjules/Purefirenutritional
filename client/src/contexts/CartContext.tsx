@@ -86,10 +86,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const getTotal = (): number => {
-    return items.reduce(
-      (sum, item) => sum + getUnitPriceUSD(item.product, item.size) * item.quantity,
-      0
-    );
+    return items.reduce((sum, item) => {
+      const unit = getUnitPriceUSD(item.product, item.size);
+      if (typeof unit !== "number" || !Number.isFinite(unit)) return sum;
+      return sum + unit * item.quantity;
+    }, 0);
   };
 
   return (

@@ -10,6 +10,11 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { getUnitPriceUSD } from "@shared/product-prices";
 
+function formatCheckoutUSD(amount: number | undefined | null): string {
+  if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
+  return `$${amount.toFixed(2)}`;
+}
+
 export default function Checkout() {
   const { items, getTotal, clearCart } = useCart();
   const [, setLocation] = useLocation();
@@ -253,20 +258,27 @@ export default function Checkout() {
                 <CardContent>
                   {/* Items */}
                   <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
-                    {items.map((item) => (
+                    {items.map((item) => {
+                      const unit = getUnitPriceUSD(item.product, item.size);
+                      const lineTotal =
+                        typeof unit === "number" && Number.isFinite(unit)
+                          ? unit * item.quantity
+                          : undefined;
+                      return (
                       <div key={`${item.product.id}-${item.size || "20"}`} className="flex justify-between text-sm">
                         <span>
                           {item.product.name}{item.size ? ` (${item.size})` : ""} × {item.quantity}
                         </span>
-                        <span>${(getUnitPriceUSD(item.product, item.size) * item.quantity).toFixed(2)}</span>
+                        <span>{formatCheckoutUSD(lineTotal)}</span>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between text-gray-600">
                       <span>Subtotal</span>
-                      <span>${getTotal().toFixed(2)}</span>
+                      <span>{formatCheckoutUSD(getTotal())}</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Shipping</span>
@@ -281,7 +293,7 @@ export default function Checkout() {
                   <div className="border-t mt-4 pt-4">
                     <div className="flex justify-between text-xl font-bold">
                       <span>Total</span>
-                      <span className="text-orange-600">${getTotal().toFixed(2)}</span>
+                      <span className="text-orange-600">{formatCheckoutUSD(getTotal())}</span>
                     </div>
                   </div>
 
