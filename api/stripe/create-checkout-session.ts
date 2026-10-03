@@ -62,6 +62,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
+      automatic_tax: { enabled: true },
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cart`,
       customer_email: customerEmail || undefined,
