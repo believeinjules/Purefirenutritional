@@ -9,6 +9,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { getUnitPriceUSD } from "@shared/product-prices";
+import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 
 function formatCheckoutUSD(amount: number | undefined | null): string {
   if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
@@ -21,43 +22,11 @@ export default function Checkout() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    postalCode: "",
   });
-  const [shippingAmount, setShippingAmount] = useState<number | null>(null);
-  const [shippingNote, setShippingNote] = useState(
-    "Enter a US zip to request a FedEx rate from Germany. No shipping fee is added until FedEx returns one."
-  );
-
-  const requestShippingRate = async (zip: string) => {
-    if (!/^\d{5}(-\d{4})?$/.test(zip.trim())) {
-      setShippingAmount(null);
-      setShippingNote("Enter a 5-digit US zip. Shipping rate unavailable until then, and checkout will not add a shipping charge.");
-      return;
-    }
-    setShippingNote("Requesting a FedEx rate…");
-    try {
-      const units = items.reduce((sum, item) => sum + item.quantity, 0);
-      const response = await fetch("/api/shipping/rate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ postalCode: zip.trim(), units }),
-      });
-      const data = await response.json();
-      if (data?.available === true && typeof data.amountUSD === "number" && data.amountUSD > 0) {
-        setShippingAmount(data.amountUSD);
-        setShippingNote(`${data.serviceName || "FedEx"} to ${zip.trim()}. Stripe charges this amount, not a flat guess.`);
-      } else {
-        setShippingAmount(null);
-        const missing = Array.isArray(data?.missing) && data.missing.length
-          ? ` Still needed: ${data.missing.join(", ")}.`
-          : "";
-        setShippingNote(`Shipping rate unavailable.${missing} Checkout will not add a shipping charge.`);
-      }
-    } catch {
-      setShippingAmount(null);
-      setShippingNote("Shipping rate unavailable. Checkout will not add a shipping charge.");
-    }
-  };
+  const subtotal = getTotal();
+  const shippingCents = shippingCentsForMerchandiseUSD(subtotal);
+  const shippingLabel = shippingCents === 0 ? "Free" : formatCheckoutUSD(shippingCents / 100);
+  const orderTotal = subtotal + shippingCents / 100;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -82,7 +51,6 @@ export default function Checkout() {
             // price intentionally omitted as sole source — server looks up catalog
           })),
           customerEmail: formData.email,
-          postalCode: formData.postalCode,
         }),
       });
 
@@ -158,29 +126,8 @@ export default function Checkout() {
                       required
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="postalCode">US zip code</Label>
-                    <Input
-                      id="postalCode"
-                      name="postalCode"
-                      inputMode="numeric"
-                      autoComplete="postal-code"
-                      value={formData.postalCode}
-                      onChange={(e) => {
-                        const postalCode = e.target.value;
-                        setFormData({ ...formData, postalCode });
-                        if (/^\d{5}(-\d{4})?$/.test(postalCode.trim())) {
-                          void requestShippingRate(postalCode);
-                        } else {
-                          setShippingAmount(null);
-                        }
-                      }}
-                      onBlur={() => void requestShippingRate(formData.postalCode)}
-                      placeholder="10001"
-                    />
-                  </div>
                   <p className="text-sm text-gray-500">
-                    Stripe collects the ship-to name and address on the next page. The zip above is only for the FedEx quote.
+                    Stripe collects the ship-to name and address on the next page.
                   </p>
                 </CardContent>
               </Card>
@@ -212,7 +159,7 @@ export default function Checkout() {
                 <CardContent className="text-blue-800 space-y-2">
                   <p><strong>Ships from:</strong> Germany</p>
                   <p><strong>Delivery timeframe:</strong> Up to 3 weeks</p>
-                  <p className="text-sm">{shippingNote}</p>
+                  <p className="text-sm">Shipping is $19.95. It is free when the merchandise subtotal is over $150.</p>
                 </CardContent>
               </Card>
             </div>
@@ -250,7 +197,7 @@ export default function Checkout() {
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Shipping</span>
-                      <span>{shippingAmount != null && shippingAmount > 0 ? formatCheckoutUSD(shippingAmount) : "Not included"}</span>
+                      <span>{shippingLabel}</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Tax</span>
@@ -261,7 +208,7 @@ export default function Checkout() {
                   <div className="border-t mt-4 pt-4">
                     <div className="flex justify-between text-xl font-bold">
                       <span>Total</span>
-                      <span className="text-orange-600">{formatCheckoutUSD(getTotal())}</span>
+                      <span className="text-orange-600">{formatCheckoutUSD(orderTotal)}</span>
                     </div>
                   </div>
 

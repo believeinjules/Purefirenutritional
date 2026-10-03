@@ -191,3 +191,40 @@ export function stripeShippingOption(quote: ShippingQuote, postalCode: string) {
     },
   ];
 }
+
+/**
+ * Customer shipping is a flat $19.95.
+ * Free only when the merchandise subtotal is strictly over $150.00.
+ * $150.00 (15000 cents) pays $19.95. $150.01 (15001 cents) is free.
+ * This does not call FedEx and does not use any other rate.
+ */
+export const STANDARD_SHIPPING_CENTS = 1995;
+export const FREE_SHIPPING_OVER_CENTS = 15000;
+
+export function shippingCentsForMerchandiseCents(merchandiseCents: number): number {
+  if (!Number.isFinite(merchandiseCents) || merchandiseCents <= FREE_SHIPPING_OVER_CENTS) {
+    return STANDARD_SHIPPING_CENTS;
+  }
+  return 0;
+}
+
+export function shippingCentsForMerchandiseUSD(subtotalUSD: number): number {
+  if (typeof subtotalUSD !== "number" || !Number.isFinite(subtotalUSD)) {
+    return STANDARD_SHIPPING_CENTS;
+  }
+  return shippingCentsForMerchandiseCents(Math.round(subtotalUSD * 100));
+}
+
+/** Always one Stripe shipping option: $19.95, or $0 when the subtotal is over $150. */
+export function flatStripeShippingOption(merchandiseCents: number) {
+  const amount = shippingCentsForMerchandiseCents(merchandiseCents);
+  return [
+    {
+      shipping_rate_data: {
+        type: "fixed_amount" as const,
+        fixed_amount: { amount, currency: "usd" as const },
+        display_name: amount === 0 ? "Free shipping" : "Shipping",
+      },
+    },
+  ];
+}

@@ -1,7 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { getStripe, getSiteOrigin } from "../_lib/stripe.js";
 import { resolveCheckoutLines } from "../../shared/product-prices.js";
-import { quoteUsZipShipping, stripeShippingOption } from "../../shared/shipping-rate.js";
+import {
+  flatStripeShippingOption,
+  shippingCentsForMerchandiseCents,
+} from "../../shared/shipping-rate.js";
 
 /**
  * POST /api/stripe/create-checkout-session
@@ -32,12 +35,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const origin = getSiteOrigin(req.headers.origin);
     const stripe = getStripe();
 
-    const units = resolved.reduce((sum, item) => sum + item.quantity, 0);
+    const merchandiseCents = resolved.reduce(
+      (sum, item) => sum + item.unitAmountCents * item.quantity,
+      0
+    );
+    const shippingCents = shippingCentsForMerchandiseCents(merchandiseCents);
+    const shippingOptions = flatStripeShippingOption(merchandiseCents);
     const zip = typeof postalCode === "string" ? postalCode : "";
-    const shippingQuote = zip
-      ? await quoteUsZipShipping({ postalCode: zip, units })
-      : { available: false as const, message: "shipping rate unavailable" as const, missing: ["US zip"] };
-    const shippingOptions = stripeShippingOption(shippingQuote, zip);
 
     const lineItems = resolved.map((item) => ({
       price_data: {
@@ -73,19 +77,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         customer_name: customerName || "",
         product_ids: resolved.map((r) => r.productId).join(","),
         ship_to_zip: zip,
-        shipping_quote: shippingQuote.available ? String(shippingQuote.amountUSD) : "unavailable",
+        shipping_quote: (shippingCents / 100).toFixed(2),
       },
       allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: ["US", "CA", "GB", "AU", "NZ", "IE"],
       },
-      ...(shippingOptions ? { shipping_options: shippingOptions } : {}),
+      shipping_options: shippingOptions,
     });
 
     return res.status(200).json({
       sessionId: session.id,
       url: session.url,
-      shipping: shippingQuote,
+      shipping: {
+        available: true,
+        amountUSD: shippingCents / 100,
+        amountCents: shippingCents,
+        currency: "usd",
+        free: shippingCents === 0,
+      },
     });
   } catch (error) {
     console.error("[create-checkout-session]", error);

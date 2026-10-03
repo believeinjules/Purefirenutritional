@@ -1,11 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { quoteUsZipShipping } from "../../shared/shipping-rate.js";
+import { shippingCentsForMerchandiseUSD } from "../../shared/shipping-rate.js";
 
 /**
  * POST /api/shipping/rate
- * Body: { postalCode: string, units?: number }
- * Calls FedEx only when FEDEX_* env vars are set.
- * Otherwise returns shipping rate unavailable and no dollar amount.
+ * Body: { merchandiseSubtotalUSD: number }
+ * Flat customer shipping. Does not call FedEx and does not invent another rate.
+ * $19.95 when the merchandise subtotal is $150.00 or below.
+ * Free when the merchandise subtotal is strictly over $150.00.
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
@@ -13,13 +14,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const body = (req.body || {}) as { postalCode?: unknown; units?: unknown };
-  const postalCode = typeof body.postalCode === "string" ? body.postalCode : "";
-  const units = Number(body.units);
-  const quote = await quoteUsZipShipping({
-    postalCode,
-    units: Number.isFinite(units) ? units : 1,
-  });
+  const body = (req.body || {}) as { merchandiseSubtotalUSD?: unknown };
+  const subtotal = Number(body.merchandiseSubtotalUSD);
+  if (!Number.isFinite(subtotal) || subtotal < 0) {
+    return res.status(400).json({ error: "merchandise subtotal required" });
+  }
 
-  return res.status(200).json(quote);
+  const amountCents = shippingCentsForMerchandiseUSD(subtotal);
+  return res.status(200).json({
+    available: true,
+    amountUSD: amountCents / 100,
+    amountCents,
+    currency: "usd",
+    free: amountCents === 0,
+  });
 }

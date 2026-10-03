@@ -3,7 +3,7 @@ import { Router } from 'express';
 import Stripe from 'stripe';
 import { logError, logAPICall } from '../logger.js';
 import { resolveCheckoutLines } from '../../shared/product-prices.js';
-import { quoteUsZipShipping, stripeShippingOption } from '../../shared/shipping-rate.js';
+import { flatStripeShippingOption, shippingCentsForMerchandiseCents } from '../../shared/shipping-rate.js';
 
 const router = Router();
 
@@ -45,12 +45,13 @@ router.post('/create-checkout-session', async (req, res) => {
 
     const origin = siteOrigin(req);
 
-    const units = resolved.reduce((sum, item) => sum + item.quantity, 0);
+    const merchandiseCents = resolved.reduce(
+      (sum, item) => sum + item.unitAmountCents * item.quantity,
+      0
+    );
+    const shippingCents = shippingCentsForMerchandiseCents(merchandiseCents);
+    const shippingOptions = flatStripeShippingOption(merchandiseCents);
     const zip = typeof postalCode === 'string' ? postalCode : '';
-    const shippingQuote = zip
-      ? await quoteUsZipShipping({ postalCode: zip, units })
-      : { available: false as const, message: 'shipping rate unavailable' as const, missing: ['US zip'] };
-    const shippingOptions = stripeShippingOption(shippingQuote, zip);
 
     const lineItems = resolved.map((item) => ({
       price_data: {
@@ -87,13 +88,13 @@ router.post('/create-checkout-session', async (req, res) => {
         customer_name: customerName || '',
         product_ids: resolved.map((r) => r.productId).join(','),
         ship_to_zip: zip,
-        shipping_quote: shippingQuote.available ? String(shippingQuote.amountUSD) : 'unavailable',
+        shipping_quote: (shippingCents / 100).toFixed(2),
       },
       allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: ['US', 'CA', 'GB', 'AU', 'NZ', 'IE'],
       },
-      ...(shippingOptions ? { shipping_options: shippingOptions } : {}),
+      shipping_options: shippingOptions,
     });
     
     logAPICall({
@@ -106,7 +107,13 @@ router.post('/create-checkout-session', async (req, res) => {
     res.json({ 
       sessionId: session.id,
       url: session.url,
-      shipping: shippingQuote,
+      shipping: {
+        available: true,
+        amountUSD: shippingCents / 100,
+        amountCents: shippingCents,
+        currency: 'usd',
+        free: shippingCents === 0,
+      },
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);

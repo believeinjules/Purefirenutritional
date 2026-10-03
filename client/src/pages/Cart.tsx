@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { getUnitPriceUSD } from "@shared/product-prices";
+import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
 function formatCartUSD(amount: number | undefined | null): string {
@@ -15,6 +16,10 @@ function formatCartUSD(amount: number | undefined | null): string {
 
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, getTotal, clearCart } = useCart();
+  const subtotal = getTotal();
+  const shippingCents = shippingCentsForMerchandiseUSD(subtotal);
+  const shippingLabel = shippingCents === 0 ? "Free" : formatCartUSD(shippingCents / 100);
+  const orderTotal = subtotal + shippingCents / 100;
 
   if (!items || items.length === 0) {
     return (
@@ -123,20 +128,20 @@ export default function Cart() {
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Shipping</span>
-                      <span>Not included</span>
+                      <span>{shippingLabel}</span>
                     </div>
                   </div>
 
                   <div className="border-t pt-4 mb-6">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-orange-600">{formatCartUSD(getTotal())}</span>
+                      <span className="text-orange-600">{formatCartUSD(orderTotal)}</span>
                     </div>
                   </div>
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
                     <p className="font-semibold mb-1">📦 Shipping from Germany</p>
-                    <p>Delivery typically takes up to 3 weeks. Enter a US zip at checkout for a FedEx rate from Germany. Until FedEx returns a rate, shipping is not included and you are not charged a shipping fee.</p>
+                    <p>Delivery typically takes up to 3 weeks. Shipping is $19.95, and it is free when the merchandise subtotal is over $150.</p>
                   </div>
 
                   <Link href="/checkout">
