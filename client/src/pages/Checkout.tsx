@@ -157,8 +157,7 @@ export default function Checkout() {
                   <CardTitle className="text-blue-900">📦 Shipping Information</CardTitle>
                 </CardHeader>
                 <CardContent className="text-blue-800 space-y-2">
-                  <p><strong>Ships from:</strong> Germany</p>
-                  <p><strong>Delivery timeframe:</strong> Up to 3 weeks</p>
+                  <p>Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia.</p>
                   <p className="text-sm">Shipping is $19.95. It is free when the merchandise subtotal is over $150.</p>
                 </CardContent>
               </Card>
