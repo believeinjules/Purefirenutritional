@@ -224,6 +224,12 @@ export default function ProductDetail() {
                 </Button>
               </div>
 
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                <p>Ask your doctor about current medications, pregnancy, and existing conditions before use.</p>
+                <p>If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.</p>
+                <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
+              </div>
+
               {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
               {product.category === "PEPTIDE BIOREGULATORS" && (
                 <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">

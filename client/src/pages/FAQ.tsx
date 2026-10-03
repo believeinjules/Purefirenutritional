@@ -161,6 +161,12 @@ export default function FAQ() {
             </p>
           </div>
 
+          <div className="bg-white border border-gray-200 rounded-lg p-4 mb-8 text-sm text-gray-700 space-y-2">
+            <p>Ask your doctor about current medications, pregnancy, and existing conditions before use.</p>
+            <p>If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.</p>
+            <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
+          </div>
+
           {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
             {categories.map((category) => (

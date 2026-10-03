@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, ShoppingCart, AlertTriangle, ExternalLink, Sparkles } from "lucide-react";
+import { Send, Bot, User, ShoppingCart, AlertTriangle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,9 +9,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { products, Product, getProductById } from "@/data/products";
-import { getAIRecommendations, getRecommendationExplanation } from "@/data/aiRecommendations";
-import { getRecommendations as getFrequentlyBought } from "@/data/productRecommendations";
+import { Product, getProductById } from "@/data/products";
+import { composeAssistantReply, type AssistantPhase } from "@/lib/assistantReply";
 
 /** Prefer product default/variant capsule count for cart size. */
 function getDefaultCartSize(product: Product): "20" | "60" {
@@ -32,192 +31,56 @@ interface Message {
   productExplanations?: { [productId: string]: string };
 }
 
-// This mapping is now handled by aiRecommendations.ts
-
-// Research papers
-const researchPapers = [
-  { title: "Peptide Bioregulators: A New Class of Geroprotectors", url: "https://pubmed.ncbi.nlm.nih.gov/31489893/" },
-  { title: "Short Peptides Regulate Gene Expression", url: "https://pubmed.ncbi.nlm.nih.gov/32093678/" },
-  { title: "Epithalamin and Thymalin in Aging Prevention", url: "https://pubmed.ncbi.nlm.nih.gov/12374906/" },
-  { title: "NAD+ and Cellular Aging", url: "https://pubmed.ncbi.nlm.nih.gov/29432159/" },
-  { title: "Spermidine and Autophagy", url: "https://pubmed.ncbi.nlm.nih.gov/27411589/" },
-  { title: "CoQ10 and Mitochondrial Function", url: "https://pubmed.ncbi.nlm.nih.gov/24389208/" },
-];
-
-function getProductRecommendations(query: string): Product[] {
-  // Use new AI recommendation logic
-  const recommendedIds = getAIRecommendations(query, 4);
-  
-  // Get products matching the IDs
-  const recommended = recommendedIds
-    .map(id => getProductById(id))
-    .filter((p): p is Product => p !== undefined);
-  
-  // If we have recommendations, also add frequently bought together items
-  if (recommended.length > 0) {
-    const mainProduct = recommended[0];
-    const frequentlyBought = getFrequentlyBought(mainProduct.id, 1)
-      .map(rec => getProductById(rec.productId))
-      .filter((p): p is Product => p !== undefined && !recommended.some(r => r.id === p.id));
-    
-    return [...recommended, ...frequentlyBought].slice(0, 4);
-  }
-  
-  // If no specific matches, return general recommendations
-  return products.slice(0, 4);
-}
-
-function getProductExplanations(query: string, products: Product[]): { [productId: string]: string } {
-  const explanations: { [productId: string]: string } = {};
-  const lowerQuery = query.toLowerCase();
-  
-  products.forEach(product => {
-    const productNameLower = product.name.toLowerCase();
-    
-    if (lowerQuery.includes("energy") || lowerQuery.includes("fatigue")) {
-      if (productNameLower.includes("revilab")) {
-        explanations[product.id] = "Revilab provides multi-peptide support for cellular energy and mitochondrial function.";
-      } else if (productNameLower.includes("endoluten")) {
-        explanations[product.id] = "Endoluten supports pineal gland function to enhance energy and vitality.";
-      } else if (productNameLower.includes("cytomaxes") || productNameLower.includes("cytomax")) {
-        explanations[product.id] = "Cytomax peptides help restore organ-specific cellular energy and function.";
-      }
-    } else if (lowerQuery.includes("brain") || lowerQuery.includes("memory") || lowerQuery.includes("cognitive")) {
-      if (productNameLower.includes("cortexin")) {
-        explanations[product.id] = "Cortexin is a brain peptide that supports cognitive function and neural protection.";
-      } else if (productNameLower.includes("revilab")) {
-        explanations[product.id] = "Revilab supports brain health through peptide-based cellular restoration.";
-      }
-    } else if (lowerQuery.includes("sleep") || lowerQuery.includes("insomnia")) {
-      if (productNameLower.includes("endoluten")) {
-        explanations[product.id] = "Endoluten regulates circadian rhythm and melatonin production for better sleep.";
-      } else if (productNameLower.includes("cytomax")) {
-        explanations[product.id] = "Cytomax Pineal supports pineal gland function for improved sleep quality.";
-      }
-    } else if (lowerQuery.includes("joint") || lowerQuery.includes("cartilage") || lowerQuery.includes("bone")) {
-      if (productNameLower.includes("cartilage")) {
-        explanations[product.id] = "Cartilage matrix peptides directly support joint health and cartilage integrity.";
-      } else if (productNameLower.includes("revilab")) {
-        explanations[product.id] = "Revilab supports joint tissue repair and bone health through peptide therapy.";
-      }
-    } else if (lowerQuery.includes("immune") || lowerQuery.includes("immunity") || lowerQuery.includes("defense")) {
-      if (productNameLower.includes("thymalin")) {
-        explanations[product.id] = "Thymalin strengthens immune response by supporting thymus gland function.";
-      } else if (productNameLower.includes("cytomax")) {
-        explanations[product.id] = "Cytomax boosts immune cell production and function through peptide bioregulation.";
-      }
-    } else if (lowerQuery.includes("skin") || lowerQuery.includes("hair") || lowerQuery.includes("collagen")) {
-      if (productNameLower.includes("skin")) {
-        explanations[product.id] = "Skin peptide matrix supports dermal collagen and tissue regeneration.";
-      } else if (productNameLower.includes("revilab")) {
-        explanations[product.id] = "Revilab supports skin health and collagen production through peptide restoration.";
-      }
-    } else {
-      // Default explanation
-      if (productNameLower.includes("revilab")) {
-        explanations[product.id] = "Revilab is a comprehensive peptide complex that supports overall cellular health.";
-      } else if (productNameLower.includes("cytomax")) {
-        explanations[product.id] = "Cytomax bioregulator supports specific organ and tissue function through natural peptides.";
-      } else {
-        explanations[product.id] = "This peptide bioregulator supports healthy aging and cellular function.";
-      }
-    }
-  });
-  
-  return explanations;
-}
-
-function getRelevantResearch(query: string): { title: string; url: string }[] {
-  const lowerQuery = query.toLowerCase();
-  const relevant: { title: string; url: string }[] = [];
-  
-  if (lowerQuery.includes("peptide") || lowerQuery.includes("aging") || lowerQuery.includes("longevity")) {
-    relevant.push(researchPapers[0], researchPapers[1], researchPapers[2]);
-  }
-  if (lowerQuery.includes("energy") || lowerQuery.includes("nad") || lowerQuery.includes("mitochondr")) {
-    relevant.push(researchPapers[3], researchPapers[5]);
-  }
-  if (lowerQuery.includes("autophagy") || lowerQuery.includes("spermidine") || lowerQuery.includes("cellular")) {
-    relevant.push(researchPapers[4]);
-  }
-  
-  return relevant.length > 0 ? relevant.slice(0, 3) : researchPapers.slice(0, 2);
-}
-
-function generateResponse(query: string): string {
-  const lowerQuery = query.toLowerCase();
-  
-  if (lowerQuery.includes("energy") || lowerQuery.includes("fatigue") || lowerQuery.includes("tired")) {
-    return "For energy and fatigue support, I recommend focusing on mitochondrial health. CoQ10 Ubiquinol is excellent for cellular energy production, while NAD+ Booster supports DNA repair and metabolic function. These work synergistically to combat fatigue at the cellular level.";
-  }
-  
-  if (lowerQuery.includes("brain") || lowerQuery.includes("memory") || lowerQuery.includes("cognitive") || lowerQuery.includes("focus")) {
-    return "For cognitive support, Cytomax Brain contains bioregulator peptides specifically targeting brain tissue. Combined with Omega-3 Premium for essential fatty acids, this can support memory, focus, and overall brain health. Revilab ML 07 offers comprehensive neurological support.";
-  }
-  
-  if (lowerQuery.includes("heart") || lowerQuery.includes("cardiovascular") || lowerQuery.includes("circulation")) {
-    return "For cardiovascular health, Chelohart is a heart peptide bioregulator that supports cardiac muscle function. Ventfort and Vesugen support blood vessel health and circulation. CoQ10 Ubiquinol is also essential for heart muscle energy production.";
-  }
-  
-  if (lowerQuery.includes("immune") || lowerQuery.includes("immunity") || lowerQuery.includes("defense")) {
-    return "For immune support, Crystagen and Vladonix are excellent peptide bioregulators. Crystagen enhances cellular immunity while Vladonix supports thymus function, which is crucial for immune regulation. Probiotics Advanced also supports gut-immune connection.";
-  }
-  
-  if (lowerQuery.includes("joint") || lowerQuery.includes("arthritis") || lowerQuery.includes("mobility")) {
-    return "For joint comfort and mobility, Cartalax is a cartilage peptide bioregulator that supports connective tissue. Prime Peptide Joints offers comprehensive musculoskeletal support, while Revilab ML 09 targets joint and bone wellness. Prime Peptide Omega can complement an active lifestyle.";
-  }
-  
-  if (lowerQuery.includes("aging") || lowerQuery.includes("longevity") || lowerQuery.includes("anti-aging")) {
-    return "For anti-aging and longevity, Cytogen AEDG is a synthetic tetrapeptide for epigenetic regulation. Spermidine Longevity supports autophagy (cellular cleanup), NAD+ Booster supports cellular energy and DNA repair, and Resveratrol Complex provides powerful antioxidant protection.";
-  }
-  
-  if (lowerQuery.includes("sleep") || lowerQuery.includes("insomnia")) {
-    return "For sleep support, Endoluten is a pineal gland peptide that helps regulate circadian rhythm and melatonin production. Cytomax Pineal offers similar benefits. Revilab SL 07 can help with stress response which often affects sleep quality.";
-  }
-  
-  if (lowerQuery.includes("peptide")) {
-    return "Khavinson peptide bioregulators are short-chain peptides that help regulate gene expression in specific tissues. They're based on over 40 years of Russian research. We offer natural bioregulators (Cytomaxes), synthetic versions (Cytogens), and multi-peptide complexes (Revilab series).";
-  }
-  
-  return "Based on your question, I've selected some products that may help. Our peptide bioregulators are backed by over 40 years of research and target specific organ systems. Feel free to ask about any specific health concerns - I can provide more targeted recommendations for energy, brain health, immune support, joints, anti-aging, sleep, and more.";
-}
-
 export default function AIAssistant() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const phaseRef = useRef<AssistantPhase>("idle");
+  const contextRef = useRef("");
+  const listedIdsRef = useRef<string[]>([]);
+  const candidatesRef = useRef<string[]>([]);
   const { addToCart } = useCart();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const handleSend = async (preset?: string) => {
+    const textIn = (preset ?? input).trim();
+    if (!textIn) return;
 
-    const userMessage: Message = { role: "user", content: input };
+    const userMessage: Message = { role: "user", content: textIn };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI thinking
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 400));
 
-    const recommendations = getProductRecommendations(input);
-    const research = getRelevantResearch(input);
-    const response = getRecommendationExplanation(input);
-    const productExplanations = getProductExplanations(input, recommendations);
+    const reply = composeAssistantReply({
+      phase: phaseRef.current,
+      context: contextRef.current,
+      message: textIn,
+      listedIds: listedIdsRef.current,
+      candidates: candidatesRef.current,
+    });
+    phaseRef.current = reply.phase;
+    contextRef.current = reply.context;
+    listedIdsRef.current = reply.listedIds;
+    candidatesRef.current = reply.candidates;
 
-    // Log AI interaction to backend for quality assurance (no chat history stored)
+    const recommendations = reply.productIds
+      .map(id => getProductById(id))
+      .filter((item): item is Product => item !== undefined);
+
     try {
       await fetch('/api/ai/recommendations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          query: input,
-          recommendedProductIds: recommendations.map(p => p.id)
+          query: textIn,
+          recommendedProductIds: recommendations.map(item => item.id)
         })
       });
     } catch (error) {
@@ -226,10 +89,9 @@ export default function AIAssistant() {
 
     const assistantMessage: Message = {
       role: "assistant",
-      content: response,
+      content: reply.content,
       recommendations,
-      research,
-      productExplanations,
+      productExplanations: reply.explanations,
     };
 
     setMessages(prev => [...prev, assistantMessage]);
@@ -322,7 +184,7 @@ export default function AIAssistant() {
                       </div>
                     )}
                     <div className={`max-w-[80%] ${message.role === "user" ? "order-first" : ""}`}>
-                      <div className={`rounded-lg p-3 ${
+                      <div className={`rounded-lg p-3 whitespace-pre-wrap ${
                         message.role === "user" 
                           ? "bg-orange-500 text-white" 
                           : "bg-white border shadow-sm"
@@ -353,7 +215,7 @@ export default function AIAssistant() {
                                 )}
                                 <h4 className="font-semibold text-sm line-clamp-1">{product.name}</h4>
                                 {message.productExplanations && message.productExplanations[product.id] && (
-                                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">{message.productExplanations[product.id]}</p>
+                                  <p className="text-xs text-gray-600 mt-1">{message.productExplanations[product.id]}</p>
                                 )}
                                 <p className="text-orange-600 font-bold text-sm mt-1">${product.priceUSD.toFixed(2)}</p>
                                 <div className="flex gap-1 mt-2">
@@ -381,25 +243,15 @@ export default function AIAssistant() {
                         </div>
                       )}
 
-                      {/* Research Links */}
-                      {message.research && message.research.length > 0 && (
-                        <div className="mt-3">
-                          <p className="text-sm font-semibold text-gray-700 mb-2">Related Research:</p>
-                          <div className="space-y-1">
-                            {message.research.map((paper, i) => (
-                              <a
-                                key={i}
-                                href={paper.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-sm text-blue-600 hover:underline"
-                              >
-                                <ExternalLink className="w-3 h-3" />
-                                {paper.title}
-                              </a>
-                            ))}
-                          </div>
-                        </div>
+                      {message.recommendations && message.recommendations.length > 0 && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="mt-2 text-xs"
+                          onClick={() => handleSend("Learn more")}
+                        >
+                          Learn more
+                        </Button>
                       )}
                     </div>
                     {message.role === "user" && (
@@ -460,7 +312,7 @@ export default function AIAssistant() {
                   className="flex-1"
                 />
                 <Button 
-                  onClick={handleSend}
+                  onClick={() => handleSend()}
                   className="bg-brand-gradient"
                   disabled={!input.trim() || isTyping}
                 >
@@ -472,8 +324,7 @@ export default function AIAssistant() {
 
           {/* Disclaimer Footer */}
           <p className="text-xs text-gray-500 text-center">
-            This AI assistant provides general information only and is not a substitute for professional medical advice.
-            Always consult with a healthcare provider before starting any supplement regimen.
+            These statements have not been evaluated by the FDA. Always consult a medical professional.
           </p>
         </div>
       </main>
