@@ -136,7 +136,7 @@ export default function Cart() {
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
                     <p className="font-semibold mb-1">📦 Shipping from Germany</p>
-                    <p>Delivery typically takes up to 3 weeks. Shipping is not included in this total. No shipping rate is set, so you are not charged a shipping fee.</p>
+                    <p>Delivery typically takes up to 3 weeks. Enter a US zip at checkout for a FedEx rate from Germany. Until FedEx returns a rate, shipping is not included and you are not charged a shipping fee.</p>
                   </div>
 
                   <Link href="/checkout">

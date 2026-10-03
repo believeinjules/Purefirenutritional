@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { getStripe, getSiteOrigin } from "../_lib/stripe.js";
 import { resolveCheckoutLines } from "../../shared/product-prices.js";
+import { quoteUsZipShipping, stripeShippingOption } from "../../shared/shipping-rate.js";
 
 /**
  * POST /api/stripe/create-checkout-session
@@ -18,7 +19,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: "Stripe is not configured" });
     }
 
-    const { items, customerEmail, customerName, userId } = req.body || {};
+    const { items, customerEmail, customerName, userId, postalCode } = req.body || {};
 
     let resolved;
     try {
@@ -30,6 +31,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const origin = getSiteOrigin(req.headers.origin);
     const stripe = getStripe();
+
+    const units = resolved.reduce((sum, item) => sum + item.quantity, 0);
+    const zip = typeof postalCode === "string" ? postalCode : "";
+    const shippingQuote = zip
+      ? await quoteUsZipShipping({ postalCode: zip, units })
+      : { available: false as const, message: "shipping rate unavailable" as const, missing: ["US zip"] };
+    const shippingOptions = stripeShippingOption(shippingQuote, zip);
 
     const lineItems = resolved.map((item) => ({
       price_data: {
@@ -63,16 +71,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         customer_email: customerEmail || "",
         customer_name: customerName || "",
         product_ids: resolved.map((r) => r.productId).join(","),
+        ship_to_zip: zip,
+        shipping_quote: shippingQuote.available ? String(shippingQuote.amountUSD) : "unavailable",
       },
       allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: ["US", "CA", "GB", "AU", "NZ", "IE"],
       },
+      ...(shippingOptions ? { shipping_options: shippingOptions } : {}),
     });
 
     return res.status(200).json({
       sessionId: session.id,
       url: session.url,
+      shipping: shippingQuote,
     });
   } catch (error) {
     console.error("[create-checkout-session]", error);

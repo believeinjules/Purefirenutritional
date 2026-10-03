@@ -192,9 +192,6 @@ export function ProductGridCard({ product }: { product: ListingProduct }) {
             <div className="text-base font-bold text-gray-900">
               ${product.priceUSD.toFixed(2)}
             </div>
-            <div className="text-xs text-gray-400">
-              €{product.priceEUR.toFixed(2)}
-            </div>
           </div>
           <QuickAddToCart product={product} compact label="Add" />
         </div>
@@ -266,9 +263,6 @@ export function ProductListRow({ product }: { product: ListingProduct }) {
             <div className="text-right">
               <div className="text-base font-bold text-gray-900">
                 ${product.priceUSD.toFixed(2)}
-              </div>
-              <div className="text-xs text-gray-400">
-                €{product.priceEUR.toFixed(2)}
               </div>
             </div>
             <div className="flex items-center gap-1.5" aria-hidden>

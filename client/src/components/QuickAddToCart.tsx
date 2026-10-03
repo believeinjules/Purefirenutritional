@@ -175,9 +175,6 @@ export default function QuickAddToCart({
                           <div className="font-bold text-orange-600">
                             ${opt.priceUSD.toFixed(2)}
                           </div>
-                          <div className="text-sm text-gray-500">
-                            €{opt.priceEUR.toFixed(2)}
-                          </div>
                         </div>
                       </div>
                     </Label>
@@ -191,9 +188,6 @@ export default function QuickAddToCart({
               <div className="text-sm text-gray-500">Total</div>
               <div className="text-2xl font-bold text-orange-600">
                 ${selected?.priceUSD.toFixed(2) ?? "—"}
-              </div>
-              <div className="text-sm text-gray-500">
-                €{selected?.priceEUR.toFixed(2) ?? "—"}
               </div>
             </div>
             <Button

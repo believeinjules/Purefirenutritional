@@ -45,9 +45,6 @@ export default function VariantSelector({
               <div className="font-bold text-lg text-orange-600">
                 ${variant.priceUSD.toFixed(2)}
               </div>
-              <div className="text-sm text-gray-500">
-                €{variant.priceEUR.toFixed(2)}
-              </div>
             </div>
             {selectedVariant.id === variant.id && variant.inStock && (
               <div className="absolute top-2 right-2 w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center">

@@ -130,7 +130,6 @@ export async function sendRestockNotification(
             <span class="stock-badge">✓ In Stock Now</span>
             
             <div class="price">$${product.priceUSD.toFixed(2)}</div>
-            <p style="color: #666;">€${product.priceEUR.toFixed(2)}</p>
             
             <p>Great news! This product from your wishlist is back in stock and ready to ship.</p>
             
@@ -156,7 +155,7 @@ Back in Stock!
 
 ${product.name}
 
-$${product.priceUSD.toFixed(2)} (€${product.priceEUR.toFixed(2)})
+$${product.priceUSD.toFixed(2)}
 
 ✓ In Stock Now
 

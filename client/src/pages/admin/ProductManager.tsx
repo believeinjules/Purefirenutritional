@@ -449,7 +449,6 @@ export default function ProductManager() {
                     <TableHead>Name</TableHead>
                     <TableHead>Category</TableHead>
                     <TableHead>Price USD</TableHead>
-                    <TableHead>Price EUR</TableHead>
                     <TableHead>Rating</TableHead>
                     <TableHead>In Stock</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
@@ -484,7 +483,6 @@ export default function ProductManager() {
                         </Badge>
                       </TableCell>
                       <TableCell>${product.priceUSD.toFixed(2)}</TableCell>
-                      <TableCell>€{product.priceEUR.toFixed(2)}</TableCell>
                       <TableCell>
                         <span className="text-yellow-500">★</span>{" "}
                         {product.rating.toFixed(1)}

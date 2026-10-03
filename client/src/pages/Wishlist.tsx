@@ -120,9 +120,6 @@ export default function Wishlist() {
                           <p className="text-2xl font-bold text-primary">
                             ${product.priceUSD.toFixed(2)}
                           </p>
-                          <p className="text-sm text-muted-foreground">
-                            €{product.priceEUR.toFixed(2)}
-                          </p>
                         </div>
                         <Badge variant="secondary">
                           ⭐ {product.rating}

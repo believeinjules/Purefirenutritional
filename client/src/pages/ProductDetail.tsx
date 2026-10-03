@@ -93,18 +93,9 @@ export default function ProductDetail() {
     typeof catalogUnit === "number" && Number.isFinite(catalogUnit)
       ? catalogUnit
       : selectedVariant?.priceUSD ?? product.priceUSD;
-  const currentPriceEUR =
-    catalogVariant?.priceEUR ??
-    catalogProduct?.priceEUR ??
-    selectedVariant?.priceEUR ??
-    product.priceEUR;
   const priceLabel =
     typeof currentPrice === "number" && Number.isFinite(currentPrice)
       ? `$${currentPrice.toFixed(2)}`
-      : "Price unavailable";
-  const priceEurLabel =
-    typeof currentPriceEUR === "number" && Number.isFinite(currentPriceEUR)
-      ? `€${currentPriceEUR.toFixed(2)}`
       : "Price unavailable";
   const currentImage = selectedVariant?.image || product.image;
   const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product.images || []);
@@ -192,7 +183,6 @@ export default function ProductDetail() {
               {/* Price */}
               <div className="border-t border-b py-4">
                 <div className="text-3xl font-bold text-gray-900">{priceLabel}</div>
-                <div className="text-sm text-gray-400 mt-0.5">{priceEurLabel}</div>
               </div>
 
               {/* Variant selector */}
