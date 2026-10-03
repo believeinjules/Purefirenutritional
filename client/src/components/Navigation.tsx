@@ -14,6 +14,7 @@ export default function Navigation() {
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
     { label: "Science", href: "/science" },
+    { label: "Documentation", href: "/documentation" },
     { label: "About", href: "/about" },
     { label: "FAQ", href: "/faq" },
     { label: "AI Assistant", href: "/ai-assistant" },

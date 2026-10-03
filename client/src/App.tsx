@@ -33,6 +33,8 @@ import Wishlist from "./pages/Wishlist";
 import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
 import ArticleCytomaxesCytogens from "./pages/learn/CytomaxesCytogens";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
+import Documentation from "./pages/Documentation";
+import DocumentationDetail from "./pages/DocumentationDetail";
 
 function Router() {
   return (
@@ -49,6 +51,8 @@ function Router() {
       <Route path="/science" component={Science} />
       <Route path="/research" component={Science} />
       <Route path="/about" component={About} />
+      <Route path="/documentation" component={Documentation} />
+      <Route path="/documentation/:slug" component={DocumentationDetail} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/dashboard" component={Dashboard} />

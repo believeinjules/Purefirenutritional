@@ -16,6 +16,7 @@ import { getProductById } from "@/data/products";
 import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
+import AuthenticityDocumentation from "@/components/documentation/AuthenticityDocumentation";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -304,6 +305,8 @@ export default function ProductDetail() {
               </div>
             )}
           </div>
+
+          <AuthenticityDocumentation productId={product.id} />
 
           {/* Frequently bought together — catalog-backed companions only */}
           {(() => {

@@ -13,6 +13,11 @@ const routes = [
   "/faq",
   "/ai-assistant",
   "/peptalk",
+  "/documentation",
+  "/documentation/prime-peptide-brain",
+  "/documentation/prime-peptide-omega",
+  "/documentation/prime-peptide-joint",
+  "/documentation/prime-peptide-collagen",
   "/cart",
   "/wishlist",
 ];
