@@ -117,7 +117,7 @@ const faqs: FAQItem[] = [
   {
     category: "Shipping & Orders",
     question: "How long does shipping take within the US?",
-    answer: "Standard US shipping typically takes 3-7 business days. Expedited shipping options are available at checkout for faster delivery. All orders are processed within 1-2 business days."
+    answer: "Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia."
   },
   {
     category: "Shipping & Orders",
