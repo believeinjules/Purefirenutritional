@@ -22,13 +22,13 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { products } from '@/data/products';
+import { toast } from 'sonner';
+import { fetchProducts } from '@/lib/productsStorage';
 import {
-  getAllInventory,
-  getLowStockProducts,
+  ensureInventory,
   updateInventory,
-  createInventory,
   getInventoryHistory,
+  isLowStock,
   type ProductInventory,
   type InventoryHistory
 } from '@/lib/inventoryStorage';
@@ -41,6 +41,8 @@ export default function InventoryManagement() {
   const [editValues, setEditValues] = useState<Partial<ProductInventory>>({});
   const [historyDialog, setHistoryDialog] = useState<string | null>(null);
   const [history, setHistory] = useState<InventoryHistory[]>([]);
+  const [productNames, setProductNames] = useState<Record<string, string>>({});
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     loadInventory();
@@ -48,33 +50,24 @@ export default function InventoryManagement() {
 
   const loadInventory = async () => {
     setLoading(true);
+    setLoadError(null);
     try {
-      const [allInv, lowStock] = await Promise.all([
-        getAllInventory(),
-        getLowStockProducts()
-      ]);
-      
-      // If no inventory exists, create default records for all products
-      if (allInv.length === 0) {
-        const defaultInventory = await Promise.all(
-          products.map(product => 
-            createInventory({
-              productId: product.id,
-              stockQuantity: 100,
-              lowStockThreshold: 10,
-              isInStock: true,
-              isAvailable: true
-            })
-          )
-        );
-        setInventory(defaultInventory.filter(Boolean) as ProductInventory[]);
-      } else {
-        setInventory(allInv);
-      }
-      
-      setLowStockItems(lowStock);
-    } catch (error) {
+      // Live catalog (Firestore, code fallback) → names + ids for default records
+      const catalog = await fetchProducts();
+      setProductNames(Object.fromEntries(catalog.map((p) => [p.id, p.name])));
+
+      // Creates default records only for products that have none, then returns all
+      const allInv = await ensureInventory(catalog.map((p) => p.id));
+      const sorted = [...allInv].sort((a, b) =>
+        (catalog.find((p) => p.id === a.productId)?.name ?? a.productId).localeCompare(
+          catalog.find((p) => p.id === b.productId)?.name ?? b.productId
+        )
+      );
+      setInventory(sorted);
+      setLowStockItems(sorted.filter(isLowStock));
+    } catch (error: any) {
       console.error('Error loading inventory:', error);
+      setLoadError(error?.message ?? 'Failed to load inventory');
     } finally {
       setLoading(false);
     }
@@ -92,12 +85,19 @@ export default function InventoryManagement() {
 
   const handleSave = async (productId: string) => {
     try {
-      await updateInventory(productId, editValues);
+      await updateInventory(productId, {
+        stockQuantity: editValues.stockQuantity,
+        lowStockThreshold: editValues.lowStockThreshold,
+        isInStock: editValues.isInStock,
+        isAvailable: editValues.isAvailable,
+      });
+      toast.success('Inventory updated');
       setEditingId(null);
       setEditValues({});
       loadInventory();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating inventory:', error);
+      toast.error(`Save failed: ${error?.message ?? 'Unknown error'}`);
     }
   };
 
@@ -108,14 +108,15 @@ export default function InventoryManagement() {
 
   const handleViewHistory = async (productId: string) => {
     setHistoryDialog(productId);
-    const hist = await getInventoryHistory(productId);
-    setHistory(hist);
+    setHistory([]);
+    try {
+      setHistory(await getInventoryHistory(productId));
+    } catch (error: any) {
+      toast.error(`Could not load history: ${error?.message ?? 'Unknown error'}`);
+    }
   };
 
-  const getProductName = (productId: string) => {
-    const product = products.find(p => p.id === productId);
-    return product?.name || productId;
-  };
+  const getProductName = (productId: string) => productNames[productId] || productId;
 
   const getStockStatus = (item: ProductInventory) => {
     if (!item.isAvailable) return { label: 'Unavailable', color: 'bg-gray-500' };
@@ -164,6 +165,13 @@ export default function InventoryManagement() {
         <CardContent>
           {loading ? (
             <p className="text-center py-8 text-muted-foreground">Loading inventory...</p>
+          ) : loadError ? (
+            <div className="text-center py-8 space-y-3">
+              <p className="text-red-600 text-sm">Could not load inventory: {loadError}</p>
+              <Button variant="outline" size="sm" onClick={loadInventory}>
+                Retry
+              </Button>
+            </div>
           ) : (
             <Table>
               <TableHeader>

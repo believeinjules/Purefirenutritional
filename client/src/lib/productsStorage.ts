@@ -3,14 +3,12 @@ import {
   doc,
   getDocs,
   getDoc,
-  setDoc,
-  updateDoc,
-  deleteDoc,
   query,
   where,
   orderBy,
 } from "firebase/firestore";
-import { auth, db, isFirebaseConfigured } from "./firebase";
+import { db, isFirebaseConfigured } from "./firebase";
+import { adminFetch } from "./adminApi";
 import { products as localProducts } from "@/data/products";
 
 export interface ProductVariant {
@@ -145,76 +143,49 @@ export async function fetchProductsByCategory(category: string): Promise<Product
   }
 }
 
-// ─── createProduct ────────────────────────────────────────────────────────────
+// ─── Admin writes (server API, Admin SDK) ─────────────────────────────────────
+// Browsers cannot write products (`allow write: if false`). These call
+// /api/admin/products with the signed-in admin's ID token.
 
-export async function createProduct(product: Omit<Product, "id">): Promise<Product | null> {
-  try {
-    const id = product.name.toLowerCase().replace(/\s+/g, "-");
-    const data = {
-      name: product.name,
-      description: product.description,
-      category: product.category,
-      priceUSD: product.priceUSD,
-      priceEUR: product.priceEUR,
-      rating: product.rating,
-      image: product.image ?? null,
-      imageAlt: product.imageAlt ?? null,
-      sizes: product.sizes,
-      benefits: product.benefits || [],
-      ingredients: product.ingredients || [],
-      usage: product.usage ?? null,
-      seriesInfo: product.seriesInfo ?? null,
-      variants: product.variants || [],
-      in_stock: product.in_stock !== false,
-    };
-    await setDoc(doc(db, "products", id), data);
-    return docToProduct(id, data);
-  } catch (err) {
-    console.error("Error creating product:", err);
-    return null;
-  }
+/** Fields the admin form sends; the server validates and normalizes them. */
+export type ProductInput = Omit<
+  Product,
+  "id" | "variants" | "image" | "imageAlt" | "usage" | "seriesInfo"
+> & {
+  variants?: ProductVariant[];
+  // null clears the field
+  image?: string | null;
+  imageAlt?: string | null;
+  usage?: string | null;
+  seriesInfo?: string | null;
+};
+
+/** Fresh list straight from Firestore via the admin API (no local fallback). */
+export async function adminListProducts(): Promise<Product[]> {
+  const body = await adminFetch<{ products: Array<{ id: string } & Record<string, unknown>> }>(
+    "/api/admin/products"
+  );
+  return (body.products || []).map((p) => docToProduct(p.id, p));
 }
 
-// ─── updateProduct ────────────────────────────────────────────────────────────
-
-export async function updateProduct(id: string, updates: Partial<Product>): Promise<Product | null> {
-  try {
-    const payload: any = {};
-    if (updates.name !== undefined) payload.name = updates.name;
-    if (updates.description !== undefined) payload.description = updates.description;
-    if (updates.category !== undefined) payload.category = updates.category;
-    if (updates.priceUSD !== undefined) payload.priceUSD = updates.priceUSD;
-    if (updates.priceEUR !== undefined) payload.priceEUR = updates.priceEUR;
-    if (updates.rating !== undefined) payload.rating = updates.rating;
-    if (updates.image !== undefined) payload.image = updates.image;
-    if (updates.imageAlt !== undefined) payload.imageAlt = updates.imageAlt;
-    if (updates.sizes !== undefined) payload.sizes = updates.sizes;
-    if (updates.benefits !== undefined) payload.benefits = updates.benefits;
-    if (updates.ingredients !== undefined) payload.ingredients = updates.ingredients;
-    if (updates.usage !== undefined) payload.usage = updates.usage;
-    if (updates.seriesInfo !== undefined) payload.seriesInfo = updates.seriesInfo;
-    if (updates.variants !== undefined) payload.variants = updates.variants;
-    if (updates.in_stock !== undefined) payload.in_stock = updates.in_stock;
-
-    await updateDoc(doc(db, "products", id), payload);
-    const snap = await getDoc(doc(db, "products", id));
-    return snap.exists() ? docToProduct(snap.id, snap.data()) : null;
-  } catch (err) {
-    console.error("Error updating product:", err);
-    return null;
-  }
+export async function createProduct(id: string, product: ProductInput): Promise<Product> {
+  const body = await adminFetch<{ product: { id: string } & Record<string, unknown> }>(
+    "/api/admin/products",
+    { method: "POST", body: JSON.stringify({ id, ...product }) }
+  );
+  return docToProduct(body.product.id, body.product);
 }
 
-// ─── deleteProduct ────────────────────────────────────────────────────────────
+export async function updateProduct(id: string, updates: Partial<ProductInput>): Promise<Product> {
+  const body = await adminFetch<{ product: { id: string } & Record<string, unknown> }>(
+    `/api/admin/products?id=${encodeURIComponent(id)}`,
+    { method: "PATCH", body: JSON.stringify(updates) }
+  );
+  return docToProduct(body.product.id, body.product);
+}
 
-export async function deleteProduct(id: string): Promise<boolean> {
-  try {
-    await deleteDoc(doc(db, "products", id));
-    return true;
-  } catch (err) {
-    console.error("Error deleting product:", err);
-    return false;
-  }
+export async function deleteProduct(id: string): Promise<void> {
+  await adminFetch(`/api/admin/products?id=${encodeURIComponent(id)}`, { method: "DELETE" });
 }
 
 // ─── importCatalogFromCode ────────────────────────────────────────────────────
@@ -230,34 +201,11 @@ export type ImportCatalogResult = {
 };
 
 export async function importCatalogFromCode(): Promise<ImportCatalogResult> {
-  if (!isFirebaseConfigured()) {
-    throw new Error("Firebase is not configured");
-  }
-
-  const user = auth?.currentUser;
-  if (!user) {
-    throw new Error("You must be signed in as an admin to import the catalog");
-  }
-
-  const idToken = await user.getIdToken();
-  const res = await fetch("/api/admin/seed-products", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${idToken}`,
-      "Content-Type": "application/json",
-    },
-  });
-
-  const body = (await res.json().catch(() => ({}))) as {
+  const body = await adminFetch<{
     written?: number;
     failed?: number;
     errors?: { id: string; message: string }[];
-    error?: string;
-  };
-
-  if (!res.ok) {
-    throw new Error(body.error || `Seed failed (HTTP ${res.status})`);
-  }
+  }>("/api/admin/seed-products", { method: "POST" });
 
   return {
     written: body.written ?? 0,
