@@ -27,7 +27,7 @@ export default function ProductDetail() {
   const [inWishlist, setInWishlist] = useState(false);
 
   const { addToCart } = useCart();
-  const { addItem, removeItem, isItemInWishlist } = useWishlist();
+  const { addItem, removeItem, isInWishlist } = useWishlist();
 
   useEffect(() => {
     loadProduct();
@@ -43,7 +43,7 @@ export default function ProductDetail() {
         const firstInStock = data.variants.find((v: any) => v.inStock) || data.variants[0];
         setSelectedVariant(firstInStock);
       }
-      if (data) setInWishlist(isItemInWishlist(data.id));
+      if (data) setInWishlist(isInWishlist(data.id));
     } catch (error) {
       console.error('Error loading product:', error);
     } finally {
