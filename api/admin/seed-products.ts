@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getAdminAuth, getAdminDb } from "../_lib/firebase.js";
+import { getAdminDb } from "../_lib/firebase.js";
+import { assertAdmin } from "../_lib/admin-auth.js";
 import { products } from "../../client/src/data/products.js";
 
 type SeedError = { id: string; message: string };
@@ -9,108 +10,6 @@ type SeedResult = {
   failed: number;
   errors?: SeedError[];
 };
-
-function parseAdminEmails(): string[] {
-  return (process.env.ADMIN_EMAILS || "")
-    .split(",")
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-function getBearerToken(req: VercelRequest): string | null {
-  const header = req.headers.authorization;
-  if (!header || Array.isArray(header)) return null;
-  const match = /^Bearer\s+(.+)$/i.exec(header.trim());
-  return match?.[1]?.trim() || null;
-}
-
-function getSeedSecretHeader(req: VercelRequest): string | null {
-  const raw = req.headers["x-admin-seed-secret"];
-  if (!raw) return null;
-  return Array.isArray(raw) ? raw[0] ?? null : raw;
-}
-
-/**
- * Auth:
- * 1) Preferred — Firebase Auth ID token whose email is in ADMIN_EMAILS
- *    and email_verified === true (or custom claim admin === true)
- * 2) Fallback — ADMIN_SEED_SECRET via Authorization: Bearer <secret>
- *    or x-admin-seed-secret (emergency/ops curl; skips email_verified —
- *    do not put in the browser)
- */
-async function assertAuthorized(req: VercelRequest): Promise<
-  { ok: true } | { ok: false; status: number; error: string }
-> {
-  const adminEmails = parseAdminEmails();
-  const seedSecret = process.env.ADMIN_SEED_SECRET?.trim();
-  const bearer = getBearerToken(req);
-  const headerSecret = getSeedSecretHeader(req);
-
-  // Shared-secret path (curl / automation only)
-  if (seedSecret) {
-    if (bearer === seedSecret || headerSecret === seedSecret) {
-      return { ok: true };
-    }
-  }
-
-  // Firebase Auth + email allowlist
-  if (!bearer) {
-    return {
-      ok: false,
-      status: 401,
-      error:
-        "Unauthorized — sign in as an admin and send Authorization: Bearer <Firebase ID token>, or use ADMIN_SEED_SECRET",
-    };
-  }
-
-  if (adminEmails.length === 0) {
-    return {
-      ok: false,
-      status: 503,
-      error:
-        "ADMIN_EMAILS is not configured on the server (and ADMIN_SEED_SECRET did not match)",
-    };
-  }
-
-  const adminAuth = getAdminAuth();
-  if (!adminAuth) {
-    return {
-      ok: false,
-      status: 503,
-      error: "Firebase Admin is not configured",
-    };
-  }
-
-  try {
-    const decoded = await adminAuth.verifyIdToken(bearer);
-    const email = (decoded.email || "").toLowerCase();
-    if (!email || !adminEmails.includes(email)) {
-      return {
-        ok: false,
-        status: 403,
-        error: "Forbidden — email is not in ADMIN_EMAILS",
-      };
-    }
-    // Require verified email on the ID-token path (secret path above may skip).
-    // Custom claim `admin: true` is treated as an equivalent verified-admin gate.
-    const hasVerifiedAdminClaim = decoded.admin === true;
-    if (!decoded.email_verified && !hasVerifiedAdminClaim) {
-      return {
-        ok: false,
-        status: 403,
-        error:
-          "Forbidden — admin email must be verified (Firebase email_verified)",
-      };
-    }
-    return { ok: true };
-  } catch {
-    return {
-      ok: false,
-      status: 401,
-      error: "Unauthorized — invalid or expired Firebase ID token",
-    };
-  }
-}
 
 function productToFirestoreDoc(product: (typeof products)[number]) {
   return {
@@ -152,7 +51,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const authResult = await assertAuthorized(req);
+  // Auth: Firebase ID token (ADMIN_EMAILS + email_verified), or ADMIN_SEED_SECRET
+  // for emergency curl — see api/_lib/admin-auth.ts and docs/import-catalog-from-code.md
+  const authResult = await assertAdmin(req, { allowSeedSecret: true });
   if (!authResult.ok) {
     return res.status(authResult.status).json({ error: authResult.error });
   }

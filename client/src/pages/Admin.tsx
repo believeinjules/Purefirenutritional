@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import InventoryManagement from '@/components/InventoryManagement';
 import { useLocation } from 'wouter';
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "@/lib/firebase";import {
+import { isFirebaseConfigured } from "@/lib/firebase";
+import { adminFetch } from "@/lib/adminApi";
+import {
   BarChart3,
   ShoppingCart,
   MessageSquare,
@@ -42,25 +43,48 @@ import {
   type AbandonedCart
 } from '@/lib/abandonedCartStorage';
 
+// Shapes returned by /api/admin/orders and /api/admin/customers (normalized server-side)
 interface Order {
   id: string;
   order_number: string;
-  customer_email: string;
-  customer_name: string;
+  customer_email: string | null;
+  customer_name: string | null;
   total: number;
   status: string;
   payment_status: string;
-  created_at: string;
+  created_at: string | null;
   items: any[];
+  shipping_name?: string | null;
+  shipping_address?: {
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    state?: string | null;
+    postal_code?: string | null;
+    country?: string | null;
+  } | null;
 }
 
 interface Customer {
   id: string;
   email: string;
-  name: string;
+  name: string | null;
   total_orders: number;
   total_spent: number;
-  created_at: string;
+  created_at: string | null;
+}
+
+function formatDate(value: string | null | undefined): string {
+  if (!value) return '—';
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString();
+}
+
+function formatAddress(a: Order['shipping_address']): string {
+  if (!a) return '';
+  return [a.line1, a.line2, a.city, a.state, a.postal_code, a.country]
+    .filter(Boolean)
+    .join(', ');
 }
 
 export default function Admin() {
@@ -82,6 +106,8 @@ export default function Admin() {
     totalCustomers: 0
   });
   const [loading, setLoading] = useState(true);
+  const [ordersError, setOrdersError] = useState<string | null>(null);
+  const [customersError, setCustomersError] = useState<string | null>(null);
 
   useEffect(() => {
     loadData();
@@ -116,24 +142,28 @@ export default function Admin() {
     }
   };
 
+  // Orders / customers are not browser-readable under Firestore rules — load
+  // them through the admin API (Admin SDK, ADMIN_EMAILS + verified email).
   const fetchOrders = async (): Promise<Order[]> => {
+    setOrdersError(null);
     try {
-      const q = query(collection(db, "orders"), orderBy("created_at", "desc"));
-      const snapshot = await getDocs(q);
-      return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Order));
-    } catch (error) {
+      const body = await adminFetch<{ orders: Order[] }>('/api/admin/orders?limit=500');
+      return body.orders || [];
+    } catch (error: any) {
       console.error('Error fetching orders:', error);
+      setOrdersError(error?.message ?? 'Failed to load orders');
       return [];
     }
   };
 
   const fetchCustomers = async (): Promise<Customer[]> => {
+    setCustomersError(null);
     try {
-      const q = query(collection(db, "customers"), orderBy("created_at", "desc"));
-      const snapshot = await getDocs(q);
-      return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Customer));
-    } catch (error) {
+      const body = await adminFetch<{ customers: Customer[] }>('/api/admin/customers?limit=500');
+      return body.customers || [];
+    } catch (error: any) {
       console.error('Error fetching customers:', error);
+      setCustomersError(error?.message ?? 'Failed to load customers');
       return [];
     }
   };
@@ -338,6 +368,10 @@ export default function Admin() {
                 <CardContent>
                   {loading ? (
                     <p className="text-center py-8 text-muted-foreground">Loading orders...</p>
+                  ) : ordersError ? (
+                    <p className="text-center py-8 text-red-600 text-sm">
+                      Could not load orders: {ordersError}
+                    </p>
                   ) : orders.length === 0 ? (
                     <p className="text-center py-8 text-muted-foreground">No orders yet</p>
                   ) : (
@@ -360,7 +394,12 @@ export default function Admin() {
                               {order.order_number}
                             </TableCell>
                             <TableCell>
-                              {order.customer_name}
+                              <div>{order.customer_name || order.shipping_name || 'N/A'}</div>
+                              {order.shipping_address && (
+                                <div className="text-xs text-muted-foreground">
+                                  {formatAddress(order.shipping_address)}
+                                </div>
+                              )}
                             </TableCell>
                             <TableCell>
                               <div className="text-sm text-muted-foreground">
@@ -368,7 +407,7 @@ export default function Admin() {
                               </div>
                             </TableCell>
                             <TableCell className="font-medium">
-                              ${order.total.toFixed(2)}
+                              ${Number(order.total || 0).toFixed(2)}
                             </TableCell>
                             <TableCell>
                               <Badge variant={order.status === 'completed' ? 'default' : 'secondary'}>
@@ -376,7 +415,7 @@ export default function Admin() {
                               </Badge>
                             </TableCell>
                             <TableCell className="text-sm text-muted-foreground">
-                              {new Date(order.created_at).toLocaleDateString()}
+                              {formatDate(order.created_at)}
                             </TableCell>
                             <TableCell>
                               <span className="text-sm">{order.items?.length || 0} item(s)</span>
@@ -402,6 +441,10 @@ export default function Admin() {
                 <CardContent>
                   {loading ? (
                     <p className="text-center py-8 text-muted-foreground">Loading customers...</p>
+                  ) : customersError ? (
+                    <p className="text-center py-8 text-red-600 text-sm">
+                      Could not load customers: {customersError}
+                    </p>
                   ) : customers.length === 0 ? (
                     <p className="text-center py-8 text-muted-foreground">No customers yet</p>
                   ) : (
@@ -430,10 +473,10 @@ export default function Admin() {
                               </Badge>
                             </TableCell>
                             <TableCell className="font-medium">
-                              ${customer.total_spent.toFixed(2)}
+                              ${Number(customer.total_spent || 0).toFixed(2)}
                             </TableCell>
                             <TableCell className="text-sm text-muted-foreground">
-                              {new Date(customer.created_at).toLocaleDateString()}
+                              {formatDate(customer.created_at)}
                             </TableCell>
                           </TableRow>
                         ))}

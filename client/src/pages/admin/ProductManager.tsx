@@ -54,11 +54,19 @@ import {
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { fetchProducts, importCatalogFromCode, Product } from "@/lib/productsStorage";
-import { db, storage } from "@/lib/firebase";
-import { doc, deleteDoc } from "firebase/firestore";
+import {
+  adminListProducts,
+  createProduct,
+  deleteProduct,
+  fetchProducts,
+  importCatalogFromCode,
+  updateProduct,
+  type Product,
+  type ProductInput,
+  type ProductVariant,
+} from "@/lib/productsStorage";
+import { storage } from "@/lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { setDoc, updateDoc } from "firebase/firestore";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -66,6 +74,22 @@ type Category =
   | "PEPTIDE BIOREGULATORS"
   | "ANTI AGING-LONGEVITY"
   | "NUTRITIONAL SUPPLEMENTS";
+
+interface VariantFormData {
+  id: string;
+  name: string;
+  priceUSD: number;
+  priceEUR: number;
+  inStock: boolean;
+  // Carried through unchanged (not edited in this form)
+  image?: string;
+  imageAlt?: string;
+}
+
+const VARIANT_PRESETS: Array<Pick<VariantFormData, "id" | "name">> = [
+  { id: "20-count", name: "20 Capsules" },
+  { id: "60-count", name: "60 Capsules" },
+];
 
 interface ProductFormData {
   id: string;
@@ -82,6 +106,7 @@ interface ProductFormData {
   usage: string;
   seriesInfo: string;
   in_stock: boolean;
+  variants: VariantFormData[];
 }
 
 const CATEGORIES: Category[] = [
@@ -123,6 +148,7 @@ function emptyForm(): ProductFormData {
     usage: "",
     seriesInfo: "",
     in_stock: true,
+    variants: [],
   };
 }
 
@@ -141,33 +167,63 @@ function productToForm(p: Product): ProductFormData {
     ingredientsText: (p.ingredients ?? []).join("\n"),
     usage: p.usage ?? "",
     seriesInfo: p.seriesInfo ?? "",
-    in_stock: (p as any).in_stock !== false, // default true
+    in_stock: p.in_stock !== false, // default true
+    variants: (p.variants ?? []).map((v) => ({
+      id: v.id,
+      name: v.name,
+      priceUSD: v.priceUSD,
+      priceEUR: v.priceEUR,
+      inStock: v.inStock !== false,
+      image: v.image,
+      imageAlt: v.imageAlt,
+    })),
   };
 }
 
-function formToRow(form: ProductFormData) {
+function lines(text: string): string[] {
+  return text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+}
+
+/** Form → API payload (camelCase, same shape as the catalog seed). */
+function formToInput(form: ProductFormData): ProductInput {
+  const variants: ProductVariant[] = form.variants.map((v) => ({
+    id: v.id.trim(),
+    name: v.name.trim(),
+    priceUSD: v.priceUSD,
+    priceEUR: v.priceEUR,
+    inStock: v.inStock,
+    ...(v.image ? { image: v.image } : {}),
+    ...(v.imageAlt ? { imageAlt: v.imageAlt } : {}),
+  }));
+  // With sizes, the listing "from" price is the first size — keep them in sync.
+  const first = variants[0];
   return {
-    id: form.id,
-    name: form.name,
+    name: form.name.trim(),
     category: form.category,
     description: form.description,
-    price_usd: form.priceUSD,
-    price_eur: form.priceEUR,
+    priceUSD: first ? first.priceUSD : form.priceUSD,
+    priceEUR: first ? first.priceEUR : form.priceEUR,
     rating: form.rating,
-    image: form.image || null,
-    image_alt: form.imageAlt || null,
-    benefits: form.benefitsText
-      .split("\n")
-      .map((l) => l.trim())
-      .filter(Boolean),
-    ingredients: form.ingredientsText
-      .split("\n")
-      .map((l) => l.trim())
-      .filter(Boolean),
-    usage: form.usage || null,
-    series_info: form.seriesInfo || null,
+    sizes: Math.max(1, variants.length),
+    image: form.image.trim() || null,
+    imageAlt: form.imageAlt.trim() || null,
+    benefits: lines(form.benefitsText),
+    ingredients: lines(form.ingredientsText),
+    usage: form.usage.trim() || null,
+    seriesInfo: form.seriesInfo.trim() || null,
     in_stock: form.in_stock,
+    variants,
   };
+}
+
+function formatPrices(p: Product): string {
+  if (p.variants && p.variants.length > 0) {
+    return p.variants.map((v) => `$${Number(v.priceUSD).toFixed(2)}`).join(" / ");
+  }
+  return `$${Number(p.priceUSD).toFixed(2)}`;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -208,10 +264,12 @@ export default function ProductManager() {
   async function loadProducts() {
     setLoading(true);
     try {
-      const data = await fetchProducts();
-      setProducts(data);
-    } catch {
-      toast.error("Failed to load products");
+      // Admin API reads Firestore directly (fresh, no code-catalog fallback)
+      setProducts(await adminListProducts());
+    } catch (err: any) {
+      toast.error(`Could not load live products: ${err?.message ?? "Unknown error"}`);
+      // Still show something useful (public read, may be the code catalog)
+      setProducts(await fetchProducts().catch(() => []));
     } finally {
       setLoading(false);
     }
@@ -254,6 +312,43 @@ export default function ProductManager() {
     }));
   }
 
+  // ── Sizes (variants) ──────────────────────────────────────────────────────
+
+  function updateVariant(index: number, patch: Partial<VariantFormData>) {
+    setForm((prev) => ({
+      ...prev,
+      variants: prev.variants.map((v, i) => (i === index ? { ...v, ...patch } : v)),
+    }));
+  }
+
+  function addVariant() {
+    setForm((prev) => {
+      const preset = VARIANT_PRESETS.find(
+        (p) => !prev.variants.some((v) => v.id === p.id)
+      );
+      return {
+        ...prev,
+        variants: [
+          ...prev.variants,
+          {
+            id: preset?.id ?? "",
+            name: preset?.name ?? "",
+            priceUSD: 0,
+            priceEUR: 0,
+            inStock: true,
+          },
+        ],
+      };
+    });
+  }
+
+  function removeVariant(index: number) {
+    setForm((prev) => ({
+      ...prev,
+      variants: prev.variants.filter((_, i) => i !== index),
+    }));
+  }
+
   // ── Image upload ──────────────────────────────────────────────────────────
 
   async function handleImageUpload(file: File) {
@@ -287,14 +382,28 @@ export default function ProductManager() {
       return;
     }
 
+    for (const v of form.variants) {
+      if (!v.id.trim() || !v.name.trim()) {
+        toast.error("Every size needs an ID and a name");
+        return;
+      }
+      if (!(v.priceUSD > 0)) {
+        toast.error(`Size "${v.name || v.id}" needs a USD price above 0`);
+        return;
+      }
+    }
+    if (form.variants.length === 0 && !(form.priceUSD > 0)) {
+      toast.error("Price USD must be above 0");
+      return;
+    }
+
     setSaving(true);
     try {
-      const row = formToRow(form);
-      const docRef = doc(db, "products", row.id);
+      const input = formToInput(form);
       if (isEditing) {
-        await updateDoc(docRef, row);
+        await updateProduct(form.id, input);
       } else {
-        await setDoc(docRef, row);
+        await createProduct(form.id.trim(), input);
       }
 
       toast.success(isEditing ? "Product updated" : "Product created");
@@ -313,7 +422,7 @@ export default function ProductManager() {
     if (!deleteTarget) return;
     setDeleting(true);
     try {
-      await deleteDoc(doc(db, "products", deleteTarget));
+      await deleteProduct(deleteTarget);
       toast.success("Product deleted");
       setDeleteTarget(null);
       await loadProducts();
@@ -482,17 +591,17 @@ export default function ProductManager() {
                           {product.category}
                         </Badge>
                       </TableCell>
-                      <TableCell>${product.priceUSD.toFixed(2)}</TableCell>
+                      <TableCell>{formatPrices(product)}</TableCell>
                       <TableCell>
                         <span className="text-yellow-500">★</span>{" "}
                         {product.rating.toFixed(1)}
                       </TableCell>
                       <TableCell>
                         <Badge
-                          variant={(product as any).in_stock !== false ? "default" : "secondary"}
+                          variant={product.in_stock !== false ? "default" : "secondary"}
                           className="text-xs"
                         >
-                          {(product as any).in_stock !== false ? "In Stock" : "Out"}
+                          {product.in_stock !== false ? "In Stock" : "Out"}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right">
@@ -611,7 +720,105 @@ export default function ProductManager() {
               />
             </div>
 
-            {/* Prices */}
+            {/* Sizes (variants) — these are the prices checkout charges */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label>Sizes &amp; prices</Label>
+                <Button type="button" variant="outline" size="sm" onClick={addVariant}>
+                  <Plus className="h-3.5 w-3.5 mr-1" />
+                  Add size
+                </Button>
+              </div>
+              {form.variants.length === 0 ? (
+                <p className="text-xs text-gray-500">
+                  Single size — checkout charges the Price USD below. Add sizes
+                  (e.g. 20 / 60 capsules) to sell more than one.
+                </p>
+              ) : (
+                <div className="space-y-3">
+                  {form.variants.map((v, i) => (
+                    <div key={i} className="rounded-md border p-3 space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="space-y-1">
+                          <Label className="text-xs" htmlFor={`pm-v${i}-name`}>Name</Label>
+                          <Input
+                            id={`pm-v${i}-name`}
+                            value={v.name}
+                            onChange={(e) => updateVariant(i, { name: e.target.value })}
+                            placeholder="20 Capsules"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <Label className="text-xs" htmlFor={`pm-v${i}-id`}>ID</Label>
+                          <Input
+                            id={`pm-v${i}-id`}
+                            value={v.id}
+                            onChange={(e) =>
+                              updateVariant(i, { id: e.target.value.toLowerCase().trim() })
+                            }
+                            placeholder="20-count"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <Label className="text-xs" htmlFor={`pm-v${i}-usd`}>Price USD</Label>
+                          <Input
+                            id={`pm-v${i}-usd`}
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            value={v.priceUSD}
+                            onChange={(e) =>
+                              updateVariant(i, { priceUSD: parseFloat(e.target.value) || 0 })
+                            }
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <Label className="text-xs" htmlFor={`pm-v${i}-eur`}>Price EUR</Label>
+                          <Input
+                            id={`pm-v${i}-eur`}
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            value={v.priceEUR}
+                            onChange={(e) =>
+                              updateVariant(i, { priceEUR: parseFloat(e.target.value) || 0 })
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            id={`pm-v${i}-stock`}
+                            checked={v.inStock}
+                            onCheckedChange={(checked) => updateVariant(i, { inStock: checked })}
+                          />
+                          <Label htmlFor={`pm-v${i}-stock`} className="text-xs cursor-pointer">
+                            In stock
+                          </Label>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="text-red-600"
+                          onClick={() => removeVariant(i)}
+                        >
+                          <Trash2 className="h-3.5 w-3.5 mr-1" />
+                          Remove
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                  <p className="text-xs text-gray-500">
+                    The size IDs <code>20-count</code> and <code>60-count</code> map to the
+                    shop&apos;s 20 / 60 capsule buttons. The listing price is the first size.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Base prices (used when there are no sizes) */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label htmlFor="pm-usd">Price USD</Label>
@@ -620,7 +827,8 @@ export default function ProductManager() {
                   type="number"
                   step="0.01"
                   min="0"
-                  value={form.priceUSD}
+                  disabled={form.variants.length > 0}
+                  value={form.variants.length > 0 ? form.variants[0].priceUSD : form.priceUSD}
                   onChange={(e) =>
                     setForm((p) => ({
                       ...p,
@@ -636,7 +844,8 @@ export default function ProductManager() {
                   type="number"
                   step="0.01"
                   min="0"
-                  value={form.priceEUR}
+                  disabled={form.variants.length > 0}
+                  value={form.variants.length > 0 ? form.variants[0].priceEUR : form.priceEUR}
                   onChange={(e) =>
                     setForm((p) => ({
                       ...p,
