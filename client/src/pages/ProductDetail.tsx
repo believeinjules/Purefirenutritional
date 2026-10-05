@@ -78,22 +78,16 @@ export default function ProductDetail() {
     );
   }
 
-  // Charge and display the catalog price for the size the shopper picked.
-  // Firestore copy can drift; checkout prices from client/src/data/products.ts.
-  const catalogProduct = getProductById(product.id);
+  // Display the same price checkout charges: the live product (Firestore, with
+  // code-catalog fallback inside fetchProductById) for the size picked.
   const selectedSize: CartSize = selectedVariant
     ? variantToCartSize(selectedVariant)
     : "20";
-  const catalogVariant = catalogProduct?.variants?.find(
-    (v) => variantToCartSize(v) === selectedSize
-  );
-  const catalogUnit = catalogProduct
-    ? getUnitPriceUSD(catalogProduct, selectedSize)
-    : undefined;
+  const liveUnit = getUnitPriceUSD(product, selectedSize, selectedVariant?.id);
   const currentPrice =
-    typeof catalogUnit === "number" && Number.isFinite(catalogUnit)
-      ? catalogUnit
-      : selectedVariant?.priceUSD ?? product.priceUSD;
+    typeof liveUnit === "number" && Number.isFinite(liveUnit) && liveUnit > 0
+      ? liveUnit
+      : undefined;
   const priceLabel =
     typeof currentPrice === "number" && Number.isFinite(currentPrice)
       ? `$${currentPrice.toFixed(2)}`
@@ -108,7 +102,7 @@ export default function ProductDetail() {
         setInWishlist(false);
         toast.success('Removed from wishlist');
       } else {
-        await addItem({ id: product.id, name: product.name, price: currentPrice, image: currentImage });
+        await addItem({ id: product.id, name: product.name, price: currentPrice ?? product.priceUSD, image: currentImage });
         setInWishlist(true);
         toast.success('Added to wishlist');
       }
@@ -208,11 +202,11 @@ export default function ProductDetail() {
                 </div>
                 <Button
                   onClick={() => {
-                    if (!catalogProduct) {
-                      toast.error("This product is not in the catalog, so it can't be added.");
+                    if (currentPrice === undefined) {
+                      toast.error("This product's price is unavailable, so it can't be added.");
                       return;
                     }
-                    addToCart(catalogProduct, quantity, selectedSize);
+                    addToCart(product, quantity, selectedSize);
                     toast.success('Added to cart!');
                   }}
                   className="flex-1 bg-gray-900 hover:bg-orange-600 transition-colors"

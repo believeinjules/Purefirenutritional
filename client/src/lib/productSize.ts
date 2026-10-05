@@ -28,10 +28,7 @@ type SizeCapableProduct = {
 
 /** True when the shopper must pick a size before add-to-cart. */
 export function hasMultipleSizes(product: SizeCapableProduct): boolean {
-  const variants = product.variants?.filter((v) => v.inStock !== false) ?? [];
-  if (variants.length > 1) return true;
-  if ((product.sizes ?? 1) > 1) return true;
-  return false;
+  return getSizeOptions(product).length > 1;
 }
 
 export function variantToCartSize(variant: {
@@ -49,10 +46,11 @@ export function variantToCartSize(variant: {
 
 /** Size choices for the on-page chooser (variants preferred). */
 export function getSizeOptions(product: SizeCapableProduct): SizeOption[] {
-  const stocked =
-    product.variants?.filter((v) => v.inStock !== false) ??
-    product.variants ??
-    [];
+  const all = product.variants ?? [];
+  const inStock = all.filter((v) => v.inStock !== false);
+  // If every variant is marked out of stock, still offer them (orders for
+  // out-of-stock items ship ~2 weeks later) rather than inventing a price.
+  const stocked = inStock.length > 0 ? inStock : all;
 
   if (stocked.length > 0) {
     return stocked.map((v) => ({
@@ -64,23 +62,8 @@ export function getSizeOptions(product: SizeCapableProduct): SizeOption[] {
     }));
   }
 
-  if ((product.sizes ?? 1) > 1) {
-    return [
-      {
-        size: "20",
-        label: "20 Capsules",
-        priceUSD: product.priceUSD,
-        priceEUR: product.priceEUR,
-      },
-      {
-        size: "60",
-        label: "60 Capsules",
-        priceUSD: Number((product.priceUSD * 2.5).toFixed(2)),
-        priceEUR: Number((product.priceEUR * 2.5).toFixed(2)),
-      },
-    ];
-  }
-
+  // No variants → one price, one option. (Never invent a 60-count price;
+  // checkout rejects size "60" for products without a 60-count variant.)
   return [
     {
       size: "20",

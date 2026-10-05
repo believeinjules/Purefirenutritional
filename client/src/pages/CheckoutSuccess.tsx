@@ -26,9 +26,10 @@ export default function CheckoutSuccess() {
       setLoading(false);
     }
 
-    // Clear the cart after successful payment
-    clearCart();
-  }, [clearCart]);
+    // Clear the cart after a successful payment redirect (Stripe appends session_id)
+    if (id) clearCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchOrderDetails = async (id: string) => {
     try {

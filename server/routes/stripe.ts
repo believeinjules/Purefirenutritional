@@ -2,7 +2,8 @@
 import { Router } from 'express';
 import Stripe from 'stripe';
 import { logError, logAPICall } from '../logger.js';
-import { resolveCheckoutLines } from '../../shared/product-prices.js';
+import { CheckoutValidationError, resolveCheckoutLinesWith } from '../../shared/product-prices.js';
+import { loadFirestoreProducts } from '../../api/_lib/catalog.js';
 import { flatStripeShippingOption, shippingCentsForMerchandiseCents } from '../../shared/shipping-rate.js';
 
 const router = Router();
@@ -30,9 +31,11 @@ router.post('/create-checkout-session', async (req, res) => {
 
     let resolved;
     try {
-      resolved = resolveCheckoutLines(items);
+      // Same source of truth as api/stripe/create-checkout-session (Firestore → code catalog)
+      resolved = await resolveCheckoutLinesWith(items, loadFirestoreProducts);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Invalid or missing items';
+      if (!(err instanceof CheckoutValidationError)) throw err;
+      const message = err.message;
       logAPICall({
         endpoint: '/api/stripe/create-checkout-session',
         method: 'POST',
@@ -173,6 +176,10 @@ router.get('/session/:sessionId', async (req, res) => {
       error: errorMessage
     });
     
+    const e = error as { statusCode?: number; code?: string };
+    if (e?.statusCode === 404 || e?.code === 'resource_missing') {
+      return res.status(404).json({ error: 'Checkout session not found' });
+    }
     res.status(500).json({ error: 'Failed to retrieve session' });
   }
 });

@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import type Stripe from "stripe";
 import { getStripe } from "../_lib/stripe.js";
+import { FieldValue } from "firebase-admin/firestore";
 import { getAdminDb } from "../_lib/firebase.js";
 import { sendOrderConfirmation } from "../_lib/email.js";
 import { readRawBody } from "../_lib/read-raw-body.js";
@@ -11,6 +12,148 @@ export const config = {
     bodyParser: false,
   },
 };
+
+function generateOrderNumber(): string {
+  return `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 11).toUpperCase()}`;
+}
+
+/**
+ * Persist the order + customer via Admin SDK and send the confirmation email.
+ *
+ * Idempotent: the order doc id is the Stripe session id, created inside a
+ * transaction, so Stripe retries never create duplicate orders or double-count
+ * customer totals, and the email is only sent the first time.
+ */
+async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promise<void> {
+  const customerEmail = (
+    session.customer_details?.email ||
+    session.customer_email ||
+    session.metadata?.customer_email ||
+    ""
+  )
+    .trim()
+    .toLowerCase();
+
+  const shippingDetails = session.collected_information?.shipping_details ?? null;
+  const customerName =
+    session.metadata?.customer_name?.trim() ||
+    session.customer_details?.name?.trim() ||
+    shippingDetails?.name?.trim() ||
+    "";
+
+  const stripe = getStripe();
+  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+    limit: 100,
+  });
+  const items = lineItems.data.map((item) => ({
+    name: item.description || "Product",
+    quantity: item.quantity || 1,
+    price: (item.amount_total || 0) / 100,
+  }));
+
+  const total = (session.amount_total || 0) / 100;
+  let orderNumber = generateOrderNumber();
+  let isNewOrder = true;
+
+  const adminDb = getAdminDb();
+  if (!adminDb) {
+    console.error(
+      `[webhook] Firebase Admin not configured — order for ${session.id} NOT saved`
+    );
+  } else {
+    const orderRef = adminDb.collection("orders").doc(session.id);
+    const customerRef = customerEmail
+      ? adminDb.collection("customers").doc(customerEmail)
+      : null;
+    const nowIso = new Date().toISOString();
+
+    await adminDb.runTransaction(async (tx) => {
+      const existingOrder = await tx.get(orderRef);
+      const existingCustomer = customerRef ? await tx.get(customerRef) : null;
+
+      if (existingOrder.exists) {
+        isNewOrder = false;
+        orderNumber = (existingOrder.get("order_number") as string) || orderNumber;
+        return;
+      }
+
+      tx.set(orderRef, {
+        order_number: orderNumber,
+        customer_email: customerEmail || null,
+        customer_name: customerName || null,
+        stripe_session_id: session.id,
+        stripe_payment_intent:
+          typeof session.payment_intent === "string"
+            ? session.payment_intent
+            : session.payment_intent?.id ?? null,
+        stripe_customer_id:
+          typeof session.customer === "string"
+            ? session.customer
+            : session.customer?.id ?? null,
+        items,
+        subtotal: (session.amount_subtotal || 0) / 100,
+        tax: (session.total_details?.amount_tax || 0) / 100,
+        shipping: (session.total_details?.amount_shipping || 0) / 100,
+        total,
+        currency: session.currency?.toUpperCase() || "USD",
+        status: "processing",
+        payment_status: session.payment_status || "paid",
+        shipping_name: shippingDetails?.name || null,
+        shipping_address: shippingDetails?.address || null,
+        billing_address: session.customer_details?.address || null,
+        created_at: nowIso,
+      });
+
+      if (customerRef && existingCustomer) {
+        const stripeCustomerId =
+          typeof session.customer === "string"
+            ? session.customer
+            : session.customer?.id ?? null;
+        if (existingCustomer.exists) {
+          tx.update(customerRef, {
+            totalOrders: FieldValue.increment(1),
+            totalSpent: FieldValue.increment(total),
+            last_order_at: nowIso,
+            ...(stripeCustomerId ? { stripeCustomerId } : {}),
+            ...(customerName && !existingCustomer.get("name")
+              ? { name: customerName }
+              : {}),
+          });
+        } else {
+          tx.set(customerRef, {
+            email: customerEmail,
+            name: customerName || null,
+            stripeCustomerId,
+            totalOrders: 1,
+            totalSpent: total,
+            created_at: nowIso,
+            last_order_at: nowIso,
+          });
+        }
+      }
+    });
+
+    console.log(
+      isNewOrder
+        ? `[webhook] Order ${orderNumber} saved (orders/${session.id})`
+        : `[webhook] Duplicate delivery for ${session.id} — already saved as ${orderNumber}`
+    );
+  }
+
+  if (isNewOrder && customerEmail) {
+    const sent = await sendOrderConfirmation({
+      orderId: orderNumber,
+      customerName: customerName || "Customer",
+      customerEmail,
+      items,
+      total,
+      orderDate: new Date().toISOString(),
+    });
+    if (!sent) {
+      console.warn(`[webhook] confirmation email not sent for ${orderNumber}`);
+    }
+  }
+}
 
 /**
  * POST /api/stripe/webhook
@@ -52,88 +195,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
         console.log("[webhook] checkout.session.completed", session.id);
-
-        const customerEmail =
-          session.customer_email || session.metadata?.customer_email || undefined;
-        const customerName =
-          session.metadata?.customer_name ||
-          session.customer_details?.name ||
-          undefined;
-
-        const stripe = getStripe();
-        const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-        const items = lineItems.data.map((item) => ({
-          name: item.description || "Product",
-          quantity: item.quantity || 1,
-          price: (item.amount_total || 0) / 100,
-        }));
-
-        const orderNumber = `ORD-${Date.now()}-${Math.random()
-          .toString(36)
-          .slice(2, 11)
-          .toUpperCase()}`;
-
-        const adminDb = getAdminDb();
-        if (adminDb && customerEmail) {
-          const customerRef = adminDb
-            .collection("customers")
-            .doc(customerEmail.toLowerCase());
-          const existingCustomer = await customerRef.get();
-
-          if (existingCustomer.exists) {
-            const d = existingCustomer.data()!;
-            await customerRef.update({
-              totalOrders: (d.totalOrders || 0) + 1,
-              totalSpent:
-                (d.totalSpent || 0) + (session.amount_total || 0) / 100,
-              stripeCustomerId: session.customer,
-            });
-          } else {
-            await customerRef.set({
-              email: customerEmail.toLowerCase(),
-              name: customerName || null,
-              stripeCustomerId: session.customer || null,
-              totalOrders: 1,
-              totalSpent: (session.amount_total || 0) / 100,
-              created_at: new Date().toISOString(),
-            });
-          }
-
-          await adminDb.collection("orders").add({
-            order_number: orderNumber,
-            customer_email: customerEmail.toLowerCase(),
-            customer_name: customerName || null,
-            stripe_session_id: session.id,
-            stripe_payment_intent: session.payment_intent,
-            items,
-            subtotal: (session.amount_subtotal || 0) / 100,
-            tax: (session.total_details?.amount_tax || 0) / 100,
-            shipping: (session.total_details?.amount_shipping || 0) / 100,
-            total: (session.amount_total || 0) / 100,
-            currency: session.currency?.toUpperCase() || "USD",
-            status: "processing",
-            payment_status: "paid",
-            shipping_address:
-              (session as Stripe.Checkout.Session & {
-                shipping_details?: { address?: unknown };
-              }).shipping_details?.address || null,
-            billing_address: session.customer_details?.address || null,
-            created_at: new Date().toISOString(),
-          });
-
-          console.log(`[webhook] Order ${orderNumber} saved`);
-        }
-
-        if (customerEmail && customerName) {
-          await sendOrderConfirmation({
-            orderId: orderNumber,
-            customerName,
-            customerEmail,
-            items,
-            total: (session.amount_total || 0) / 100,
-            orderDate: new Date().toISOString(),
-          });
-        }
+        await handleCheckoutCompleted(session);
         break;
       }
       case "payment_intent.succeeded":

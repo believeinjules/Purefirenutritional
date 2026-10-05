@@ -66,7 +66,9 @@ Successful response shape: `{ "written": 79, "failed": 0 }` (plus `errors` only 
 - Document ID = `product.id` (e.g. `bonomarlot`).
 - Uses merge/overwrite by ID — **safe to run twice**.
 - Does **not** delete products that exist only in Firestore.
-- Does **not** change Stripe checkout pricing (`shared/product-prices.ts` still reads `products.ts`).
+- Stripe checkout charges the **Firestore** price (`products/{id}` via Admin SDK), falling back to
+  `products.ts` only when Firestore is unavailable or a doc is missing/malformed. Running this
+  import therefore resets live prices to whatever is in `products.ts`.
 - Firestore security rules stay unchanged (`write: if false` for products).
 
 ## Fields written
