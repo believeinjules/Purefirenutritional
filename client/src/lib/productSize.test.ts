@@ -44,4 +44,20 @@ describe("productSize", () => {
     expect(getDefaultCartSize(single)).toBe("20");
     expect(getSizeOptions(single)).toHaveLength(1);
   });
+
+  it("never invents a 2.5x 60-count option for products without variants", () => {
+    const legacy = { priceUSD: 40, priceEUR: 30, sizes: 2 };
+    const opts = getSizeOptions(legacy);
+    expect(opts).toHaveLength(1);
+    expect(opts[0].priceUSD).toBe(40);
+    expect(hasMultipleSizes(legacy)).toBe(false);
+  });
+
+  it("still offers variants when all are marked out of stock", () => {
+    const allOut = {
+      ...dual,
+      variants: dual.variants.map((v) => ({ ...v, inStock: false })),
+    };
+    expect(getSizeOptions(allOut)).toHaveLength(2);
+  });
 });

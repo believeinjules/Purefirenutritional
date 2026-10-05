@@ -36,7 +36,7 @@ router.post("/webhook", async (req: Request, res: Response) => {
         console.log("[Webhook] Checkout session completed:", session.id);
 
         const customerEmail =
-          session.customer_email || session.metadata?.customer_email;
+          session.customer_details?.email || session.customer_email || session.metadata?.customer_email;
         const customerName =
           session.metadata?.customer_name || session.customer_details?.name;
 
@@ -103,10 +103,10 @@ router.post("/webhook", async (req: Request, res: Response) => {
         }
 
         // Send confirmation email
-        if (customerEmail && customerName) {
+        if (customerEmail) {
           await sendOrderConfirmation({
             orderId: orderNumber,
-            customerName,
+            customerName: customerName || "Customer",
             customerEmail,
             items,
             total: (session.amount_total || 0) / 100,

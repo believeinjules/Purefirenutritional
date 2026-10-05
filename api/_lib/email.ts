@@ -9,6 +9,15 @@ interface OrderDetails {
   orderDate: string;
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function createTransporter() {
   const emailUser = process.env.EMAIL_USER;
   const emailPass = process.env.EMAIL_PASS;
@@ -44,7 +53,7 @@ export async function sendOrderConfirmation(
       to: order.customerEmail,
       subject: `Order Confirmation #${order.orderId} - Pure Fire Nutritional`,
       text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\nTotal: $${order.total.toFixed(2)}`,
-      html: `<p>Hi ${order.customerName},</p><p>We've received order <strong>#${order.orderId}</strong>.</p><p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p>`,
+      html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p><p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p>`,
     });
     return true;
   } catch (err) {

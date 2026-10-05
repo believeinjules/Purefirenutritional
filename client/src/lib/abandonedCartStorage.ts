@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "./firebase";
 import type { CartItem } from "@/contexts/CartContext";
+import { getUnitPriceUSD } from "@shared/product-prices";
 
 export interface AbandonedCart {
   id: string;
@@ -70,8 +71,7 @@ export async function saveCart(
 
   const sessionId = getSessionId();
   const totalAmount = items.reduce((sum, item) => {
-    const multiplier = item.size === "60" ? 2.5 : 1;
-    return sum + item.product.priceUSD * multiplier * item.quantity;
+    return sum + getUnitPriceUSD(item.product, item.size) * item.quantity;
   }, 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 

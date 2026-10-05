@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { ArrowLeft, CreditCard, Lock, CheckCircle } from "lucide-react";
+import { Link } from "wouter";
+import { ArrowLeft, CreditCard, Lock, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,9 +17,9 @@ function formatCheckoutUSD(amount: number | undefined | null): string {
 }
 
 export default function Checkout() {
-  const { items, getTotal, clearCart } = useCart();
-  const [, setLocation] = useLocation();
+  const { items, getTotal } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: "",
   });
@@ -34,7 +34,8 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     setIsProcessing(true);
-    
+    setCheckoutError(null);
+
     try {
       // Create checkout session with backend API
       const response = await fetch("/api/stripe/create-checkout-session", {
@@ -54,21 +55,32 @@ export default function Checkout() {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to create checkout session");
+      const body = (await response.json().catch(() => ({}))) as {
+        url?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !body.url) {
+        // 400s carry a shopper-readable reason (e.g. a size that is no longer sold)
+        throw new Error(
+          response.status === 400 && body.error
+            ? body.error
+            : "There was an error starting checkout. Please try again."
+        );
       }
 
-      const { url } = await response.json();
-
-      // Redirect to Stripe Checkout
-      window.location.href = url;
-      
+      // Redirect to Stripe Checkout (keep the button disabled while navigating)
+      window.location.href = body.url;
+      return;
     } catch (error) {
       console.error("Checkout error:", error);
-      alert("There was an error processing your payment. Please try again.");
-    } finally {
-      setIsProcessing(false);
+      setCheckoutError(
+        error instanceof Error
+          ? error.message
+          : "There was an error starting checkout. Please try again."
+      );
     }
+    setIsProcessing(false);
   };
 
   if (items.length === 0) {
@@ -76,13 +88,15 @@ export default function Checkout() {
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main className="flex-1 flex items-center justify-center bg-gray-50">
-          <div className="text-center">
-            <CheckCircle className="w-24 h-24 text-green-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold mb-2">Order Complete!</h1>
-            <p className="text-gray-600 mb-6">Thank you for your purchase.</p>
+          <div className="text-center px-4">
+            <ShoppingCart className="w-24 h-24 text-gray-300 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold mb-2">Your cart is empty</h1>
+            <p className="text-gray-600 mb-6">
+              Add a product to your cart before checking out.
+            </p>
             <Link href="/products">
               <Button className="bg-brand-gradient">
-                Continue Shopping
+                Browse Products
               </Button>
             </Link>
           </div>
@@ -225,6 +239,12 @@ export default function Checkout() {
                       </>
                     )}
                   </Button>
+
+                  {checkoutError && (
+                    <p role="alert" className="text-sm text-red-600 text-center mt-3">
+                      {checkoutError}
+                    </p>
+                  )}
 
                   <p className="text-xs text-gray-500 text-center mt-4">
                     By completing your purchase, you agree to our Terms of Service and Privacy Policy.
