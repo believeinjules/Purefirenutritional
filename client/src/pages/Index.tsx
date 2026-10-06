@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
+import { websiteJsonLd } from "@/lib/seo";
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -130,9 +132,14 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <PageSeo
+        title="Khavinson Peptide Bioregulators & Nutrition Supplements | Pure Fire Nutritional"
+        description="Pure Fire Nutritional sells evidence-backed nutrition supplements and oral Khavinson peptide bioregulators. Shop Cytomaxes, Cytogens, anti-aging supplements, and longevity solutions."
+        path="/"
+        type="website"
+        jsonLd={[websiteJsonLd()]}
+      />
       <Helmet>
-        <title>Khavinson Peptide Bioregulators & Nutrition Supplements | Pure Fire Nutritional</title>
-        <meta name="description" content="Pure Fire Nutritional sells evidence-backed nutrition supplements and oral Khavinson peptide bioregulators. Shop Cytomaxes, Cytogens, anti-aging supplements, and longevity solutions." />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",

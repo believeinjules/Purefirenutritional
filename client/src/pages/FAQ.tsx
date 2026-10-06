@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
 import { useState } from "react";
+import PageSeo from "@/components/seo/PageSeo";
 import { ChevronDown, Phone, Mail, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -145,10 +145,12 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Helmet>
-        <title>Frequently Asked Questions | Pure Fire Nutritional</title>
-        <meta name="description" content="Get answers to common questions about Khavinson peptide bioregulators, ordering, shipping, and how our products support longevity and wellness." />
-      </Helmet>
+      <PageSeo
+        title="Frequently Asked Questions | Pure Fire Nutritional"
+        description="Get answers to common questions about Khavinson peptide bioregulators, ordering, shipping, and how our products support longevity and wellness."
+        path="/faq"
+        type="website"
+      />
       <Navigation />
 
       <main className="flex-1 bg-gray-50 py-12">

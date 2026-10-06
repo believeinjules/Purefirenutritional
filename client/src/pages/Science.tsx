@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
 import { FlaskConical, FileText, ExternalLink, Award, BookOpen, Microscope, Dna, ArrowRight } from "lucide-react";
+import PageSeo from "@/components/seo/PageSeo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -130,10 +130,12 @@ const researchPapers: ResearchPaper[] = [
 export default function Science() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Helmet>
-        <title>The Science Behind Khavinson Peptides & Bioregulators | Pure Fire Nutritional</title>
-        <meta name="description" content="Explore the peer-reviewed research behind Khavinson peptide bioregulators, cellular aging, neuroplasticity, and longevity science. 40+ years of clinical studies." />
-      </Helmet>
+      <PageSeo
+        title="The Science Behind Khavinson Peptides & Bioregulators | Pure Fire Nutritional"
+        description="Explore the peer-reviewed research behind Khavinson peptide bioregulators, cellular aging, neuroplasticity, and longevity science. 40+ years of clinical studies."
+        path="/science"
+        type="website"
+      />
       <Navigation />
 
       <main className="flex-1">

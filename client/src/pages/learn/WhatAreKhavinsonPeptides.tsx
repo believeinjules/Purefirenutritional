@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -6,9 +7,13 @@ import Footer from "@/components/Footer";
 export default function ArticleKhavinsonPeptides() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <PageSeo
+        title="What Are Khavinson Peptide Bioregulators? | Pure Fire Nutritional"
+        description="Learn what peptide bioregulators are, who Professor Vladimir Khavinson is, and the 40+ years of research behind Cytomaxes and Cytogens — available exclusively in the US through Pure Fire Nutritional."
+        path="/learn/what-are-khavinson-peptide-bioregulators"
+        type="article"
+      />
       <Helmet>
-        <title>What Are Khavinson Peptide Bioregulators? | Pure Fire Nutritional</title>
-        <meta name="description" content="Learn what peptide bioregulators are, who Professor Vladimir Khavinson is, and the 40+ years of research behind Cytomaxes and Cytogens — available exclusively in the US through Pure Fire Nutritional." />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",

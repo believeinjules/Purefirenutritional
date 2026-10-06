@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -29,14 +29,12 @@ export default function Documentation() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f3ee] text-stone-900">
-      <Helmet>
-        <title>Product Documentation | Pure Fire Nutritional</title>
-        <meta
-          name="description"
-          content="Original EAEU Certificates of State Registration for Pure Fire Nutritional products, shown with English translations. Not FDA approval."
-        />
-        <link rel="canonical" href="https://www.purefirenutritional.com/documentation" />
-      </Helmet>
+      <PageSeo
+        title="Product Documentation | Pure Fire Nutritional"
+        description="Original EAEU Certificates of State Registration for Pure Fire Nutritional products, shown with English translations. Not FDA approval."
+        path="/documentation"
+        type="website"
+      />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-5 py-16 md:py-24">

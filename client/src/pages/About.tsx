@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageSeo from "@/components/seo/PageSeo";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,10 +9,12 @@ import { Link } from 'wouter';
 export default function About() {
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>About Pure Fire Nutritional | Nutrition Supplements & Peptide Bioregulators</title>
-        <meta name="description" content="Learn about Pure Fire Nutritional — we sell nutrition supplements we trust. Peptide bioregulators are the specialty. Evidence-backed products for cognitive vitality, resilience, and healthy aging." />
-      </Helmet>
+      <PageSeo
+        title="About Pure Fire Nutritional | Nutrition Supplements & Peptide Bioregulators"
+        description="Learn about Pure Fire Nutritional — we sell nutrition supplements we trust. Peptide bioregulators are the specialty. Evidence-backed products for cognitive vitality, resilience, and healthy aging."
+        path="/about"
+        type="website"
+      />
       {/* Hero Section */}
       <section className="relative py-16 sm:py-20 md:py-24 bg-brand-gradient text-white">
         <div className="absolute inset-0 bg-white/10"></div>
