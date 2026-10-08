@@ -182,7 +182,7 @@ export const products: Product[] = [
     priceEUR: 85,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Most foundational Khavinson longevity peptide", "Melatonin secretion normalization", "Cyclic processes regulation", "Reproductive system regulation", "Immune system support", "Telomere lengthening", "Lifespan extension 30–40% (with Vladonix)"],
+    benefits: ["Most foundational Khavinson longevity peptide", "Melatonin secretion normalization", "Cyclic processes regulation", "Healthy aging of the pineal gland — studied as a geroprotector", "Reproductive system regulation", "Immune system support", "Telomere lengthening", "Lifespan extension 30–40% (with Vladonix)"],
     ingredients: ["Pineal gland peptide complex (A-8)"],
     usage: "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format.",
     seriesInfo: "Vladonix + Endoluten is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
@@ -347,7 +347,7 @@ export const products: Product[] = [
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Antioxidant protection", "Cerebral circulation", "CNS function", "Immune balance", "Cardiovascular health", "Liver support"],
+    benefits: ["Antioxidant protection", "Cerebral circulation", "CNS function", "Immune balance", "Cardiovascular health", "Liver support", "Healthy aging — epiphysis peptide studied as a geroprotector"],
     ingredients: ["Epiphysis peptide complex (AA-1)", "B-link immune peptide complex (AA-3)", "Liver peptide complex (AA-10)", "Resveratrol", "Choline bitartrate", "Omega-3 polyunsaturated fatty acids", "Vitamins E, A, C"],
     usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
@@ -1391,7 +1391,7 @@ export const products: Product[] = [
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
-    benefits: ["65mg multi-peptide complex per capsule", "Female reproductive system restoration", "Thyroid and ovarian peptide support", "Cardiovascular and nervous system health", "Hormonal balance", "Active longevity"],
+    benefits: ["65mg multi-peptide complex per capsule", "Female reproductive system restoration", "Thyroid and ovarian peptide support", "Cardiovascular and nervous system health", "Hormonal balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
     seriesInfo: "GPL Femme contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Thyroid, Ovarian) plus alpha-lipoic acid for comprehensive female health restoration."
   },
   {
@@ -1404,7 +1404,7 @@ export const products: Product[] = [
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
-    benefits: ["65mg multi-peptide complex per capsule", "Male reproductive system restoration", "Pancreatic and testicular peptide support", "Cardiovascular and nervous system health", "Endocrine balance", "Active longevity"],
+    benefits: ["65mg multi-peptide complex per capsule", "Male reproductive system restoration", "Pancreatic and testicular peptide support", "Cardiovascular and nervous system health", "Endocrine balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
     seriesInfo: "GPL Man contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Pancreatic, Testicular) plus alpha-lipoic acid for comprehensive male health restoration."
   },
 ];
