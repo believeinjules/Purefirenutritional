@@ -42,6 +42,11 @@ export interface Product {
   seriesInfo?: string;
   in_stock?: boolean;
   variants?: ProductVariant[];
+  /** Authenticity data — rendered only when filled. */
+  manufacturer?: string;
+  lotNumber?: string;
+  expiryDate?: string;
+  coaUrl?: string;
 }
 
 // ─── Firestore doc → Product ──────────────────────────────────────────────────
@@ -65,6 +70,10 @@ function docToProduct(id: string, data: any): Product {
     seriesInfo: (data.seriesInfo ?? data.series_info) || undefined,
     in_stock: data.in_stock !== false,
     variants: data.variants || [],
+    manufacturer: data.manufacturer || undefined,
+    lotNumber: data.lotNumber || undefined,
+    expiryDate: data.expiryDate || undefined,
+    coaUrl: data.coaUrl || undefined,
   };
 }
 
@@ -155,8 +164,12 @@ export async function fetchProductsByCategory(category: string): Promise<Product
 /** Fields the admin form sends; the server validates and normalizes them. */
 export type ProductInput = Omit<
   Product,
-  "id" | "variants" | "image" | "imageAlt" | "usage" | "seriesInfo"
+  "id" | "variants" | "image" | "imageAlt" | "usage" | "seriesInfo" | "manufacturer" | "lotNumber" | "expiryDate" | "coaUrl"
 > & {
+  manufacturer?: string | null;
+  lotNumber?: string | null;
+  expiryDate?: string | null;
+  coaUrl?: string | null;
   variants?: ProductVariant[];
   // null clears the field
   image?: string | null;

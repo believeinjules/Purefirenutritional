@@ -29,6 +29,13 @@ export interface Product {
   ingredients?: string[];
   usage?: string;
   seriesInfo?: string;
+  /** Authenticity data — each renders on the product page ONLY when filled. Never guessed. */
+  manufacturer?: string;
+  lotNumber?: string;
+  /** YYYY-MM or YYYY-MM-DD */
+  expiryDate?: string;
+  /** Certificate of analysis link (https:// or /path) */
+  coaUrl?: string;
 }
 
 export const products: Product[] = [

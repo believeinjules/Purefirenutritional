@@ -5,6 +5,8 @@ import { ArrowLeft, Star, ShoppingCart, Plus, Minus, Heart, Info } from "lucide-
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ProductAuthenticity from "@/components/trust/ProductAuthenticity";
+import FounderBlock from "@/components/trust/FounderBlock";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from 'sonner';
@@ -260,6 +262,14 @@ export default function ProductDetail() {
                 <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
               </div>
 
+              {/* Authorized retailer badge + sourcing / lot / expiry / COA (each only when filled) */}
+              <ProductAuthenticity
+                manufacturer={product.manufacturer}
+                lotNumber={product.lotNumber}
+                expiryDate={product.expiryDate}
+                coaUrl={product.coaUrl}
+              />
+
               {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
               {product.category === "PEPTIDE BIOREGULATORS" && (
                 <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">
@@ -336,6 +346,9 @@ export default function ProductDetail() {
           </div>
 
           <AuthenticityDocumentation productId={product.id} />
+
+          {/* Founder line — hidden until Julia approves it and a photo is set */}
+          <FounderBlock />
 
           {/* Frequently bought together — catalog-backed companions only */}
           {(() => {
