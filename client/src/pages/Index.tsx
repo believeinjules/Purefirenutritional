@@ -245,7 +245,7 @@ export default function Index() {
             </Link>
             <Link href="/about">
               <a className="btn-secondary">
-                Why we carry these
+                Who we are
               </a>
             </Link>
           </div>
@@ -376,44 +376,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ── Educational Callout ────────────────────────────────────────────── */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="section-label mb-4">The Science</p>
-              <h2 className="text-3xl font-bold text-gray-900 mb-5 leading-snug">
-                What are peptide bioregulators — and why do they matter?
-              </h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Peptides are the body's natural information carriers — short chains of amino acids that signal cells to maintain, repair, and regulate their own function. As we age, peptide levels decline significantly, contributing to the gradual loss of organ function and resilience.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson, peptide bioregulators are tissue-specific formulas that work at the cellular level — supporting the body's own regulatory systems rather than overriding them.
-              </p>
-              <Link href="/science">
-                <a className="btn-secondary" style={{ color: "#E8793A", borderColor: "#E8793A40" }}>
-                  Explore the Research →
-                </a>
-              </Link>
-            </div>
-            <div className="space-y-4">
-              {[
-                { stat: "10×", text: "Peptide levels in a 55-year-old are 10 times lower than in a 20-year-old" },
-                { stat: "40+", text: "Years of clinical research behind Khavinson peptide bioregulators" },
-                { stat: "20–40%", text: "Potential increase in mean lifespan observed in long-term animal studies" },
-                { stat: "4–6 mo", text: "Duration of effect per course — supporting sustained cellular health" },
-              ].map(({ stat, text }) => (
-                <div key={stat} className="flex items-start gap-4 p-4 bg-orange-50 rounded-xl">
-                  <div className="text-2xl font-bold text-orange-600 min-w-[4rem] text-center">{stat}</div>
-                  <p className="text-gray-700 text-sm leading-relaxed">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Is / Isn't Cut ────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gray-900">
         <div className="max-w-2xl mx-auto text-center">
@@ -474,6 +436,44 @@ export default function Index() {
               See FAQ for full comparison →
             </a>
           </Link>
+        </div>
+      </section>
+
+      {/* ── Educational Callout ────────────────────────────────────────────── */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="section-label mb-4">The Science</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-5 leading-snug">
+                What are peptide bioregulators — and why do they matter?
+              </h2>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Peptides are the body's natural information carriers — short chains of amino acids that signal cells to maintain, repair, and regulate their own function. As we age, peptide levels decline significantly, contributing to the gradual loss of organ function and resilience.
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                Developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson, peptide bioregulators are tissue-specific formulas that work at the cellular level — supporting the body's own regulatory systems rather than overriding them.
+              </p>
+              <Link href="/science">
+                <a className="btn-secondary" style={{ color: "#E8793A", borderColor: "#E8793A40" }}>
+                  Explore the Research →
+                </a>
+              </Link>
+            </div>
+            <div className="space-y-4">
+              {[
+                { stat: "10×", text: "Peptide levels in a 55-year-old are 10 times lower than in a 20-year-old" },
+                { stat: "40+", text: "Years of clinical research behind Khavinson peptide bioregulators" },
+                { stat: "20–40%", text: "Potential increase in mean lifespan observed in long-term animal studies" },
+                { stat: "4–6 mo", text: "Duration of effect per course — supporting sustained cellular health" },
+              ].map(({ stat, text }) => (
+                <div key={stat} className="flex items-start gap-4 p-4 bg-orange-50 rounded-xl">
+                  <div className="text-2xl font-bold text-orange-600 min-w-[4rem] text-center">{stat}</div>
+                  <p className="text-gray-700 text-sm leading-relaxed">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
