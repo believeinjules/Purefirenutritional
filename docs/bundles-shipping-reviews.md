@@ -17,6 +17,17 @@ A value outside that range is never clamped; that bundle is simply not offered.
 
 Single-bottle prices are **not** in this file and are never changed by it.
 
+### Larger-size guard (a bundle never undercuts a bigger bottle)
+`shared/bundle-pricing.ts → getBundleOffer` hides (never reprices) a bundle when its total is
+**less than or equal to** the single price of a larger size of the same product whose capsule
+count is the same or fewer than the bundle's total capsules. Example: 3 × 20 caps = 60 caps must cost
+more than one 60-cap bottle. Used by the product page, cart, and the server checkout (a hidden bundle → HTTP 400).
+A cart line holding a bundle that is no longer offered becomes the same number of single bottles.
+
+With current prices this hides the **3 × 20-cap bundle** ($152.97 vs $153.99 for one 60-cap bottle) on:
+Chelohart, Gotratix, Pielotax, Testoluten, Thyreogen, Ventfort, Visoluten, Vladonix.
+All 2-bottle bundles and all 60-cap bundles stay; Bonomarlot, Cartalax, Crystagen, Endoluten and Vesugen keep every bundle.
+
 ### Per-product overrides (optional, Firestore `products/{id}` or `products.ts`)
 - `bundlesEnabled: false` → no bundles for that product
 - `bundleDiscountsUSD: { "2": 5, "3": 9 }` → per-bottle discount for that product (each $3–$9, `null` turns that size off)

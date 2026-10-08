@@ -9,9 +9,12 @@ import {
   BundleInputError,
   getBundleOffer,
   getBundleOffers,
+  largerSizeFloorCents,
   parseBundleSize,
   readBundleOverrides,
+  unitsPerBottle,
 } from "./bundle-pricing";
+import { products } from "../client/src/data/products";
 import {
   CheckoutValidationError,
   getCartLineUnitUSD,
@@ -30,6 +33,9 @@ const cytomax: PriceableProduct = {
     { id: "60-count", name: "60 Capsules", priceUSD: 153.99 },
   ],
 };
+
+/** One size only, so the larger-size guard does not apply (pure math checks). */
+const singleSize: PriceableProduct = { id: "single-size", name: "Single size", priceUSD: 58.99 };
 
 describe("commerce config", () => {
   it("uses the approved bundle discounts ($4 / $8 per bottle), all inside $3–$9", () => {
@@ -59,7 +65,7 @@ describe("bundle price math (cents)", () => {
   });
 
   it("3 bottles = 3 × (price − $8)", () => {
-    const offer = getBundleOffer(cytomax, 58.99, 3)!;
+    const offer = getBundleOffer(singleSize, 58.99, 3)!;
     expect(offer.bottleCents).toBe(5099);
     expect(offer.bundleCents).toBe(15297);
     expect(offer.savingsCents).toBe(2400);
@@ -92,7 +98,7 @@ describe("bundle price math (cents)", () => {
       ...COMMERCE_CONFIG,
       bundles: { ...COMMERCE_CONFIG.bundles, enabled: false },
     };
-    expect(getBundleOffers({}, 58.99, off)).toEqual([]);
+    expect(getBundleOffers({}, 58.99, { config: off })).toEqual([]);
   });
 
   it("reads Firestore override fields defensively", () => {
@@ -153,7 +159,8 @@ describe("bundle input validation", () => {
   });
 
   it("display helper matches checkout", () => {
-    expect(getCartLineUnitUSD(cytomax, "20", 3)).toBe(152.97);
+    expect(getCartLineUnitUSD(cytomax, "20", 2)).toBe(109.98);
+    expect(getCartLineUnitUSD(cytomax, "20", 3)).toBeUndefined(); // hidden: would undercut the 60-cap bottle
     expect(getCartLineUnitUSD(cytomax, "20")).toBe(58.99);
     expect(getCartLineUnitUSD(cytomax, "20", 7)).toBeUndefined();
   });
@@ -186,11 +193,14 @@ describe("Stripe session params (server-side amounts)", () => {
 
   it("applies free shipping at/above $150 after bundle discounts", async () => {
     const resolved = await resolveCheckoutLinesWith(
-      [{ productId: "vladonix", size: "20", quantity: 1, bundle: 3 }],
+      [
+        { productId: "vladonix", size: "20", quantity: 1, bundle: 2 },
+        { productId: "vladonix", size: "20", quantity: 1 },
+      ],
       async () => new Map([["vladonix", cytomax]])
     );
     const { params, merchandiseCents } = buildCheckoutSessionParams({ resolved, origin });
-    expect(merchandiseCents).toBe(15297);
+    expect(merchandiseCents).toBe(10998 + 5899);
     expect(params.shipping_options).toHaveLength(1);
     expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
     expect(params.shipping_options[0].shipping_rate_data.display_name).toBe("Free shipping");
@@ -206,5 +216,62 @@ describe("Stripe session params (server-side amounts)", () => {
     expect(params.line_items[0].price_data.unit_amount).toBe(5899);
     expect(params.line_items[0].price_data.product_data.metadata.bundle_bottles).toBe("1");
     expect(params.metadata.bundles).toBe("");
+  });
+});
+
+describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
+  // Live prices (Firestore = code catalog): Gotratix 20 caps $58.99, 60 caps $153.99.
+  const gotratix = products.find((p) => p.id === "gotratix")! as PriceableProduct;
+  const cartalax = products.find((p) => p.id === "cartalax")! as PriceableProduct;
+
+  it("hides Gotratix 3 × 20 caps ($152.97 ≤ one 60-cap bottle at $153.99)", () => {
+    expect(getBundleOffer(gotratix, 58.99, 3, { size: "20" })).toBeNull();
+    expect(largerSizeFloorCents(gotratix, 58.99, 3, "20")).toBe(15399);
+    expect(getBundleOffers(gotratix, 58.99, { size: "20" }).map((o) => o.bottles)).toEqual([2]);
+    // size inferred from the price when not passed
+    expect(getBundleOffer(gotratix, 58.99, 3)).toBeNull();
+  });
+
+  it("keeps Gotratix 2 × 20 caps (40 caps — fewer than the 60-cap bottle) and the 60-cap bundles", () => {
+    expect(getBundleOffer(gotratix, 58.99, 2, { size: "20" })!.bundleCents).toBe(10998);
+    expect(largerSizeFloorCents(gotratix, 58.99, 2, "20")).toBeNull();
+    expect(getBundleOffer(gotratix, 153.99, 3, { size: "60" })!.bundleCents).toBe(43797);
+  });
+
+  it("keeps Cartalax 3 × 20 caps ($119.97 > one 60-cap bottle at $116.99)", () => {
+    expect(getBundleOffer(cartalax, 47.99, 3, { size: "20" })!.bundleCents).toBe(11997);
+  });
+
+  it("hides when the bundle EQUALS the bigger bottle, offers when it is a cent above", () => {
+    const p = (big: number): PriceableProduct => ({
+      id: "x",
+      name: "X",
+      priceUSD: 50,
+      variants: [
+        { id: "20-count", name: "20 Capsules", priceUSD: 50 },
+        { id: "60-count", name: "60 Capsules", priceUSD: big },
+      ],
+    });
+    // 3 × (50 − 8) = 126.00
+    expect(getBundleOffer(p(126), 50, 3, { size: "20" })).toBeNull();
+    expect(getBundleOffer(p(125.99), 50, 3, { size: "20" })!.bundleCents).toBe(12600);
+  });
+
+  it("does not reprice — the hidden bundle is simply unavailable at checkout (→ 400)", () => {
+    expect(getCartLineUnitUSD(gotratix, "20", 3)).toBeUndefined();
+    expect(() =>
+      resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 3 })
+    ).toThrow(CheckoutValidationError);
+    expect(resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 2 }).unitAmountCents).toBe(10998);
+  });
+
+  it("keeps the low-price guard alongside it", () => {
+    expect(getBundleOffer({}, 19.99, 2)).toBeNull();
+  });
+
+  it("reads capsule counts from variant id or name", () => {
+    expect(unitsPerBottle({ id: "60-count", name: "" })).toBe(60);
+    expect(unitsPerBottle({ id: "x", name: "120 Capsules" })).toBe(120);
+    expect(unitsPerBottle({ id: "lingual", name: "Lingual drops" })).toBeUndefined();
   });
 });

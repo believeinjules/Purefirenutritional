@@ -185,6 +185,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((current) => (current.length === 0 ? current : []));
   }, []);
 
+  // A bundle that is no longer offered (e.g. a price change made it undercut a
+  // larger size) becomes the same number of single bottles. Never repriced.
+  useEffect(() => {
+    if (!isLoaded) return;
+    const stale = items.some(
+      (i) => i.bundle && getCartLineUnitUSD(i.product, i.size, i.bundle) === undefined
+    );
+    if (!stale) return;
+    setItems((current) => {
+      const next: CartItem[] = [];
+      for (const item of current) {
+        const unavailable =
+          item.bundle && getCartLineUnitUSD(item.product, item.size, item.bundle) === undefined;
+        const line: CartItem = unavailable
+          ? { product: item.product, size: item.size, quantity: item.quantity * (item.bundle as number) }
+          : item;
+        const at = unavailable
+          ? next.findIndex((n) => sameLine(n, line.product.id, line.size, null))
+          : -1;
+        if (at >= 0) next[at] = { ...next[at], quantity: next[at].quantity + line.quantity };
+        else next.push(line);
+      }
+      return next;
+    });
+  }, [items, isLoaded]);
+
   const getTotal = (): number => {
     return items.reduce((sum, item) => {
       // Bundle lines use the same bundle math as checkout (shared/bundle-pricing.ts).

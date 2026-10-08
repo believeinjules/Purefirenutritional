@@ -101,7 +101,10 @@ export default function ProductDetail() {
       : "Price unavailable";
   const facts = getProductFacts(product, selectedVariant ? selectedSize : undefined, currentPrice);
   // Bundle line total (display only; checkout recomputes it server-side).
-  const bundleTotal = bundle > 1 ? getCartLineUnitUSD(product, selectedSize, bundle) : currentPrice;
+  // A bundle that is not offered for the selected size falls back to a single bottle.
+  const bundleOfferTotal = bundle > 1 ? getCartLineUnitUSD(product, selectedSize, bundle) : undefined;
+  const activeBundle: BundleChoice = bundle > 1 && bundleOfferTotal === undefined ? 1 : bundle;
+  const bundleTotal = activeBundle > 1 ? bundleOfferTotal : currentPrice;
   const currentImage = selectedVariant?.image || product.image;
   const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product.images || []);
 
@@ -209,8 +212,9 @@ export default function ProductDetail() {
               <BundleSelector
                 product={product}
                 singlePriceUSD={currentPrice}
+                size={selectedVariant ? selectedSize : undefined}
                 facts={facts}
-                value={bundle}
+                value={activeBundle}
                 onChange={setBundle}
               />
 
@@ -231,18 +235,18 @@ export default function ProductDetail() {
                       toast.error("This product's price is unavailable, so it can't be added.");
                       return;
                     }
-                    if (bundle > 1 && bundleTotal === undefined) {
+                    if (activeBundle > 1 && bundleTotal === undefined) {
                       toast.error("This bundle is not available for this size.");
                       return;
                     }
-                    addToCart(product, quantity, selectedSize, bundle > 1 ? (bundle as 2 | 3) : undefined);
-                    toast.success(bundle > 1 ? `${bundle}-bottle bundle added to cart!` : 'Added to cart!');
+                    addToCart(product, quantity, selectedSize, activeBundle > 1 ? (activeBundle as 2 | 3) : undefined);
+                    toast.success(activeBundle > 1 ? `${activeBundle}-bottle bundle added to cart!` : 'Added to cart!');
                   }}
                   className="flex-1 bg-gray-900 hover:bg-orange-600 transition-colors"
                 >
                   <ShoppingCart className="mr-2" size={16} />
-                  {bundle > 1 && typeof bundleTotal === "number"
-                    ? `Add ${bundle} bottles · $${(bundleTotal * quantity).toFixed(2)}`
+                  {activeBundle > 1 && typeof bundleTotal === "number"
+                    ? `Add ${activeBundle} bottles · $${(bundleTotal * quantity).toFixed(2)}`
                     : "Add to Cart"}
                 </Button>
                 <Button onClick={handleWishlistToggle} variant="outline" size="icon">

@@ -58,7 +58,7 @@ export default function Cart() {
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => {
                 const single = getUnitPriceUSD(item.product, item.size);
-                const offer = item.bundle ? getBundleOffer(item.product, single, item.bundle) : null;
+                const offer = item.bundle ? getBundleOffer(item.product, single, item.bundle, { size: item.size }) : null;
                 const lineUnit = getCartLineUnitUSD(item.product, item.size, item.bundle);
                 const bundleArg = item.bundle ?? null;
                 return (

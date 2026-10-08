@@ -235,7 +235,7 @@ export function resolveLineForProduct(
     };
   }
 
-  const offer = getBundleOffer(product, singlePriceUSD, bundleBottles);
+  const offer = getBundleOffer(product, singlePriceUSD, bundleBottles, { size: lineSize ?? size });
   if (!offer) {
     throw new CheckoutValidationError(
       `${bundleLabel(bundleBottles)} is not available for ${product.name}`
@@ -278,7 +278,7 @@ export function getCartLineUnitUSD(
     return undefined;
   }
   if (bottles === 1) return single;
-  const offer = getBundleOffer(product, single, bottles);
+  const offer = getBundleOffer(product, single, bottles, { size });
   return offer ? offer.bundleCents / 100 : undefined;
 }
 

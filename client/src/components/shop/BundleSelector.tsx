@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { getBundleOffers, type BundleOverrideFields } from "@shared/bundle-pricing";
+import { getBundleOffers, type BundleOverrideFields, type BundleSizingFields } from "@shared/bundle-pricing";
 import type { ProductFacts } from "@/lib/productFacts";
 
 export type BundleChoice = 1 | 2 | 3;
@@ -16,18 +16,21 @@ function usd(cents: number): string {
 export default function BundleSelector({
   product,
   singlePriceUSD,
+  size,
   facts,
   value,
   onChange,
 }: {
-  product: BundleOverrideFields;
+  product: BundleOverrideFields & BundleSizingFields;
   singlePriceUSD: number | undefined;
+  /** Cart size of the selected bottle ("20" | "60"); used by the larger-size guard. */
+  size?: string;
   facts?: ProductFacts;
   value: BundleChoice;
   onChange: (choice: BundleChoice) => void;
 }) {
   if (typeof singlePriceUSD !== "number" || !Number.isFinite(singlePriceUSD)) return null;
-  const offers = getBundleOffers(product, singlePriceUSD);
+  const offers = getBundleOffers(product, singlePriceUSD, { size });
   if (offers.length === 0) return null;
 
   const singleCents = Math.round(singlePriceUSD * 100);
