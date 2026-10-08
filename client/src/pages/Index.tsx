@@ -471,7 +471,7 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
             {whyWeCarry.map(({ stat, label, href }) => (
               <div key={stat}>
-                <div className="text-2xl font-bold text-orange-600 mb-2">{stat}</div>
+                <div className="text-xl font-bold text-orange-600 mb-2 leading-snug">{stat}</div>
                 <div className="text-gray-500 text-xs leading-relaxed">
                   {href ? (
                     <a href={href} target="_blank" rel="noopener noreferrer" className="hover:underline">
