@@ -1,15 +1,16 @@
+// Lives in api/_lib/ (not api/stripe/): every non-underscore file under api/ becomes a Vercel function.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const create = vi.fn(async () => ({ id: "cs_test_1", url: "https://checkout.example/cs_test_1" }));
 
-vi.mock("../_lib/stripe.js", () => ({
+vi.mock("./stripe.js", () => ({
   getStripe: () => ({ checkout: { sessions: { create } } }),
   getSiteOrigin: () => "https://example.test",
 }));
 // No Firestore in tests → the handler falls back to the code catalog (same prices as live).
-vi.mock("../_lib/catalog.js", () => ({ loadFirestoreProducts: async () => new Map() }));
+vi.mock("./catalog.js", () => ({ loadFirestoreProducts: async () => new Map() }));
 
-import handler from "./create-checkout-session";
+import handler from "../stripe/create-checkout-session";
 
 function call(body: unknown) {
   const res: { statusCode?: number; body?: any; status: (c: number) => any; json: (b: unknown) => any; setHeader: () => void } = {
