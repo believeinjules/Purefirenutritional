@@ -72,7 +72,7 @@ export default function ArticleKhavinsonPeptides() {
             </p>
 
             <p>
-              Both product lines are manufactured in Russia under pharmaceutical-grade standards and have been used in clinical and research settings for decades. They are not the same as generic peptide supplements sold in the broader market, which are typically produced without the same research foundation or manufacturing standards.
+              Both product lines are manufactured in Russia and have been used in clinical and research settings for decades. They are not the same as generic peptide supplements sold in the broader market, which are typically produced without the same research foundation or manufacturing standards.
             </p>
 
             <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3">Availability in the United States</h2>
