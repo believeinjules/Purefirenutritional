@@ -11,17 +11,17 @@ import { toast } from 'sonner';
 import { fetchProductById, Product } from "@/lib/productsStorage";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import VariantSelector from "@/components/VariantSelector";
+import BundleSelector, { type BundleChoice } from "@/components/shop/BundleSelector";
+import RatingStars from "@/components/shop/RatingStars";
+import { getProductFacts } from "@/lib/productFacts";
+import { useReviewSummaries } from "@/lib/reviewsApi";
+import { getCartLineUnitUSD } from "@shared/product-prices";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import { getProductById } from "@/data/products";
 import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
 import AuthenticityDocumentation from "@/components/documentation/AuthenticityDocumentation";
-import BundleSelector, { type BundleChoice } from "@/components/shop/BundleSelector";
-import RatingStars from "@/components/shop/RatingStars";
-import { getProductFacts } from "@/lib/productFacts";
-import { useReviewSummaries } from "@/lib/reviewsApi";
-import { getCartLineUnitUSD } from "@shared/product-prices";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
