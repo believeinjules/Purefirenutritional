@@ -19,6 +19,11 @@
       "source": "/research",
       "destination": "/science",
       "statusCode": 301
+    },
+    {
+      "source": "/learn",
+      "destination": "/science",
+      "statusCode": 301
     }
   ]
 }
