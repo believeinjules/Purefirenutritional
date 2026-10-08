@@ -243,9 +243,9 @@ export default function Index() {
                 Explore Products
               </a>
             </Link>
-            <Link href="/about">
+            <Link href="/science">
               <a className="btn-secondary">
-                Who we are
+                See the research
               </a>
             </Link>
           </div>
