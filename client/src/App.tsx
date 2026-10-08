@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
@@ -37,6 +37,11 @@ import ArticleCytomaxesCytogens from "./pages/learn/CytomaxesCytogens";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
+// Store policies (copy in content/policies.ts)
+import PrivacyPolicy from "./pages/policies/Privacy";
+import TermsPolicy from "./pages/policies/Terms";
+import ShippingPolicy from "./pages/policies/Shipping";
+import ReturnsPolicy from "./pages/policies/Returns";
 // Draft page: noindex, not in nav/sitemap until its copy is confirmed.
 import HowToSpotAFake from "./pages/HowToSpotAFake";
 
@@ -88,6 +93,15 @@ function Router() {
       <Route path="/learn/cytomaxes-vs-cytogens" component={ArticleCytomaxesCytogens} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
       <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
+      <Route path="/privacy" component={PrivacyPolicy} />
+      <Route path="/terms" component={TermsPolicy} />
+      <Route path="/shipping" component={ShippingPolicy} />
+      <Route path="/returns" component={ReturnsPolicy} />
+      {/* No Learn index page: the Learn articles' "← Learn" link goes to the Science page.
+          vercel.json 301s /learn → /science for direct visits; this covers in-app clicks. */}
+      <Route path="/learn">
+        <Redirect to="/science" replace />
+      </Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
