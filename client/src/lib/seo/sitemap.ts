@@ -4,6 +4,7 @@
  * (./index.ts) and are never listed.
  */
 import { SPOT_A_FAKE } from "@/content/spotAFake";
+import { POLICY_PATHS } from "@/content/policies";
 import { canonicalUrl } from "./index";
 
 /**
@@ -28,6 +29,8 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/learn/what-are-khavinson-peptide-bioregulators",
   "/learn/cytomaxes-vs-cytogens",
   "/learn/buy-khavinson-peptides-usa",
+  // /privacy, /terms, /shipping, /returns
+  ...POLICY_PATHS,
   ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),
 ];
 
