@@ -38,6 +38,13 @@ export type ProductDoc = {
   seriesInfo: string | null;
   variants: ProductVariantDoc[];
   in_stock: boolean;
+  /** Optional authenticity fields — each renders on the product page only when filled. */
+  manufacturer?: string | null;
+  lotNumber?: string | null;
+  /** YYYY-MM or YYYY-MM-DD */
+  expiryDate?: string | null;
+  /** Certificate of analysis: https:// URL or site path */
+  coaUrl?: string | null;
 };
 
 /** Legacy snake_case fields older admin builds wrote; removed on every save. */
@@ -124,6 +131,28 @@ function variants(value: unknown): ProductVariantDoc[] {
   });
 }
 
+const EXPIRY_RE = /^\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?$/;
+
+/**
+ * Optional authenticity fields (manufacturer, lot, expiry, COA). Only keys
+ * present in the body are returned; empty string / null clears a field.
+ */
+function authenticityFields(
+  b: Record<string, unknown>
+): Pick<ProductDoc, "manufacturer" | "lotNumber" | "expiryDate" | "coaUrl"> {
+  const out: Pick<ProductDoc, "manufacturer" | "lotNumber" | "expiryDate" | "coaUrl"> = {};
+  const present = (k: string) => Object.prototype.hasOwnProperty.call(b, k) && b[k] !== undefined;
+  if (present("manufacturer")) out.manufacturer = nullableStr(b.manufacturer, "manufacturer", 200);
+  if (present("lotNumber")) out.lotNumber = nullableStr(b.lotNumber, "lotNumber", 100);
+  if (present("expiryDate")) {
+    const v = nullableStr(b.expiryDate, "expiryDate", 10);
+    if (v !== null && !EXPIRY_RE.test(v)) fail("expiryDate must be YYYY-MM or YYYY-MM-DD");
+    out.expiryDate = v;
+  }
+  if (present("coaUrl")) out.coaUrl = imageUrl(b.coaUrl, "coaUrl");
+  return out;
+}
+
 /** Validate a full product (create). Returns the exact Firestore doc. */
 export function validateProductInput(body: unknown): ProductDoc {
   if (!body || typeof body !== "object") fail("Request body must be a JSON object");
@@ -160,6 +189,7 @@ export function validateProductInput(body: unknown): ProductDoc {
     seriesInfo: nullableStr(b.seriesInfo, "seriesInfo", 5000),
     variants: variantDocs,
     in_stock: b.in_stock !== false,
+    ...authenticityFields(b),
   };
 }
 
@@ -194,6 +224,7 @@ export function validateProductPatch(body: unknown): Partial<ProductDoc> {
   if (has("usage")) out.usage = nullableStr(b.usage, "usage", 5000);
   if (has("seriesInfo")) out.seriesInfo = nullableStr(b.seriesInfo, "seriesInfo", 5000);
   if (has("in_stock")) out.in_stock = b.in_stock !== false;
+  Object.assign(out, authenticityFields(b));
   if (has("variants")) {
     out.variants = variants(b.variants);
     out.sizes = Math.max(1, out.variants.length);

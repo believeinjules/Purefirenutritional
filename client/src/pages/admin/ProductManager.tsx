@@ -107,6 +107,10 @@ interface ProductFormData {
   seriesInfo: string;
   in_stock: boolean;
   variants: VariantFormData[];
+  manufacturer: string;
+  lotNumber: string;
+  expiryDate: string;
+  coaUrl: string;
 }
 
 const CATEGORIES: Category[] = [
@@ -149,6 +153,10 @@ function emptyForm(): ProductFormData {
     seriesInfo: "",
     in_stock: true,
     variants: [],
+    manufacturer: "",
+    lotNumber: "",
+    expiryDate: "",
+    coaUrl: "",
   };
 }
 
@@ -177,6 +185,10 @@ function productToForm(p: Product): ProductFormData {
       image: v.image,
       imageAlt: v.imageAlt,
     })),
+    manufacturer: p.manufacturer ?? "",
+    lotNumber: p.lotNumber ?? "",
+    expiryDate: p.expiryDate ?? "",
+    coaUrl: p.coaUrl ?? "",
   };
 }
 
@@ -216,6 +228,10 @@ function formToInput(form: ProductFormData): ProductInput {
     seriesInfo: form.seriesInfo.trim() || null,
     in_stock: form.in_stock,
     variants,
+    manufacturer: form.manufacturer.trim() || null,
+    lotNumber: form.lotNumber.trim() || null,
+    expiryDate: form.expiryDate.trim() || null,
+    coaUrl: form.coaUrl.trim() || null,
   };
 }
 
@@ -991,6 +1007,51 @@ export default function ProductManager() {
                 rows={3}
                 placeholder="Part of the Cytomaxes series…"
               />
+            </div>
+
+            {/* Authenticity (each shows on the product page only when filled) */}
+            <div className="space-y-3 rounded-lg border p-3">
+              <div>
+                <Label>Authenticity</Label>
+                <p className="text-xs text-muted-foreground">
+                  Shown to customers only when filled. Leave blank if you don't have the document.
+                </p>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="pm-mfr" className="text-xs">Manufacturer (shows "Imported directly from …, St. Petersburg")</Label>
+                <Input
+                  id="pm-mfr"
+                  value={form.manufacturer}
+                  onChange={(e) => setForm((p) => ({ ...p, manufacturer: e.target.value }))}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor="pm-lot" className="text-xs">Lot number</Label>
+                  <Input
+                    id="pm-lot"
+                    value={form.lotNumber}
+                    onChange={(e) => setForm((p) => ({ ...p, lotNumber: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="pm-exp" className="text-xs">Expiry (YYYY-MM or YYYY-MM-DD)</Label>
+                  <Input
+                    id="pm-exp"
+                    value={form.expiryDate}
+                    placeholder="YYYY-MM"
+                    onChange={(e) => setForm((p) => ({ ...p, expiryDate: e.target.value }))}
+                  />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="pm-coa" className="text-xs">Certificate of analysis URL (https:// or /path)</Label>
+                <Input
+                  id="pm-coa"
+                  value={form.coaUrl}
+                  onChange={(e) => setForm((p) => ({ ...p, coaUrl: e.target.value }))}
+                />
+              </div>
             </div>
 
             {/* In Stock */}
