@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { Link } from "wouter";
+import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -281,6 +282,9 @@ export default function Index() {
 
         </div>
       </section>
+
+      {/* Customer reviews — renders nothing until an approved review exists */}
+      <HomeReviewStrip />
 
       {/* ── Philosophy ────────────────────────────────────────────────────── */}
       <section className="py-20 px-4 bg-white">

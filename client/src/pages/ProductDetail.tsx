@@ -23,6 +23,7 @@ import { useReviewSummaries } from "@/lib/reviewsApi";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import { getProductById } from "@/data/products";
+import ProductReviews from "@/components/reviews/ProductReviews";
 import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
@@ -385,6 +386,8 @@ export default function ProductDetail() {
               </div>
             );
           })()}
+
+          <ProductReviews productId={product.id} />
 
         </div>
       </main>
