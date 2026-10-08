@@ -26,6 +26,7 @@ import AuthAction from "./pages/AuthAction";
 import Peptalk from "./pages/Peptalk";
 import Admin from "./pages/Admin";
 import ProductManager from "./pages/admin/ProductManager";
+import ReviewManager from "./pages/admin/ReviewManager";
 import RequireAdmin from "./components/RequireAdmin";
 import Wishlist from "./pages/Wishlist";
 
@@ -69,6 +70,13 @@ function Router() {
         {() => (
           <RequireAdmin>
             <ProductManager />
+          </RequireAdmin>
+        )}
+      </Route>
+      <Route path="/admin/reviews">
+        {() => (
+          <RequireAdmin>
+            <ReviewManager />
           </RequireAdmin>
         )}
       </Route>
