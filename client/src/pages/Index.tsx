@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SITE_TRUST, isUsableUrl } from "@/data/siteConfig";
 import {
   ArrowRight,
   Brain,
@@ -92,13 +93,19 @@ const pillars = [
   },
 ];
 
-// ─── Trust signals ────────────────────────────────────────────────────────────
+// ─── Why we carry these ───────────────────────────────────────────────────────
 
-const trustSignals = [
-  { stat: "40+", label: "Years of Research", sub: "St. Petersburg Institute of Bioregulation" },
-  { stat: "200+", label: "Clinical Studies", sub: "Peer-reviewed publications" },
-  { stat: "15M+", label: "Patients Supported", sub: "Across clinical applications" },
-  { stat: "100+", label: "Patents Worldwide", sub: "Khavinson peptide bioregulators" },
+const whyWeCarry: { stat: string; label: string; href?: string }[] = [
+  { stat: "40+ years", label: "Research line from the St. Petersburg Institute of Bioregulation and Gerontology" },
+  { stat: "Oral", label: "Capsules. No needles." },
+  { stat: "Short cycles", label: "Taken in short cycles, then paused" },
+  { stat: "Tissue-specific", label: "Each formula is matched to one organ or system" },
+  {
+    stat: "Authorized US Retailer",
+    label: "Sourced directly from the manufacturer",
+    // Links to the authorization document only once its URL is set in siteConfig.
+    href: isUsableUrl(SITE_TRUST.authorizationDocUrl) ? SITE_TRUST.authorizationDocUrl : undefined,
+  },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -437,7 +444,7 @@ export default function Index() {
             }}>
               Khavinson peptide bioregulators: a different class.
             </p>
-            <p style={{ marginBottom: "4px" }}>Short. Tissue-specific. Courses, not shots.</p>
+            <p style={{ marginBottom: "4px" }}>Short. Tissue-specific. Capsules in short cycles, not shots.</p>
             <p>Deeper action. So cells start regulating themselves.</p>
           </div>
           <Link href="/faq">
@@ -460,12 +467,20 @@ export default function Index() {
       {/* ── Trust / Credibility ────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {trustSignals.map(({ stat, label, sub }) => (
-              <div key={label}>
-                <div className="text-4xl font-bold text-orange-600 mb-1">{stat}</div>
-                <div className="font-semibold text-gray-900 text-sm mb-1">{label}</div>
-                <div className="text-gray-400 text-xs">{sub}</div>
+          <p className="section-label mb-8 text-center">Why we carry these</p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+            {whyWeCarry.map(({ stat, label, href }) => (
+              <div key={stat}>
+                <div className="text-2xl font-bold text-orange-600 mb-2">{stat}</div>
+                <div className="text-gray-500 text-xs leading-relaxed">
+                  {href ? (
+                    <a href={href} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      {label}
+                    </a>
+                  ) : (
+                    label
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -498,8 +513,8 @@ export default function Index() {
               {
                 icon: Sparkles,
                 color: "bg-purple-100 text-purple-600",
-                title: "Pharmaceutical Grade",
-                text: "GMP-certified manufacturing. Rigorous quality standards at every step.",
+                title: "Quality you can check",
+                text: "Lot number, expiry, and certificate of analysis listed on every product where available.",
               },
               {
                 icon: Heart,
