@@ -7,6 +7,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import AskPeppyButton from "@/components/guidance/AskPeppyButton";
+import ProtocolTabs, { type ProtocolSelection } from "@/components/guidance/ProtocolTabs";
+import DoctorQuestionsCard from "@/components/guidance/DoctorQuestionsCard";
 import { toast } from 'sonner';
 import { fetchProductById, Product } from "@/lib/productsStorage";
 import ProductImageGallery from "@/components/ProductImageGallery";
@@ -22,6 +25,7 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const [protocolSelection, setProtocolSelection] = useState<ProtocolSelection>({});
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<any>(null);
   const [inWishlist, setInWishlist] = useState(false);
@@ -242,6 +246,12 @@ export default function ProductDetail() {
                   <p className="text-sm text-blue-800 leading-relaxed">{product.usage}</p>
                 </div>
               )}
+
+              <AskPeppyButton
+                productId={product.id}
+                goal={protocolSelection.goal}
+                sex={protocolSelection.sex}
+              />
             </div>
           </div>
 
@@ -282,6 +292,11 @@ export default function ProductDetail() {
                   <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
                 </section>
               )}
+
+              {/* Manufacturer protocol — renders only when reviewed data exists */}
+              <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
+
+              <DoctorQuestionsCard productName={product.name} />
             </div>
 
             {/* Right: benefits */}

@@ -9,6 +9,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { useSearch, useLocation } from "wouter";
+import SystemIntro from "@/components/guidance/SystemIntro";
+import { SHOP_SYSTEMS, SYSTEM_FILTER_PREFIX, getSystem, productInSystem } from "@/data/systems";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import {
@@ -63,11 +66,35 @@ export default function Products() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Shop by system: /products?system=<id> shares the category filter state.
+  const search = useSearch();
+  const [, navigate] = useLocation();
+  const systemParam = new URLSearchParams(search).get("system");
+  const activeSystem = activeCategory.startsWith(SYSTEM_FILTER_PREFIX)
+    ? getSystem(activeCategory.slice(SYSTEM_FILTER_PREFIX.length))
+    : undefined;
+  useEffect(() => {
+    const system = getSystem(systemParam);
+    if (system) setActiveCategory(SYSTEM_FILTER_PREFIX + system.id);
+    else setActiveCategory((c) => (c.startsWith(SYSTEM_FILTER_PREFIX) ? "all" : c));
+  }, [systemParam]);
+  const selectCollection = (value: string) => {
+    setActiveCategory(value);
+    if (value.startsWith(SYSTEM_FILTER_PREFIX)) {
+      navigate(`/products?system=${value.slice(SYSTEM_FILTER_PREFIX.length)}`, { replace: true });
+    } else if (systemParam) {
+      navigate("/products", { replace: true });
+    }
+  };
+
   const filteredAndSorted = useMemo(() => {
     let result = [...products];
 
     if (activeCategory !== "all") {
-      result = result.filter((p) => p.category === activeCategory);
+      const system = activeCategory.startsWith(SYSTEM_FILTER_PREFIX)
+        ? getSystem(activeCategory.slice(SYSTEM_FILTER_PREFIX.length))
+        : undefined;
+      result = result.filter((p) => (system ? productInSystem(p, system) : p.category === activeCategory));
     }
 
     if (searchQuery.trim()) {
@@ -183,7 +210,7 @@ export default function Products() {
                 <button
                   type="button"
                   key={cat.value}
-                  onClick={() => setActiveCategory(cat.value)}
+                  onClick={() => selectCollection(cat.value)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                     isActive
                       ? "bg-gray-900 text-white border-gray-900 shadow-sm"
@@ -198,6 +225,32 @@ export default function Products() {
               );
             })}
           </div>
+
+          {/* Shop by system */}
+          <div className="flex flex-wrap items-center gap-2 -mt-4 mb-8" aria-label="Shop by system">
+            <span className="text-xs uppercase tracking-widest text-gray-400 mr-1">Shop by system</span>
+            {SHOP_SYSTEMS.map((system) => {
+              const value = SYSTEM_FILTER_PREFIX + system.id;
+              const isActive = activeCategory === value;
+              return (
+                <button
+                  type="button"
+                  key={system.id}
+                  onClick={() => selectCollection(isActive ? "all" : value)}
+                  aria-pressed={isActive}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                    isActive
+                      ? "bg-orange-50 text-orange-800 border-orange-200"
+                      : "bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+                  }`}
+                >
+                  {system.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {activeSystem && <SystemIntro system={activeSystem} />}
 
           {/* Results count */}
           <p className="text-sm text-gray-400 mb-5">
