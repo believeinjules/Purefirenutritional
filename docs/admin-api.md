@@ -33,6 +33,8 @@ The client helper is `client/src/lib/adminApi.ts` (`adminFetch`).
 | `GET /api/admin/customers?limit=&after=` | Customers, newest first, totals normalized to `total_orders` / `total_spent` |
 | `POST /api/admin/seed-products` | Import catalog from `products.ts` (see `import-catalog-from-code.md`) |
 
+`orders` and `customers` are served by one function, `api/admin/[collection].ts` (static routes such as `inventory` take precedence; any other name is a 404), to stay within the Vercel Hobby 12-function limit.
+
 Product writes are validated in `api/_lib/admin-products.ts` and stored in the
 same camelCase shape as the catalog seed (`priceUSD`, `variants[]`, …).
 Variant prices are what Stripe checkout charges for 20 / 60 capsule sizes.
