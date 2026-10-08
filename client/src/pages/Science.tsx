@@ -228,19 +228,11 @@ export default function Science() {
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="text-orange-600 font-bold">•</span>
-                      <span>Oncoprotective properties for cellular defense</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-orange-600 font-bold">•</span>
                       <span>Regenerative capabilities for tissue repair</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-orange-600 font-bold">•</span>
                       <span>Antioxidant protection against oxidative stress</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-orange-600 font-bold">•</span>
-                      <span>Supports natural antitumor defenses</span>
                     </li>
                   </ul>
                 </CardContent>
