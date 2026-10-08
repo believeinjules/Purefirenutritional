@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -6,9 +7,13 @@ import Footer from "@/components/Footer";
 export default function ArticleBuyKhavinsonUSA() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <PageSeo
+        title="Where to Buy Khavinson Peptides in the United States | Pure Fire Nutritional"
+        description="Khavinson peptide bioregulators are largely unavailable in the US market. Learn about the authenticity problem with other sources and why Pure Fire Nutritional is an authorized US retailer of authentic Khavinson bioregulators."
+        path="/learn/buy-khavinson-peptides-usa"
+        type="article"
+      />
       <Helmet>
-        <title>Where to Buy Khavinson Peptides in the United States | Pure Fire Nutritional</title>
-        <meta name="description" content="Khavinson peptide bioregulators are largely unavailable in the US market. Learn about the authenticity problem with other sources and why Pure Fire Nutritional is an authorized US retailer of authentic Khavinson bioregulators." />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",

@@ -29,6 +29,7 @@ import ProductManager from "./pages/admin/ProductManager";
 import ReviewManager from "./pages/admin/ReviewManager";
 import RequireAdmin from "./components/RequireAdmin";
 import Wishlist from "./pages/Wishlist";
+import SiteSeo from "./components/seo/SiteSeo";
 
 // Learn articles
 import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
@@ -102,6 +103,7 @@ function App() {
             <WishlistProvider>
               <TooltipProvider>
                 <Toaster />
+                <SiteSeo />
                 <Router />
               </TooltipProvider>
             </WishlistProvider>

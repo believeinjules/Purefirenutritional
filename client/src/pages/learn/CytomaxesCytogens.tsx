@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -6,9 +7,13 @@ import Footer from "@/components/Footer";
 export default function ArticleCytomaxesCytogens() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <PageSeo
+        title="Cytomaxes vs Cytogens: What's the Difference? | Pure Fire Nutritional"
+        description="Understand the difference between natural Cytomaxes and synthetic Cytogens — two types of Khavinson peptide bioregulators — and how to choose between them for your wellness goals."
+        path="/learn/cytomaxes-vs-cytogens"
+        type="article"
+      />
       <Helmet>
-        <title>Cytomaxes vs Cytogens: What's the Difference? | Pure Fire Nutritional</title>
-        <meta name="description" content="Understand the difference between natural Cytomaxes and synthetic Cytogens — two types of Khavinson peptide bioregulators — and how to choose between them for your wellness goals." />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
