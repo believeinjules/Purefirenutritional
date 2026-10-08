@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, Star, ShoppingCart, Plus, Minus, Heart, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,6 +27,9 @@ import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
 import AuthenticityDocumentation from "@/components/documentation/AuthenticityDocumentation";
+import PageSeo from "@/components/seo/PageSeo";
+import { SeoProductContext } from "@/components/seo/SeoProductContext";
+import { productHead } from "@/lib/seo";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -42,6 +44,20 @@ export default function ProductDetail() {
 
   const { addToCart } = useCart();
   const { addItem, removeItem, isInWishlist } = useWishlist();
+  const prerenderProduct = useContext(SeoProductContext);
+
+  // Head tags (title, description, canonical, share card, Product JSON-LD).
+  // Live product once loaded; until then the build-time snapshot (prerender)
+  // or the code catalog, so the tags exist before Firestore answers.
+  const seoProduct =
+    product ??
+    (prerenderProduct && prerenderProduct.id === id ? prerenderProduct : null) ??
+    (id ? getProductById(id) ?? null : null);
+  const seo = seoProduct ? (
+    <PageSeo {...productHead(seoProduct)} />
+  ) : loading ? null : (
+    <PageSeo title="Product Not Found | Pure Fire Nutritional" noindex />
+  );
 
   useEffect(() => {
     loadProduct();
@@ -68,6 +84,7 @@ export default function ProductDetail() {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
+        {seo}
         <Navigation />
         <main className="flex-1 flex items-center justify-center">
           <p className="text-gray-500">Loading product...</p>
@@ -80,6 +97,7 @@ export default function ProductDetail() {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
+        {seo}
         <Navigation />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -142,26 +160,7 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Helmet>
-        <title>{product.name} | Pure Fire Nutritional</title>
-        <meta name="description" content={`${product.name} — ${product.description?.slice(0, 150) ?? "Premium peptide bioregulator from Pure Fire Nutritional."}`.replace(/\s+/g, " ").trim()} />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": product.name,
-          "description": product.description ?? "",
-          "brand": { "@type": "Brand", "name": "Pure Fire Nutritional" },
-          "offers": {
-            "@type": "Offer",
-            "priceCurrency": "USD",
-            "price": typeof currentPrice === "number" && Number.isFinite(currentPrice) ? currentPrice.toFixed(2) : undefined,
-            "availability": (selectedVariant ? selectedVariant.inStock : product.in_stock) !== false
-              ? "https://schema.org/InStock"
-              : "https://schema.org/OutOfStock",
-            "url": `https://www.purefirenutritional.com/products/${product.id}`
-          }
-        })}</script>
-      </Helmet>
+      {seo}
       <Navigation />
       <main className="flex-1">
         <div className="max-w-7xl mx-auto px-4 py-8">

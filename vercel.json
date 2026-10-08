@@ -4,14 +4,21 @@
   "installCommand": "pnpm install",
   "framework": null,
   "outputDirectory": "dist",
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/products/:slug*",
-      "destination": "/products/index.html"
+      "source": "/products/:id(bonomarlot|cartalax|chelohart|crystagen|endoluten|gotratix|pielotax|testoluten|thyreogen|ventfort|vesugen|visoluten|vladonix)-:size(n20|n60)",
+      "destination": "/products/:id",
+      "statusCode": 301
     },
     {
-      "source": "/((?!api|_next|.*\\..*).*)",
-      "destination": "/index.html"
+      "source": "/product/:id",
+      "destination": "/products/:id",
+      "statusCode": 301
+    },
+    {
+      "source": "/research",
+      "destination": "/science",
+      "statusCode": 301
     }
   ]
 }

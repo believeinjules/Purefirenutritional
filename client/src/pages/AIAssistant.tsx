@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
+import PageSeo from "@/components/seo/PageSeo";
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, ShoppingCart, AlertTriangle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -141,10 +141,12 @@ export default function AIAssistant() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Helmet>
-        <title>AI Health Optimizer | Pure Fire Nutritional</title>
-        <meta name="description" content="Use our AI Health Optimizer to find the right peptide bioregulators and longevity supplements for your wellness goals. Personalized recommendations backed by science." />
-      </Helmet>
+      <PageSeo
+        title="AI Health Optimizer | Pure Fire Nutritional"
+        description="Use our AI Health Optimizer to find the right peptide bioregulators and longevity supplements for your wellness goals. Personalized recommendations backed by science."
+        path="/ai-assistant"
+        type="website"
+      />
       <Navigation />
 
       {/* Disclaimer Modal */}

@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
 import { useState, useMemo, useEffect } from "react";
+import PageSeo from "@/components/seo/PageSeo";
 import {
   Search,
   SlidersHorizontal,
@@ -141,10 +141,12 @@ export default function Products() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Helmet>
-        <title>Shop Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional</title>
-        <meta name="description" content="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Authorized US retailer." />
-      </Helmet>
+      <PageSeo
+        title="Shop Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional"
+        description="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Authorized US retailer."
+        path="/products"
+        type="website"
+      />
       <Navigation />
       <FreeShippingBanner />
 

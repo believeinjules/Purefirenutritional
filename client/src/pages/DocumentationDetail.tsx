@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
 import { Link, useParams } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -15,6 +15,7 @@ export default function DocumentationDetail() {
   if (!record) {
     return (
       <div className="min-h-screen flex flex-col bg-[#f6f3ee]">
+        <PageSeo title="Document Not Available | Pure Fire Nutritional" noindex />
         <Navigation />
         <main className="flex-1 max-w-3xl mx-auto px-5 py-24">
           <h1 className="text-2xl text-stone-900">Document not available</h1>
@@ -32,14 +33,12 @@ export default function DocumentationDetail() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f3ee] text-stone-900">
-      <Helmet>
-        <title>{record.seoTitle}</title>
-        <meta
-          name="description"
-          content={`${record.productNameOnCertificate} EAEU Certificate of State Registration ${record.registrationNumber}, dated ${record.registrationDateDisplay}, with an English translation of the original.`}
-        />
-        <link rel="canonical" href={`https://www.purefirenutritional.com/documentation/${record.slug}`} />
-      </Helmet>
+      <PageSeo
+        title={record.seoTitle}
+        description={`${record.productNameOnCertificate} EAEU Certificate of State Registration ${record.registrationNumber}, dated ${record.registrationDateDisplay}, with an English translation of the original.`}
+        path={`/documentation/${record.slug}`}
+        type="website"
+      />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-5 py-12 md:py-16">
