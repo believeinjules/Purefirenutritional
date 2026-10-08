@@ -7,22 +7,45 @@ import {
   ReactNode,
 } from "react";
 import { Product } from "@/data/products";
-import { getUnitPriceUSD } from "@shared/product-prices";
+import { getCartLineUnitUSD } from "@shared/product-prices";
 import { fetchProducts } from "@/lib/productsStorage";
+
+/** 2 or 3 = a cycle bundle of that many bottles; absent = single bottle. */
+export type CartBundle = 2 | 3;
 
 export interface CartItem {
   product: Product;
+  /** Single bottles, or number of bundles when `bundle` is set. */
   quantity: number;
   size?: "20" | "60";
+  bundle?: CartBundle;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (product: Product, quantity: number, size?: "20" | "60") => void;
-  removeFromCart: (productId: string, size?: "20" | "60") => void;
-  updateQuantity: (productId: string, quantity: number, size?: "20" | "60") => void;
+  addToCart: (product: Product, quantity: number, size?: "20" | "60", bundle?: CartBundle) => void;
+  removeFromCart: (productId: string, size?: "20" | "60", bundle?: CartBundle | null) => void;
+  updateQuantity: (
+    productId: string,
+    quantity: number,
+    size?: "20" | "60",
+    bundle?: CartBundle | null
+  ) => void;
   clearCart: () => void;
   getTotal: () => number;
+}
+
+/** Same line = same product + size + bundle (a bundle and single bottles stay separate lines). */
+function sameLine(item: CartItem, productId: string, size?: string, bundle?: CartBundle | null): boolean {
+  return (
+    item.product.id === productId &&
+    (size === undefined || item.size === size) &&
+    (bundle === undefined || (item.bundle ?? null) === (bundle ?? null))
+  );
+}
+
+function normalizeBundle(value: unknown): CartBundle | undefined {
+  return value === 2 || value === 3 ? value : undefined;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -34,6 +57,8 @@ function pricingSignature(p: Partial<Product> | undefined): string {
     p.name,
     p.priceUSD,
     p.image ?? null,
+    p.bundlesEnabled ?? null,
+    p.bundleDiscountsUSD ?? null,
     (p.variants ?? []).map((v) => [v.id, v.name, v.priceUSD, v.inStock !== false]),
   ]);
 }
@@ -49,7 +74,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const saved = localStorage.getItem("cart");
       if (saved) {
         try {
-          setItems(JSON.parse(saved));
+          const parsed = JSON.parse(saved);
+          setItems(
+            Array.isArray(parsed)
+              ? parsed.map((i: CartItem) => {
+                  const bundle = normalizeBundle(i?.bundle);
+                  const { bundle: _drop, ...rest } = i ?? ({} as CartItem);
+                  return bundle ? { ...rest, bundle } : rest;
+                })
+              : []
+          );
         } catch (e) {
           console.error("Failed to parse cart from localStorage", e);
         }
@@ -101,48 +135,44 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items, isLoaded]);
 
-  const addToCart = useCallback((product: Product, quantity: number = 1, size: "20" | "60" = "20") => {
-    setItems((currentItems) => {
-      const existingItem = currentItems.find(
-        (i) => i.product.id === product.id && i.size === size
-      );
+  const addToCart = useCallback(
+    (product: Product, quantity: number = 1, size: "20" | "60" = "20", bundle?: CartBundle) => {
+      const b = normalizeBundle(bundle);
+      setItems((currentItems) => {
+        const existingItem = currentItems.find((i) => sameLine(i, product.id, size, b ?? null));
 
-      if (existingItem) {
-        return currentItems.map((i) =>
-          i.product.id === product.id && i.size === size
-            ? { ...i, quantity: i.quantity + quantity }
-            : i
-        );
+        if (existingItem) {
+          return currentItems.map((i) =>
+            sameLine(i, product.id, size, b ?? null) ? { ...i, quantity: i.quantity + quantity } : i
+          );
+        }
+
+        return [...currentItems, b ? { product, quantity, size, bundle: b } : { product, quantity, size }];
+      });
+    },
+    []
+  );
+
+  const removeFromCart = useCallback(
+    (productId: string, size?: "20" | "60", bundle?: CartBundle | null) => {
+      setItems((currentItems) => currentItems.filter((item) => !sameLine(item, productId, size, bundle)));
+    },
+    []
+  );
+
+  const updateQuantity = useCallback(
+    (productId: string, quantity: number, size?: "20" | "60", bundle?: CartBundle | null) => {
+      if (quantity <= 0) {
+        removeFromCart(productId, size, bundle);
+        return;
       }
 
-      return [...currentItems, { product, quantity, size }];
-    });
-  }, []);
-
-  const removeFromCart = useCallback((productId: string, size?: "20" | "60") => {
-    setItems((currentItems) =>
-      currentItems.filter((item) =>
-        size
-          ? !(item.product.id === productId && item.size === size)
-          : item.product.id !== productId
-      )
-    );
-  }, []);
-
-  const updateQuantity = useCallback((productId: string, quantity: number, size?: "20" | "60") => {
-    if (quantity <= 0) {
-      removeFromCart(productId, size);
-      return;
-    }
-
-    setItems((currentItems) =>
-      currentItems.map((item) =>
-        item.product.id === productId && (size === undefined || item.size === size)
-          ? { ...item, quantity }
-          : item
-      )
-    );
-  }, [removeFromCart]);
+      setItems((currentItems) =>
+        currentItems.map((item) => (sameLine(item, productId, size, bundle) ? { ...item, quantity } : item))
+      );
+    },
+    [removeFromCart]
+  );
 
   // Stable identity + no-op when already empty, so effects that call
   // clearCart (e.g. the checkout success page) cannot loop. Also clears storage
@@ -155,9 +185,36 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((current) => (current.length === 0 ? current : []));
   }, []);
 
+  // A bundle that is no longer offered (e.g. a price change made it undercut a
+  // larger size) becomes the same number of single bottles. Never repriced.
+  useEffect(() => {
+    if (!isLoaded) return;
+    const stale = items.some(
+      (i) => i.bundle && getCartLineUnitUSD(i.product, i.size, i.bundle) === undefined
+    );
+    if (!stale) return;
+    setItems((current) => {
+      const next: CartItem[] = [];
+      for (const item of current) {
+        const unavailable =
+          item.bundle && getCartLineUnitUSD(item.product, item.size, item.bundle) === undefined;
+        const line: CartItem = unavailable
+          ? { product: item.product, size: item.size, quantity: item.quantity * (item.bundle as number) }
+          : item;
+        const at = unavailable
+          ? next.findIndex((n) => sameLine(n, line.product.id, line.size, null))
+          : -1;
+        if (at >= 0) next[at] = { ...next[at], quantity: next[at].quantity + line.quantity };
+        else next.push(line);
+      }
+      return next;
+    });
+  }, [items, isLoaded]);
+
   const getTotal = (): number => {
     return items.reduce((sum, item) => {
-      const unit = getUnitPriceUSD(item.product, item.size);
+      // Bundle lines use the same bundle math as checkout (shared/bundle-pricing.ts).
+      const unit = getCartLineUnitUSD(item.product, item.size, item.bundle);
       if (typeof unit !== "number" || !Number.isFinite(unit)) return sum;
       return sum + unit * item.quantity;
     }, 0);

@@ -5,8 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { getUnitPriceUSD } from "@shared/product-prices";
+import { getCartLineUnitUSD, getUnitPriceUSD } from "@shared/product-prices";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
+import { bundleLabel, getBundleOffer } from "@shared/bundle-pricing";
+import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
+import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
 function formatCartUSD(amount: number | undefined | null): string {
@@ -53,8 +56,13 @@ export default function Cart() {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
-              {items.map((item) => (
-                <Card key={`${item.product.id}-${item.size}`}>
+              {items.map((item) => {
+                const single = getUnitPriceUSD(item.product, item.size);
+                const offer = item.bundle ? getBundleOffer(item.product, single, item.bundle, { size: item.size }) : null;
+                const lineUnit = getCartLineUnitUSD(item.product, item.size, item.bundle);
+                const bundleArg = item.bundle ?? null;
+                return (
+                <Card key={`${item.product.id}-${item.size}-${item.bundle ?? 1}`}>
                   <CardContent className="p-4 flex gap-4">
                     {/* Product Image */}
                     <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded flex items-center justify-center flex-shrink-0">
@@ -70,8 +78,23 @@ export default function Cart() {
                       </Link>
                       <p className="text-sm text-gray-500">{item.product.category}</p>
                       <p className="text-sm text-gray-500">Size: {item.size} caps</p>
+                      {item.bundle && (
+                        <p className="text-sm text-gray-700 mt-1" data-testid="cart-bundle-line">
+                          <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-800 mr-2">
+                            {bundleLabel(item.bundle)}
+                          </span>
+                          {offer
+                            ? `${item.bundle} bottles · $${(offer.discountPerBottleCents / 100).toFixed(2)} off each · you save $${(offer.savingsCents / 100).toFixed(2)}`
+                            : "This bundle is no longer available. Please remove it and add single bottles."}
+                        </p>
+                      )}
                       <p className="text-orange-600 font-bold mt-1">
-                        {formatCartUSD(getUnitPriceUSD(item.product, item.size))}
+                        {formatCartUSD(lineUnit)}
+                        {item.bundle && offer && (
+                          <span className="ml-2 text-xs font-normal text-gray-400 line-through">
+                            {formatCartUSD((offer.singleBottleCents * item.bundle) / 100)}
+                          </span>
+                        )}
                       </p>
                     </div>
 
@@ -82,7 +105,8 @@ export default function Cart() {
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8"
-                          onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.size)}
+                          aria-label="Decrease quantity"
+                          onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.size, bundleArg)}
                         >
                           <Minus className="w-3 h-3" />
                         </Button>
@@ -91,7 +115,8 @@ export default function Cart() {
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8"
-                          onClick={() => updateQuantity(item.product.id, item.quantity + 1, item.size)}
+                          aria-label="Increase quantity"
+                          onClick={() => updateQuantity(item.product.id, item.quantity + 1, item.size, bundleArg)}
                         >
                           <Plus className="w-3 h-3" />
                         </Button>
@@ -100,7 +125,7 @@ export default function Cart() {
                         variant="ghost"
                         size="sm"
                         className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                        onClick={() => removeFromCart(item.product.id, item.size)}
+                        onClick={() => removeFromCart(item.product.id, item.size, bundleArg)}
                       >
                         <Trash2 className="w-4 h-4 mr-1" />
                         Remove
@@ -108,7 +133,8 @@ export default function Cart() {
                     </div>
                   </CardContent>
                 </Card>
-              ))}
+                );
+              })}
 
               <Button variant="outline" onClick={clearCart} className="text-red-500 border-red-500 hover:bg-red-50">
                 Clear Cart
@@ -123,7 +149,7 @@ export default function Cart() {
                   
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-gray-600">
-                      <span>Subtotal ({items.reduce((acc, item) => acc + item.quantity, 0)} items)</span>
+                      <span>Subtotal ({items.reduce((acc, item) => acc + item.quantity * (item.bundle ?? 1), 0)} bottles)</span>
                       <span>{formatCartUSD(getTotal())}</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
@@ -131,6 +157,8 @@ export default function Cart() {
                       <span>{shippingLabel}</span>
                     </div>
                   </div>
+
+                  <FreeShippingBanner variant="card" subtotalUSD={subtotal} className="mb-4" />
 
                   <div className="border-t pt-4 mb-6">
                     <div className="flex justify-between text-lg font-bold">
@@ -141,7 +169,7 @@ export default function Cart() {
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
                     <p className="font-semibold mb-1">Shipping</p>
-                    <p>Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia. Shipping is $19.95, and it is free when the merchandise subtotal is over $150.</p>
+                    <p>Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia. {SHIPPING_RULE_SENTENCE}</p>
                   </div>
 
                   <Link href="/checkout">

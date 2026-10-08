@@ -17,6 +17,9 @@ export interface Product {
   priceUSD: number;
   priceEUR: number;
   rating: number;
+  /** Optional cycle-bundle overrides (shared/commerce-config.ts). Omit = store defaults. */
+  bundlesEnabled?: boolean;
+  bundleDiscountsUSD?: Partial<Record<"2" | "3", number | null>> | null;
   sizes: number;
   image?: string;
   imageAlt?: string;
@@ -26,6 +29,13 @@ export interface Product {
   ingredients?: string[];
   usage?: string;
   seriesInfo?: string;
+  /** Authenticity data — each renders on the product page ONLY when filled. Never guessed. */
+  manufacturer?: string;
+  lotNumber?: string;
+  /** YYYY-MM or YYYY-MM-DD */
+  expiryDate?: string;
+  /** Certificate of analysis link (https:// or /path) */
+  coaUrl?: string;
 }
 
 export const products: Product[] = [
@@ -175,7 +185,7 @@ export const products: Product[] = [
     benefits: ["Most foundational Khavinson longevity peptide", "Melatonin secretion normalization", "Cyclic processes regulation", "Reproductive system regulation", "Immune system support", "Telomere lengthening", "Lifespan extension 30–40% (with Vladonix)"],
     ingredients: ["Pineal gland peptide complex (A-8)"],
     usage: "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format.",
-    seriesInfo: "Vladonix + Endoluten is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson. Clinical studies have shown that long-term use can increase mean lifespan by 20–40%."
+    seriesInfo: "Vladonix + Endoluten is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
       {
@@ -669,7 +679,7 @@ export const products: Product[] = [
     benefits: ["Male reproductive health", "Sperm motility", "Testosterone support", "Testicular function", "Hormonal balance", "Vitality"],
     ingredients: ["Testicular peptide complex (A-13)"],
     usage: "Prevention: 1 capsule twice daily with meals for 30 days. Repeat every 4–6 months.",
-    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Each Cytomax contains a tissue-specific peptide complex that acts as a biological messenger, signaling the corresponding organ's cells to normalize their metabolism and restore functional activity. Clinical studies have shown that long-term use of Cytomaxes can increase mean lifespan by 20–40%, slow age-related biomarker changes, and significantly decrease mortality rates in aging populations. Effects last 4–6 months per course."
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Each Cytomax contains a tissue-specific peptide complex that acts as a biological messenger, signaling the corresponding organ's cells to normalize their metabolism and restore functional activity. Effects last 4–6 months per course."
   ,
     variants: [
       {

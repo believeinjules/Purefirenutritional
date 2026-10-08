@@ -4,14 +4,25 @@ import { ArrowLeft, Star, ShoppingCart, Plus, Minus, Heart, Info } from "lucide-
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ProductAuthenticity from "@/components/trust/ProductAuthenticity";
+import FounderBlock from "@/components/trust/FounderBlock";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import AskPeppyButton from "@/components/guidance/AskPeppyButton";
+import ProtocolTabs, { type ProtocolSelection } from "@/components/guidance/ProtocolTabs";
+import DoctorQuestionsCard from "@/components/guidance/DoctorQuestionsCard";
 import { toast } from 'sonner';
 import { fetchProductById, Product } from "@/lib/productsStorage";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import VariantSelector from "@/components/VariantSelector";
+import BundleSelector, { type BundleChoice } from "@/components/shop/BundleSelector";
+import RatingStars from "@/components/shop/RatingStars";
+import { getProductFacts } from "@/lib/productFacts";
+import { useReviewSummaries } from "@/lib/reviewsApi";
+import { getCartLineUnitUSD } from "@shared/product-prices";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import { getProductById } from "@/data/products";
+import ProductReviews from "@/components/reviews/ProductReviews";
 import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
@@ -24,9 +35,12 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const [protocolSelection, setProtocolSelection] = useState<ProtocolSelection>({});
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<any>(null);
   const [inWishlist, setInWishlist] = useState(false);
+  const [bundle, setBundle] = useState<BundleChoice>(1);
+  const reviewSummaries = useReviewSummaries();
 
   const { addToCart } = useCart();
   const { addItem, removeItem, isInWishlist } = useWishlist();
@@ -110,6 +124,12 @@ export default function ProductDetail() {
     typeof currentPrice === "number" && Number.isFinite(currentPrice)
       ? `$${currentPrice.toFixed(2)}`
       : "Price unavailable";
+  const facts = getProductFacts(product, selectedVariant ? selectedSize : undefined, currentPrice);
+  // Bundle line total (display only; checkout recomputes it server-side).
+  // A bundle that is not offered for the selected size falls back to a single bottle.
+  const bundleOfferTotal = bundle > 1 ? getCartLineUnitUSD(product, selectedSize, bundle) : undefined;
+  const activeBundle: BundleChoice = bundle > 1 && bundleOfferTotal === undefined ? 1 : bundle;
+  const bundleTotal = activeBundle > 1 ? bundleOfferTotal : currentPrice;
   const currentImage = selectedVariant?.image || product.image;
   const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product.images || []);
 
@@ -166,17 +186,23 @@ export default function ProductDetail() {
 
               <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
 
-              {/* Stars */}
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={15} className={i < Math.floor(product.rating || 5) ? "fill-amber-400 text-amber-400" : "text-gray-200"} />
-                ))}
-                <span className="text-sm text-gray-400 ml-1">{product.rating}</span>
-              </div>
+              {/* Stars — approved reviews only; nothing when there are none */}
+              <RatingStars summary={reviewSummaries[product.id]} size={15} href="#reviews" />
 
               {/* Price */}
               <div className="border-t border-b py-4">
                 <div className="text-3xl font-bold text-gray-900">{priceLabel}</div>
+                {(facts.sizeLabel || facts.coverageLabel || facts.costPerDayUSD !== undefined) && (
+                  <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">
+                    {[
+                      facts.sizeLabel,
+                      facts.coverageLabel,
+                      facts.costPerDayUSD !== undefined ? `$${facts.costPerDayUSD.toFixed(2)}/day` : undefined,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
+                )}
               </div>
 
               {/* Variant selector */}
@@ -187,6 +213,16 @@ export default function ProductDetail() {
                   onVariantChange={setSelectedVariant}
                 />
               )}
+
+              {/* Cycle bundles (2 / 3 bottles of the selected size) */}
+              <BundleSelector
+                product={product}
+                singlePriceUSD={currentPrice}
+                size={selectedVariant ? selectedSize : undefined}
+                facts={facts}
+                value={activeBundle}
+                onChange={setBundle}
+              />
 
               {/* Quantity + Add to cart */}
               <div className="flex gap-3">
@@ -205,13 +241,19 @@ export default function ProductDetail() {
                       toast.error("This product's price is unavailable, so it can't be added.");
                       return;
                     }
-                    addToCart(product, quantity, selectedSize);
-                    toast.success('Added to cart!');
+                    if (activeBundle > 1 && bundleTotal === undefined) {
+                      toast.error("This bundle is not available for this size.");
+                      return;
+                    }
+                    addToCart(product, quantity, selectedSize, activeBundle > 1 ? (activeBundle as 2 | 3) : undefined);
+                    toast.success(activeBundle > 1 ? `${activeBundle}-bottle bundle added to cart!` : 'Added to cart!');
                   }}
                   className="flex-1 bg-gray-900 hover:bg-orange-600 transition-colors"
                 >
                   <ShoppingCart className="mr-2" size={16} />
-                  Add to Cart
+                  {activeBundle > 1 && typeof bundleTotal === "number"
+                    ? `Add ${activeBundle} bottles · $${(bundleTotal * quantity).toFixed(2)}`
+                    : "Add to Cart"}
                 </Button>
                 <Button onClick={handleWishlistToggle} variant="outline" size="icon">
                   <Heart size={16} className={inWishlist ? "fill-red-500 text-red-500" : ""} />
@@ -223,6 +265,14 @@ export default function ProductDetail() {
                 <p>If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.</p>
                 <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
               </div>
+
+              {/* Authorized retailer badge + sourcing / lot / expiry / COA (each only when filled) */}
+              <ProductAuthenticity
+                manufacturer={product.manufacturer}
+                lotNumber={product.lotNumber}
+                expiryDate={product.expiryDate}
+                coaUrl={product.coaUrl}
+              />
 
               {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
               {product.category === "PEPTIDE BIOREGULATORS" && (
@@ -241,6 +291,12 @@ export default function ProductDetail() {
                   <p className="text-sm text-blue-800 leading-relaxed">{product.usage}</p>
                 </div>
               )}
+
+              <AskPeppyButton
+                productId={product.id}
+                goal={protocolSelection.goal}
+                sex={protocolSelection.sex}
+              />
             </div>
           </div>
 
@@ -281,6 +337,11 @@ export default function ProductDetail() {
                   <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
                 </section>
               )}
+
+              {/* Manufacturer protocol — renders only when reviewed data exists */}
+              <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
+
+              <DoctorQuestionsCard productName={product.name} />
             </div>
 
             {/* Right: benefits */}
@@ -300,6 +361,9 @@ export default function ProductDetail() {
           </div>
 
           <AuthenticityDocumentation productId={product.id} />
+
+          {/* Founder line — hidden until Julia approves it and a photo is set */}
+          <FounderBlock />
 
           {/* Frequently bought together — catalog-backed companions only */}
           {(() => {
@@ -321,6 +385,8 @@ export default function ProductDetail() {
               </div>
             );
           })()}
+
+          <ProductReviews productId={product.id} />
 
         </div>
       </main>

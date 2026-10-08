@@ -337,7 +337,7 @@ export default function About() {
                 </div>
                 <CardTitle className="text-2xl font-bold text-gray-800">Quality Excellence</CardTitle>
                 <CardDescription className="text-gray-600">
-                  Pharmaceutical-grade manufacturing and third-party testing
+                  Lot number, expiry, and certificate of analysis listed on every product where available.
                 </CardDescription>
               </CardHeader>
               <CardContent>

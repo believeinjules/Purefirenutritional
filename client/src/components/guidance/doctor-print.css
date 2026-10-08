@@ -1,0 +1,39 @@
+/*
+ * Print / Save-as-PDF for the "Questions for your doctor" card only.
+ * Scoped to html.pf-print-doctor, which is set just while that card prints,
+ * so these rules never apply to any other page or print job.
+ */
+@media print {
+  /* keep the job to the card's page(s) instead of the whole hidden page */
+  html.pf-print-doctor,
+  html.pf-print-doctor body {
+    height: auto !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+  html.pf-print-doctor body * {
+    visibility: hidden !important;
+  }
+  html.pf-print-doctor .pf-doctor-card,
+  html.pf-print-doctor .pf-doctor-card * {
+    visibility: visible !important;
+  }
+  html.pf-print-doctor .pf-doctor-card {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 24px !important;
+  }
+  html.pf-print-doctor .pf-doctor-card .pf-no-print {
+    display: none !important;
+  }
+  html.pf-print-doctor .pf-doctor-card .pf-print-only {
+    display: block !important;
+  }
+}
+.pf-doctor-card .pf-print-only {
+  display: none;
+}

@@ -156,7 +156,7 @@ export default function Science() {
 
         <section className="py-12 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-4xl font-bold text-orange-600 mb-2">40+</div>
                 <div className="text-gray-600">Years of Khavinson Research</div>
@@ -166,11 +166,6 @@ export default function Science() {
                 <div className="text-4xl font-bold text-orange-600 mb-2">200+</div>
                 <div className="text-gray-600">Clinical Studies</div>
                 <div className="text-gray-400 text-xs mt-1">Peer-reviewed publications from the research program</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-orange-600 mb-2">15M+</div>
-                <div className="text-gray-600">Patients Supported</div>
-                <div className="text-gray-400 text-xs mt-1">Across clinical applications of the research program</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-orange-600 mb-2">100+</div>

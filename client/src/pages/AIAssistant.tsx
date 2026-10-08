@@ -11,6 +11,16 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { Product, getProductById } from "@/data/products";
 import { composeAssistantReply, type AssistantPhase } from "@/lib/assistantReply";
+import { useSearch } from "wouter";
+import { ClipboardList } from "lucide-react";
+import type { ProtocolGoal, ProtocolSex } from "@/data/protocols";
+import {
+  GOAL_TEXT,
+  doctorQuestionsMessage,
+  parsePeppyParams,
+  peppyPrefill,
+  peppySchedule,
+} from "@/lib/peppyContext";
 
 /** Prefer product default/variant capsule count for cart size. */
 function getDefaultCartSize(product: Product): "20" | "60" {
@@ -46,6 +56,28 @@ export default function AIAssistant() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Hand-off from a product page: /ai-assistant?product=&goal=&sex=
+  const search = useSearch();
+  const params = parsePeppyParams(search, (id) => !!getProductById(id));
+  const contextProduct = params.productId ? getProductById(params.productId) : undefined;
+  const [goal, setGoal] = useState<ProtocolGoal | undefined>(params.goal);
+  const [sex, setSex] = useState<ProtocolSex | undefined>(params.sex);
+  useEffect(() => {
+    setGoal(params.goal);
+    setSex(params.sex);
+    if (contextProduct) setInput(peppyPrefill(contextProduct.name, params.goal));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+  const schedule = contextProduct ? peppySchedule(contextProduct.id, goal, sex) : null;
+
+  const askDoctorQuestions = () => {
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", content: "Questions for my doctor" },
+      { role: "assistant", content: doctorQuestionsMessage(contextProduct?.name) },
+    ]);
+  };
 
   const handleSend = async (preset?: string) => {
     const textIn = (preset ?? input).trim();
@@ -164,6 +196,69 @@ export default function AIAssistant() {
               Ask me about health concerns and I'll recommend products backed by science
             </p>
           </div>
+
+          {/* Product context from the product page */}
+          {contextProduct && (
+            <Card className="mb-4" data-testid="peppy-product-context">
+              <CardContent className="p-4 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm text-gray-700">
+                    Asking about{" "}
+                    <Link href={`/products/${contextProduct.id}`} className="font-semibold text-gray-900 hover:underline">
+                      {contextProduct.name}
+                    </Link>
+                  </p>
+                  <div className="flex flex-wrap gap-1.5" role="group" aria-label="Goal">
+                    {(["preventive", "restorative"] as const).map((g) => (
+                      <button
+                        key={g}
+                        type="button"
+                        aria-pressed={goal === g}
+                        onClick={() => {
+                          setGoal(g);
+                          setInput(peppyPrefill(contextProduct.name, g));
+                        }}
+                        className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                          goal === g ? "border-gray-900 bg-gray-900 text-white" : "border-gray-200 text-gray-600 hover:border-gray-400"
+                        }`}
+                      >
+                        {GOAL_TEXT[g].charAt(0).toUpperCase() + GOAL_TEXT[g].slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {schedule && (
+                  <div className="rounded-lg bg-gray-50 p-3 text-sm">
+                    {schedule.sexSpecific && (
+                      <div className="mb-2 flex gap-1.5" role="group" aria-label="Schedule for">
+                        {(["women", "men"] as const).map((s) => (
+                          <button
+                            key={s}
+                            type="button"
+                            aria-pressed={(sex ?? "women") === s}
+                            onClick={() => setSex(s)}
+                            className={`rounded-full px-3 py-0.5 text-xs ${(sex ?? "women") === s ? "bg-orange-50 text-orange-800" : "text-gray-500"}`}
+                          >
+                            {s === "women" ? "Women's" : "Men's"}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">Manufacturer protocol</p>
+                    <dl className="space-y-1">
+                      {schedule.rows.map((r) => (
+                        <div key={r.label} className="flex justify-between gap-4">
+                          <dt className="text-gray-500">{r.label}</dt>
+                          <dd className="text-gray-900 text-right">{r.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    {schedule.note && <p className="mt-2 text-xs text-gray-500">{schedule.note}</p>}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
 
           {/* Chat Container */}
           <Card className="mb-4">
@@ -303,6 +398,20 @@ export default function AIAssistant() {
                   </div>
                 </div>
               )}
+
+              {/* Quick action: doctor questions */}
+              <div className="mb-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={askDoctorQuestions}
+                  className="text-xs"
+                  data-testid="peppy-doctor-questions"
+                >
+                  <ClipboardList className="w-3.5 h-3.5 mr-1" />
+                  Questions for my doctor
+                </Button>
+              </div>
 
               {/* Input */}
               <div className="flex gap-2">

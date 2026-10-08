@@ -229,10 +229,15 @@ export default function Admin() {
                 Manage reviews, monitor abandoned carts, and track key metrics
               </p>
             </div>
-            <Button onClick={() => setLocation('/admin/products')}>
-              <Package className="mr-2 h-4 w-4" />
-              Manage Products
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setLocation('/admin/reviews')}>
+                Manage Reviews
+              </Button>
+              <Button onClick={() => setLocation('/admin/products')}>
+                <Package className="mr-2 h-4 w-4" />
+                Manage Products
+              </Button>
+            </div>
           </div>
 
           {/* Stats Overview */}

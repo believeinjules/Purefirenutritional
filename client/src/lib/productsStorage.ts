@@ -10,6 +10,7 @@ import {
 import { db, isFirebaseConfigured } from "./firebase";
 import { adminFetch } from "./adminApi";
 import { products as localProducts } from "@/data/products";
+import { readBundleOverrides } from "@shared/bundle-pricing";
 
 export interface ProductVariant {
   id: string;
@@ -29,6 +30,9 @@ export interface Product {
   priceUSD: number;
   priceEUR: number;
   rating: number;
+  /** Optional cycle-bundle overrides (shared/commerce-config.ts). */
+  bundlesEnabled?: boolean;
+  bundleDiscountsUSD?: Partial<Record<"2" | "3", number | null>> | null;
   sizes: number;
   image?: string;
   imageAlt?: string;
@@ -38,6 +42,11 @@ export interface Product {
   seriesInfo?: string;
   in_stock?: boolean;
   variants?: ProductVariant[];
+  /** Authenticity data — rendered only when filled. */
+  manufacturer?: string;
+  lotNumber?: string;
+  expiryDate?: string;
+  coaUrl?: string;
 }
 
 // ─── Firestore doc → Product ──────────────────────────────────────────────────
@@ -51,6 +60,7 @@ function docToProduct(id: string, data: any): Product {
     priceUSD: parseFloat(data.priceUSD ?? data.price_usd) || 0,
     priceEUR: parseFloat(data.priceEUR ?? (data.price_eur ?? 0)) || 0,
     rating: parseFloat(data.rating) || 0,
+    ...readBundleOverrides(data),
     sizes: data.sizes ?? 1,
     image: data.image ?? undefined,
     imageAlt: data.imageAlt ?? data.image_alt ?? undefined,
@@ -60,6 +70,10 @@ function docToProduct(id: string, data: any): Product {
     seriesInfo: (data.seriesInfo ?? data.series_info) || undefined,
     in_stock: data.in_stock !== false,
     variants: data.variants || [],
+    manufacturer: data.manufacturer || undefined,
+    lotNumber: data.lotNumber || undefined,
+    expiryDate: data.expiryDate || undefined,
+    coaUrl: data.coaUrl || undefined,
   };
 }
 
@@ -150,8 +164,12 @@ export async function fetchProductsByCategory(category: string): Promise<Product
 /** Fields the admin form sends; the server validates and normalizes them. */
 export type ProductInput = Omit<
   Product,
-  "id" | "variants" | "image" | "imageAlt" | "usage" | "seriesInfo"
+  "id" | "variants" | "image" | "imageAlt" | "usage" | "seriesInfo" | "manufacturer" | "lotNumber" | "expiryDate" | "coaUrl"
 > & {
+  manufacturer?: string | null;
+  lotNumber?: string | null;
+  expiryDate?: string | null;
+  coaUrl?: string | null;
   variants?: ProductVariant[];
   // null clears the field
   image?: string | null;

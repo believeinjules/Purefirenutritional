@@ -5,8 +5,8 @@ import { shippingCentsForMerchandiseUSD } from "../../shared/shipping-rate.js";
  * POST /api/shipping/rate
  * Body: { merchandiseSubtotalUSD: number }
  * Flat customer shipping. Does not call FedEx and does not invent another rate.
- * $19.95 when the merchandise subtotal is $150.00 or below.
- * Free when the merchandise subtotal is strictly over $150.00.
+ * $19.95 below the free-shipping threshold; free at or above it
+ * (both from shared/commerce-config.ts — currently $19.95 / $150).
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {

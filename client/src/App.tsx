@@ -26,6 +26,7 @@ import AuthAction from "./pages/AuthAction";
 import Peptalk from "./pages/Peptalk";
 import Admin from "./pages/Admin";
 import ProductManager from "./pages/admin/ProductManager";
+import ReviewManager from "./pages/admin/ReviewManager";
 import RequireAdmin from "./components/RequireAdmin";
 import Wishlist from "./pages/Wishlist";
 import SiteSeo from "./components/seo/SiteSeo";
@@ -36,6 +37,8 @@ import ArticleCytomaxesCytogens from "./pages/learn/CytomaxesCytogens";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
+// Draft page: noindex, not in nav/sitemap until its copy is confirmed.
+import HowToSpotAFake from "./pages/HowToSpotAFake";
 
 function Router() {
   return (
@@ -73,10 +76,18 @@ function Router() {
           </RequireAdmin>
         )}
       </Route>
+      <Route path="/admin/reviews">
+        {() => (
+          <RequireAdmin>
+            <ReviewManager />
+          </RequireAdmin>
+        )}
+      </Route>
       <Route path="/wishlist" component={Wishlist} />
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/cytomaxes-vs-cytogens" component={ArticleCytomaxesCytogens} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
+      <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
