@@ -2,6 +2,7 @@
  * Validation for admin product writes (POST/PATCH /api/admin/products).
  * Pure — no Firebase imports — so it is unit-testable.
  */
+import { BUNDLE_DISCOUNT_LIMITS_USD, isAllowedBundleDiscount } from "../../shared/commerce-config.js";
 
 export const PRODUCT_CATEGORIES = [
   "PEPTIDE BIOREGULATORS",
@@ -29,6 +30,9 @@ export type ProductDoc = {
   priceUSD: number;
   priceEUR: number;
   rating: number;
+  /** Optional cycle-bundle overrides (see shared/commerce-config.ts). */
+  bundlesEnabled?: boolean;
+  bundleDiscountsUSD?: Partial<Record<"2" | "3", number | null>> | null;
   sizes: number;
   image: string | null;
   imageAlt: string | null;
@@ -100,6 +104,38 @@ function stringList(value: unknown, field: string): string[] {
     .filter(Boolean);
 }
 
+/**
+ * Optional bundle overrides. bundlesEnabled: false hides bundles for the
+ * product; bundleDiscountsUSD { "2"?, "3"? } sets per-bottle dollars off
+ * (must be $3–$9; null = that bundle size off; omit = store default).
+ */
+function bundleFields(b: Record<string, unknown>): Pick<ProductDoc, "bundlesEnabled" | "bundleDiscountsUSD"> {
+  const out: Pick<ProductDoc, "bundlesEnabled" | "bundleDiscountsUSD"> = {};
+  if (b.bundlesEnabled !== undefined) out.bundlesEnabled = b.bundlesEnabled !== false;
+  if (b.bundleDiscountsUSD === null) out.bundleDiscountsUSD = null;
+  else if (b.bundleDiscountsUSD !== undefined) {
+    const raw = b.bundleDiscountsUSD;
+    if (typeof raw !== "object" || Array.isArray(raw)) fail("bundleDiscountsUSD must be an object");
+    const r = raw as Record<string, unknown>;
+    const discounts: Partial<Record<"2" | "3", number | null>> = {};
+    for (const key of Object.keys(r)) {
+      if (key !== "2" && key !== "3") fail(`bundleDiscountsUSD only accepts "2" and "3"`);
+      const v = r[key];
+      if (v === null || v === "") {
+        discounts[key] = null;
+        continue;
+      }
+      const n = typeof v === "string" ? Number(v) : v;
+      if (!isAllowedBundleDiscount(n)) {
+        fail(`bundleDiscountsUSD["${key}"] must be between $${BUNDLE_DISCOUNT_LIMITS_USD.min} and $${BUNDLE_DISCOUNT_LIMITS_USD.max}`);
+      }
+      discounts[key] = Math.round((n as number) * 100) / 100;
+    }
+    out.bundleDiscountsUSD = Object.keys(discounts).length ? discounts : null;
+  }
+  return out;
+}
+
 function variants(value: unknown): ProductVariantDoc[] {
   if (value === undefined || value === null) return [];
   if (!Array.isArray(value)) fail("variants must be a list");
@@ -158,6 +194,7 @@ export function validateProductInput(body: unknown): ProductDoc {
     ingredients: stringList(b.ingredients, "ingredients"),
     usage: nullableStr(b.usage, "usage", 5000),
     seriesInfo: nullableStr(b.seriesInfo, "seriesInfo", 5000),
+    ...bundleFields(b),
     variants: variantDocs,
     in_stock: b.in_stock !== false,
   };
@@ -193,6 +230,7 @@ export function validateProductPatch(body: unknown): Partial<ProductDoc> {
   if (has("ingredients")) out.ingredients = stringList(b.ingredients, "ingredients");
   if (has("usage")) out.usage = nullableStr(b.usage, "usage", 5000);
   if (has("seriesInfo")) out.seriesInfo = nullableStr(b.seriesInfo, "seriesInfo", 5000);
+  Object.assign(out, bundleFields(b));
   if (has("in_stock")) out.in_stock = b.in_stock !== false;
   if (has("variants")) {
     out.variants = variants(b.variants);

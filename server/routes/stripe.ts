@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 import { logError, logAPICall } from '../logger.js';
 import { CheckoutValidationError, resolveCheckoutLinesWith } from '../../shared/product-prices.js';
 import { loadFirestoreProducts } from '../../api/_lib/catalog.js';
-import { flatStripeShippingOption, shippingCentsForMerchandiseCents } from '../../shared/shipping-rate.js';
+import { buildCheckoutSessionParams } from '../../api/_lib/checkout-session.js';
 
 const router = Router();
 
@@ -48,58 +48,18 @@ router.post('/create-checkout-session', async (req, res) => {
 
     const origin = siteOrigin(req);
 
-    const merchandiseCents = resolved.reduce(
-      (sum, item) => sum + item.unitAmountCents * item.quantity,
-      0
-    );
-    const shippingCents = shippingCentsForMerchandiseCents(merchandiseCents);
-    const shippingOptions = flatStripeShippingOption(merchandiseCents);
     const zip = typeof postalCode === 'string' ? postalCode : '';
-
-    const lineItems = resolved.map((item) => ({
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: item.name,
-          description: item.description || '',
-          images: item.image
-            ? [
-                item.image.startsWith('http')
-                  ? item.image
-                  : `${origin}${item.image.startsWith('/') ? '' : '/'}${item.image}`,
-              ]
-            : [],
-        },
-        unit_amount: item.unitAmountCents,
-      },
-      quantity: item.quantity,
-    }));
-    
-    // Create Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      automatic_tax: { enabled: true },
-      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/cart`,
-      customer_email: customerEmail,
-      client_reference_id: userId?.toString(),
-      metadata: {
-        user_id: userId?.toString() || '',
-        customer_email: customerEmail || '',
-        customer_name: customerName || '',
-        product_ids: resolved.map((r) => r.productId).join(','),
-        ship_to_zip: zip,
-        shipping_quote: (shippingCents / 100).toFixed(2),
-      },
-      allow_promotion_codes: true,
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA', 'GB', 'AU', 'NZ', 'IE'],
-      },
-      shipping_options: shippingOptions,
+    // Same builder as the Vercel route: bundle prices + free shipping computed server-side.
+    const { params, shippingCents } = buildCheckoutSessionParams({
+      resolved,
+      origin,
+      customerEmail: typeof customerEmail === 'string' && customerEmail.trim() ? customerEmail.trim() : undefined,
+      customerName: typeof customerName === 'string' ? customerName.trim() : '',
+      userId,
+      postalCode: zip,
     });
-    
+    const session = await stripe.checkout.sessions.create(params);
+
     logAPICall({
       endpoint: '/api/stripe/create-checkout-session',
       method: 'POST',

@@ -5,6 +5,11 @@
  * "shipping rate unavailable" and never invents a dollar amount.
  */
 
+import {
+  FREE_SHIPPING_THRESHOLD_CENTS_CONFIG,
+  STANDARD_SHIPPING_CENTS_CONFIG,
+} from "./commerce-config.js";
+
 export const FEDEX_REQUIRED_ENV = [
   "FEDEX_API_KEY",
   "FEDEX_SECRET_KEY",
@@ -193,16 +198,17 @@ export function stripeShippingOption(quote: ShippingQuote, postalCode: string) {
 }
 
 /**
- * Customer shipping is a flat $19.95.
- * Free only when the merchandise subtotal is strictly over $150.00.
- * $150.00 (15000 cents) pays $19.95. $150.01 (15001 cents) is free.
+ * Customer shipping is a flat rate (COMMERCE_CONFIG.standardShippingUSD,
+ * $19.95), free when the merchandise subtotal is AT OR ABOVE
+ * COMMERCE_CONFIG.freeShippingThresholdUSD ($150).
+ * The subtotal is what Stripe charges for merchandise (after bundle discounts).
  * This does not call FedEx and does not use any other rate.
  */
-export const STANDARD_SHIPPING_CENTS = 1995;
-export const FREE_SHIPPING_OVER_CENTS = 15000;
+export const STANDARD_SHIPPING_CENTS = STANDARD_SHIPPING_CENTS_CONFIG;
+export const FREE_SHIPPING_THRESHOLD_CENTS = FREE_SHIPPING_THRESHOLD_CENTS_CONFIG;
 
 export function shippingCentsForMerchandiseCents(merchandiseCents: number): number {
-  if (!Number.isFinite(merchandiseCents) || merchandiseCents <= FREE_SHIPPING_OVER_CENTS) {
+  if (!Number.isFinite(merchandiseCents) || merchandiseCents < FREE_SHIPPING_THRESHOLD_CENTS) {
     return STANDARD_SHIPPING_CENTS;
   }
   return 0;
@@ -215,7 +221,13 @@ export function shippingCentsForMerchandiseUSD(subtotalUSD: number): number {
   return shippingCentsForMerchandiseCents(Math.round(subtotalUSD * 100));
 }
 
-/** Always one Stripe shipping option: $19.95, or $0 when the subtotal is over $150. */
+/** Dollars still needed for free shipping (0 when the order already qualifies). */
+export function amountToFreeShippingUSD(subtotalUSD: number): number {
+  const cents = Number.isFinite(subtotalUSD) ? Math.round(subtotalUSD * 100) : 0;
+  return Math.max(0, FREE_SHIPPING_THRESHOLD_CENTS - cents) / 100;
+}
+
+/** Always one Stripe shipping option: the flat rate, or $0 at/above the free-shipping threshold. */
 export function flatStripeShippingOption(merchandiseCents: number) {
   const amount = shippingCentsForMerchandiseCents(merchandiseCents);
   return [

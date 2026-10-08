@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { toast } from "sonner";
 
 // ─── Wellness category data ───────────────────────────────────────────────────
@@ -152,6 +153,7 @@ export default function Index() {
         })}</script>
       </Helmet>
       <Navigation />
+      <FreeShippingBanner />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section style={{ backgroundColor: "#0d0d0d", padding: "72px 24px" }}>

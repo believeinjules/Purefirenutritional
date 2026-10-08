@@ -16,6 +16,8 @@ import {
   ProductListRow,
 } from "@/components/ProductListingCard";
 import { fetchProducts, Product } from "@/lib/productsStorage";
+import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
+import { useReviewSummaries } from "@/lib/reviewsApi";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -55,6 +57,8 @@ export default function Products() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  // Approved-review summaries only (empty until reviews are approved).
+  const reviewSummaries = useReviewSummaries();
 
   useEffect(() => {
     fetchProducts()
@@ -85,11 +89,22 @@ export default function Products() {
       case "name-desc":  result.sort((a, b) => b.name.localeCompare(a.name)); break;
       case "price-asc":  result.sort((a, b) => a.priceUSD - b.priceUSD); break;
       case "price-desc": result.sort((a, b) => b.priceUSD - a.priceUSD); break;
-      case "rating-desc":result.sort((a, b) => b.rating - a.rating); break;
+      case "rating-desc":
+        // Real approved-review averages (then count); unreviewed products keep A–Z order.
+        result.sort((a, b) => {
+          const ra = reviewSummaries[a.id];
+          const rb = reviewSummaries[b.id];
+          return (
+            (rb?.average ?? 0) - (ra?.average ?? 0) ||
+            (rb?.count ?? 0) - (ra?.count ?? 0) ||
+            a.name.localeCompare(b.name)
+          );
+        });
+        break;
     }
 
     return result;
-  }, [products, activeCategory, searchQuery, sortBy]);
+  }, [products, activeCategory, searchQuery, sortBy, reviewSummaries]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: products.length };
@@ -104,6 +119,7 @@ export default function Products() {
         <meta name="description" content="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Authorized US retailer." />
       </Helmet>
       <Navigation />
+      <FreeShippingBanner />
 
       <main className="flex-1">
         {/* Hero Banner */}
@@ -222,13 +238,13 @@ export default function Products() {
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
               {filteredAndSorted.map((product) => (
-                <ProductGridCard key={product.id} product={product} />
+                <ProductGridCard key={product.id} product={product} reviewSummary={reviewSummaries[product.id]} />
               ))}
             </div>
           ) : (
             <div className="flex flex-col gap-3">
               {filteredAndSorted.map((product) => (
-                <ProductListRow key={product.id} product={product} />
+                <ProductListRow key={product.id} product={product} reviewSummary={reviewSummaries[product.id]} />
               ))}
             </div>
           )}
