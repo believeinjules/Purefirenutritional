@@ -44,14 +44,18 @@ const sendOrderConfirmation = vi.fn(async () => true);
 vi.mock("./email.js", () => ({ sendOrderConfirmation: (...a: any[]) => sendOrderConfirmation(...a) }));
 
 let currentEvent: any;
+const defaultLineItems = [{ description: "Bonomarlot (20 Capsules)", quantity: 2, amount_total: 15598 }];
+let currentLineItems: any[] = defaultLineItems;
+let lastListParams: any;
 vi.mock("./stripe.js", () => ({
   getStripe: () => ({
     webhooks: { constructEvent: () => currentEvent },
     checkout: {
       sessions: {
-        listLineItems: async () => ({
-          data: [{ description: "Bonomarlot (20 Capsules)", quantity: 2, amount_total: 15598 }],
-        }),
+        listLineItems: async (_id: string, params: any) => {
+          lastListParams = params;
+          return { data: currentLineItems };
+        },
       },
     },
   }),
@@ -103,6 +107,7 @@ function sessionEvent(overrides: Record<string, any> = {}) {
 describe("stripe webhook checkout.session.completed", () => {
   beforeEach(() => {
     store.clear();
+    currentLineItems = defaultLineItems;
     sendOrderConfirmation.mockClear();
     process.env.STRIPE_SECRET_KEY = "sk_test_x";
     process.env.STRIPE_WEBHOOK_SECRET = "whsec_x";
@@ -158,5 +163,45 @@ describe("stripe webhook checkout.session.completed", () => {
     const customer = store.get("customers/buyer@example.com")!;
     expect(customer.totalOrders).toBe(3);
     expect(customer.totalSpent).toBeCloseTo(255.98);
+  });
+
+  it("records bundle details on the order (from line-item product metadata)", async () => {
+    currentLineItems = [
+      {
+        description: "Vladonix (20 Capsules) — 3-bottle bundle",
+        quantity: 1,
+        amount_total: 15297,
+        price: {
+          product: {
+            object: "product",
+            metadata: {
+              product_id: "vladonix",
+              size: "20",
+              bundle_bottles: "3",
+              single_bottle_cents: "5899",
+              discount_per_bottle_cents: "800",
+            },
+          },
+        },
+      },
+      { description: "Bonomarlot (20 Capsules)", quantity: 1, amount_total: 7799 },
+    ];
+    currentEvent = sessionEvent({ metadata: { bundles: "vladonix:20:3x1" } });
+    await handler(req(), mkRes());
+    expect(lastListParams.expand).toEqual(["data.price.product"]);
+    const order = store.get("orders/cs_live_abc")!;
+    expect(order.bundles).toBe("vladonix:20:3x1");
+    expect(order.items[0]).toMatchObject({
+      name: "Vladonix (20 Capsules) — 3-bottle bundle",
+      product_id: "vladonix",
+      size: "20",
+      bundle_bottles: 3,
+      bottles_total: 3,
+      bundle_discount_per_bottle: 8,
+      single_bottle_price: 58.99,
+      price: 152.97,
+    });
+    // older / non-bundle lines keep working with null bundle fields
+    expect(order.items[1]).toMatchObject({ bundle_bottles: null, bottles_total: 1, product_id: null });
   });
 });

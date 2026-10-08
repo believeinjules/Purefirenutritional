@@ -17,6 +17,9 @@ export interface Product {
   priceUSD: number;
   priceEUR: number;
   rating: number;
+  /** Optional cycle-bundle overrides (shared/commerce-config.ts). Omit = store defaults. */
+  bundlesEnabled?: boolean;
+  bundleDiscountsUSD?: Partial<Record<"2" | "3", number | null>> | null;
   sizes: number;
   image?: string;
   imageAlt?: string;

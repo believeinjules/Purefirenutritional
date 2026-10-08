@@ -13,6 +13,34 @@ export const config = {
   },
 };
 
+/** Order line as stored on orders/{sessionId}.items (bundle fields null for older sessions). */
+export function orderItemFromLineItem(item: Stripe.LineItem) {
+  const product = item.price?.product;
+  const md =
+    product && typeof product === "object" && !("deleted" in product && product.deleted)
+      ? ((product as Stripe.Product).metadata ?? {})
+      : {};
+  const int = (v: string | undefined) => {
+    const n = v === undefined || v === "" ? NaN : Number(v);
+    return Number.isInteger(n) ? n : null;
+  };
+  const quantity = item.quantity || 1;
+  const bundleBottles = int(md.bundle_bottles);
+  const discountCents = int(md.discount_per_bottle_cents);
+  const singleCents = int(md.single_bottle_cents);
+  return {
+    name: item.description || "Product",
+    quantity,
+    price: (item.amount_total || 0) / 100,
+    product_id: md.product_id || null,
+    size: md.size || null,
+    bundle_bottles: bundleBottles && bundleBottles > 1 ? bundleBottles : null,
+    bottles_total: (bundleBottles ?? 1) * quantity,
+    bundle_discount_per_bottle: discountCents && bundleBottles && bundleBottles > 1 ? discountCents / 100 : null,
+    single_bottle_price: singleCents !== null ? singleCents / 100 : null,
+  };
+}
+
 function generateOrderNumber(): string {
   return `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 11).toUpperCase()}`;
 }
@@ -44,12 +72,10 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   const stripe = getStripe();
   const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
     limit: 100,
+    // product.metadata carries product id / size / bundle info set at checkout
+    expand: ["data.price.product"],
   });
-  const items = lineItems.data.map((item) => ({
-    name: item.description || "Product",
-    quantity: item.quantity || 1,
-    price: (item.amount_total || 0) / 100,
-  }));
+  const items = lineItems.data.map(orderItemFromLineItem);
 
   const total = (session.amount_total || 0) / 100;
   let orderNumber = generateOrderNumber();
@@ -91,6 +117,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
             ? session.customer
             : session.customer?.id ?? null,
         items,
+        bundles: session.metadata?.bundles || null,
         subtotal: (session.amount_subtotal || 0) / 100,
         tax: (session.total_details?.amount_tax || 0) / 100,
         shipping: (session.total_details?.amount_shipping || 0) / 100,

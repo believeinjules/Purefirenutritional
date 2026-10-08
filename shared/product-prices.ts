@@ -10,6 +10,13 @@
  * Never trust client-sent `price`.
  */
 import { products } from "../client/src/data/products.js";
+import {
+  BundleInputError,
+  bundleLabel,
+  getBundleOffer,
+  parseBundleSize,
+  type BundleOverrideFields,
+} from "./bundle-pricing.js";
 
 /** Cart convention: "20" = 20-count, "60" = 60-count. */
 export type CartSize = "20" | "60";
@@ -22,7 +29,7 @@ export type PriceableVariant = {
   inStock?: boolean;
 };
 
-export type PriceableProduct = {
+export type PriceableProduct = BundleOverrideFields & {
   id: string;
   name: string;
   description?: string | null;
@@ -37,6 +44,12 @@ export type CheckoutLineInput = {
   size?: string; // "20" | "60" (cart convention)
   variantId?: string;
   quantity: number;
+  /**
+   * Cycle bundle: 2 or 3 bottles of this product/size (missing or 1 = single
+   * bottle). `quantity` then counts bundles. The bundle price is computed here
+   * from the live single-bottle price + COMMERCE_CONFIG — never sent by the client.
+   */
+  bundle?: number | string | null;
   /** Ignored for charging — kept for backwards compatibility with older clients */
   price?: number;
   description?: string;
@@ -52,6 +65,14 @@ export type ResolvedCheckoutLine = {
   unitAmountCents: number;
   quantity: number;
   variantId?: string;
+  /** "20" | "60" when the product is sold in sizes. */
+  size?: CartSize;
+  /** Bottles per unit charged: 1, or 2 / 3 for a cycle bundle. */
+  bundleBottles: number;
+  /** Single-bottle price in cents (before any bundle discount). */
+  singleBottleCents: number;
+  /** Bundle discount per bottle in cents (0 for single bottles). */
+  discountPerBottleCents: number;
 };
 
 /** Thrown for bad client input — callers should map this to HTTP 400. */
@@ -179,21 +200,86 @@ export function resolveLineForProduct(
     throw new CheckoutValidationError(`${product.name} is only sold in one size`);
   }
 
-  const unitPriceUSD = variant ? variant.priceUSD : product.priceUSD;
-  if (!isValidPrice(unitPriceUSD)) {
+  const singlePriceUSD = variant ? variant.priceUSD : product.priceUSD;
+  if (!isValidPrice(singlePriceUSD)) {
     throw new CheckoutValidationError(`Price unavailable for ${product.name}`);
   }
+  const singleBottleCents = Math.round(singlePriceUSD * 100);
+  const baseName = variant ? `${product.name} (${variant.name})` : product.name;
+  const lineSize = variant ? variantCartSize(variant) : undefined;
 
+  let bundleBottles: 1 | 2 | 3;
+  try {
+    bundleBottles = parseBundleSize(item.bundle);
+  } catch (err) {
+    if (err instanceof BundleInputError) {
+      throw new CheckoutValidationError(`Invalid bundle option for ${product.name}`);
+    }
+    throw err;
+  }
+
+  if (bundleBottles === 1) {
+    return {
+      productId: product.id,
+      name: baseName,
+      description: (product.description || "").slice(0, 500),
+      image: (variant?.image || product.image) ?? undefined,
+      unitPriceUSD: singlePriceUSD,
+      unitAmountCents: singleBottleCents,
+      quantity,
+      variantId: variant?.id,
+      size: lineSize,
+      bundleBottles: 1,
+      singleBottleCents,
+      discountPerBottleCents: 0,
+    };
+  }
+
+  const offer = getBundleOffer(product, singlePriceUSD, bundleBottles);
+  if (!offer) {
+    throw new CheckoutValidationError(
+      `${bundleLabel(bundleBottles)} is not available for ${product.name}`
+    );
+  }
   return {
     productId: product.id,
-    name: variant ? `${product.name} (${variant.name})` : product.name,
-    description: (product.description || "").slice(0, 500),
+    name: `${baseName} — ${bundleLabel(bundleBottles)}`,
+    description: `${bundleBottles} bottles, $${(offer.discountPerBottleCents / 100).toFixed(2)} off each. ${(
+      product.description || ""
+    )}`.slice(0, 500),
     image: (variant?.image || product.image) ?? undefined,
-    unitPriceUSD,
-    unitAmountCents: Math.round(unitPriceUSD * 100),
+    unitPriceUSD: offer.bundleCents / 100,
+    unitAmountCents: offer.bundleCents,
     quantity,
     variantId: variant?.id,
+    size: lineSize,
+    bundleBottles,
+    singleBottleCents,
+    discountPerBottleCents: offer.discountPerBottleCents,
   };
+}
+
+/**
+ * Display price (browser) for one cart line: the single-bottle price, or the
+ * whole bundle price for a 2/3-bottle bundle. Same math as checkout. Returns
+ * undefined when the bundle is not offered for this product/price.
+ */
+export function getCartLineUnitUSD(
+  product: PriceableProduct,
+  size?: string,
+  bundle?: number | string | null
+): number | undefined {
+  const single = getUnitPriceUSD(product, size);
+  if (!isValidPrice(single)) return undefined;
+  let bottles: 1 | 2 | 3;
+  try {
+    bottles = parseBundleSize(bundle);
+  } catch {
+    return undefined;
+  }
+  if (bottles === 1) return single;
+  const offer = getBundleOffer(product, single, bottles);
+  return offer ? offer.bundleCents / 100 : undefined;
 }
 
 function assertItems(items: unknown): asserts items is CheckoutLineInput[] {

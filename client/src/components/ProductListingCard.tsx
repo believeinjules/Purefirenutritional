@@ -1,6 +1,8 @@
 import { Link } from "wouter";
-import { Star } from "lucide-react";
 import QuickAddToCart from "@/components/QuickAddToCart";
+import RatingStars from "@/components/shop/RatingStars";
+import { getProductFacts } from "@/lib/productFacts";
+import type { ReviewSummary } from "@shared/reviews";
 
 export type ListingProduct = {
   id: string;
@@ -144,8 +146,34 @@ function FlipImage({ product }: { product: ListingProduct }) {
   );
 }
 
+/**
+ * Bottle size · cycle coverage · cost per day — each part only when the data
+ * exists (variant names + client/src/data/dosing.ts). Renders nothing otherwise.
+ */
+function ProductFactsLine({ product, className = "" }: { product: ListingProduct; className?: string }) {
+  const firstVariant = product.variants?.find((v) => v.inStock !== false) ?? product.variants?.[0];
+  const facts = getProductFacts(product, undefined, firstVariant?.priceUSD ?? product.priceUSD);
+  const parts = [
+    facts.sizeLabel,
+    facts.coverageLabel,
+    typeof facts.costPerDayUSD === "number" ? `$${facts.costPerDayUSD.toFixed(2)}/day` : undefined,
+  ].filter((p): p is string => Boolean(p));
+  if (parts.length === 0) return null;
+  return (
+    <p className={`text-[11px] text-gray-500 leading-snug ${className}`} data-testid="product-facts">
+      {parts.join(" · ")}
+    </p>
+  );
+}
+
 /** Grid card: image flips on hover; title/price/ATC stay visible underneath. */
-export function ProductGridCard({ product }: { product: ListingProduct }) {
+export function ProductGridCard({
+  product,
+  reviewSummary,
+}: {
+  product: ListingProduct;
+  reviewSummary?: ReviewSummary;
+}) {
   const accent = getCategoryAccent(product.category);
 
   return (
@@ -170,22 +198,9 @@ export function ProductGridCard({ product }: { product: ListingProduct }) {
           </p>
         )}
 
-        <div className="flex items-center gap-1 mb-3">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className={`w-3 h-3 ${
-                i < Math.floor(product.rating || 5)
-                  ? "fill-amber-400 text-amber-400"
-                  : "fill-gray-100 text-gray-200"
-              }`}
-              aria-hidden
-            />
-          ))}
-          <span className="text-xs text-gray-400 ml-1">
-            {product.rating?.toFixed(1)}
-          </span>
-        </div>
+        <ProductFactsLine product={product} className="mb-2" />
+        {/* Stars only from approved reviews; nothing when there are none. */}
+        <RatingStars summary={reviewSummary} className="mb-3" />
 
         <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50 gap-2">
           <div>
@@ -201,7 +216,13 @@ export function ProductGridCard({ product }: { product: ListingProduct }) {
 }
 
 /** List row: no flip; same ATC size-chooser behavior. */
-export function ProductListRow({ product }: { product: ListingProduct }) {
+export function ProductListRow({
+  product,
+  reviewSummary,
+}: {
+  product: ListingProduct;
+  reviewSummary?: ReviewSummary;
+}) {
   const accent = getCategoryAccent(product.category);
 
   return (
@@ -245,6 +266,7 @@ export function ProductListRow({ product }: { product: ListingProduct }) {
             <p className="text-xs text-gray-400 line-clamp-2 mb-2">
               {product.description}
             </p>
+            <ProductFactsLine product={product} className="mb-2" />
             {product.benefits && product.benefits.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {product.benefits.slice(0, 3).map((b, i) => (
@@ -265,18 +287,7 @@ export function ProductListRow({ product }: { product: ListingProduct }) {
                 ${product.priceUSD.toFixed(2)}
               </div>
             </div>
-            <div className="flex items-center gap-1.5" aria-hidden>
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`w-3 h-3 ${
-                    i < Math.floor(product.rating || 5)
-                      ? "fill-amber-400 text-amber-400"
-                      : "fill-gray-100 text-gray-200"
-                  }`}
-                />
-              ))}
-            </div>
+            <RatingStars summary={reviewSummary} />
             <div className="flex gap-2">
               <Link href={`/products/${product.id}`}>
                 <button

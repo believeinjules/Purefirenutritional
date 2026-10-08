@@ -8,7 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { getUnitPriceUSD } from "@shared/product-prices";
+import { getCartLineUnitUSD } from "@shared/product-prices";
+import { bundleLabel } from "@shared/bundle-pricing";
+import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 
 function formatCheckoutUSD(amount: number | undefined | null): string {
@@ -49,6 +51,8 @@ export default function Checkout() {
             name: item.product.name,
             quantity: item.quantity,
             size: item.size,
+            // Bundle size only (2 | 3). The server computes the bundle price.
+            ...(item.bundle ? { bundle: item.bundle } : {}),
             // price intentionally omitted as sole source — server looks up catalog
           })),
           customerEmail: formData.email,
@@ -172,7 +176,7 @@ export default function Checkout() {
                 </CardHeader>
                 <CardContent className="text-blue-800 space-y-2">
                   <p>Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia.</p>
-                  <p className="text-sm">Shipping is $19.95. It is free when the merchandise subtotal is over $150.</p>
+                  <p className="text-sm">{SHIPPING_RULE_SENTENCE}</p>
                 </CardContent>
               </Card>
             </div>
@@ -187,15 +191,16 @@ export default function Checkout() {
                   {/* Items */}
                   <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
                     {items.map((item) => {
-                      const unit = getUnitPriceUSD(item.product, item.size);
+                      const unit = getCartLineUnitUSD(item.product, item.size, item.bundle);
                       const lineTotal =
                         typeof unit === "number" && Number.isFinite(unit)
                           ? unit * item.quantity
                           : undefined;
                       return (
-                      <div key={`${item.product.id}-${item.size || "20"}`} className="flex justify-between text-sm">
+                      <div key={`${item.product.id}-${item.size || "20"}-${item.bundle ?? 1}`} className="flex justify-between text-sm">
                         <span>
-                          {item.product.name}{item.size ? ` (${item.size})` : ""} × {item.quantity}
+                          {item.product.name}{item.size ? ` (${item.size})` : ""}
+                          {item.bundle ? ` — ${bundleLabel(item.bundle)}` : ""} × {item.quantity}
                         </span>
                         <span>{formatCheckoutUSD(lineTotal)}</span>
                       </div>

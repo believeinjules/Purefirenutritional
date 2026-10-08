@@ -10,6 +10,7 @@ import {
 import { db, isFirebaseConfigured } from "./firebase";
 import { adminFetch } from "./adminApi";
 import { products as localProducts } from "@/data/products";
+import { readBundleOverrides } from "@shared/bundle-pricing";
 
 export interface ProductVariant {
   id: string;
@@ -29,6 +30,9 @@ export interface Product {
   priceUSD: number;
   priceEUR: number;
   rating: number;
+  /** Optional cycle-bundle overrides (shared/commerce-config.ts). */
+  bundlesEnabled?: boolean;
+  bundleDiscountsUSD?: Partial<Record<"2" | "3", number | null>> | null;
   sizes: number;
   image?: string;
   imageAlt?: string;
@@ -51,6 +55,7 @@ function docToProduct(id: string, data: any): Product {
     priceUSD: parseFloat(data.priceUSD ?? data.price_usd) || 0,
     priceEUR: parseFloat(data.priceEUR ?? (data.price_eur ?? 0)) || 0,
     rating: parseFloat(data.rating) || 0,
+    ...readBundleOverrides(data),
     sizes: data.sizes ?? 1,
     image: data.image ?? undefined,
     imageAlt: data.imageAlt ?? data.image_alt ?? undefined,

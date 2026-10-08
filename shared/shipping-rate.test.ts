@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { COMMERCE_CONFIG } from "./commerce-config";
 import {
+  amountToFreeShippingUSD,
+  FREE_SHIPPING_THRESHOLD_CENTS,
+  STANDARD_SHIPPING_CENTS,
   flatStripeShippingOption,
   missingFedExEnv,
   normalizeUsZip,
@@ -90,19 +94,40 @@ describe("FedEx zip quote", () => {
 });
 
 describe("flat customer shipping", () => {
-  it("charges $19.95 at $150.00 and is free only above that", () => {
+  it("is driven by COMMERCE_CONFIG ($19.95, free at $150)", () => {
+    expect(COMMERCE_CONFIG.standardShippingUSD).toBe(19.95);
+    expect(COMMERCE_CONFIG.freeShippingThresholdUSD).toBe(150);
+    expect(STANDARD_SHIPPING_CENTS).toBe(1995);
+    expect(FREE_SHIPPING_THRESHOLD_CENTS).toBe(15000);
+  });
+
+  it("charges $19.95 below $150.00 and is free at or above it", () => {
     expect(shippingCentsForMerchandiseCents(0)).toBe(1995);
     expect(shippingCentsForMerchandiseCents(14999)).toBe(1995);
-    expect(shippingCentsForMerchandiseCents(15000)).toBe(1995);
+    expect(shippingCentsForMerchandiseCents(15000)).toBe(0);
     expect(shippingCentsForMerchandiseCents(15001)).toBe(0);
-    expect(shippingCentsForMerchandiseUSD(150)).toBe(1995);
-    expect(shippingCentsForMerchandiseUSD(150.0)).toBe(1995);
-    expect(shippingCentsForMerchandiseUSD(150.01)).toBe(0);
+    expect(shippingCentsForMerchandiseUSD(149.99)).toBe(1995);
+    expect(shippingCentsForMerchandiseUSD(150)).toBe(0);
     expect(shippingCentsForMerchandiseUSD(249)).toBe(0);
+    // float-safe: 0.1 + 0.2 style sums still round to cents
+    expect(shippingCentsForMerchandiseUSD(77.99 + 72.01)).toBe(0);
+  });
+
+  it("never treats bad input as free", () => {
+    expect(shippingCentsForMerchandiseCents(NaN)).toBe(1995);
+    expect(shippingCentsForMerchandiseUSD(Number.POSITIVE_INFINITY)).toBe(1995);
+    expect(shippingCentsForMerchandiseUSD("200" as unknown as number)).toBe(1995);
+  });
+
+  it("reports how much is left for free shipping", () => {
+    expect(amountToFreeShippingUSD(0)).toBe(150);
+    expect(amountToFreeShippingUSD(109.98)).toBe(40.02);
+    expect(amountToFreeShippingUSD(150)).toBe(0);
+    expect(amountToFreeShippingUSD(400)).toBe(0);
   });
 
   it("sends one Stripe shipping option of $19.95 or $0", () => {
-    expect(flatStripeShippingOption(15000)).toEqual([
+    expect(flatStripeShippingOption(14999)).toEqual([
       {
         shipping_rate_data: {
           type: "fixed_amount",
@@ -111,7 +136,7 @@ describe("flat customer shipping", () => {
         },
       },
     ]);
-    const free = flatStripeShippingOption(15001);
+    const free = flatStripeShippingOption(15000);
     expect(free).toHaveLength(1);
     expect(free[0].shipping_rate_data.fixed_amount.amount).toBe(0);
     expect(free[0].shipping_rate_data.display_name).toBe("Free shipping");

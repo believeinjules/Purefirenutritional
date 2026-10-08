@@ -114,3 +114,22 @@ describe("admin list normalizers", () => {
     expect(o.items).toEqual([]);
   });
 });
+
+describe("bundle override fields", () => {
+  it("accepts per-bottle discounts inside $3–$9 and the on/off switch", () => {
+    expect(
+      validateProductPatch({ bundlesEnabled: false, bundleDiscountsUSD: { "2": "5", "3": 9 } })
+    ).toEqual({ bundlesEnabled: false, bundleDiscountsUSD: { "2": 5, "3": 9 } });
+    expect(validateProductPatch({ bundleDiscountsUSD: { "3": null } })).toEqual({
+      bundleDiscountsUSD: { "3": null },
+    });
+    expect(validateProductPatch({ bundleDiscountsUSD: null })).toEqual({ bundleDiscountsUSD: null });
+  });
+
+  it("rejects discounts outside $3–$9 or unknown bundle sizes", () => {
+    expect(() => validateProductPatch({ bundleDiscountsUSD: { "2": 2 } })).toThrow(/between \$3 and \$9/);
+    expect(() => validateProductPatch({ bundleDiscountsUSD: { "3": 10 } })).toThrow(/between \$3 and \$9/);
+    expect(() => validateProductPatch({ bundleDiscountsUSD: { "4": 5 } })).toThrow(/only accepts/);
+    expect(() => validateProductPatch({ bundleDiscountsUSD: [5] })).toThrow(/must be an object/);
+  });
+});

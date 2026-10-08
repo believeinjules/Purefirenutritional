@@ -1,4 +1,5 @@
 import type { PriceableProduct, PriceableVariant } from "../../shared/product-prices.js";
+import { readBundleOverrides } from "../../shared/bundle-pricing.js";
 import { getAdminDb } from "./firebase.js";
 
 function toNumber(value: unknown): number {
@@ -54,6 +55,8 @@ export function firestoreDocToPriceable(
     priceUSD: isValidPrice(priceUSD) ? priceUSD : variants[0]!.priceUSD,
     image: typeof data.image === "string" ? data.image : null,
     variants,
+    // Optional per-product bundle overrides (validated again when pricing).
+    ...readBundleOverrides(data),
   };
 }
 
