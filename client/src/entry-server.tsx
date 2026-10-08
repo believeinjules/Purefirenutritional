@@ -10,7 +10,7 @@ import type { SeoProduct } from "./lib/seo";
 export { loadSeoCatalog } from "@shared/seo-catalog";
 export { publishedCertificates } from "./data/certificates";
 export { PRIVATE_ROUTES, SITE_URL, productPath, productHead } from "./lib/seo";
-export { PUBLIC_STATIC_ROUTES, buildSitemapXml, w3cDate } from "./lib/seo/sitemap";
+export { PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES, buildSitemapXml, w3cDate } from "./lib/seo/sitemap";
 
 // Simple static location hook for SSR — no useSyncExternalStore needed
 function makeStaticHook(path: string) {

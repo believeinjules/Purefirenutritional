@@ -65,6 +65,7 @@ export const PRIVATE_ROUTES: Record<string, RouteHead> = {
   "/auth/action": { title: `Account | ${SITE_NAME}`, noindex: true },
   "/admin": { title: `Admin | ${SITE_NAME}`, noindex: true },
   "/admin/products": { title: `Manage Products | ${SITE_NAME}`, noindex: true },
+  "/admin/reviews": { title: `Manage Reviews | ${SITE_NAME}`, noindex: true },
 };
 
 /** Public pages that have no page-level head tags of their own. */

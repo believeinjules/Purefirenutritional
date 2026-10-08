@@ -14,7 +14,8 @@ import {
   routeHead,
   splitSentences,
 } from "./index";
-import { buildSitemapXml, PUBLIC_STATIC_ROUTES } from "./sitemap";
+import { SPOT_A_FAKE } from "@/content/spotAFake";
+import { buildSitemapXml, PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES } from "./sitemap";
 
 const root = path.resolve(__dirname, "../../../..");
 
@@ -107,9 +108,42 @@ describe("routes, robots and sitemap", () => {
   const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
   const appRoutes = new Set(Array.from(app.matchAll(/<Route path="([^"]+)"/g), (m) => m[1]));
 
-  it("every sitemap / private route is a real route in App.tsx", () => {
-    for (const r of [...PUBLIC_STATIC_ROUTES, ...Object.keys(PRIVATE_ROUTES)]) {
+  it("every sitemap / unlisted / private route is a real route in App.tsx", () => {
+    for (const r of [...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES)]) {
       expect(appRoutes.has(r), r).toBe(true);
+    }
+  });
+
+  it("every route in App.tsx is served by the build (prerendered or redirected), so no real page 404s", () => {
+    // There is no catch-all rewrite: a URL with no prerendered file gets dist/404.html with HTTP 404.
+    const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
+    const redirected = new Set<string>(vercel.redirects.map((r: { source: string }) => r.source));
+    // Dynamic routes prerendered from data in prerender.mjs (catalog products, published certificates).
+    const prerenderedFromData = new Set(["/products/:id", "/documentation/:slug"]);
+    const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES)]);
+    const unserved = Array.from(appRoutes).filter(
+      (r) => r !== "/404" && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)
+    );
+    expect(unserved).toEqual([]);
+  });
+
+  it("admin pages are private (noindex, not in the sitemap)", () => {
+    const adminRoutes = Array.from(appRoutes).filter((r) => r === "/admin" || r.startsWith("/admin/"));
+    expect(adminRoutes).toEqual(expect.arrayContaining(["/admin", "/admin/products", "/admin/reviews"]));
+    for (const r of adminRoutes) {
+      expect(PRIVATE_ROUTES[r]?.noindex, r).toBe(true);
+      expect(PUBLIC_STATIC_ROUTES).not.toContain(r);
+    }
+  });
+
+  it("/how-to-spot-a-fake is a real page, but unlisted and noindex while it is a draft", () => {
+    if (SPOT_A_FAKE.published) {
+      expect(PUBLIC_STATIC_ROUTES).toContain("/how-to-spot-a-fake");
+      expect(UNLISTED_ROUTES).not.toContain("/how-to-spot-a-fake");
+    } else {
+      expect(UNLISTED_ROUTES).toContain("/how-to-spot-a-fake");
+      expect(PUBLIC_STATIC_ROUTES).not.toContain("/how-to-spot-a-fake");
+      expect(routeHead("/how-to-spot-a-fake")).toBeUndefined(); // the page sets its own title + noindex
     }
   });
 

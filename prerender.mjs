@@ -5,6 +5,8 @@
  *    articles and one page per catalog product — so the raw HTML already has
  *    the page's own <title>, meta description, canonical, Open Graph / Twitter
  *    tags and JSON-LD (Product structured data on product pages).
+ *  - Prerenders unlisted draft pages (e.g. /how-to-spot-a-fake): real pages
+ *    that carry their own noindex and stay out of the sitemap.
  *  - Writes noindex shells for private routes (cart, checkout, account, admin).
  *  - Writes dist/404.html (served by Vercel with a real 404 status for any URL
  *    that is not a page) and dist/sitemap.xml generated from the same catalog.
@@ -79,6 +81,12 @@ async function prerender() {
   for (const route of publicRoutes) {
     writeFile(outPathFor(route), renderRoute(route));
     console.log(`Prerendered: ${route}`);
+  }
+
+  // ── Unlisted public pages (drafts: noindex set by the page, not in sitemap) ─
+  for (const route of ssr.UNLISTED_ROUTES) {
+    writeFile(outPathFor(route), renderRoute(route));
+    console.log(`Prerendered (unlisted): ${route}`);
   }
 
   // ── Product pages ─────────────────────────────────────────────────────────

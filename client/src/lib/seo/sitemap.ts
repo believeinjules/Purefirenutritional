@@ -3,7 +3,17 @@
  * prerender.mjs). Private / transactional routes live in PRIVATE_ROUTES
  * (./index.ts) and are never listed.
  */
+import { SPOT_A_FAKE } from "@/content/spotAFake";
 import { canonicalUrl } from "./index";
+
+/**
+ * Public pages that can be held back as drafts. While unpublished the page
+ * renders `noindex` itself, so it is prerendered (a real page, not a 404) but
+ * left out of the sitemap. Once published it joins PUBLIC_STATIC_ROUTES.
+ */
+const DRAFTABLE_ROUTES: Array<{ path: string; published: boolean }> = [
+  { path: "/how-to-spot-a-fake", published: SPOT_A_FAKE.published },
+];
 
 /** Static public pages (each one is a real route in App.tsx). */
 export const PUBLIC_STATIC_ROUTES: string[] = [
@@ -18,7 +28,11 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/learn/what-are-khavinson-peptide-bioregulators",
   "/learn/cytomaxes-vs-cytogens",
   "/learn/buy-khavinson-peptides-usa",
+  ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),
 ];
+
+/** Real public pages that are not listed in the sitemap (unpublished drafts, noindex). */
+export const UNLISTED_ROUTES: string[] = DRAFTABLE_ROUTES.filter((r) => !r.published).map((r) => r.path);
 
 export type SitemapEntry = { path: string; lastmod?: string };
 
