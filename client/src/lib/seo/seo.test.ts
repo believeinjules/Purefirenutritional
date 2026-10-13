@@ -207,23 +207,23 @@ describe("vercel.json redirects", () => {
   });
 });
 
-describe("/blog index", () => {
+describe("/articles index", () => {
   const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
-  const blog = fs.readFileSync(path.join(root, "client/src/pages/Blog.tsx"), "utf8");
+  const page = fs.readFileSync(path.join(root, "client/src/pages/Articles.tsx"), "utf8");
   const nav = fs.readFileSync(path.join(root, "client/src/components/Navigation.tsx"), "utf8");
 
   it("is a real, prerendered, sitemap-listed public route", () => {
-    expect(app).toContain('<Route path="/blog" component={Blog} />');
-    expect(PUBLIC_STATIC_ROUTES).toContain("/blog");
-    expect(UNLISTED_ROUTES).not.toContain("/blog");
-    expect(PRIVATE_ROUTES["/blog"]).toBeUndefined();
-    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/blog")}</loc>`);
+    expect(app).toContain('<Route path="/articles" component={Articles} />');
+    expect(PUBLIC_STATIC_ROUTES).toContain("/articles");
+    expect(UNLISTED_ROUTES).not.toContain("/articles");
+    expect(PRIVATE_ROUTES["/articles"]).toBeUndefined();
+    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/articles")}</loc>`);
   });
 
   it("sets its own title, meta description and canonical", () => {
-    expect(blog).toMatch(/<PageSeo title=\{BLOG_TITLE\} description=\{BLOG_DESCRIPTION\} path="\/blog" \/>/);
-    expect(blog).toContain('"Blog | Pure Fire Nutritional"');
-    expect(canonicalUrl("/blog")).toBe("https://www.purefirenutritional.com/blog");
+    expect(page).toMatch(/<PageSeo title=\{ARTICLES_TITLE\} description=\{ARTICLES_DESCRIPTION\} path="\/articles" \/>/);
+    expect(page).toContain('"Articles | Pure Fire Nutritional"');
+    expect(canonicalUrl("/articles")).toBe("https://www.purefirenutritional.com/articles");
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
@@ -238,9 +238,17 @@ describe("/blog index", () => {
     }
   });
 
-  it("the Science nav submenu is just Science + Blog (no per-article links)", () => {
+  it("the Science nav submenu is just Science + Articles (no per-article links)", () => {
     expect(nav).toContain('{ label: "Science", href: "/science" }');
-    expect(nav).toContain('{ label: "Blog", href: "/blog" }');
+    expect(nav).toContain('{ label: "Articles", href: "/articles" }');
     expect(nav).not.toContain("LEARN_ARTICLES");
+    expect(nav).not.toMatch(/blog/i);
+  });
+
+  it("/learn 301s to /articles and there is no /blog route", () => {
+    const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
+    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/articles", statusCode: 301 });
+    expect(app).not.toContain('"/blog"');
+    expect(PUBLIC_STATIC_ROUTES).not.toContain("/blog");
   });
 });

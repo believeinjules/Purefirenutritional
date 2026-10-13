@@ -1,8 +1,8 @@
-/** Hand-written Learn articles (client/src/pages/learn/*), listed on the /blog index page. */
+/** Hand-written Learn articles (client/src/pages/learn/*), listed on the /articles index page. */
 export type LearnArticle = {
   title: string;
   href: string;
-  /** One-line summary shown on the /blog index. */
+  /** One-line summary shown on the /articles index. */
   description: string;
   /** Optional cover image (site paths). */
   cover?: { jpg: string; webp?: string; alt: string };

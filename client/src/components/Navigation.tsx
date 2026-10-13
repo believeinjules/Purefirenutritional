@@ -7,7 +7,7 @@ import { useWishlist } from "@/contexts/WishlistContext";
 /** Items under the Science dropdown (desktop) and Science submenu (mobile). */
 const SCIENCE_SUBMENU = [
   { label: "Science", href: "/science" },
-  { label: "Blog", href: "/blog" },
+  { label: "Articles", href: "/articles" },
 ];
 
 export default function Navigation() {
