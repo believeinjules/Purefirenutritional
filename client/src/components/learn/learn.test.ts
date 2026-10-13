@@ -14,8 +14,8 @@ import { askPepitaHref } from "./AskPepitaChip";
 import {
   BODY_SYSTEMS,
   FAMILIES,
-  FOUNDATION_STUDY_IDS,
-  learnStudy,
+  RESEARCH_LIST_IDS,
+  researchList,
   productsForSystem,
   productsInFamily,
 } from "./learnData";
@@ -102,24 +102,26 @@ describe("Tabs", () => {
   });
 });
 
-describe("learn sources and copy", () => {
-  it("every cited study exists in the research registry with its verbatim title", () => {
-    const ids = new Set([...FOUNDATION_STUDY_IDS, ...BODY_SYSTEMS.flatMap((s) => s.studyIds), "pmid:24003726", "pmid:37686182", "pmid:32399807", "pmid:18306703", "pmid:33396470", "pmid:29124531"]);
-    for (const id of Array.from(ids)) {
+describe("learn sources and copy (light page)", () => {
+  it("research list = the seven approved PMIDs, registry titles verbatim", () => {
+    const list = researchList();
+    expect(list.map((s) => s.pmid)).toEqual(["34834147", "31598715", "14977407", "24007794", "16076145", "35887081", "36979488"]);
+    for (const id of RESEARCH_LIST_IDS) {
       const reg = RESEARCH_REGISTRY.find((r) => r.id === id)!;
-      expect(reg, id).toBeTruthy();
-      expect(learnStudy(id).source.title).toBe(reg.title);
-      expect(learnStudy(id).source.url).toBe(`https://pubmed.ncbi.nlm.nih.gov/${reg.pmid}/`);
+      expect(list.find((s) => s.id === id)!.title).toBe(reg.title);
     }
-  });
-
-  it("no forbidden claim language in rendered explorers", () => {
-    const html = [ComparisonTabs, ProductFamilyExplorer, BodySystemExplorer].map((C) => renderToStaticMarkup(createElement(C))).join(" ");
-    expect(html).not.toMatch(/oncoprotect|clinically proven|\bcures?\b/i);
+    for (const s of list) expect(s.url).toBe(`https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`);
   });
 
   it("Ask Pepita links prefill /ai-assistant?q=", () => {
     expect(askPepitaHref("What is a peptide?")).toBe("/ai-assistant?q=What+is+a+peptide%3F");
+  });
+
+  it("explorers and comparison: no study links, figures, disease words or dosing", () => {
+    const html = [ComparisonTabs, ProductFamilyExplorer, BodySystemExplorer].map((C) => renderToStaticMarkup(createElement(C))).join(" ");
+    expect(html).not.toMatch(/pubmed|PMID/i);
+    expect(html).not.toMatch(/\d+\s?%|mortality|lifespan|tumou?r|alzheimer|covid|atheroscl|oncoprotect|clinically proven|\bcures?\b/i);
+    expect(html).not.toMatch(/\b\d+\s*(months?|weeks?|days?)\b|cycles? (per|a) year|capsules? (daily|a day)/i);
   });
 });
 

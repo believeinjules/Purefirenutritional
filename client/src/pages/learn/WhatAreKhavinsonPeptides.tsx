@@ -9,16 +9,25 @@ import MoleculeChain from "@/components/learn/MoleculeChain";
 import ComparisonTabs from "@/components/learn/ComparisonTabs";
 import AskPepitaChip from "@/components/learn/AskPepitaChip";
 import AskPepitaDock from "@/components/learn/AskPepitaDock";
-import Cite from "@/components/learn/Cite";
+import ResearchList from "@/components/learn/ResearchList";
+import { Dna, GitCompareArrows, Pill, Shrink, Waypoints } from "lucide-react";
 import { pillClass } from "@/components/learn/Tabs";
 import Deferred from "@/components/learn/Deferred";
-import { ClaimTag } from "@/components/learn/EvidenceBadge";
 import "@/components/learn/learn.css";
 
 const BelowFold = lazy(() => import("@/components/learn/BelowFold"));
 
+/** Science cards: final copy from Research (2026-10-13), verbatim. "Proposed" on cards 2 and 4 only. */
+const BEATS: { Icon: typeof Dna; title: string; text: string; note?: string }[] = [
+  { Icon: Dna, title: "Your genes take direction", text: "Every cell carries the same DNA, but each tissue switches on only the genes it needs. Small signals inside the cell help decide which genes are active and when." },
+  { Icon: Waypoints, title: "Bioregulators are tiny signals", note: "Proposed", text: "Bioregulators are very short peptides, just 2 to 7 amino acids long. Researchers propose that they reach the cell's nucleus and help guide which genes switch on, the way the body's own signals do." },
+  { Icon: Shrink, title: "Small is different from big", text: "Large proteins, like insulin, get broken down by digestion, which is why many of them have to be injected. The gut has natural carriers built to absorb very short peptides, so tiny peptides are a different story." },
+  { Icon: Pill, title: "Made to be taken by mouth", note: "Proposed", text: "That's why bioregulators are made as capsules and under-the-tongue forms rather than shots. Scientists are still studying exactly how each one is absorbed." },
+  { Icon: GitCompareArrows, title: "Cytomax vs Cytogen", text: "Cytomaxes are natural peptide complexes taken from young animal tissue, matched to one organ or system. Cytogens are single, lab-made peptide sequences, a precise copy of one signal." },
+];
+
 const DESCRIPTION =
-  "An interactive guide to Khavinson peptide bioregulators: what short peptides are, how Cytomaxes and Cytogens differ, the product families, and the research — with study types and limitations.";
+  "A short, interactive introduction to Khavinson peptide bioregulators: what short peptides are, how they are thought to work, how Cytomaxes and Cytogens differ, and the product families.";
 
 export default function ArticleKhavinsonPeptides() {
   // Old links (/learn/cytomaxes-vs-cytogens 301, FAQ) land on #cytomaxes-vs-cytogens; the
@@ -61,16 +70,15 @@ export default function ArticleKhavinsonPeptides() {
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#E06050]">Education · Interactive guide</span>
             <h1 className="mt-2 text-4xl leading-tight text-gray-900 sm:text-5xl">What Are Khavinson Peptide Bioregulators?</h1>
             <p className="mt-5 text-lg leading-relaxed text-gray-700">
-              Peptide bioregulators are short chains of amino acids studied as signals that help tissues keep up their normal regulatory function. Here's the idea in plain terms first — then, if you want, the science underneath.
+              Peptide bioregulators are short chains of amino acids studied as signals that help tissues keep up their normal regulatory function. Here's the basic idea, in plain terms.
             </p>
             <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2 text-sm">
               {[
                 ["basics", "The basics"],
-                ["deeper", "Going deeper"],
+                ["deeper", "How it may work"],
                 ["cytomaxes-vs-cytogens", "Cytomaxes vs Cytogens"],
                 ["product-families", "Product families"],
                 ["body-systems", "Body systems"],
-                ["study-library", "Studies"],
               ].map(([id, label]) => (
                 <a key={id} href={`#${id}`} className={pillClass(false)}>
                   {label}
@@ -79,12 +87,12 @@ export default function ArticleKhavinsonPeptides() {
             </nav>
           </header>
 
-          <Section id="basics" eyebrow="Level 1 · The simple version" title="Small signals, matched to tissues" topic="What peptides and amino-acid chains are">
+          <Section id="basics" eyebrow="The basics" title="Small signals, matched to tissues" topic="What peptides and amino-acid chains are">
             <div className="grid gap-6 sm:grid-cols-[1fr_240px] sm:items-center">
               <ol className="space-y-4 text-gray-700">
                 <li>
                   <p className="font-medium text-gray-900">1. Peptides are short chains of amino acids.</p>
-                  <p className="text-sm">The bioregulator peptides in this research are usually 2–7 amino acids long — far shorter than a protein.<Cite id="pmid:34834147" /></p>
+                  <p className="text-sm">Usually 2–7 amino acids long — far shorter than a protein.</p>
                 </li>
                 <li>
                   <p className="font-medium text-gray-900">2. Each one is matched to a tissue.</p>
@@ -92,7 +100,7 @@ export default function ArticleKhavinsonPeptides() {
                 </li>
                 <li>
                   <p className="font-medium text-gray-900">3. It comes from a long research program.</p>
-                  <p className="text-sm">The products were developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson.</p>
+                  <p className="text-sm">The products build on decades of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson.</p>
                 </li>
               </ol>
               <MoleculeChain variant="chain" className="mx-auto w-full max-w-[260px]" />
@@ -102,48 +110,24 @@ export default function ArticleKhavinsonPeptides() {
             </div>
           </Section>
 
-          <Section id="deeper" eyebrow="Level 2 · Going deeper" title="What's proposed, and what's been shown" topic="How peptide bioregulators are proposed to work">
-            <p className="mb-5 text-gray-700">
-              Science moves from ideas to evidence. Below, each statement is labelled: a <strong>proposed mechanism</strong> is a hypothesis researchers are testing; a <strong>research finding</strong> is what a specific study reported — with the kind of study it was.
-            </p>
-            <ul className="space-y-4 text-gray-700">
-              <li className="rounded-xl border border-gray-200 p-4">
-                <ClaimTag kind="proposed" />
-                Di- and tripeptides can be carried into cells by PEPT1/PEPT2 and LAT transporters, which may be relevant to how oral short peptides are absorbed.<Cite id="pmid:35887081" />
-              </li>
-              <li className="rounded-xl border border-gray-200 p-4">
-                <ClaimTag kind="proposed" />
-                Short peptides are proposed to enter cell nuclei and influence gene expression.<Cite id="pmid:34834147" />
-              </li>
-              <li className="rounded-xl border border-gray-200 p-4">
-                <ClaimTag kind="shown" />
-                In a computer-modelling study, a small set of dipeptides could bind specific DNA sequences — this shows plausibility, not an effect in people.<Cite id="pmid:31598715" />
-              </li>
-              <li className="rounded-xl border border-gray-200 p-4">
-                <ClaimTag kind="shown" />
-                The pineal extract Epithalamin increased mean lifespan by 11–31% in fruit flies, some mouse strains and rats (no effect in one mouse strain).<Cite id="pmid:9701766" />
-              </li>
-              <li className="rounded-xl border border-gray-200 p-4">
-                <ClaimTag kind="shown" />
-                In 266 older adults followed for 6–8 years, groups given injectable Thymalin and/or Epithalamin had lower reported mortality than controls. The trial was small, by the developers, and used injectable extracts — not oral supplements.<Cite id="pmid:14523363" />
-              </li>
-            </ul>
-
-            <details className="group mt-6 rounded-xl border border-gray-200 bg-gray-50 open:bg-white">
-              <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 py-3 font-medium text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] [&::-webkit-details-marker]:hidden">
-                Level 3 · Technical notes: named peptide sequences
-                <span aria-hidden className="text-gray-400 transition-transform group-open:rotate-45">＋</span>
-              </summary>
-              <div className="space-y-3 px-4 pb-4 text-sm text-gray-700">
-                <p><strong>AEDG</strong> (Ala-Glu-Asp-Gly, synthetic Epitalon) was identified inside the natural pineal polypeptide complex by mass spectrometry.<Cite id="pmid:29124531" /></p>
-                <p><strong>EDR</strong> (Pinealon) has been studied mainly in cell and animal models of neurons.<Cite id="pmid:33396470" /></p>
-                <p><strong>AED</strong> (Ala-Glu-Asp, T-31) is the tripeptide in Cartalax; it was studied in stem-cell cultures and rats.<Cite id="pmid:32399807" /><Cite id="pmid:18306703" /></p>
-                <p><strong>KE and EW</strong> are dipeptides in the injectable drug Thymalin, studied in laboratory models.<Cite id="pmid:37686182" /></p>
-                <p className="text-gray-500">A result for one named peptide applies to that peptide, at that dose, in that model. It does not show that a different peptide or formulation works.</p>
-              </div>
-            </details>
+          <Section id="deeper" eyebrow="How it may work" title="The science, in plain terms" topic="How peptide bioregulators are proposed to work">
+            <ol className="grid gap-3 sm:grid-cols-2">
+              {BEATS.map(({ Icon, title, text, note }, i) => (
+                <li key={i} className="flex gap-3 rounded-2xl border border-gray-200 p-4">
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#FBE7E4] text-[#E06050]" aria-hidden>
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-lg leading-snug text-gray-900">{title}</h3>
+                    <span className="mt-1 block text-sm leading-relaxed text-gray-700">{text}</span>
+                    {note ? <span className="mt-1.5 inline-block text-[11px] uppercase tracking-wider text-gray-500">{note}</span> : null}
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <ResearchList />
             <div className="mt-6">
-              <AskPepitaChip question="Give me the technical version: how are short peptides proposed to regulate gene expression, and what is still unproven?" />
+              <AskPepitaChip question="Explain in simple terms how peptide bioregulators are thought to work, and what is still unproven." />
             </div>
           </Section>
 
@@ -156,12 +140,12 @@ export default function ArticleKhavinsonPeptides() {
             <div className="mt-8 rounded-2xl border border-gray-200 p-5">
               <h3 className="text-2xl text-gray-900">How people choose</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-700">
-                There is no single right answer, and the lines aren't mutually exclusive. Cytomaxes are complexes matched to an organ. Cytogens are defined sequences and aren't animal-derived. Revilab formulas combine several peptide complexes with nutrients. If you're unsure where to begin, Pepita can walk you through the options, or you can browse the full <Link href="/products" className="text-orange-600 hover:underline">catalog</Link>.
+                There is no single right answer, and the lines aren't mutually exclusive. Cytomaxes are complexes derived from young animal tissue and matched to an organ. Cytogens are defined sequences and aren't animal-derived. Revilab formulas combine several peptide complexes with nutrients. If you're unsure where to begin, Pepita can walk you through the options, or you can browse the full <Link href="/products" className="text-orange-600 hover:underline">catalog</Link>.
               </p>
             </div>
           </Section>
 
-          <Deferred eagerIds={["product-families", "body-systems", "study-library"]}>
+          <Deferred eagerIds={["product-families", "body-systems"]}>
             <Suspense fallback={<div style={{ minHeight: 600 }} aria-busy="true" />}>
               <BelowFold />
             </Suspense>

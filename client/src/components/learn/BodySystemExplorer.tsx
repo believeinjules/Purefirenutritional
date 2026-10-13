@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { pillClass } from "./Tabs";
 import ProductLinks from "./ProductLinks";
-import StudyReference from "./StudyReference";
 import AskPepitaChip from "./AskPepitaChip";
-import { BODY_SYSTEMS, learnStudy, productsForSystem } from "./learnData";
+import { BODY_SYSTEMS, productsForSystem } from "./learnData";
 import type { Product } from "@/data/products";
 
-/** Interactive body map: pick a system to see related products and the research behind them. */
+/** Interactive body map: pick a system to see related products. No study links (light page). */
 export default function BodySystemExplorer({ catalog }: { catalog?: readonly Product[] }) {
   const [active, setActive] = useState(BODY_SYSTEMS[0].id);
   const sys = BODY_SYSTEMS.find((s) => s.id === active)!;
@@ -61,13 +60,6 @@ export default function BodySystemExplorer({ catalog }: { catalog?: readonly Pro
             <ProductLinks items={items} />
           </div>
         ) : null}
-        <p className="mb-2 mt-5 text-xs font-medium uppercase tracking-wider text-gray-400">Research</p>
-        <p className="mb-3 rounded-lg bg-gray-50 p-3 text-sm text-gray-600">{sys.studiedNote}</p>
-        <div className="space-y-2">
-          {sys.studyIds.map((id) => (
-            <StudyReference key={id} study={learnStudy(id)} />
-          ))}
-        </div>
         <div className="mt-4">
           <AskPepitaChip question={sys.ask} />
         </div>
