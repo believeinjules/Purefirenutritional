@@ -10,6 +10,7 @@ import ComparisonTabs from "@/components/learn/ComparisonTabs";
 import AskPepitaChip from "@/components/learn/AskPepitaChip";
 import AskPepitaDock from "@/components/learn/AskPepitaDock";
 import Cite from "@/components/learn/Cite";
+import { pillClass } from "@/components/learn/Tabs";
 import Deferred from "@/components/learn/Deferred";
 import { ClaimTag } from "@/components/learn/EvidenceBadge";
 import "@/components/learn/learn.css";
@@ -51,13 +52,13 @@ export default function ArticleKhavinsonPeptides() {
       </Helmet>
       <Navigation />
       <main className="flex-1">
-        <article className="mx-auto max-w-3xl px-4 pb-24 pt-12 sm:pt-16">
+        <article className="mx-auto max-w-3xl px-4 pb-32 pt-12 sm:pt-16">
           <div className="mb-6">
             <Link href="/journal" className="text-sm text-orange-600 hover:underline">← Longevity Journal</Link>
           </div>
 
           <header data-learn-section="What Khavinson peptide bioregulators are">
-            <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education · Interactive guide</span>
+            <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#E06050]">Education · Interactive guide</span>
             <h1 className="mt-2 text-4xl leading-tight text-gray-900 sm:text-5xl">What Are Khavinson Peptide Bioregulators?</h1>
             <p className="mt-5 text-lg leading-relaxed text-gray-700">
               Peptide bioregulators are short chains of amino acids studied as signals that help tissues keep up their normal regulatory function. Here's the idea in plain terms first — then, if you want, the science underneath.
@@ -71,7 +72,7 @@ export default function ArticleKhavinsonPeptides() {
                 ["body-systems", "Body systems"],
                 ["study-library", "Studies"],
               ].map(([id, label]) => (
-                <a key={id} href={`#${id}`} className="rounded-full border border-gray-200 px-3 py-1.5 text-gray-600 hover:border-gray-900 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050]">
+                <a key={id} href={`#${id}`} className={pillClass(false)}>
                   {label}
                 </a>
               ))}

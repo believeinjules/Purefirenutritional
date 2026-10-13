@@ -6,6 +6,13 @@ export interface TabItem {
   content: ReactNode;
 }
 
+/** The one pill style (section nav, tabs, system pickers): outlined inactive, solid ink active. */
+export function pillClass(active: boolean): string {
+  return `inline-flex min-h-[40px] flex-shrink-0 items-center rounded-full border px-4 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2 ${
+    active ? "border-gray-900 bg-gray-900 font-medium text-white" : "border-gray-300 bg-white text-gray-700 hover:border-gray-900 hover:text-gray-900"
+  }`;
+}
+
 /** Index the tablist moves to for a key (null = key not handled). Wraps around. */
 export function nextTabIndex(key: string, active: number, count: number): number | null {
   const map: Record<string, number> = { ArrowRight: active + 1, ArrowLeft: active - 1, Home: 0, End: count - 1 };
@@ -82,9 +89,7 @@ export default function Tabs({
             tabIndex={i === active ? 0 : -1}
             onClick={() => select(i)}
             data-testid={`tab-${t.id}`}
-            className={`min-h-[40px] flex-shrink-0 rounded-full px-4 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2 ${
-              i === active ? "bg-gray-900 font-medium text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            }`}
+            className={pillClass(i === active)}
           >
             {t.label}
           </button>

@@ -4,7 +4,9 @@ import { useId } from "react";
  * Conceptual molecular illustrations (inline SVG, no libraries).
  * Not actual chemical structures — every figure says so in its caption.
  */
-const WARM = ["#E8793A", "#E06050", "#CC4472", "#B83870", "#F0A070", "#D98A6A"];
+/** Brand Advisor: flat accent + one tint only; grey links. */
+const TINT = "#F2B3AA";
+const WARM = ["#E06050", TINT];
 const ACCENT = "#E06050";
 
 type Variant = "complex" | "defined" | "chain" | "blend" | "formula";
@@ -14,7 +16,7 @@ function bead(x: number, y: number, r: number, fill: string, key: string | numbe
     <g key={key}>
       <circle cx={x} cy={y} r={r} fill={fill} />
       {label ? (
-        <text x={x} y={y + 3.5} textAnchor="middle" fontSize={r * 0.95} fill="#fff" fontFamily="Inter, sans-serif" fontWeight={500}>
+        <text x={x} y={y + 3.5} textAnchor="middle" fontSize={r * 0.95} fill={fill === TINT ? "#7a2e25" : "#fff"} fontFamily="Inter, sans-serif" fontWeight={500}>
           {label}
         </text>
       ) : null}
@@ -59,7 +61,7 @@ function DefinedArt({ seq = ["A", "E", "D"] }: { seq?: string[] }) {
         cols.map((x0, ci) => (
           <g key={`${ri}-${ci}`} className="lm-drift" style={{ animationDelay: `${(ri + ci) * 0.4}s` }}>
             <line x1={x0} y1={y} x2={x0 + (seq.length - 1) * 20} y2={y} stroke="#d6d3d1" strokeWidth={2} />
-            {seq.map((s, i) => bead(x0 + i * 20, y, 8, i === 0 ? ACCENT : i === 1 ? "#CC4472" : "#E8793A", i, s))}
+            {seq.map((s, i) => bead(x0 + i * 20, y, 8, i % 2 === 0 ? ACCENT : TINT, i, s))}
           </g>
         )),
       )}
@@ -154,7 +156,7 @@ export default function MoleculeChain({
         {variant === "formula" && <FormulaArt />}
       </svg>
       {caption ? (
-        <figcaption className="mt-2 text-[11px] italic text-gray-400">
+        <figcaption className="mt-2 text-[11px] italic text-gray-500">
           Conceptual molecular illustration, not an actual chemical structure.
         </figcaption>
       ) : null}

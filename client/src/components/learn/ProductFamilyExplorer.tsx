@@ -19,7 +19,7 @@ export default function ProductFamilyExplorer({ catalog }: { catalog?: readonly 
             <div className="grid gap-5 rounded-2xl border border-gray-200 p-4 sm:grid-cols-[200px_1fr] sm:p-6" data-family={f.id}>
               <MoleculeChain variant={f.art} className="mx-auto w-full max-w-[220px]" />
               <div className="min-w-0">
-                <p className="text-[11px] font-medium uppercase tracking-widest text-[#B8463A]">{f.tagline}</p>
+                <p className="text-[11px] font-medium uppercase tracking-widest text-[#E06050]">{f.tagline}</p>
                 <h3 className="mt-1 font-['Cormorant_Garamond',Georgia,serif] text-2xl font-semibold text-gray-900">{f.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-700">{f.body}</p>
                 <p className="mb-2 mt-4 text-xs text-gray-400">{items.length} products</p>

@@ -9,7 +9,27 @@ import { askPepitaHref } from "./AskPepitaChip";
 export default function AskPepitaDock() {
   const [open, setOpen] = useState(false);
   const [topic, setTopic] = useState("Khavinson peptide bioregulators");
+  const [chipInView, setChipInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Mobile: get out of the way while an inline Ask Pepita chip is on screen.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const seen = new Set<Element>();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+      setChipInView(seen.size > 0);
+    });
+    const watch = () => document.querySelectorAll("[data-testid=ask-pepita-chip]").forEach((el) => io.observe(el));
+    watch();
+    // Chips in the lazy-loaded half mount later.
+    const mo = new MutationObserver(watch);
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
@@ -45,7 +65,10 @@ export default function AskPepitaDock() {
   ];
 
   return (
-    <div ref={ref} className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2 print:hidden" data-testid="ask-pepita-dock">
+    <div ref={ref} className={`fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2 transition-opacity print:hidden ${
+        chipInView && !open ? "max-sm:pointer-events-none max-sm:invisible max-sm:opacity-0" : ""
+      }`}
+      data-chip-in-view={chipInView ? "true" : "false"} data-testid="ask-pepita-dock">
       {open ? (
         <div id="pepita-dock-menu" className="w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-gray-200 bg-white p-3 shadow-lg">
           <p className="mb-2 text-xs text-gray-500">
@@ -70,10 +93,11 @@ export default function AskPepitaDock() {
         aria-expanded={open}
         aria-controls="pepita-dock-menu"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-gray-900 py-1.5 pl-1.5 pr-4 text-sm text-white shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2"
+        aria-label="Ask Pepita to explain this"
+        className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-gray-900 p-1.5 text-sm sm:pr-4 text-white shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2"
       >
         <img src="/images/pepita/avatar-128.webp" alt="" width={36} height={36} className="h-9 w-9 rounded-full" decoding="async" />
-        Ask Pepita to explain this
+        <span className="hidden sm:inline">Ask Pepita to explain this</span>
       </button>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { pillClass } from "./Tabs";
 import ProductLinks from "./ProductLinks";
 import StudyReference from "./StudyReference";
 import AskPepitaChip from "./AskPepitaChip";
@@ -44,9 +45,7 @@ export default function BodySystemExplorer({ catalog }: { catalog?: readonly Pro
               aria-pressed={s.id === active}
               onClick={() => setActive(s.id)}
               data-testid={`system-${s.id}`}
-              className={`min-h-[36px] rounded-full px-3 text-left text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] ${
-                s.id === active ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+              className={`${pillClass(s.id === active)} text-left`}
             >
               {s.name}
             </button>

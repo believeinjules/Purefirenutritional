@@ -31,17 +31,17 @@ export default function ComparisonTabs({ catalog }: { catalog?: readonly Product
     <div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-gray-200 p-4">
-          <p className="text-[11px] font-medium uppercase tracking-widest text-[#B8463A]">Cytomaxes</p>
+          <p className="text-[11px] font-medium uppercase tracking-widest text-[#E06050]">Cytomaxes</p>
           <p className="mb-2 text-sm text-gray-700">Natural peptide complexes — multiple peptide sequences extracted from animal tissues.</p>
           <MoleculeChain variant="complex" caption={false} />
         </div>
         <div className="rounded-2xl border border-gray-200 p-4">
-          <p className="text-[11px] font-medium uppercase tracking-widest text-[#B8463A]">Cytogens</p>
+          <p className="text-[11px] font-medium uppercase tracking-widest text-[#E06050]">Cytogens</p>
           <p className="mb-2 text-sm text-gray-700">Synthetic short peptides — a specific, defined amino-acid sequence.</p>
           <MoleculeChain variant="defined" caption={false} />
         </div>
       </div>
-      <p className="mt-2 text-[11px] italic text-gray-400">Conceptual molecular illustration, not an actual chemical structure.</p>
+      <p className="mt-2 text-[11px] italic text-gray-500">Conceptual molecular illustration, not an actual chemical structure.</p>
 
       <Tabs
         className="mt-6"
