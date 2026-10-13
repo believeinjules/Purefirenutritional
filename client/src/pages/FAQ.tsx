@@ -57,7 +57,7 @@ export const faqs: FAQItem[] = [
   {
     category: "Products",
     question: "What's the difference between Cytomaxes and Cytogens?",
-    answer: "Cytomaxes are natural peptide bioregulators extracted from the organs of young animals; they contain a complex mixture of short peptides and generally work gradually, over about four to six months. Cytogens are made in a laboratory from a defined sequence of two to four amino acids, are free from animal-derived components, and often act within one to two months. Many people use both: a Cytomax for long-term organ support and a Cytogen for more targeted support of a specific system.",
+    answer: "Cytomaxes are natural peptide bioregulators extracted from the organs of young animals; they contain a complex mixture of short peptides and generally work gradually, over about four to six months. Cytogens are made in a laboratory from a defined sequence of two to seven amino acids, are free from animal-derived components, and often act within one to two months. Many people use both: a Cytomax for long-term organ support and a Cytogen for more targeted support of a specific system.",
     link: { href: CYTOMAXES_VS_CYTOGENS_HREF, label: "Read more: Cytomaxes vs Cytogens" },
   },
   {
