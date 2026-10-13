@@ -4,6 +4,7 @@ import RichText from "./RichText";
 import SourceCard from "./SourceCard";
 import ProductSuggestionCard from "./ProductSuggestionCard";
 import SafetyCallout from "./SafetyCallout";
+import { visibleSuggestions } from "@/lib/pepitaPreview";
 
 interface Props {
   answer: PeppyResponse;
@@ -23,6 +24,9 @@ export default function PeppyAnswer({
   headingId,
 }: Props) {
   const urgent = answer.mode === "urgent";
+  // Render-time guard on top of the pipeline filter: hidden products never render.
+  const suggestions = visibleSuggestions(answer.products);
+  const mentionable = suggestions.map(s => s.product);
   return (
     <article
       className="space-y-4 text-[15px] leading-relaxed text-gray-800"
@@ -37,6 +41,7 @@ export default function PeppyAnswer({
       <RichText
         text={answer.summary}
         className={urgent ? "text-gray-900" : "text-base text-gray-900"}
+        products={mentionable}
       />
 
       {!urgent && answer.safety && <SafetyCallout notice={answer.safety} />}
@@ -48,7 +53,7 @@ export default function PeppyAnswer({
               {s.heading}
             </h3>
           )}
-          <RichText text={s.body} />
+          <RichText text={s.body} products={mentionable} />
         </section>
       ))}
 
@@ -68,7 +73,7 @@ export default function PeppyAnswer({
         </section>
       )}
 
-      {answer.products.length > 0 && (
+      {suggestions.length > 0 && (
         <section aria-label="Related products">
           <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-gray-500">
             Related products (optional)
@@ -78,7 +83,7 @@ export default function PeppyAnswer({
             exact products.
           </p>
           <ul className="space-y-2">
-            {answer.products.map(p => (
+            {suggestions.map(p => (
               <ProductSuggestionCard key={p.product.id} suggestion={p} />
             ))}
           </ul>

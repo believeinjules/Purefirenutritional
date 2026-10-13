@@ -1,17 +1,16 @@
-import { BookOpen, ExternalLink, Landmark } from "lucide-react";
+import { useId, useRef, useState, type PointerEvent } from "react";
+import { BookOpen, ChevronDown, Landmark } from "lucide-react";
 import type { PeppySourceCard, StudyType } from "@shared/peppy/types";
-
-const TYPE_LABEL: Record<StudyType, string> = {
-  "systematic-review": "Systematic review",
-  rct: "Randomised trial",
-  clinical: "Clinical study",
-  observational: "Observational",
-  review: "Review",
-  animal: "Animal study",
-  "in-vitro": "Lab study",
-  guidance: "NIH / FDA guidance",
-  other: "Study",
-};
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import {
+  STUDY_TYPE_LABEL as TYPE_LABEL,
+  citationSummary,
+} from "@/lib/pepitaPreview";
+import { StudyDialog, StudySummary } from "./StudyPreview";
 
 /** Human-evidence types get a stronger badge than animal/lab/review work. */
 const TYPE_STYLE: Record<StudyType, string> = {
@@ -28,6 +27,18 @@ const TYPE_STYLE: Record<StudyType, string> = {
 
 export default function SourceCard({ source }: { source: PeppySourceCard }) {
   const Icon = source.kind === "authority" ? Landmark : BookOpen;
+  const summary = citationSummary(source);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [hoverOpen, setHoverOpen] = useState(false);
+  const lastPointer = useRef<string>("mouse");
+  const panelId = useId();
+  const titleRef = useRef<HTMLButtonElement>(null);
+  // Touch has no hover: first tap expands the summary inline, the panel's button opens the study.
+  const onTitleClick = () => {
+    if (lastPointer.current === "touch") setExpanded(e => !e);
+    else setDialogOpen(true);
+  };
   const meta = [
     source.journal,
     source.year,
@@ -51,32 +62,90 @@ export default function SourceCard({ source }: { source: PeppySourceCard }) {
           <span className="text-[11px] text-gray-500">Live PubMed result</span>
         )}
       </div>
-      <a
-        href={source.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group inline text-sm font-medium leading-snug text-gray-900 underline-offset-2 hover:underline focus-visible:underline [overflow-wrap:anywhere]"
+      <HoverCard
+        openDelay={250}
+        closeDelay={100}
+        open={hoverOpen}
+        // Touch focus would open the hover card too; touch uses the inline summary instead.
+        onOpenChange={o => setHoverOpen(o && lastPointer.current !== "touch")}
       >
-        {source.title}
-        <ExternalLink
-          className="ml-1 inline h-3 w-3 align-baseline text-gray-400 group-hover:text-gray-600"
-          aria-hidden="true"
-        />
-        <span className="sr-only"> (opens in a new tab)</span>
-      </a>
+        <HoverCardTrigger asChild>
+          <button
+            ref={titleRef}
+            type="button"
+            onPointerDown={(e: PointerEvent) => {
+              lastPointer.current = e.pointerType;
+              if (e.pointerType === "touch") setHoverOpen(false);
+            }}
+            onKeyDown={() => {
+              lastPointer.current = "keyboard";
+            }}
+            onClick={onTitleClick}
+            aria-haspopup="dialog"
+            aria-expanded={expanded || undefined}
+            aria-controls={expanded ? panelId : undefined}
+            aria-label={`Study: ${source.title}. Show summary and source`}
+            className="group inline text-left text-sm font-medium leading-snug text-gray-900 underline decoration-gray-300 decoration-dotted underline-offset-2 hover:decoration-gray-700 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 [overflow-wrap:anywhere]"
+            data-testid="pepita-citation"
+          >
+            {source.title}
+            <ChevronDown
+              className={`ml-1 inline h-3 w-3 align-baseline text-gray-400 transition-transform [@media(hover:hover)]:hidden ${expanded ? "rotate-180" : ""}`}
+              aria-hidden="true"
+            />
+          </button>
+        </HoverCardTrigger>
+        <HoverCardContent
+          side="top"
+          align="start"
+          className="w-80 max-w-[calc(100vw-2rem)] border-sky-100 bg-white"
+          data-testid="pepita-citation-tooltip"
+        >
+          <StudySummary summary={summary} />
+          <p className="mt-2 text-[11px] text-gray-400">
+            Click or press Enter to open the study
+          </p>
+        </HoverCardContent>
+      </HoverCard>
       {meta && (
         <p className="mt-0.5 text-xs text-gray-500 [overflow-wrap:anywhere]">
           {meta}
         </p>
       )}
-      <p className="mt-2 text-sm text-gray-700">
-        <span className="font-medium text-gray-900">Finding: </span>
-        {source.finding}
-      </p>
-      <p className="mt-1 text-xs text-gray-600">
-        <span className="font-medium text-gray-700">Limitation: </span>
-        {source.limitation}
-      </p>
+      {expanded && (
+        <div
+          id={panelId}
+          className="mt-2 rounded-md border border-sky-100 bg-white p-2.5"
+          data-testid="pepita-citation-expanded"
+        >
+          <StudySummary summary={summary} showTitle={false} />
+          <button
+            type="button"
+            onClick={() => setDialogOpen(true)}
+            className="mt-2 text-xs font-medium text-sky-700 underline underline-offset-2"
+          >
+            Open study
+          </button>
+        </div>
+      )}
+      <StudyDialog
+        summary={summary}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        returnFocusTo={titleRef}
+      />
+      {!expanded && (
+        <>
+          <p className="mt-2 text-sm text-gray-700">
+            <span className="font-medium text-gray-900">Finding: </span>
+            {source.finding}
+          </p>
+          <p className="mt-1 text-xs text-gray-600">
+            <span className="font-medium text-gray-700">Limitation: </span>
+            {source.limitation}
+          </p>
+        </>
+      )}
     </li>
   );
 }
