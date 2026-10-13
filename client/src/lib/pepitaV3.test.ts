@@ -8,7 +8,7 @@ const sug = (id: string, name: string): PeppyProductSuggestion =>
 describe("Pepita v3 answer shape", () => {
   it("drops the report-style opener and [n] markers, max 3 sentences", () => {
     expect(
-      shortAnswer("Here's what Endoluten is, what the research does and doesn't show, and who it may suit. Endoluten is a pineal complex [1]. Two. Three. Four.")
+      shortAnswer("Here's what Endoluten is, what the research does and doesn't show, and who it may suit. Endoluten is a pineal complex [1]. Two. Three. Four.", 3)
     ).toBe("Endoluten is a pineal complex. Two. Three.");
   });
   it("shows a product only when the question names it, at most one", () => {

@@ -6,7 +6,7 @@
  * 2. composeFallback() — builds a complete structured answer from curated content when no
  *    LLM is configured or the LLM fails, so the assistant never shows an error.
  */
-import { dosingAnswer } from "./product-data.js";
+import { dosingAnswer, nonDailyExamples } from "./product-data.js";
 import { isPreorderProduct } from "../preorder.js";
 import {
   ASSISTANT_DISCLAIMER,
@@ -90,6 +90,8 @@ export interface Analysis {
   /** Why products are blocked (for the prompt / tests). */
   productBlockReasons: string[];
   pubmedQueries: string[];
+  /** Recent turns (for context the user already gave, e.g. their pack size). */
+  history: PeppyHistoryTurn[];
 }
 
 const PRODUCT_FINDING =
@@ -103,7 +105,7 @@ const DOSAGE =
 const INFO =
   /\b(what (?:is|are|does|do)|what's|how (?:does|do)|explain|tell me (?:about|more)|meaning of|difference between)\b/i;
 const HEALTH_WORDS =
-  /\b(health\w*|supplement\w*|peptide\w*|bioregulator\w*|vitamin\w*|mineral\w*|herb\w*|extract\w*|nutrient\w*|symptom\w*|pain\w*|ache\w*|sore\w*|doctor|medic\w*|wellness|well-being|body|diet\w*|nutrition\w*|food\w*|research|study|studies|evidence|product\w*|pure fire|order|cart|price|capsule\w*|pill\w*|tablet\w*|dose\w*|dosage|safe|safety|side effects?|immun\w*|hormone\w*|gland\w*|organ\w*|aging|ageing|longevity|energy|sleep\w*|tired\w*|blood|sugar|glucose|cholesterol|pressure|weight|fat|metabol\w*|gut|digest\w*|bloat\w*|skin|hair|nails?|muscle\w*|joint\w*|bone\w*|heart|brain|memory|focus|mood|stress\w*|anxi\w*|liver|kidney\w*|eyes?|vision|thyroid|libido|testosterone|estrogen|menopaus\w*|fertility|prostate|inflamm\w*|antioxidant\w*|collagen|protein|creatine|magnesium|zinc|iron|omega|probiotic\w*|melatonin|caffeine|ashwagandha|berberine|curcumin|turmeric|nad\+?|nmn|coq10|exercise|workout|training|recovery|cold|flu|allerg\w*|pregnan\w*|breastfeed\w*)\b/i;
+  /\b(bladder|urinary|urin\w*|ketamine|urolog\w*|health\w*|supplement\w*|peptide\w*|bioregulator\w*|vitamin\w*|mineral\w*|herb\w*|extract\w*|nutrient\w*|symptom\w*|pain\w*|ache\w*|sore\w*|doctor|medic\w*|wellness|well-being|body|diet\w*|nutrition\w*|food\w*|research|study|studies|evidence|product\w*|pure fire|order|cart|price|capsule\w*|pill\w*|tablet\w*|dose\w*|dosage|safe|safety|side effects?|immun\w*|hormone\w*|gland\w*|organ\w*|aging|ageing|longevity|energy|sleep\w*|tired\w*|blood|sugar|glucose|cholesterol|pressure|weight|fat|metabol\w*|gut|digest\w*|bloat\w*|skin|hair|nails?|muscle\w*|joint\w*|bone\w*|heart|brain|memory|focus|mood|stress\w*|anxi\w*|liver|kidney\w*|eyes?|vision|thyroid|libido|testosterone|estrogen|menopaus\w*|fertility|prostate|inflamm\w*|antioxidant\w*|collagen|protein|creatine|magnesium|zinc|iron|omega|probiotic\w*|melatonin|caffeine|ashwagandha|berberine|curcumin|turmeric|nad\+?|nmn|coq10|exercise|workout|training|recovery|cold|flu|allerg\w*|pregnan\w*|breastfeed\w*)\b/i;
 const GREETING =
   /^(hi|hello|hey|hiya|howdy|good (?:morning|afternoon|evening)|yo|greetings)\b[\s!.,?]*(?:peppy)?[\s!.,?]*$/i;
 const CURE_ASK =
@@ -285,6 +287,7 @@ export function analyze(input: {
     productsAllowed,
     productBlockReasons: reasons,
     pubmedQueries,
+    history,
   };
 }
 
@@ -614,6 +617,10 @@ export function composeFallback(
     };
   }
 
+  // 3b) Pattern answers built from data (comparisons, combinations, schedules, "same as" questions).
+  const pattern = patternAnswer(analysis);
+  if (pattern) return { ...base(analysis), sections: [], topics: [], ...pattern, summary: pattern.summary ?? "" };
+
   // 4) A specific product was named.
   const product = analysis.mentioned[0];
   if (product)
@@ -727,7 +734,7 @@ function composeProductAnswer(
   const sections: AnswerSection[] = [];
 
   // Dosing comes ONLY from verified fields in product-data.json (never from free catalog text).
-  const dosing = analysis.intent === "dosage" ? dosingAnswer(product.id, product.name) : null;
+  const dosing = analysis.intent === "dosage" ? dosingAnswer(product.id, product.name, packFromConversation(analysis, product.name)) : null;
 
   const ingredients = product.ingredients.length
     ? product.ingredients.join(", ")
@@ -812,6 +819,87 @@ function composeProductAnswer(
     products: showCard && evidenceOk && product.inStock ? [card] : [],
     topics: topic ? [topic.id] : [],
   };
+}
+
+/** Pack size the user mentioned in this conversation ("I have Endoluten 60", "60 capsules"). */
+function packFromConversation(analysis: Analysis, name: string): number | null {
+  const text = [analysis.message, ...analysis.history.filter(h => h.role === "user").map(h => h.content)].join(" ");
+  const esc = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const m = text.match(new RegExp(`${esc}\\s*(?:N\\s*)?(\\d{2,3})\\b`, "i")) ?? text.match(/\b(\d{2,3})[- ]?(?:caps?|capsules?|count|tablets?)\b/i);
+  return m ? Number(m[1]) : null;
+}
+
+const SUBSTANCES: Record<string, string> = {
+  melatonin: "a hormone your pineal gland makes, and also sold as a supplement",
+  collagen: "a structural protein",
+  ashwagandha: "an herb",
+  magnesium: "a mineral",
+};
+
+/**
+ * Data-built answers for question shapes the topic library doesn't cover well. These are rules, not
+ * canned answers: wording is assembled from catalog evidence (lineage) and verified product data.
+ */
+function patternAnswer(a: Analysis): Partial<PeppyResponse> | null {
+  const msg = a.message.toLowerCase();
+  const [p1, p2] = a.mentioned;
+  const lineage = (p: PeppyProduct) => PRODUCT_EVIDENCE[p.id]?.lineage;
+  const card = (p: PeppyProduct): PeppyProductSuggestion => ({
+    product: p,
+    why: p.summary ?? "",
+    evidenceNote: PRODUCT_EVIDENCE[p.id]?.productNote ?? "This finished product hasn't been tested in published trials.",
+  });
+
+  // "Is Endoluten the same as melatonin?"
+  const sub = Object.keys(SUBSTANCES).find(k => new RegExp(`\\b${k}\\b`).test(msg));
+  if (p1 && !p2 && sub && /\b(same|the same thing|equivalent|just|basically|vs\.?|versus|different|like)\b/.test(msg) && lineage(p1)) {
+    return {
+      summary: `No. ${sub[0].toUpperCase()}${sub.slice(1)} is ${SUBSTANCES[sub]}; ${p1.name} is ${lineage(p1)}. They're different substances, even if they get talked about in the same breath. Researchers have looked at pineal peptides mostly in lab and animal studies plus small human studies, and none of that shows ${p1.name} acts like ${sub}.`,
+      suggestions: [`Can I take ${p1.name} with ${sub}?`, `How do I take ${p1.name}?`],
+      products: [card(p1)],
+    };
+  }
+
+  // Combinations: "Can I take X and Y together?"
+  if (p1 && p2 && /\b(together|combine|combined|combination|stack|at the same time|and)\b/.test(msg) && /\b(can i|safe|ok|okay|together|combine|stack)\b/.test(msg) && !/\b(or|vs\.?|versus|compare|difference|better)\b/.test(msg)) {
+    return {
+      summary: `Nobody has published studies of ${p1.name} and ${p2.name} taken together, so it's genuinely unknown whether the combination adds anything, and "each is sold on its own" doesn't make the pair automatically safe. If you take medicines or have a health condition, run the combination past your doctor first.`,
+      safety: { level: "info", title: "Worth knowing", body: "Bring both labels to your doctor or pharmacist, along with everything else you take." },
+      suggestions: [`How do I take ${p1.name}?`, `How do I take ${p2.name}?`],
+      products: [],
+    };
+  }
+
+  // Comparisons: "Vesugen or Ventfort?"
+  if (p1 && p2 && /\b(or|vs\.?|versus|compare|difference|better)\b/.test(msg)) {
+    const desc = (p: PeppyProduct) => (lineage(p) ? `${p.name} is ${lineage(p)}` : `${p.name} is ${p.summary ?? "in our catalog"}`);
+    return {
+      summary: `${desc(p1)}, while ${desc(p2)}. They haven't been compared head to head in published studies, so the choice usually comes down to which body system you're interested in, not which one "works better". Ask me how either one is taken and I'll give you its verified directions.`,
+      suggestions: [`How do I take ${p1.name}?`, `How do I take ${p2.name}?`],
+      products: [card(p1), card(p2)],
+    };
+  }
+
+  // "Do I take every peptide daily?"
+  if (!p1 && /\b(every|all|each)\b.*\b(peptides?|bioregulators?|products?)\b.*\b(daily|every day|each day)\b/.test(msg)) {
+    const ex = nonDailyExamples().slice(0, 2);
+    return {
+      summary: `No, schedules differ from product to product. Many labels are daily, but not all${ex.length ? `: for example, ${ex.map(e => `${e.name} ${e.kind}`).join(", and ")}` : ""}. Tell me which product you have and I'll check its exact instructions.`,
+      suggestions: ex.map(e => `How do I take ${e.name}?`).slice(0, 2),
+      products: [],
+    };
+  }
+
+  // Bladder symptoms after ketamine: red-flag note before anything else.
+  if (/ketamine/.test(msg) && /bladder|urin/.test(msg)) {
+    return {
+      summary: `Research on supplements for this specific situation is limited, and I wouldn't start there. Ketamine use can seriously damage the bladder and urinary tract, so a urologist should assess your symptoms first; that matters more than any product choice. I don't have a product by that name in our catalog, so I can't tell you what it contains.`,
+      safety: { level: "caution", title: "Worth knowing", body: "Blood in the urine, pain, or needing to go very often are reasons to see a doctor soon." },
+      suggestions: ["What should I ask my doctor?"],
+      products: [],
+    };
+  }
+  return null;
 }
 
 function firstSentenceOf(text: string): string {

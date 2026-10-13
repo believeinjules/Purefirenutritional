@@ -13,6 +13,8 @@ interface Props {
   onAsk: (question: string) => void;
   disabled?: boolean;
   headingId: string;
+  /** Offered only after a medically relevant question (opens Questions for my doctor). */
+  onDoctorQuestions?: () => void;
 }
 
 /** Inline research links under the answer (hover/tap for the lay summary). */
@@ -23,7 +25,7 @@ const MAX_RESEARCH_LINKS = 3;
  * inline research links, one "Worth knowing" note, one relevant product, two next questions.
  * Always ends with the doctor line. Nothing is hidden behind collapsed sections.
  */
-export default function PeppyAnswer({ answer, question, onAsk, disabled, headingId }: Props) {
+export default function PeppyAnswer({ answer, question, onAsk, disabled, headingId, onDoctorQuestions }: Props) {
   const urgent = answer.mode === "urgent";
   const text = shortAnswer(withoutGenericDoctorLines(answer.summary));
   const product = urgent ? null : relevantProduct(answer.products, question);
@@ -61,7 +63,7 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
 
       {product && <ProductCardSmall product={product.product} />}
 
-      {chips.length > 0 && (
+      {(chips.length > 0 || onDoctorQuestions) && (
         <div>
           <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-gray-500">You might also want to know</p>
           <div className="flex flex-wrap gap-2">
@@ -76,6 +78,17 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
                 {q}
               </button>
             ))}
+            {onDoctorQuestions && (
+              <button
+                type="button"
+                disabled={disabled}
+                onClick={onDoctorQuestions}
+                data-testid="pepita-offer-doctor-questions"
+                className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-left text-xs font-medium text-orange-800 transition-colors hover:border-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 disabled:opacity-50"
+              >
+                Make a list of questions for my doctor
+              </button>
+            )}
           </div>
         </div>
       )}

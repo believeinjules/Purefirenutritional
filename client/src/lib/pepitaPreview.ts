@@ -174,7 +174,7 @@ export function conciseParagraphs(summary: string): string[] {
  * Pepita v3 (reviewer feedback, Oct 2026): the real answer, at most `max` sentences,
  * with no [n] markers and no report-style "Here's what X is…" opener.
  */
-export function shortAnswer(summary: string, max = 3): string {
+export function shortAnswer(summary: string, max = 6): string {
   const text = summary
     .replace(/\s?\[\d+(?:\s*,\s*\d+)*\]/g, "")
     .replace(/^[-•*]\s+/gm, "")

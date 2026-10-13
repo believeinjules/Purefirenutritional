@@ -32,7 +32,8 @@ import { getProductById } from "@/data/products";
 import type { ProtocolGoal, ProtocolSex } from "@/data/protocols";
 import {
   GOAL_TEXT,
-  doctorQuestionsMessage,
+  doctorQuestionsMessageFor,
+  isMedicallyRelevant,
   parsePeppyParams,
   peppyPrefill,
   peppySchedule,
@@ -49,10 +50,28 @@ import {
 /** Bump the suffix if the modal wording ever changes, so everyone sees it again. */
 const DISCLAIMER_KEY = "pf-peppy-disclaimer-v1";
 
+/** Copies the doctor questions as plain text. */
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      data-testid="pepita-copy-doctor-questions"
+      onClick={() => {
+        void navigator.clipboard?.writeText(text).then(() => setCopied(true), () => setCopied(false));
+      }}
+      className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs text-gray-700 hover:border-orange-400 hover:bg-orange-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+    >
+      <ClipboardList className="h-3.5 w-3.5" aria-hidden="true" />
+      {copied ? "Copied" : "Copy questions"}
+    </button>
+  );
+}
+
 type ChatMessage =
   | { id: string; role: "user"; text: string }
   | { id: string; role: "assistant"; kind: "answer"; answer: PeppyResponse }
-  | { id: string; role: "assistant"; kind: "text"; text: string };
+  | { id: string; role: "assistant"; kind: "text"; text: string; doctorQuestions?: boolean };
 
 const QUICK_QUESTIONS = [
   "Why am I tired in the afternoon?",
@@ -141,7 +160,14 @@ export default function AIAssistant() {
         id: nextId(),
         role: "assistant",
         kind: "text",
-        text: doctorQuestionsMessage(contextProduct?.name),
+        doctorQuestions: true,
+        text: doctorQuestionsMessageFor(
+          messages.filter(m => m.role === "user").map(m => m.text),
+          Array.from(new Set([
+            ...(contextProduct ? [contextProduct.name] : []),
+            ...messages.flatMap(m => (m.role === "assistant" && m.kind === "answer" ? m.answer.products.map(p => p.product.name) : [])),
+          ])),
+        ),
       },
     ]);
   };
@@ -408,12 +434,22 @@ export default function AIAssistant() {
                             onAsk={q => void send(q)}
                             disabled={isLoading}
                             headingId={`${baseId}-${m.id}`}
+                            onDoctorQuestions={
+                              isMedicallyRelevant(
+                                [...messages.slice(0, mi)].reverse().find(x => x.role === "user")?.text ?? ""
+                              ) && !messages.slice(mi).some(x => x.role === "assistant" && x.kind === "text" && x.doctorQuestions)
+                                ? askDoctorQuestions
+                                : undefined
+                            }
                           />
                         ) : (
-                          <RichText
-                            text={m.text}
-                            className="text-[15px] leading-relaxed text-gray-800"
-                          />
+                          <>
+                            <RichText
+                              text={m.text}
+                              className="text-[15px] leading-relaxed text-gray-800"
+                            />
+                            {m.doctorQuestions && <CopyButton text={m.text} />}
+                          </>
                         )}
                       </div>
                     )}
