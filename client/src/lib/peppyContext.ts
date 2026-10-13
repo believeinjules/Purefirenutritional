@@ -13,7 +13,8 @@ import {
   type ProtocolSex,
 } from "@/data/protocols";
 
-export type PeppyParams = { productId?: string; goal?: ProtocolGoal; sex?: ProtocolSex };
+/** `question` is a prefilled question from ?q= (Learn pages); placed in the input, never auto-sent. */
+export type PeppyParams = { productId?: string; goal?: ProtocolGoal; sex?: ProtocolSex; question?: string };
 
 const GOALS: ProtocolGoal[] = ["preventive", "restorative"];
 const SEXES: ProtocolSex[] = ["men", "women"];
@@ -35,6 +36,8 @@ export function parsePeppyParams(
   if (goal && GOALS.includes(goal)) out.goal = goal;
   const sex = q.get("sex") as ProtocolSex | null;
   if (sex && SEXES.includes(sex)) out.sex = sex;
+  const question = (q.get("q") ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 300);
+  if (question) out.question = question;
   return out;
 }
 

@@ -292,11 +292,14 @@ describe("Cytomaxes vs Cytogens merged into the What Are article", () => {
     expect(vercel.redirects).toContainEqual({ source: OLD, destination: TARGET, statusCode: 301 });
   });
 
-  it("the What Are article has the #cytomaxes-vs-cytogens section with the merged text", () => {
-    expect(whatAre).toContain('<section id="cytomaxes-vs-cytogens"');
-    expect(whatAre).toContain("Cytomaxes vs Cytogens: Understanding the Two Types of Khavinson Peptides");
-    expect(whatAre).toContain("Cytogens: Synthetic Peptide Bioregulators</h3>");
-    expect(whatAre).toContain("How to Choose Between Them</h3>");
+  it("the What Are article has the #cytomaxes-vs-cytogens section with the interactive comparison", () => {
+    // Interactive redesign (learn-interactive-khavinson): the section is rendered by <Section>
+    // (an id'd <section>) and above the lazy-loaded fold, so the anchor exists on first paint.
+    expect(whatAre).toContain('<Section id="cytomaxes-vs-cytogens"');
+    expect(whatAre).toContain('title="Cytomaxes vs Cytogens"');
+    expect(whatAre).toContain("<ComparisonTabs />");
+    expect(whatAre).toContain("How people choose</h3>");
+    expect(whatAre.indexOf('id="cytomaxes-vs-cytogens"')).toBeLessThan(whatAre.indexOf("<BelowFold />"));
   });
 
   it("the FAQ has one Cytomaxes vs Cytogens entry linking to the section", () => {
