@@ -47,7 +47,7 @@
     },
     {
       "source": "/learn",
-      "destination": "/insights",
+      "destination": "/journal",
       "statusCode": 301
     }
   ]

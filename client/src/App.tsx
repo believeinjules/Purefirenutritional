@@ -32,7 +32,7 @@ import Wishlist from "./pages/Wishlist";
 import SiteSeo from "./components/seo/SiteSeo";
 
 // Learn articles
-import Insights from "./pages/Insights";
+import Journal from "./pages/Journal";
 import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
 import ArticlePeptidesInContext from "./pages/learn/PeptidesInContext";
@@ -90,7 +90,7 @@ function Router() {
         )}
       </Route>
       <Route path="/wishlist" component={Wishlist} />
-      <Route path="/insights" component={Insights} />
+      <Route path="/journal" component={Journal} />
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
       <Route path="/learn/peptides-in-context-systems-view" component={ArticlePeptidesInContext} />
@@ -99,10 +99,10 @@ function Router() {
       <Route path="/terms" component={TermsPolicy} />
       <Route path="/shipping" component={ShippingPolicy} />
       <Route path="/returns" component={ReturnsPolicy} />
-      {/* The article index lives at /insights. vercel.json 301s /learn → /insights for
+      {/* The article index lives at /journal. vercel.json 301s /learn → /journal for
           direct visits; this covers in-app navigation. */}
       <Route path="/learn">
-        <Redirect to="/insights" replace />
+        <Redirect to="/journal" replace />
       </Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

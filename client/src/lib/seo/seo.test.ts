@@ -207,23 +207,27 @@ describe("vercel.json redirects", () => {
   });
 });
 
-describe("/insights index", () => {
+describe("/journal index", () => {
   const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
-  const page = fs.readFileSync(path.join(root, "client/src/pages/Insights.tsx"), "utf8");
+  const page = fs.readFileSync(path.join(root, "client/src/pages/Journal.tsx"), "utf8");
   const nav = fs.readFileSync(path.join(root, "client/src/components/Navigation.tsx"), "utf8");
 
   it("is a real, prerendered, sitemap-listed public route", () => {
-    expect(app).toContain('<Route path="/insights" component={Insights} />');
-    expect(PUBLIC_STATIC_ROUTES).toContain("/insights");
-    expect(UNLISTED_ROUTES).not.toContain("/insights");
-    expect(PRIVATE_ROUTES["/insights"]).toBeUndefined();
-    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/insights")}</loc>`);
+    expect(app).toContain('<Route path="/journal" component={Journal} />');
+    expect(PUBLIC_STATIC_ROUTES).toContain("/journal");
+    expect(UNLISTED_ROUTES).not.toContain("/journal");
+    expect(PRIVATE_ROUTES["/journal"]).toBeUndefined();
+    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/journal")}</loc>`);
   });
 
   it("sets its own title, meta description and canonical", () => {
-    expect(page).toMatch(/<PageSeo title=\{INSIGHTS_TITLE\} description=\{INSIGHTS_DESCRIPTION\} path="\/insights" \/>/);
-    expect(page).toContain('"Pure Fire Insights | Pure Fire Nutritional"');
-    expect(canonicalUrl("/insights")).toBe("https://www.purefirenutritional.com/insights");
+    expect(page).toMatch(/<PageSeo title=\{JOURNAL_TITLE\} description=\{JOURNAL_DESCRIPTION\} path="\/journal" \/>/);
+    expect(page).toContain('"Longevity Journal | Pure Fire Nutritional"');
+    expect(page).toContain(">Longevity Journal</h1>");
+    const desc = page.match(/JOURNAL_DESCRIPTION =\s*"([^"]+)"/)![1];
+    expect(desc).toContain("Longevity Journal");
+    expect(desc.length).toBeLessThanOrEqual(160);
+    expect(canonicalUrl("/journal")).toBe("https://www.purefirenutritional.com/journal");
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
@@ -238,31 +242,33 @@ describe("/insights index", () => {
     }
   });
 
-  it("the Science nav submenu lists 2 articles in order, then Pure Fire Insights (no TSP link)", () => {
+  it("the Science nav submenu lists 2 articles in order, then Longevity Journal (no TSP link)", () => {
     const labels = LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => a.navLabel ?? a.title);
     expect(labels).toEqual([
       "What Are Khavinson Peptide Bioregulators?",
       "Buying Khavinson Peptides in the U.S.",
     ]);
-    // Peptides in Context is on /insights only, at its unchanged URL.
+    // Peptides in Context is on /journal only, at its unchanged URL.
     const pic = LEARN_ARTICLES.find((a) => a.href === "/learn/peptides-in-context-systems-view");
     expect(pic?.hideFromNav).toBe(true);
     // The on-page title of the US article stays the full title.
     expect(LEARN_ARTICLES[1].title).toBe("Khavinson Peptides in the United States");
     expect(nav).toContain("LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
-    expect(nav).toContain('{ label: "Pure Fire Insights", href: "/insights" }');
+    expect(nav).toContain('{ label: "Longevity Journal", href: "/journal" }');
     expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science
     expect(nav).not.toMatch(/short ?peptide|theshortpeptide/i);
     expect(nav).not.toMatch(/blog|\/articles/i);
   });
 
-  it("/learn 301s to /insights and there is no /blog or /articles route", () => {
+  it("/learn 301s to /journal and there is no /blog or /articles route", () => {
     const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
-    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/insights", statusCode: 301 });
+    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/journal", statusCode: 301 });
     expect(app).not.toContain('"/blog"');
     expect(PUBLIC_STATIC_ROUTES).not.toContain("/blog");
     expect(app).not.toContain('"/articles"');
     expect(PUBLIC_STATIC_ROUTES).not.toContain("/articles");
+    expect(app).not.toContain('"/insights"');
+    expect(PUBLIC_STATIC_ROUTES).not.toContain("/insights");
   });
 });
 

@@ -1,10 +1,10 @@
-/** Hand-written Learn articles (client/src/pages/learn/*), listed in the Science nav dropdown and on the /insights index page. */
+/** Hand-written Learn articles (client/src/pages/learn/*), listed in the Science nav dropdown and on the /journal index page. */
 export type LearnArticle = {
   title: string;
   href: string;
   /** Shorter label for the Science nav dropdown (defaults to title). */
   navLabel?: string;
-  /** Listed on /insights only, not in the Science nav dropdown. */
+  /** Listed on /journal only, not in the Science nav dropdown. */
   hideFromNav?: boolean;
   /** One-line summary shown on the /articles index. */
   description: string;
