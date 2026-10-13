@@ -124,7 +124,7 @@ describe("disease-question format (Regulatory, approved 2026-10-13)", () => {
       "Published studies",
       "A protocol some people have followed is",
       "About dosing: The right amount and course can vary",
-      "Please talk with your doctor before starting. Educational information, not medical advice. Not intended to diagnose, treat, cure, or prevent any disease.",
+      "Educational information, not medical advice. Not intended to diagnose, treat, cure, or prevent any disease.",
     ].map(t => p.indexOf(t));
     for (const i of order) expect(i).toBeGreaterThan(-1);
     expect([...order].sort((a, b) => a - b)).toEqual(order);

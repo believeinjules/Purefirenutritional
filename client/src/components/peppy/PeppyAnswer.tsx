@@ -1,7 +1,10 @@
 import { Fragment } from "react";
 import type { PeppyResponse } from "@shared/peppy/types";
 import { ASSISTANT_DISCLAIMER } from "@shared/peppy/claims";
-import { DOCTOR_CONSULT_LINE } from "@shared/peppy/product-notes";
+import {
+  DOCTOR_CONSULT_LINE,
+  withoutGenericDoctorLines,
+} from "@shared/peppy/product-notes";
 import RichText, { buildMentions, inline } from "./RichText";
 import SafetyCallout from "./SafetyCallout";
 import StudyCitation from "./StudyCitation";
@@ -34,11 +37,15 @@ export default function PeppyAnswer({ answer, onAsk, disabled, headingId }: Prop
   const products = suggestions.map(s => s.product);
   const mentions = buildMentions(products);
   const research = answer.research;
-  const paras = conciseParagraphs(answer.summary);
+  const paras = conciseParagraphs(withoutGenericDoctorLines(answer.summary));
   const hasMarkers = /\[\d+(?:\s*,\s*\d+)*\]/.test(answer.summary);
   const prose = paras.join(" ").toLowerCase();
   const unnamed = products.filter(p => !prose.includes(p.name.toLowerCase()));
-  const details = answer.sections.filter(s => s.body.trim());
+  const details = answer.sections
+    .map(s => ({ ...s, body: withoutGenericDoctorLines(s.body) }))
+    .filter(s => s.body.trim());
+  // The FDA sentence only; the doctor line below replaces "Always consult a medical professional".
+  const fdaNote = ASSISTANT_DISCLAIMER.split("\n")[0];
 
   return (
     <article className="space-y-3 text-[15px] leading-relaxed text-gray-800" aria-labelledby={headingId}>
@@ -87,7 +94,7 @@ export default function PeppyAnswer({ answer, onAsk, disabled, headingId }: Prop
         <>
           <ProductThumbRow products={products} />
           <p className="text-xs text-gray-500">
-            Research is on the ingredients, not these exact products. {DOCTOR_CONSULT_LINE}
+            Research is on the ingredients, not these exact products.
           </p>
         </>
       )}
@@ -156,11 +163,10 @@ export default function PeppyAnswer({ answer, onAsk, disabled, headingId }: Prop
         </div>
       )}
 
-      {answer.showDisclaimer && (
-        <p className="text-[11px] leading-snug text-gray-400">
-          {ASSISTANT_DISCLAIMER.replace("\n", " ")}
-        </p>
-      )}
+      <div className="space-y-0.5 text-[11px] leading-snug text-gray-500" data-testid="pepita-doctor-line">
+        <p className="font-medium text-gray-600">{DOCTOR_CONSULT_LINE}</p>
+        {answer.showDisclaimer && <p className="text-gray-400">{fdaNote}</p>}
+      </div>
     </article>
   );
 }

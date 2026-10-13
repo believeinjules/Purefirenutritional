@@ -211,7 +211,7 @@ describe("withoutInterventionAdvice", () => {
     expect(r.removed).toBe(1);
   });
   it("keeps red-flag and doctor guidance", () => {
-    const t = "Seek urgent care for chest pain. Please talk with your doctor before starting.";
+    const t = "Seek urgent care for chest pain. Always consult your doctor before starting any new supplement.";
     expect(withoutInterventionAdvice(t)).toEqual({ text: t, removed: 0 });
   });
   it("drops bullet lines that become empty", () => {

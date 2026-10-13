@@ -157,3 +157,17 @@ describe("topic coverage", () => {
       expect(getSource(id), id).toBeTruthy();
   });
 });
+
+import { withoutGenericDoctorLines } from "./product-notes";
+describe("withoutGenericDoctorLines", () => {
+  it("removes generic doctor reminders, keeps red-flag guidance", () => {
+    expect(
+      withoutGenericDoctorLines(
+        "Melatonin helps a little. Please talk with your doctor before starting. Always consult your doctor before starting any new supplement. Seek urgent care for chest pain. If it lasts 3 weeks, see a doctor."
+      )
+    ).toBe("Melatonin helps a little. Seek urgent care for chest pain. If it lasts 3 weeks, see a doctor.");
+  });
+  it("drops a section body that was only the reminder", () => {
+    expect(withoutGenericDoctorLines("Talk with your clinician first.")).toBe("");
+  });
+});

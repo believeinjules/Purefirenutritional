@@ -47,7 +47,7 @@ export const TOPICS: Topic[] = [
       /\b(tired\w*|fatigu\w*|exhaust\w*|low energy|no energy|lack of energy|more energy|energy levels?|energy|sluggish|drained|wiped out|afternoon (?:slump|crash|dip)|crash(?:ing)? in the afternoon|run down|worn out|lethargic)\b/i,
     ],
     summary:
-      "On supplements for tiredness, the research is mixed: iron helped fatigue in a randomised trial, but only in women whose iron stores were low, and ginseng and CoQ10 have modest evidence. If you feel tired most days for more than 2–3 weeks, talk with your clinician, who can check for causes such as low iron, B12 or thyroid problems.",
+      "For tiredness, supplement research is mixed: iron helped fatigue in a randomised trial, but only in women whose iron stores were low, and ginseng and CoQ10 have modest evidence. If you feel tired most days for more than 2–3 weeks, get checked for causes such as low iron, B12 or thyroid problems.",
     sections: [
       {
         heading: "What usually drives it",
@@ -129,7 +129,7 @@ export const TOPICS: Topic[] = [
       /\b(sleep\w*|insomnia|can'?t sleep|cannot sleep|trouble sleeping|fall(?:ing)? asleep|stay(?:ing)? asleep|wak(?:e|ing) up (?:at night|in the night|at \d)|night waking|circadian|jet ?lag|bedtime|restless nights?)\b/i,
     ],
     summary:
-      "Melatonin has the best research of the sleep supplements, but the effect is modest: in a review of 19 trials, people fell asleep about 7 minutes faster and slept about 8 minutes longer. Pineal peptides, from the gland that makes melatonin, were studied mainly for raising night-time melatonin in older adults; those small studies measured hormone levels, not sleep quality. If poor sleep keeps going, talk with your doctor.",
+      "Melatonin has the best research of the sleep supplements, but the effect is modest: people fell asleep about 7 minutes faster and slept about 8 minutes longer. Pineal peptides, from the gland that makes melatonin, were studied mainly for raising night-time melatonin in older adults, measuring hormone levels rather than sleep quality.",
     sections: [
       {
         heading: "What the research says about supplements",
@@ -196,7 +196,7 @@ export const TOPICS: Topic[] = [
       /\b(joints?|knees?|hips?|ankles?|cartilage|stiff(?:ness)?|achy|aching|ache|mobility|connective tissue|running pain|hurts? when i run|sore when i run)\b/i,
     ],
     summary:
-      "Most everyday joint aches come from load — more activity, or a new kind of activity, than the joint and the muscles around it are used to — or from gradual age-related wear. Supplements have modest evidence at best: collagen showed a modest improvement in joint symptom scores and stiffness, glucosamine and chondroitin did no better than placebo for knee pain overall, and cartilage peptides have only cell and animal studies.",
+      "Most everyday joint aches come from load or gradual age-related wear. Supplement evidence is modest at best: collagen modestly improved joint symptom scores and stiffness, glucosamine and chondroitin did no better than placebo for knee pain overall, and cartilage peptides have only cell and animal studies.",
     sections: [
       {
         heading: "What the research says",
@@ -276,7 +276,7 @@ export const TOPICS: Topic[] = [
       /\b(epitalon|epithalon|epitalone|epithalamin\w*|aedg|ala-glu-asp-gly|pineal|epiphys\w*|telomer\w*|telomerase)\b/i,
     ],
     summary:
-      "Epitalon (also spelled Epithalon; sequence Ala-Glu-Asp-Gly, or AEDG) is a synthetic four-amino-acid peptide modelled on Epithalamin, a peptide extract of the pineal gland developed by Prof. Vladimir Khavinson's group in St. Petersburg. It's studied mainly for melatonin rhythm and the biology of ageing. The evidence is intriguing but early: mostly cell and animal studies plus small human studies from the same research network.",
+      "Epitalon (also spelled Epithalon; sequence Ala-Glu-Asp-Gly, or AEDG) is a synthetic four-amino-acid peptide modelled on Epithalamin, a pineal gland extract developed by Prof. Vladimir Khavinson's group in St. Petersburg. It's studied mainly for melatonin rhythm and the biology of ageing. The evidence is early: mostly cell and animal studies plus small human studies from the same research network.",
     sections: [
       {
         heading: "What the research shows",
@@ -326,7 +326,7 @@ export const TOPICS: Topic[] = [
       /\b(thymus|thymic|thymalin|thymogen|vilon|t[- ]cells?)\b/i,
     ],
     summary:
-      "The thymus is a small gland behind the breastbone where T cells — a key part of the immune system — mature. It shrinks steadily from adolescence, so older adults produce fewer new T cells. 'Thymus peptides' are short peptides or extracts from the thymus (such as the Russian drug Thymalin) that Khavinson's group studied for supporting immune function with age.",
+      "The thymus is a small gland behind the breastbone where T cells, a key part of the immune system, mature; it shrinks with age. 'Thymus peptides' are short peptides or extracts from the thymus (such as the Russian drug Thymalin) that Khavinson's group studied for supporting immune function with age.",
     sections: [
       {
         heading: "What the research shows",
@@ -427,7 +427,7 @@ export const TOPICS: Topic[] = [
       /\b(bioregulators?|cytomax\w*|cytogens?|short peptides?|peptide bioregulat\w*|how (?:do|does) (?:the )?peptides? work|what are peptides?)\b/i,
     ],
     summary:
-      "Peptide bioregulators are very short chains of amino acids (usually 2–4) that Khavinson's group proposes act as tissue-specific signals: they're thought to enter cells and influence which genes are switched on. Cytomaxes are natural peptide complexes extracted from young animal organs; Cytogens are synthesized copies of key short peptides; Revilab formulas blend several with vitamins and plant extracts.",
+      "Peptide bioregulators are very short chains of amino acids (usually 2–4) that Khavinson's group proposes act as tissue-specific signals that influence which genes are switched on. Cytomaxes are peptide complexes extracted from young animal organs, Cytogens are synthesized copies of key short peptides, and Revilab formulas blend several with vitamins and plant extracts.",
     sections: [
       {
         heading: "The proposed mechanism",
@@ -469,7 +469,7 @@ export const TOPICS: Topic[] = [
       /\b(eyes?|eyesight|vision|visual|sight|retina\w*|macula\w*|lutein|zeaxanthin|screen strain|eye strain|dry eyes?)\b/i,
     ],
     summary:
-      "For everyday eye health, the best-supported habits are not smoking, eating plenty of leafy greens and colourful vegetables, wearing UV-blocking sunglasses, getting regular eye exams, and the 20-20-20 rule for screen strain (every 20 minutes, look about 20 feet away for 20 seconds). Lutein and zeaxanthin are the most-studied eye nutrients; the AREDS2 formula is specifically for people already diagnosed with intermediate macular degeneration.",
+      "Lutein and zeaxanthin are the most-studied eye nutrients: in the large AREDS2 trial they didn't further slow macular degeneration overall, but replaced beta-carotene in the formula. Retinal peptide research comes from small Russian studies of injectable drugs in people with retinal conditions, not oral supplements for healthy eyes. Get checked the same day for sudden vision loss.",
     sections: [
       {
         heading: "What the research says",
@@ -535,7 +535,7 @@ export const TOPICS: Topic[] = [
       /\b(heart|cardio\w*|circulation|blood vessels?|vascular|veins?|arter\w*|blood flow|omega-?3s?|fish oil)\b/i,
     ],
     summary:
-      "Research on vascular peptides is mostly cell and animal work; the main human signal is a 12-year study of the injected pineal extract Epithalamin in older adults with heart disease, which wasn't a vascular peptide. Fish oil is well studied, with mixed evidence for healthy people. Talk with your doctor about your heart health, especially if you take blood thinners.",
+      "Research on vascular peptides is mostly cell and animal work; the main human signal is a 12-year study of the injected pineal extract Epithalamin in older adults with heart disease, which wasn't a vascular peptide. Fish oil is well studied, with mixed evidence for healthy people. Seek urgent care for chest pain or pressure.",
     sections: [
       {
         heading: "What the research says about peptides",
@@ -623,7 +623,7 @@ export const TOPICS: Topic[] = [
       /\b(brain|memory|memor\w*|focus\w*|concentrat\w*|cognit\w*|brain fog|foggy|forgetful\w*|mental clarity|mental performance)\b/i,
     ],
     summary:
-      "Short brain peptides (such as EDR, also called Pinealon, and KED) protected nerve cells in lab studies, but human data are thin and come from the group that developed them. 'Brain fog' often traces back to poor sleep, stress, low iron or B12, thyroid problems or medicines, so it's worth talking with your doctor.",
+      "Short brain peptides (such as EDR, also called Pinealon, and KED) protected nerve cells in lab studies, but human data are thin and come from the group that developed them. 'Brain fog' often traces back to poor sleep, stress, low iron or B12, thyroid problems or medicines.",
     sections: [
       {
         heading: "What the research says about brain peptides",
@@ -688,7 +688,7 @@ export const TOPICS: Topic[] = [
       /\b(immune|immunity|immune system|catch(?:ing)? (?:every )?colds?|get sick (?:often|a lot)|always sick|natural defen[cs]es|blood[- ]forming|blood formation|bone marrow|hematopoie\w*|haematopoie\w*)\b/i,
     ],
     summary:
-      "Immune function depends most on sleep, a varied diet with enough protein, vitamin D and zinc when levels are low, regular movement, not smoking, and vaccinations. If you get infections unusually often, have unexplained fevers, or blood tests show low blood counts, see your doctor before trying supplements.",
+      "Thymus and bone-marrow peptide research comes mainly from Russian groups. A long-term Russian study of injectable thymus and pineal extracts in 266 older adults reported fewer respiratory infections, but it hasn't been independently replicated, and oral products haven't been tested in comparable trials. If you get infections unusually often or have unexplained fevers, get checked.",
     sections: [
       {
         heading: "What the research says",
@@ -766,7 +766,7 @@ export const TOPICS: Topic[] = [
       /\b(liver|hepat\w*|bile|gallbladder|detox\w*|alcohol metabolism|hangover)\b/i,
     ],
     summary:
-      "Liver peptide (Livagen) research is Russian cell and animal work, and there are no human trials of oral liver peptide products. Some medicines and herbal products stress the liver (high-dose paracetamol/acetaminophen, some herbal extracts). If you have abnormal liver tests, yellowing skin or eyes, or dark urine, see your doctor first.",
+      "Liver peptide (Livagen) research is Russian cell and animal work, and there are no human trials of oral liver peptide products. Some medicines and herbal products stress the liver (high-dose paracetamol/acetaminophen, some herbal extracts). If you have abnormal liver tests, yellowing skin or eyes, or dark urine, see a doctor.",
     sections: [
       {
         heading: "What the research says",
@@ -824,7 +824,7 @@ export const TOPICS: Topic[] = [
       /\b(lungs?|bronch\w*|airways?|respiratory|sinus\w*|nasal|nose|throat)\b/i,
     ],
     summary:
-      "For the lungs and airways the essentials are not smoking or vaping, staying active, vaccinations, and managing allergies. Get urgent care for chest pain, coughing up blood, or struggling to breathe, and see a doctor for a cough lasting more than 3 weeks.",
+      "Bronchial peptide (Bronchogen) research is Russian cell and rat work, including a rat model of chronic lung damage, and there are no human trials of oral bronchial peptide products. Get urgent care for chest pain, coughing up blood, or struggling to breathe, and get a cough lasting more than 3 weeks checked.",
     sections: [
       {
         heading: "What the research says",
@@ -870,7 +870,7 @@ export const TOPICS: Topic[] = [
       /\b(digest\w*|gut|bloat\w*|stomach|indigestion|reflux|heartburn|constipat\w*|bowel)\b/i,
     ],
     summary:
-      "Your liver doesn't need a 'detox' product — it clears substances continuously. What measurably helps liver health is limiting alcohol, keeping a healthy weight, staying active, and not taking unnecessary supplements or painkillers that strain the liver. For digestion, fibre, fluids, regular meals and identifying trigger foods help most.",
+      "Your liver doesn't need a 'detox' product; it clears substances continuously. Liver and stomach peptide research (for example Livagen and Pancragen) is mainly cell and animal work from Khavinson's group, without strong human trials. See a doctor for yellowing skin or eyes, blood in your stool, or unintended weight loss.",
     sections: [
       {
         heading: "What the research says",
@@ -940,7 +940,7 @@ export const TOPICS: Topic[] = [
     label: "Kidney health",
     patterns: [/\b(kidneys?|renal|urinary tract)\b/i],
     summary:
-      "Kidney peptide research consists of cell-culture and rat studies from Khavinson's group; there are no human trials of oral kidney peptide products. If you have any kidney condition, check every supplement with your doctor first — the kidneys clear many of them.",
+      "Kidney peptide research consists of cell-culture and rat studies from Khavinson's group, and there are no human trials of oral kidney peptide products. If you have any kidney condition, keep in mind that the kidneys clear many supplements, so check each one first.",
     sections: [
       {
         heading: "What the research says",
@@ -987,7 +987,7 @@ export const TOPICS: Topic[] = [
       /\b((?:[4-9]\d)[- ]?(?:year|yr)s?[- ]?old (?:man|male|guy)|(?:man|men|male|guy) (?:over|in (?:his|my) )?(?:[4-9]0s?|forties|fifties|sixties)|men'?s health|middle[- ]aged (?:man|men)|what should (?:a|an) (?:\d+|older) (?:year[- ]old )?man take)\b/i,
     ],
     summary:
-      "There isn't one stack every man over 40 should take. The things with the strongest evidence in midlife aren't supplements: blood pressure, cholesterol and blood-sugar checks, colorectal cancer screening, strength training at least twice a week, 7–9 hours of sleep, and limiting alcohol. Supplements make sense to fill a measured gap (for example vitamin D or B12 when a test shows you're low) or to support a specific goal.",
+      "There isn't one stack every man over 40 should take. In the Khavinson tradition, pineal and thymus peptide complexes are the most common foundation pairing for healthy ageing, but the human evidence comes from small studies of related injectable extracts in older adults, so treat it as early.",
     sections: [
       {
         heading: "If you're considering bioregulators",
@@ -1042,7 +1042,7 @@ export const TOPICS: Topic[] = [
       /\b(testosterone|libido|prostate|testicular|sperm|male fertility|urinat\w* at night|nocturia|weak (?:urine )?stream)\b/i,
     ],
     summary:
-      "Testosterone declines slowly with age (roughly 1% a year from about 40). Symptoms such as low libido, fatigue or loss of muscle are worth an early-morning blood test before trying anything, because many other things cause them. Sleep, strength training, a healthy weight and limiting alcohol have the best evidence for supporting normal levels. New urinary symptoms (getting up at night, a weak stream) should be checked by a doctor.",
+      "Testosterone declines slowly with age (roughly 1% a year from about 40), and symptoms like low libido or fatigue have many causes. We couldn't find PubMed-indexed trials of testicular or prostate peptide supplements; the only indexed human studies are 1991 Russian reports on an injectable prostate extract. New urinary symptoms should be checked by a doctor.",
     sections: [
       {
         heading: "What the research says",
@@ -1090,7 +1090,7 @@ export const TOPICS: Topic[] = [
       /\b(menopaus\w*|perimenopaus\w*|hot flash\w*|hot flush\w*|night sweats|periods?|menstrua\w*|pms|female hormones?|women'?s health|hormonal balance)\b/i,
     ],
     summary:
-      "Menopause symptoms such as hot flushes, poor sleep and mood changes vary widely. We don't have strong trials of peptide or herbal formulas for menopause comfort to point you to; some herbs (such as hops) have small, mixed studies. Talk with your clinician about what's right for you.",
+      "Menopause symptoms such as hot flushes, poor sleep and mood changes vary widely. We don't have strong trials of peptide or herbal formulas for menopause comfort to point you to; some herbs, such as hops, have only small, mixed studies.",
     sections: [
       {
         heading: "What the research says",
@@ -1200,7 +1200,7 @@ export const TOPICS: Topic[] = [
       /\b(muscles?|strength|recovery|workouts?|athlet\w*|gym|endurance|lifting|sarcopenia|protein intake)\b/i,
     ],
     summary:
-      "Muscle strength and recovery are driven mainly by progressive resistance training, enough protein (about 1.2–1.6 g per kg of body weight a day for active adults, spread across meals), sleep, and adequate total calories. Creatine monohydrate is the best-studied supplement for strength — Pure Fire doesn't sell it.",
+      "The muscle peptide complex line isn't indexed in PubMed, and the athlete reports in its marketing are not published trials. So there's no published research yet showing what these products do for muscle strength or recovery.",
     sections: [
       {
         heading: "What the research says about muscle peptides",
@@ -1210,7 +1210,7 @@ export const TOPICS: Topic[] = [
     sourceIds: [],
     pubmedQuery: "creatine supplementation resistance training muscle strength",
     evidenceNote:
-      "No published trials for muscle peptide products; protein and training have strong evidence.",
+      "No published trials for muscle peptide products.",
     products: [
       {
         id: "reviform-cocktail",
@@ -1240,7 +1240,7 @@ export const TOPICS: Topic[] = [
     label: "Thyroid",
     patterns: [/\b(thyroid|tsh|t4|t3|iodine)\b/i],
     summary:
-      "Thyroid hormone affects energy, weight, temperature and mood. If you suspect a thyroid problem, the first step is a blood test (TSH, often with free T4) — symptoms such as tiredness overlap with many other causes. Iodine and selenium matter for the thyroid, but extra iodine can backfire, so don't self-supplement without testing.",
+      "Thyroid hormone affects energy, weight, temperature and mood. A controlled Russian study tested a thyroid peptide bioregulator in older adults with reduced thyroid function in a low-iodine region, but the published details are limited. Iodine and selenium matter for the thyroid, though extra iodine can backfire without testing.",
     sections: [
       {
         heading: "What the research says",
@@ -1275,7 +1275,7 @@ export const TOPICS: Topic[] = [
       /\b(stress\w*|anxious|worr\w*|overwhelm\w*|burn ?out|burnt out|low mood|mood|irritab\w*|calm)\b/i,
     ],
     summary:
-      "Adaptogens like ginseng have modest, mixed evidence for fatigue and wellbeing in small studies, and ginseng can interact with some medicines. If low mood or worry has affected your sleep, appetite or work for more than two weeks, talk to a clinician.",
+      "Adaptogens like ginseng have modest, mixed evidence for fatigue and wellbeing in small studies, and ginseng can interact with some medicines. If low mood or worry has affected your sleep, appetite or work for more than two weeks, get support from a clinician.",
     sections: [
       {
         heading: "What the research says",

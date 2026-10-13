@@ -185,7 +185,7 @@ export const DISEASE_FORMAT = {
   dosingGeneral:
     "About dosing: The right amount and course can vary from person to person, for example by sex and by your goal. A preventive course (general upkeep) is often different from a regenerative one (more active support after strain or with age). Each product page lists the label directions. Ask your doctor which approach fits you.",
   closing:
-    "Please talk with your doctor before starting. Educational information, not medical advice. Not intended to diagnose, treat, cure, or prevent any disease.",
+    "Educational information, not medical advice. Not intended to diagnose, treat, cure, or prevent any disease.",
 } as const;
 
 /** Hard doctor-only topics: no dose of any kind (label or condition), refer to a doctor. */
