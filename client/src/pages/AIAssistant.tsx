@@ -185,7 +185,7 @@ export default function AIAssistant() {
     <div className="min-h-screen flex flex-col">
       <PageSeo
         title="AI Health Optimizer | Pure Fire Nutritional"
-        description="Ask Peppy, Pure Fire's research assistant, about peptide bioregulators, supplements and wellness goals: direct answers with linked PubMed studies, their limitations, and related products."
+        description="Ask Pepita, Pure Fire's research assistant, about peptide bioregulators, supplements and wellness goals: direct answers with linked PubMed studies, their limitations, and related products."
         path="/ai-assistant"
         type="website"
       />
@@ -241,13 +241,13 @@ export default function AIAssistant() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-brand-gradient text-white px-6 py-2 rounded-full mb-4">
               <Sparkles className="w-5 h-5" />
-              <span className="font-semibold">Peppy 2.0</span>
+              <span className="font-semibold">Pepita</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">
               Your Personal Health Guide
             </h1>
             <p className="text-gray-600">
-              Ask about a symptom, goal, peptide or product. Peppy answers
+              Ask about a symptom, goal, peptide or product. Pepita answers
               first, shows the research and its limits, and only then any
               related products.
             </p>
@@ -349,7 +349,7 @@ export default function AIAssistant() {
                 role="log"
                 aria-live="polite"
                 aria-relevant="additions"
-                aria-label="Conversation with Peppy"
+                aria-label="Conversation with Pepita"
                 data-testid="peppy-log"
               >
                 {messages.length === 0 && (
@@ -359,7 +359,7 @@ export default function AIAssistant() {
                       aria-hidden="true"
                     />
                     <p className="text-gray-700">
-                      Hi! I'm Peppy, Pure Fire's research assistant.
+                      Hi! I'm Pepita, Pure Fire's research assistant.
                     </p>
                     <p className="text-sm">
                       Ask a question, or try one of these:
@@ -408,7 +408,7 @@ export default function AIAssistant() {
                       </p>
                     ) : (
                       <div className="min-w-0 flex-1 rounded-xl border bg-white p-4 shadow-sm">
-                        <span className="sr-only">Peppy: </span>
+                        <span className="sr-only">Pepita: </span>
                         {m.kind === "answer" ? (
                           <PeppyAnswer
                             answer={m.answer}
@@ -445,7 +445,7 @@ export default function AIAssistant() {
               <div className="sticky bottom-0 rounded-b-xl border-t bg-white/95 p-3 backdrop-blur sm:p-4">
                 <form onSubmit={onSubmit} className="flex gap-2">
                   <label htmlFor={`${baseId}-input`} className="sr-only">
-                    Ask Peppy a question
+                    Ask Pepita a question
                   </label>
                   <Input
                     id={`${baseId}-input`}

@@ -1,5 +1,5 @@
 /**
- * Peppy curated research registry.
+ * Pepita curated research registry.
  * PubMed titles, authors, journals and years were copied verbatim from NCBI esummary (do not
  * paraphrase them; `node scripts/peppy-verify-registry.mjs` re-checks them against PubMed).
  * Findings/limitations are short human-written summaries of each abstract.

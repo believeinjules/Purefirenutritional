@@ -1,5 +1,5 @@
 /**
- * Catalog adapter for Peppy. Accepts products from Firestore (Admin SDK, server) or the
+ * Catalog adapter for Pepita. Accepts products from Firestore (Admin SDK, server) or the
  * code catalog (client/src/data/products.ts) and exposes only claim-filtered fields.
  */
 import {

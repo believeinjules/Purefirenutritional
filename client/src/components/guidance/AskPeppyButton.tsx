@@ -26,7 +26,7 @@ export default function AskPeppyButton({
       data-testid="ask-peppy"
     >
       <span>
-        <span className="font-medium text-gray-900">Not sure?</span> Ask Peppy about this product
+        <span className="font-medium text-gray-900">Not sure?</span> Ask Pepita about this product
       </span>
       <Sparkles className="w-4 h-4 text-orange-600 flex-shrink-0" aria-hidden />
     </Link>

@@ -1,5 +1,5 @@
 /**
- * Peppy deterministic engine.
+ * Pepita deterministic engine.
  *
  * 1. analyze() — classifies a turn (red flags, guards, intent, topics, products). Used by
  *    BOTH modes: it drives retrieval for the LLM and the fallback answer.
@@ -321,7 +321,7 @@ export function toSourceCard(
   const findingText =
     f ||
     (src.origin === "pubmed-live"
-      ? "Peppy hasn't summarised this paper yet — open it on PubMed to read the abstract."
+      ? "Pepita hasn't summarised this paper yet — open it on PubMed to read the abstract."
       : "");
   if (!findingText) return null;
   return { ...src, finding: findingText, limitation: l };
@@ -594,7 +594,7 @@ export function composeFallback(
     return {
       ...base(analysis),
       summary:
-        "Hi, I'm Peppy — Pure Fire's research assistant. Ask me about a symptom or goal, a peptide or supplement, or one of our products, and I'll tell you what the research does and doesn't show, with links to the studies.",
+        "Hi, I'm Pepita — Pure Fire's research assistant. Ask me about a symptom or goal, a peptide or supplement, or one of our products, and I'll tell you what the research does and doesn't show, with links to the studies.",
       sections: [],
       suggestions: suggestionFor(undefined, used),
       showDisclaimer: false,
@@ -605,7 +605,7 @@ export function composeFallback(
     return {
       ...base(analysis),
       summary:
-        "I'm Peppy, Pure Fire's research assistant. I can help with questions about peptides, supplements, wellness research and our products — but that one's outside what I can help with.",
+        "I'm Pepita, Pure Fire's research assistant. I can help with questions about peptides, supplements, wellness research and our products — but that one's outside what I can help with.",
       sections: [],
       suggestions: suggestionFor(undefined, used),
       showDisclaimer: false,
@@ -695,7 +695,7 @@ export function composeFallback(
     sections: [],
     research: live,
     evidenceNote: live.length
-      ? "Unreviewed search results: Peppy hasn't checked these papers' quality or relevance, so how well they answer your question is uncertain."
+      ? "Unreviewed search results: Pepita hasn't checked these papers' quality or relevance, so how well they answer your question is uncertain."
       : undefined,
     followUps: live.length
       ? []

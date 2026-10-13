@@ -1,6 +1,6 @@
-# Peppy 2.0 — the /ai-assistant research assistant
+# Pepita — the /ai-assistant research assistant
 
-Peppy answers wellness and product questions research-first: a direct answer, what the
+Pepita answers wellness and product questions research-first: a direct answer, what the
 evidence does and doesn't show (linked sources with a one-line finding and limitation each),
 safety notes, and — only when relevant and allowed — up to two related products.
 
@@ -38,7 +38,7 @@ with the code catalog (`client/src/lib/peppyClient.ts`), so the page never shows
 | `NCBI_API_KEY` | NCBI E-utilities key (ncbi.nlm.nih.gov/account → API Key). Raises PubMed's limit from 3 to 10 requests/s. |
 | `NCBI_EMAIL` | Contact email NCBI asks API users to send. |
 
-With no LLM key Peppy runs in curated mode: same UI, same safety rules, answers composed from
+With no LLM key Pepita runs in curated mode: same UI, same safety rules, answers composed from
 `shared/peppy/topics.ts` plus live PubMed. Products come from Firestore (Admin SDK credentials
 already used by the admin API) merged over `client/src/data/products.ts`.
 

@@ -1,5 +1,5 @@
 /**
- * Peppy curated knowledge: topics → direct answer, research, products, follow-ups.
+ * Pepita curated knowledge: topics → direct answer, research, products, follow-ups.
  *
  * Writing rules (enforced by tests):
  *  - Answer the question first, specifically. Products are secondary.

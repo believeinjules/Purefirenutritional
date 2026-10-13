@@ -3,7 +3,7 @@
  * - Prefers systematic reviews / meta-analyses / RCTs, broadens to human studies if too few.
  * - Titles are kept verbatim (HTML tags/entities decoded only); retracted papers skipped.
  * - The one-line finding is the abstract's own CONCLUSION(S) section (quoted, not paraphrased);
- *   without a labelled conclusion it says plainly that Peppy hasn't summarised the paper.
+ *   without a labelled conclusion it says plainly that Pepita hasn't summarised the paper.
  * - Every request has a hard timeout; failures resolve to [] so answers never break.
  * - In-memory cache per warm function instance (6 h), bounded size.
  * Optional env: NCBI_API_KEY (raises NCBI's limit from 3 to 10 req/s), NCBI_EMAIL.
@@ -204,7 +204,7 @@ export function parseEsummary(payload: unknown): ResearchSource[] {
       doi: typeof doi === "string" ? doi : undefined,
       url: `https://pubmed.ncbi.nlm.nih.gov/${uid}/`,
       studyType,
-      finding: `Indexed on PubMed as ${TYPE_LABEL[studyType]}${year ? ` (${year})` : ""}. Peppy hasn't summarised this paper — open the abstract for its findings.`,
+      finding: `Indexed on PubMed as ${TYPE_LABEL[studyType]}${year ? ` (${year})` : ""}. Pepita hasn't summarised this paper — open the abstract for its findings.`,
       limitation: LIMIT_BY_TYPE[studyType],
       origin: "pubmed-live",
     });
@@ -215,7 +215,7 @@ export function parseEsummary(payload: unknown): ResearchSource[] {
 /**
  * Per PMID, the abstract's own concluding text from efetch XML (rettype=abstract, retmode=xml):
  * a section labelled CONCLUSION(S)/INTERPRETATION when present ("conclusion"), otherwise the
- * abstract's final sentence ("closing"). Always quoted — never Peppy's paraphrase.
+ * abstract's final sentence ("closing"). Always quoted — never Pepita's paraphrase.
  */
 export function parseEfetchConclusions(
   xml: string

@@ -1,5 +1,5 @@
 /**
- * Runtime-agnostic Peppy pipeline: analyse → (live PubMed) → deterministic draft →
+ * Runtime-agnostic Pepita pipeline: analyse → (live PubMed) → deterministic draft →
  * (LLM + validation) → response. The server passes PubMed/LLM adapters; the browser
  * fallback calls it with none and gets the curated deterministic answer.
  */

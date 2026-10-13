@@ -1,7 +1,7 @@
 /**
  * Products temporarily taken off the storefront. Listed ids (or any product /
  * Firestore doc with `hidden: true` or `active: false`) are dropped from
- * listings, search, product pages, sitemap/prerender, Peppy and checkout.
+ * listings, search, product pages, sitemap/prerender, Pepita and checkout.
  * To bring a product back, remove its id from this list and redeploy.
  */
 export const HIDDEN_PRODUCT_IDS: ReadonlySet<string> = new Set([

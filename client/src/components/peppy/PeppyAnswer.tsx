@@ -13,7 +13,7 @@ interface Props {
 }
 
 /**
- * One structured Peppy answer: direct answer → details → research (with limitations) →
+ * One structured Pepita answer: direct answer → details → research (with limitations) →
  * optional related products → follow-ups / next questions → compact FDA note.
  */
 export default function PeppyAnswer({
@@ -29,7 +29,7 @@ export default function PeppyAnswer({
       aria-labelledby={headingId}
     >
       <h2 id={headingId} className="sr-only">
-        Peppy's answer
+        Pepita's answer
       </h2>
       {urgent && answer.safety ? (
         <SafetyCallout notice={answer.safety} />

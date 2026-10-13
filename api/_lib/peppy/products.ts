@@ -1,5 +1,5 @@
 /**
- * Peppy catalog: Firestore `products` (Admin SDK) merged over the code catalog
+ * Pepita catalog: Firestore `products` (Admin SDK) merged over the code catalog
  * (client/src/data/products.ts). Firestore wins per field so admin edits (price, stock,
  * hidden) show up; without Admin credentials or on error the code catalog is used alone.
  * Cached per warm instance for 10 minutes.

@@ -57,7 +57,7 @@ describe("deterministic answers", () => {
     expect(ask("what's the weather today").summary).toMatch(
       /outside what I can help with/
     );
-    expect(ask("hello").summary).toMatch(/^Hi, I'm Peppy/);
+    expect(ask("hello").summary).toMatch(/^Hi, I'm Pepita/);
   });
   it("uses a short follow-up reply to refine the previous topic", () => {
     const r = ask("about 3 months, heavy periods, no meds", [

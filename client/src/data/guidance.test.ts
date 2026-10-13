@@ -30,7 +30,7 @@ describe("shop by system", () => {
     );
     expect(
       `${SYSTEM_HELP_LINE.before} ${SYSTEM_HELP_LINE.askPeppy}${SYSTEM_HELP_LINE.middle} ${SYSTEM_HELP_LINE.doctorQuestions} ${SYSTEM_HELP_LINE.after}`
-    ).toBe("Not sure which one fits? Ask Peppy, or bring the doctor questions to your next appointment.");
+    ).toBe("Not sure which one fits? Ask Pepita, or bring the doctor questions to your next appointment.");
   });
 
   it("only lists product ids that exist in the catalog", () => {
@@ -104,7 +104,7 @@ describe("protocols", () => {
   });
 });
 
-describe("Peppy hand-off params", () => {
+describe("Pepita hand-off params", () => {
   const exists = (id: string) => id === "bonomarlot";
   it("parses known product, goal and sex; ignores junk", () => {
     expect(parsePeppyParams("?product=bonomarlot&goal=restorative&sex=men", exists)).toEqual({

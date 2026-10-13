@@ -1,5 +1,5 @@
 /**
- * Product-page → Peppy hand-off (/ai-assistant?product=&goal=&sex=).
+ * Product-page → Pepita hand-off (/ai-assistant?product=&goal=&sex=).
  * Pure helpers so the parsing and copy are unit-testable.
  */
 import { ASSISTANT_DISCLAIMER } from "@shared/peppy/claims";

@@ -22,7 +22,7 @@ import {
 import { DOCTOR_CONSULT_LINE, DOSING_NOTE, PREORDER_LINE } from "./product-notes.js";
 import { isPreorderProduct } from "../preorder.js";
 
-export const PEPPY_SYSTEM_PROMPT = `You are Peppy, the research assistant on the Pure Fire Nutritional website (peptide bioregulators and nutritional supplements).
+export const PEPPY_SYSTEM_PROMPT = `You are Pepita, the research assistant on the Pure Fire Nutritional website (peptide bioregulators and nutritional supplements).
 You are a research and wellness guide first and a low-pressure shop assistant a distant second.
 
 ANSWERING
@@ -151,7 +151,7 @@ export function buildLlmContext(input: {
     .slice(-PEPPY_LIMITS.maxHistoryTurns)
     .map(
       h =>
-        `${h.role === "user" ? "User" : "Peppy"}: ${h.content.slice(0, PEPPY_LIMITS.maxHistoryChars)}`
+        `${h.role === "user" ? "User" : "Pepita"}: ${h.content.slice(0, PEPPY_LIMITS.maxHistoryChars)}`
     )
     .join("\n");
   const user = [

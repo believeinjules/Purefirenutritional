@@ -1,5 +1,5 @@
 /**
- * Peppy claim rules (DSHEA structure/function only for OUR product copy).
+ * Pepita claim rules (DSHEA structure/function only for OUR product copy).
  *
  * - Product-facing text (why-relevant lines, evidence notes, product summaries) may never
  *   carry disease names, treat/cure/prevent/diagnose language, efficacy percentages,
