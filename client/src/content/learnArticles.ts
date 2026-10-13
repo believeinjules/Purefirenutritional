@@ -19,11 +19,6 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     description: "What peptide bioregulators are, who Professor Vladimir Khavinson is, and the research behind Cytomaxes and Cytogens.",
   },
   {
-    title: "Cytomaxes vs Cytogens",
-    href: "/learn/cytomaxes-vs-cytogens",
-    description: "The difference between natural Cytomaxes and synthetic Cytogens, and how to choose between them.",
-  },
-  {
     title: "Khavinson Peptides in the United States",
     navLabel: "Buying Khavinson Peptides in the U.S.",
     href: "/learn/buy-khavinson-peptides-usa",

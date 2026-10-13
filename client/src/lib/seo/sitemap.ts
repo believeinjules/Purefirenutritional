@@ -28,7 +28,6 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/authenticity",
   "/insights",
   "/learn/what-are-khavinson-peptide-bioregulators",
-  "/learn/cytomaxes-vs-cytogens",
   "/learn/buy-khavinson-peptides-usa",
   "/learn/peptides-in-context-systems-view",
   // /privacy, /terms, /shipping, /returns

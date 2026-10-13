@@ -227,7 +227,7 @@ describe("/insights index", () => {
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
-    expect(LEARN_ARTICLES).toHaveLength(4);
+    expect(LEARN_ARTICLES).toHaveLength(3);
     for (const a of LEARN_ARTICLES) {
       expect(a.href.startsWith("/learn/"), a.href).toBe(true);
       expect(app).toContain(`<Route path="${a.href}"`);
@@ -238,18 +238,17 @@ describe("/insights index", () => {
     }
   });
 
-  it("the Science nav submenu lists 3 articles in order, then Pure Fire Insights (no TSP link)", () => {
+  it("the Science nav submenu lists 2 articles in order, then Pure Fire Insights (no TSP link)", () => {
     const labels = LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => a.navLabel ?? a.title);
     expect(labels).toEqual([
       "What Are Khavinson Peptide Bioregulators?",
-      "Cytomaxes vs Cytogens",
       "Buying Khavinson Peptides in the U.S.",
     ]);
     // Peptides in Context is on /insights only, at its unchanged URL.
     const pic = LEARN_ARTICLES.find((a) => a.href === "/learn/peptides-in-context-systems-view");
     expect(pic?.hideFromNav).toBe(true);
     // The on-page title of the US article stays the full title.
-    expect(LEARN_ARTICLES[2].title).toBe("Khavinson Peptides in the United States");
+    expect(LEARN_ARTICLES[1].title).toBe("Khavinson Peptides in the United States");
     expect(nav).toContain("LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
     expect(nav).toContain('{ label: "Pure Fire Insights", href: "/insights" }');
     expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science
@@ -264,5 +263,39 @@ describe("/insights index", () => {
     expect(PUBLIC_STATIC_ROUTES).not.toContain("/blog");
     expect(app).not.toContain('"/articles"');
     expect(PUBLIC_STATIC_ROUTES).not.toContain("/articles");
+  });
+});
+
+describe("Cytomaxes vs Cytogens merged into the What Are article", () => {
+  const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
+  const whatAre = fs.readFileSync(path.join(root, "client/src/pages/learn/WhatAreKhavinsonPeptides.tsx"), "utf8");
+  const faq = fs.readFileSync(path.join(root, "client/src/pages/FAQ.tsx"), "utf8");
+  const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
+  const OLD = "/learn/cytomaxes-vs-cytogens";
+  const TARGET = "/learn/what-are-khavinson-peptide-bioregulators#cytomaxes-vs-cytogens";
+
+  it("the standalone page, route, sitemap entry and index card are gone", () => {
+    expect(fs.existsSync(path.join(root, "client/src/pages/learn/CytomaxesCytogens.tsx"))).toBe(false);
+    expect(app).not.toContain(OLD);
+    expect(PUBLIC_STATIC_ROUTES).not.toContain(OLD);
+    expect(UNLISTED_ROUTES).not.toContain(OLD);
+    expect(LEARN_ARTICLES.map((a) => a.href)).not.toContain(OLD);
+  });
+
+  it("the old URL 301s to the merged section", () => {
+    expect(vercel.redirects).toContainEqual({ source: OLD, destination: TARGET, statusCode: 301 });
+  });
+
+  it("the What Are article has the #cytomaxes-vs-cytogens section with the merged text", () => {
+    expect(whatAre).toContain('<section id="cytomaxes-vs-cytogens"');
+    expect(whatAre).toContain("Cytomaxes vs Cytogens: Understanding the Two Types of Khavinson Peptides");
+    expect(whatAre).toContain("Cytogens: Synthetic Peptide Bioregulators</h3>");
+    expect(whatAre).toContain("How to Choose Between Them</h3>");
+  });
+
+  it("the FAQ has one Cytomaxes vs Cytogens entry linking to the section", () => {
+    expect(faq.match(/Cytomaxes and Cytogens\?"/g)).toHaveLength(1);
+    expect(faq).toContain(`question: "What's the difference between Cytomaxes and Cytogens?"`);
+    expect(faq).toContain(`CYTOMAXES_VS_CYTOGENS_HREF = "${TARGET}"`);
   });
 });

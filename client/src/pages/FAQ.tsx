@@ -11,9 +11,13 @@ interface FAQItem {
   question: string;
   answer: string;
   category: string;
+  /** Optional "read more" link shown under the answer. */
+  link?: { href: string; label: string };
 }
 
-const faqs: FAQItem[] = [
+export const CYTOMAXES_VS_CYTOGENS_HREF = "/learn/what-are-khavinson-peptide-bioregulators#cytomaxes-vs-cytogens";
+
+export const faqs: FAQItem[] = [
   // General
   {
     category: "General",
@@ -43,8 +47,9 @@ const faqs: FAQItem[] = [
   // Products
   {
     category: "Products",
-    question: "What is the difference between Cytomaxes and Cytogens?",
-    answer: "Cytomaxes are natural peptide bioregulators derived from animal tissues, while Cytogens are synthetic peptides created in the laboratory. Both have similar effects, but Cytogens offer higher purity and consistency. Cytogens are ideal for those who prefer non-animal-derived products."
+    question: "What's the difference between Cytomaxes and Cytogens?",
+    answer: "Cytomaxes are natural peptide bioregulators extracted from the organs of young animals; they contain a complex mixture of short peptides and generally work gradually, over about four to six months. Cytogens are made in a laboratory from a defined sequence of two to four amino acids, are free from animal-derived components, and often act within one to two months. Many people use both: a Cytomax for long-term organ support and a Cytogen for more targeted support of a specific system.",
+    link: { href: CYTOMAXES_VS_CYTOGENS_HREF, label: "Read more: Cytomaxes vs Cytogens" },
   },
   {
     category: "Products",
@@ -202,6 +207,11 @@ export default function FAQ() {
                 {openIndex === index && (
                   <CardContent className="pt-0 pb-4 px-4">
                     <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    {faq.link && (
+                      <a href={faq.link.href} className="mt-3 inline-block text-sm text-orange-600 hover:underline">
+                        {faq.link.label} →
+                      </a>
+                    )}
                   </CardContent>
                 )}
               </Card>
