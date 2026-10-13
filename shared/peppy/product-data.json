@@ -1,0 +1,5616 @@
+{
+  "schemaVersion": 1,
+  "note": "Single source for Pepita's product facts. Research Director: fill value + source, set status 'verified' (source starting 'RD:'), and set verifiedOn/productVersion. Pepita only uses fields with status 'verified'; 'candidate' text is never shown.",
+  "products": [
+    {
+      "id": "bonomarlot",
+      "name": "Bonomarlot",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Bone marrow peptide complex (A-20)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days).",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "verified",
+        "value": "Maintenance: 20-capsule vial (10 days)",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Intensive: N60 format (2 caps twice daily for 30 days).",
+        "source": "client/src/data/products.ts usage"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "cartalax",
+      "name": "Cartalax",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Cartilage peptide complex AC-4 (Ala-Glu-Asp / AED tripeptide)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "chelohart",
+      "name": "Chelohart",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Heart muscle peptide complex (A-14)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "verified",
+        "value": "Maintenance: 20-capsule vial",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Intensive: N60 format.",
+        "source": "client/src/data/products.ts usage"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "crystagen",
+      "name": "Crystagen",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Thymus peptide complex (AC-6)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "endoluten",
+      "name": "Endoluten",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Pineal gland peptide complex (A-8)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days).",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "verified",
+        "value": "Maintenance: 20-capsule vial (10 days)",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Intensive: N60 format.",
+        "source": "client/src/data/products.ts usage"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "gotratix",
+      "name": "Gotratix",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Muscle peptide complex (A-18)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial. Intensive: N60 (2 caps twice daily for 30 days).",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Intensive: N60 (2 caps twice daily for 30 days).",
+        "source": "client/src/data/products.ts usage"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "pielotax",
+      "name": "Pielotax",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Kidney peptide complex (A-9)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "prime-peptide-brain",
+      "name": "Prime Peptide Brain",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "1–2 capsules daily. Course: 1–2 months.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "prime-peptide-collagen",
+      "name": "Prime Peptide Collagen",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "1–2 capsules daily with meals. Course: 1–2 months.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "prime-peptide-joints",
+      "name": "Prime Peptide Joints",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "1–2 capsules daily with meals. Course: 1–2 months.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "prime-peptide-omega",
+      "name": "Prime Peptide Omega",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "1–2 capsules daily with meals. Course: 1–2 months.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "prime-peptide-protect",
+      "name": "Prime Peptide Protect",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "1–2 capsules daily with meals. Course: 1–2 months.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-01",
+      "name": "Revilab ML 01",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Epiphysis peptide complex (AA-1); B-link immune peptide complex (AA-3); Liver peptide complex (AA-10); Resveratrol; Choline bitartrate; Omega-3 polyunsaturated fatty acids; Vitamins E, A, C",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-02",
+      "name": "Revilab ML 02",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "T-link immune peptide complex (AA-2); B-link immune peptide complex (AA-3); Bone marrow peptide complex (AA-4); Liver peptide complex (AA-10); Omega-3 polyunsaturated fatty acids; Vitamins E, B6, B9",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-03",
+      "name": "Revilab ML 03",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Brain peptide complex (AA-5); Retina peptide complex (AA-6); Vascular wall peptide complex (AA-7); Astaxanthin; Choline bitartrate; Omega-3 polyunsaturated fatty acids; Vitamins B1, B2, B6; Marigold extract (lutein, zeaxanthin)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-04",
+      "name": "Revilab ML 04",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Epiphysis peptide complex (AA-1); Vascular wall peptide complex (AA-7); Heart muscle peptide complex (AA-8); Resveratrol; Rutin; Omega-3 polyunsaturated fatty acids; Vitamin PP (Niacin)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-05",
+      "name": "Revilab ML 05",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "T-link immune peptide complex (AA-2); Bronchi peptide complex (AA-14); Lungs and stomach wall peptide complex (AA-15); Omega-3 polyunsaturated fatty acids; Vitamins E, A; Licorice root extract",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-06",
+      "name": "Revilab ML 06",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Liver peptide complex (AA-10); Pancreas peptide complex (AA-11); Lungs and stomach wall peptide complex (AA-15); Omega-3 polyunsaturated fatty acids; Licorice root extract; Artichoke fruit extract; Plantain leaves extract; Strawberry leaves extract",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-07",
+      "name": "Revilab ML 07",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Epiphysis peptide complex (AA-1); Vascular wall peptide complex (AA-7); Testes peptide complex (AA-12); Bladder peptide complex (AA-13); Omega-3 polyunsaturated fatty acids; L-carnitine; Zinc citrate",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-08",
+      "name": "Revilab ML 08",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Epiphysis peptide complex (AA-1); Vascular wall peptide complex (AA-7); Cartilage peptide complex (AA-9); Bladder peptide complex (AA-13); Omega-3 polyunsaturated fatty acids; Resveratrol; Arginine",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-ml-09",
+      "name": "Revilab ML 09",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "B-link immune peptide complex (AA-3); Vascular wall peptide complex (AA-7); Cartilage peptide complex (AA-9); Chondroitin sulfate; Omega-3 polyunsaturated fatty acids; Superoxide dismutase (SOD); Catalase; Carnosine",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily in the morning on an empty stomach.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "verified",
+        "value": "in the morning",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "food": {
+        "status": "verified",
+        "value": "on an empty stomach",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks; may be repeated 1–2 times per year",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-pro-elements",
+      "name": "Revilab Pro Elements",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "mesotel-neo",
+      "name": "Mesotel Neo",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-01",
+      "name": "Revilab SL 01",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Vascular wall peptide complex (AA-7); Cardiac muscle peptide complex (AA-8); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-02",
+      "name": "Revilab SL 02",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Brain peptide complex (AA-5); Retina peptide complex (AA-6); Vascular wall peptide complex (AA-7); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-03",
+      "name": "Revilab SL 03",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Pineal gland peptide complex (AA-1); T-cell immune peptide complex (AA-2); B-cell immune peptide complex (AA-3); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-04",
+      "name": "Revilab SL 04",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "B-cell immune peptide complex (AA-3); Cartilage peptide complex (AA-9); Muscle peptide complex (AA-17); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-05",
+      "name": "Revilab SL 05",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Liver peptide complex (AA-10); Pancreas peptide complex (AA-11); Lungs and stomach wall peptide complex (AA-15); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-06",
+      "name": "Revilab SL 06",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "B-cell immune peptide complex (AA-3); Bronchi peptide complex (AA-14); Lungs and stomach wall peptide complex (AA-15); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-07",
+      "name": "Revilab SL 07",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "B-cell immune peptide complex (AA-3); Bone marrow peptide complex (AA-4); Vascular wall peptide complex (AA-7); Vitamin B1 (thiamine); Vitamin B12 (cobalamin); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-08",
+      "name": "Revilab SL 08",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "T-cell immune peptide complex (AA-2); Vascular wall peptide complex (AA-7); Bladder peptide complex (AA-13); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-09",
+      "name": "Revilab SL 09",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Pineal gland peptide complex (AA-1); Testes peptide complex (AA-12); Bladder peptide complex (AA-13); Prostate peptide complex (AA-16); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "testoluten",
+      "name": "Testoluten",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Testicular peptide complex (A-13)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1 capsule twice daily with meals for 30 days. Repeat every 4–6 months.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule twice daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 4–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "ventfort",
+      "name": "Ventfort",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Vascular peptide complex (A-3)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "vesugen",
+      "name": "Vesugen",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Vascular peptide complex (AS-2)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "visoluten",
+      "name": "Visoluten",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Eye tissue peptide complex (A-11)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "vladonix",
+      "name": "Vladonix",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Thymus peptide complex (A-6)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "30 days; repeat every 3–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "anti-wrinkle-serum-7",
+      "name": "Anti-Wrinkle Serum №7",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Matrixyl® synthe'6™ (palmitoyl tripeptide-38); Progeline™ (acetyl tripeptide-2); Liftessense™ (Cyathea cumingii extract); Low molecular weight hyaluronic acid; CO2 pomegranate extract; Evening primrose oil",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Apply a few drops to clean skin on face, neck, and décolleté. Use 1-2 times daily. For best results, use regularly for 28-30 days, 3-4 times per year.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-sl-10",
+      "name": "Revilab SL 10",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Pineal gland peptide complex (AA-1); Vascular wall peptide complex (AA-7); Bladder peptide complex (AA-13); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revilab-anti-age",
+      "name": "Revilab Anti-A.G.E.",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Carnosine (beta-alanyl-L-histidine); Astaxanthin (100x more effective than vitamin E); Alpha-lipoic acid (vitamin N); Rosemary extract; Taurine",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "alvenorm-forte",
+      "name": "Alvenorm Forte",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "volustom",
+      "name": "Volustom",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "getrufline",
+      "name": "Getrufline",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Chew 1 truffle thoroughly per day for 6–12 days. Wash down with water. Honey may be added to reduce bitterness.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "digemax",
+      "name": "Digemax",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "imusil",
+      "name": "Imusil",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "indosine",
+      "name": "Indosine",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Indole-3-carbinol; Broccoli extract; Coenzyme Q10; Superoxide dismutase; Catalase; Milky white iris grass extract",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Take 1-2 tablets once daily before meals. Prophylactic course: minimum 1 month. Therapeutic course: 2 months or more.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "calsil-t",
+      "name": "Calsil-T",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "complex-3d",
+      "name": "Complex 3D",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Ascorbyl palmitate (Vitamin C); Selenium yeast; L-cysteine; Dihydroquercetin; Catalase; Vitamin E; Barley sprout extract; Retinol palmitate (Vitamin A); Glutathione",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule daily with meals. Duration: 4–6 weeks. Course may be repeated throughout the year.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "4–6 weeks",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "complex-3r",
+      "name": "Complex 3R",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Dihydroquercetin; Resveratrol; Coenzyme Q10",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "Take as directed.",
+        "source": "client/src/data/products.ts usage (not in reviewed guide)"
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "levain",
+      "name": "Levain",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "likam",
+      "name": "Likam",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "mamiton",
+      "name": "Mamiton",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Resveratrol; Motherwort extract; Mint extract; Rosehip extract; Nettle extract; Knotweed extract; Hops extract; Laminaria extract; Vitamin A; Vitamin E; Field horsetail extract; Juglans regia pericarp extract",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "mesotel",
+      "name": "Mesotel",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "mesotel-beauty",
+      "name": "Mesotel Beauty",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "panaxod",
+      "name": "Panaxod",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "pinalex-tab",
+      "name": "Pinalex Tab",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "pangluin",
+      "name": "Pangluin",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revimite",
+      "name": "Revimite",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Pomegranate extract; Green tea extract; Echinacea extract; Oat extract; Grape seed extract; Ginger extract; Soy extract; Iron; B vitamins (B1, B6, B12); Soy lecithin",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "reviplant",
+      "name": "Reviplant",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "reviform-cocktail",
+      "name": "Reviform Cocktail",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "revifort",
+      "name": "Revifort",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Shiitake mushroom extract; Reishi mushroom extract; Maitake mushroom extract; Cordyceps extract; Beta-glucans",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "renefort",
+      "name": "Renefort",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "retisil",
+      "name": "Retisil",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "rinolax",
+      "name": "Rinolax",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "felicita",
+      "name": "Felicita",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "zinsil-t",
+      "name": "Zinsil-T",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Glycine (500mg); Zinc (8.6mg); Pyridoxine / Vitamin B6 (1.5mg)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 tablet 2 times daily, chewing",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "during meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "1 month",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "ensil",
+      "name": "Ensil",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Coenzyme Q10; Nicotinamide (Vitamin PP); Folic acid; Echinacea extract; Succinic acid (amber acid); L-carnitine; Vitamins B1, B5, B6; Vitamins C and E",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 capsule 3 times daily with meals. Course duration: 1 month.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1 capsule 3 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "1 month",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "anti-age-nb-activity",
+      "name": "Anti-Age Complex NB Activity",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "anti-age-nb-health",
+      "name": "Anti-Age Complex NB Health",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "thyreogen",
+      "name": "Thyreogen",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "verified",
+        "value": "Thyroid gland peptide complex (A-2)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily with meals.",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "frequency": {
+        "status": "verified",
+        "value": "1–2 capsules 1–2 times daily",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meals",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "10–30 days; repeat in 4–6 months",
+        "source": "shared/peppy/manufacturer-guide.ts (label/site usage text, Regulatory-reviewed)"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "20 Capsules / 60 Capsules",
+        "source": "client/src/data/products.ts variants"
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "gpl-femme",
+      "name": "GPL Femme",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "gpl-man",
+      "name": "GPL Man",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "frequency": {
+        "status": "unverified",
+        "value": null
+      },
+      "timing": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "maintenanceProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "intensiveProtocol": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      },
+      "limitations": {
+        "status": "unverified",
+        "value": null
+      }
+    }
+  ]
+}

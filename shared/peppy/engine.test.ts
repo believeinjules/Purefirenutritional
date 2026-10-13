@@ -72,8 +72,8 @@ describe("deterministic answers", () => {
   });
   it("gives manufacturer directions for dosage questions", () => {
     const r = ask("how do I take Cartalax?");
-    expect(r.sections[0].heading).toBe("Manufacturer's directions");
-    expect(r.sections[0].body).toMatch(/not personal dosing advice/);
+    expect(r.summary).toMatch(/manufacturer's label for Cartalax says: 1–2 capsules 1–2 times daily with meals/);
+    expect(r.summary).toMatch(/not evidence from clinical trials/);
   });
   it("names Endoluten + melatonin as unstudied rather than guessing", () => {
     const r = ask("Can I take Endoluten with melatonin?");

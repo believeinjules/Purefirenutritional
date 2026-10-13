@@ -6,6 +6,7 @@
  * 2. composeFallback() — builds a complete structured answer from curated content when no
  *    LLM is configured or the LLM fails, so the assistant never shows an error.
  */
+import { dosingAnswer } from "./product-data.js";
 import { isPreorderProduct } from "../preorder.js";
 import {
   ASSISTANT_DISCLAIMER,
@@ -725,14 +726,8 @@ function composeProductAnswer(
   const ev = PRODUCT_EVIDENCE[product.id];
   const sections: AnswerSection[] = [];
 
-  if (analysis.intent === "dosage") {
-    sections.push({
-      heading: "Manufacturer's directions",
-      body: product.usage
-        ? `${product.usage}\n\nThese are the label directions, not personal dosing advice. Check with your clinician first if you take medicines, are pregnant or breastfeeding, or have a medical condition.`
-        : "The label directions aren't listed on our product page yet — follow the package insert, and check with your clinician first if you take medicines or have a medical condition.",
-    });
-  }
+  // Dosing comes ONLY from verified fields in product-data.json (never from free catalog text).
+  const dosing = analysis.intent === "dosage" ? dosingAnswer(product.id, product.name) : null;
 
   const ingredients = product.ingredients.length
     ? product.ingredients.join(", ")
@@ -778,7 +773,7 @@ function composeProductAnswer(
           ? `Short answer: there's no published trial of ${product.name} itself, so nobody can say how well it works. What exists is research on its ingredient or related preparations — mostly lab, animal and small human studies — summarised below.`
           : `Short answer: there's no published research on ${product.name} itself, so nobody can say how well it works${topic ? ` for ${toInlinePhrase(topic.label)}` : ""}. Below is what's in it and what's known in general.`
         : analysis.intent === "dosage"
-          ? `Here are the manufacturer's directions for ${product.name}, plus what to keep in mind.`
+          ? dosing!.text
           : // v3: answer naturally, right away (no report-style opener).
             [
               what,
@@ -789,7 +784,13 @@ function composeProductAnswer(
     sections: cleanSections(sections, catalog),
     research: pickSources(ev?.sourceIds ?? [], liveSources, 4),
     evidenceNote: ev ? ev.productNote : undefined,
-    safety: analysis.guards.disease
+    safety: dosing
+      ? {
+          level: "info",
+          title: "Worth knowing",
+          body: "Check the amount with your doctor first if you take medicines, are pregnant or breastfeeding, have a hormone-sensitive condition or have surgery coming up.",
+        }
+      : analysis.guards.disease
       ? {
           level: "caution",
           title: "About your condition",
