@@ -2,7 +2,7 @@
  * Product-page → Peppy hand-off (/ai-assistant?product=&goal=&sex=).
  * Pure helpers so the parsing and copy are unit-testable.
  */
-import { ASSISTANT_DISCLAIMER } from "@/lib/assistantReply";
+import { ASSISTANT_DISCLAIMER } from "@shared/peppy/claims";
 import { DOCTOR_QUESTIONS } from "@/data/doctorQuestions";
 import {
   getPublicProtocol,
