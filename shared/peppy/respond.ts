@@ -4,6 +4,7 @@
  * fallback calls it with none and gets the curated deterministic answer.
  */
 import { ensureProductNotes } from "./product-notes.js";
+import { withoutHiddenProducts } from "../hidden-products.js";
 import {
   analyze,
   composeFallback,
@@ -109,7 +110,7 @@ export function llmCandidates(
   return out;
 }
 
-export async function answerPeppy(
+async function answerPeppyUnfiltered(
   req: {
     message: string;
     history?: PeppyHistoryTurn[];
@@ -207,4 +208,15 @@ export async function answerPeppy(
     meta.llm = "error";
     return { response: ensureProductNotes(draft), analysis, meta };
   }
+}
+
+/**
+ * Public entry point: every answer (LLM, fallback or urgent) leaves the pipeline with
+ * hidden products removed (shared/hidden-products.ts).
+ */
+export async function answerPeppy(
+  ...args: Parameters<typeof answerPeppyUnfiltered>
+): Promise<Awaited<ReturnType<typeof answerPeppyUnfiltered>>> {
+  const result = await answerPeppyUnfiltered(...args);
+  return { ...result, response: withoutHiddenProducts(result.response) };
 }
