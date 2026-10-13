@@ -1,3 +1,4 @@
+import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import { Link, useSearch } from "wouter";
 import PageSeo from "@/components/seo/PageSeo";
 import {
@@ -10,9 +11,7 @@ import {
 } from "react";
 import {
   Send,
-  Bot,
   AlertTriangle,
-  Sparkles,
   ClipboardList,
   Loader2,
 } from "lucide-react";
@@ -240,8 +239,8 @@ export default function AIAssistant() {
         <div className="max-w-4xl mx-auto px-4 py-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-brand-gradient text-white px-6 py-2 rounded-full mb-4">
-              <Sparkles className="w-5 h-5" />
+            <div className="inline-flex items-center gap-2 bg-brand-gradient text-white pl-1.5 pr-6 py-1.5 rounded-full mb-4">
+              <PepitaAvatar size={32} className="ring-2 ring-white/70" />
               <span className="font-semibold">Pepita</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">
@@ -355,10 +354,7 @@ export default function AIAssistant() {
               >
                 {messages.length === 0 && (
                   <div className="text-center text-gray-500 py-8">
-                    <Bot
-                      className="w-14 h-14 mx-auto mb-3 text-orange-300"
-                      aria-hidden="true"
-                    />
+                    <PepitaAvatar size={56} className="mx-auto mb-3 block" />
                     <p className="text-gray-700">
                       Hi! I'm Pepita, Pure Fire's research assistant.
                     </p>
@@ -395,12 +391,7 @@ export default function AIAssistant() {
                     }
                   >
                     {m.role === "assistant" && (
-                      <div
-                        className="hidden sm:flex w-8 h-8 bg-brand-gradient rounded-full items-center justify-center flex-shrink-0"
-                        aria-hidden="true"
-                      >
-                        <Bot className="w-5 h-5 text-white" />
-                      </div>
+                      <PepitaAvatar size={28} className="mt-0.5 sm:h-8 sm:w-8" />
                     )}
                     {m.role === "user" ? (
                       <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-orange-500 px-4 py-2 text-white [overflow-wrap:anywhere]">

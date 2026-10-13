@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
+import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 
 interface FAQItem {
@@ -222,7 +223,8 @@ export default function FAQ() {
                     {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                         {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].map((l) => (
-                          <a key={l.href} href={l.href} className="inline-block text-sm text-orange-600 hover:underline">
+                          <a key={l.href} href={l.href} className="inline-flex items-center gap-1.5 text-sm text-orange-600 hover:underline">
+                            {l.label === "Ask Pepita" ? <PepitaAvatar size={18} /> : null}
                             {l.label} →
                           </a>
                         ))}

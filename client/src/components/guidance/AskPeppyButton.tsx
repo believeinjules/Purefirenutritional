@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Sparkles } from "lucide-react";
+import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import type { ProtocolGoal, ProtocolSex } from "@/data/protocols";
 
 /** /ai-assistant?product=&goal=&sex= (goal/sex only when chosen). */
@@ -28,7 +28,7 @@ export default function AskPeppyButton({
       <span>
         <span className="font-medium text-gray-900">Not sure?</span> Ask Pepita about this product
       </span>
-      <Sparkles className="w-4 h-4 text-orange-600 flex-shrink-0" aria-hidden />
+      <PepitaAvatar size={24} />
     </Link>
   );
 }
