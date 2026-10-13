@@ -42,7 +42,7 @@
     },
     {
       "source": "/learn",
-      "destination": "/science",
+      "destination": "/blog",
       "statusCode": 301
     }
   ]

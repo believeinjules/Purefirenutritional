@@ -15,6 +15,7 @@ import {
   splitSentences,
 } from "./index";
 import { SPOT_A_FAKE } from "@/content/spotAFake";
+import { LEARN_ARTICLES } from "@/content/learnArticles";
 import { buildSitemapXml, PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES } from "./sitemap";
 
 const root = path.resolve(__dirname, "../../../..");
@@ -203,5 +204,43 @@ describe("vercel.json redirects", () => {
       statusCode: 301,
     });
     expect(vercel.rewrites ?? []).toEqual([]);
+  });
+});
+
+describe("/blog index", () => {
+  const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
+  const blog = fs.readFileSync(path.join(root, "client/src/pages/Blog.tsx"), "utf8");
+  const nav = fs.readFileSync(path.join(root, "client/src/components/Navigation.tsx"), "utf8");
+
+  it("is a real, prerendered, sitemap-listed public route", () => {
+    expect(app).toContain('<Route path="/blog" component={Blog} />');
+    expect(PUBLIC_STATIC_ROUTES).toContain("/blog");
+    expect(UNLISTED_ROUTES).not.toContain("/blog");
+    expect(PRIVATE_ROUTES["/blog"]).toBeUndefined();
+    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/blog")}</loc>`);
+  });
+
+  it("sets its own title, meta description and canonical", () => {
+    expect(blog).toMatch(/<PageSeo title=\{BLOG_TITLE\} description=\{BLOG_DESCRIPTION\} path="\/blog" \/>/);
+    expect(blog).toContain('"Blog | Pure Fire Nutritional"');
+    expect(canonicalUrl("/blog")).toBe("https://www.purefirenutritional.com/blog");
+  });
+
+  it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
+    expect(LEARN_ARTICLES).toHaveLength(4);
+    for (const a of LEARN_ARTICLES) {
+      expect(a.href.startsWith("/learn/"), a.href).toBe(true);
+      expect(app).toContain(`<Route path="${a.href}"`);
+      expect(PUBLIC_STATIC_ROUTES).toContain(a.href);
+      expect(a.description.length, a.href).toBeGreaterThan(20);
+      expect(a.description.length, a.href).toBeLessThanOrEqual(160);
+      if (a.cover) expect(fs.existsSync(path.join(root, "client/public", a.cover.jpg)), a.cover.jpg).toBe(true);
+    }
+  });
+
+  it("the Science nav submenu is just Science + Blog (no per-article links)", () => {
+    expect(nav).toContain('{ label: "Science", href: "/science" }');
+    expect(nav).toContain('{ label: "Blog", href: "/blog" }');
+    expect(nav).not.toContain("LEARN_ARTICLES");
   });
 });

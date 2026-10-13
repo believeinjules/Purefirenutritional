@@ -3,7 +3,12 @@ import { ShoppingCart, User, Heart, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
-import { LEARN_ARTICLES } from "@/content/learnArticles";
+
+/** Items under the Science dropdown (desktop) and Science submenu (mobile). */
+const SCIENCE_SUBMENU = [
+  { label: "Science", href: "/science" },
+  { label: "Blog", href: "/blog" },
+];
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,20 +70,19 @@ export default function Navigation() {
                     {label}
                     <ChevronDown className="h-3 w-3 opacity-70" aria-hidden="true" />
                   </Link>
-                  {/* Learn articles: shown on hover or keyboard focus */}
+                  {/* Science submenu: shown on hover or keyboard focus */}
                   <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 hidden group-hover:block group-focus-within:block">
                     <div
-                      className="w-72 rounded-md border border-white/10 py-3 shadow-xl"
+                      className="w-44 rounded-md border border-white/10 py-2 shadow-xl"
                       style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
                     >
-                      <p className="px-5 pb-2 text-[10px] uppercase tracking-[0.22em] text-white/50">Learn</p>
-                      {LEARN_ARTICLES.map((a) => (
+                      {SCIENCE_SUBMENU.map((item) => (
                         <Link
-                          key={a.href}
-                          href={a.href}
+                          key={item.href}
+                          href={item.href}
                           className="block px-5 py-2 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors"
                         >
-                          {a.title}
+                          {item.label}
                         </Link>
                       ))}
                     </div>
@@ -149,14 +153,14 @@ export default function Navigation() {
                 </Link>
                 {href === "/science" && (
                   <div className="pl-4 pb-1 border-l border-white/10">
-                    {LEARN_ARTICLES.map((a) => (
+                    {SCIENCE_SUBMENU.map((item) => (
                       <Link
-                        key={a.href}
-                        href={a.href}
+                        key={item.href}
+                        href={item.href}
                         className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {a.title}
+                        {item.label}
                       </Link>
                     ))}
                   </div>

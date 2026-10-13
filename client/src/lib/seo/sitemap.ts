@@ -26,6 +26,7 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/ai-assistant",
   "/peptalk",
   "/authenticity",
+  "/blog",
   "/learn/what-are-khavinson-peptide-bioregulators",
   "/learn/cytomaxes-vs-cytogens",
   "/learn/buy-khavinson-peptides-usa",

@@ -48,10 +48,10 @@ describe("policy pages: routing and SEO", () => {
     for (const p of POLICY_LIST) expect(footer).toContain(`href="${p.path}"`);
   });
 
-  it("/learn is a 301 to /science (vercel.json) and redirects in-app too", () => {
+  it("/learn is a 301 to the /blog index (vercel.json) and redirects in-app too", () => {
     const vercel = JSON.parse(read("vercel.json"));
-    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/science", statusCode: 301 });
-    expect(app).toMatch(/<Route path="\/learn">\s*<Redirect to="\/science" replace \/>/);
+    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/blog", statusCode: 301 });
+    expect(app).toMatch(/<Route path="\/learn">\s*<Redirect to="\/blog" replace \/>/);
   });
 });
 

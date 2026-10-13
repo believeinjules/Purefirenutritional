@@ -29,7 +29,7 @@ export default function ArticleBuyKhavinsonUSA() {
         <div className="max-w-3xl mx-auto px-4 py-16">
 
           <div className="mb-6">
-            <Link href="/learn" className="text-sm text-orange-600 hover:underline">← Learn</Link>
+            <Link href="/blog" className="text-sm text-orange-600 hover:underline">← Blog</Link>
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
