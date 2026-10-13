@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { getProductById } from "@/data/products";
+import { getProductById, products as catalogProducts } from "@/data/products";
 import type { ProtocolGoal, ProtocolSex } from "@/data/protocols";
 import {
   GOAL_TEXT,
@@ -165,7 +165,10 @@ export default function AIAssistant() {
           messages.filter(m => m.role === "user").map(m => m.text),
           Array.from(new Set([
             ...(contextProduct ? [contextProduct.name] : []),
-            ...messages.flatMap(m => (m.role === "assistant" && m.kind === "answer" ? m.answer.products.map(p => p.product.name) : [])),
+            // Products the user named themselves.
+            ...catalogProducts
+              .map(p => p.name)
+              .filter(n => messages.some(m => m.role === "user" && m.text.toLowerCase().includes(n.toLowerCase()))),
           ])),
         ),
       },

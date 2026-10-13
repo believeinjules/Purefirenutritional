@@ -98,11 +98,12 @@ export function doctorQuestionsFromConversation(userTexts: string[], productName
   if (/\bsurgery|operation\b/.test(t)) qs.push(`Should I avoid ${thing} around my upcoming surgery?`);
   if (/ketamine/.test(t) && /bladder|urin/.test(t)) qs.push("Could my bladder symptoms be related to past ketamine use, and should a urologist look at them?");
   else if (/\b(menopaus\w*|perimenopaus\w*)\b/.test(t)) qs.push("Which of my menopause symptoms are worth checking before I try a supplement?");
-  const cond = t.match(/\bmy (thyroid|blood pressure|diabetes|heart|kidneys?|liver|bladder|joints?|sleep|anxiety|migraines?)\b/);
+  const cond = t.match(/\bmy (thyroid|blood pressure|diabetes|heart|kidneys?|liver|bladder|joints?|sleep|anxiety|migraines?)\b(?!\s+(?:medication|medicine|meds|pills|tablets))/);
   if (cond) qs.push(`Is there anything about my ${cond[1]} that makes ${thing} a poor fit?`);
   if (/\b(how (?:much|many|often)|dose|dosage|schedule|every \d|course)\b/.test(t)) qs.push(`Is the label schedule for ${thing} right for me, and how long should one course be?`);
   if (productNames.length) qs.push(`Is ${thing} appropriate with my current medications or conditions?`);
-  for (const q of DOCTOR_QUESTIONS) if (qs.length < 3) qs.push(q);
+  const coversMeds = qs.some(q => /medication|interact/i.test(q));
+  for (const q of DOCTOR_QUESTIONS) if (qs.length < 3 && !(coversMeds && /medications/i.test(q))) qs.push(q);
   return Array.from(new Set(qs)).slice(0, 5);
 }
 
