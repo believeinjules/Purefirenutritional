@@ -200,3 +200,23 @@ describe("remapCitationMarkers", () => {
     expect(remapCitationMarkers("A [1]. B [2]. C [1, 3].", map)).toBe("A. B [1]. C [2].");
   });
 });
+
+import { withoutInterventionAdvice } from "./validate";
+describe("withoutInterventionAdvice", () => {
+  it("drops sentences recommending other interventions", () => {
+    const r = withoutInterventionAdvice(
+      "Melatonin has modest evidence [1]. CBT-I is the first-line approach. Talk with your doctor."
+    );
+    expect(r.text).toBe("Melatonin has modest evidence [1]. Talk with your doctor.");
+    expect(r.removed).toBe(1);
+  });
+  it("keeps red-flag and doctor guidance", () => {
+    const t = "Seek urgent care for chest pain. Please talk with your doctor before starting.";
+    expect(withoutInterventionAdvice(t)).toEqual({ text: t, removed: 0 });
+  });
+  it("drops bullet lines that become empty", () => {
+    expect(withoutInterventionAdvice("- Try regular exercise.\n- Iron helped in one trial.").text).toBe(
+      "- Iron helped in one trial."
+    );
+  });
+});

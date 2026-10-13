@@ -755,7 +755,7 @@ function composeProductAnswer(
   if (topic && analysis.intent !== "dosage") {
     sections.push({
       heading: "Is it worth it?",
-      body: `${topic.summary.split(/(?<=\.)\s/)[0]} A product like this is optional — it may suit people who want to try a bioregulator alongside those basics, ideally with their clinician's knowledge.`,
+      body: `${topic.summary.split(/(?<=\.)\s/)[0]} A product like this is optional; if you're curious about a bioregulator, talk it over with your clinician first.`,
     });
   }
 

@@ -29,6 +29,8 @@ export interface ValidationReport {
   droppedProducts: string[];
   rewrittenProductCopy: number;
   removedSentences: number;
+  /** Sentences dropped for recommending other treatments/interventions. */
+  removedInterventions?: number;
 }
 
 export function parseLlmJson(raw: string): Record<string, unknown> | null {
@@ -85,6 +87,7 @@ export function validateLlmAnswer(input: {
     droppedProducts: [],
     rewrittenProductCopy: 0,
     removedSentences: 0,
+    removedInterventions: 0,
   };
   const names = Array.from(catalog.values()).map(p => p.name);
 
@@ -94,6 +97,9 @@ export function validateLlmAnswer(input: {
     names
   );
   report.removedSentences += summaryClean.removed;
+  const summaryScoped = withoutInterventionAdvice(summaryClean.text);
+  report.removedInterventions! += summaryScoped.removed;
+  summaryClean.text = summaryScoped.text;
   if (summaryClean.text.length < 20) return null;
 
   // Sections.
@@ -103,6 +109,9 @@ export function validateLlmAnswer(input: {
     const rec = item as Record<string, unknown>;
     const body = sanitizeAnswerProse(clampText(str(rec.body), 1400), names);
     report.removedSentences += body.removed;
+    const scoped = withoutInterventionAdvice(body.text);
+    report.removedInterventions! += scoped.removed;
+    body.text = scoped.text;
     if (!body.text) continue;
     const heading = clampText(str(rec.heading), 80);
     sections.push(
@@ -257,4 +266,39 @@ export function remapCitationMarkers(
       return kept.length ? `${whole.startsWith(" ") ? " " : ""}[${kept.join(", ")}]` : "";
     })
     .trim();
+}
+
+/**
+ * Pepita answers about peptides/ingredients only (Julia, 2026-10-13): phrases that
+ * recommend other treatments or interventions. Cheap and deliberately narrow; red-flag
+ * care advice ("see your doctor", "call 911") is never matched.
+ */
+export const INTERVENTION_ADVICE =
+  /\b(CBT(?:-I)?|cognitive[- ]behaviou?ral therapy|first[- ]line|best[- ](?:proven|evidenced|supported) (?:ways?|tools?|steps?|options?|levers?|approach\w*|interventions?)|(?:strongest|biggest) levers?|sleep hygiene|physiotherapy|hormone (?:replacement )?therapy|(?:try|consider|start) (?:regular )?(?:exercise|exercising|meditation|yoga|counsel+ing|therapy|a (?:diet|sleep programme|sleep program))|(?:prescription|prescribed) (?:sleep )?(?:medication|medicine|drug|pill)s?)\b/i;
+
+/** Drops sentences that recommend other interventions; keeps everything else verbatim. */
+export function withoutInterventionAdvice(text: string): { text: string; removed: number } {
+  let removed = 0;
+  const out = text
+    .split(/\n{2,}/)
+    .map(para =>
+      para
+        .split("\n")
+        .map(line => {
+          const kept = line.split(/(?<=[.!?])\s+/).filter(sentence => {
+            if (INTERVENTION_ADVICE.test(sentence)) {
+              removed++;
+              return false;
+            }
+            return true;
+          });
+          const joined = kept.join(" ");
+          return /^\s*[-•*]\s*$/.test(joined) ? "" : joined;
+        })
+        .filter(l => l.trim())
+        .join("\n")
+    )
+    .filter(p => p.trim())
+    .join("\n\n");
+  return { text: out, removed };
 }

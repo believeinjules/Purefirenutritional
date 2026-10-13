@@ -47,11 +47,11 @@ export const TOPICS: Topic[] = [
       /\b(tired\w*|fatigu\w*|exhaust\w*|low energy|no energy|lack of energy|more energy|energy levels?|energy|sluggish|drained|wiped out|afternoon (?:slump|crash|dip)|crash(?:ing)? in the afternoon|run down|worn out|lethargic)\b/i,
     ],
     summary:
-      "Tiredness is usually driven by everyday factors — short or broken sleep, a heavy refined-carb meal, caffeine timing, dehydration, stress or too little movement — and a mild early-afternoon dip is normal body-clock behaviour. If you feel tired most days for more than 2–3 weeks, check common fixable causes (sleep quality, iron, B12, thyroid) with your clinician before reaching for supplements.",
+      "On supplements for tiredness, the research is mixed: iron helped fatigue in a randomised trial, but only in women whose iron stores were low, and ginseng and CoQ10 have modest evidence. If you feel tired most days for more than 2–3 weeks, talk with your clinician, who can check for causes such as low iron, B12 or thyroid problems.",
     sections: [
       {
         heading: "What usually drives it",
-        body: "- **Sleep debt or poor-quality sleep** — including snoring or waking unrefreshed, which can signal sleep apnea.\n- **A big, refined-carb lunch** — a lunch built on protein, fibre and vegetables, in a moderate portion, blunts the slump.\n- **Caffeine timing** — a mid-morning coffee can wear off by 2–3 pm, and caffeine after early afternoon can disturb that night's sleep and feed the cycle.\n- **Sitting still and dehydration** — a 10-minute walk outdoors after lunch and a glass of water are simple, reliable fixes.\n- **Medical causes** — low iron stores (especially with heavy periods or a plant-based diet), low B12, thyroid problems, low mood, and some medicines (antihistamines, beta-blockers, some antidepressants).",
+        body: "- **Sleep** — short, broken or poor-quality sleep, including snoring or waking unrefreshed, which can signal sleep apnea.\n- **Everyday factors** — meals, caffeine timing, dehydration and too little movement; a mild early-afternoon dip is normal body-clock behaviour.\n- **Medical causes** — low iron stores (especially with heavy periods or a plant-based diet), low B12, thyroid problems, low mood, and some medicines (antihistamines, beta-blockers, some antidepressants).",
       },
       {
         heading: "What the research says",
@@ -129,12 +129,8 @@ export const TOPICS: Topic[] = [
       /\b(sleep\w*|insomnia|can'?t sleep|cannot sleep|trouble sleeping|fall(?:ing)? asleep|stay(?:ing)? asleep|wak(?:e|ing) up (?:at night|in the night|at \d)|night waking|circadian|jet ?lag|bedtime|restless nights?)\b/i,
     ],
     summary:
-      "The biggest, best-proven levers for sleep are behavioural: a fixed wake-up time, bright light in the morning, no caffeine after early afternoon, and a cool, dark, quiet bedroom. For ongoing trouble sleeping (3+ nights a week for 3+ months), CBT-I — a structured sleep programme — is the first-line approach and works better long-term than pills. Supplements play a smaller supporting role.",
+      "Melatonin has the best research of the sleep supplements, but the effect is modest: in a review of 19 trials, people fell asleep about 7 minutes faster and slept about 8 minutes longer. Pineal peptides, from the gland that makes melatonin, were studied mainly for raising night-time melatonin in older adults; those small studies measured hormone levels, not sleep quality. If poor sleep keeps going, talk with your doctor.",
     sections: [
-      {
-        heading: "Practical steps that work",
-        body: "- Get up at the same time every day, even after a bad night.\n- Get 10–30 minutes of outdoor light soon after waking.\n- Stop caffeine about 8 hours before bed; alcohol fragments the second half of the night.\n- Give yourself a dim, screen-light wind-down hour. If you're awake for more than ~20 minutes, get up and do something calm until sleepy.\n- Keep naps short (under 20 minutes) and before mid-afternoon.",
-      },
       {
         heading: "What the research says about supplements",
         body: "Melatonin has the best supplement evidence, but the effect is modest: a meta-analysis of 19 trials found people fell asleep about 7 minutes faster and slept about 8 minutes longer. It's most useful for shifting your body clock (jet lag, a late sleep schedule). Pineal peptide preparations were studied by Khavinson's group mainly for raising night-time melatonin in older adults — small Russian studies that measured hormone levels, not sleep quality.",
@@ -200,19 +196,15 @@ export const TOPICS: Topic[] = [
       /\b(joints?|knees?|hips?|ankles?|cartilage|stiff(?:ness)?|achy|aching|ache|mobility|connective tissue|running pain|hurts? when i run|sore when i run)\b/i,
     ],
     summary:
-      "Most everyday joint aches come from load — more activity, or a new kind of activity, than the joint and the muscles around it are used to — or from gradual age-related wear. The best-supported steps are adjusting the activity, strengthening the surrounding muscles, staying active and managing weight; supplements have modest evidence at best.",
+      "Most everyday joint aches come from load — more activity, or a new kind of activity, than the joint and the muscles around it are used to — or from gradual age-related wear. Supplements have modest evidence at best: collagen showed a modest improvement in joint symptom scores and stiffness, glucosamine and chondroitin did no better than placebo for knee pain overall, and cartilage peptides have only cell and animal studies.",
     sections: [
-      {
-        heading: "What helps most",
-        body: "- Ease off whatever aggravates it for 1–2 weeks, then build back gradually (runners often cap weekly increases at about 10%).\n- Strength work 2–3 times a week for the muscles around the joint — quads, glutes, hips and calves take load off knees and hips.\n- Keep moving: low-impact activity such as walking, cycling or swimming usually eases stiffness better than rest.\n- If you run or walk a lot, mix surfaces and check shoe wear (often replaced every 500–800 km).\n- If you carry extra weight, losing even a few kilograms noticeably reduces knee load.\n- Use ice or heat for comfort.",
-      },
       {
         heading: "What the research says",
         body: "Collagen has the best supplement data: a meta-analysis of placebo-controlled trials found a modest improvement in overall joint symptom scores and stiffness, but not in pain alone. In the large GAIT trial, glucosamine and chondroitin did no better than placebo for knee pain overall. Short cartilage peptides (such as the AED tripeptide) have only cell and animal studies so far.",
       },
       {
         heading: "See a clinician or physio if",
-        body: "the joint swells, locks or gives way, looks red or feels hot, hurts at night or at rest, or the pain persists after 2–3 weeks of easing off.",
+        body: "the joint swells, locks or gives way, looks red or feels hot, hurts at night or at rest, or the pain persists after 2–3 weeks.",
       },
     ],
     sourceIds: [
@@ -344,11 +336,7 @@ export const TOPICS: Topic[] = [
         heading: "What's uncertain",
         body: "The human studies used injected pharmaceutical extracts. Whether oral thymus peptide products change immune function in healthy people hasn't been tested in independent trials.",
       },
-      {
-        heading: "Immune basics with strong evidence",
-        body: "7–9 hours of sleep, staying up to date on vaccines, regular physical activity, not smoking, enough protein, and correcting vitamin D if a test shows it's low.",
-      },
-    ],
+      ],
     sourceIds: [
       "pmid:14523363",
       "pmid:33237528",
@@ -547,7 +535,7 @@ export const TOPICS: Topic[] = [
       /\b(heart|cardio\w*|circulation|blood vessels?|vascular|veins?|arter\w*|blood flow|omega-?3s?|fish oil)\b/i,
     ],
     summary:
-      "The strongest levers for heart and blood-vessel health are well established: regular aerobic activity (about 150 minutes a week), not smoking, good sleep, a Mediterranean-style diet, and knowing — and managing with your doctor — your blood pressure, cholesterol and blood sugar. Supplements are a minor add-on at best.",
+      "Research on vascular peptides is mostly cell and animal work; the main human signal is a 12-year study of the injected pineal extract Epithalamin in older adults with heart disease, which wasn't a vascular peptide. Fish oil is well studied, with mixed evidence for healthy people. Talk with your doctor about your heart health, especially if you take blood thinners.",
     sections: [
       {
         heading: "What the research says about peptides",
@@ -635,7 +623,7 @@ export const TOPICS: Topic[] = [
       /\b(brain|memory|memor\w*|focus\w*|concentrat\w*|cognit\w*|brain fog|foggy|forgetful\w*|mental clarity|mental performance)\b/i,
     ],
     summary:
-      "The best-evidenced ways to protect memory and focus are sleep, regular exercise (it improves attention and memory at any age), managing blood pressure, treating hearing loss, staying socially and mentally active, and limiting alcohol. 'Brain fog' often traces back to poor sleep, stress, low iron or B12, thyroid problems or medicines.",
+      "Short brain peptides (such as EDR, also called Pinealon, and KED) protected nerve cells in lab studies, but human data are thin and come from the group that developed them. 'Brain fog' often traces back to poor sleep, stress, low iron or B12, thyroid problems or medicines, so it's worth talking with your doctor.",
     sections: [
       {
         heading: "What the research says about brain peptides",
@@ -778,7 +766,7 @@ export const TOPICS: Topic[] = [
       /\b(liver|hepat\w*|bile|gallbladder|detox\w*|alcohol metabolism|hangover)\b/i,
     ],
     summary:
-      "The liver does best with limited alcohol, a healthy weight, regular activity, and care with medicines and herbal products that stress it (high-dose paracetamol/acetaminophen, some herbal extracts). If you have abnormal liver tests, yellowing skin or eyes, or dark urine, see your doctor first.",
+      "Liver peptide (Livagen) research is Russian cell and animal work, and there are no human trials of oral liver peptide products. Some medicines and herbal products stress the liver (high-dose paracetamol/acetaminophen, some herbal extracts). If you have abnormal liver tests, yellowing skin or eyes, or dark urine, see your doctor first.",
     sections: [
       {
         heading: "What the research says",
@@ -952,7 +940,7 @@ export const TOPICS: Topic[] = [
     label: "Kidney health",
     patterns: [/\b(kidneys?|renal|urinary tract)\b/i],
     summary:
-      "Kidney health mostly comes down to blood pressure, blood sugar, staying hydrated, and avoiding regular use of NSAID painkillers (ibuprofen, naproxen) and unnecessary supplements. If you have any kidney condition, check every supplement with your doctor first — the kidneys clear many of them.",
+      "Kidney peptide research consists of cell-culture and rat studies from Khavinson's group; there are no human trials of oral kidney peptide products. If you have any kidney condition, check every supplement with your doctor first — the kidneys clear many of them.",
     sections: [
       {
         heading: "What the research says",
@@ -1102,7 +1090,7 @@ export const TOPICS: Topic[] = [
       /\b(menopaus\w*|perimenopaus\w*|hot flash\w*|hot flush\w*|night sweats|periods?|menstrua\w*|pms|female hormones?|women'?s health|hormonal balance)\b/i,
     ],
     summary:
-      "Menopause symptoms such as hot flushes, poor sleep and mood changes vary widely. The best-evidenced options are lifestyle steps (layered clothing, a cooler bedroom, limiting alcohol and caffeine, regular exercise) and, for many women, hormone therapy or non-hormonal prescriptions discussed with a clinician. Most herbal and peptide products have limited evidence.",
+      "Menopause symptoms such as hot flushes, poor sleep and mood changes vary widely. We don't have strong trials of peptide or herbal formulas for menopause comfort to point you to; some herbs (such as hops) have small, mixed studies. Talk with your clinician about what's right for you.",
     sections: [
       {
         heading: "What the research says",
@@ -1155,7 +1143,7 @@ export const TOPICS: Topic[] = [
       /\b(skin|wrinkl\w*|collagen|elasticity|complexion|hair|nails?|fine lines)\b/i,
     ],
     summary:
-      "Daily broad-spectrum sunscreen, not smoking, and a topical retinoid are the best-proven ways to keep skin looking younger. Among supplements, hydrolysed collagen has the most trial data for skin hydration and elasticity.",
+      "Among supplements, hydrolysed collagen has the most trial data for skin hydration and elasticity, though many of those trials were short and industry-funded.",
     sections: [
       {
         heading: "What the research says",
@@ -1287,7 +1275,7 @@ export const TOPICS: Topic[] = [
       /\b(stress\w*|anxious|worr\w*|overwhelm\w*|burn ?out|burnt out|low mood|mood|irritab\w*|calm)\b/i,
     ],
     summary:
-      "For everyday stress, the best-proven tools are regular exercise, consistent sleep, time outdoors, limiting alcohol and caffeine, and structured techniques such as slow breathing or CBT-based skills. Adaptogens like ginseng have modest evidence. If low mood or worry has affected your sleep, appetite or work for more than two weeks, talk to a clinician — effective help exists.",
+      "Adaptogens like ginseng have modest, mixed evidence for fatigue and wellbeing in small studies, and ginseng can interact with some medicines. If low mood or worry has affected your sleep, appetite or work for more than two weeks, talk to a clinician.",
     sections: [
       {
         heading: "What the research says",
@@ -1334,7 +1322,7 @@ export const TOPICS: Topic[] = [
       /\b(anti-?aging|anti-?ageing|aging|ageing|longevity|live longer|healthy aging|healthy ageing|geroprotect\w*|lifespan|age better|slow (?:down )?aging)\b/i,
     ],
     summary:
-      "The interventions with the strongest evidence for healthy ageing are unglamorous: regular exercise (especially strength plus cardio), not smoking, good sleep, a mostly whole-food diet, social connection, and managing blood pressure, cholesterol and blood sugar. No supplement has been shown in robust human trials to slow ageing.",
+      "No supplement has been shown in robust human trials to slow ageing. The best-known peptide data are small studies of injectable pineal and thymus extracts in older adults that reported lower mortality, but they haven't been independently replicated, and oral products haven't been tested in comparable trials.",
     sections: [
       {
         heading: "Where peptide bioregulators fit",
