@@ -4,6 +4,8 @@ export type LearnArticle = {
   href: string;
   /** Shorter label for the Science nav dropdown (defaults to title). */
   navLabel?: string;
+  /** Listed on /insights only, not in the Science nav dropdown. */
+  hideFromNav?: boolean;
   /** One-line summary shown on the /articles index. */
   description: string;
   /** Optional cover image (site paths). */
@@ -30,6 +32,7 @@ export const LEARN_ARTICLES: LearnArticle[] = [
   {
     title: "Peptides in Context: A Systems View",
     navLabel: "Peptides in Context",
+    hideFromNav: true,
     href: "/learn/peptides-in-context-systems-view",
     description: "Why we think about peptides as signals inside connected systems, and where Khavinson's model is still a hypothesis.",
     cover: {

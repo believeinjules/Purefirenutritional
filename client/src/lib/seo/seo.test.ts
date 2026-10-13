@@ -238,17 +238,19 @@ describe("/insights index", () => {
     }
   });
 
-  it("the Science nav submenu lists the 4 articles in order, then Pure Fire Insights (no TSP link)", () => {
-    const labels = LEARN_ARTICLES.map((a) => a.navLabel ?? a.title);
+  it("the Science nav submenu lists 3 articles in order, then Pure Fire Insights (no TSP link)", () => {
+    const labels = LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => a.navLabel ?? a.title);
     expect(labels).toEqual([
       "What Are Khavinson Peptide Bioregulators?",
       "Cytomaxes vs Cytogens",
       "Buying Khavinson Peptides in the U.S.",
-      "Peptides in Context",
     ]);
+    // Peptides in Context is on /insights only, at its unchanged URL.
+    const pic = LEARN_ARTICLES.find((a) => a.href === "/learn/peptides-in-context-systems-view");
+    expect(pic?.hideFromNav).toBe(true);
     // The on-page title of the US article stays the full title.
     expect(LEARN_ARTICLES[2].title).toBe("Khavinson Peptides in the United States");
-    expect(nav).toContain("LEARN_ARTICLES.map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
+    expect(nav).toContain("LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
     expect(nav).toContain('{ label: "Pure Fire Insights", href: "/insights" }');
     expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science
     expect(nav).not.toMatch(/short ?peptide|theshortpeptide/i);

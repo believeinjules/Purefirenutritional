@@ -8,7 +8,7 @@ import { useWishlist } from "@/contexts/WishlistContext";
 /** Items under the Science dropdown (desktop) and Science submenu (mobile). */
 // "Science" itself links to /science (desktop and mobile), so no extra overview entry is needed.
 const SCIENCE_SUBMENU = [
-  ...LEARN_ARTICLES.map((a) => ({ label: a.navLabel ?? a.title, href: a.href })),
+  ...LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href })),
   { label: "Pure Fire Insights", href: "/insights" },
 ];
 
