@@ -1,8 +1,9 @@
 import { Link } from "wouter";
-import { ShoppingCart, User, Heart, Menu, X } from "lucide-react";
+import { ShoppingCart, User, Heart, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { LEARN_ARTICLES } from "@/content/learnArticles";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,18 +11,20 @@ export default function Navigation() {
   const { items: wishlistItems } = useWishlist();
   const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
+  const navGradient = "linear-gradient(135deg, rgba(120, 20, 50, 0.75), rgba(70, 10, 30, 0.75), rgba(25, 5, 12, 0.75))";
+
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
     { label: "Science", href: "/science" },
-    { label: "Documentation", href: "/documentation" },
+    { label: "Authenticity", href: "/authenticity" },
     { label: "About", href: "/about" },
     { label: "FAQ", href: "/faq" },
     { label: "AI Assistant", href: "/ai-assistant" },
   ];
 
   return (
-    <nav style={{ background: "linear-gradient(135deg, rgba(120, 20, 50, 0.75), rgba(70, 10, 30, 0.75), rgba(25, 5, 12, 0.75))", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
+    <nav style={{ background: navGradient, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
 
@@ -55,9 +58,36 @@ export default function Navigation() {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-7">
-            {navLinks.map(({ label, href }) => (
-              <Link key={href} href={href} className="nav-link">{label}</Link>
-            ))}
+            {navLinks.map(({ label, href }) =>
+              href === "/science" ? (
+                <div key={href} className="relative group" data-nav-science>
+                  <Link href={href} className="nav-link inline-flex items-center gap-1" aria-haspopup="true">
+                    {label}
+                    <ChevronDown className="h-3 w-3 opacity-70" aria-hidden="true" />
+                  </Link>
+                  {/* Learn articles: shown on hover or keyboard focus */}
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 hidden group-hover:block group-focus-within:block">
+                    <div
+                      className="w-72 rounded-md border border-white/10 py-3 shadow-xl"
+                      style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
+                    >
+                      <p className="px-5 pb-2 text-[10px] uppercase tracking-[0.22em] text-white/50">Learn</p>
+                      {LEARN_ARTICLES.map((a) => (
+                        <Link
+                          key={a.href}
+                          href={a.href}
+                          className="block px-5 py-2 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors"
+                        >
+                          {a.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link key={href} href={href} className="nav-link">{label}</Link>
+              )
+            )}
           </div>
 
           {/* Right Icons */}
@@ -108,15 +138,30 @@ export default function Navigation() {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden pb-5 pt-3 space-y-1 border-t border-white/10">
-            {[...navLinks, { label: "Peptalk Podcast", href: "/peptalk" }].map(({ label, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className="block py-2.5 nav-link"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {label}
-              </Link>
+            {navLinks.map(({ label, href }) => (
+              <div key={href}>
+                <Link
+                  href={href}
+                  className="block py-2.5 nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {label}
+                </Link>
+                {href === "/science" && (
+                  <div className="pl-4 pb-1 border-l border-white/10">
+                    {LEARN_ARTICLES.map((a) => (
+                      <Link
+                        key={a.href}
+                        href={a.href}
+                        className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {a.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         )}

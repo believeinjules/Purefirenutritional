@@ -137,8 +137,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/documentation" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Documentation
+                <Link href="/authenticity" className="text-gray-400 hover:text-orange-500 transition-colors">
+                  Authenticity
                 </Link>
               </li>
               <li>

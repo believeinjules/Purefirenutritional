@@ -24,7 +24,7 @@ export default function AuthenticityDocumentation({ productId }: { productId: st
         </p>
       ) : null}
       <Link
-        href={`/documentation/${record.slug}`}
+        href={`/authenticity/${record.slug}`}
         className="mt-5 inline-block text-xs uppercase tracking-[0.18em] text-stone-900 border-b border-stone-400 pb-1 hover:border-stone-900"
       >
         View certificate &amp; English translation →

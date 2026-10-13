@@ -26,6 +26,16 @@
       "statusCode": 301
     },
     {
+      "source": "/documentation",
+      "destination": "/authenticity",
+      "statusCode": 301
+    },
+    {
+      "source": "/documentation/:slug",
+      "destination": "/authenticity/:slug",
+      "statusCode": 301
+    },
+    {
       "source": "/research",
       "destination": "/science",
       "statusCode": 301

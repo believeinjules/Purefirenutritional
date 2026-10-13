@@ -30,15 +30,15 @@ export default function Documentation() {
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f3ee] text-stone-900">
       <PageSeo
-        title="Product Documentation | Pure Fire Nutritional"
+        title="Authenticity | Pure Fire Nutritional"
         description="Original EAEU Certificates of State Registration for Pure Fire Nutritional products, shown with English translations. Not FDA approval."
-        path="/documentation"
+        path="/authenticity"
         type="website"
       />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-5 py-16 md:py-24">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Product Documentation</p>
+          <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Authenticity</p>
           <h1 className="mt-4 font-serif text-4xl md:text-5xl font-normal tracking-tight text-stone-900 max-w-3xl">
             Know what you’re buying. Know where it came from.
           </h1>
@@ -86,7 +86,7 @@ export default function Documentation() {
                   </dl>
                   <p className="mt-4 text-xs text-stone-400">State registration on file</p>
                   <Link
-                    href={`/documentation/${record.slug}`}
+                    href={`/authenticity/${record.slug}`}
                     className="mt-8 text-xs uppercase tracking-[0.18em] text-stone-900"
                   >
                     View certificate &amp; translation →

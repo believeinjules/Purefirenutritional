@@ -35,6 +35,7 @@ import SiteSeo from "./components/seo/SiteSeo";
 import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
 import ArticleCytomaxesCytogens from "./pages/learn/CytomaxesCytogens";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
+import ArticlePeptidesInContext from "./pages/learn/PeptidesInContext";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
 // Store policies (copy in content/policies.ts)
@@ -60,8 +61,8 @@ function Router() {
       <Route path="/science" component={Science} />
       <Route path="/research" component={Science} />
       <Route path="/about" component={About} />
-      <Route path="/documentation" component={Documentation} />
-      <Route path="/documentation/:slug" component={DocumentationDetail} />
+      <Route path="/authenticity" component={Documentation} />
+      <Route path="/authenticity/:slug" component={DocumentationDetail} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/dashboard" component={Dashboard} />
@@ -92,6 +93,7 @@ function Router() {
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/cytomaxes-vs-cytogens" component={ArticleCytomaxesCytogens} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
+      <Route path="/learn/peptides-in-context-systems-view" component={ArticlePeptidesInContext} />
       <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
       <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsPolicy} />
