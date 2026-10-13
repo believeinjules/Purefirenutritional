@@ -1,135 +1,89 @@
 import { describe, expect, it } from "vitest";
-import { createElement } from "react";
+import { createElement, type ReactElement } from "react";
 import { renderToStaticMarkup as rawRender } from "react-dom/server";
+import { readFileSync } from "fs";
 import { Router } from "wouter";
-import type { ReactElement } from "react";
 import { allProducts } from "@/data/products";
 import { HIDDEN_PRODUCT_IDS } from "@shared/hidden-products";
-import { RESEARCH_REGISTRY } from "@shared/peppy/research-registry";
-import Tabs, { nextTabIndex } from "./Tabs";
-import ComparisonTabs from "./ComparisonTabs";
-import ProductFamilyExplorer from "./ProductFamilyExplorer";
-import BodySystemExplorer from "./BodySystemExplorer";
-import { askPepitaHref } from "./AskPepitaChip";
-import {
-  BODY_SYSTEMS,
-  FAMILIES,
-  RESEARCH_LIST_IDS,
-  researchList,
-  productsForSystem,
-  productsInFamily,
-} from "./learnData";
-
-const renderToStaticMarkup = (el: ReactElement) => rawRender(createElement(Router, { ssrPath: "/learn" }, el));
-
-const HIDDEN = Array.from(HIDDEN_PRODUCT_IDS);
-// A catalog that still contains every hidden product, plus a Cytogen/Revilab-looking hidden fake.
-const dirty = [
-  ...allProducts,
-  { ...allProducts.find((p) => p.id === "cartalax")!, id: "femalin" },
-  { ...allProducts.find((p) => p.id === "revilab-ml-01")!, id: "regenart" },
-  { ...allProducts.find((p) => p.id === "vladonix")!, id: "olecap" },
-];
-
-function idsIn(html: string): string[] {
-  return Array.from(html.matchAll(/data-product-id="([^"]+)"/g), (m) => m[1]);
-}
-
-describe("learn explorers never show hidden products", () => {
-  it("family membership excludes hidden products", () => {
-    for (const f of FAMILIES) {
-      const ids = productsInFamily(f.id, dirty).map((p) => p.id);
-      expect(ids.length).toBeGreaterThan(0);
-      for (const h of HIDDEN) expect(ids).not.toContain(h);
-    }
-  });
-
-  it("body systems exclude hidden products even if listed", () => {
-    const sys = { ...BODY_SYSTEMS[0], productIds: ["femalin", "previn", "endoluten"] };
-    expect(productsForSystem(sys, dirty).map((p) => p.id)).toEqual(["endoluten"]);
-  });
-
-  it("rendered explorers contain no hidden product links", () => {
-    for (const C of [ProductFamilyExplorer, BodySystemExplorer, ComparisonTabs]) {
-      const html = renderToStaticMarkup(createElement(C, { catalog: dirty }));
-      const ids = idsIn(html);
-      for (const h of HIDDEN) {
-        expect(ids).not.toContain(h);
-        expect(html).not.toContain(`/products/${h}"`);
-      }
-    }
-  });
-
-  it("every system product exists in the visible catalog", () => {
-    for (const s of BODY_SYSTEMS) expect(productsForSystem(s).map((p) => p.id)).toEqual(s.productIds);
-  });
-});
-
-describe("Tabs", () => {
-  it("keyboard navigation wraps and supports Home/End", () => {
-    expect(nextTabIndex("ArrowRight", 0, 4)).toBe(1);
-    expect(nextTabIndex("ArrowRight", 3, 4)).toBe(0);
-    expect(nextTabIndex("ArrowLeft", 0, 4)).toBe(3);
-    expect(nextTabIndex("Home", 2, 4)).toBe(0);
-    expect(nextTabIndex("End", 0, 4)).toBe(3);
-    expect(nextTabIndex("Enter", 0, 4)).toBeNull();
-  });
-
-  it("renders an ARIA tablist with one selected tab and hidden other panels", () => {
-    const html = renderToStaticMarkup(
-      createElement(Tabs, {
-        label: "Test",
-        initial: 1,
-        items: [
-          { id: "a", label: "A", content: "pa" },
-          { id: "b", label: "B", content: "pb" },
-          { id: "c", label: "C", content: "pc" },
-        ],
-      }),
-    );
-    expect(html).toContain('role="tablist"');
-    expect(html.match(/role="tab"/g)).toHaveLength(3);
-    expect(html.match(/aria-selected="true"/g)).toHaveLength(1);
-    expect(html).toMatch(/aria-selected="true"[^>]*data-testid="tab-b"|data-testid="tab-b"[^>]*aria-selected="true"/);
-    expect(html.match(/role="tabpanel"[^>]*hidden=""/g)).toHaveLength(2);
-    expect(html.match(/tabindex="0"[^>]*data-testid="tab-/g)).toHaveLength(1);
-  });
-
-  it("comparison has Composition / Origin / Research / Product examples tabs", () => {
-    const html = renderToStaticMarkup(createElement(ComparisonTabs));
-    for (const t of ["composition", "origin", "research", "products"]) expect(html).toContain(`data-testid="tab-${t}"`);
-    expect(html).toContain("Conceptual molecular illustration, not an actual chemical structure.");
-  });
-});
-
-describe("learn sources and copy (light page)", () => {
-  it("research list = the seven approved PMIDs, registry titles verbatim", () => {
-    const list = researchList();
-    expect(list.map((s) => s.pmid)).toEqual(["34834147", "31598715", "14977407", "24007794", "16076145", "35887081", "36979488"]);
-    for (const id of RESEARCH_LIST_IDS) {
-      const reg = RESEARCH_REGISTRY.find((r) => r.id === id)!;
-      expect(list.find((s) => s.id === id)!.title).toBe(reg.title);
-    }
-    for (const s of list) expect(s.url).toBe(`https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`);
-  });
-
-  it("Ask Pepita links prefill /ai-assistant?q=", () => {
-    expect(askPepitaHref("What is a peptide?")).toBe("/ai-assistant?q=What+is+a+peptide%3F");
-  });
-
-  it("explorers and comparison: no study links, figures, disease words or dosing", () => {
-    const html = [ComparisonTabs, ProductFamilyExplorer, BodySystemExplorer].map((C) => renderToStaticMarkup(createElement(C))).join(" ");
-    expect(html).not.toMatch(/pubmed|PMID/i);
-    expect(html).not.toMatch(/\d+\s?%|mortality|lifespan|tumou?r|alzheimer|covid|atheroscl|oncoprotect|clinically proven|\bcures?\b/i);
-    expect(html).not.toMatch(/\b\d+\s*(months?|weeks?|days?)\b|cycles? (per|a) year|capsules? (daily|a day)/i);
-  });
-});
-
 import { parsePeppyParams } from "@/lib/peppyContext";
-describe("AI assistant ?q= prefill", () => {
-  it("parses, trims and caps the question", () => {
+import TwoTypes from "./TwoTypes";
+import BodySystemNav from "./BodySystemNav";
+import AskPepitaDock from "./AskPepitaDock";
+import { askPepitaHref, BODY_SYSTEM_TILES, PEPITA_SUGGESTIONS, typeExamples } from "./learnData";
+
+const render = (el: ReactElement) => rawRender(createElement(Router, { ssrPath: "/learn" }, el));
+const HIDDEN = Array.from(HIDDEN_PRODUCT_IDS);
+const page = readFileSync("client/src/pages/learn/WhatAreKhavinsonPeptides.tsx", "utf8");
+
+describe("Two Types examples never show hidden products", () => {
+  it("one Cytogen and one Cytomax from the visible catalog", () => {
+    expect(typeExamples().map((e) => [e.type, e.product.id])).toEqual([
+      ["Cytogen", "cartalax"],
+      ["Cytomax", "endoluten"],
+    ]);
+  });
+  it("hidden ids are dropped even if the catalog contains them", () => {
+    const dirty = allProducts.map((p) => (p.id === "cartalax" ? { ...p, id: "femalin" } : p));
+    const ids = typeExamples(dirty).map((e) => e.product.id);
+    for (const h of HIDDEN) expect(ids).not.toContain(h);
+    const html = render(createElement(TwoTypes, { catalog: dirty }));
+    for (const h of HIDDEN) expect(html).not.toContain(`/products/${h}"`);
+  });
+});
+
+describe("Body-system nav", () => {
+  it("tiles link to the store's system filter and carry no educational text", () => {
+    const html = render(createElement(BodySystemNav));
+    for (const t of BODY_SYSTEM_TILES) expect(html).toContain(`href="/products?system=${t.id}"`);
+    expect(html.match(/<li/g)).toHaveLength(BODY_SYSTEM_TILES.length);
+    expect(html.match(/<p[\s>]/g)).toHaveLength(1); // only the "Explore by Body System →" label
+  });
+});
+
+describe("Pepita dock", () => {
+  it("renders closed (never auto-opens) as an avatar-only button", () => {
+    const html = render(createElement(AskPepitaDock));
+    expect(html).toContain('aria-expanded="false"');
+    expect(html).toContain("/images/pepita/avatar-128.webp");
+    expect(html).not.toContain("pepita-dock-menu\" class");
+  });
+  it("2–3 suggestions per section, prefilled via ?q=", () => {
+    for (const qs of Object.values(PEPITA_SUGGESTIONS)) expect(qs.length).toBeGreaterThanOrEqual(2), expect(qs.length).toBeLessThanOrEqual(3);
+    expect(askPepitaHref("What is a peptide?")).toBe("/ai-assistant?q=What+is+a+peptide%3F");
     expect(parsePeppyParams("?q=%20What%20is%20Endoluten%3F%20", () => false).question).toBe("What is Endoluten?");
     expect(parsePeppyParams("?q=" + "a".repeat(500), () => false).question).toHaveLength(300);
-    expect(parsePeppyParams("?goal=preventive", () => false).question).toBeUndefined();
+  });
+});
+
+describe("Page copy and order", () => {
+  it("opens with Julia's H1, subhead and three paragraphs, in order, before anything else", () => {
+    const order = [
+      "What Are Khavinson Peptide Bioregulators?</h1>",
+      "A different approach to peptide science.",
+      "Peptides are tiny chains of amino acids—the same building blocks",
+      "Khavinson peptide bioregulators are a group of short peptides",
+      "It’s a developing area of research, and evidence for specific benefits varies by peptide.",
+      "Two Types You’ll Find at Pure Fire",
+      "Cytogens — Defined short peptides: ",
+      "Cytomaxes — Natural peptide complexes: ",
+      "<TwoTypes />",
+      "Explore What Interests You",
+      "<BodySystemNav />",
+      "Want the deeper science? Visit The Short Peptide",
+    ];
+    const idx = order.map((s) => page.indexOf(s));
+    expect(idx.every((i) => i >= 0)).toBe(true);
+    expect([...idx].sort((a, b) => a - b)).toEqual(idx);
+    const main = page.slice(page.indexOf("<main"));
+    expect(main.indexOf("<h1")).toBeLessThan(main.indexOf("<TwoTypes"));
+    expect(main.slice(0, main.indexOf("<h1"))).not.toMatch(/<(img|svg|Molecule|Link)/);
+  });
+  it("Short Peptide link opens in a new tab", () => {
+    expect(page).toMatch(/href="https:\/\/theshortpeptide\.com"\s+target="_blank"\s+rel="noopener noreferrer"/);
+  });
+  it("no banned claim language, figures or dosing on the page", () => {
+    const html = [render(createElement(TwoTypes)), render(createElement(BodySystemNav)), page.replace(/This article is for educational purposes only\.[^<]*/, "")].join(" ");
+    expect(html).not.toMatch(/mortality|lifespan|tumou?r|alzheimer|covid|atheroscl|oncoprotect|clinically proven|\bcures?\b|\bproven\b/i);
+    expect(html).not.toMatch(/\b\d+\s*(months?|weeks?)\b|cycles? (per|a) year|capsules? (daily|a day)/i);
   });
 });

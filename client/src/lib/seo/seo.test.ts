@@ -292,14 +292,12 @@ describe("Cytomaxes vs Cytogens merged into the What Are article", () => {
     expect(vercel.redirects).toContainEqual({ source: OLD, destination: TARGET, statusCode: 301 });
   });
 
-  it("the What Are article has the #cytomaxes-vs-cytogens section with the interactive comparison", () => {
-    // Interactive redesign (learn-interactive-khavinson): the section is rendered by <Section>
-    // (an id'd <section>) and above the lazy-loaded fold, so the anchor exists on first paint.
-    expect(whatAre).toContain('<Section id="cytomaxes-vs-cytogens"');
-    expect(whatAre).toContain('title="Cytomaxes vs Cytogens"');
-    expect(whatAre).toContain("<ComparisonTabs />");
-    expect(whatAre).toContain("How people choose</h3>");
-    expect(whatAre.indexOf('id="cytomaxes-vs-cytogens"')).toBeLessThan(whatAre.indexOf("<BelowFold />"));
+  it("the What Are article has the #cytomaxes-vs-cytogens anchor on the Two Types section", () => {
+    // Julia's light version (2026-10-13): the anchor sits on "Two Types You’ll Find at Pure Fire".
+    expect(whatAre).toContain('<section id="cytomaxes-vs-cytogens"');
+    const sec = whatAre.slice(whatAre.indexOf('<section id="cytomaxes-vs-cytogens"'));
+    expect(sec).toContain("Two Types You’ll Find at Pure Fire</h2>");
+    expect(sec.indexOf("Two Types")).toBeLessThan(sec.indexOf("</section>"));
   });
 
   it("the FAQ has one Cytomaxes vs Cytogens entry linking to the section", () => {

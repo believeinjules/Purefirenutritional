@@ -1,48 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
-import { askPepitaHref } from "./AskPepitaChip";
+import { askPepitaHref, PEPITA_SUGGESTIONS } from "./learnData";
+
+type Topic = keyof typeof PEPITA_SUGGESTIONS;
 
 /**
- * Persistent "Ask Pepita to explain this" button. Tracks which [data-learn-section]
- * is on screen and offers simpler / more technical / evidence questions about it.
+ * Small persistent round Pepita avatar. Never opens by itself; when opened it offers
+ * 2–3 questions for the section in view ([data-pepita-topic]), prefilled via ?q=.
  */
 export default function AskPepitaDock() {
   const [open, setOpen] = useState(false);
-  const [topic, setTopic] = useState("Khavinson peptide bioregulators");
-  const [chipInView, setChipInView] = useState(false);
+  const [topic, setTopic] = useState<Topic>("intro");
   const ref = useRef<HTMLDivElement>(null);
 
-  // Mobile: get out of the way while an inline Ask Pepita chip is on screen.
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
-    const seen = new Set<Element>();
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
-      setChipInView(seen.size > 0);
-    });
-    const watch = () => document.querySelectorAll("[data-testid=ask-pepita-chip]").forEach((el) => io.observe(el));
-    watch();
-    // Chips in the lazy-loaded half mount later.
-    const mo = new MutationObserver(watch);
-    mo.observe(document.body, { childList: true, subtree: true });
-    return () => {
-      io.disconnect();
-      mo.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-learn-section]"));
     const io = new IntersectionObserver(
       (entries) => {
-        const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        const t = vis?.target.getAttribute("data-learn-section");
-        if (t) setTopic(t);
+        const vis = entries.filter((e) => e.isIntersecting)[0];
+        const t = vis?.target.getAttribute("data-pepita-topic") as Topic | null;
+        if (t && t in PEPITA_SUGGESTIONS) setTopic(t);
       },
-      { rootMargin: "-30% 0px -50% 0px" },
+      { rootMargin: "-35% 0px -45% 0px" },
     );
-    els.forEach((el) => io.observe(el));
+    document.querySelectorAll("[data-pepita-topic]").forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
 
@@ -58,30 +39,19 @@ export default function AskPepitaDock() {
     };
   }, [open]);
 
-  const options = [
-    { label: "Explain it more simply", q: `Explain "${topic}" in simple terms, as if I'm new to peptides.` },
-    { label: "Explain it more technically", q: `Give me a more technical explanation of "${topic}", including the proposed mechanisms.` },
-    { label: "What's the evidence?", q: `What is the evidence for "${topic}"? Separate cell, animal and human findings.` },
-  ];
-
   return (
-    <div ref={ref} className={`fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2 transition-opacity print:hidden ${
-        chipInView && !open ? "max-sm:pointer-events-none max-sm:invisible max-sm:opacity-0" : ""
-      }`}
-      data-chip-in-view={chipInView ? "true" : "false"} data-testid="ask-pepita-dock">
+    <div ref={ref} className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2 print:hidden" data-testid="ask-pepita-dock" data-topic={topic}>
       {open ? (
         <div id="pepita-dock-menu" className="w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-gray-200 bg-white p-3 shadow-lg">
-          <p className="mb-2 text-xs text-gray-500">
-            About: <span className="font-medium text-gray-800">{topic}</span>
-          </p>
+          <p className="mb-2 px-1 text-xs text-gray-500">Ask Pepita</p>
           <ul className="space-y-1">
-            {options.map((o) => (
-              <li key={o.label}>
+            {PEPITA_SUGGESTIONS[topic].map((q) => (
+              <li key={q}>
                 <Link
-                  href={askPepitaHref(o.q)}
+                  href={askPepitaHref(q)}
                   className="block rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050]"
                 >
-                  {o.label}
+                  {q}
                 </Link>
               </li>
             ))}
@@ -92,12 +62,11 @@ export default function AskPepitaDock() {
         type="button"
         aria-expanded={open}
         aria-controls="pepita-dock-menu"
+        aria-label={open ? "Close Ask Pepita" : "Ask Pepita"}
         onClick={() => setOpen((v) => !v)}
-        aria-label="Ask Pepita to explain this"
-        className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-gray-900 p-1.5 text-sm sm:pr-4 text-white shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2"
+        className="h-12 w-12 overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2"
       >
-        <img src="/images/pepita/avatar-128.webp" alt="" width={36} height={36} className="h-9 w-9 rounded-full" decoding="async" />
-        <span className="hidden sm:inline">Ask Pepita to explain this</span>
+        <img src="/images/pepita/avatar-128.webp" alt="" width={48} height={48} decoding="async" className="h-12 w-12" />
       </button>
     </div>
   );
