@@ -1,3 +1,4 @@
+import { LEARN_ARTICLES } from "@/content/learnArticles";
 import { Link } from "wouter";
 import { ShoppingCart, User, Heart, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -5,9 +6,10 @@ import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 
 /** Items under the Science dropdown (desktop) and Science submenu (mobile). */
+// "Science" itself links to /science (desktop and mobile), so no extra overview entry is needed.
 const SCIENCE_SUBMENU = [
-  { label: "Science", href: "/science" },
-  { label: "Articles", href: "/articles" },
+  ...LEARN_ARTICLES.map((a) => ({ label: a.navLabel ?? a.title, href: a.href })),
+  { label: "Pure Fire Insights", href: "/insights" },
 ];
 
 export default function Navigation() {
@@ -73,7 +75,7 @@ export default function Navigation() {
                   {/* Science submenu: shown on hover or keyboard focus */}
                   <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 hidden group-hover:block group-focus-within:block">
                     <div
-                      className="w-44 rounded-md border border-white/10 py-2 shadow-xl"
+                      className="w-72 rounded-md border border-white/10 py-2 shadow-xl"
                       style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
                     >
                       {SCIENCE_SUBMENU.map((item) => (

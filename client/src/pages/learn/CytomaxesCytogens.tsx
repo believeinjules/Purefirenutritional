@@ -29,7 +29,7 @@ export default function ArticleCytomaxesCytogens() {
         <div className="max-w-3xl mx-auto px-4 py-16">
 
           <div className="mb-6">
-            <Link href="/articles" className="text-sm text-orange-600 hover:underline">← Articles</Link>
+            <Link href="/insights" className="text-sm text-orange-600 hover:underline">← Pure Fire Insights</Link>
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>

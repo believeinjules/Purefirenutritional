@@ -4,19 +4,19 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { LEARN_ARTICLES } from "@/content/learnArticles";
 
-export const ARTICLES_TITLE = "Articles | Pure Fire Nutritional";
-export const ARTICLES_DESCRIPTION =
+export const INSIGHTS_TITLE = "Pure Fire Insights | Pure Fire Nutritional";
+export const INSIGHTS_DESCRIPTION =
   "Articles from Pure Fire Nutritional on Khavinson peptide bioregulators: what they are, Cytomaxes vs Cytogens, sourcing in the US, and a systems view of peptides.";
 
-export default function Articles() {
+export default function Insights() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <PageSeo title={ARTICLES_TITLE} description={ARTICLES_DESCRIPTION} path="/articles" />
+      <PageSeo title={INSIGHTS_TITLE} description={INSIGHTS_DESCRIPTION} path="/insights" />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-3 leading-tight">Articles</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-3 leading-tight">Pure Fire Insights</h1>
           <p className="text-gray-500 mb-12 max-w-2xl">
             Articles on peptide bioregulators and how we think about them.
           </p>

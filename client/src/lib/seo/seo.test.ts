@@ -207,23 +207,23 @@ describe("vercel.json redirects", () => {
   });
 });
 
-describe("/articles index", () => {
+describe("/insights index", () => {
   const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
-  const page = fs.readFileSync(path.join(root, "client/src/pages/Articles.tsx"), "utf8");
+  const page = fs.readFileSync(path.join(root, "client/src/pages/Insights.tsx"), "utf8");
   const nav = fs.readFileSync(path.join(root, "client/src/components/Navigation.tsx"), "utf8");
 
   it("is a real, prerendered, sitemap-listed public route", () => {
-    expect(app).toContain('<Route path="/articles" component={Articles} />');
-    expect(PUBLIC_STATIC_ROUTES).toContain("/articles");
-    expect(UNLISTED_ROUTES).not.toContain("/articles");
-    expect(PRIVATE_ROUTES["/articles"]).toBeUndefined();
-    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/articles")}</loc>`);
+    expect(app).toContain('<Route path="/insights" component={Insights} />');
+    expect(PUBLIC_STATIC_ROUTES).toContain("/insights");
+    expect(UNLISTED_ROUTES).not.toContain("/insights");
+    expect(PRIVATE_ROUTES["/insights"]).toBeUndefined();
+    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/insights")}</loc>`);
   });
 
   it("sets its own title, meta description and canonical", () => {
-    expect(page).toMatch(/<PageSeo title=\{ARTICLES_TITLE\} description=\{ARTICLES_DESCRIPTION\} path="\/articles" \/>/);
-    expect(page).toContain('"Articles | Pure Fire Nutritional"');
-    expect(canonicalUrl("/articles")).toBe("https://www.purefirenutritional.com/articles");
+    expect(page).toMatch(/<PageSeo title=\{INSIGHTS_TITLE\} description=\{INSIGHTS_DESCRIPTION\} path="\/insights" \/>/);
+    expect(page).toContain('"Pure Fire Insights | Pure Fire Nutritional"');
+    expect(canonicalUrl("/insights")).toBe("https://www.purefirenutritional.com/insights");
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
@@ -238,17 +238,29 @@ describe("/articles index", () => {
     }
   });
 
-  it("the Science nav submenu is just Science + Articles (no per-article links)", () => {
-    expect(nav).toContain('{ label: "Science", href: "/science" }');
-    expect(nav).toContain('{ label: "Articles", href: "/articles" }');
-    expect(nav).not.toContain("LEARN_ARTICLES");
-    expect(nav).not.toMatch(/blog/i);
+  it("the Science nav submenu lists the 4 articles in order, then Pure Fire Insights (no TSP link)", () => {
+    const labels = LEARN_ARTICLES.map((a) => a.navLabel ?? a.title);
+    expect(labels).toEqual([
+      "What Are Khavinson Peptide Bioregulators?",
+      "Cytomaxes vs Cytogens",
+      "Buying Khavinson Peptides in the U.S.",
+      "Peptides in Context",
+    ]);
+    // The on-page title of the US article stays the full title.
+    expect(LEARN_ARTICLES[2].title).toBe("Khavinson Peptides in the United States");
+    expect(nav).toContain("LEARN_ARTICLES.map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
+    expect(nav).toContain('{ label: "Pure Fire Insights", href: "/insights" }');
+    expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science
+    expect(nav).not.toMatch(/short ?peptide|theshortpeptide/i);
+    expect(nav).not.toMatch(/blog|\/articles/i);
   });
 
-  it("/learn 301s to /articles and there is no /blog route", () => {
+  it("/learn 301s to /insights and there is no /blog or /articles route", () => {
     const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
-    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/articles", statusCode: 301 });
+    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/insights", statusCode: 301 });
     expect(app).not.toContain('"/blog"');
     expect(PUBLIC_STATIC_ROUTES).not.toContain("/blog");
+    expect(app).not.toContain('"/articles"');
+    expect(PUBLIC_STATIC_ROUTES).not.toContain("/articles");
   });
 });

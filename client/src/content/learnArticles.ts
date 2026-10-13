@@ -1,7 +1,9 @@
-/** Hand-written Learn articles (client/src/pages/learn/*), listed on the /articles index page. */
+/** Hand-written Learn articles (client/src/pages/learn/*), listed in the Science nav dropdown and on the /insights index page. */
 export type LearnArticle = {
   title: string;
   href: string;
+  /** Shorter label for the Science nav dropdown (defaults to title). */
+  navLabel?: string;
   /** One-line summary shown on the /articles index. */
   description: string;
   /** Optional cover image (site paths). */
@@ -21,11 +23,13 @@ export const LEARN_ARTICLES: LearnArticle[] = [
   },
   {
     title: "Khavinson Peptides in the United States",
+    navLabel: "Buying Khavinson Peptides in the U.S.",
     href: "/learn/buy-khavinson-peptides-usa",
     description: "Why authentic Khavinson bioregulators are hard to find in the US, and how we source them.",
   },
   {
     title: "Peptides in Context: A Systems View",
+    navLabel: "Peptides in Context",
     href: "/learn/peptides-in-context-systems-view",
     description: "Why we think about peptides as signals inside connected systems, and where Khavinson's model is still a hypothesis.",
     cover: {
