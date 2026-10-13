@@ -11,6 +11,11 @@
   },
   "redirects": [
     {
+      "source": "/products/:id(femalin|temero-genero|trezvon|olecap|previn|regenart|gelmigon)",
+      "destination": "/products",
+      "permanent": false
+    },
+    {
       "source": "/products/:id(bonomarlot|cartalax|chelohart|crystagen|endoluten|gotratix|pielotax|testoluten|thyreogen|ventfort|vesugen|visoluten|vladonix)-:size(n20|n60)",
       "destination": "/products/:id",
       "statusCode": 301

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getProductFacts } from "./productFacts";
-import { products } from "@/data/products";
+import { allProducts as products } from "@/data/products";
 import { DOSING } from "@/data/dosing";
 
 const byId = (id: string) => products.find((p) => p.id === id)!;

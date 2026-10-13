@@ -10,6 +10,7 @@ import {
 } from "./claims.js";
 import { clampText, normalizeForMatch, splitSentences } from "./text.js";
 import type { PeppyProduct } from "./types.js";
+import { isHiddenProduct } from "../hidden-products.js";
 
 /** Minimal shape shared by products.ts entries and Firestore product docs. */
 export interface RawCatalogProduct {
@@ -65,7 +66,7 @@ function safeUsage(v: unknown): string | undefined {
 export function toPeppyProduct(raw: RawCatalogProduct): PeppyProduct | null {
   const name = typeof raw.name === "string" ? raw.name.trim() : "";
   if (!raw.id || !name) return null;
-  if (raw.hidden === true || raw.active === false) return null;
+  if (isHiddenProduct(raw)) return null;
   const variants = Array.isArray(raw.variants)
     ? (raw.variants as Record<string, unknown>[])
     : [];

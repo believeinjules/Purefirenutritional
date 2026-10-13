@@ -3,7 +3,7 @@
  * every product exists, and all copy passes the claim filters.
  */
 import { describe, expect, it } from "vitest";
-import { products } from "../../client/src/data/products";
+import { allProducts, products } from "../../client/src/data/products";
 import {
   BANNED_TERMS,
   isCompliantEvidenceNote,
@@ -19,6 +19,8 @@ import { PRODUCT_EVIDENCE, TOPICS } from "./topics";
 
 const catalog = buildCatalog(products as never);
 const registryIds = new Set(RESEARCH_REGISTRY.map(s => s.id));
+// Topics may name temporarily hidden products; the engine skips them at runtime.
+const knownIds = new Set(allProducts.map(p => p.id));
 const names = products.map(p => p.name);
 
 describe("research registry", () => {
@@ -57,10 +59,10 @@ describe("topics", () => {
       for (const id of t.sourceIds)
         expect(registryIds.has(id), `${t.id} → ${id}`).toBe(true);
       for (const p of t.products)
-        expect(catalog.has(p.id), `${t.id} → ${p.id}`).toBe(true);
+        expect(knownIds.has(p.id), `${t.id} → ${p.id}`).toBe(true);
     }
     for (const [id, ev] of Object.entries(PRODUCT_EVIDENCE)) {
-      expect(catalog.has(id), id).toBe(true);
+      expect(knownIds.has(id), id).toBe(true);
       for (const s of ev.sourceIds)
         expect(registryIds.has(s), `${id} → ${s}`).toBe(true);
     }

@@ -1,3 +1,5 @@
+import { isHiddenProduct } from "../../../shared/hidden-products.js";
+
 export interface ProductVariant {
   id: string;
   name: string;
@@ -38,7 +40,8 @@ export interface Product {
   coaUrl?: string;
 }
 
-export const products: Product[] = [
+/** Full code catalog, including hidden products (data checks / admin import only). */
+export const allProducts: Product[] = [
   {
     id: "bonomarlot",
     image: "/products/Banomarlot.png",
@@ -1408,6 +1411,9 @@ export const products: Product[] = [
     seriesInfo: "GPL Man contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Pancreatic, Testicular) plus alpha-lipoic acid for comprehensive male health restoration."
   },
 ];
+
+/** Storefront catalog: everything except products hidden in shared/hidden-products.ts. */
+export const products: Product[] = allProducts.filter((p) => !isHiddenProduct(p));
 
 // Helper function to find a product by ID
 export function getProductById(id: string): Product | undefined {

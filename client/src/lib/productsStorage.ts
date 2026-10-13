@@ -11,6 +11,7 @@ import { db, isFirebaseConfigured } from "./firebase";
 import { adminFetch } from "./adminApi";
 import { products as localProducts } from "@/data/products";
 import { readBundleOverrides } from "@shared/bundle-pricing";
+import { isHiddenProduct } from "@shared/hidden-products";
 
 export interface ProductVariant {
   id: string;
@@ -101,7 +102,9 @@ export async function fetchProducts(): Promise<Product[]> {
       return localProducts;
     }
 
-    return snapshot.docs.map((d: { id: string; data: () => any }) => docToProduct(d.id, d.data()));
+    return snapshot.docs
+      .filter((d: { id: string; data: () => any }) => !isHiddenProduct({ ...d.data(), id: d.id }))
+      .map((d: { id: string; data: () => any }) => docToProduct(d.id, d.data()));
   } catch (err) {
     console.error("Error fetching products from Firestore, falling back to local data:", err);
     return localProducts;
@@ -111,6 +114,7 @@ export async function fetchProducts(): Promise<Product[]> {
 // ─── fetchProductById ─────────────────────────────────────────────────────────
 
 export async function fetchProductById(id: string): Promise<Product | null> {
+  if (isHiddenProduct({ id })) return null;
   if (!isFirebaseConfigured()) {
     return localProducts.find((p) => p.id === id) || null;
   }
@@ -124,6 +128,7 @@ export async function fetchProductById(id: string): Promise<Product | null> {
     if (!snap || !snap.exists()) {
       return localProducts.find((p) => p.id === id) || null;
     }
+    if (isHiddenProduct({ ...snap.data(), id: snap.id })) return null;
     return docToProduct(snap.id, snap.data());
   } catch (err) {
     console.error("Error fetching product by ID from Firestore:", err);
@@ -150,7 +155,9 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       return localProducts.filter((p) => p.category === category);
     }
 
-    return snapshot.docs.map((d: { id: string; data: () => any }) => docToProduct(d.id, d.data()));
+    return snapshot.docs
+      .filter((d: { id: string; data: () => any }) => !isHiddenProduct({ ...d.data(), id: d.id }))
+      .map((d: { id: string; data: () => any }) => docToProduct(d.id, d.data()));
   } catch (err) {
     console.error("Error fetching products by category from Firestore:", err);
     return localProducts.filter((p) => p.category === category);

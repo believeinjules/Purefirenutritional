@@ -1,6 +1,7 @@
 import type { PriceableProduct, PriceableVariant } from "../../shared/product-prices.js";
 import { readBundleOverrides } from "../../shared/bundle-pricing.js";
 import { getAdminDb } from "./firebase.js";
+import { isHiddenProduct } from "../../shared/hidden-products.js";
 
 function toNumber(value: unknown): number {
   if (typeof value === "number") return value;
@@ -22,6 +23,8 @@ export function firestoreDocToPriceable(
   data: Record<string, unknown> | undefined
 ): PriceableProduct | null {
   if (!data) return null;
+  // Hidden products are not sold and have no product page (also drops them from the sitemap).
+  if (isHiddenProduct({ ...data, id })) return null;
   const name = typeof data.name === "string" ? data.name.trim() : "";
   if (!name) return null;
 

@@ -132,7 +132,7 @@ describe("bundle input validation", () => {
 
   it("checkout rejects a bundle the product does not offer", () => {
     expect(() =>
-      resolveCheckoutLine({ productId: "trezvon", quantity: 1, bundle: 3 })
+      resolveCheckoutLine({ productId: "calsil-t", quantity: 1, bundle: 3 })
     ).toThrow(/not available/);
   });
 
