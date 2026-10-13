@@ -20,7 +20,7 @@ const entries = [];
 for (const chunk of src.split(/\n  \{\n/).slice(1)) {
   const block = `\n${chunk}`;
   const get = k =>
-    block.match(new RegExp(`\\n\\s+${k}: (".*?(?<!\\\\)"),?\\n`))?.[1];
+    block.match(new RegExp(`\\n\\s+${k}:\\s+(".*?(?<!\\\\)"),?\\n`))?.[1];
   const id = get("id") && JSON.parse(get("id"));
   if (!id) continue;
   entries.push({

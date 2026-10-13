@@ -204,6 +204,8 @@ export interface GuardFlags {
   disease: boolean;
   /** Wants to replace or stop a prescription medicine. */
   drugReplacement: boolean;
+  /** Regulatory doctor-only topics (cancer/oncology, fertility, reducing medication). */
+  doctorOnly: boolean;
   /** Mentions prescription medicines / blood thinners / interactions. */
   medications: boolean;
   bloodThinners: boolean;
@@ -217,6 +219,9 @@ const DISEASE_ASK =
   /\b(i have|i've got|i was diagnosed|diagnosed with|my (?:doctor|dr) (?:says|said) i have|suffer(?:ing)? from|living with|for my|treat(?:ing|ment)? (?:for|of)?|cure(?:s)?|heal(?:s)?|get rid of|reverse)\b/i;
 const RX =
   "(?:medication|medications|medicine|medicines|meds|prescription|prescriptions|pills|drugs?|statins?|metformin|insulin|warfarin|levothyroxine|synthroid|thyroxine|antidepressants?|ssris?|blood pressure (?:meds|pills|tablets)|inhaler|chemo\\w*|treatment|blood thinners?)";
+/** Regulatory doctor-only topics beyond pregnancy / children / medication changes: no products, studies or doses. */
+const DOCTOR_ONLY_TOPICS =
+  /\b(cancer\w*|tumou?r\w*|oncolog\w*|chemo\w*|radiation (?:therapy|treatment)|radiotherapy|leuka?emi\w*|lymphoma|myeloma|metasta\w*|fertility|infertil\w*|ivf|egg retrieval|embryo transfer|trying to (?:conceive|get pregnant)|(?:reduc\w*|lower\w*|cut(?:ting)? (?:back|down)(?: on)?|taper\w*|wean\w*) (?:off )?(?:\w+ ){0,3}(?:meds|medication\w*|medicine\w*|pills|dose|dosage))\b/i;
 const DRUG_REPLACEMENT = new RegExp(
   `\\b(?:instead of (?:\\w+ ){0,3}${RX}|(?:replace|substitute|swap) (?:\\w+ ){0,3}${RX}|(?:stop|stopping|quit|quitting|come off|coming off|get off|getting off|ditch|drop) (?:taking |using )?(?:\\w+ ){0,3}${RX}|${RX} (?:\\w+ ){0,4}(?:instead|replacement)|without (?:\\w+ ){0,2}${RX}|(?:no longer|not) need (?:\\w+ ){0,2}${RX})\\b`,
   "i"
@@ -241,14 +246,20 @@ export function detectGuards(message: string): GuardFlags {
           t
         )),
     drugReplacement: DRUG_REPLACEMENT.test(t),
+    doctorOnly: DOCTOR_ONLY_TOPICS.test(t),
     medications: bloodThinners || MEDICATIONS.test(t),
     bloodThinners,
   };
 }
 
-/** Products may only be suggested when none of the hard guards are tripped. */
+/**
+ * Products may only be suggested when none of the hard guards are tripped.
+ * Disease questions outside the doctor-only list may show "products that support [organ]
+ * function" (Regulatory disease-question format, approved by Julia 2026-10-13); cure/treat
+ * questions are still handled as safety questions by the engine.
+ */
 export function productsBlockedBy(flags: GuardFlags): (keyof GuardFlags)[] {
   return (
-    ["pregnancy", "pediatric", "disease", "drugReplacement"] as const
+    ["pregnancy", "pediatric", "drugReplacement", "doctorOnly"] as const
   ).filter(k => flags[k]);
 }

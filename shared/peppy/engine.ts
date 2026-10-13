@@ -6,6 +6,7 @@
  * 2. composeFallback() — builds a complete structured answer from curated content when no
  *    LLM is configured or the LLM fails, so the assistant never shows an error.
  */
+import { isPreorderProduct } from "../preorder.js";
 import {
   ASSISTANT_DISCLAIMER,
   detectGuards,
@@ -260,6 +261,14 @@ export function analyze(input: {
   const pubmedQueries: string[] = [];
   for (const t of topics.slice(0, 1))
     if (t.pubmedQuery) pubmedQueries.push(t.pubmedQuery);
+  // Every answer that can suggest products gets a live PubMed lookup (topic query first,
+  // generic Khavinson/bioregulator query otherwise).
+  if (
+    pubmedQueries.length === 0 &&
+    (productsAllowed || mentioned.length > 0) &&
+    (topics.length > 0 || mentioned.length > 0)
+  )
+    pubmedQueries.push(GENERIC_PUBMED_QUERY);
 
   return {
     message,
@@ -277,6 +286,9 @@ export function analyze(input: {
     pubmedQueries,
   };
 }
+
+/** Fallback live-PubMed query for product answers without a topic-specific query. */
+export const GENERIC_PUBMED_QUERY = "Khavinson peptide bioregulator";
 
 // ── Composition helpers ─────────────────────────────────────────────────────
 
@@ -376,6 +388,32 @@ function suggestionFor(topic: Topic | undefined, used: Set<string>): string[] {
     .slice(0, PEPPY_LIMITS.maxSuggestions);
 }
 
+/** Newer product lines that must compete fairly with the long-standing curated picks. */
+export const NEWER_LINE = /^(revilab-|anti-age-nb-|gpl-|prime-peptide-)/;
+
+/**
+ * Fair ordering of a topic's products: alternates long-standing picks with newer-line
+ * products (Revilab, Anti-Age NB, GPL, Prime Peptide) so neither group always wins the
+ * first slots. Order within each group is kept.
+ */
+export function fairOrder<T extends { id: string }>(items: readonly T[]): T[] {
+  const newer = items.filter(i => NEWER_LINE.test(i.id));
+  const older = items.filter(i => !NEWER_LINE.test(i.id));
+  const out: T[] = [];
+  for (let i = 0; i < Math.max(newer.length, older.length); i++) {
+    if (older[i]) out.push(older[i]);
+    if (newer[i]) out.push(newer[i]);
+  }
+  // Prefer capsules/tablets: liquid (pre-order) products move behind the others, order kept.
+  return [
+    ...out.filter(i => !isPreorderProduct(i.id)),
+    ...out.filter(i => isPreorderProduct(i.id)),
+  ];
+}
+
+/** Fallback (no-LLM) answers can't judge whether a third product adds a distinct reason, so they stop at 2. */
+export const FALLBACK_MAX_PRODUCTS = 2;
+
 function productSuggestions(
   topic: Topic | undefined,
   catalog: Map<string, PeppyProduct>,
@@ -383,7 +421,7 @@ function productSuggestions(
 ): PeppyProductSuggestion[] {
   if (!topic) return [];
   const out: PeppyProductSuggestion[] = [];
-  for (const tp of topic.products) {
+  for (const tp of fairOrder(topic.products)) {
     const product = catalog.get(tp.id);
     if (!product || !product.inStock) continue;
     if (
@@ -609,7 +647,7 @@ export function composeFallback(
         analysis.intent === "info" ||
         analysis.intent === "general");
     const maxProducts =
-      topic.productPolicy === "ingredient" ? 1 : PEPPY_LIMITS.maxProducts;
+      topic.productPolicy === "ingredient" ? 1 : FALLBACK_MAX_PRODUCTS;
     const products = allowProducts
       ? productSuggestions(topic, catalog, maxProducts)
       : [];

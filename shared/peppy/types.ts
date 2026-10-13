@@ -120,7 +120,7 @@ export const PEPPY_LIMITS = {
   maxHistoryTurns: 8,
   maxHistoryChars: 1200,
   maxSources: 5,
-  maxProducts: 2,
+  maxProducts: 3,
   maxFollowUps: 3,
   maxSuggestions: 4,
 } as const;

@@ -139,7 +139,8 @@ describe("validateLlmAnswer", () => {
   });
 
   it("ignores LLM products when guards block products", () => {
-    const s = setup("I have arthritis, what helps my knees?");
+    // Regulatory doctor-only list (oncology): no products.
+    const s = setup("I'm going through chemo, what helps my knees?");
     expect(s.analysis.productsAllowed).toBe(false);
     const out = validateLlmAnswer({
       raw: good({

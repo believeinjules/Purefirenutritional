@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import PreorderBadge from "@/components/PreorderBadge";
 import { ShoppingCart, Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,7 @@ export default function ProductSuggestionCard({
           >
             {product.name}
           </Link>
+          <PreorderBadge productId={product.id} />
           <span className="text-sm font-bold text-orange-600">
             ${product.priceUSD.toFixed(2)}
           </span>

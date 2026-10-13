@@ -3,12 +3,12 @@
  * (LLM + validation) → response. The server passes PubMed/LLM adapters; the browser
  * fallback calls it with none and gets the curated deterministic answer.
  */
+import { ensureProductNotes } from "./product-notes.js";
 import {
   analyze,
   composeFallback,
   pickSources,
-  type Analysis,
-} from "./engine.js";
+  type Analysis, fairOrder } from "./engine.js";
 import { buildLlmContext, type LlmContext } from "./prompt.js";
 import { validateLlmAnswer, type ValidationReport } from "./validate.js";
 import { isCompliantEvidenceNote, isCompliantProductCopy } from "./claims.js";
@@ -53,8 +53,11 @@ export function keywordQuery(message: string): string | null {
   return unique.length >= 1 ? unique.join(" AND ") : null;
 }
 
-function wantsLivePubmed(analysis: Analysis): string | null {
+export function wantsLivePubmed(analysis: Analysis): string | null {
   if (analysis.redFlag || analysis.offTopic || analysis.greeting) return null;
+  // Product-suggestion answers always get a live lookup.
+  if (analysis.productsAllowed && analysis.pubmedQueries.length)
+    return analysis.pubmedQueries[0];
   if (
     analysis.safetyKind &&
     analysis.safetyKind !== "side-effects" &&
@@ -68,6 +71,9 @@ function wantsLivePubmed(analysis: Analysis): string | null {
 }
 
 /** Product candidates the LLM may choose from (already guard- and claim-checked). */
+/** How many fairly-ordered candidates the model may choose from (it picks at most maxProducts). */
+export const LLM_CANDIDATE_POOL = 8;
+
 export function llmCandidates(
   analysis: Analysis,
   catalog: Map<string, PeppyProduct>,
@@ -76,7 +82,7 @@ export function llmCandidates(
   if (!analysis.productsAllowed || analysis.guards.disease) return [];
   const out: PeppyProductSuggestion[] = [...draft.products];
   const add = (s: PeppyProductSuggestion) => {
-    if (out.length >= 4 || out.some(o => o.product.id === s.product.id)) return;
+    if (out.length >= LLM_CANDIDATE_POOL || out.some(o => o.product.id === s.product.id)) return;
     if (
       !s.product.inStock ||
       !isCompliantProductCopy(s.why) ||
@@ -87,7 +93,7 @@ export function llmCandidates(
   };
   const topic = analysis.topics[0];
   if (topic && topic.productPolicy !== "never") {
-    for (const tp of topic.products) {
+    for (const tp of fairOrder(topic.products)) {
       const product = catalog.get(tp.id);
       if (product) add({ product, why: tp.why, evidenceNote: tp.evidenceNote });
     }
@@ -161,7 +167,7 @@ export async function answerPeppy(
     analysis.safetyKind === "pediatric" ||
     analysis.safetyKind === "drug-replacement" ||
     analysis.safetyKind === "disease";
-  if (!deps.callLlm || hardGuard) return { response: draft, analysis, meta };
+  if (!deps.callLlm || hardGuard) return { response: ensureProductNotes(draft), analysis, meta };
 
   // Wider source pool for the model: draft citations + remaining topic sources + live results.
   const ids = [
@@ -192,13 +198,13 @@ export async function answerPeppy(
     });
     if (!validated) {
       meta.llm = "invalid";
-      return { response: draft, analysis, meta };
+      return { response: ensureProductNotes(draft), analysis, meta };
     }
     meta.llm = "ok";
     meta.report = validated.report;
-    return { response: validated.response, analysis, meta };
+    return { response: ensureProductNotes(validated.response), analysis, meta };
   } catch {
     meta.llm = "error";
-    return { response: draft, analysis, meta };
+    return { response: ensureProductNotes(draft), analysis, meta };
   }
 }

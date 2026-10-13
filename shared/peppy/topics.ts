@@ -71,6 +71,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Strongest evidence: iron when stores are low (randomised trial). Ginseng and CoQ10 evidence for everyday tiredness is modest.",
+    pubmedQuery: "(fatigue OR tiredness) AND (ginseng OR coenzyme Q10 OR iron) AND randomized",
     products: [
       {
         id: "panaxod",
@@ -89,6 +90,18 @@ export const TOPICS: Topic[] = [
         why: "Includes iron and B vitamins (B1, B6, B12), which matter if a blood test shows your iron or B12 is low.",
         evidenceNote:
           "Only worth considering after testing — extra iron doesn't help, and can be harmful, when your levels are normal.",
+      },
+      {
+        id: "anti-age-nb-activity",
+        why: "Described in its line as an energy concentrate for everyday vitality and cellular energy metabolism.",
+        evidenceNote:
+          "No published trials of this formula; evidence for its ingredients is mostly lab and small human work.",
+      },
+      {
+        id: "revilab-pro-elements",
+        why: "A mineral and vitamin base (magnesium, zinc, calcium, B6, D3) for everyday nutritional upkeep.",
+        evidenceNote:
+          "Minerals and vitamins mainly help when intake is low; this formula itself hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -141,6 +154,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Melatonin: meta-analysis, modest benefit. Pineal peptides: small human and animal studies of melatonin levels, not sleep outcomes.",
+    pubmedQuery: "(epithalamin OR pineal peptide) AND sleep",
     products: [
       {
         id: "endoluten",
@@ -153,6 +167,12 @@ export const TOPICS: Topic[] = [
         why: "A pineal-support tablet the catalog positions for the sleep–wake rhythm and healthy melatonin production.",
         evidenceNote:
           "No published trials of this formula, and its full ingredient list isn't on our product page yet — ask us before buying if you need it.",
+      },
+      {
+        id: "alvenorm-forte",
+        why: "A formula the catalog positions for sleep quality and brain function during rest.",
+        evidenceNote:
+          "No published trials of Alvenorm Forte itself.",
       },
     ],
     productPolicy: "symptom",
@@ -205,6 +225,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Collagen: meta-analysis, modest effect. Glucosamine/chondroitin: large trial, no overall benefit. Cartilage peptides: lab and animal studies only.",
+    pubmedQuery: "(collagen peptide OR cartilage peptide) AND joint AND randomized",
     products: [
       {
         id: "cartalax",
@@ -223,6 +244,24 @@ export const TOPICS: Topic[] = [
         why: "Pairs cartilage and vascular-wall peptide complexes with chondroitin sulfate and omega-3s for joint and connective-tissue support.",
         evidenceNote:
           "Chondroitin has mixed trial results; the full formula hasn't been studied in published trials.",
+      },
+      {
+        id: "prime-peptide-joints",
+        why: "Peptide formula built for cartilage and joint comfort as part of the Prime Peptide line.",
+        evidenceNote:
+          "Its peptide research comes from the manufacturer's lab and animal work; no independent human trials of the finished formula.",
+      },
+      {
+        id: "revilab-sl-04",
+        why: "Sublingual blend of cartilage, muscle and immune peptide complexes for the musculoskeletal system.",
+        evidenceNote:
+          "Cartilage peptide research is cell and animal work; Revilab SL 04 hasn't been tested in published trials.",
+      },
+      {
+        id: "calsil-t",
+        why: "Calcium and magnesium formula for bone, teeth and muscle function.",
+        evidenceNote:
+          "Calcium and magnesium matter most when dietary intake is low; Calsil-T itself hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -270,6 +309,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Mostly cell and animal research plus small, single-network human studies; no large independent trials.",
+    pubmedQuery: "epitalon OR epithalamin",
     products: [
       {
         id: "endoluten",
@@ -291,7 +331,7 @@ export const TOPICS: Topic[] = [
     id: "thymus",
     label: "Thymus peptides and immune function",
     patterns: [
-      /\b(thymus|thymic|thymalin|thymogen|vilon|immune|immunity|immune system|t[- ]cells?|catch(?:ing)? (?:every )?colds?|get sick (?:often|a lot))\b/i,
+      /\b(thymus|thymic|thymalin|thymogen|vilon|t[- ]cells?)\b/i,
     ],
     summary:
       "The thymus is a small gland behind the breastbone where T cells — a key part of the immune system — mature. It shrinks steadily from adolescence, so older adults produce fewer new T cells. 'Thymus peptides' are short peptides or extracts from the thymus (such as the Russian drug Thymalin) that Khavinson's group studied for supporting immune function with age.",
@@ -318,6 +358,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "One small, older human trial of injectable extracts plus lab studies; no trials of oral products.",
+    pubmedQuery: "thymalin OR thymus peptide Khavinson",
     products: [
       {
         id: "vladonix",
@@ -330,6 +371,12 @@ export const TOPICS: Topic[] = [
         why: "A synthesized thymus peptide (cytogen) the catalog describes for immune support during periods of stress.",
         evidenceNote:
           "Evidence for thymic peptides is mostly lab work; Crystagen as a product has no published trials.",
+      },
+      {
+        id: "prime-peptide-omega",
+        why: "Thymus-focused peptide formula with omega-3-6-9 fatty acids from the Prime Peptide line.",
+        evidenceNote:
+          "Its thymus peptide data is the manufacturer's lab and animal work; no independent human trials.",
       },
     ],
     productPolicy: "ingredient",
@@ -374,6 +421,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Small, single-network human trials of injectable extracts; mechanism mostly lab-based; no independent large trials.",
+    pubmedQuery: "Khavinson peptide bioregulator",
     products: [],
     productPolicy: "never",
     followUps: [],
@@ -415,6 +463,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Mechanism supported by lab and modelling studies; clinical evidence for oral products is lacking.",
+    pubmedQuery: "short peptides gene expression Khavinson",
     products: [],
     productPolicy: "never",
     followUps: [],
@@ -452,6 +501,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Lutein/zeaxanthin: large randomised trial in people at risk of AMD. Retinal peptides: small Russian studies of injectable drugs.",
+    pubmedQuery: "(retinalamin OR retina peptide OR epitalon) AND retina AND Khavinson",
     products: [
       {
         id: "retisil",
@@ -470,6 +520,12 @@ export const TOPICS: Topic[] = [
         why: "Combines brain, retina and vascular-wall peptide complexes with lutein, zeaxanthin, astaxanthin and omega-3s.",
         evidenceNote:
           "Ingredient evidence varies; the formula itself hasn't been studied in published trials.",
+      },
+      {
+        id: "revilab-sl-02",
+        why: "Sublingual blend of retina, brain and vascular-wall peptide complexes.",
+        evidenceNote:
+          "Retina peptide research is mostly cell and animal work; Revilab SL 02 hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -506,7 +562,7 @@ export const TOPICS: Topic[] = [
         body: "chest pain or pressure, new shortness of breath, fainting, or a racing heartbeat with dizziness.",
       },
     ],
-    sourceIds: [
+    sourceIds: ["pmid:25051774", 
       "pmid:36611900",
       "pmid:25408528",
       "pmid:27383168",
@@ -515,6 +571,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Vascular peptides: cell and animal studies. Omega-3s: extensive but mixed evidence for healthy people.",
+    pubmedQuery: "(cardiogen OR vascular peptide OR vesugen) AND Khavinson",
     products: [
       {
         id: "ventfort",
@@ -533,6 +590,30 @@ export const TOPICS: Topic[] = [
         why: "A natural heart-muscle peptide complex (A-14) the catalog describes for heart muscle cell support.",
         evidenceNote:
           "Evidence is limited to related lab research; Chelohart itself has no published human trials.",
+      },
+      {
+        id: "revilab-ml-04",
+        why: "Combines heart-muscle, vascular-wall and pineal peptide complexes with resveratrol, rutin and omega-3s for cardiovascular function.",
+        evidenceNote:
+          "Peptide research is mostly cell and animal work; Revilab ML 04 hasn't been tested in published trials.",
+      },
+      {
+        id: "revilab-sl-01",
+        why: "Sublingual blend of vascular-wall and heart-muscle peptide complexes for the cardiovascular system.",
+        evidenceNote:
+          "No published trials of Revilab SL 01 itself.",
+      },
+      {
+        id: "vesugen",
+        why: "A vascular peptide complex for healthy blood vessels and circulation.",
+        evidenceNote:
+          "A small Russian clinical study used the vascular tripeptide; the oral product itself hasn't been tested in independent trials.",
+      },
+      {
+        id: "complex-3r",
+        why: "Antioxidant trio of dihydroquercetin, resveratrol and coenzyme Q10 for cardiovascular and cellular support.",
+        evidenceNote:
+          "Each ingredient has mixed human data; this combination hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -565,7 +646,7 @@ export const TOPICS: Topic[] = [
         body: "memory changes are new, getting worse or affecting daily life, or come with confusion, personality change, headaches or weakness.",
       },
     ],
-    sourceIds: [
+    sourceIds: ["pmid:24738258", 
       "pmid:39518916",
       "pmid:33396470",
       "pmid:24909721",
@@ -573,6 +654,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Brain peptides: cell and animal studies plus a review by the originating group; little human data.",
+    pubmedQuery: "(cortexin OR pinealon OR cortagen) AND neuroprotective",
     products: [
       {
         id: "prime-peptide-brain",
@@ -585,6 +667,18 @@ export const TOPICS: Topic[] = [
         why: "Combines brain, retina and vascular-wall peptide complexes with omega-3s, choline and B vitamins for nervous-system support.",
         evidenceNote:
           "Brain peptide research is cell-based; the formula hasn't been tested in people.",
+      },
+      {
+        id: "revilab-sl-02",
+        why: "Sublingual blend of brain, retina and vascular-wall peptide complexes for the nervous system.",
+        evidenceNote:
+          "Brain peptide research is mostly cell, animal and small Russian clinical work; Revilab SL 02 itself is untested.",
+      },
+      {
+        id: "mesotel",
+        why: "Choline-based formula for brain, liver and cardiovascular function.",
+        evidenceNote:
+          "Choline is an essential nutrient; Mesotel as a finished formula hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -600,10 +694,192 @@ export const TOPICS: Topic[] = [
     ],
   },
   {
+    id: "immune",
+    label: "Immune system and blood formation",
+    patterns: [
+      /\b(immune|immunity|immune system|catch(?:ing)? (?:every )?colds?|get sick (?:often|a lot)|always sick|natural defen[cs]es|blood[- ]forming|blood formation|bone marrow|hematopoie\w*|haematopoie\w*)\b/i,
+    ],
+    summary:
+      "Immune function depends most on sleep, a varied diet with enough protein, vitamin D and zinc when levels are low, regular movement, not smoking, and vaccinations. If you get infections unusually often, have unexplained fevers, or blood tests show low blood counts, see your doctor before trying supplements.",
+    sections: [
+      {
+        heading: "What the research says",
+        body: "Thymus and bone-marrow peptide research comes mainly from Russian groups. A long-term Russian clinical study of injectable thymus and pineal extracts in 266 older adults reported fewer respiratory infections, but it hasn't been independently replicated. Most other data are cell and animal studies, and oral products haven't been tested in comparable trials.",
+      },
+    ],
+    sourceIds: ["pmid:12577695", "pmid:33237528", "pmid:37686182", "pmid:12533768"],
+    evidenceNote:
+      "One long-term Russian clinical study of injectable extracts; the rest is cell and animal work.",
+    pubmedQuery: "(thymalin OR thymus peptide OR bone marrow peptide) AND Khavinson",
+    products: [
+      {
+        id: "revilab-sl-03",
+        why: "Sublingual blend of T-cell, B-cell and pineal peptide complexes for immune function.",
+        evidenceNote:
+          "Immune peptide research is mostly cell and animal work; Revilab SL 03 hasn't been tested in published trials.",
+      },
+      {
+        id: "revifort",
+        why: "Four mushrooms (shiitake, reishi, maitake, cordyceps) with beta-glucans for immune function.",
+        evidenceNote:
+          "Mushroom beta-glucans have small human studies; Revifort itself hasn't been tested in published trials.",
+      },
+      {
+        id: "revilab-ml-02",
+        why: "T-cell, B-cell, bone-marrow and liver peptide complexes for the blood-forming and immune systems.",
+        evidenceNote:
+          "Peptide research is cell and animal work; Revilab ML 02 hasn't been tested in published trials.",
+      },
+      {
+        id: "bonomarlot",
+        why: "A bone-marrow peptide complex for the blood-forming system.",
+        evidenceNote:
+          "Bone-marrow peptide research is older Russian animal work; Bonomarlot itself has no published human trials.",
+      },
+      {
+        id: "revilab-sl-07",
+        why: "Sublingual blend of bone-marrow, B-cell and vascular-wall peptide complexes with B vitamins for healthy blood formation.",
+        evidenceNote:
+          "No published trials of Revilab SL 07 itself.",
+      },
+      {
+        id: "imusil",
+        why: "Supports natural defences and cellular immunity.",
+        evidenceNote:
+          "No published trials of Imusil itself.",
+      },
+      {
+        id: "levain",
+        why: "Plant adaptogen blend for immune resilience during stressful periods.",
+        evidenceNote:
+          "Adaptogen evidence is mixed; Levain itself hasn't been tested in published trials.",
+      },
+      {
+        id: "prime-peptide-omega",
+        why: "Thymus-focused peptide formula with omega-3-6-9 fatty acids.",
+        evidenceNote:
+          "Its peptide data is the manufacturer's lab and animal work; no independent human trials.",
+      },
+    ],
+    productPolicy: "symptom",
+    followUps: [
+      "Is this about general immune upkeep, or has a doctor flagged something in your blood tests?",
+    ],
+    suggestions: [
+      "What does the thymus peptide do?",
+      "Is it safe with my medications?",
+      "Do Khavinson peptides actually work in humans?",
+    ],
+  },
+  {
+    id: "liver",
+    label: "Liver and bile flow",
+    patterns: [
+      /\b(liver|hepat\w*|bile|gallbladder|detox\w*|alcohol metabolism|hangover)\b/i,
+    ],
+    summary:
+      "The liver does best with limited alcohol, a healthy weight, regular activity, and care with medicines and herbal products that stress it (high-dose paracetamol/acetaminophen, some herbal extracts). If you have abnormal liver tests, yellowing skin or eyes, or dark urine, see your doctor first.",
+    sections: [
+      {
+        heading: "What the research says",
+        body: "Liver peptide (Livagen) research is Russian cell and animal work, including lymphocytes from older people and digestive-enzyme studies in rats. There are no human trials of oral liver peptide products.",
+      },
+    ],
+    sourceIds: ["pmid:12533768", "pmid:16075683", "pmid:11335874"],
+    evidenceNote: "Cell and animal studies only.",
+    pubmedQuery: "(Livagen OR liver peptide) AND Khavinson",
+    products: [
+      {
+        id: "likam",
+        why: "A liver and bile-duct formula for healthy liver function and bile flow.",
+        evidenceNote:
+          "No published trials of Likam itself.",
+      },
+      {
+        id: "revilab-sl-05",
+        why: "Sublingual blend of liver, pancreas and stomach-wall peptide complexes.",
+        evidenceNote:
+          "Liver peptide research is cell and animal work; Revilab SL 05 hasn't been tested in published trials.",
+      },
+      {
+        id: "reviplant",
+        why: "Botanical formula for liver and immune function.",
+        evidenceNote:
+          "No published trials of Reviplant itself.",
+      },
+      {
+        id: "revilab-ml-01",
+        why: "Includes a liver peptide complex alongside pineal and immune peptides, choline and antioxidants.",
+        evidenceNote:
+          "No published trials of Revilab ML 01 itself.",
+      },
+      {
+        id: "complex-3d",
+        why: "Antioxidant blend for the liver's own antioxidant and clearance pathways.",
+        evidenceNote:
+          "No published trials of Complex 3D itself.",
+      },
+    ],
+    productPolicy: "symptom",
+    followUps: [
+      "Is this about general liver upkeep, or has a doctor mentioned your liver tests?",
+    ],
+    suggestions: [
+      "Is it safe with my medications?",
+      "How do peptide bioregulators work?",
+    ],
+  },
+  {
+    id: "respiratory",
+    label: "Lungs, airways and sinuses",
+    patterns: [
+      /\b(lungs?|bronch\w*|airways?|respiratory|sinus\w*|nasal|nose|throat)\b/i,
+    ],
+    summary:
+      "For the lungs and airways the essentials are not smoking or vaping, staying active, vaccinations, and managing allergies. Get urgent care for chest pain, coughing up blood, or struggling to breathe, and see a doctor for a cough lasting more than 3 weeks.",
+    sections: [
+      {
+        heading: "What the research says",
+        body: "Bronchial peptide (Bronchogen) research is Russian cell and rat work, including a rat model of chronic lung damage. There are no human trials of oral bronchial peptide products.",
+      },
+    ],
+    sourceIds: ["pmid:26468022", "pmid:22808515"],
+    evidenceNote: "Cell and rat studies only.",
+    pubmedQuery: "(Bronchogen OR bronchial peptide) AND (Khavinson OR peptide bioregulator)",
+    products: [
+      {
+        id: "revilab-ml-05",
+        why: "Bronchial, lung/stomach-wall and T-cell peptide complexes with omega-3s for the respiratory system.",
+        evidenceNote:
+          "Bronchial peptide research is cell and rat work; Revilab ML 05 hasn't been tested in published trials.",
+      },
+      {
+        id: "revilab-sl-06",
+        why: "Sublingual blend of bronchial, lung and B-cell peptide complexes for the airways.",
+        evidenceNote:
+          "No published trials of Revilab SL 06 itself.",
+      },
+      {
+        id: "rinolax",
+        why: "Herbal formula for nasal, sinus and throat comfort.",
+        evidenceNote:
+          "No published trials of Rinolax itself.",
+      },
+    ],
+    productPolicy: "symptom",
+    followUps: [
+      "Is this about general upkeep, or about something specific like seasonal sinus trouble?",
+    ],
+    suggestions: [
+      "Is it safe with my medications?",
+      "Do Khavinson peptides actually work in humans?",
+    ],
+  },
+  {
     id: "digestion",
     label: "Liver and digestion",
     patterns: [
-      /\b(liver|digest\w*|gut|bloat\w*|stomach|detox\w*|bile|gallbladder|indigestion|reflux|heartburn|constipat\w*|bowel)\b/i,
+      /\b(digest\w*|gut|bloat\w*|stomach|indigestion|reflux|heartburn|constipat\w*|bowel)\b/i,
     ],
     summary:
       "Your liver doesn't need a 'detox' product — it clears substances continuously. What measurably helps liver health is limiting alcohol, keeping a healthy weight, staying active, and not taking unnecessary supplements or painkillers that strain the liver. For digestion, fibre, fluids, regular meals and identifying trigger foods help most.",
@@ -617,9 +893,10 @@ export const TOPICS: Topic[] = [
         body: "you notice yellowing of the skin or eyes, dark urine, persistent abdominal pain, blood in your stool, trouble swallowing, or unintended weight loss.",
       },
     ],
-    sourceIds: ["ref:nccih-supplements-wisely"],
+    sourceIds: ["pmid:25946840", "pmid:15514731", "pmid:22808515", "ref:nccih-supplements-wisely"],
     evidenceNote:
       "Little human evidence for liver or digestive peptide products.",
+    pubmedQuery: "(pancragen OR gastric peptide) AND Khavinson",
     products: [
       {
         id: "revilab-ml-06",
@@ -632,6 +909,30 @@ export const TOPICS: Topic[] = [
         why: "A digestive-enzyme support complex the catalog describes for comfortable digestion and nutrient absorption.",
         evidenceNote:
           "Its ingredient details are limited on our page and there are no published trials of the formula.",
+      },
+      {
+        id: "getrufline",
+        why: "Bitter herbal formula in chewable form for gut comfort and bile flow.",
+        evidenceNote:
+          "No published trials of Getrufline itself.",
+      },
+      {
+        id: "volustom",
+        why: "Dietary-fibre adsorbent complex for digestive comfort and regularity.",
+        evidenceNote:
+          "Fibre has good general evidence; this formula itself hasn't been tested in published trials.",
+      },
+      {
+        id: "revilab-sl-05",
+        why: "Sublingual blend of liver, pancreas and stomach-wall peptide complexes for digestive function.",
+        evidenceNote:
+          "Pancreas and liver peptide research is animal and cell work; Revilab SL 05 hasn't been tested in published trials.",
+      },
+      {
+        id: "pangluin",
+        why: "Pancreas-focused formula for healthy carbohydrate metabolism.",
+        evidenceNote:
+          "No published trials of Pangluin itself; check with your doctor first if you take glucose-lowering medicine.",
       },
     ],
     productPolicy: "symptom",
@@ -658,14 +959,27 @@ export const TOPICS: Topic[] = [
         body: "Kidney peptide research (a kidney polypeptide complex and the AED peptide) consists of cell-culture and rat studies from Khavinson's group. There are no human trials of oral kidney peptide products.",
       },
     ],
-    sourceIds: ["pmid:24958378", "pmid:26515176"],
+    sourceIds: ["pmid:30607912", "pmid:24958378", "pmid:26515176"],
     evidenceNote: "Cell and rat studies only.",
+    pubmedQuery: "kidney peptide Khavinson",
     products: [
       {
         id: "pielotax",
         why: "A natural kidney peptide complex (A-9) the catalog describes for healthy kidney function.",
         evidenceNote:
           "Research is cell and rat work only; Pielotax itself has no published human trials.",
+      },
+      {
+        id: "renefort",
+        why: "A kidney-focused formula for healthy filtration and renal function.",
+        evidenceNote:
+          "No published trials of Renefort itself; kidney peptide research is animal and cell work.",
+      },
+      {
+        id: "revilab-sl-08",
+        why: "Sublingual blend of bladder, vascular-wall and immune peptide complexes for the urinary tract.",
+        evidenceNote:
+          "No published trials of Revilab SL 08 itself.",
       },
     ],
     productPolicy: "symptom",
@@ -699,6 +1013,7 @@ export const TOPICS: Topic[] = [
     sourceIds: ["pmid:14523363", "pmid:17426848", "pmid:19830585"],
     evidenceNote:
       "Foundation-pairing evidence: small studies of injectable extracts in older adults.",
+    pubmedQuery: "(prostate peptide OR testes peptide) AND Khavinson",
     products: [
       {
         id: "endoluten",
@@ -711,6 +1026,12 @@ export const TOPICS: Topic[] = [
         why: "The catalog's foundational thymus peptide complex for healthy immune function with age.",
         evidenceNote:
           "Evidence is from the injectable extract Thymalin; Vladonix itself hasn't been tested in published trials.",
+      },
+      {
+        id: "gpl-man",
+        why: "Men's peptide formula combining pineal, brain, vascular, liver, pancreas and testes peptide complexes.",
+        evidenceNote:
+          "No published trials of GPL Man itself; the component peptides have mostly cell and animal data.",
       },
     ],
     productPolicy: "symptom",
@@ -743,6 +1064,7 @@ export const TOPICS: Topic[] = [
     sourceIds: [],
     evidenceNote:
       "No indexed human trials for testicular or prostate peptide products.",
+    pubmedQuery: "(prostate peptide OR prostatilen) AND Khavinson",
     products: [
       {
         id: "testoluten",
@@ -754,6 +1076,12 @@ export const TOPICS: Topic[] = [
         id: "revilab-sl-09",
         why: "A sublingual blend of pineal, testes, bladder and prostate peptide complexes with plant extracts for male urogenital support.",
         evidenceNote: "No published trials of this formula.",
+      },
+      {
+        id: "revilab-ml-07",
+        why: "The men's formula: testes, bladder, vascular-wall and pineal peptide complexes with omega-3s and L-carnitine.",
+        evidenceNote:
+          "Testes and bladder peptide research is animal and cell work; Revilab ML 07 hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -783,6 +1111,7 @@ export const TOPICS: Topic[] = [
     ],
     sourceIds: [],
     evidenceNote: "Limited evidence for peptide or herbal formulas.",
+    pubmedQuery: "(ovarian peptide OR pineal peptide) AND (menopause OR reproductive) AND Khavinson",
     products: [
       {
         id: "revilab-sl-10",
@@ -794,6 +1123,18 @@ export const TOPICS: Topic[] = [
         why: "A herbal formula (motherwort, hops, nettle, resveratrol and others) designed around the female reproductive system.",
         evidenceNote:
           "Some of its herbs have small, mixed studies; Mamiton itself hasn't been tested.",
+      },
+      {
+        id: "gpl-femme",
+        why: "Women's peptide formula combining pineal, brain, vascular, liver, thyroid and ovarian peptide complexes.",
+        evidenceNote:
+          "No published trials of GPL Femme itself; the component peptides have mostly cell and animal data.",
+      },
+      {
+        id: "revilab-ml-08",
+        why: "The women's formula: pineal, vascular-wall, cartilage and bladder peptide complexes with omega-3s.",
+        evidenceNote:
+          "No published trials of Revilab ML 08 itself.",
       },
     ],
     productPolicy: "symptom",
@@ -821,9 +1162,10 @@ export const TOPICS: Topic[] = [
         body: "A meta-analysis of 19 trials (1,125 mostly female participants) found hydrolysed collagen improved skin hydration, elasticity and wrinkles versus placebo over about 90 days — though many trials were short and industry-funded.",
       },
     ],
-    sourceIds: ["pmid:33742704"],
+    sourceIds: ["pmid:27259496", "pmid:33742704"],
     evidenceNote:
       "Collagen: meta-analysis of randomised trials, modest effects.",
+    pubmedQuery: "skin fibroblast peptide aging Khavinson",
     products: [
       {
         id: "prime-peptide-collagen",
@@ -835,6 +1177,24 @@ export const TOPICS: Topic[] = [
         id: "anti-wrinkle-serum-7",
         why: "A topical peptide serum for skin firmness and hydration.",
         evidenceNote: "No published trials of this serum.",
+      },
+      {
+        id: "mesotel-beauty",
+        why: "Choline-based antioxidant formula with gotu kola, goji, zinc and vitamins for skin.",
+        evidenceNote:
+          "Gotu kola and zinc have small studies for skin; this formula itself hasn't been tested in published trials.",
+      },
+      {
+        id: "anti-age-nb-activity",
+        why: "Positioned in its line as a collagen activator for skin and connective tissue.",
+        evidenceNote:
+          "No published trials of this formula itself.",
+      },
+      {
+        id: "imusil",
+        why: "Supports skin barrier function and natural defences.",
+        evidenceNote:
+          "No published trials of Imusil itself.",
       },
     ],
     productPolicy: "symptom",
@@ -901,6 +1261,7 @@ export const TOPICS: Topic[] = [
     ],
     sourceIds: ["pmid:16075681"],
     evidenceNote: "One small Russian controlled study with limited detail.",
+    pubmedQuery: "thyroid peptide bioregulator",
     products: [
       {
         id: "thyreogen",
@@ -935,12 +1296,25 @@ export const TOPICS: Topic[] = [
     ],
     sourceIds: ["pmid:29624410", "ref:nccih-ginseng"],
     evidenceNote: "Adaptogens: modest, mixed evidence.",
+    pubmedQuery: "(adaptogen OR peptide bioregulator) AND stress",
     products: [
       {
         id: "panaxod",
         why: "Built on Panax ginseng, an adaptogen traditionally used for stress resilience and energy.",
         evidenceNote:
           "Ginseng evidence is modest; the finished formula hasn't been tested.",
+      },
+      {
+        id: "felicita",
+        why: "Mood-support formula for a balanced, positive mood and stress resilience.",
+        evidenceNote:
+          "No published trials of Felicita itself.",
+      },
+      {
+        id: "levain",
+        why: "Blend of nine plant adaptogens for stress resilience and recovery from fatigue.",
+        evidenceNote:
+          "Adaptogen evidence is mixed and mostly small studies; Levain itself hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -967,7 +1341,7 @@ export const TOPICS: Topic[] = [
         body: "Peptide bioregulators were developed in Russia as 'geroprotectors'. The best-known human data — small studies of injectable pineal and thymus extracts in older adults — reported lower mortality, but they haven't been independently replicated, and oral products haven't been tested in comparable trials.",
       },
     ],
-    sourceIds: [
+    sourceIds: ["pmid:12577695", 
       "pmid:14523363",
       "pmid:17426848",
       "pmid:19830585",
@@ -975,6 +1349,7 @@ export const TOPICS: Topic[] = [
     ],
     evidenceNote:
       "Small, single-network human studies of injectable extracts; no independent trials of oral products.",
+    pubmedQuery: "geroprotector peptide Khavinson aging",
     products: [
       {
         id: "endoluten",
@@ -987,6 +1362,54 @@ export const TOPICS: Topic[] = [
         why: "The catalog's foundational thymus peptide complex, commonly paired with Endoluten.",
         evidenceNote:
           "Evidence is from the injectable extract Thymalin; Vladonix itself hasn't been tested in published trials.",
+      },
+      {
+        id: "revilab-ml-01",
+        why: "Multi-system formula: pineal, immune and liver peptide complexes with resveratrol, choline, omega-3s and vitamins A, C and E.",
+        evidenceNote:
+          "Peptide research is mostly cell and animal work; Revilab ML 01 hasn't been tested in published trials.",
+      },
+      {
+        id: "revilab-anti-age",
+        why: "Antioxidant formula with carnosine, astaxanthin and alpha-lipoic acid for protein and cell upkeep with age.",
+        evidenceNote:
+          "Ingredient research is mostly lab and small human studies; this formula hasn't been tested in published trials.",
+      },
+      {
+        id: "anti-age-nb-health",
+        why: "Positioned in its line as a glycation (AGE) protector for protein structure with age.",
+        evidenceNote:
+          "No published trials of this formula itself.",
+      },
+      {
+        id: "mesotel-neo",
+        why: "Choline-based antioxidant formula with gotu kola, goji, zinc, vitamins and resveratrol.",
+        evidenceNote:
+          "No published trials of Mesotel Neo itself.",
+      },
+      {
+        id: "zinsil-t",
+        why: "Zinc, glycine and vitamin B6 for everyday upkeep with age.",
+        evidenceNote:
+          "Zinc and B6 matter most when intake is low; Zinsil-T itself hasn't been tested in published trials.",
+      },
+      {
+        id: "complex-3d",
+        why: "Antioxidant blend (vitamins C, E and A, selenium, cysteine, dihydroquercetin) for cellular antioxidant defences.",
+        evidenceNote:
+          "No published trials of Complex 3D itself.",
+      },
+      {
+        id: "prime-peptide-protect",
+        why: "Antioxidant peptide formula with broccoli extract and mushrooms from the Prime Peptide line.",
+        evidenceNote:
+          "Its peptide data is the manufacturer's lab and animal work; no independent human trials.",
+      },
+      {
+        id: "indosine",
+        why: "Indole-3-carbinol, broccoli extract, CoQ10 and antioxidant enzymes for cellular upkeep.",
+        evidenceNote:
+          "Ingredient research is mostly lab work; Indosine itself hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
