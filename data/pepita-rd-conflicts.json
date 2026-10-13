@@ -1,0 +1,13 @@
+{
+  "_note": "Research Director source-conflict records (plain-English rendering of the preferred printed directions). Source: data/pepita-endoluten-verification.md (RD, 2026-10-13). Pending Julia's check of the US box insert; remove the entry once the label field is confirmed.",
+  "endoluten": {
+    "preferredLabel": "the institute's own directions",
+    "preferredSource": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/",
+    "dose": "1 capsule once every 3 days",
+    "timing": "in the morning or at midday",
+    "course": "about 20 days to 2 months",
+    "audience": "adults over 14",
+    "contraindications": "individual intolerance to the components, pregnancy, breastfeeding",
+    "otherLabel": "some English catalogs"
+  }
+}

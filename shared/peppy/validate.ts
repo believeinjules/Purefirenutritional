@@ -7,6 +7,7 @@
  *  - safety notices and dosage directions always come from the deterministic engine.
  * Returns null when the output is unusable, so the caller serves the fallback answer.
  */
+import { verifiedFacts } from "./product-data.js";
 import {
   isCompliantEvidenceNote,
   isCompliantProductCopy,
@@ -31,6 +32,14 @@ export interface ValidationReport {
   removedSentences: number;
   /** Sentences dropped for recommending other treatments/interventions. */
   removedInterventions?: number;
+}
+
+const NUM = /\d+(?:[.,]\d+)?(?:\s*[–-]\s*\d+)?/g;
+/** True when every number in `text` appears in a verified field (or name) of the mentioned products. */
+export function numbersAreVerified(text: string, mentioned: { id: string; name: string }[]): boolean {
+  const pool = mentioned.map(p => `${p.name} ${JSON.stringify(verifiedFacts(p.id))}`).join(" ");
+  const allowed = new Set((pool.match(NUM) ?? []).map(n => n.replace(/\s/g, "")));
+  return (text.replace(/\[\d+\]/g, "").match(NUM) ?? []).every(n => allowed.has(n.replace(/\s/g, "")));
 }
 
 export function parseLlmJson(raw: string): Record<string, unknown> | null {
@@ -101,6 +110,11 @@ export function validateLlmAnswer(input: {
   report.removedInterventions! += summaryScoped.removed;
   summaryClean.text = summaryScoped.text;
   if (summaryClean.text.length < 20) return null;
+  // No invented doses: in a dosing turn every number must come from a verified product field.
+  if (analysis.intent === "dosage" && !numbersAreVerified(summaryClean.text, analysis.mentioned)) {
+    summaryClean.text = draft.summary;
+    report.removedSentences += 1;
+  }
 
   // Sections.
   let sections: AnswerSection[] = [];

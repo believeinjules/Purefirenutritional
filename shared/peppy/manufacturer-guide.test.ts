@@ -6,7 +6,6 @@ import {
   CONDITION_DISCLAIMER,
   DOCTOR_ONLY,
   MANUFACTURER_GUIDE,
-  selectConditionDose,
 } from "./manufacturer-guide";
 import { buildLlmContext, PEPPY_SYSTEM_PROMPT } from "./prompt";
 import { detectGuards, productsBlockedBy } from "./claims";
@@ -42,18 +41,7 @@ describe("manufacturer guide data", () => {
 
   it("has no drop / liquid entries", () => {
     for (const e of MANUFACTURER_GUIDE) {
-      expect(LIQUID.test(e.directions), e.id).toBe(false);
-      for (const d of e.conditionDoses ?? []) expect(LIQUID.test(d.schedule), `${e.id}: ${d.schedule}`).toBe(false);
       expect(LIQUID.test(visible.get(e.id)?.usage ?? ""), `${e.id} label`).toBe(false);
-    }
-  });
-
-  it("directions are the product label (label wins) with no intensive schedule", () => {
-    for (const e of MANUFACTURER_GUIDE) {
-      const usage = visible.get(e.id)!.usage ?? "";
-      expect(usage.length, e.id).toBeGreaterThan(0);
-      for (const sentence of e.directions.split(/(?<=\.)\s+/)) expect(usage, e.id).toContain(sentence);
-      expect(INTENSIVE.test(e.directions), e.id).toBe(false);
     }
   });
 
@@ -65,50 +53,15 @@ describe("manufacturer guide data", () => {
       }
   });
 
-  it("directions and schedules carry no disease, claim or banned words", () => {
-    for (const e of MANUFACTURER_GUIDE) {
-      for (const t of [e.directions, ...(e.conditionDoses ?? []).map(d => d.schedule)]) {
-        expect(DISEASE_TERMS.test(t) || CLAIM_VERBS.test(t) || BANNED_TERMS.test(t) || FORBIDDEN_WORDS.test(t), `${e.id}: ${t}`).toBe(false);
-        expect(INTENSIVE.test(t), `${e.id}: ${t}`).toBe(false);
-      }
-    }
-  });
-
-  it("condition schedules stay within the label maximum and frequency", () => {
-    for (const e of MANUFACTURER_GUIDE)
-      for (const d of e.conditionDoses ?? []) {
-        const max = labelMaxPerDay(visible.get(e.id)!.usage ?? "");
-        expect(max, e.id).toBeGreaterThan(0);
-        expect(schedulePerDay(d.schedule), `${e.id}: ${d.schedule}`).toBeLessThanOrEqual(max);
-        expect(Number(d.schedule.match(/^(\d)/)?.[1]), `${e.id}: ${d.schedule}`).toBeLessThanOrEqual(Number((visible.get(e.id)!.usage ?? "").match(/(\d)(?:\s*[–-]\s*(\d))?\s*(?:capsules?|tablets?)/)?.slice(1).filter(Boolean).pop()));
-        expect(DOCTOR_ONLY.test(d.condition) || d.keywords.some(k => DOCTOR_ONLY.test(k)), `${e.id}: ${d.condition}`).toBe(false);
-        expect(d.page).toBeGreaterThan(0);
-      }
-  });
-});
-
-describe("condition-dose gate", () => {
-  const base = { productId: "endoluten", intent: "dosage", safetyKind: null, redFlag: null };
-  it("only answers an explicit dose request for a listed condition", () => {
-    expect(selectConditionDose({ ...base, message: "What dose of Endoluten should I take for migraines?" })?.page).toBe(28);
-    expect(selectConditionDose({ ...base, message: "Is Endoluten good for migraines?", intent: "info" })).toBeNull();
-    expect(selectConditionDose({ ...base, message: "How much Endoluten should I take?" })).toBeNull();
-  });
-  it("never answers doctor-only topics or safety turns", () => {
-    expect(selectConditionDose({ ...base, message: "What dose of Endoluten for migraines while on warfarin?" })).toBeNull();
-    expect(selectConditionDose({ ...base, message: "Endoluten dose for my child's migraines?" })).toBeNull();
-    expect(selectConditionDose({ ...base, message: "What dose of Endoluten for migraines?", safetyKind: "pregnancy" })).toBeNull();
-    expect(selectConditionDose({ ...base, message: "Endoluten dosage for migraines so I can stop my medication" })).toBeNull();
-  });
-  it("never answers in a product-recommendation turn", () => {
-    expect(selectConditionDose({ ...base, message: "Which product and what dose for migraines?", intent: "product-finding" })).toBeNull();
+  it("carries no dosing at all (schedules live only in verified product-data.json)", () => {
+    for (const e of MANUFACTURER_GUIDE) expect(Object.keys(e).sort(), e.id).toEqual(["id", "notes", "pages"]);
   });
 });
 
 describe("prompt", () => {
   it("states the condition rules, required lines and source label", () => {
     expect(PEPPY_SYSTEM_PROMPT).toContain(CONDITION_DISCLAIMER);
-    expect(PEPPY_SYSTEM_PROMPT).toContain("A protocol some people have followed is");
+    expect(PEPPY_SYSTEM_PROMPT).not.toContain("A protocol some people have followed is");
     expect(PEPPY_SYSTEM_PROMPT).toContain("manufacturer's directions");
     expect(PEPPY_SYSTEM_PROMPT).not.toMatch(/peptideproduct|ebook|user guide|product guide|\.pdf/i);
     expect(typeof buildLlmContext).toBe("function");
@@ -122,7 +75,6 @@ describe("disease-question format (Regulatory, approved 2026-10-13)", () => {
       "Please check with your doctor before buying",
       "Products that support [organ] function:",
       "Published studies",
-      "A protocol some people have followed is",
       "About dosing: The right amount and course can vary",
       "Educational information, not medical advice. Not intended to diagnose, treat, cure, or prevent any disease.",
     ].map(t => p.indexOf(t));
@@ -147,8 +99,7 @@ describe("disease-question format (Regulatory, approved 2026-10-13)", () => {
     expect(productsBlockedBy(detectGuards("Is there something I can take to help my fatty liver?"))).toEqual([]);
   });
 
-  it("no-dose topics still never get a protocol", () => {
-    for (const m of ["What dose of Endoluten for migraines? I'm on Eliquis", "What dose of Revilab ML 01 for my thyroid? I'm diabetic", "Endoluten dose for migraines with epilepsy?"])
-      expect(selectConditionDose({ message: m, productId: m.includes("ML 01") ? "revilab-ml-01" : "endoluten", intent: "dosage", safetyKind: null, redFlag: null }), m).toBeNull();
+  it("condition questions never get a schedule in the LLM context", () => {
+    expect(PEPPY_SYSTEM_PROMPT).toContain("no condition-specific schedules");
   });
 });

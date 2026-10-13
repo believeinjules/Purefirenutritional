@@ -71,9 +71,11 @@ describe("deterministic answers", () => {
     expect(r.followUps).toEqual([]);
   });
   it("gives manufacturer directions for dosage questions", () => {
-    const r = ask("how do I take Cartalax?");
-    expect(r.summary).toMatch(/manufacturer's label for Cartalax says: 1–2 capsules 1–2 times daily with meals/);
-    expect(r.summary).toMatch(/not evidence from clinical trials/);
+    const r = ask("how do I take Ensil?");
+    expect(r.summary).toMatch(/manufacturer's label for Ensil says: adults take 1 capsule 3 times a day, with meal/);
+    expect(r.summary).toMatch(/not results from clinical trials/);
+    // Unverified products get no generic template.
+    expect(ask("how do I take Calsil-T?").summary).toMatch(/haven't been verified/);
   });
   it("names Endoluten + melatonin as unstudied rather than guessing", () => {
     const r = ask("Can I take Endoluten with melatonin?");
