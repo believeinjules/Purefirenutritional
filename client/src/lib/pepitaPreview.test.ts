@@ -105,3 +105,40 @@ describe("visibleSuggestions", () => {
     expect(visibleSuggestions(flagged)).toEqual([]);
   });
 });
+
+import {
+  conciseParagraphs,
+  firstSentence,
+  plainStudySummary,
+  splitCitations,
+} from "./pepitaPreview";
+
+describe("plainStudySummary", () => {
+  it("uses registry fields only and keeps the title verbatim", () => {
+    const s = plainStudySummary({ ...source, finding: "Mice lived longer. Also X." });
+    expect(s.title).toBe(source.title);
+    expect(s.found).toBe("Mice lived longer.");
+    expect(s.caveat).toBe("Animal study; not tested in people.");
+    expect(s.kind).toBe("A study in animals");
+    expect(s.year).toBe("2002");
+  });
+  it("first sentence trims long text", () => {
+    expect(firstSentence("a".repeat(300), 50).length).toBe(50);
+    expect(firstSentence(undefined)).toBe("");
+  });
+});
+
+describe("splitCitations", () => {
+  it("turns [n] markers into cite pieces and drops unknown numbers", () => {
+    expect(splitCitations("Works [1] maybe [2, 9].", 2)).toEqual([
+      { type: "text", text: "Works" },
+      { type: "cite", index: 0 },
+      { type: "text", text: " maybe" },
+      { type: "cite", index: 1 },
+      { type: "text", text: "." },
+    ]);
+  });
+  it("caps prose at two paragraphs", () => {
+    expect(conciseParagraphs("a\n\nb\n\nc")).toEqual(["a", "b c"]);
+  });
+});

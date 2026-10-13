@@ -1,10 +1,16 @@
+import { Fragment } from "react";
 import type { PeppyResponse } from "@shared/peppy/types";
 import { ASSISTANT_DISCLAIMER } from "@shared/peppy/claims";
-import RichText from "./RichText";
-import SourceCard from "./SourceCard";
-import ProductSuggestionCard from "./ProductSuggestionCard";
+import { DOCTOR_CONSULT_LINE } from "@shared/peppy/product-notes";
+import RichText, { buildMentions, inline } from "./RichText";
 import SafetyCallout from "./SafetyCallout";
-import { visibleSuggestions } from "@/lib/pepitaPreview";
+import StudyCitation from "./StudyCitation";
+import { ProductMention, ProductThumbRow } from "./ProductPreview";
+import {
+  conciseParagraphs,
+  splitCitations,
+  visibleSuggestions,
+} from "@/lib/pepitaPreview";
 
 interface Props {
   answer: PeppyResponse;
@@ -13,97 +19,84 @@ interface Props {
   headingId: string;
 }
 
+/** Studies shown as inline numbers when the text has no [n] markers. */
+const INLINE_CITES = 3;
+
 /**
- * One structured Pepita answer: direct answer → details → research (with limitations) →
- * optional related products → follow-ups / next questions → compact FDA note.
+ * One Pepita answer for a first-time shopper: a short paragraph with numbered study links
+ * (hover/tap for a plain summary) and product links (hover/tap to zoom), a row of product
+ * thumbnails, small next-question chips and a brief note. Extra detail stays one tap away.
  */
-export default function PeppyAnswer({
-  answer,
-  onAsk,
-  disabled,
-  headingId,
-}: Props) {
+export default function PeppyAnswer({ answer, onAsk, disabled, headingId }: Props) {
   const urgent = answer.mode === "urgent";
   // Render-time guard on top of the pipeline filter: hidden products never render.
   const suggestions = visibleSuggestions(answer.products);
-  const mentionable = suggestions.map(s => s.product);
+  const products = suggestions.map(s => s.product);
+  const mentions = buildMentions(products);
+  const research = answer.research;
+  const paras = conciseParagraphs(answer.summary);
+  const hasMarkers = /\[\d+(?:\s*,\s*\d+)*\]/.test(answer.summary);
+  const prose = paras.join(" ").toLowerCase();
+  const unnamed = products.filter(p => !prose.includes(p.name.toLowerCase()));
+  const details = answer.sections.filter(s => s.body.trim());
+
   return (
-    <article
-      className="space-y-4 text-[15px] leading-relaxed text-gray-800"
-      aria-labelledby={headingId}
-    >
+    <article className="space-y-3 text-[15px] leading-relaxed text-gray-800" aria-labelledby={headingId}>
       <h2 id={headingId} className="sr-only">
         Pepita's answer
       </h2>
-      {urgent && answer.safety ? (
-        <SafetyCallout notice={answer.safety} />
-      ) : null}
-      <RichText
-        text={answer.summary}
-        className={urgent ? "text-gray-900" : "text-base text-gray-900"}
-        products={mentionable}
-      />
+      {answer.safety && urgent && <SafetyCallout notice={answer.safety} />}
+
+      <div className="space-y-2 text-gray-900">
+        {paras.map((p, pi) => (
+          <p key={pi}>
+            {splitCitations(p, research.length).map((piece, i) =>
+              piece.type === "text" ? (
+                <Fragment key={i}>{inline(piece.text, mentions)}</Fragment>
+              ) : (
+                <StudyCitation key={i} source={research[piece.index]} n={piece.index + 1} />
+              )
+            )}
+            {!hasMarkers && pi === paras.length - 1 && research.length > 0 && (
+              <span className="whitespace-nowrap">
+                {" "}
+                {research.slice(0, INLINE_CITES).map((s, i) => (
+                  <StudyCitation key={s.id} source={s} n={i + 1} />
+                ))}
+              </span>
+            )}
+          </p>
+        ))}
+        {!urgent && unnamed.length > 0 && (
+          <p className="text-sm text-gray-700">
+            Related in our shop:{" "}
+            {unnamed.map((p, i) => (
+              <Fragment key={p.id}>
+                {i > 0 && (i === unnamed.length - 1 ? " and " : ", ")}
+                <ProductMention product={p}>{p.name}</ProductMention>
+              </Fragment>
+            ))}
+            . Tap a name for a closer look.
+          </p>
+        )}
+      </div>
 
       {!urgent && answer.safety && <SafetyCallout notice={answer.safety} />}
 
-      {answer.sections.map((s, i) => (
-        <section key={i}>
-          {s.heading && (
-            <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-gray-500">
-              {s.heading}
-            </h3>
-          )}
-          <RichText text={s.body} products={mentionable} />
-        </section>
-      ))}
-
-      {answer.research.length > 0 && (
-        <section aria-label="Research sources">
-          <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Sources
-          </h3>
-          {answer.evidenceNote && (
-            <p className="mb-2 text-sm text-gray-600">{answer.evidenceNote}</p>
-          )}
-          <ul className="space-y-2">
-            {answer.research.map(s => (
-              <SourceCard key={s.id} source={s} />
-            ))}
-          </ul>
-        </section>
-      )}
-
       {suggestions.length > 0 && (
-        <section aria-label="Related products">
-          <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Related products (optional)
-          </h3>
-          <p className="mb-2 text-xs text-gray-500">
-            Evidence above is for ingredients or related preparations, not these
-            exact products.
+        <>
+          <ProductThumbRow products={products} />
+          <p className="text-xs text-gray-500">
+            Research is on the ingredients, not these exact products. {DOCTOR_CONSULT_LINE}
           </p>
-          <ul className="space-y-2">
-            {suggestions.map(p => (
-              <ProductSuggestionCard key={p.product.id} suggestion={p} />
-            ))}
-          </ul>
-        </section>
+        </>
       )}
 
       {answer.followUps.length > 0 && (
-        <section
-          aria-label="Questions to tailor this answer"
-          className="rounded-lg bg-orange-50/60 p-3"
-        >
-          <h3 className="mb-1 text-sm font-semibold text-gray-900">
-            To tailor this, tell me:
-          </h3>
-          <ul className="list-disc space-y-1 pl-5 text-sm marker:text-orange-400">
-            {answer.followUps.map(q => (
-              <li key={q}>{q}</li>
-            ))}
-          </ul>
-        </section>
+        <p className="text-sm text-gray-700">
+          <span className="font-medium text-gray-900">To tailor this, tell me: </span>
+          {answer.followUps.join(" ")}
+        </p>
       )}
 
       {answer.suggestions.length > 0 && (
@@ -125,8 +118,46 @@ export default function PeppyAnswer({
         </div>
       )}
 
+      {(details.length > 0 || research.length > 0) && (
+        <div className="flex flex-col gap-1 text-xs text-gray-500">
+          {details.length > 0 && (
+            <details className="group">
+              <summary className="cursor-pointer select-none rounded-sm font-medium text-gray-600 hover:text-orange-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400">
+                More detail
+              </summary>
+              <div className="mt-2 space-y-2 border-l-2 border-orange-100 pl-3 text-sm text-gray-700">
+                {details.map((s, i) => (
+                  <section key={i}>
+                    {s.heading && <h3 className="text-xs font-semibold text-gray-900">{s.heading}</h3>}
+                    <RichText text={s.body} products={products} />
+                  </section>
+                ))}
+              </div>
+            </details>
+          )}
+          {research.length > 0 && (
+            <details>
+              <summary className="cursor-pointer select-none rounded-sm font-medium text-gray-600 hover:text-orange-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400">
+                Sources ({research.length})
+              </summary>
+              {answer.evidenceNote && <p className="mt-1">{answer.evidenceNote}</p>}
+              <ol className="mt-1 list-decimal space-y-0.5 pl-5">
+                {research.map(s => (
+                  <li key={s.id} className="[overflow-wrap:anywhere]">
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-gray-600 underline decoration-gray-300 hover:text-orange-700">
+                      {s.title}
+                    </a>
+                    {s.year ? ` (${s.year})` : ""}
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+        </div>
+      )}
+
       {answer.showDisclaimer && (
-        <p className="border-t border-gray-100 pt-2 text-[11px] leading-snug text-gray-400">
+        <p className="text-[11px] leading-snug text-gray-400">
           {ASSISTANT_DISCLAIMER.replace("\n", " ")}
         </p>
       )}

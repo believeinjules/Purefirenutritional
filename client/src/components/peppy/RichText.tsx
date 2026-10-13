@@ -3,13 +3,13 @@ import type { PeppyProduct } from "@shared/peppy/types";
 import { ProductMention } from "./ProductPreview";
 
 /** Names of the answer's (already hidden-filtered) products → link the first mention of each. */
-interface Mentions {
+export interface Mentions {
   pattern: RegExp;
   byName: Map<string, PeppyProduct>;
   linked: Set<string>;
 }
 
-function buildMentions(products: readonly PeppyProduct[]): Mentions | null {
+export function buildMentions(products: readonly PeppyProduct[]): Mentions | null {
   const byName = new Map(products.map(p => [p.name.toLowerCase(), p]));
   if (!byName.size) return null;
   const names = Array.from(byName.keys())
@@ -48,7 +48,7 @@ function withMentions(
 }
 
 /** Inline **bold** only — everything else is rendered as plain text (no HTML injection). */
-function inline(text: string, m: Mentions | null = null): ReactNode[] {
+export function inline(text: string, m: Mentions | null = null): ReactNode[] {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
     part.startsWith("**") && part.endsWith("**") && part.length > 4 ? (
       <strong key={i} className="font-semibold text-gray-900">

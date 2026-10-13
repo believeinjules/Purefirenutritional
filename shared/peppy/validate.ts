@@ -141,6 +141,15 @@ export function validateLlmAnswer(input: {
     PEPPY_LIMITS.maxSources
   );
 
+  // Inline [n] markers refer to positions in the model's sourceIds; renumber them to
+  // the validated list and drop any that point at a rejected or missing source.
+  const rawIds = arr(data.sourceIds).map(str);
+  const summaryText = remapCitationMarkers(summaryClean.text, n => {
+    const src = byId.get(rawIds[n - 1] ?? "");
+    const at = src && research.length ? finalResearch.indexOf(src) : -1;
+    return at >= 0 ? at + 1 : null;
+  });
+
   // Products: candidates only, guards respected, claim-filtered copy.
   const products: PeppyProductSuggestion[] = [];
   const candidateById = new Map(candidates.map(c => [c.product.id, c]));
@@ -215,7 +224,7 @@ export function validateLlmAnswer(input: {
   return {
     response: {
       mode: "llm",
-      summary: summaryClean.text,
+      summary: summaryText,
       sections,
       research: finalResearch,
       evidenceNote,
@@ -228,4 +237,24 @@ export function validateLlmAnswer(input: {
     },
     report,
   };
+}
+
+/** Rewrites "[2]" / "[1, 3]" markers via `map` (null drops that number; empty markers vanish). */
+export function remapCitationMarkers(
+  text: string,
+  map: (n: number) => number | null
+): string {
+  return text
+    .replace(/\s?\[(\d+(?:\s*,\s*\d+)*)\]/g, (whole, nums: string) => {
+      const kept = Array.from(
+        new Set(
+          nums
+            .split(",")
+            .map(x => map(Number(x.trim())))
+            .filter((x): x is number => x !== null)
+        )
+      );
+      return kept.length ? `${whole.startsWith(" ") ? " " : ""}[${kept.join(", ")}]` : "";
+    })
+    .trim();
 }

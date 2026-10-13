@@ -192,3 +192,11 @@ describe("LLM is never consulted for hard-guard questions", () => {
     expect(response.products).toEqual([]);
   });
 });
+
+import { remapCitationMarkers } from "./validate";
+describe("remapCitationMarkers", () => {
+  it("renumbers and drops markers for rejected sources", () => {
+    const map = (n: number) => ({ 1: null, 2: 1, 3: 2 } as Record<number, number | null>)[n] ?? null;
+    expect(remapCitationMarkers("A [1]. B [2]. C [1, 3].", map)).toBe("A. B [1]. C [2].");
+  });
+});

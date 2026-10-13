@@ -5,11 +5,8 @@ import { toast } from "sonner";
 import { isHiddenProduct } from "@shared/hidden-products";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import type { PeppyProduct } from "@shared/peppy/types";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import InlinePreview from "./InlinePreview";
+import { firstSentence } from "@/lib/pepitaPreview";
 import { useCart } from "@/contexts/CartContext";
 import { getProductById, type Product } from "@/data/products";
 import { fetchProductById } from "@/lib/productsStorage";
@@ -81,7 +78,7 @@ export function AddToCartMini({
   );
 }
 
-function PreviewCard({
+function ZoomCard({
   product,
   fallback,
 }: {
@@ -91,33 +88,37 @@ function PreviewCard({
   const name = product?.name ?? fallback.name;
   const image = product?.image ?? fallback.image;
   const price = product ? defaultCartLine(product).unitUSD : fallback.priceUSD;
+  // Claim-filtered catalog summary (never the raw store description).
+  const line = firstSentence(fallback.summary, 140);
   return (
-    <div className="flex gap-3" data-testid="pepita-product-preview">
-      <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="space-y-2" data-testid="pepita-product-preview">
+      <div className="flex h-44 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-gray-50 to-gray-100">
         {image && (
-          <img
-            src={image}
-            alt=""
-            className="h-full w-full object-contain"
-            loading="lazy"
-          />
+          <img src={image} alt={name} className="h-full w-full object-contain p-2" loading="lazy" />
         )}
       </div>
-      <div className="min-w-0 flex-1">
-        <p className="font-semibold text-gray-900">{name}</p>
+      <div className="flex items-baseline justify-between gap-2">
+        <p className="font-semibold leading-snug text-gray-900">{name}</p>
         {typeof price === "number" && (
-          <p className="text-sm font-bold text-orange-600">
-            ${price.toFixed(2)}
-          </p>
+          <p className="text-sm font-bold text-orange-600">${price.toFixed(2)}</p>
         )}
-        <AddToCartMini product={product} className="mt-1.5" />
+      </div>
+      {line && <p className="text-xs leading-snug text-gray-600">{line}</p>}
+      <div className="flex items-center gap-3 pt-0.5">
+        <AddToCartMini product={product} />
+        <Link
+          href={productPath(fallback.id)}
+          className="text-xs font-semibold text-orange-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+        >
+          See details
+        </Link>
       </div>
     </div>
   );
 }
 
 /**
- * A product named in an answer: link to its page with a hover/focus preview card.
+ * A product named in an answer: link to its page with a hover/focus/tap zoom preview.
  * Hidden products render as plain text.
  */
 export function ProductMention({
@@ -130,22 +131,63 @@ export function ProductMention({
   const store = useStoreProduct(product.id);
   if (isHiddenProduct(product)) return <>{children}</>;
   return (
-    <HoverCard openDelay={250} closeDelay={150}>
-      <HoverCardTrigger asChild>
-        <Link
-          href={productPath(product.id)}
-          className="font-semibold text-orange-700 underline decoration-orange-300 underline-offset-2 hover:decoration-orange-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
-          data-testid="pepita-product-link"
-        >
-          {children}
-        </Link>
-      </HoverCardTrigger>
-      <HoverCardContent
-        align="start"
-        className="w-72 max-w-[calc(100vw-2rem)] border-orange-100 bg-white"
+    <InlinePreview
+      label={`${product.name} preview`}
+      className="w-64"
+      content={<ZoomCard product={store} fallback={product} />}
+    >
+      <Link
+        href={productPath(product.id)}
+        className="font-semibold text-orange-700 underline decoration-orange-300 underline-offset-2 hover:decoration-orange-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+        data-testid="pepita-product-link"
       >
-        <PreviewCard product={store} fallback={product} />
-      </HoverCardContent>
-    </HoverCard>
+        {children}
+      </Link>
+    </InlinePreview>
+  );
+}
+
+/** Row of tappable product thumbnails under the answer (image + name + price, whole tile links). */
+export function ProductThumbRow({ products }: { products: readonly PeppyProduct[] }) {
+  const shown = products.filter(p => !isHiddenProduct(p));
+  if (!shown.length) return null;
+  return (
+    <div>
+      <p className="mb-1.5 text-xs font-medium text-gray-500">
+        Products with these ingredients (optional)
+      </p>
+      <ul className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
+        {shown.map(p => (
+          <li key={p.id} className="min-w-0 sm:w-32">
+            <ProductThumb product={p} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ProductThumb({ product }: { product: PeppyProduct }) {
+  const store = useStoreProduct(product.id);
+  const image = store?.image ?? product.image;
+  const price = store ? defaultCartLine(store).unitUSD : product.priceUSD;
+  return (
+    <Link
+      href={productPath(product.id)}
+      data-testid="pepita-product-thumb"
+      className="group block h-full rounded-xl border border-gray-200 bg-white p-2 transition hover:border-orange-300 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+    >
+      <div className="flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-gray-50 to-gray-100">
+        {image && (
+          <img src={image} alt="" className="h-full w-full object-contain p-1 transition-transform group-hover:scale-105" loading="lazy" />
+        )}
+      </div>
+      <p className="mt-1.5 line-clamp-2 text-xs font-semibold leading-tight text-gray-900 [overflow-wrap:anywhere]">
+        {store?.name ?? product.name}
+      </p>
+      {typeof price === "number" && (
+        <p className="text-xs font-bold text-orange-600">${price.toFixed(2)}</p>
+      )}
+    </Link>
   );
 }
