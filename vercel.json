@@ -26,13 +26,28 @@
       "statusCode": 301
     },
     {
+      "source": "/documentation",
+      "destination": "/authenticity",
+      "statusCode": 301
+    },
+    {
+      "source": "/documentation/:slug",
+      "destination": "/authenticity/:slug",
+      "statusCode": 301
+    },
+    {
       "source": "/research",
       "destination": "/science",
       "statusCode": 301
     },
     {
+      "source": "/learn/cytomaxes-vs-cytogens",
+      "destination": "/learn/what-are-khavinson-peptide-bioregulators#cytomaxes-vs-cytogens",
+      "statusCode": 301
+    },
+    {
       "source": "/learn",
-      "destination": "/science",
+      "destination": "/journal",
       "statusCode": 301
     }
   ]

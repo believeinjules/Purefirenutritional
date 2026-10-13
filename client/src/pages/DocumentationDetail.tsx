@@ -22,8 +22,8 @@ export default function DocumentationDetail() {
           <p className="mt-4 text-stone-600">
             This page only opens a certificate whose registration number, date, product name, and original image agree.
           </p>
-          <Link href="/documentation" className="mt-8 inline-block text-sm uppercase tracking-[0.16em]">
-            Back to documentation
+          <Link href="/authenticity" className="mt-8 inline-block text-sm uppercase tracking-[0.16em]">
+            Back to authenticity
           </Link>
         </main>
         <Footer />
@@ -36,14 +36,14 @@ export default function DocumentationDetail() {
       <PageSeo
         title={record.seoTitle}
         description={`${record.productNameOnCertificate} EAEU Certificate of State Registration ${record.registrationNumber}, dated ${record.registrationDateDisplay}, with an English translation of the original.`}
-        path={`/documentation/${record.slug}`}
+        path={`/authenticity/${record.slug}`}
         type="website"
       />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-5 py-12 md:py-16">
-          <Link href="/documentation" className="text-xs uppercase tracking-[0.18em] text-stone-500 hover:text-stone-900">
-            Product Documentation
+          <Link href="/authenticity" className="text-xs uppercase tracking-[0.18em] text-stone-500 hover:text-stone-900">
+            Authenticity
           </Link>
           <p className="mt-8 text-[11px] uppercase tracking-[0.22em] text-stone-500">
             EAEU Certificate of State Registration

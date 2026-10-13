@@ -25,10 +25,11 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/faq",
   "/ai-assistant",
   "/peptalk",
-  "/documentation",
+  "/authenticity",
+  "/journal",
   "/learn/what-are-khavinson-peptide-bioregulators",
-  "/learn/cytomaxes-vs-cytogens",
   "/learn/buy-khavinson-peptides-usa",
+  "/learn/peptides-in-context-systems-view",
   // /privacy, /terms, /shipping, /returns
   ...POLICY_PATHS,
   ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),
