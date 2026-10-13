@@ -779,7 +779,13 @@ function composeProductAnswer(
           : `Short answer: there's no published research on ${product.name} itself, so nobody can say how well it works${topic ? ` for ${toInlinePhrase(topic.label)}` : ""}. Below is what's in it and what's known in general.`
         : analysis.intent === "dosage"
           ? `Here are the manufacturer's directions for ${product.name}, plus what to keep in mind.`
-          : `Here's what ${product.name} is, what the research behind it does and doesn't show, and who it may suit.`,
+          : // v3: answer naturally, right away (no report-style opener).
+            [
+              what,
+              ev
+                ? `${firstSentenceOf(ev.productNote)} The research so far is on its ingredient or related preparations, not this exact product.`
+                : "There's no published research on this exact product, so its effects haven't been shown.",
+            ].join(" "),
     sections: cleanSections(sections, catalog),
     research: pickSources(ev?.sourceIds ?? [], liveSources, 4),
     evidenceNote: ev ? ev.productNote : undefined,
@@ -805,6 +811,11 @@ function composeProductAnswer(
     products: showCard && evidenceOk && product.inStock ? [card] : [],
     topics: topic ? [topic.id] : [],
   };
+}
+
+function firstSentenceOf(text: string): string {
+  const m = text.replace(/\s+/g, " ").trim().match(/^.+?[.!?](?=\s|$)/);
+  return m ? m[0] : text.trim();
 }
 
 export { TOPICS_BY_ID };

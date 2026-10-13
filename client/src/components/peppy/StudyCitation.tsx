@@ -1,9 +1,9 @@
 import { ExternalLink } from "lucide-react";
 import type { PeppySourceCard } from "@shared/peppy/types";
-import { plainStudySummary } from "@/lib/pepitaPreview";
+import { plainStudySummary, SHORT_STUDY_TYPE } from "@/lib/pepitaPreview";
 import InlinePreview from "./InlinePreview";
 
-/** Small numbered citation inside the answer paragraph; hover/focus/tap shows a plain summary. */
+/** Small text research link ("Lab study ↗"); hover/focus/tap shows a plain summary. */
 export default function StudyCitation({
   source,
   n,
@@ -52,9 +52,10 @@ export default function StudyCitation({
         rel="noopener noreferrer"
         aria-label={`Source ${n}: ${s.title} (opens in a new tab)`}
         data-testid="pepita-citation"
-        className="mx-0.5 inline-flex min-w-[1.35rem] -translate-y-px items-center justify-center rounded-full bg-orange-50 px-1.5 align-baseline text-[11px] font-semibold leading-5 text-orange-700 ring-1 ring-orange-200 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+        className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-700 ring-1 ring-orange-200 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
       >
-        {n}
+        {SHORT_STUDY_TYPE[source.studyType] ?? SHORT_STUDY_TYPE.other}
+        <ExternalLink className="h-3 w-3" aria-hidden="true" />
       </a>
     </InlinePreview>
   );

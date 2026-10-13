@@ -169,3 +169,54 @@ export function conciseParagraphs(summary: string): string[] {
     .filter(Boolean);
   return paras.length <= 2 ? paras : [paras[0], paras.slice(1).join(" ")];
 }
+
+/**
+ * Pepita v3 (reviewer feedback, Oct 2026): the real answer, at most `max` sentences,
+ * with no [n] markers and no report-style "Here's what X is…" opener.
+ */
+export function shortAnswer(summary: string, max = 3): string {
+  const text = summary
+    .replace(/\s?\[\d+(?:\s*,\s*\d+)*\]/g, "")
+    .replace(/^[-•*]\s+/gm, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^Here's what [^.]*\.\s*/i, "");
+  const sentences = text.match(/[^.!?]+[.!?]+(?=\s|$)|[^.!?]+$/g) ?? [];
+  return sentences.slice(0, max).map(s => s.trim()).join(" ");
+}
+
+function norm(s: string): string {
+  return s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+/**
+ * At most one product card, and only when the shopper asked about that product by name
+ * (e.g. "What is Endoluten?" -> Endoluten). A product merely mentioned in the answer gets none.
+ */
+export function relevantProduct(
+  suggestions: readonly PeppyProductSuggestion[],
+  question: string | undefined
+): PeppyProductSuggestion | null {
+  const q = ` ${norm(question ?? "")} `;
+  if (!q.trim()) return null;
+  return visibleSuggestions(suggestions).find(s => q.includes(` ${norm(s.product.name)} `)) ?? null;
+}
+
+/** "You might also want to know": at most two chips. */
+export const MAX_NEXT_QUESTIONS = 2;
+export function nextQuestions(suggestions: readonly string[]): string[] {
+  return suggestions.slice(0, MAX_NEXT_QUESTIONS);
+}
+
+/** Short label for an inline research link. */
+export const SHORT_STUDY_TYPE: Record<StudyType, string> = {
+  "systematic-review": "Review of studies",
+  rct: "Trial in people",
+  clinical: "Study in people",
+  observational: "Study in people",
+  review: "Research overview",
+  animal: "Animal study",
+  "in-vitro": "Lab study",
+  guidance: "NIH / FDA",
+  other: "Study",
+};

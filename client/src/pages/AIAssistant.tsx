@@ -376,7 +376,7 @@ export default function AIAssistant() {
                   </div>
                 )}
 
-                {messages.map(m => (
+                {messages.map((m, mi) => (
                   <div
                     key={m.id}
                     ref={el => {
@@ -404,6 +404,7 @@ export default function AIAssistant() {
                         {m.kind === "answer" ? (
                           <PeppyAnswer
                             answer={m.answer}
+                            question={[...messages.slice(0, mi)].reverse().find(x => x.role === "user")?.text}
                             onAsk={q => void send(q)}
                             disabled={isLoading}
                             headingId={`${baseId}-${m.id}`}
