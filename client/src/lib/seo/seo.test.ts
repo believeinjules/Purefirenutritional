@@ -231,7 +231,7 @@ describe("/journal index", () => {
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
-    expect(LEARN_ARTICLES).toHaveLength(3);
+    expect(LEARN_ARTICLES).toHaveLength(4);
     for (const a of LEARN_ARTICLES) {
       expect(a.href.startsWith("/learn/"), a.href).toBe(true);
       expect(app).toContain(`<Route path="${a.href}"`);

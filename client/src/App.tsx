@@ -36,6 +36,7 @@ import Journal from "./pages/Journal";
 import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
 import ArticlePeptidesInContext from "./pages/learn/PeptidesInContext";
+import ArticlePerimenopauseOralEvidence from "./pages/learn/PerimenopauseOralEvidence";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
 // Store policies (copy in content/policies.ts)
@@ -94,6 +95,7 @@ function Router() {
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
       <Route path="/learn/peptides-in-context-systems-view" component={ArticlePeptidesInContext} />
+      <Route path="/learn/khavinson-bioregulators-perimenopause-oral-evidence" component={ArticlePerimenopauseOralEvidence} />
       <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
       <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsPolicy} />

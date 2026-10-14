@@ -36,4 +36,12 @@ export const LEARN_ARTICLES: LearnArticle[] = [
       alt: "Peptides in Context: A Systems View of How the Body Regulates Itself",
     },
   },
+  {
+    title: "Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show",
+    navLabel: "Perimenopause: Oral Evidence",
+    hideFromNav: true,
+    href: "/learn/khavinson-bioregulators-perimenopause-oral-evidence",
+    description: "What the research does and doesn't show for oral Khavinson bioregulators in perimenopause, and how to check quality before you start.",
+    // TODO(cover): no approved cover yet; Journal index shows its neutral placeholder block.
+  },
 ];
