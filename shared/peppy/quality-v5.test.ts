@@ -23,6 +23,7 @@ describe("v5 answer quality (rules, not canned text)", () => {
   it("uses the pack size the user already gave, without re-asking", () => {
     const r = ask("How long will it last?", [{ role: "user", content: "I have Endoluten 60" }, { role: "assistant", content: "Sure." }]);
     expect(r.summary).toMatch(/your 60-capsule pack lasts about 180 days/);
+    expect(r.summary).not.toMatch(/catalogs?/);
     expect(r.followUps).toEqual([]);
   });
   it("comparison shows up to two cards; combination never assumes safety", () => {

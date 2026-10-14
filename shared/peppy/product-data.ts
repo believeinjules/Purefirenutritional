@@ -40,20 +40,6 @@ export interface Schedule {
   text: string;
   source: string;
 }
-export interface SourceConflict {
-  /** Who the preferred directions come from, in plain words ("the institute's own directions"). */
-  preferredLabel: string;
-  /** Plain-English rendering of the preferred printed directions, per RD. */
-  dose: string;
-  timing?: string | null;
-  course?: string | null;
-  audience?: string | null;
-  /** Short description of the other source ("some English catalogs"). */
-  otherLabel: string;
-  parsed: Pick<Schedule, "unit" | "unitsPerDose" | "dosesPerDay" | "everyNDays"> | null;
-  sources: string[];
-  status: "awaiting-insert-confirmation";
-}
 export interface PackFormat {
   format: string;
   units: number;
@@ -85,8 +71,6 @@ export type ProductDataRecord = {
   productVersion: string | null;
   formats: PackFormat[];
   schedules: Schedule[];
-  /** Manufacturer sources disagree on the schedule; Pepita voices this instead of picking silently. */
-  sourceConflict?: SourceConflict | null;
 } & Record<ProductDataFieldName, DataField>;
 export interface ProductDataFile { schemaVersion: number; note?: string; products: ProductDataRecord[] }
 
@@ -168,8 +152,6 @@ export function verifiedFacts(id: string): Record<string, unknown> {
   }
   const sch = verifiedSchedules(id);
   if (sch.length) out.schedules = sch.map(s => ({ ...s, packDurations: packDurations(id, s) }));
-  const c = BY_ID.get(id)?.sourceConflict;
-  if (c) out.sourceConflict = { ...c, packDurations: c.parsed ? (BY_ID.get(id)?.formats ?? []).map(f => ({ format: f.format, days: fmtRange(packageDurationDays(f.units, c.parsed!)) })) : [] };
   return out;
 }
 
@@ -183,8 +165,6 @@ const end = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 /** Short dosing answer: exact verified numbers, or a plain "not verified yet". */
 export function dosingAnswer(id: string, name: string, packUnits?: number | null): { text: string; verified: boolean } {
-  const conflict = BY_ID.get(id)?.sourceConflict;
-  if (conflict) return { verified: true, text: conflictAnswer(id, name, conflict, packUnits) };
   const label = verified(id, "labelDirections");
   const sched = verifiedSchedules(id, "label")[0];
   if (!label) {
@@ -193,33 +173,18 @@ export function dosingAnswer(id: string, name: string, packUnits?: number | null
       text: `I can't give you a schedule for ${name} yet, because its label directions haven't been verified for our site, and schedules really do differ between products (some aren't taken every day). Please follow the package insert that came with yours, and check it with your doctor.`,
     };
   }
-  const parts = [`The manufacturer's label for ${name} says: ${end(label.replace(/^adults by /i, "adults take "))}`];
+  const parts = [`The manufacturer's directions for ${name}: ${end(label.replace(/^adults by /i, "adults take "))}`];
   const all = sched ? packDurations(id, sched) : [];
   const mine = all.filter(p => packUnits && p.format.startsWith(`${packUnits}-`));
   const packs = mine.length ? mine : all;
   if (packs.length)
-    parts.push(`At that schedule ${packs.map(p => `a ${p.format} pack lasts about ${p.days} days`).join(" and ")} (simple arithmetic from the label).`);
+    parts.push(`At that schedule ${packs.map(p => `${mine.length ? "your" : "a"} ${p.format} pack lasts about ${p.days} days`).join(" and ")} (simple arithmetic from the label).`);
   const proto = verifiedSchedules(id, "manufacturer-protocol")[0];
   if (proto) parts.push(`The manufacturer also documents a separate protocol: ${end(proto.text)}`);
   const sex = verified(id, "sexSpecificNotes");
   if (sex) parts.push(end(sex));
   parts.push("That's manufacturer guidance, not results from clinical trials of this product.");
   return { verified: true, text: parts.join(" ") };
-}
-
-/** Voices a documented source conflict: preferred directions, the disagreement, and what to follow. */
-export function conflictAnswer(id: string, name: string, c: SourceConflict, packUnits?: number | null): string {
-  const form = BY_ID.get(id)?.formulation.value?.split(/[ (]/)[0] ?? "";
-  const bits = [c.dose, c.timing, c.course ? `for a course of ${c.course}` : null].filter(Boolean).join(", ");
-  const parts = [`${c.preferredLabel[0].toUpperCase()}${c.preferredLabel.slice(1)} for ${name}${form ? ` ${form}s` : ""} are ${bits}.`];
-  if (c.parsed) {
-    const fm = BY_ID.get(id)?.formats ?? [];
-    const chosen = fm.filter(f => f.units === packUnits);
-    const packs = (chosen.length ? chosen : fm).map(f => `a ${f.format} pack lasts about ${fmtRange(packageDurationDays(f.units, c.parsed!))} days`);
-    if (packs.length) parts.push(`At that schedule ${packs.join(" and ")}.`.replace(/^At that schedule a /, chosen.length ? "At that schedule your " : "At that schedule a "));
-  }
-  parts.push(`${c.otherLabel[0].toUpperCase()}${c.otherLabel.slice(1)} show a different schedule, so follow the insert in your package or your clinician's advice.`);
-  return parts.join(" ");
 }
 
 /** Products whose verified (or voiced) schedule is not plain daily dosing: data-driven examples. */
@@ -229,8 +194,6 @@ export function nonDailyExamples(): { id: string; name: string; kind: string }[]
     const s = verifiedSchedules(p.id, "label")[0];
     if (s?.cycle) out.push({ id: p.id, name: p.name, kind: `runs in ${s.cycle.onDays}-day blocks with a break of at least ${s.cycle.offDays} days` });
     else if (s && s.everyNDays > 1) out.push({ id: p.id, name: p.name, kind: `is taken once every ${s.everyNDays} days` });
-    else if (p.sourceConflict?.parsed && p.sourceConflict.parsed.everyNDays > 1)
-      out.push({ id: p.id, name: p.name, kind: `is ${p.sourceConflict.dose.replace(/^\d+ \w+ /, "taken ")} according to ${p.sourceConflict.preferredLabel}` });
   }
   return out;
 }

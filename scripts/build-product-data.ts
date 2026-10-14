@@ -4,8 +4,8 @@
  * Default RD dataset: data/pepita-product-dataset.json (drop RD's updated file there and re-run).
  * 1. Repo seed: ingredient names, pack sizes. NO dosing: catalog usage text is only an RD candidate.
  * 2. RD merge (when the file exists; source of truth, overrides the seed). A label schedule is verified when RD
- *    sourced it to a per-product manufacturer document and flagged no FREQUENCY CONFLICT. Conflicts become a
- *    sourceConflict record (data/pepita-rd-conflicts.json) that Pepita voices.
+ *    sourced it to a per-product manufacturer document and flagged no FREQUENCY CONFLICT. Conflicts resolved by
+ *    Julia live in data/pepita-rd-resolutions.json and become the verified label.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { products } from "../client/src/data/products";
@@ -33,8 +33,9 @@ const cand = (candidate: string | null | undefined, source: string): DataField =
 const isVerifiedConf = (c?: string) => !!c && /^verified/i.test(c);
 const isSourcedConf = (c?: string) => !!c && (/^verified/i.test(c) || c === "manufacturer-claim");
 
-const CONFLICT_PATH = "data/pepita-rd-conflicts.json";
-const conflicts: Record<string, any> = existsSync(CONFLICT_PATH) ? JSON.parse(readFileSync(CONFLICT_PATH, "utf8")) : {};
+const RESOLUTION_PATH = "data/pepita-rd-resolutions.json";
+/** Julia-decided labels: become the verified label and replace conflicting catalog text. */
+const resolutions: Record<string, any> = existsSync(RESOLUTION_PATH) ? JSON.parse(readFileSync(RESOLUTION_PATH, "utf8")) : {};
 
 /**
  * RD dataset is the source of truth: it overrides every repo-seeded field it fills.
@@ -57,7 +58,7 @@ export function mergeRecord(p: { id: string; name: string; ingredients?: string[
   if (r.quantities_as_printed && isSourcedConf(r.quantities_confidence)) out.quantities = ok(r.quantities_as_printed, SRC);
   if (r.pack_size_as_printed) out.sizes = ok(r.pack_size_as_printed, SRC);
   if (r.contraindications_warnings_as_printed && isSourcedConf(r.contraindications_confidence))
-    out.contraindications = ok(conflicts[p.id]?.contraindications ?? r.contraindications_warnings_as_printed, SRC);
+    out.contraindications = ok(resolutions[p.id]?.contraindications ?? r.contraindications_warnings_as_printed, SRC);
   if (r.sex_specific_notes && isSourcedConf(r.sex_specific_confidence)) out.sexSpecificNotes = ok(r.sex_specific_notes, SRC);
   if (r.research_study_regimens?.length && isSourcedConf(r.research_study_regimens_confidence))
     out.humanStudyDoses = ok(`Research-study regimen (not product directions): ${JSON.stringify(r.research_study_regimens)}`, SRC);
@@ -68,6 +69,7 @@ export function mergeRecord(p: { id: string; name: string; ingredients?: string[
   const entries: { source: string; text: string; language: string }[] = r.label_directions ?? [];
   const en = (r.label_directions_en_as_printed || entries.find(e => e.language === "en")?.text || "").trim();
   const freqConflict = (r.conflicts ?? []).some((c: string) => /^FREQUENCY CONFLICT/i.test(c));
+  let labelResolved = false;
   const labelOk = isSourcedConf(r.label_directions_confidence) && r.schedule_type !== "unverified" && !!en && !freqConflict && entries.length > 0;
   const labelSrc = src(entries.map(e => e.source));
 
@@ -88,19 +90,17 @@ export function mergeRecord(p: { id: string; name: string; ingredients?: string[
       out.schedules.push({ protocolType: "research-regimen", format: null, ...parsed, text: String(text), source: src([reg.source ?? reg.pmid ?? SRC].map(String)) });
   }
 
-  const c = conflicts[p.id];
-  if (freqConflict && c) {
-    out.sourceConflict = {
-      preferredLabel: c.preferredLabel,
-      dose: c.dose,
-      timing: c.timing ?? null,
-      course: c.course ?? null,
-      audience: c.audience ?? null,
-      otherLabel: c.otherLabel,
-      parsed: parseSchedule(c.dose),
-      sources: entries.map(e => e.source),
-      status: "awaiting-insert-confirmation",
-    };
+  const res = resolutions[p.id];
+  if (res?.labelDirections && res.source) {
+    const rsrc = src([res.source]) + ` (resolved by ${res.decidedBy ?? "Julia"} ${res.decidedOn ?? ""})`.replace(" )", ")");
+    out.labelDirections = ok(res.labelDirections, rsrc);
+    if (res.courseDuration) out.courseDuration = ok(res.courseDuration, rsrc);
+    if (res.contraindications) out.contraindications = ok(res.contraindications, rsrc);
+    out.food = { status: "unverified", value: null };
+    out.schedules = out.schedules.filter(x => x.protocolType !== "label");
+    const parsed = parseSchedule(res.labelDirections);
+    if (parsed) out.schedules.unshift({ protocolType: "label", format: null, ...parsed, text: res.labelDirections, source: rsrc });
+    labelResolved = true;
   }
 
   // Per-format packs. Same directions per format only when RD says so (or there's one pack).
@@ -113,7 +113,7 @@ export function mergeRecord(p: { id: string; name: string; ingredients?: string[
     out.formats.push({
       format: `${units}-${unit.replace(/s$/, "")}`,
       units,
-      directions: labelOk && sameDirections ? ok(en, labelSrc) : { status: "unverified", value: null },
+      directions: labelResolved ? ok(out.labelDirections.value!, out.labelDirections.source!) : labelOk && sameDirections ? ok(en, labelSrc) : { status: "unverified", value: null },
     });
   }
   out.formats.sort((a, b) => a.units - b.units);

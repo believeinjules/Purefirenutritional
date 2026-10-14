@@ -462,20 +462,39 @@
           "format": "20-capsule",
           "units": 20,
           "directions": {
-            "status": "unverified",
-            "value": null
+            "status": "verified",
+            "value": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
           }
         },
         {
           "format": "60-capsule",
           "units": 60,
           "directions": {
-            "status": "unverified",
-            "value": null
+            "status": "verified",
+            "value": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
           }
         }
       ],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            1
+          ],
+          "dosesPerDay": [
+            1,
+            1
+          ],
+          "everyNDays": 3,
+          "text": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
+        }
+      ],
       "ingredients": {
         "status": "verified",
         "value": "microcrystalline cellulose (bulking agent); hydroxypropyl methylcellulose (capsule shell), water, carrageenan (thickener), potassium acetate (acidity regulator); peptide complex A-8, containing amino acids (leucine, glutamic acid, aspartic acid, isoleucine, and valine); calcium salts of fatty acids (anti-caking agent). The recommended daily dose, or 2 or 4 capsules, contains 20 mg or 40 mg of peptide complex А-8.",
@@ -492,18 +511,18 @@
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null,
-        "candidate": "adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.",
-        "source": "RD (manufacturer-claim; FREQUENCY CONFLICT between manufacturer sources)"
+        "status": "verified",
+        "value": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
       },
       "food": {
         "status": "unverified",
         "value": null
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "about 20 days to 2 months",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
       },
       "sizes": {
         "status": "verified",
@@ -531,36 +550,11 @@
       "contraindications": {
         "status": "verified",
         "value": "individual intolerance to the components, pregnancy, breastfeeding",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
       },
       "warnings": {
         "status": "unverified",
         "value": null
-      },
-      "sourceConflict": {
-        "preferredLabel": "the institute's own directions",
-        "dose": "1 capsule once every 3 days",
-        "timing": "in the morning or at midday",
-        "course": "about 20 days to 2 months",
-        "audience": "adults over 14",
-        "otherLabel": "some English catalogs",
-        "parsed": {
-          "unit": "capsule",
-          "unitsPerDose": [
-            1,
-            1
-          ],
-          "dosesPerDay": [
-            1,
-            1
-          ],
-          "everyNDays": 3
-        },
-        "sources": [
-          "https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/",
-          "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
-        ],
-        "status": "awaiting-insert-confirmation"
       }
     },
     {

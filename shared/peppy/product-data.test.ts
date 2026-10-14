@@ -14,7 +14,7 @@ import {
   verifiedSchedules,
   type ProductDataRecord,
 } from "./product-data";
-import { buildLlmContext } from "./prompt";
+import { PEPPY_SYSTEM_PROMPT, buildLlmContext } from "./prompt";
 
 const catalog = buildCatalog(products as never);
 const ask = (message: string) => composeFallback(analyze({ message, history: [], catalog }), catalog);
@@ -50,14 +50,20 @@ describe("product data layer (single JSON file)", () => {
       for (const t of TEMPLATES) expect(label.includes(t), r.id).toBe(false);
     }
   });
-  it("Endoluten: no label schedule while sources conflict; Pepita voices the conflict from data", () => {
-    expect(verifiedSchedules("endoluten")).toEqual([]);
-    const rec = RECORDS.find(r => r.id === "endoluten")!;
-    expect(rec.sourceConflict?.status).toBe("awaiting-insert-confirmation");
+  it("Endoluten: verified institute directions, stated confidently with pack duration, no source-disagreement framing", () => {
+    const s = verifiedSchedules("endoluten", "label")[0];
+    expect(s).toMatchObject({ unitsPerDose: [1, 1], dosesPerDay: [1, 1], everyNDays: 3 });
+    expect(s.source).toContain("https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/");
+    expect(verified("endoluten", "contraindications")).toBe("individual intolerance to the components, pregnancy, breastfeeding");
     const t = dosingAnswer("endoluten", "Endoluten").text;
-    expect(t).toMatch(/^The institute's own directions for Endoluten capsules are 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months\./);
-    expect(t).toMatch(/Some English catalogs show a different schedule, so follow the insert in your package or your clinician's advice\./);
-    expect(t).not.toMatch(/Maintenance|Intensive|1–2 capsules/);
+    expect(t).toMatch(/^The manufacturer's directions for Endoluten: Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months\./);
+    expect(t).toMatch(/20-capsule pack lasts about 60 days and a 60-capsule pack lasts about 180 days/);
+    expect(t).not.toMatch(/catalog|differen|disagree|conflict|Maintenance|Intensive|1–2 capsules/i);
+  });
+  it("no answer or prompt hedges with 'other catalogs/sources differ'", () => {
+    const HEDGE = /(other|some|english) (catalogs?|sources?)[^.]*(differ|different|disagree|show)/i;
+    expect(PEPPY_SYSTEM_PROMPT).not.toMatch(HEDGE);
+    for (const p of products) expect(ask(`How much ${p.name} should I take?`).summary, p.id).not.toMatch(HEDGE);
   });
   it("never presents Pure Fire's Maintenance/Intensive labels as manufacturer protocols", () => {
     for (const r of RECORDS) {
@@ -122,7 +128,7 @@ describe("no invented doses", () => {
     const a = analyze({ message: "How much Endoluten should I take?", history: [], catalog });
     const ctx = buildLlmContext({ analysis: a, sources: [], candidates: [], history: [], draft: ask("How much Endoluten should I take?") });
     expect(ctx.user).toContain("verifiedData");
-    for (const t of [...TEMPLATES, "1 or 2 capsules 2 times a day", "Intensive: N60"]) expect(ctx.user).not.toContain(t);
+    for (const t of [...TEMPLATES, "1 or 2 capsules 2 times a day", "Intensive: N60", "English catalogs"]) expect(ctx.user).not.toContain(t);
   });
 });
 
