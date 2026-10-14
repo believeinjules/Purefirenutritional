@@ -88,7 +88,7 @@ export const allProducts: Product[] = [
     sizes: 2,
     benefits: ["Supports healthy cartilage and connective tissue metabolism", "Supports the health of cartilage tissue", "Supports connective tissue health", "Supports the body's natural connective-tissue recovery processes", "Supports healthy cartilage cell function", "Vegan compatible (fully synthesized)"],
     ingredients: ["Cartilage peptide complex AC-4 (Ala-Glu-Asp / AED tripeptide)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
     seriesInfo: "Recommended combination: Cartalax + Vesugen + Crystagen for the cytogen locomotor apparatus protocol. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — developed by the St. Petersburg Institute of Bioregulation and Gerontology. Because they are synthesized rather than extracted, Cytogens provide faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
