@@ -702,6 +702,460 @@ export const allProducts: Product[] = [
     ]
   },
   {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "bonothyrk",
+    name: "Bonothyrk",
+    image: "/products/bonothyrk.jpg",
+    imageAlt: "Bonothyrk A-21 parathyroid peptide complex",
+    description: "Bonothyrk® is a Khavinson Cytomax: a natural parathyroid gland peptide complex (A-21), developed at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Bonothyrk is believed to support normal parathyroid gland function, which helps the body keep calcium balance in bones and tissues. Available in 20-capsule and 60-capsule formats (0.215 g capsules).",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal parathyroid gland function", "Supports the body's normal calcium balance", "Natural parathyroid peptide complex (A-21)"],
+    ingredients: ["Parathyroid gland peptide complex A-21 (natural extract)"],
+    usage: "Adults: 1–2 capsules 2 times a day with meals. Duration of course: 1 month. The course can be repeated after 3–6 months.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "cerluten",
+    name: "Cerluten",
+    image: "/products/cerluten5.jpg",
+    imageAlt: "Cerluten brain peptide bioregulator",
+    description: "Cerluten® is a Khavinson Cytomax: a natural brain peptide complex (A-5), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Cerluten is believed to support normal brain and nervous-system function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal brain cell metabolism", "Supports normal nervous-system function", "Natural brain peptide complex (A-5)"],
+    ingredients: ["Brain peptide complex A-5 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "chitomur",
+    name: "Chitomur",
+    image: "/products/chit9.jpg",
+    imageAlt: "Chitomur bladder peptide bioregulator",
+    description: "Chitomur® is a Khavinson Cytomax: a natural bladder peptide complex (A-12), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Chitomur is believed to support normal bladder and urinary function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal bladder function", "Supports normal urinary function", "Natural bladder peptide complex (A-12)"],
+    ingredients: ["Bladder peptide complex A-12 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "chonluten",
+    name: "Chonluten",
+    image: "/products/chono1.jpg",
+    imageAlt: "Chonluten respiratory peptide bioregulator",
+    description: "Chonluten® is a Khavinson peptide bioregulator: a peptide bioregulator for the respiratory system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Chonluten is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson peptide bioregulator"],
+    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "glandokort",
+    name: "Glandokort",
+    image: "/products/gland5.jpg",
+    imageAlt: "Glandokort adrenal gland peptide bioregulator",
+    description: "Glandokort® is a Khavinson peptide bioregulator: a adrenal gland peptide complex. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Glandokort is believed to support normal adrenal function and the body's everyday stress response. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal adrenal function", "Supports the body's normal stress response", "Khavinson peptide bioregulator"],
+    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "libidon",
+    name: "Libidon",
+    image: "/products/libi1.jpg",
+    imageAlt: "Libidon prostate peptide bioregulator",
+    description: "Libidon® is a Khavinson peptide bioregulator: a prostate peptide complex. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Libidon is believed to support normal prostate and male reproductive function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal prostate function", "Supports normal male reproductive function", "Khavinson peptide bioregulator"],
+    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "ovagen",
+    name: "Ovagen",
+    image: "/products/ova1.jpg",
+    imageAlt: "Ovagen liver and digestive peptide bioregulator",
+    description: "Ovagen® is a Khavinson peptide bioregulator: a peptide bioregulator for the liver and digestive tract. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Ovagen is believed to support normal liver and digestive function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal liver function", "Supports normal digestive function", "Khavinson peptide bioregulator"],
+    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "pinealon",
+    name: "Pinealon",
+    image: "/products/pinealon.jpg",
+    imageAlt: "Pinealon brain peptide bioregulator",
+    description: "Pinealon® is a Khavinson peptide bioregulator: a peptide bioregulator for the central nervous system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Pinealon is believed to support normal brain function and everyday cognition. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal brain cell metabolism", "Supports normal cognitive function", "Khavinson peptide bioregulator"],
+    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e. Same data as the Pepita-branch draft; photos supplied by Julia.
+    id: "sigumir",
+    image: "/products/sigumir-60.webp",
+    imageAlt: "Sigumir A-4 peptides complex, 60 capsules",
+    name: "Sigumir",
+    description: "Sigumir® is a Khavinson Cytomax: a natural peptide complex (A-4) extracted from the cartilage and bone tissue of young animals, developed at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how organ-derived short peptides act selectively on the cells of their source tissue, and Sigumir's cartilage and bone peptides are believed to support normal joint and spine function. It is the natural-extract counterpart to Cartalax, the lab-made AED cartilage peptide. Dietary supplement; the box reads 'A-4 peptides complex'. Available in 20-capsule (0.215 g) and 60-capsule (0.2 g) formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal cartilage and bone tissue function", "Supports normal joint and spine function", "Natural cartilage and bone peptide complex (A-4)", "Natural-extract counterpart to Cartalax"],
+    ingredients: ["Cartilage and bone peptide complex A-4 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson. Sigumir (natural cartilage and bone extract) and Cartalax (the synthesized AED cartilage tripeptide) both focus on cartilage; they differ in source and formulation.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        image: "/products/sigumir-20.jpg",
+        imageAlt: "Sigumir A-4 peptides complex, 20 capsules (0.215 g)",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        image: "/products/sigumir-60.webp",
+        imageAlt: "Sigumir A-4 peptides complex, 60 capsules (0.2 g)",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "stamakort",
+    name: "Stamakort",
+    image: "/products/stamakort4.jpg",
+    imageAlt: "Stamakort stomach peptide bioregulator",
+    description: "Stamakort® is a Khavinson Cytomax: a natural stomach peptide complex, extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Stamakort is believed to support normal stomach function and digestion. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal stomach function", "Supports normal digestion", "Natural stomach peptide complex"],
+    ingredients: ["Stomach peptide complex (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "suprefort",
+    name: "Suprefort",
+    image: "/products/suprefort1.jpg",
+    imageAlt: "Suprefort pancreas peptide bioregulator",
+    description: "Suprefort® is a Khavinson Cytomax: a natural pancreas peptide complex (A-1), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Suprefort is believed to support normal pancreatic function and digestion. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal pancreatic function", "Supports normal digestion", "Natural pancreas peptide complex (A-1)"],
+    ingredients: ["Pancreas peptide complex A-1 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "svetinorm",
+    name: "Svetinorm",
+    image: "/products/Svetinorm.jpg",
+    imageAlt: "Svetinorm liver peptide bioregulator",
+    description: "Svetinorm® is a Khavinson Cytomax: a natural liver peptide complex (A-7), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Svetinorm is believed to support normal liver function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal liver cell metabolism", "Supports normal liver function", "Natural liver peptide complex (A-7)"],
+    ingredients: ["Liver peptide complex A-7 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "taxorest",
+    name: "Taxorest",
+    image: "/products/taxorest.jpeg",
+    imageAlt: "Taxorest respiratory peptide bioregulator",
+    description: "Taxorest® is a Khavinson peptide bioregulator: a peptide bioregulator for the respiratory system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Taxorest is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson peptide bioregulator"],
+    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
+    // Restored 2026-10-13: lost in 47d997e (N20/N60 merge had no base listing).
+    id: "zhenoluten",
+    name: "Zhenoluten",
+    image: "/products/Zhenoluten.jpg",
+    imageAlt: "Zhenoluten ovarian peptide bioregulator",
+    description: "Zhenoluten® is a Khavinson Cytomax: a natural ovarian peptide complex (A-15), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Zhenoluten is believed to support normal ovarian function and female reproductive health. Available in 20-capsule and 60-capsule formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 58.99,
+    priceEUR: 40,
+    rating: 4.8,
+    sizes: 2,
+    benefits: ["Is believed to support normal ovarian function", "Supports female reproductive health", "Natural ovarian peptide complex (A-15)"],
+    ingredients: ["Ovarian peptide complex A-15 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        priceUSD: 58.99,
+        priceEUR: 40,
+        inStock: true
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        priceUSD: 153.99,
+        priceEUR: 110,
+        inStock: true
+      }
+    ]
+  },
+  {
     id: "ventfort",
     name: "Ventfort",
     image: "/products/ventfort.png",

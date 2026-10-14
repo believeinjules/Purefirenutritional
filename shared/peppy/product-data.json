@@ -3060,6 +3060,1262 @@
       }
     },
     {
+      "id": "bonothyrk",
+      "name": "Bonothyrk",
+      "sourceDocs": [
+        "https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/",
+        "/workspace/khavinson-pdfs/gcyto2.txt",
+        "/workspace/pepita-live/endo/geron.txt"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+            "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+            "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            2,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+          "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "microcrystalline cellulose (bulking agent); hydroxypropyl methylcellulose (capsule shell), water, carrageenan (thickener), potassium acetate (acidity regulator); peptide complex A-21, containing amino acids (glutamic acid, aspartic acid, alanine, leucine, valine, isoleucine, proline, serine); calcium salts of fatty acids (anti-caking agent). The recommended daily dose, or 2 or 4 capsules, contains 20 mg or 40 mg of peptide complex А-21.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "quantities": {
+        "status": "verified",
+        "value": "Recommended daily dose (2 or 4 capsules) contains 20 mg or 40 mg of peptide complex A-21; capsule 0,215 g",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Duration of course is 1 month",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer: same capsule (0,215 g) and same directions for both packs; 20 or 60 capsules per pack is the only printed difference.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "documentedProtocols": {
+        "status": "verified",
+        "value": "Manufacturer page states only: course 1 month, repeat after 3-6 months.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "cerluten",
+      "name": "Cerluten",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/pepita-live/endo/organs.json"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Пептидный комплекс A-5 (пептиды мозга), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеариновой кисло",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Average course: 10 to 30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules. 20 capsules.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"Аллергические реакции на желатин, входящий в состав оболочки капсулы, или лактозу. Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "chitomur",
+      "name": "Chitomur",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/pepita-live/endo/organs.json"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Пептидный комплекс A-12 (пептиды мочевого пузыря), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеари",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules. 20 capsules.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "chonluten",
+      "name": "Chonluten",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "glandokort",
+      "name": "Glandokort",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "libidon",
+      "name": "Libidon",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "ovagen",
+      "name": "Ovagen",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "pinealon",
+      "name": "Pinealon",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "sigumir",
+      "name": "Sigumir",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+        "https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/",
+        "/workspace/pepita-live/endo/p_sigumir.html",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/khavinson-pdfs/gcyto2.txt",
+        "Sigumir box photos supplied by Julia 2026-10-13 (client/public/products/sigumir-20.jpg, sigumir-60.webp)"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Peptide complex A-4 (cartilage peptides), carrier microcrystalline cellulose; capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); anti-caking agent calcium stearate. [Translated from peptid.ru: \"Пептидный комплекс A-4 (пептиды хрящей), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеариновой кислоты.\"]",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Duration of use is 1 month",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules of 0,2 g. 20 capsules of 0,215 g.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs. Box photos (supplied by Julia 2026-10-13): 20 capsules of 0,215 g and 60 capsules of 0,2 g, so the capsule weight differs slightly between packs; both read \"A-4 peptides complex\" (20-capsule box: \"Dietary Supplement\").",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page; repeat-course interval for capsules not stated.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Сигумир противопоказан при индивидуальной непереносимости компонентов.\" (Pregnancy, breastfeeding or chronic conditions: consult a doctor first. Contraindicated with individual intolerance to the components.)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "stamakort",
+      "name": "Stamakort",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/pepita-live/endo/organs.json"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Stomach peptide complex (natural extract)",
+        "source": "client/src/data/products.ts ingredients"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules. 20 capsules.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "suprefort",
+      "name": "Suprefort",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/pepita-live/endo/organs.json"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Пептидный комплекс A-1 (пептиды поджелудочной железы), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль ст",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 10 to 30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Average course: 10 to 30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules. 20 capsules.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "svetinorm",
+      "name": "Svetinorm",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/pepita-live/endo/organs.json"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Пептидный комплекс A-7 (пептиды печени), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеариновой кисл",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules. 20 capsules.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "taxorest",
+      "name": "Taxorest",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "unverified",
+        "value": null
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "unverified",
+        "value": null
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
+      "id": "zhenoluten",
+      "name": "Zhenoluten",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/pepita-live/endo/organs.json"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Пептидный комплекс A-15 (пептиды яичников), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеариновой к",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Average course: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules. 20 capsules.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Женолутен противопоказан при индивидуальной непереносимости компонентов.\"",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
       "id": "ventfort",
       "name": "Ventfort",
       "sourceDocs": [
