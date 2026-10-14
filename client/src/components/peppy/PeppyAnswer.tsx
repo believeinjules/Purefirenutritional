@@ -3,7 +3,7 @@ import { DOCTOR_CONSULT_LINE, withoutGenericDoctorLines } from "@shared/peppy/pr
 import { inline, buildMentions } from "./RichText";
 import SafetyCallout from "./SafetyCallout";
 import StudyCitation from "./StudyCitation";
-import { ProductCardSmall } from "./ProductPreview";
+import PepitaProductCard from "./PepitaProductCard";
 import { EVIDENCE_CATEGORY, answerProducts, nextQuestions, shortAnswer } from "@/lib/pepitaPreview";
 
 interface Props {
@@ -23,14 +23,14 @@ interface Props {
 const MAX_RESEARCH_LINKS = 3;
 
 /**
- * One Pepita answer (v6): a short direct answer (2–5 sentences), inline research links,
- * 1–3 compact product cards chosen by tissue relevance, 1–2 follow-up questions as chips,
+ * One Pepita answer (v10): up to 3 product cards first (price, size, Add to Cart, inline
+ * details), then a short answer (2–3 sentences, 40–65 words), inline research links, 1–2 follow-up questions as chips,
  * and the deeper science (physiology, mechanisms, how the products differ, what each study
  * investigated, manufacturer protocols) in a collapsed "Learn more". Always ends with the doctor line.
  */
 export default function PeppyAnswer({ answer, question, onAsk, disabled, headingId, onDoctorQuestions, onAnswerFollowUp }: Props) {
   const urgent = answer.mode === "urgent";
-  const text = shortAnswer(withoutGenericDoctorLines(answer.summary), 5);
+  const text = shortAnswer(withoutGenericDoctorLines(answer.summary), 3);
   const cards = urgent ? [] : answerProducts(answer.products, question);
   const mentions = buildMentions(cards.map(c => c.product));
   const followUps = urgent ? [] : answer.followUps.slice(0, 2);
@@ -46,6 +46,16 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
         Pepita's answer
       </h2>
       {answer.safety && urgent && <SafetyCallout notice={answer.safety} />}
+
+      {cards.length > 0 && (
+        <ul className="space-y-2" data-testid="pepita-product-cards" aria-label="Suggested products">
+          {cards.map(c => (
+            <li key={c.product.id} className="min-w-0">
+              <PepitaProductCard suggestion={c} fallbackResearch={answer.research} />
+            </li>
+          ))}
+        </ul>
+      )}
 
       <p className="text-gray-900" data-testid="pepita-answer-text">
         {inline(text, mentions)}
@@ -65,16 +75,6 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
           <p className="font-medium text-gray-900">Worth knowing</p>
           <p>{worth.body}</p>
         </div>
-      )}
-
-      {cards.length > 0 && (
-        <ul className="grid gap-2 sm:grid-cols-3" data-testid="pepita-product-cards">
-          {cards.map(c => (
-            <li key={c.product.id} className="min-w-0">
-              <ProductCardSmall product={c.product} tissue={c.tissue} family={c.family} />
-            </li>
-          ))}
-        </ul>
       )}
 
       {followUps.length > 0 && (

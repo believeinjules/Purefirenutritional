@@ -56,7 +56,7 @@ export const TOPICS: Topic[] = [
       /\b(tired\w*|fatigu\w*|exhaust\w*|low energy|no energy|lack of energy|more energy|energy levels?|energy|sluggish|drained|wiped out|afternoon (?:slump|crash|dip)|crash(?:ing)? in the afternoon|run down|worn out|lethargic)\b/i,
     ],
     summary:
-      "Panaxod is built on Panax ginseng, the adaptogen with the most research for everyday tiredness, while Ensil combines CoQ10, L-carnitine and B vitamins, nutrients involved in how cells make energy. Researchers have found modest benefits for ginseng in a systematic review, and CoQ10 is studied mainly for its role in cellular energy production. The difference is a plant adaptogen versus an energy-metabolism nutrient blend. If tiredness lasts more than 2–3 weeks, get checked for causes such as low iron, B12 or thyroid changes.",
+      "Panaxod is built on Panax ginseng, an adaptogen researchers have studied for everyday tiredness, while Ensil combines CoQ10, L-carnitine and B vitamins, nutrients involved in how cells make energy. The difference is a plant adaptogen versus an energy-metabolism blend. Tiredness lasting more than 2–3 weeks is worth checking for low iron, B12 or thyroid changes.",
     sections: [
       {
         heading: "What usually drives it",
@@ -129,7 +129,7 @@ export const TOPICS: Topic[] = [
       /\b(sleep\w*|insomnia|can'?t sleep|cannot sleep|trouble sleeping|fall(?:ing)? asleep|stay(?:ing)? asleep|wak(?:e|ing) up (?:at night|in the night|at \d)|night waking|circadian|jet ?lag|bedtime|restless nights?)\b/i,
     ],
     summary:
-      "Endoluten is the closest fit: a Khavinson Cytomax made from pineal gland peptides (A-8), and the pineal gland is the small brain gland that releases melatonin at night to keep the body's circadian clock in step with light and dark. Researchers have investigated whether pineal peptide preparations help the gland's own night-time melatonin release in older adults, which is a different idea from taking melatonin, where the hormone itself is supplied from outside. The manufacturer directions describe an intermittent course rather than a nightly dose: adults take 1 capsule once every 3 days, in the morning or at midday, for about 20 days to 2 months. Two related research peptides are often mentioned alongside it: Epitalon, the synthetic tetrapeptide AEDG, which Pure Fire doesn't sell, and Pinealon, the EDR tripeptide, studied mainly for neuroprotection and oxidative stress. The evidence is still early, because the pineal studies measured melatonin levels rather than sleep quality, and no published human trial has tested these products for sleep.",
+      "Endoluten is a natural pineal gland peptide complex; the pineal gland releases melatonin at night to keep the body clock in step with light and dark, and researchers have investigated whether these peptides support the gland's own melatonin rhythm rather than adding the hormone. Pinealon, the EDR brain peptide, is studied for neuroprotection, but direct sleep evidence in people is limited.",
     sections: [
       {
         heading: "What the research says",
@@ -165,13 +165,15 @@ export const TOPICS: Topic[] = [
     products: [
       {
         id: "endoluten",
-        why: "A Khavinson Cytomax from the pineal gland, the gland that releases melatonin at night, with its own intermittent course directions.",
+        why: "Pineal gland peptides, researched for supporting the gland's own night-time melatonin rhythm rather than adding melatonin.",
+        tissue: "Pineal gland: melatonin and circadian rhythm",
         evidenceNote:
           "Pineal peptide research is mostly small Russian studies of injectable extracts measuring melatonin; Endoluten itself has no published sleep trial.",
       },
       {
         id: "pinealon",
-        why: "A Khavinson Cytogen whose peptide complex (AC-5) is made from the amino acids of the EDR tripeptide, studied mainly for neuroprotection and oxidative stress.",
+        why: "EDR brain peptide studied for neuroprotection and oxidative stress; its link to sleep is not established.",
+        tissue: "Brain cortex: neuroprotection (secondary for sleep)",
         evidenceNote:
           "Sometimes discussed for sleep, but the research is cell and animal work; direct human sleep evidence is limited.",
       },
@@ -198,7 +200,7 @@ export const TOPICS: Topic[] = [
       /\b(joints?|knees?|hips?|ankles?|cartilage|stiff(?:ness)?|achy|aching|ache|mobility|connective tissue|running pain|hurts? when i run|sore when i run)\b/i,
     ],
     summary:
-      "Sigumir is a Khavinson Cytomax, a natural peptide complex from cartilage and bone tissue taken as a course and intended to send a tissue-specific signal to cartilage cells. Prime Peptide Joints pairs IPH peptide complexes with glucosamine, MSM and PEA for daily joint support, and Prime Peptide Collagen builds on marine collagen with an IPH peptide, vitamin C and copper for connective tissue. Researchers have investigated cartilage peptides such as AED in human stem cells and ageing animals, while collagen has its own separate body of controlled trials. Achy joints can come from load, a strain or gradual cartilage turnover, so how long it has been going on helps narrow the picks.",
+      "Sigumir is a natural cartilage and bone peptide complex intended to signal cartilage cells, while Prime Peptide Joints pairs IPH peptides with glucosamine and MSM, and Prime Peptide Collagen adds marine collagen with vitamin C and copper for connective tissue. The difference is a tissue-specific peptide course versus daily structural nutrients, and collagen has its own controlled-trial research.",
     sections: [
       {
         heading: "See a clinician or physio if",
@@ -301,7 +303,7 @@ export const TOPICS: Topic[] = [
       /\b(epitalon|epithalon|epitalone|epithalamin\w*|aedg|ala-glu-asp-gly|pineal|epiphys\w*|telomer\w*|telomerase)\b/i,
     ],
     summary:
-      "Epitalon (Ala-Glu-Asp-Gly, or AEDG) is a synthetic four-amino-acid peptide modelled on Epithalamin, a pineal gland extract from Prof. Vladimir Khavinson's group, and Endoluten is Pure Fire's closest product: the natural pineal peptide complex rather than the synthetic peptide itself. Researchers have investigated Epitalon mainly for melatonin rhythm and cell-ageing biology, in cell cultures, ageing animals and small human studies from the same research network. Mass-spectrometry work has detected the AEDG sequence inside the pineal polypeptide complex, which is the link between the two.",
+      "Epitalon is the synthetic tetrapeptide AEDG (Ala-Glu-Asp-Gly), modelled on a pineal gland extract from Khavinson's group, and Pure Fire doesn't sell it. Endoluten is the closest product we carry: the natural pineal peptide complex, in which mass spectrometry has detected the AEDG sequence. Researchers have investigated both mainly for melatonin rhythm and cell-ageing biology.",
     sections: [
       {
         heading: "What the research shows",
@@ -344,7 +346,7 @@ export const TOPICS: Topic[] = [
       /\b(thymus|thymic|thymalin|thymogen|vilon|t[- ]cells?)\b/i,
     ],
     summary:
-      "Vladonix is a natural thymus peptide complex (A-6) in the Khavinson tradition, related to the Russian thymus preparation Thymalin. The thymus is the small gland behind the breastbone where T cells mature, and it shrinks with age. Researchers have investigated thymus peptides in human blood stem cells and immune-cell cultures, where Thymalin and its KE and EW dipeptides shifted T-cell differentiation and immune-signalling genes.",
+      "Vladonix is a natural thymus peptide complex related to the Russian preparation Thymalin; the thymus is the gland where T cells mature, and it shrinks with age. Researchers have investigated thymus peptides in human blood stem cells and immune-cell cultures, where they shifted T-cell development and immune-signalling genes. Crystagen is the synthesized thymus peptide alternative.",
     sections: [
       {
         heading: "What the research shows",
@@ -397,7 +399,7 @@ export const TOPICS: Topic[] = [
       /\b(peptide|bioregulator|cytomax\w*|cytogen\w*)s? (?:course|protocol)s?\b.*\b(repeat|how often|how long|length)\b/i,
     ],
     summary:
-      "Khavinson bioregulators are taken as courses rather than every day, and the two cards show how differently individual products are scheduled, each with its own manufacturer directions. A standard, preventive-style course is usually about a month, then a break, then sometimes a repeat course a few months to a year later. When the aim is restoring function, the directions describe extending the course, pairing it with bioregulators for other organs, or running 2–3 courses a year. These are manufacturer guidance rather than clinically tested regimens, and a course is always set per product, never borrowed from another.",
+      "Khavinson bioregulators are taken as courses rather than every day, and each product has its own manufacturer directions, so a schedule is never borrowed from another product. A preventive-style course usually runs about a month followed by a break, while restorative use extends or repeats courses. These are manufacturer guidance, not clinically tested regimens; the cards show each product's directions.",
     sections: [
       {
         heading: "Check with your doctor first if",
@@ -456,7 +458,7 @@ export const TOPICS: Topic[] = [
       /\b(work|works|effective|evidence|proof|legit|scam)\b.*\b(khavinson|bioregulators?|cytomax\w*|cytogens?)\b/i,
     ],
     summary:
-      "Researchers have investigated Khavinson peptides at several levels: how short peptides interact with DNA and get into cells, how they behave in cell cultures and ageing animals, and how older adults responded to the original injectable preparations. Together, that work suggests these tiny peptides can act as tissue-specific signals that influence gene activity. Most of it comes from Khavinson's own research network and used injectables rather than oral capsules, so independent controlled trials of the oral products are the step the field still needs.",
+      "Researchers have investigated Khavinson peptides in cell cultures, ageing animals and older adults given the original injectable preparations, and the work suggests short peptides can act as tissue-specific signals that influence gene activity. Most of it comes from Khavinson's own network and used injectables rather than capsules, so independent controlled trials of the oral products are still needed.",
     sections: [
       {
         heading: "How to read product claims",
@@ -508,7 +510,7 @@ export const TOPICS: Topic[] = [
       /\b(bioregulators?|cytomax\w*|cytogens?|short peptides?|peptide bioregulat\w*|how (?:do|does) (?:the )?peptides? work|what are peptides?)\b/i,
     ],
     summary:
-      "Peptide bioregulators are very short chains of amino acids (usually 2–4) that Khavinson's group proposes act as tissue-specific signals that influence which genes are switched on. Cytomaxes are peptide complexes extracted from young animal organs, Cytogens are synthesized copies of key short peptides, and Revilab formulas blend several with vitamins and plant extracts.",
+      "Peptide bioregulators are very short chains of amino acids, usually 2–4, that Khavinson's group proposes act as tissue-specific signals influencing which genes are switched on. Cytomaxes are peptide complexes extracted from young animal organs, Cytogens are synthesized copies of key short peptides, and Revilab formulas blend several peptides with vitamins and plant extracts.",
     sections: [
       {
         heading: "The proposed mechanism",
@@ -550,7 +552,7 @@ export const TOPICS: Topic[] = [
       /\b(eyes?|eyesight|vision|visual|sight|retina\w*|macula\w*|lutein|zeaxanthin|screen strain|eye strain|dry eyes?)\b/i,
     ],
     summary:
-      "Visoluten is a natural eye-tissue peptide complex (A-11) from the Khavinson line, while Revilab ML 03 combines brain, retina and vascular-wall peptide complexes with lutein, zeaxanthin and astaxanthin. Researchers have investigated retinal peptides such as Epitalon in animal retina studies, and lutein and zeaxanthin are the most-studied eye nutrients in large human trials. The difference is a single tissue-specific course versus a daily multi-peptide formula with carotenoids. Get any sudden change in vision checked the same day.",
+      "Visoluten is a natural eye-tissue peptide complex intended to signal retinal cells, while Revilab ML 03 combines brain, retina and vascular-wall peptides with lutein, zeaxanthin and astaxanthin. The difference is a single-tissue peptide course versus a daily formula with carotenoids, which have the larger human research base. Any sudden change in vision should be checked the same day.",
     sections: [
       {
         heading: "What the research says",
@@ -614,7 +616,7 @@ export const TOPICS: Topic[] = [
       /\b(heart|cardio\w*|circulation|blood vessels?|vascular|veins?|arter\w*|blood flow|omega-?3s?|fish oil)\b/i,
     ],
     summary:
-      "Ventfort is a natural blood-vessel peptide complex (A-3) from the Khavinson line, and Revilab ML 04 combines heart-muscle, vascular-wall and pineal peptide complexes with resveratrol, rutin and omega-3s. Researchers have investigated vascular peptides in ageing vessel-wall cells and old rats, where they raised cell-renewal markers and microvessel density. The difference is a single-tissue course versus a daily multi-peptide formula. Seek urgent care for chest pain or pressure.",
+      "Ventfort is a natural blood-vessel peptide complex, and Revilab ML 04 combines heart-muscle, vascular-wall and pineal peptides with resveratrol, rutin and omega-3s. Researchers have investigated vascular peptides in ageing vessel-wall cells and old rats, where they raised cell-renewal markers. The difference is a single-tissue course versus a daily multi-peptide formula; chest pain or pressure needs urgent care.",
     sections: [
       {
         heading: "What the research says about peptides",
@@ -694,7 +696,7 @@ export const TOPICS: Topic[] = [
       /\b(brain|memory|memor\w*|focus\w*|concentrat\w*|cognit\w*|brain fog|foggy|forgetful\w*|mental clarity|mental performance)\b/i,
     ],
     summary:
-      "Cerluten is a natural brain peptide complex (A-5) from the Khavinson line, and Prime Peptide Brain builds on the IPH AGAP tetrapeptide with magnesium, choline, GABA and zinc. Researchers have investigated short brain peptides such as EDR (Pinealon) and KED in neuron cultures, where they reduced age-related changes and oxidative stress. The difference is a short tissue-specific course versus a daily peptide-plus-nutrient formula. Brain fog often has everyday causes too, such as poor sleep, stress or low iron or B12.",
+      "Cerluten is a natural brain peptide complex, while Prime Peptide Brain builds on the IPH AGAP tetrapeptide with magnesium, choline, GABA and zinc. Researchers have investigated short brain peptides such as EDR (Pinealon) in neuron cultures, where they reduced age-related changes and oxidative stress. The difference is a tissue-specific course versus a daily peptide-plus-nutrient formula.",
     sections: [
       {
         heading: "What the research says about brain peptides",
@@ -764,7 +766,7 @@ export const TOPICS: Topic[] = [
       /\b(immune|immunity|immune system|catch(?:ing)? (?:every )?colds?|get sick (?:often|a lot)|always sick|natural defen[cs]es|blood[- ]forming|blood formation|bone marrow|hematopoie\w*|haematopoie\w*)\b/i,
     ],
     summary:
-      "Vladonix is a natural thymus peptide complex (A-6) from the Khavinson line, and Revilab ML 02 combines T-cell, B-cell, bone-marrow and liver peptide complexes with omega-3s. Researchers have investigated thymus peptides in human blood stem cells and immune-cell cultures, where Thymalin and its KE and EW dipeptides shifted T-cell differentiation and immune-signalling genes. The difference is a single-tissue course versus a daily multi-peptide formula. If you get ill unusually often or have unexplained fevers, get checked.",
+      "Vladonix is a natural thymus peptide complex, and Revilab ML 02 combines T-cell, B-cell, bone-marrow and liver peptides with omega-3s. Researchers have investigated thymus peptides in immune-cell cultures, where they shifted T-cell development and immune-signalling genes. The difference is a single-tissue course versus a daily multi-peptide formula; frequent illness or unexplained fevers should be checked.",
     sections: [
       {
         heading: "What the research says",
@@ -847,7 +849,7 @@ export const TOPICS: Topic[] = [
       /\b(liver|hepat\w*|bile|gallbladder|detox\w*|alcohol metabolism|hangover)\b/i,
     ],
     summary:
-      "Svetinorm is a natural liver peptide complex (A-7) from the Khavinson line, and Revilab ML 01 combines pineal, immune and liver peptide complexes with resveratrol, choline and omega-3s. Researchers have investigated the liver peptide Livagen in lymphocytes from older people and in ageing rats, where it activated chromatin and shifted digestive-enzyme activity toward younger levels. The difference is a single-tissue course versus a broader daily formula. Yellowing skin or eyes, or dark urine, needs a doctor's check.",
+      "Svetinorm is a natural liver peptide complex, and Revilab ML 01 combines pineal, immune and liver peptides with resveratrol, choline and omega-3s. Researchers have investigated liver peptides in cells from older people and ageing rats, where enzyme activity shifted toward younger levels. The difference is a single-tissue course versus a broader daily formula; yellowing skin or eyes needs a doctor's check.",
     sections: [
       {
         heading: "What the research says",
@@ -916,7 +918,7 @@ export const TOPICS: Topic[] = [
       /\b(lungs?|bronch\w*|airways?|respiratory|sinus\w*|nasal|nose|throat)\b/i,
     ],
     summary:
-      "Chonluten is a natural bronchial peptide complex from the Khavinson line, and Revilab ML 05 combines bronchial, lung and T-cell peptide complexes with omega-3s. Researchers have investigated bronchial peptides such as Bronchogen in ageing bronchial cell cultures and in rats, where they raised differentiation markers and improved the bronchial lining. The difference is a single-tissue course versus a daily multi-peptide formula. Get urgent care for chest pain, coughing up blood or struggling to breathe.",
+      "Chonluten is a synthesized bronchopulmonary peptide and Taxorest a natural bronchial peptide complex, while Revilab ML 05 combines bronchial, lung and T-cell peptides with omega-3s. Researchers have investigated bronchial peptides in ageing bronchial cell cultures and rats, where they supported the airway lining. Chest pain, coughing up blood or struggling to breathe needs urgent care.",
     sections: [
       {
         heading: "What the research says",
@@ -979,7 +981,7 @@ export const TOPICS: Topic[] = [
       /\b(digest\w*|gut|bloat\w*|stomach|indigestion|reflux|heartburn|constipat\w*|bowel)\b/i,
     ],
     summary:
-      "Stamakort is a natural stomach peptide complex from the Khavinson line, and Revilab ML 06 combines liver, pancreas and stomach-wall peptide complexes with licorice root and artichoke extract. Researchers have investigated digestive-tissue peptides such as Pancragen in ageing cell cultures and old monkeys, where pancreatic function markers improved. The difference is a single-tissue course versus a daily multi-peptide formula. See a doctor for blood in your stool or unintended weight loss.",
+      "Stamakort is a natural stomach peptide complex, and Revilab ML 06 combines liver, pancreas and stomach-wall peptides with licorice root and artichoke extract. Researchers have investigated digestive-tissue peptides in ageing cell cultures and old monkeys, where pancreatic function markers improved. The difference is a single-tissue course versus a daily multi-peptide formula; blood in the stool needs a doctor.",
     sections: [
       {
         heading: "What the research says",
@@ -1059,7 +1061,7 @@ export const TOPICS: Topic[] = [
     label: "Kidney health",
     patterns: [/\b(kidneys?|renal|urinary tract)\b/i],
     summary:
-      "Pielotax is a natural kidney peptide complex (A-9) from the Khavinson line, while Renefort is a herbal formula with cowberry leaf, horsetail and magnesium for normal filtration. Researchers have investigated kidney peptides in ageing kidney-cell cultures, where they activated cell-renewal markers, and in rats. The difference is a tissue-specific peptide course versus a daily herbal formula. Because the kidneys clear many supplements, check with your clinician first if you have any kidney concern.",
+      "Pielotax is a natural kidney peptide complex, while Renefort is a herbal formula with cowberry leaf, horsetail and magnesium for normal filtration. Researchers have investigated kidney peptides in ageing kidney-cell cultures and rats, where they activated cell-renewal markers. The difference is a tissue-specific peptide course versus a daily herbal formula, and anyone with a kidney concern should ask their clinician first.",
     sections: [
       {
         heading: "What the research says",
@@ -1111,7 +1113,7 @@ export const TOPICS: Topic[] = [
       /\b((?:[4-9]\d)[- ]?(?:year|yr)s?[- ]?old (?:man|male|guy)|(?:man|men|male|guy) (?:over|in (?:his|my) )?(?:[4-9]0s?|forties|fifties|sixties)|men'?s health|middle[- ]aged (?:man|men)|what should (?:a|an) (?:\d+|older) (?:year[- ]old )?man take)\b/i,
     ],
     summary:
-      "Endoluten and Vladonix are the classic Khavinson pairing for healthy ageing: a pineal peptide complex and a thymus peptide complex, each taken as its own course. GPL Man combines pineal, brain, vascular, liver, pancreas and testes peptide complexes in a single formula instead. Researchers have investigated pineal and thymus peptides in cell, animal and small human studies of related injectable extracts, so this is an emerging area rather than a settled one.",
+      "Endoluten and Vladonix are the classic Khavinson pairing for healthy ageing: a pineal peptide complex and a thymus peptide complex, each taken as its own course. GPL Man instead combines pineal, brain, vascular, liver, pancreas and testes peptides in one daily formula. Researchers have investigated these peptides in cell, animal and small human studies, so the evidence is still emerging.",
     sections: [
       {
         heading: "If you're considering bioregulators",
@@ -1163,7 +1165,7 @@ export const TOPICS: Topic[] = [
       /\b(testosterone|libido|prostate|testicular|sperm|male fertility|urinat\w* at night|nocturia|weak (?:urine )?stream)\b/i,
     ],
     summary:
-      "Testoluten is a natural testicular peptide complex (A-13) from the Khavinson line, and Revilab ML 07 is the men's formula combining testes, bladder, vascular-wall and pineal peptide complexes with omega-3s and L-carnitine. Both are built on the bioregulation idea that organ-specific peptides signal to their source tissue, though there are no published trials of these finished products. Testosterone declines slowly with age and low libido has many causes, so new urinary symptoms should be checked by a doctor.",
+      "Testoluten is a natural testicular peptide complex, and Revilab ML 07 combines testes, bladder, vascular-wall and pineal peptides with omega-3s and L-carnitine. Both rest on the idea that organ-specific peptides signal to their source tissue, though the finished products have no published trials. New urinary symptoms should be checked by a doctor before choosing a supplement.",
     sections: [
       {
         heading: "What the research says",
@@ -1215,7 +1217,7 @@ export const TOPICS: Topic[] = [
       /\b(menopaus\w*|perimenopaus\w*|hot flash\w*|hot flush\w*|night sweats|periods?|menstrua\w*|pms|female hormones?|women'?s health|hormonal balance)\b/i,
     ],
     summary:
-      "Zhenoluten is a natural ovarian peptide complex (A-15) from the Khavinson line, and GPL Femme combines pineal, brain, vascular, liver, thyroid and ovarian peptide complexes with alpha-lipoic acid in a single formula. Researchers have investigated organ-specific peptides mainly in cell and animal work, and there are no published trials of these finished products for menopause comfort. Hot flushes, poor sleep and mood changes vary widely, so knowing which matters most helps narrow the picks.",
+      "Zhenoluten is a natural ovarian peptide complex, while GPL Femme combines pineal, brain, vascular, liver, thyroid and ovarian peptides with alpha-lipoic acid in one formula. Researchers have investigated organ-specific peptides mainly in cell and animal work, and the finished products have no published trials. The difference is a single-tissue course versus a broader daily formula.",
     sections: [
       {
         heading: "What the research says",
@@ -1272,7 +1274,7 @@ export const TOPICS: Topic[] = [
       /\b(skin|wrinkl\w*|collagen|elasticity|complexion|hair|nails?|fine lines)\b/i,
     ],
     summary:
-      "Prime Peptide Collagen pairs marine collagen with the IPH AEN peptide, vitamin C, copper and biotin, nutrients involved in collagen formation, while Mesotel Beauty is a choline-based formula with gotu kola, goji and zinc. Researchers have investigated short peptides such as KE, KED and AEDG in ageing human skin fibroblasts, and hydrolysed collagen has its own body of controlled trials for skin hydration and elasticity. The difference is a peptide-plus-collagen formula versus an antioxidant nutrient blend.",
+      "Prime Peptide Collagen pairs marine collagen with the IPH AEN peptide, vitamin C, copper and biotin, nutrients involved in collagen formation, while Mesotel Beauty is a choline-based formula with gotu kola, goji and zinc. Researchers have investigated short peptides in ageing skin fibroblasts, and hydrolysed collagen has controlled trials for skin hydration and elasticity.",
     sections: [
       {
         heading: "What the research says",
@@ -1330,7 +1332,7 @@ export const TOPICS: Topic[] = [
       /\b(muscles?|strength|recovery|workouts?|athlet\w*|gym|endurance|lifting|sarcopenia|protein intake)\b/i,
     ],
     summary:
-      "Gotratix is a natural muscle-tissue peptide complex (A-18) from the Khavinson line taken as a course, while Reviform Cocktail is a protein, vitamin and mineral shake that helps you reach a daily protein target. The muscle peptide line hasn't been studied in published trials, so Gotratix rests on the general bioregulation idea rather than product-specific research. Protein intake and training remain the base that any supplement builds on.",
+      "Gotratix is a natural muscle-tissue peptide complex taken as a course, while Reviform Cocktail is a protein, vitamin and mineral shake that helps you reach a daily protein target. The muscle peptide line hasn't been studied in published trials, so Gotratix rests on the general bioregulation idea. Protein intake and training remain the base any supplement builds on.",
     sections: [
       {
         heading: "What the research says about muscle peptides",
@@ -1369,7 +1371,7 @@ export const TOPICS: Topic[] = [
     label: "Thyroid",
     patterns: [/\b(thyroid|tsh|t4|t3|iodine)\b/i],
     summary:
-      "Thyreogen is a natural thyroid-gland peptide complex (A-2) and Bonothyrk a natural parathyroid peptide complex (A-21), both Khavinson Cytomaxes taken as courses. The thyroid sets the pace of energy use and temperature, while the parathyroid glands help keep calcium balanced. A controlled Russian study investigated a thyroid peptide bioregulator in older adults in a low-iodine region, though its published details are brief. Iodine and selenium also matter for the thyroid, but extra iodine can backfire without testing.",
+      "Thyreogen is a natural thyroid-gland peptide complex and Bonothyrk a natural parathyroid peptide complex, both Khavinson Cytomaxes. The thyroid sets the pace of energy use and temperature, while the parathyroid glands help keep calcium balanced. A small Russian study investigated a thyroid peptide in older adults; extra iodine can backfire without testing.",
     sections: [
       {
         heading: "What the research says",
@@ -1409,7 +1411,7 @@ export const TOPICS: Topic[] = [
       /\b(stress\w*|anxious|worr\w*|overwhelm\w*|burn ?out|burnt out|low mood|mood|irritab\w*|calm)\b/i,
     ],
     summary:
-      "Glandokort is a natural adrenal gland peptide complex from the Khavinson line, believed to support the body's everyday stress response, while Panaxod is built on Panax ginseng, an adaptogen with modest, mixed evidence in small studies. The difference is a tissue-specific peptide course versus a daily plant adaptogen, and ginseng can interact with some medicines. If low mood or worry has affected your sleep, appetite or work for more than two weeks, get support from a clinician.",
+      "Glandokort is a natural adrenal gland peptide complex, believed to support the body's everyday stress response, while Panaxod is built on Panax ginseng, an adaptogen with modest, mixed evidence. The difference is a tissue-specific peptide course versus a daily plant adaptogen, and ginseng can interact with some medicines. Low mood lasting over two weeks deserves support from a clinician.",
     sections: [
       {
         heading: "What the research says",
@@ -1461,7 +1463,7 @@ export const TOPICS: Topic[] = [
       /\b(anti-?aging|anti-?ageing|aging|ageing|longevity|live longer|healthy aging|healthy ageing|geroprotect\w*|lifespan|age better|slow (?:down )?aging)\b/i,
     ],
     summary:
-      "Endoluten is the Khavinson pineal peptide complex at the centre of most healthy-ageing protocols, and Revilab ML 01 combines pineal, immune and liver peptide complexes with resveratrol, choline and omega-3s. Researchers have investigated how short peptides influence gene activity in ageing cells and animals, with small human studies of related injectable extracts in older adults. No supplement has been shown in robust human trials to slow ageing, so this remains an emerging field.",
+      "Endoluten is the Khavinson pineal peptide complex at the centre of most healthy-ageing protocols, while Revilab ML 01 combines pineal, immune and liver peptides with resveratrol, choline and omega-3s. Researchers have investigated how short peptides influence gene activity in ageing cells and animals. No supplement has been shown in robust human trials to slow ageing, so this remains an emerging field.",
     sections: [
       {
         heading: "Where peptide bioregulators fit",
@@ -1567,6 +1569,13 @@ export const PRODUCT_EVIDENCE: Record<
     ],
     productNote:
       "Endoluten itself has no published human trials; the research is on related injectable extracts and the AEDG peptide.",
+  },
+  pinealon: {
+    lineage:
+      "a synthesized Cytogen whose peptide complex (AC-5) is made from the amino acids of the EDR tripeptide (Glu-Asp-Arg)",
+    sourceIds: ["pmid:21978084", "pmid:39518916"],
+    productNote:
+      "Pinealon as a finished product has no published human trials; the EDR research is cell and animal work.",
   },
   vladonix: {
     lineage:

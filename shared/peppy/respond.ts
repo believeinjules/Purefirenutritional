@@ -22,7 +22,7 @@ import {
   type PeppyResponse,
   type ResearchSource,
 } from "./types.js";
-import { productFamily, productWhyFromCatalog, protocolLine } from "./engine.js";
+import { productFamily, productResearch, productWhyFromCatalog, protocolLine } from "./engine.js";
 
 /** Only short plain strings in known slots (the profile comes from the browser). */
 export function sanitizeProfile(p: unknown): PeppyProfile | undefined {
@@ -107,6 +107,7 @@ export function llmCandidates(
       ...s,
       family: s.family ?? productFamily(s.product.id, s.product.category),
       protocol: s.protocol ?? protocolLine(s.product.id),
+      research: s.research ?? productResearch(s.product.id),
     });
   };
   const topic = analysis.topics[0];

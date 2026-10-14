@@ -490,12 +490,27 @@ export function protocolLine(id: string): string | undefined {
   return `Manufacturer protocol: ${/[.!?]$/.test(t) ? t : `${t}.`} (Label directions, not a clinically validated regimen.)`;
 }
 
+/** Studies with lifespan, mortality, survival or tumour outcomes are never surfaced on cards. */
+const BANNED_FINDING = /life ?span|mortality|surviv|tumou?r|cancer|oncolog/i;
+
+/** Up to 2 curated studies for a product's details panel (its lineage evidence). */
+export function productResearch(id: string): PeppyProductSuggestion["research"] {
+  const ids = PRODUCT_EVIDENCE[id]?.sourceIds ?? [];
+  const out = ids
+    .map(x => REGISTRY_BY_ID.get(x))
+    .filter((s): s is NonNullable<typeof s> => !!s && !!s.url && !BANNED_FINDING.test(`${s.title} ${s.finding}`))
+    .slice(0, 2)
+    .map(s => ({ id: s.id, title: s.title, url: s.url!, finding: s.finding }));
+  return out.length ? out : undefined;
+}
+
 function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProductSuggestion {
   return {
     ...s,
     tissue: tp?.tissue,
     family: tp?.family ?? productFamily(s.product.id, s.product.category),
     protocol: protocolLine(s.product.id),
+    research: productResearch(s.product.id),
   };
 }
 

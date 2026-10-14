@@ -70,6 +70,8 @@ export interface PeppyProductSuggestion {
   family?: ProductFamily;
   /** Verified manufacturer protocol from product-data.json, if any (never a clinical regimen). */
   protocol?: string;
+  /** Research about this product's peptide or ingredients (curated registry only), for the card details. */
+  research?: { id: string; title: string; url: string; finding?: string }[];
 }
 
 export type ProductFamily = "khavinson" | "prime-peptide" | "revilab" | "other";

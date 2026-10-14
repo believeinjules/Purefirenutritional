@@ -483,7 +483,7 @@ export default function AIAssistant() {
               </div>
 
               {/* Composer */}
-              <div className="sticky bottom-0 rounded-b-xl border-t bg-white/95 p-3 backdrop-blur sm:p-4">
+              <div className="sticky bottom-0 z-10 rounded-b-xl border-t bg-white/95 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] backdrop-blur sm:p-4" data-testid="pepita-composer">
                 <form onSubmit={onSubmit} className="flex gap-2">
                   <label htmlFor={`${baseId}-input`} className="sr-only">
                     Ask Pepita a question
@@ -494,13 +494,14 @@ export default function AIAssistant() {
                     onChange={e => setInput(e.target.value)}
                     maxLength={PEPPY_LIMITS.maxMessageChars}
                     placeholder="Ask about a symptom, peptide or product…"
-                    className="flex-1"
+                    className="h-11 flex-1 text-base sm:text-sm"
                     autoComplete="off"
+                    enterKeyHint="send"
                     data-testid="peppy-input"
                   />
                   <Button
                     type="submit"
-                    className="bg-brand-gradient"
+                    className="bg-brand-gradient h-11 w-11 flex-shrink-0 p-0"
                     disabled={!input.trim() || isLoading}
                     aria-label="Send"
                   >
