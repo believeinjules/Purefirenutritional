@@ -153,7 +153,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/ai-assistant" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  AI Assistant
+                  Pepita AI
                 </Link>
               </li>
             </ul>
