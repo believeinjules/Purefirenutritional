@@ -105,8 +105,30 @@ export interface SafetyNotice {
 
 export type PeppyMode = "llm" | "fallback" | "urgent";
 
+/** A manufacturer course rendered month by month (L2/L3); each phase expands on tap, never all at once. */
+export interface ProtocolTimeline {
+  id: string;
+  name: string;
+  goal: string;
+  /** Real source document (title, section, page). Only protocols from real sources are rendered. */
+  source: string;
+  duration: string;
+  /** "Educational, not clinically validated" note (always shown with the timeline). */
+  note: string;
+  phases: {
+    label: string;
+    items: { name: string; productId: string | null; directions: string; sold?: boolean }[];
+  }[];
+}
+
 export interface PeppyResponse {
   mode: PeppyMode;
+  /** Progressive-disclosure level: show (L1 default), explore (L2), deep (L3, explicitly asked). */
+  level?: "show" | "explore" | "deep";
+  /** Curated gold answer id, when one was used. */
+  gold?: string;
+  /** Month-by-month manufacturer course (L2/L3 only). */
+  protocol?: ProtocolTimeline;
   /** Short direct answer shown first. */
   summary: string;
   sections: AnswerSection[];

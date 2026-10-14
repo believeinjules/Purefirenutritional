@@ -66,8 +66,9 @@ describe("Pepita answer length", () => {
     const catalog = buildCatalog(products as never);
     const r = composeFallback(analyze({ message: "I can't sleep well", history: [], catalog }), catalog);
     const text = shortAnswer(r.summary, 3);
-    expect(wordCount(text)).toBeGreaterThanOrEqual(40);
-    expect(wordCount(text)).toBeLessThanOrEqual(65);
+    // v11 L1 budget: ≤75 generated words (gold sleep answer).
+    expect(wordCount(text)).toBeGreaterThanOrEqual(20);
+    expect(wordCount(text)).toBeLessThanOrEqual(75);
     expect(r.products[0].product.id).toBe("endoluten");
     expect(r.products.map(p => p.product.id)).not.toContain("pinalex-tab");
     expect(text).not.toMatch(/capsule|every 3 days|Epitalon/i);

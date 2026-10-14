@@ -24,6 +24,7 @@ import {
 import { findMentionedProducts } from "./catalog.js";
 import { RESEARCH_REGISTRY } from "./research-registry.js";
 import { getProductFacts } from "../product-facts.js";
+import { goldResponse, matchGold } from "./gold.js";
 import {
   bloodThinnerResponse,
   combinationResponse,
@@ -513,7 +514,7 @@ export function productResearch(id: string): PeppyProductSuggestion["research"] 
   return out.length ? out : undefined;
 }
 
-function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProductSuggestion {
+export function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProductSuggestion {
   return {
     ...s,
     tissue: tp?.tissue,
@@ -660,6 +661,19 @@ export function composeFallback(
   const used = new Set(usedSuggestions.map(normalizeForMatch));
   used.add(normalizeForMatch(analysis.message));
   const topic = analysis.topics[0];
+
+  // 0) Curated gold answers (progressive disclosure v11). Red-flag gold answers put medical advice first.
+  const gold = matchGold(analysis.message);
+  const broad = gold && ["symptom", "combining", "efficacy"].includes(gold.intent);
+  const specific = analysis.mentioned.length > 0 || analysis.intent === "dosage" || /ketamine/i.test(analysis.message);
+  if (gold && !(analysis.redFlag && gold.intent !== "red-flag") && !(broad && specific)) {
+    const g = goldResponse(gold, catalog, withCardFacts, ids =>
+      pickSources(ids.flatMap(id => (id.startsWith("topic:") ? TOPICS_BY_ID.get(id.slice(6))?.sourceIds ?? [] : [id])), [], 2)
+    );
+    const t = TOPICS_BY_ID.get(gold.id) ?? TOPICS_BY_ID.get(gold.sourceIds.find(i => i.startsWith("topic:"))?.slice(6) ?? "");
+    if (!g.learnMore && t?.learnMore) g.learnMore = t.learnMore;
+    return g;
+  }
 
   // 1) Emergencies short-circuit everything.
   if (analysis.redFlag) {

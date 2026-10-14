@@ -182,6 +182,7 @@ async function answerPeppyUnfiltered(
   const draft = composeFallback(analysis, deps.catalog, live, asked);
 
   const hardGuard =
+    !!draft.gold ||
     !!analysis.redFlag ||
     analysis.offTopic ||
     analysis.greeting ||

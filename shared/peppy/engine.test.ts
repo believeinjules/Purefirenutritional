@@ -31,7 +31,7 @@ describe("deterministic answers", () => {
   });
   it("gives an honest evidence answer with no product pitch", () => {
     const r = ask("Do Khavinson peptides actually work in humans?");
-    expect(r.summary).toMatch(/^Researchers have investigated/);
+    expect(r.summary).toMatch(/^Possibly, but the evidence is early\. Researchers have/); // gold L1 answer: conclusion first
     expect(r.summary).not.toMatch(/honest answer|evidence is limited/i);
     expect(r.products).toEqual([]);
   });

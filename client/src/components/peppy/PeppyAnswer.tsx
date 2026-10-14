@@ -1,5 +1,7 @@
 import type { PeppyResponse } from "@shared/peppy/types";
-import { DOCTOR_CONSULT_LINE, withoutGenericDoctorLines } from "@shared/peppy/product-notes";
+import { HEALTH_FOOTER, withoutGenericDoctorLines } from "@shared/peppy/product-notes";
+import { ShieldCheck } from "lucide-react";
+import PepitaProtocol from "./PepitaProtocol";
 import { inline, buildMentions } from "./RichText";
 import SafetyCallout from "./SafetyCallout";
 import StudyCitation from "./StudyCitation";
@@ -20,7 +22,7 @@ interface Props {
 }
 
 /** Inline research links under the answer (hover/tap for the lay summary). */
-const MAX_RESEARCH_LINKS = 3;
+const MAX_RESEARCH_LINKS = 2;
 
 /**
  * One Pepita answer (v10): up to 3 product cards first (price, size, Add to Cart, inline
@@ -33,19 +35,20 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
   const text = shortAnswer(withoutGenericDoctorLines(answer.summary), 3);
   const cards = urgent ? [] : answerProducts(answer.products, question);
   const mentions = buildMentions(cards.map(c => c.product));
-  const followUps = urgent ? [] : answer.followUps.slice(0, 2);
+  const followUps = urgent ? [] : answer.followUps.slice(0, 1);
+  const medicalFirst = !!answer.safety && answer.safety.level !== "info" && cards.length === 0;
   const learnMore = urgent ? [] : (answer.learnMore ?? []);
   const hasLearnMore = learnMore.length > 0 || cards.length > 1 || answer.research.length > 0;
   const research = answer.research.slice(0, MAX_RESEARCH_LINKS);
-  const chips = urgent ? [] : nextQuestions(answer.suggestions);
-  const worth = !urgent && answer.safety ? answer.safety : null;
+  const chips = urgent ? [] : nextQuestions(answer.suggestions).slice(0, 3);
+  const worth = !urgent && !medicalFirst && answer.safety ? answer.safety : null;
 
   return (
     <article className="space-y-3 text-[15px] leading-relaxed text-gray-800" aria-labelledby={headingId}>
       <h2 id={headingId} className="sr-only">
         Pepita's answer
       </h2>
-      {answer.safety && urgent && <SafetyCallout notice={answer.safety} />}
+      {answer.safety && (urgent || medicalFirst) && <SafetyCallout notice={answer.safety} />}
 
       {cards.length > 0 && (
         <ul className="space-y-2" data-testid="pepita-product-cards" aria-label="Suggested products">
@@ -61,13 +64,19 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
         {inline(text, mentions)}
       </p>
 
+      {answer.protocol && <PepitaProtocol protocol={answer.protocol} />}
+
       {research.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5" data-testid="pepita-research-links">
-          <span className="text-xs text-gray-500">Research:</span>
-          {research.map((s, i) => (
-            <StudyCitation key={s.id} source={s} n={i + 1} />
-          ))}
-        </div>
+        <details className="text-sm" data-testid="pepita-research-links">
+          <summary className="inline-flex min-h-[44px] cursor-pointer select-none items-center text-xs font-medium text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400">
+            Research ({research.length})
+          </summary>
+          <div className="flex flex-wrap items-center gap-1.5 pb-1">
+            {research.map((s, i) => (
+              <StudyCitation key={s.id} source={s} n={i + 1} />
+            ))}
+          </div>
+        </details>
       )}
 
       {worth && (
@@ -175,9 +184,13 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
         </div>
       )}
 
-      <p className="text-[11px] leading-snug text-gray-500" data-testid="pepita-doctor-line">
-        {DOCTOR_CONSULT_LINE}
-      </p>
+      <aside
+        className="flex items-start gap-2 rounded-lg bg-gray-50 px-2.5 py-2 text-[11px] leading-snug text-gray-500"
+        data-testid="pepita-health-footer"
+      >
+        <ShieldCheck className="mt-px h-3.5 w-3.5 shrink-0 text-gray-400" aria-hidden="true" />
+        <span>{HEALTH_FOOTER}</span>
+      </aside>
     </article>
   );
 }

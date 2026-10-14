@@ -16,6 +16,10 @@ export const DOCTOR_CONSULT_LINE =
 export const DOSING_NOTE =
   "Dosage may vary depending on factors like sex, age, health status, and whether the goal is preventive (general upkeep) or regenerative (more active support); label directions are on the product page, and your doctor can help decide what's right for you, ideally informed by proper blood tests.";
 
+/** Permanent, subtle health footer on every Pepita answer (v11); replaces the per-answer doctor line. */
+export const HEALTH_FOOTER =
+  "A quick health reminder: This information is educational, not medical advice. Consult your healthcare professional before starting supplements, particularly if you have a medical condition or take medications.";
+
 /** Short pre-order mention added when a suggested product is a liquid/drop (pre-order) product. */
 export const PREORDER_LINE =
   "Liquid forms are available by pre-order and usually ship within about two extra weeks.";
