@@ -1,0 +1,136 @@
+import { Helmet } from "react-helmet-async";
+import PageSeo from "@/components/seo/PageSeo";
+import { Link } from "wouter";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+
+// Body text: the-short-peptide/pf-perimenopause-khavinson-article.md, verbatim (HTML comments omitted).
+const COVER_JPG = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg";
+const COVER_WEBP = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.webp";
+const COVER_ALT = "A woman with short hair in a rust sweater reads printed research papers at a sunlit kitchen table, beside a mug and a bowl of oranges, with the title: Khavinson Peptides for Perimenopause: Injection Data Isn't Oral Proof";
+const EVIDENCE_WEBP = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-evidence-types-limits.webp";
+const EVIDENCE_ALT = "Evidence Types and Limits infographic with four panels: Older adults (6–8 years; linked to better health indices); Animal research (aged monkeys: glucose, insulin, melatonin effects); Perimenopause (small observations; support, not care replacement); Trial gap (no large trials show symptom relief).";
+
+export default function ArticlePerimenopauseOralEvidence() {
+  return (
+    <div className="min-h-screen flex flex-col bg-white">
+      <PageSeo
+        title="Oral Khavinson Bioregulators in Perimenopause | Pure Fire Nutritional"
+        description="What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality."
+        path="/learn/khavinson-bioregulators-perimenopause-oral-evidence"
+        type="article"
+        image={COVER_JPG}
+        imageAlt={COVER_ALT}
+      />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show",
+          "description": "What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality.",
+          "image": "https://www.purefirenutritional.com/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg",
+          "author": { "@type": "Person", "name": "Julia Shulman" },
+          "datePublished": "2026-10-14",
+          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "url": "https://www.purefirenutritional.com/learn/khavinson-bioregulators-perimenopause-oral-evidence"
+        })}</script>
+      </Helmet>
+      <Navigation />
+      <main className="flex-1">
+        <div className="max-w-3xl mx-auto px-4 py-16">
+
+          <div className="mb-6">
+            <Link href="/journal" className="text-sm text-orange-600 hover:underline">← Longevity Journal</Link>
+          </div>
+
+          <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
+          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
+            Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show
+          </h1>
+          <p className="text-gray-400 text-sm mb-8">
+            <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
+          </p>
+
+          <picture>
+            <source srcSet={COVER_WEBP} type="image/webp" />
+            <img
+              src={COVER_JPG}
+              alt={COVER_ALT}
+              width={1035}
+              height={568}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
+
+          <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
+
+            <p>Some women take oral Khavinson bioregulators as dietary supplements during perimenopause, the years when the body is adjusting to hormonal changes. We sell oral bioregulators at Pure Fire, so we want to be clear with you from the start. These products are not FDA-approved to treat menopause or any of its symptoms. The research on them is limited. Most of it used injected forms, not capsules. Please talk with your clinician before you add anything new.</p>
+            <p><em>These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.</em></p>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">The short version</h2>
+            <ul className="list-disc pl-6 space-y-2"><li><strong>The best-known human data comes from small, older studies of <em>injected</em> peptide preparations in older adults.</strong> None of it comes from perimenopause trials. (<a href="#evidence" className="text-orange-600 hover:underline">Evidence</a>)</li><li><strong>Epitalon has shown activity when given orally to animals.</strong> Whether people absorb oral peptides the same way is still an open question. (<a href="#oral-forms" className="text-orange-600 hover:underline">How oral forms work</a>)</li><li><strong>The FDA does not review dietary supplements for effectiveness before they're sold.</strong> (<a href="#supplement-status" className="text-orange-600 hover:underline">Supplement status</a>)</li><li><strong>Check with your clinician, and make sure the lot number on your bottle matches its Certificate of Analysis (COA).</strong> (<a href="#verifying-quality" className="text-orange-600 hover:underline">Verifying quality</a>)</li></ul>
+            <blockquote className="border-l-4 border-orange-300 pl-4 italic"><strong>From Pure Fire:</strong> We carry single-sequence oral Khavinson bioregulators, and every lot comes with its documentation. You can <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-orange-600 hover:underline">browse our bioregulators</Link> or <Link href="/authenticity" className="text-orange-600 hover:underline">see how we document authenticity</Link>. If you're new to all this, start with <Link href="/learn/what-are-khavinson-peptide-bioregulators" className="text-orange-600 hover:underline">What Are Khavinson Peptide Bioregulators?</Link></blockquote>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Contents</h2>
+            <ol className="list-decimal pl-6 space-y-2"><li><a href="#what-they-are" className="text-orange-600 hover:underline">What Khavinson bioregulators are, and why we only talk about oral forms</a></li><li><a href="#evidence" className="text-orange-600 hover:underline">What the evidence says about midlife endocrine health</a></li><li><a href="#supplement-status" className="text-orange-600 hover:underline">What "dietary supplement" actually means</a></li><li><a href="#oral-forms" className="text-orange-600 hover:underline">How oral bioregulators are made and what to expect</a></li><li><a href="#verifying-quality" className="text-orange-600 hover:underline">How to verify quality</a></li><li><a href="#clinician-questions" className="text-orange-600 hover:underline">Questions to bring to your clinician</a></li><li><a href="#why-we-focus" className="text-orange-600 hover:underline">Why we focus on Khavinson bioregulators</a></li><li><a href="#how-we-help" className="text-orange-600 hover:underline">How we can help you choose</a></li><li><a href="#disclaimer" className="text-orange-600 hover:underline">Medical disclaimer</a></li><li><a href="#faq" className="text-orange-600 hover:underline">FAQ</a></li><li><a href="#sources" className="text-orange-600 hover:underline">Sources</a></li><li><a href="#recommended-reading" className="text-orange-600 hover:underline">Recommended reading</a></li></ol>
+            <h2 id="what-they-are" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">1. What Khavinson bioregulators are, and why we only talk about oral forms</h2>
+            <p>Khavinson bioregulators are short peptides, just a few amino acids long. They came out of decades of work led by Professor Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology in Russia. The idea behind them is that specific short peptides relate to specific tissues, such as the pineal gland or thymus. That idea is still being studied. It isn't settled science. We go into the background more in <Link href="/learn/what-are-khavinson-peptide-bioregulators" className="text-orange-600 hover:underline">What Are Khavinson Peptide Bioregulators?</Link> and on our <Link href="/science" className="text-orange-600 hover:underline">Science page</Link>.</p>
+            <p>Here's what this article covers, and what it doesn't:</p>
+            <ul className="list-disc pl-6 space-y-2"><li><strong>Oral only.</strong> We talk about capsules taken by mouth, sold as dietary supplements.</li><li><strong>Supplement framing.</strong> We describe how they're positioned to support normal body function, not to treat any condition.</li><li><strong>Research context.</strong> When we cite a study, we tell you what form was used and who was studied.</li><li><strong>Routes don't transfer.</strong> Results from injected preparations don't tell you what a capsule will do. We'll keep pointing this out, because it matters (more in <a href="#oral-forms" className="text-orange-600 hover:underline">Section 4</a>).</li></ul>
+            <h2 id="evidence" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">2. What the evidence says about midlife endocrine health</h2>
+            <p>We want to be honest about how thin this evidence is. Here's what exists:</p>
+            <p><strong>A small, older human study of injected preparations in older adults.</strong> In 2003, Khavinson and Morozov reported on 266 older adults followed over 6 to 8 years. Participants received injected Thymalin (a thymus extract) and/or Epithalamin (a pineal extract) during the first 2 to 3 years. The authors reported changes in several cardiovascular, endocrine, immune, and metabolic markers. This was a single study, decades old, run by the institute that developed these preparations, using injected forms in people over 60. It doesn't tell us anything direct about oral capsules or about perimenopause. (<a href="https://pubmed.ncbi.nlm.nih.gov/14523363/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 14523363</a>)</p>
+            <p><strong>Animal work on the pineal peptide.</strong> A 2005 study in older rhesus monkeys looked at Epitalon, a synthetic four-amino-acid peptide (Ala-Glu-Asp-Gly) based on Epithalamin. In the older animals, researchers reported changes in glucose and insulin patterns and in nighttime melatonin levels. Young animals showed no such changes. These were monkeys, the study was small, and the paper doesn't establish that the effects carry over to people. (<a href="https://pubmed.ncbi.nlm.nih.gov/15664732/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 15664732</a>)</p>
+            <p><strong>A 2025 review of Epitalon.</strong> Researchers at the Medical University of Warsaw reviewed about 25 years of lab, animal, and computer-modeling studies. They note that most in-vivo work used subcutaneous injection. They also describe a rat study where Epitalon given by mouth had measurable effects, and say that oral delivery is still an area for future work. It's a helpful map of what's known, and it's open about how little structural and human data there is. (<a href="https://pubmed.ncbi.nlm.nih.gov/40141333/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 40141333</a>)</p>
+            <p><strong>Perimenopause-specific human data.</strong> We looked for clinical studies of oral Khavinson bioregulators in perimenopausal women and couldn't find any we could verify. So we're not citing any.</p>
+            <p><strong>The limits.</strong> Midlife symptoms are very responsive to expectation. Harvard Health reports that placebos alone can reduce hot flashes by about 30%, measured objectively. The Menopause Society's 2023 position statement on nonhormone therapy doesn't recommend any dietary supplement for vasomotor symptoms. (<a href="https://www.health.harvard.edu/womens-health/menopause-supplements-effective-relief-or-empty-promises" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Harvard Health</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/37252752/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Menopause Society 2023, PubMed 37252752</a>) So how good you feel isn't proof that a product worked. That's one more reason to make decisions with a clinician (see <a href="#clinician-questions" className="text-orange-600 hover:underline">Section 6</a>).</p>
+            <img
+              src={EVIDENCE_WEBP}
+              alt={EVIDENCE_ALT}
+              width={1083}
+              height={609}
+              loading="lazy"
+              className="w-full h-auto rounded-lg"
+            />
+            <h2 id="supplement-status" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">3. What "dietary supplement" actually means</h2>
+            <p>Under the Dietary Supplement Health and Education Act of 1994 (DSHEA), supplements are regulated differently from drugs. A few things to know:</p>
+            <ul className="list-disc pl-6 space-y-2"><li><strong>No pre-market approval.</strong> The FDA doesn't evaluate whether a supplement works before it goes on sale. The manufacturer is responsible for making sure the product is safe and the label is truthful. (<a href="https://ods.od.nih.gov/factsheets/WYNTK-Consumer/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">NIH ODS</a>; <a href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/dietary-supplements-guidance-documents-regulatory-information" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA DSHEA guidance</a>)</li><li><strong>Structure/function claims only.</strong> A supplement can say it supports a normal body function. It can't say it treats a disease, and that kind of claim has to carry the FDA disclaimer you'll see throughout this article.</li><li><strong>Peptides are a gray zone right now.</strong> Johns Hopkins notes that many peptides sold online, especially injectables, have not been reviewed for safety or effectiveness. (<a href="https://publichealth.jhu.edu/2026/how-the-fda-regulates-peptides" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Johns Hopkins Bloomberg School of Public Health, 2026</a>)</li></ul>
+            <p><strong>A quick label checklist:</strong></p>
+            <ul className="list-disc pl-6 space-y-2"><li>A Supplement Facts panel listing each ingredient and amount</li><li>The manufacturer's or distributor's name and contact information</li><li>A lot number and expiration date</li><li>The DSHEA disclaimer next to any structure/function statement</li></ul>
+            <p>If you're pregnant or nursing, NIH advises caution with any supplement beyond a standard prenatal, because most haven't been well tested in those groups. (<a href="https://ods.od.nih.gov/factsheets/WYNTK-Consumer/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">NIH ODS</a>)</p>
+            <h2 id="oral-forms" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">4. How oral bioregulators are made and what to expect</h2>
+            <p>Oral bioregulators usually come as capsules containing a synthesized short peptide or a tissue-derived peptide complex, plus fillers. Here's what we can and can't say:</p>
+            <ul className="list-disc pl-6 space-y-2"><li><strong>Animal oral data exists.</strong> As noted in <a href="#evidence" className="text-orange-600 hover:underline">Section 2</a>, at least one rat study showed effects from oral Epitalon.</li><li><strong>Human oral data is thin.</strong> We don't have good evidence on how much of an oral short peptide the human body absorbs intact.</li><li><strong>Routes aren't interchangeable.</strong> Injected and oral forms behave differently in the body. Please don't read injection studies as proof that a capsule will do the same thing.</li><li><strong>Please don't self-dose.</strong> We're not giving dosing guidance here. Follow the product label and your clinician's advice.</li><li><strong>No promised timelines.</strong> We're not going to tell you when you'll "feel something." Nobody can honestly promise that.</li></ul>
+            <h2 id="verifying-quality" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">5. How to verify quality</h2>
+            <p>Before you take any supplement, work through this in order:</p>
+            <ol className="list-decimal pl-6 space-y-2"><li><strong>Match the lot.</strong> The lot number on your bottle should match the lot on the COA. If it doesn't, ask the seller before you use it. (Here's <Link href="/authenticity" className="text-orange-600 hover:underline">how we document ours</Link>.)</li><li><strong>Look for third-party testing.</strong> Harvard Health experts suggest looking for USP or NSF verification. NIH lists USP, NSF, and ConsumerLab.com as independent testers, and notes that a seal confirms quality, not safety or effectiveness.</li><li><strong>Read the Supplement Facts.</strong> Check that the ingredients and amounts match what the product claims.</li><li><strong>Choose single-sequence products over blends.</strong> With a one-ingredient product, you know what you're taking.</li><li><strong>Know how to reach the manufacturer, and how to report a problem.</strong> If you have a bad reaction, stop the product, tell your clinician, and report it to the FDA (800-FDA-1088 or the MedWatch online form) and to the manufacturer.</li></ol>
+            <blockquote className="border-l-4 border-orange-300 pl-4 italic"><strong>Tip:</strong> Take a photo of the label and the COA when your order arrives. If you ever have a question or a reaction, you'll have the lot number and documentation right there.</blockquote>
+            <h2 id="clinician-questions" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">6. Questions to bring to your clinician</h2>
+            <p>As a therapist, I've seen how much easier a hard conversation gets when you walk in with a list. Here's one you can use:</p>
+            <ul className="list-disc pl-6 space-y-2"><li>Could this interact with my medications or other supplements?</li><li>Should I see a menopause specialist?</li><li>Are there baseline labs worth checking first?</li><li>What should we watch for, and when should I stop?</li></ul>
+            <p>A few habits that help:</p>
+            <ul className="list-disc pl-6 space-y-2"><li><strong>Try one new product at a time,</strong> so you can tell what's doing what.</li><li><strong>Report any adverse events</strong> to your clinician and to the FDA (see <a href="#verifying-quality" className="text-orange-600 hover:underline">Section 5</a>).</li><li><strong>Ask your clinician to add it to your medical record.</strong> NIH also offers a printable supplement and medicine record you can keep yourself.</li></ul>
+            <h2 id="why-we-focus" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">7. Why we focus on Khavinson bioregulators</h2>
+            <p>We're drawn to Khavinson bioregulators because they're short, defined sequences with a long research history behind them, and we think that history deserves careful, honest attention. That doesn't mean we'll promise they'll fix your hot flashes or your sleep. They won't be a cure for anything. At most, they're one small piece of a bigger plan that includes your clinician, sleep, movement, food, relationships, and the support you need through a real life transition.</p>
+            <p>Perimenopause can feel isolating. You deserve clear information, not hype.</p>
+            <p>— Julia</p>
+            <h2 id="how-we-help" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">8. How we can help you choose</h2>
+            <ul className="list-disc pl-6 space-y-2"><li><strong>Browse the store:</strong> <Link href="/products" className="text-orange-600 hover:underline">All products</Link> or <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-orange-600 hover:underline">peptide bioregulators</Link>.</li><li><strong>Shipping:</strong> Shipping is $19.95 and free on orders of $150 or more. See <Link href="/shipping" className="text-orange-600 hover:underline">shipping details</Link>. </li><li><strong>Buying guide:</strong> <Link href="/learn/buy-khavinson-peptides-usa" className="text-orange-600 hover:underline">How to buy Khavinson peptides in the USA</Link>.</li><li><strong>Ask Pepita:</strong> Our <Link href="/ai-assistant" className="text-orange-600 hover:underline">AI assistant, Pepita</Link>, can answer product and documentation questions. Pepita isn't a clinician and can't give medical advice.</li><li><strong>Common questions:</strong> Visit our <Link href="/faq" className="text-orange-600 hover:underline">FAQ</Link>.</li><li><strong>Your clinician:</strong> Still the most important person to talk to.</li></ul>
+            <p>For a deeper look at peptide research, our sister site <a href="https://theshortpeptide.com" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">The Short Peptide</a> is a good place to read more.</p>
+            <h2 id="disclaimer" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Medical disclaimer</h2>
+            <p>This article is for educational purposes only and isn't medical advice. Pure Fire Nutritional sells dietary supplements, not drugs. <em>These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.</em> Talk with a qualified clinician before starting any supplement, especially if you're pregnant, nursing, taking medications, or managing a health condition.</p>
+            <h2 id="faq" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">FAQ</h2>
+            <p><strong>Are Khavinson bioregulators approved for menopause symptoms?</strong><br />No. They're sold as dietary supplements, and the FDA hasn't approved them to treat any condition. See <a href="#supplement-status" className="text-orange-600 hover:underline">Section 3</a>.</p>
+            <p><strong>Does the injection research apply to oral capsules?</strong><br />Not directly. Most human data used injected preparations in older adults. Oral absorption in people hasn't been well studied. See <a href="#oral-forms" className="text-orange-600 hover:underline">Section 4</a>.</p>
+            <p><strong>How do I know a product is what it says it is?</strong><br />Match the bottle's lot number to its COA, look for third-party testing, and choose single-sequence products. See <a href="#verifying-quality" className="text-orange-600 hover:underline">Section 5</a>.</p>
+            <p><strong>Can I take them alongside hormone therapy or other medications?</strong><br />Ask your clinician. Interactions haven't been well studied. See <a href="#clinician-questions" className="text-orange-600 hover:underline">Section 6</a>.</p>
+            <h2 id="sources" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Sources</h2>
+            <ol className="list-decimal pl-6 space-y-2"><li>Khavinson VKh, Morozov VG. <em>Neuro Endocrinol Lett.</em> 2003;24(3-4):233-240. Small, older study of injected Thymalin and Epithalamin in 266 older adults over 6 to 8 years. <a href="https://pubmed.ncbi.nlm.nih.gov/14523363/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 14523363</a></li><li>Goncharova ND, Vengerin AA, Khavinson VKh, Lapin BA. Pineal peptides and age-related hormonal function in rhesus monkeys. <em>Exp Gerontol.</em> 2005;40(1-2):51-57. <a href="https://pubmed.ncbi.nlm.nih.gov/15664732/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 15664732</a></li><li>Araj SK, et al. Overview of Epitalon, a highly bioactive pineal tetrapeptide. <em>Int J Mol Sci.</em> 2025;26(6):2691. <a href="https://pubmed.ncbi.nlm.nih.gov/40141333/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 40141333</a></li><li>The North American Menopause Society. The 2023 nonhormone therapy position statement. <em>Menopause.</em> 2023;30(6):573-590. <a href="https://pubmed.ncbi.nlm.nih.gov/37252752/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 37252752</a></li><li>Harvard Health Publishing. Menopause supplements: Effective relief or empty promises? (2024). <a href="https://www.health.harvard.edu/womens-health/menopause-supplements-effective-relief-or-empty-promises" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Link</a></li><li>U.S. FDA. Dietary Supplements Guidance Documents & Regulatory Information. <a href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/dietary-supplements-guidance-documents-regulatory-information" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Link</a></li><li>NIH Office of Dietary Supplements. Dietary Supplements: What You Need to Know. <a href="https://ods.od.nih.gov/factsheets/WYNTK-Consumer/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Link</a></li><li>Johns Hopkins Bloomberg School of Public Health. More Peptides Could Hit the Market Soon (2026). <a href="https://publichealth.jhu.edu/2026/how-the-fda-regulates-peptides" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Link</a></li></ol>
+            <h2 id="recommended-reading" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Recommended reading</h2>
+            <ul className="list-disc pl-6 space-y-2"><li><Link href="/learn/what-are-khavinson-peptide-bioregulators" className="text-orange-600 hover:underline">What Are Khavinson Peptide Bioregulators?</Link></li><li><Link href="/learn/peptides-in-context-systems-view" className="text-orange-600 hover:underline">Peptides in Context: A Systems View</Link></li><li><Link href="/science" className="text-orange-600 hover:underline">The Science behind Pure Fire</Link></li><li><Link href="/journal" className="text-orange-600 hover:underline">Pure Fire Journal</Link></li></ul>
+
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}

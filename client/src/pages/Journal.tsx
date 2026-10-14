@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import PageSeo from "@/components/seo/PageSeo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { LEARN_ARTICLES } from "@/content/learnArticles";
+import { JOURNAL_ARTICLES } from "@/content/learnArticles";
 
 export const JOURNAL_TITLE = "Longevity Journal | Pure Fire Nutritional";
 export const JOURNAL_DESCRIPTION =
@@ -22,7 +22,7 @@ export default function Journal() {
           </p>
 
           <ul className="grid gap-8 sm:grid-cols-2">
-            {LEARN_ARTICLES.map((a) => (
+            {JOURNAL_ARTICLES.map((a) => (
               <li key={a.href} className="min-w-0">
                 <Link
                   href={a.href}

@@ -30,6 +30,7 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/learn/what-are-khavinson-peptide-bioregulators",
   "/learn/buy-khavinson-peptides-usa",
   "/learn/peptides-in-context-systems-view",
+  "/learn/khavinson-bioregulators-perimenopause-oral-evidence",
   // /privacy, /terms, /shipping, /returns
   ...POLICY_PATHS,
   ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),

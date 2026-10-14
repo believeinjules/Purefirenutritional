@@ -231,7 +231,7 @@ describe("/journal index", () => {
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
-    expect(LEARN_ARTICLES).toHaveLength(3);
+    expect(LEARN_ARTICLES).toHaveLength(4);
     for (const a of LEARN_ARTICLES) {
       expect(a.href.startsWith("/learn/"), a.href).toBe(true);
       expect(app).toContain(`<Route path="${a.href}"`);
@@ -252,7 +252,7 @@ describe("/journal index", () => {
     const pic = LEARN_ARTICLES.find((a) => a.href === "/learn/peptides-in-context-systems-view");
     expect(pic?.hideFromNav).toBe(true);
     // The on-page title of the US article stays the full title.
-    expect(LEARN_ARTICLES[1].title).toBe("Khavinson Peptides in the United States");
+    expect(LEARN_ARTICLES[1].title).toBe("Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide");
     expect(nav).toContain("LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
     expect(nav).toContain('{ label: "Longevity Journal", href: "/journal" }');
     expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science
@@ -293,11 +293,8 @@ describe("Cytomaxes vs Cytogens merged into the What Are article", () => {
   });
 
   it("the What Are article has the #cytomaxes-vs-cytogens anchor on the Two Types section", () => {
-    // Julia's light version (2026-10-13): the anchor sits on "Two Types You’ll Find at Pure Fire".
-    expect(whatAre).toContain('<section id="cytomaxes-vs-cytogens"');
-    const sec = whatAre.slice(whatAre.indexOf('<section id="cytomaxes-vs-cytogens"'));
-    expect(sec).toContain("Two Types You’ll Find at Pure Fire</h2>");
-    expect(sec.indexOf("Two Types")).toBeLessThan(sec.indexOf("</section>"));
+    // 2026-10-14 rewrite: the anchor sits on the "2. Two types you'll find at Pure Fire" heading.
+    expect(whatAre).toMatch(/<h2 id="cytomaxes-vs-cytogens"[^>]*>2\. Two types you'll find at Pure Fire<\/h2>/);
   });
 
   it("the FAQ has one Cytomaxes vs Cytogens entry linking to the section", () => {
