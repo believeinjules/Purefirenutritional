@@ -1296,12 +1296,6 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "Gotratix isn't indexed in PubMed and has no published human trials.",
       },
-      {
-        id: "bonothyrk",
-        why: "A Khavinson peptide bioregulator that the catalog associates with the nervous and musculoskeletal systems.",
-        evidenceNote:
-          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Bonothyrk as a finished product has no published human trials.",
-      },
     ],
     productPolicy: "symptom",
     followUps: [
@@ -1334,6 +1328,12 @@ export const TOPICS: Topic[] = [
         why: "A natural thyroid-gland peptide complex (A-2) the catalog describes for thyroid support.",
         evidenceNote:
           "Thyroid peptide evidence is one small Russian study; Thyreogen itself hasn't been tested, and it is not a substitute for thyroid medicine.",
+      },
+      {
+        id: "bonothyrk",
+        why: "A Khavinson Cytomax: a natural parathyroid gland peptide complex (A-21), believed to support normal parathyroid function and calcium balance.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Bonothyrk as a finished product has no published human trials.",
       },
     ],
     productPolicy: "symptom",

@@ -3062,46 +3062,95 @@
     {
       "id": "bonothyrk",
       "name": "Bonothyrk",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/",
+        "/workspace/khavinson-pdfs/gcyto2.txt",
+        "/workspace/pepita-live/endo/geron.txt"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
-      "formats": [],
-      "schedules": [],
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+            "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+            "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            2,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+          "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "microcrystalline cellulose (bulking agent); hydroxypropyl methylcellulose (capsule shell), water, carrageenan (thickener), potassium acetate (acidity regulator); peptide complex A-21, containing amino acids (glutamic acid, aspartic acid, alanine, leucine, valine, isoleucine, proline, serine); calcium salts of fatty acids (anti-caking agent). The recommended daily dose, or 2 or 4 capsules, contains 20 mg or 40 mg of peptide complex А-21.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "quantities": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Recommended daily dose (2 or 4 capsules) contains 20 mg or 40 mg of peptide complex A-21; capsule 0,215 g",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Duration of course is 1 month",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "sizes": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "sizeDifferences": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Manufacturer: same capsule (0,215 g) and same directions for both packs; 20 or 60 capsules per pack is the only printed difference.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "documentedProtocols": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Manufacturer page states only: course 1 month, repeat after 3-6 months.",
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/"
       },
       "sexSpecificNotes": {
         "status": "unverified",

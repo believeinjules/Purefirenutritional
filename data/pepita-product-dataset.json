@@ -4626,5 +4626,51 @@
   "research_study_regimens": [],
   "research_study_regimens_confidence": "unverified",
   "schedule_type": "daily"
+ },
+ {
+  "name": "Bonothyrk",
+  "slug": "bonothyrk",
+  "pure_fire_url": "https://www.purefirenutritional.com/products/bonothyrk",
+  "product_line": "Cytomax natural",
+  "body_system": "parathyroid glands",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "pack_size_as_printed": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+  "ingredients_as_printed": "microcrystalline cellulose (bulking agent); hydroxypropyl methylcellulose (capsule shell), water, carrageenan (thickener), potassium acetate (acidity regulator); peptide complex A-21, containing amino acids (glutamic acid, aspartic acid, alanine, leucine, valine, isoleucine, proline, serine); calcium salts of fatty acids (anti-caking agent). The recommended daily dose, or 2 or 4 capsules, contains 20 mg or 40 mg of peptide complex А-21.",
+  "ingredients_confidence": "manufacturer-claim",
+  "quantities_as_printed": "Recommended daily dose (2 or 4 capsules) contains 20 mg or 40 mg of peptide complex A-21; capsule 0,215 g",
+  "quantities_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meal",
+  "course_duration": "Duration of course is 1 month",
+  "pack_20_vs_60_differences": "Manufacturer: same capsule (0,215 g) and same directions for both packs; 20 or 60 capsules per pack is the only printed difference.",
+  "pack_differences_confidence": "manufacturer-claim",
+  "sex_specific_notes": "",
+  "sex_specific_confidence": "unverified",
+  "contraindications_warnings_as_printed": "",
+  "contraindications_confidence": "unverified",
+  "source_documents": [
+   "https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/",
+   "/workspace/khavinson-pdfs/gcyto2.txt",
+   "/workspace/pepita-live/endo/geron.txt"
+  ],
+  "background_source_note": "peptideproduct.com Bonothyrk page fetched 2026-10-13 (its long 'Products description' paragraph is copied from Ventfort's vascular text and was ignored). peptid.ru has no Bonothyrk product page (URL renders the homepage).",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/",
+    "text": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+    "language": "en"
+   }
+  ],
+  "label_directions_confidence": "manufacturer-claim",
+  "label_directions_en_as_printed": "adults by 1 or 2 capsules 2 times a day, during meals. Duration of course is 1 month. The course can be repeated after 3-6 months.",
+  "manufacturer_protocols": "Manufacturer page states only: course 1 month, repeat after 3-6 months.",
+  "manufacturer_protocols_confidence": "manufacturer-claim",
+  "research_study_regimens": [],
+  "research_study_regimens_confidence": "unverified",
+  "schedule_type": "daily"
  }
 ]
