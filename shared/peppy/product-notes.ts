@@ -18,7 +18,10 @@ export const DOSING_NOTE =
 
 /** Permanent, subtle health footer on every Pepita answer (v11); replaces the per-answer doctor line. */
 export const HEALTH_FOOTER =
-  "A quick health reminder: This information is educational, not medical advice. Consult your healthcare professional before starting supplements, particularly if you have a medical condition or take medications.";
+  "Educational, not medical advice. Doses, combinations and courses vary: check them with your healthcare provider before starting, especially if you have a medical condition, take medications, or are pregnant or breastfeeding.";
+
+/** The only intro disclaimer: first line of every substantive Pepita answer (Julia, 2026-10-14). */
+export const CONSULT_LINE = "Please consult with a medical/healthcare professional.";
 
 /** Short pre-order mention added when a suggested product is a liquid/drop (pre-order) product. */
 export const PREORDER_LINE =

@@ -21,7 +21,7 @@ describe("Pepita v6 response logic", () => {
     expect(response.products.find(p => p.product.id === "prime-peptide-joints")?.protocol).toMatch(/3 times a day/);
     // v11 L1: one follow-up question plus 2–3 chips.
     expect(response.followUps.length).toBe(1);
-    expect(response.suggestions.length).toBeGreaterThanOrEqual(2);
+    expect(response.suggestions).toEqual([]); // v12: no generic chips
     expect(response.learnMore?.map(s => s.heading)).toContain("How the three picks differ");
     expect(response.summary).not.toMatch(/^(evidence is limited|only animal)/i);
     expect(response.summary).not.toMatch(/only cell and animal studies/i);

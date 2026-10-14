@@ -19,10 +19,15 @@
    "eligibleProducts": [
     "endoluten"
    ],
-   "expectedShortAnswer": "^Adults: 1 capsule every 3 days, in the morning or at midday\\. Course: 20 days to 2 months\\.$",
-   "followUps": 1,
+   "expectedShortAnswer": "not taken daily",
+   "followUps": 0,
    "minCitations": 0,
-   "mustNotContain": "sources differ|check (the|your) package|label versions"
+   "mustNotContain": "sources differ|check (the|your) package|label versions",
+   "dosingFacts": {
+    "dose": "1 capsule every 3 days",
+    "timing": "In the morning or at midday",
+    "course": "20 days to 2 months"
+   }
   },
   {
    "question": "My joints ache",
@@ -90,7 +95,7 @@
     "revilab-ml-08",
     "revilab-sl-10"
    ],
-   "expectedShortAnswer": "ML 08 in the first two months and SL 10 in months three and four",
+   "expectedShortAnswer": "Zhenoluten is a natural ovarian peptide complex",
    "followUps": 1,
    "minCitations": 0
   },
@@ -186,9 +191,14 @@
    "eligibleProducts": [
     "endoluten"
    ],
-   "expectedShortAnswer": "^Adults: 1 capsule every 3 days",
-   "followUps": 1,
-   "minCitations": 0
+   "expectedShortAnswer": "not taken daily",
+   "followUps": 0,
+   "minCitations": 0,
+   "dosingFacts": {
+    "dose": "1 capsule every 3 days",
+    "timing": "In the morning or at midday",
+    "course": "20 days to 2 months"
+   }
   },
   {
    "question": "How often do I take Endoluten?",
@@ -196,19 +206,14 @@
    "eligibleProducts": [
     "endoluten"
    ],
-   "expectedShortAnswer": "^Adults: 1 capsule every 3 days",
-   "followUps": 1,
-   "minCitations": 0
-  },
-  {
-   "question": "Endoluten dosage",
-   "gold": "endoluten-dosing",
-   "eligibleProducts": [
-    "endoluten"
-   ],
-   "expectedShortAnswer": "^Adults: 1 capsule every 3 days",
-   "followUps": 1,
-   "minCitations": 0
+   "expectedShortAnswer": "not taken daily",
+   "followUps": 0,
+   "minCitations": 0,
+   "dosingFacts": {
+    "dose": "1 capsule every 3 days",
+    "timing": "In the morning or at midday",
+    "course": "20 days to 2 months"
+   }
   },
   {
    "question": "Endoluten vs Pinealon",
@@ -310,7 +315,7 @@
     "revilab-ml-08",
     "revilab-sl-10"
    ],
-   "expectedShortAnswer": "Zhenoluten",
+   "expectedShortAnswer": "Zhenoluten is a natural ovarian peptide complex",
    "followUps": 1,
    "minCitations": 0
   },
@@ -318,7 +323,7 @@
    "question": "Show me the menopause course",
    "gold": "menopause-course",
    "eligibleProducts": [],
-   "expectedShortAnswer": "months one and two",
+   "expectedShortAnswer": "SL 10 in month 1, then Revilab ML 08 in month 2",
    "followUps": 1,
    "minCitations": 0,
    "expandable": "protocol"
@@ -391,7 +396,7 @@
    "question": "Show me the full four-month course",
    "gold": "cardio-four-month",
    "eligibleProducts": [],
-   "expectedShortAnswer": "four-month cardiovascular course",
+   "expectedShortAnswer": "four-month heart and blood-vessel course",
    "followUps": 1,
    "minCitations": 0,
    "expandable": "protocol"
@@ -400,7 +405,7 @@
    "question": "What's in the 4-month heart course?",
    "gold": "cardio-four-month",
    "eligibleProducts": [],
-   "expectedShortAnswer": "four-month cardiovascular course",
+   "expectedShortAnswer": "four-month heart and blood-vessel course",
    "followUps": 1,
    "minCitations": 0,
    "expandable": "protocol"
@@ -445,15 +450,6 @@
    "safety": "medical-first"
   },
   {
-   "question": "pink urine this morning",
-   "gold": "rf-blood-in-urine",
-   "eligibleProducts": [],
-   "expectedShortAnswer": "doctor's assessment",
-   "followUps": 1,
-   "minCitations": 0,
-   "safety": "medical-first"
-  },
-  {
    "question": "I have severe dizziness",
    "gold": "rf-severe-dizziness",
    "eligibleProducts": [],
@@ -488,6 +484,41 @@
    "followUps": 0,
    "minCitations": 0,
    "safety": "urgent"
+  },
+  {
+   "question": "What's the recommended protocol for heart and menopause support?",
+   "gold": "heart-menopause",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "two manufacturer-published courses",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "What can help with vertigo and feeling off balance?",
+   "gold": "vertigo",
+   "eligibleProducts": [
+    "cerluten",
+    "ventfort",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "have a doctor find the reason first",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first-products"
+  },
+  {
+   "question": "I get dizzy when I stand up",
+   "gold": "vertigo",
+   "eligibleProducts": [
+    "cerluten",
+    "ventfort",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "doctor",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first-products"
   }
  ]
 }

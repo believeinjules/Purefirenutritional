@@ -11,7 +11,8 @@
  * Red-flag questions put the medical advice first and show no product cards.
  * Every product id must be sold (in the catalog); unsold protocol items are listed as "not sold by Pure Fire".
  */
-import type { PeppyProduct, PeppyProductSuggestion, ProtocolTimeline, PeppyResponse, SafetyNotice } from "./types.js";
+import type { DosingFacts, PeppyProduct, PeppyProductSuggestion, ProtocolTimeline, PeppyResponse, SafetyNotice } from "./types.js";
+import { pepitaDirections } from "../product-facts.js";
 
 export type DisclosureLevel = "show" | "explore" | "deep";
 
@@ -35,47 +36,68 @@ export interface GoldAnswer {
   safety?: SafetyNotice;
   /** L2/L3 sections shown under "Learn more" (collapsed). */
   learnMore?: { heading: string; body: string }[];
-  protocol?: ProtocolTimeline;
+  protocols?: ProtocolTimeline[];
+  /** Dosing questions: compact facts block shown before any product card. */
+  dosingFacts?: DosingFacts;
+  /** Extra contextual follow-up (0–2 total). */
+  followUp2?: string;
 }
 
 const MEDICAL_FIRST = (title: string, body: string): SafetyNotice => ({ level: "caution", title, body });
 
-/** Source for the manufacturer protocol timelines (Julia's PDF, Peptides "Complex application of products", 2025). */
+/** Source documents (Julia's PDFs). Page numbers are the printed page numbers in the PDF. */
 const CAP_2025 = "Peptides, “Complex application of products” (2025 edition)";
+const NOT_FOUND = "Not found in the source documents (2025 “Complex application of products”, 2027 Cytomax Combined Use Guide, Peptides for Sports and Fitness).";
 
+/**
+ * Julia's BRIEF heart course (2026-10-14). Kept exactly as briefed; every month/item that differs from
+ * the published source carries a visible "Differs from the published source" note (never silently corrected).
+ * Full table: /workspace/pf-protocol-discrepancies.md.
+ */
 export const CARDIO_COURSE: ProtocolTimeline = {
   id: "cardio-4-month",
-  name: "Four-month cardiovascular-system course",
-  goal: "Manufacturer-described course for the heart and blood vessels",
-  source: `${CAP_2025}, cardiovascular system section, p. 6`,
+  name: "Four-month heart and blood-vessel course",
+  goal: "Support for the heart muscle and blood vessels",
+  source: `Julia's brief, checked against ${CAP_2025}, “Atherosclerosis, arterial hypertension, cardiopsychoneurosis”, p. 6`,
   duration: "4 months",
-  note: "Educational: this is the manufacturer's published scheme, not a clinically validated regimen. In the source it is written for people with diagnosed cardiovascular conditions, so plan it with your doctor. Schedules here can differ from each product's label.",
+  includes: ["Revilab SL 01", "Revilab SL 03", "Revilab ML 04", "Ventfort", "Chelohart", "Olecap", "Canacor", "Vedomir"],
+  note: "Manufacturer-published educational reference, not a clinically validated regimen. The source writes it for people with diagnosed cardiovascular conditions. Course schedules can differ from each product's label.",
   phases: [
-    { label: "Month 1", items: [
-      { name: "Revilab SL 01", productId: "revilab-sl-01", directions: "4–6 drops under the tongue in the first half of the day" },
-      { name: "Revilab SL 03", productId: "revilab-sl-03", directions: "8 drops in the morning, every other day" },
-      { name: "Previn", productId: "previn", directions: "1–2 tablets in the first half of the day, before meals" },
-      { name: "Complex 3D", productId: "complex-3d", directions: "1 capsule morning and evening" },
-      { name: "Vladonix", productId: "vladonix", directions: "2 capsules in the morning, every third day" },
+    { label: "Month 1", discrepancy: "The source's month 1 also includes Previn, Complex 3D and Vladonix (or Vladonix Lingual), which the brief leaves out.", items: [
+      { name: "Revilab SL 01", productId: "revilab-sl-01", sourceDirections: "4–6 drops under the tongue in the first half of the day (p. 6)" },
+      { name: "Revilab SL 03", productId: "revilab-sl-03", sourceDirections: "8 drops in the morning, every other day (p. 6)" },
     ] },
-    { label: "Month 2", items: [
-      { name: "Revilab ML 04", productId: "revilab-ml-04", directions: "1 capsule in the morning, every third day" },
-      { name: "Vesugen or Ventfort", productId: "ventfort", directions: "1 capsule in the morning before meals" },
-      { name: "Pinealon or Cerluten", productId: "cerluten", directions: "1 capsule in the morning before meals" },
-      { name: "Mesotel Ultra", productId: null, directions: "1 teaspoon in the morning before meals" },
-      { name: "Prime Peptide Omega", productId: "prime-peptide-omega", directions: "1 capsule 2 times a day with meals" },
+    { label: "Month 2", discrepancy: "The source's month 2 also includes Vladonix, Pinealon or Cerluten, Mesotel Ultra and Prime Peptide Omega.", items: [
+      { name: "Revilab ML 04", productId: "revilab-ml-04", sourceDirections: "1 capsule in the morning, every third day (p. 6)" },
+      { name: "Ventfort", productId: "ventfort", orWith: [{ name: "Vesugen", productId: "vesugen" }], sourceDirections: "1 capsule in the morning before meals (p. 6, listed as “Vesugen/Ventfort”: either one)" },
+      { name: "Chelohart", productId: "chelohart", sourceDirections: "1 capsule in the morning before meals (p. 7, months 2–3)", discrepancy: "On p. 6 Chelohart appears only in month 3, as Chelohart Lingual (10 drops under the tongue). The capsule in months 2–3 is from the coronary-rehabilitation table, p. 7; months 1–2 in the cardiac-insufficiency table, p. 10." },
+      { name: "Olecap", productId: "olecap", sourceDirections: "1 capsule 2 times a day during meals (p. 6, month 4)", discrepancy: "On p. 6 Olecap is in month 4, not month 2 (p. 7 places it in month 1)." },
     ] },
-    { label: "Month 3", items: [
-      { name: "Ventfort, Chelohart and Cerluten Lingual", productId: null, directions: "10 drops of each under the tongue in the morning before meals" },
-      { name: "Mesotel Neo", productId: "mesotel-neo", directions: "1 teaspoon in the morning before meals" },
-      { name: "Adestab", productId: null, directions: "1 capsule in the morning before meals" },
-      { name: "Prime Peptide Omega", productId: "prime-peptide-omega", directions: "1 capsule 2 times a day with meals" },
+    { label: "Month 3", discrepancy: "The source's month 3 is Ventfort, Chelohart and Cerluten Lingual (10 drops each), Mesotel Neo, Adestab and Prime Peptide Omega; it has no Olecap.", items: [
+      { name: "Olecap", productId: "olecap", sourceDirections: "1 capsule 2 times a day during meals (p. 6, month 4)", discrepancy: "Not in the source's month 3 (p. 6 lists it in month 4)." },
     ] },
-    { label: "Month 4", items: [
-      { name: "Adestab", productId: null, directions: "1 capsule in the morning before meals" },
-      { name: "Canacor", productId: null, directions: "1 teaspoon in the morning before meals (the source advises caution with atrial fibrillation)" },
-      { name: "Olecap", productId: "olecap", directions: "1 capsule 2 times a day with meals" },
-      { name: "Calcium Complex", productId: null, directions: "1 tablet 3 times a day with meals" },
+    { label: "Month 4", discrepancy: "The source's month 4 is Adestab, Canacor, Olecap and Calcium Complex.", items: [
+      { name: "Canacor", productId: null, sourceDirections: "1 teaspoon in the morning before meals; use with caution in atrial fibrillation (p. 6)" },
+      { name: "Vedomir", productId: null, notFound: true, sourceDirections: null, discrepancy: NOT_FOUND },
+    ] },
+  ],
+};
+
+/** Julia's BRIEF women's / menopause course: SL 10 in month 1, then ML 08 in month 2. */
+export const MENOPAUSE_COURSE: ProtocolTimeline = {
+  id: "menopause-2-month",
+  name: "Women's menopause-transition course",
+  goal: "Support for the female reproductive and neuroendocrine systems",
+  source: `Julia's brief, checked against ${CAP_2025}, “Climacteric syndrome”, p. 62`,
+  duration: "2 months",
+  includes: ["Revilab SL 10", "Revilab ML 08"],
+  note: "Manufacturer-published educational reference, not a clinically validated regimen. Course schedules can differ from each product's label.",
+  phases: [
+    { label: "Month 1", discrepancy: "The p. 62 course runs 4 months: months 1–2 are Endoluten, Zhenoluten, Femalin, Revilab SL 04, Prime Peptide Collagen or Revilab Elements or Calcium Complex, Vladonix and Revilab ML 08; SL 10 comes in months 3–4. The brief's order (SL 10 first, ML 08 later) matches the pelvic-floor table on p. 64 (SL 10 month 1, ML 08 month 4), a different context.", items: [
+      { name: "Revilab SL 10", productId: "revilab-sl-10", sourceDirections: "4–6 drops under the tongue in the morning (p. 62, months 3–4)", discrepancy: "p. 62 places SL 10 in months 3–4, not month 1." },
+    ] },
+    { label: "Month 2", discrepancy: "p. 62 months 3–4 also include Mesotel Neo, Olecap, Mamiton, Temero / Genero and Calcium Complex.", items: [
+      { name: "Revilab ML 08", productId: "revilab-ml-08", sourceDirections: "1 capsule in the morning, every third day (p. 62, months 1–2)", discrepancy: "p. 62 places ML 08 in months 1–2 (taken alongside the other month 1–2 products), not after SL 10." },
     ] },
   ],
 };
@@ -83,22 +105,27 @@ export const CARDIO_COURSE: ProtocolTimeline = {
 export const PREVENTION_ML_COURSE: ProtocolTimeline = {
   id: "prevention-revilab-ml",
   name: "Premature-ageing prevention course (Revilab ML)",
-  goal: "Manufacturer's preventive maintenance course; can be taken 2–3 times a year",
-  source: `${CAP_2025}, peptide prevention of premature ageing, p. 74`,
+  goal: "Preventive maintenance; the source suggests 2–3 times a year",
+  source: `${CAP_2025}, “Premature aging prevention (Revilab ML)”, p. 74`,
   duration: "3 stages, about 90 days",
-  note: "Educational: the manufacturer's published preventive scheme, not a clinically validated regimen. Its schedules differ from the single-product labels.",
+  includes: ["Revilab ML 01–09", "Revilab Elements", "Complex 3D"],
+  note: "Manufacturer-published educational reference, not a clinically validated regimen. Its schedules differ from the single-product labels.",
   phases: [
     { label: "Stage 1 (days 1–60)", items: [
-      { name: "Revilab ML 04 + ML 01", productId: "revilab-ml-04", directions: "1 capsule each in the morning, once every 2 days, for 60 days" },
-      { name: "Revilab ML 03 and ML 02", productId: "revilab-ml-03", directions: "1 capsule each in the morning daily, days 1–30" },
-      { name: "Revilab Elements", productId: "revilab-pro-elements", directions: "1 tablet 3 times a day" },
-      { name: "Complex 3D", productId: "complex-3d", directions: "1 capsule morning and evening" },
+      { name: "Revilab ML 04", productId: "revilab-ml-04", sourceDirections: "1 capsule in the morning, once every 2 days, 60 days (p. 74)" },
+      { name: "Revilab ML 01", productId: "revilab-ml-01", sourceDirections: "1 capsule in the morning, once every 2 days, 60 days (p. 74)" },
+      { name: "Revilab ML 03", productId: "revilab-ml-03", sourceDirections: "1 capsule in the morning daily, days 1–30 (p. 74)" },
+      { name: "Revilab ML 02", productId: "revilab-ml-02", sourceDirections: "1 capsule in the morning daily, days 1–30 (p. 74)" },
+      { name: "Revilab Elements", productId: "revilab-pro-elements", sourceDirections: "1 tablet 3 times a day (p. 74)" },
+      { name: "Complex 3D", productId: "complex-3d", sourceDirections: "1 capsule morning and evening (p. 74)" },
     ] },
     { label: "Stage 2 (from day 31)", items: [
-      { name: "Revilab ML 05, ML 06, ML 09", productId: "revilab-ml-06", directions: "1 capsule of each in the morning daily" },
+      { name: "Revilab ML 05", productId: "revilab-ml-05", sourceDirections: "1 capsule in the morning daily (p. 74)" },
+      { name: "Revilab ML 06", productId: "revilab-ml-06", sourceDirections: "1 capsule in the morning daily (p. 74)" },
+      { name: "Revilab ML 09", productId: "revilab-ml-09", sourceDirections: "1 capsule in the morning daily (p. 74)" },
     ] },
     { label: "Stage 3 (from day 61)", items: [
-      { name: "Revilab ML 07 (men) or ML 08 (women)", productId: "revilab-ml-08", directions: "1 capsule in the morning once every 2 days" },
+      { name: "Revilab ML 07 (men)", productId: "revilab-ml-07", orWith: [{ name: "Revilab ML 08 (women)", productId: "revilab-ml-08" }], sourceDirections: "1 capsule in the morning once every 2 days (p. 74)" },
     ] },
   ],
 };
@@ -145,11 +172,11 @@ export const GOLD: GoldAnswer[] = [
   {
     id: "endoluten-dosing", level: "show", intent: "dosing",
     patterns: [/\bhow (?:do|should|can) i take endoluten\b|\bendoluten\b.*\b(dos\w*|how (?:much|many|often|to take)|directions|schedule)\b|\b(dos\w*|how (?:much|many|often))\b.*\bendoluten\b/i],
-    summary: "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.",
-    products: [{ id: "endoluten", relevance: "Pineal gland peptide complex; 20 and 60 capsules, same complex." }],
+    summary: "Endoluten is a pineal gland peptide complex studied for supporting the gland's own melatonin rhythm, rather than adding melatonin. It is not taken daily.",
+    dosingFacts: { product: "Endoluten", dose: "1 capsule every 3 days", timing: "In the morning or at midday", course: "20 days to 2 months", source: "Manufacturer directions (peptid.ru); the 20- and 60-capsule packs are the same complex" },
+    products: [{ id: "endoluten", relevance: "Pineal gland peptide complex." }],
     sourceIds: [],
-    followUp: "Want to know how a course fits with other peptides?",
-    chips: ["Can I take Endoluten with melatonin?", "Can I take these together?"],
+    chips: [],
   },
   {
     id: "endoluten-vs-pinealon", level: "show", intent: "comparison",
@@ -174,6 +201,24 @@ export const GOLD: GoldAnswer[] = [
   },
 
   // ── Symptom / body-system L1 answers ──────────────────────────────────────
+  {
+    id: "vertigo", level: "show", intent: "red-flag",
+    patterns: [/\b(vertigo|off[- ]balance|balance (?:problems?|issues?)|(?:feel(?:ing)?|get(?:ting)?) dizzy|dizziness|unsteady)\b/i],
+    summary: "Vertigo and balance problems have many causes, from the inner ear to blood pressure or medicines, so have a doctor find the reason first. Call 911 for sudden severe vertigo with headache, weakness, numbness, slurred speech or vision loss. Some peptides target the brain, nerves and blood vessels involved in balance.",
+    products: [
+      { id: "cerluten", relevance: "Brain and nervous system peptide complex." },
+      { id: "ventfort", relevance: "Blood-vessel peptide complex (microcirculation)." },
+      { id: "pinealon", relevance: "Brain peptide complex (AC-5)." },
+    ],
+    sourceIds: [],
+    safety: MEDICAL_FIRST("See a doctor first", "Get balance problems checked before choosing a supplement."),
+    learnMore: [
+      { heading: "Other supportive approaches", body: "Hydration, regular sleep and stress management, and inner-ear (vestibular) exercises when a clinician recommends them." },
+      { heading: "When to see a doctor", body: "New, worsening or recurring vertigo, hearing loss or ringing in one ear, falls, or vertigo after a head injury." },
+    ],
+    followUp: "Is it spinning, or feeling unsteady?",
+    chips: [],
+  },
   {
     id: "sleep", level: "show", intent: "symptom",
     patterns: [/\b(can'?t|cannot|trouble|problems?|struggl\w*|hard to)\b.{0,15}\bsleep\w*\b|\binsomnia\b|\bsleep (?:better|well|poorly|badly|support)\b|\bwak(?:e|ing) up (?:at night|a lot|often)\b/i],
@@ -253,7 +298,7 @@ export const GOLD: GoldAnswer[] = [
   {
     id: "menopause", level: "show", intent: "symptom",
     patterns: [/\b(menopaus\w*|perimenopaus\w*|hot flash\w*|hot flush\w*|climacteric)\b/i],
-    summary: "Zhenoluten is a natural ovarian peptide complex; Revilab ML 08 and SL 10 are women's formulas for the reproductive and neuroendocrine systems, as capsules or drops. The manufacturer's course places ML 08 in the first two months and SL 10 in months three and four.",
+    summary: "Zhenoluten is a natural ovarian peptide complex; Revilab ML 08 and SL 10 are women's formulas for the reproductive and neuroendocrine systems, as capsules or drops. Ask for the menopause course to see how they're sequenced.",
     products: [
       { id: "zhenoluten", relevance: "Ovarian peptide complex, capsules." },
       { id: "revilab-ml-08", relevance: "Women's capsule formula: reproductive and neuroendocrine." },
@@ -303,55 +348,39 @@ export const GOLD: GoldAnswer[] = [
       { id: "ventfort", relevance: "Natural blood-vessel peptide complex." },
     ],
     sourceIds: [],
-    protocol: PREVENTION_ML_COURSE,
+    protocols: [PREVENTION_ML_COURSE],
     followUp: "Want the full four-month cardiovascular course too?",
     chips: ["Show me the full four-month course", "Can I take these together?"],
   },
   {
-    id: "cardio-four-month", level: "deep", intent: "protocol",
-    patterns: [/\b(full|whole|complete|4|four)[- ]?(month)?\b.{0,15}\b(month|course|protocol)\b.{0,25}(cardio|heart|vascular)?|\bfour[- ]month\b|\b4[- ]month\b/i],
-    summary: "Here is the manufacturer's four-month cardiovascular course, one month per step; tap a month to see its products and directions. It's educational, not a clinically validated regimen, and the source writes it for people with a diagnosed condition, so plan it with your doctor.",
+    id: "heart-menopause", level: "deep", intent: "protocol",
+    patterns: [/\b(heart|cardio\w*|vascular)\b.*\b(menopaus\w*|women)\b|\b(menopaus\w*)\b.*\b(heart|cardio\w*|vascular)\b/i],
+    summary: "Here are the two manufacturer-published courses: a four-month heart and blood-vessel course and a two-month menopause-transition course. Each is shown as briefed, with notes where it differs from the published source. They're educational references, not clinically validated regimens.",
     products: [],
     sourceIds: [],
-    protocol: CARDIO_COURSE,
-    followUp: "Want just the products we carry from it?",
-    chips: ["Show me a preventive course", "Can I take these together?"],
+    protocols: [CARDIO_COURSE, MENOPAUSE_COURSE],
+    followUp: "Do you take any heart or hormone medicines?",
+    chips: [],
+  },
+  {
+    id: "cardio-four-month", level: "deep", intent: "protocol",
+    patterns: [/\b(full|whole|complete|4|four)[- ]?(month)?\b.{0,15}\b(month|course|protocol)\b.{0,25}(cardio|heart|vascular)?|\bfour[- ]month\b|\b4[- ]month\b|\bheart\b.{0,20}\b(protocol|course)\b/i],
+    summary: "Here is the four-month heart and blood-vessel course, month by month. It follows the course as briefed; where it differs from the published source, the month shows a note. It's an educational reference written for people with diagnosed conditions, not a validated regimen.",
+    products: [],
+    sourceIds: [],
+    protocols: [CARDIO_COURSE],
+    followUp: "Do you take any heart or blood-thinning medicines?",
+    chips: [],
   },
   {
     id: "menopause-course", level: "deep", intent: "protocol",
-    patterns: [/\b(menopaus\w*|climacteric)\b.{0,15}\b(course|protocol|plan)\b|\bshow me the menopause course\b/i],
-    summary: "The manufacturer's four-month course pairs Endoluten, Zhenoluten and Revilab ML 08 in months one and two, then Revilab SL 10 in months three and four, alongside items we don't sell. Tap a stage to see it; it's educational, not a validated regimen.",
+    patterns: [/\b(menopaus\w*|climacteric|women'?s)\b.{0,15}\b(course|protocol|plan)\b|\bshow me the menopause course\b/i],
+    summary: "Here is the women's menopause-transition course: Revilab SL 10 in month 1, then Revilab ML 08 in month 2. The published source orders these differently, so each month shows a note. It's an educational reference, not a validated regimen.",
     products: [],
     sourceIds: [],
-    protocol: {
-      id: "menopause-4-month",
-      name: "Four-month menopause-transition course",
-      goal: "Manufacturer-described course for the female reproductive and neuroendocrine systems",
-      source: `${CAP_2025}, reproductive system section, p. 62`,
-      duration: "4 months",
-      note: "Educational: the manufacturer's published scheme, not a clinically validated regimen. Its schedules differ from the labels; plan it with your doctor, especially with hormone therapy.",
-      phases: [
-        { label: "Months 1–2", items: [
-          { name: "Endoluten", productId: "endoluten", directions: "1 capsule in the morning before meals, once every 3 days" },
-          { name: "Zhenoluten", productId: "zhenoluten", directions: "2 capsules in the morning before meals" },
-          { name: "Femalin", productId: "femalin", directions: "2 capsules in the morning before meals" },
-          { name: "Revilab SL 04", productId: "revilab-sl-04", directions: "4–6 drops under the tongue" },
-          { name: "Prime Peptide Collagen", productId: "prime-peptide-collagen", directions: "1 tablet 2–3 times a day" },
-          { name: "Vladonix", productId: "vladonix", directions: "2 capsules in the morning" },
-          { name: "Revilab ML 08", productId: "revilab-ml-08", directions: "1 capsule in the morning, every third day" },
-        ] },
-        { label: "Months 3–4", items: [
-          { name: "Mesotel Neo", productId: "mesotel-neo", directions: "1 teaspoon in the morning before meals" },
-          { name: "Olecap", productId: "olecap", directions: "1 capsule 2 times a day with meals" },
-          { name: "Mamiton", productId: "mamiton", directions: "2 capsules in the morning before meals" },
-          { name: "Temero / Genero", productId: "temero-genero", directions: "1 tablet morning (Temero) and evening (Genero) before meals" },
-          { name: "Revilab SL 10", productId: "revilab-sl-10", directions: "4–6 drops under the tongue in the morning" },
-          { name: "Calcium Complex", productId: null, directions: "1 tablet 3 times a day with meals" },
-        ] },
-      ],
-    },
-    followUp: "Want just the products we carry from it?",
-    chips: ["Can I take these together?"],
+    protocols: [MENOPAUSE_COURSE],
+    followUp: "Are you on hormone therapy?",
+    chips: [],
   },
   {
     id: "epitalon-research", level: "deep", intent: "research",
@@ -394,9 +423,19 @@ export function goldResponse(
       return product ? enrich({ product, why: gp.relevance, evidenceNote: "The finished product has no published trials." }) : null;
     })
     .filter((x): x is PeppyProductSuggestion => !!x);
-  const protocol = g.protocol
-    ? { ...g.protocol, phases: g.protocol.phases.map(ph => ({ ...ph, items: ph.items.map(it => ({ ...it, sold: !!(it.productId && catalog.has(it.productId)) })) })) }
-    : undefined;
+  const sold = (id: string | null) => !!(id && catalog.has(id));
+  const protocols = g.protocols?.map(pr => ({
+    ...pr,
+    phases: pr.phases.map(ph => ({
+      ...ph,
+      items: ph.items.map(it => ({
+        ...it,
+        sold: sold(it.productId),
+        labelDirections: it.productId ? pepitaDirections(it.productId) : null,
+        orWith: it.orWith?.map(o => ({ ...o, sold: sold(o.productId) })),
+      })),
+    })),
+  }));
   return {
     mode: g.intent === "red-flag" && g.safety?.level === "urgent" ? "urgent" : "fallback",
     level: g.level,
@@ -406,9 +445,10 @@ export function goldResponse(
     research: sources(g.sourceIds).slice(0, 2),
     safety: g.safety,
     learnMore: g.learnMore,
-    protocol,
-    followUps: g.followUp ? [g.followUp] : [],
-    suggestions: g.chips.slice(0, 3),
+    protocols,
+    dosingFacts: g.dosingFacts,
+    followUps: [g.followUp, g.followUp2].filter((x): x is string => !!x).slice(0, 2),
+    suggestions: [],
     products,
     showDisclaimer: true,
     topics: [g.id],

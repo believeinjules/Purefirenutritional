@@ -955,6 +955,9 @@ function composeProductAnswer(
       )
       .slice(0, PEPPY_LIMITS.maxSuggestions),
     products: showCard && evidenceOk && product.inStock ? [card] : [],
+    dosingFacts: dosing?.verified
+      ? { product: product.name, dose: verified(product.id, "labelDirections") ?? "", source: "Manufacturer label directions" }
+      : undefined,
     topics: topic ? [topic.id] : [],
   };
 }

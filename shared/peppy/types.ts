@@ -113,12 +113,44 @@ export interface ProtocolTimeline {
   /** Real source document (title, section, page). Only protocols from real sources are rendered. */
   source: string;
   duration: string;
-  /** "Educational, not clinically validated" note (always shown with the timeline). */
+  /** Overview "Includes" line. */
+  includes: string[];
+  /** "Manufacturer-published educational reference, not clinically validated" note (always shown). */
   note: string;
   phases: {
     label: string;
-    items: { name: string; productId: string | null; directions: string; sold?: boolean }[];
+    /** "Differs from the published source" note for this month (shown on expand). */
+    discrepancy?: string;
+    items: ProtocolItem[];
   }[];
+}
+
+export interface ProtocolItem {
+  name: string;
+  /** Catalog id; null when Pure Fire doesn't carry it (shown with "not sold by Pure Fire", no card). */
+  productId: string | null;
+  /** Source-stated alternatives: take ONE of these instead (rendered with an "or" marker). */
+  orWith?: { name: string; productId: string | null; sold?: boolean }[];
+  /** What the published course document says for this item (with page). */
+  sourceDirections: string | null;
+  /** Manufacturer label directions (verified, from product-facts), filled in by the server. */
+  labelDirections?: string | null;
+  /** "Differs from the published source" note for this item. */
+  discrepancy?: string;
+  /** Item not found in any source document. */
+  notFound?: boolean;
+  /** Explicit, explained substitution (never implicit). */
+  substitution?: string;
+  sold?: boolean;
+}
+
+/** Compact dosing facts block (shown BEFORE any product card). */
+export interface DosingFacts {
+  product: string;
+  dose: string;
+  timing?: string;
+  course?: string;
+  source: string;
 }
 
 export interface PeppyResponse {
@@ -127,8 +159,10 @@ export interface PeppyResponse {
   level?: "show" | "explore" | "deep";
   /** Curated gold answer id, when one was used. */
   gold?: string;
-  /** Month-by-month manufacturer course (L2/L3 only). */
-  protocol?: ProtocolTimeline;
+  /** Month-by-month manufacturer courses (L2/L3 only). */
+  protocols?: ProtocolTimeline[];
+  /** Dosing answers: verified dose/timing/course/source, rendered before any card. */
+  dosingFacts?: DosingFacts;
   /** Short direct answer shown first. */
   summary: string;
   sections: AnswerSection[];

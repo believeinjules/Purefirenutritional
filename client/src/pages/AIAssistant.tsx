@@ -128,6 +128,33 @@ export default function AIAssistant() {
     setShowDisclaimer(false);
   };
 
+  // Mobile: keep chat content clear of the sticky site header and the sticky composer. The real
+  // heights are measured (they change with safe-area insets and text size) and exposed as
+  // scroll-padding, so scrollIntoView / focus / anchor jumps never land under either bar.
+  useEffect(() => {
+    const nav = document.querySelector("nav");
+    const composer = document.querySelector<HTMLElement>("[data-testid=pepita-composer]");
+    const root = document.documentElement;
+    const apply = () => {
+      const top = (nav?.getBoundingClientRect().height ?? 64) + 8;
+      const bottom = (composer?.getBoundingClientRect().height ?? 72) + 8;
+      root.style.setProperty("--pf-nav-h", `${top}px`);
+      root.style.scrollPaddingTop = `${top}px`;
+      root.style.scrollPaddingBottom = `${bottom}px`;
+    };
+    apply();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(apply) : null;
+    if (nav) ro?.observe(nav);
+    if (composer) ro?.observe(composer);
+    window.addEventListener("resize", apply);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", apply);
+      root.style.scrollPaddingTop = "";
+      root.style.scrollPaddingBottom = "";
+    };
+  }, []);
+
   // Bring the newest message's top into view (long answers are read top-down).
   const lastId = messages[messages.length - 1]?.id;
   useEffect(() => {
@@ -417,7 +444,7 @@ export default function AIAssistant() {
                       if (el) messageRefs.current.set(m.id, el);
                       else messageRefs.current.delete(m.id);
                     }}
-                    className={`scroll-mt-24 flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}
+                    className={`scroll-mt-2 flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}
                     data-testid={
                       m.role === "user"
                         ? "peppy-user-message"

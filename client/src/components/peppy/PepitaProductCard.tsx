@@ -115,17 +115,22 @@ export default function PepitaProductCard({
         aria-controls={panelId}
         aria-label={`${name}: ${open ? "hide" : "show"} details`}
         data-testid="pepita-card-toggle"
-        className="flex w-full min-h-[44px] items-center gap-3 rounded-t-xl p-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+        className="flex w-full min-h-[44px] items-center gap-2.5 rounded-t-xl px-2 py-1.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
       >
-        <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
-          {image && <img src={image} alt="" width={48} height={48} className="h-full w-full object-contain p-0.5" loading="lazy" />}
+        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+          {image && <img src={image} alt="" width={40} height={40} className="h-full w-full object-contain p-0.5" loading="lazy" />}
         </span>
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-2">
             <span className="truncate text-sm font-semibold text-gray-900">{name}</span>
             <PreorderBadge productId={p.id} />
+            {typeof price === "number" && (
+              <span className="ml-auto shrink-0 text-sm font-bold text-orange-600" data-testid="pepita-card-price">
+                ${price.toFixed(2)}
+              </span>
+            )}
           </span>
-          <span className="mt-0.5 text-xs leading-snug text-gray-600 line-clamp-3" data-testid="pepita-card-why">
+          <span className="block truncate text-xs leading-snug text-gray-600" data-testid="pepita-card-why">
             {firstSentence(why, 160)}
           </span>
         </span>
@@ -198,8 +203,8 @@ export default function PepitaProductCard({
         </dl>
       </div>
 
-      <div className="space-y-2 border-t border-gray-100 p-2 sm:flex sm:items-center sm:gap-3 sm:space-y-0">
-        <div className="flex items-center gap-3">
+      <div className="flex min-w-0 items-center gap-1.5 border-t border-gray-100 px-2 py-1" data-testid="pepita-card-buy">
+        <div className="flex shrink-0 items-center gap-1.5">
           {buyable && options.length > 1 && (
             <>
               <label htmlFor={selectId} className="sr-only">
@@ -210,7 +215,7 @@ export default function PepitaProductCard({
                 value={chosen}
                 onChange={e => setSize(e.target.value as CartSize)}
                 data-testid="pepita-card-size"
-                className="h-11 min-w-[44px] rounded-xl border border-gray-200 bg-white px-2 text-base text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 sm:text-sm"
+                className="h-11 min-w-[44px] rounded-lg border border-gray-200 bg-white px-1.5 text-base text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 sm:text-sm"
               >
                 {options.map(o => (
                   <option key={o.variantId ?? o.size} value={o.size}>
@@ -220,13 +225,8 @@ export default function PepitaProductCard({
               </select>
             </>
           )}
-          {typeof price === "number" && (
-            <span className="text-base font-bold text-orange-600" data-testid="pepita-card-price">
-              ${price.toFixed(2)}
-            </span>
-          )}
         </div>
-        <div className="flex items-center gap-2 sm:flex-1">
+        <div className="flex flex-1 items-center gap-1.5">
           {buyable ? (
             <button
               type="button"
@@ -234,16 +234,16 @@ export default function PepitaProductCard({
               disabled={status === "adding" || price === undefined}
               aria-label={`${state === "preorder" ? "Pre-order" : "Add"} ${name}${options.length > 1 ? `, ${options.find(o => o.size === chosen)?.label}` : ""} to cart`}
               data-testid="pepita-card-add"
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl bg-gray-900 px-2.5 text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 disabled:opacity-60 [@media(hover:hover)]:hover:bg-orange-600 sm:flex-none sm:min-w-[9rem]"
+              className="inline-flex h-11 min-w-[76px] flex-1 shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg bg-gray-900 px-2 text-[13px] font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 disabled:opacity-60 [@media(hover:hover)]:hover:bg-orange-600 sm:flex-none sm:min-w-[9rem]"
             >
               {status === "adding" ? (
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
               ) : status === "added" ? (
                 <Check className="h-4 w-4" aria-hidden="true" />
               ) : (
-                <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                <ShoppingCart className="hidden h-4 w-4 min-[400px]:block" aria-hidden="true" />
               )}
-              {status === "added" ? <span data-testid="pepita-card-added">Added to cart</span> : state === "preorder" ? "Pre-order" : "Add to Cart"}
+              {status === "added" ? <span data-testid="pepita-card-added">Added</span> : state === "preorder" ? "Pre-order" : "Add"}
             </button>
           ) : (
             <span className="inline-flex h-11 flex-1 items-center text-sm text-gray-500" data-testid="pepita-card-unavailable">
@@ -253,7 +253,7 @@ export default function PepitaProductCard({
           <Link
             href={productPath(p.id)}
             data-testid="pepita-card-more"
-            className="ml-auto inline-flex h-11 flex-shrink-0 items-center px-1 text-sm font-semibold text-orange-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+            className="inline-flex h-11 flex-shrink-0 items-center px-1 text-[13px] font-semibold text-orange-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
           >
             More Info<span className="sr-only"> about {name}</span>
           </Link>
