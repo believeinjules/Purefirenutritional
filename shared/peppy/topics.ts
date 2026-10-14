@@ -155,7 +155,7 @@ export const TOPICS: Topic[] = [
       },
       {
         heading: "Course directions: manufacturer vs research",
-        body: "Manufacturer sources currently differ on Endoluten's schedule, so Pure Fire is checking them against the label on the batch it sells; until then, follow the directions on the product page and package. The research studies used injectable pineal preparations, so their schedules don't carry over to the capsules.",
+        body: "Endoluten's directions: adults take 1 capsule every 3 days, in the morning or at midday, for a course of 20 days to 2 months; the 20- and 60-capsule packs are the same complex in different quantities. The research studies used injectable pineal preparations, so their schedules don't carry over to the capsules.",
       },
     ],
     sourceIds: ["pmid:17969590", "pmid:11524632", "pmid:21978084", "pmid:28849889", "pmid:23691095"],

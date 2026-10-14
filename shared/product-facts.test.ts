@@ -3,7 +3,7 @@ import { allProducts, products } from "../client/src/data/products";
 import DATA from "./peppy/product-data.json";
 import { buildCatalog } from "./peppy/catalog";
 import { DISEASE_TERMS } from "./peppy/claims";
-import { PRODUCT_FACTS, getProductFacts, pepitaDirections } from "./product-facts";
+import { PEPITA_DIRECTION_EXCEPTIONS, PRODUCT_FACTS, getProductFacts, pepitaDirections } from "./product-facts";
 import type { ProductDataRecord } from "./peppy/product-data";
 
 const RECORDS = DATA.products as unknown as ProductDataRecord[];
@@ -26,7 +26,11 @@ describe("one product-data source: storefront and Pepita cannot drift", () => {
     for (const r of RECORDS) {
       const store = products.find(p => p.id === r.id)!;
       const allowed = pepitaDirections(r.id);
-      if (r.labelDirections.status === "verified") {
+      if (PEPITA_DIRECTION_EXCEPTIONS.includes(r.id)) {
+        // Known, intentional exception (pending Julia): Pepita states the override, the page keeps its text.
+        expect(r.labelDirections.value, r.id).toBe(getProductFacts(r.id)!.pepitaOverride!.text);
+        expect(store.usage ?? null, r.id).toBe(getProductFacts(r.id)!.storefrontUsage.text);
+      } else if (r.labelDirections.status === "verified") {
         expect(allowed, r.id).not.toBeNull();
         expect(r.labelDirections.value, r.id).toBe(store.usage);
       } else {
@@ -42,7 +46,7 @@ describe("one product-data source: storefront and Pepita cannot drift", () => {
     const catalog = buildCatalog(products as never);
     for (const p of products) {
       const c = catalog.get(p.id);
-      if (!c || !p.usage) continue;
+      if (!c || !p.usage || PEPITA_DIRECTION_EXCEPTIONS.includes(p.id)) continue;
       // catalog.ts drops disease-term sentences; otherwise identical.
       expect(p.usage.startsWith(c.usage ?? ""), p.id).toBe(true);
     }
@@ -53,11 +57,23 @@ describe("one product-data source: storefront and Pepita cannot drift", () => {
       const f = getProductFacts(id)!;
       expect(f.verificationStatus, id).toBe("blocked");
       expect(f.hold, id).toBeTruthy();
-      expect(pepitaDirections(id), id).toBeNull();
+      if (id === "endoluten") expect(pepitaDirections(id)).toMatch(/^Adults: 1 capsule every 3 days, in the morning or at midday\. Course: 20 days to 2 months\.$/);
+      else expect(pepitaDirections(id), id).toBeNull();
     }
     expect(getProductFacts("endoluten")!.manufacturerDirections.options).toHaveLength(2);
     for (const f of Object.values(PRODUCT_FACTS))
       if (f.manufacturerDirections.status === "conflicting") expect(pepitaDirections(f.id), f.id).toBeNull();
+  });
+
+  it("the only storefront/Pepita direction exception is Endoluten (Pepita only, pending Julia)", () => {
+    expect(PEPITA_DIRECTION_EXCEPTIONS).toEqual(["endoluten"]);
+    const f = getProductFacts("endoluten")!;
+    expect(f.pepitaOverride!.source).toMatch(/peptid\.ru/);
+    expect(f.pepitaOverride!.exception).toMatch(/intentional exception/i);
+    const page = allProducts.find(p => p.id === "endoluten")!.usage ?? "";
+    expect(page).not.toMatch(/every 3 days/);
+    const catalog = buildCatalog(products as never);
+    expect(catalog.get("endoluten")!.usage).toMatch(/1 capsule every 3 days/);
   });
 
   it("alternative protocols are never the label and come from course documents", () => {

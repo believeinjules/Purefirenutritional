@@ -488,7 +488,9 @@ export function protocolLine(id: string): string | undefined {
   if (!label) return undefined;
   const text = plainAudience(label).replace(/^for adults/i, "Adults:");
   const t = text.charAt(0).toUpperCase() + text.slice(1);
-  return `Manufacturer protocol: ${/[.!?]$/.test(t) ? t : `${t}.`} (Label directions, not a clinically validated regimen.)`;
+  const body = /[.!?]$/.test(t) ? t : `${t}.`;
+  if (getProductFacts(id)?.pepitaOverride) return `Manufacturer directions: ${body}`;
+  return `Manufacturer protocol: ${body} (Label directions, not a clinically validated regimen.)`;
 }
 
 /** Alternative course schedules (dealer/scheme documents) — educational, shown only in card details. */

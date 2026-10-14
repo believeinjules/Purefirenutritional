@@ -134,10 +134,11 @@ function withFacts(out: ProductDataRecord): ProductDataRecord {
   const label = pepitaDirections(out.id);
   out.schedules = out.schedules.filter(s => s.protocolType !== "label");
   if (label) {
-    out.labelDirections = ok(label, fsrc);
+    const lsrc = f.pepitaOverride ? `shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): ${f.pepitaOverride.source}` : fsrc;
+    out.labelDirections = ok(label, lsrc);
     const parsed = parseSchedule(label);
-    if (parsed) out.schedules.unshift({ protocolType: "label", format: null, ...parsed, text: label, source: fsrc });
-    out.formats = out.formats.map(fm => ({ ...fm, directions: ok(label, fsrc) }));
+    if (parsed) out.schedules.unshift({ protocolType: "label", format: null, ...parsed, text: label, source: lsrc });
+    out.formats = out.formats.map(fm => ({ ...fm, directions: ok(label, lsrc) }));
   } else {
     const why = `${f.manufacturerDirections.status}${f.hold ? `: ${f.hold}` : f.manufacturerDirections.note ? `: ${f.manufacturerDirections.note}` : ""}`;
     out.labelDirections = { status: "unverified", value: null, source: `shared/product-facts.json (${why})` };

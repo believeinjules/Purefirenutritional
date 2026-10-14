@@ -54,6 +54,11 @@ export interface ProductFacts {
   verificationStatus: VerificationStatus;
   hold: string | null;
   auditRows: string[];
+  /**
+   * Pepita-only directions that intentionally differ from the storefront page (known exception,
+   * approved by Julia). The storefront keeps storefrontUsage; Pepita states this text.
+   */
+  pepitaOverride?: { text: string; basis: string; source: string; exception: string };
 }
 
 export const PRODUCT_FACTS: Record<string, ProductFacts> = (FACTS as unknown as { products: Record<string, ProductFacts> }).products;
@@ -65,6 +70,7 @@ export function getProductFacts(id: string): ProductFacts | undefined {
 /** Directions Pepita may state: verified label text that is exactly what the product page shows. */
 export function pepitaDirections(id: string): string | null {
   const f = PRODUCT_FACTS[id];
+  if (f?.pepitaOverride) return f.pepitaOverride.text;
   if (!f || f.manufacturerDirections.status !== "verified") return null;
   const { text, basis } = f.storefrontUsage;
   if (!text || (basis !== "manufacturer-label" && basis !== "page-text-matches-label")) return null;
@@ -84,3 +90,6 @@ export function applyProductFacts<T extends WithFacts>(product: T): T {
   else delete out.ingredients;
   return out;
 }
+
+/** Products whose Pepita directions intentionally differ from the storefront (pending Julia). */
+export const PEPITA_DIRECTION_EXCEPTIONS = Object.values(PRODUCT_FACTS).filter(f => f.pepitaOverride).map(f => f.id);

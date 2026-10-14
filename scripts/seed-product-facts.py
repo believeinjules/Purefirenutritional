@@ -184,6 +184,8 @@ for i, p in store.items():
     }
 
 out = {"_schema": "shared/product-facts.ts", "_seeded": "2026-10-14 by scripts/seed-product-facts.py; edit this file directly from now on.", "products": facts}
+# Pepita-only exception (Julia 2026-10-14): storefront text unchanged.
+out["products"]["endoluten"]["pepitaOverride"] = {'text': 'Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.', 'basis': 'peptid.ru capsule directions, confirmed definitive by Julia 2026-10-14 (20- and 60-capsule packs are the same complex, different quantity)', 'source': 'https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/', 'exception': 'Known, intentional exception (Julia, 2026-10-14): Pepita states these definitive directions; the storefront product page/products.ts usage text is unchanged pending Julia. Internal only: peptideproduct.com lists 1–2 capsules 2×/day (recorded in manufacturerDirections.options); never shown to customers.'}
 json.dump(out, open("shared/product-facts.json", "w"), indent=1, ensure_ascii=False)
 open("shared/product-facts.json", "a").write("\n")
 print("products", len(facts), "unmapped audit rows:", unmapped)

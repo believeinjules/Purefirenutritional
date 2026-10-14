@@ -51,14 +51,15 @@ describe("product data layer (single JSON file)", () => {
       for (const t of TEMPLATES) expect(label.includes(t), r.id).toBe(false);
     }
   });
-  it("Endoluten dosing is ON HOLD: no schedule stated, both sources recorded, page text unchanged", () => {
-    expect(verifiedSchedules("endoluten", "label")).toEqual([]);
-    expect(verified("endoluten", "labelDirections")).toBeNull();
+  it("Endoluten: Pepita states the peptid.ru every-3-days directions with a check-your-package note; storefront hold unchanged", () => {
+    expect(verifiedSchedules("endoluten", "label")[0]?.everyNDays).toBe(3);
     const f = getProductFacts("endoluten")!;
     expect(f.manufacturerDirections.status).toBe("blocked");
     expect(f.manufacturerDirections.options.map(o => o.source).join(" ")).toMatch(/peptid\.ru.*peptideproduct\.com/);
     const t = dosingAnswer("endoluten", "Endoluten").text;
-    expect(t).not.toMatch(/once every 3 days|1–2 capsules|Maintenance|Intensive/i);
+    expect(t).toMatch(/1 capsule every 3 days, in the morning or at midday\. Course: 20 days to 2 months/);
+    expect(t).not.toMatch(/sources differ|check (the|your) package|label versions/i);
+    expect(t).not.toMatch(/1–2 capsules|Maintenance|Intensive/i);
   });
   it("says 'Adults', never an 'over 14' age line, and no arithmetic aside, for every product", () => {
     for (const p of products) {
