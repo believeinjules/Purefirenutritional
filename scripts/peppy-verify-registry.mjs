@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Re-verify Peppy's curated research registry against the live sources:
+ * Re-verify Pepita's curated research registry against the live sources:
  *  - every PubMed entry's title/year must match NCBI esummary verbatim;
  *  - every NIH/FDA guidance URL must return HTTP 200.
  * Usage: node scripts/peppy-verify-registry.mjs   (optional NCBI_API_KEY / NCBI_EMAIL)
@@ -20,7 +20,7 @@ const entries = [];
 for (const chunk of src.split(/\n  \{\n/).slice(1)) {
   const block = `\n${chunk}`;
   const get = k =>
-    block.match(new RegExp(`\\n\\s+${k}: (".*?(?<!\\\\)"),?\\n`))?.[1];
+    block.match(new RegExp(`\\n\\s+${k}:\\s+(".*?(?<!\\\\)"),?\\n`))?.[1];
   const id = get("id") && JSON.parse(get("id"));
   if (!id) continue;
   entries.push({

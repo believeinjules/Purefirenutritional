@@ -13,7 +13,7 @@ describe("hidden products", () => {
     }
   });
 
-  it("are not offered by Peppy or priceable from Firestore", () => {
+  it("are not offered by Pepita or priceable from Firestore", () => {
     for (const p of allProducts.filter((x) => HIDDEN_PRODUCT_IDS.has(x.id))) {
       expect(toPeppyProduct(p as never), p.id).toBeNull();
       expect(firestoreDocToPriceable(p.id, p as never), p.id).toBeNull();

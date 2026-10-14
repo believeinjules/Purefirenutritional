@@ -1,4 +1,4 @@
-# Help people choose (shop by system, protocols, Peppy hand-off, doctor questions)
+# Help people choose (shop by system, protocols, Pepita hand-off, doctor questions)
 
 ## Shop by system — `client/src/data/systems.ts`
 - Four systems with Brand-approved names and "Is this for you?" intros.
@@ -17,10 +17,10 @@
 - `protocolReviewed: true` (Regulatory Advisor) is required before anything renders.
 - Men's/Women's toggle shows only when a goal has distinct `men` and `women` schedules.
 
-## Peppy hand-off
-- Product page "Not sure? Ask Peppy" → `/ai-assistant?product=<id>&goal=<preventive|restorative>&sex=<men|women>`
+## Pepita hand-off
+- Product page "Not sure? Ask Pepita" → `/ai-assistant?product=<id>&goal=<preventive|restorative>&sex=<men|women>`
   (goal/sex only once a reviewed protocol tab is chosen).
-- Peppy shows "Asking about <product>", pre-selects the goal, pre-fills (does not send) a question, shows the
+- Pepita shows "Asking about <product>", pre-selects the goal, pre-fills (does not send) a question, shows the
   reviewed schedule if one exists, and has a "Questions for my doctor" quick action.
 
 ## Questions for your doctor — `client/src/data/doctorQuestions.ts`

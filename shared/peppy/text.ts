@@ -1,4 +1,4 @@
-/** Small text helpers shared by the Peppy engine, validator and UI. */
+/** Small text helpers shared by the Pepita engine, validator and UI. */
 
 const KEEP_CASE_WORDS = new Set([
   "Khavinson",

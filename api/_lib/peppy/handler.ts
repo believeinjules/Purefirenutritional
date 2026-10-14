@@ -1,5 +1,5 @@
 /**
- * POST /api/peppy — Peppy 2.0 chat endpoint.
+ * POST /api/peppy — Pepita chat endpoint.
  * Body: { message: string, history?: {role, content}[], productId?: string }
  * Returns PeppyResponse (shared/peppy/types.ts). Never returns a 5xx for answer problems:
  * PubMed/LLM/Firestore failures all degrade to the deterministic curated answer.

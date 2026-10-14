@@ -1,5 +1,5 @@
 /**
- * Peppy curated research registry.
+ * Pepita curated research registry.
  * PubMed titles, authors, journals and years were copied verbatim from NCBI esummary (do not
  * paraphrase them; `node scripts/peppy-verify-registry.mjs` re-checks them against PubMed).
  * Findings/limitations are short human-written summaries of each abstract.
@@ -924,6 +924,216 @@ export const RESEARCH_REGISTRY: ResearchSource[] = [
     finding:
       "Overview of common sleep problems and when ongoing poor sleep should be checked by a provider.",
     limitation: "Patient-education overview.",
+    origin: "curated",
+  },
+  // ── Added Oct 2026: coverage for immune, liver, respiratory, pancreas, skin, kidney, vascular (verified via NCBI esummary) ──
+  {
+    id: "pmid:24738258",
+    kind: "pubmed",
+    title:
+      "[Neuroprotective effects of peptides bioregulators in people of various age].",
+    authors: "Umnov RS, Lin'kova NS, Khavinson VKh",
+    journal: "Advances in gerontology = Uspekhi gerontologii",
+    year: "2013",
+    pmid: "24738258",
+    url: "https://pubmed.ncbi.nlm.nih.gov/24738258/",
+    studyType: "review",
+    finding:
+      "Russian review comparing polypeptide complexes (cortexin, cerebrolysin) and short peptides (semax, cortagen, pinealon), including clinical use in older adults.",
+    limitation:
+      "Narrative review by the Khavinson group in Russian; not a systematic analysis of trials.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:25051774",
+    kind: "pubmed",
+    title:
+      "[The efficacy of peptide bioregulators of vessels in lower limbs chronic arterial insufficiency treatment in old and elderly people].",
+    authors: "Kitachev KV, Sazonov AB, Kozlov KL, et al.",
+    journal: "Advances in gerontology = Uspekhi gerontologii",
+    year: "2014",
+    pmid: "25051774",
+    url: "https://pubmed.ncbi.nlm.nih.gov/25051774/",
+    studyType: "clinical",
+    finding:
+      "Russian clinical study of the vascular tripeptide (Vesugen) in 41 older men with vascular-related erectile problems; penile artery blood flow improved after the course.",
+    limitation:
+      "Small, uncontrolled single-group study published in Russian; not independently replicated.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:12577695",
+    kind: "pubmed",
+    title:
+      "[Geroprotective effect of thymalin and epithalamin].",
+    authors: "Khavinson VKh, Morozov VG",
+    journal: "Advances in gerontology = Uspekhi gerontologii",
+    year: "2002",
+    pmid: "12577695",
+    url: "https://pubmed.ncbi.nlm.nih.gov/12577695/",
+    studyType: "clinical",
+    finding:
+      "Russian 6–8-year follow-up of 266 older adults given injectable thymus (Thymalin) and pineal (Epithalamin) extracts reported fewer respiratory infections and lower mortality than controls.",
+    limitation:
+      "Injectable extracts, not oral products; single research network; not independently replicated.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:11335874",
+    kind: "pubmed",
+    title:
+      "Effects of pineal peptide preparation Epithalamin on free-radical processes in humans and animals.",
+    authors: "Anisimov VN, Arutjunyan AV, Khavinson VK",
+    journal: "Neuro endocrinology letters",
+    year: "2001",
+    pmid: "11335874",
+    url: "https://pubmed.ncbi.nlm.nih.gov/11335874/",
+    studyType: "review",
+    finding:
+      "Review of the group's own data: the pineal peptide preparation Epithalamin raised antioxidant enzyme activity and lowered lipid peroxidation markers in rats, fruit flies and older people.",
+    limitation:
+      "Self-review by the developers; human data are small and from one network.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:27259496",
+    kind: "pubmed",
+    title:
+      "Peptide Regulation of Skin Fibroblast Functions during Their Aging In Vitro.",
+    authors: "Lin'kova NS, Drobintseva AO, Orlova OA, et al.",
+    journal: "Bulletin of experimental biology and medicine",
+    year: "2016",
+    pmid: "27259496",
+    url: "https://pubmed.ncbi.nlm.nih.gov/27259496/",
+    studyType: "in-vitro",
+    finding:
+      "Short peptides (KE, KED, AED, AEDG) affected proliferation and ageing markers in human skin fibroblasts aged in culture.",
+    limitation:
+      "Cell-culture study only; no human skin outcomes.",
+    doi: "10.1007/s10517-016-3370-x",
+    origin: "curated",
+  },
+  {
+    id: "pmid:25946840",
+    kind: "pubmed",
+    title:
+      "[Impact of tetrapeptide pancragen on endocrine function of the pancreas in old monkeys].",
+    authors: "Goncharova ND, Ivanova LG, Oganian TÉ, et al.",
+    journal: "Advances in gerontology = Uspekhi gerontologii",
+    year: "2014",
+    pmid: "25946840",
+    url: "https://pubmed.ncbi.nlm.nih.gov/25946840/",
+    studyType: "animal",
+    finding:
+      "In old rhesus monkeys, the pancreatic tetrapeptide Pancragen improved pancreatic endocrine function, with part of the effect lasting 3 weeks after stopping.",
+    limitation:
+      "Small primate study; not tested in humans.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:30607912",
+    kind: "pubmed",
+    title:
+      "[The influence of peptides on the morphofunctional state of old rats kidneys.].",
+    authors: "Zamorskii II, Shchudrova TS, Zeleniuk VG, et al.",
+    journal: "Advances in gerontology = Uspekhi gerontologii",
+    year: "2018",
+    pmid: "30607912",
+    url: "https://pubmed.ncbi.nlm.nih.gov/30607912/",
+    studyType: "animal",
+    finding:
+      "In old rats, a kidney polypeptide complex and short peptides (AED, EDL, AEDG) changed markers of kidney function and raised antioxidant enzyme activity without signs of kidney toxicity.",
+    limitation:
+      "Rat study published in Russian; no human data.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:26468022",
+    kind: "pubmed",
+    title:
+      "Modulating Effect of Peptide Therapy on the Morphofunctional State of Bronchial Epithelium in Rats with Obstructive Lung Pathology.",
+    authors: "Kuzubova NA, Lebedeva ES, Dvorakovskaya IV, et al.",
+    journal: "Bulletin of experimental biology and medicine",
+    year: "2015",
+    pmid: "26468022",
+    url: "https://pubmed.ncbi.nlm.nih.gov/26468022/",
+    studyType: "animal",
+    finding:
+      "In a rat model of chronic lung damage, a month of the bronchial tetrapeptide Bronchogen improved bronchial lining structure and local immune (secretory IgA) markers.",
+    limitation:
+      "Rat model only; independent pulmonology group but no human trials.",
+    doi: "10.1007/s10517-015-3047-x",
+    origin: "curated",
+  },
+  {
+    id: "pmid:16075683",
+    kind: "pubmed",
+    title:
+      "[Effect of peptide Livagen on activity of digestive enzymes in gastrointestinal tract and non-digestive organs in rats of different ages].",
+    authors: "Timofeeva NM, Khavinson VKh, Malinin VV, et al.",
+    journal: "Advances in gerontology = Uspekhi gerontologii",
+    year: "2005",
+    pmid: "16075683",
+    url: "https://pubmed.ncbi.nlm.nih.gov/16075683/",
+    studyType: "animal",
+    finding:
+      "The liver peptide Livagen shifted digestive-enzyme activity in old rats toward levels seen in young rats.",
+    limitation:
+      "Rat study published in Russian; no human data.",
+    origin: "curated",
+  },
+  {
+    id: "pmid:12533768",
+    kind: "pubmed",
+    title:
+      "Effects of Livagen peptide on chromatin activation in lymphocytes from old people.",
+    authors: "Khavinson VKh, Lezhava TA, Monaselidze JG, et al.",
+    journal: "Bulletin of experimental biology and medicine",
+    year: "2002",
+    pmid: "12533768",
+    url: "https://pubmed.ncbi.nlm.nih.gov/12533768/",
+    studyType: "in-vitro",
+    finding:
+      "The liver peptide Livagen activated condensed chromatin in lymphocytes taken from older people.",
+    limitation:
+      "Lab study on isolated cells; no clinical outcomes.",
+    doi: "10.1023/a:1021924702103",
+    origin: "curated",
+  },
+  {
+    id: "pmid:22808515",
+    kind: "pubmed",
+    title:
+      "Peptides tissue-specifically stimulate cell differentiation during their aging.",
+    authors: "Khavinson VKh, Linkova NS, Polyakova VO, et al.",
+    journal: "Bulletin of experimental biology and medicine",
+    year: "2012",
+    pmid: "22808515",
+    url: "https://pubmed.ncbi.nlm.nih.gov/22808515/",
+    studyType: "in-vitro",
+    finding:
+      "Pancreatic, bronchial and vascular short peptides each raised differentiation markers in their matching ageing human cell cultures.",
+    limitation:
+      "Cell-culture study only.",
+    doi: "10.1007/s10517-012-1664-1",
+    origin: "curated",
+  },
+  {
+    id: "pmid:15514731",
+    kind: "pubmed",
+    title:
+      "Peptide correction of age-related hormonal dysfunction of the pancreas in monkeys.",
+    authors: "Goncharova ND, Vengerin AA, Khavinson VKh, et al.",
+    journal: "Bulletin of experimental biology and medicine",
+    year: "2004",
+    pmid: "15514731",
+    url: "https://pubmed.ncbi.nlm.nih.gov/15514731/",
+    studyType: "animal",
+    finding:
+      "In female rhesus monkeys, Epithalon corrected age-related changes in glucose tolerance and insulin response.",
+    limitation:
+      "Small primate study; not tested in humans.",
+    doi: "10.1023/b:bebm.0000046946.25425.f5",
     origin: "curated",
   },
 ];

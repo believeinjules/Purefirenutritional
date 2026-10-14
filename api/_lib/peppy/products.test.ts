@@ -14,7 +14,7 @@ const fakeDb = (
   }),
 });
 
-describe("Peppy catalog", () => {
+describe("Pepita catalog", () => {
   beforeEach(() => resetCatalogCache());
 
   it("uses the code catalog when Firebase Admin isn't configured", async () => {

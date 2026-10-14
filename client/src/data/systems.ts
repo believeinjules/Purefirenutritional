@@ -72,7 +72,7 @@ export const SHOP_SYSTEMS: ShopSystem[] = [
 /** Shown under every intro. */
 export const SYSTEM_HELP_LINE = {
   before: "Not sure which one fits?",
-  askPeppy: "Ask Peppy",
+  askPeppy: "Ask Pepita",
   middle: ", or bring the",
   doctorQuestions: "doctor questions",
   after: "to your next appointment.",

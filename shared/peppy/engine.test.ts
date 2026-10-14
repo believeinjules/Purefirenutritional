@@ -57,7 +57,7 @@ describe("deterministic answers", () => {
     expect(ask("what's the weather today").summary).toMatch(
       /outside what I can help with/
     );
-    expect(ask("hello").summary).toMatch(/^Hi, I'm Peppy/);
+    expect(ask("hello").summary).toMatch(/^Hi, I'm Pepita/);
   });
   it("uses a short follow-up reply to refine the previous topic", () => {
     const r = ask("about 3 months, heavy periods, no meds", [
@@ -71,9 +71,11 @@ describe("deterministic answers", () => {
     expect(r.followUps).toEqual([]);
   });
   it("gives manufacturer directions for dosage questions", () => {
-    const r = ask("how do I take Cartalax?");
-    expect(r.sections[0].heading).toBe("Manufacturer's directions");
-    expect(r.sections[0].body).toMatch(/not personal dosing advice/);
+    const r = ask("how do I take Ensil?");
+    expect(r.summary).toMatch(/manufacturer's directions for Ensil: Adults take 1 capsule 3 times a day, with meal/);
+    expect(r.summary).toMatch(/not results from clinical trials/);
+    // Unverified products get no generic template.
+    expect(ask("how do I take Calsil-T?").summary).toMatch(/haven't been verified/);
   });
   it("names Endoluten + melatonin as unstudied rather than guessing", () => {
     const r = ask("Can I take Endoluten with melatonin?");

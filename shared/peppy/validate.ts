@@ -7,6 +7,7 @@
  *  - safety notices and dosage directions always come from the deterministic engine.
  * Returns null when the output is unusable, so the caller serves the fallback answer.
  */
+import { verifiedFacts } from "./product-data.js";
 import {
   isCompliantEvidenceNote,
   isCompliantProductCopy,
@@ -29,6 +30,16 @@ export interface ValidationReport {
   droppedProducts: string[];
   rewrittenProductCopy: number;
   removedSentences: number;
+  /** Sentences dropped for recommending other treatments/interventions. */
+  removedInterventions?: number;
+}
+
+const NUM = /\d+(?:[.,]\d+)?(?:\s*[–-]\s*\d+)?/g;
+/** True when every number in `text` appears in a verified field (or name) of the mentioned products. */
+export function numbersAreVerified(text: string, mentioned: { id: string; name: string }[]): boolean {
+  const pool = mentioned.map(p => `${p.name} ${JSON.stringify(verifiedFacts(p.id))}`).join(" ");
+  const allowed = new Set((pool.match(NUM) ?? []).map(n => n.replace(/\s/g, "")));
+  return (text.replace(/\[\d+\]/g, "").match(NUM) ?? []).every(n => allowed.has(n.replace(/\s/g, "")));
 }
 
 export function parseLlmJson(raw: string): Record<string, unknown> | null {
@@ -85,6 +96,7 @@ export function validateLlmAnswer(input: {
     droppedProducts: [],
     rewrittenProductCopy: 0,
     removedSentences: 0,
+    removedInterventions: 0,
   };
   const names = Array.from(catalog.values()).map(p => p.name);
 
@@ -94,7 +106,15 @@ export function validateLlmAnswer(input: {
     names
   );
   report.removedSentences += summaryClean.removed;
+  const summaryScoped = withoutInterventionAdvice(summaryClean.text);
+  report.removedInterventions! += summaryScoped.removed;
+  summaryClean.text = summaryScoped.text;
   if (summaryClean.text.length < 20) return null;
+  // No invented doses: in a dosing turn every number must come from a verified product field.
+  if (analysis.intent === "dosage" && !numbersAreVerified(summaryClean.text, analysis.mentioned)) {
+    summaryClean.text = draft.summary;
+    report.removedSentences += 1;
+  }
 
   // Sections.
   let sections: AnswerSection[] = [];
@@ -103,6 +123,9 @@ export function validateLlmAnswer(input: {
     const rec = item as Record<string, unknown>;
     const body = sanitizeAnswerProse(clampText(str(rec.body), 1400), names);
     report.removedSentences += body.removed;
+    const scoped = withoutInterventionAdvice(body.text);
+    report.removedInterventions! += scoped.removed;
+    body.text = scoped.text;
     if (!body.text) continue;
     const heading = clampText(str(rec.heading), 80);
     sections.push(
@@ -140,6 +163,15 @@ export function validateLlmAnswer(input: {
     0,
     PEPPY_LIMITS.maxSources
   );
+
+  // Inline [n] markers refer to positions in the model's sourceIds; renumber them to
+  // the validated list and drop any that point at a rejected or missing source.
+  const rawIds = arr(data.sourceIds).map(str);
+  const summaryText = remapCitationMarkers(summaryClean.text, n => {
+    const src = byId.get(rawIds[n - 1] ?? "");
+    const at = src && research.length ? finalResearch.indexOf(src) : -1;
+    return at >= 0 ? at + 1 : null;
+  });
 
   // Products: candidates only, guards respected, claim-filtered copy.
   const products: PeppyProductSuggestion[] = [];
@@ -215,7 +247,7 @@ export function validateLlmAnswer(input: {
   return {
     response: {
       mode: "llm",
-      summary: summaryClean.text,
+      summary: summaryText,
       sections,
       research: finalResearch,
       evidenceNote,
@@ -228,4 +260,59 @@ export function validateLlmAnswer(input: {
     },
     report,
   };
+}
+
+/** Rewrites "[2]" / "[1, 3]" markers via `map` (null drops that number; empty markers vanish). */
+export function remapCitationMarkers(
+  text: string,
+  map: (n: number) => number | null
+): string {
+  return text
+    .replace(/\s?\[(\d+(?:\s*,\s*\d+)*)\]/g, (whole, nums: string) => {
+      const kept = Array.from(
+        new Set(
+          nums
+            .split(",")
+            .map(x => map(Number(x.trim())))
+            .filter((x): x is number => x !== null)
+        )
+      );
+      return kept.length ? `${whole.startsWith(" ") ? " " : ""}[${kept.join(", ")}]` : "";
+    })
+    .trim();
+}
+
+/**
+ * Pepita answers about peptides/ingredients only (Julia, 2026-10-13): phrases that
+ * recommend other treatments or interventions. Cheap and deliberately narrow; red-flag
+ * care advice ("see your doctor", "call 911") is never matched.
+ */
+export const INTERVENTION_ADVICE =
+  /\b(CBT(?:-I)?|cognitive[- ]behaviou?ral therapy|first[- ]line|best[- ](?:proven|evidenced|supported) (?:ways?|tools?|steps?|options?|levers?|approach\w*|interventions?)|(?:strongest|biggest) levers?|sleep hygiene|physiotherapy|hormone (?:replacement )?therapy|(?:try|consider|start) (?:regular )?(?:exercise|exercising|meditation|yoga|counsel+ing|therapy|a (?:diet|sleep programme|sleep program))|(?:prescription|prescribed) (?:sleep )?(?:medication|medicine|drug|pill)s?)\b/i;
+
+/** Drops sentences that recommend other interventions; keeps everything else verbatim. */
+export function withoutInterventionAdvice(text: string): { text: string; removed: number } {
+  let removed = 0;
+  const out = text
+    .split(/\n{2,}/)
+    .map(para =>
+      para
+        .split("\n")
+        .map(line => {
+          const kept = line.split(/(?<=[.!?])\s+/).filter(sentence => {
+            if (INTERVENTION_ADVICE.test(sentence)) {
+              removed++;
+              return false;
+            }
+            return true;
+          });
+          const joined = kept.join(" ");
+          return /^\s*[-•*]\s*$/.test(joined) ? "" : joined;
+        })
+        .filter(l => l.trim())
+        .join("\n")
+    )
+    .filter(p => p.trim())
+    .join("\n\n");
+  return { text: out, removed };
 }

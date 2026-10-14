@@ -1,0 +1,13 @@
+{
+  "_note": "Label resolutions decided by Julia (Pure Fire is the expert voice on Khavinson science). Each entry becomes the VERIFIED label for that product and replaces conflicting catalog text. 2026-10-13: Endoluten resolved in favor of the St. Petersburg Institute of Bioregulation and Gerontology (peptid.ru).",
+  "endoluten": {
+    "labelDirections": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+    "courseDuration": "about 20 days to 2 months",
+    "timing": "in the morning or at midday",
+    "audience": "adults over 14",
+    "contraindications": "individual intolerance to the components, pregnancy, breastfeeding",
+    "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/",
+    "decidedBy": "Julia Shulman",
+    "decidedOn": "2026-10-13"
+  }
+}

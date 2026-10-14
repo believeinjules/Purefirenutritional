@@ -66,7 +66,7 @@ export default function AskPepitaDock() {
         onClick={() => setOpen((v) => !v)}
         className="h-12 w-12 overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2"
       >
-        <img src="/images/pepita/avatar-128.webp" alt="" width={48} height={48} decoding="async" className="h-12 w-12" />
+        <img src="/images/pepita/avatar-128.webp" srcSet="/images/pepita/avatar-128.webp 1x, /images/pepita/avatar-256.webp 2x" alt="Pepita" width={48} height={48} decoding="async" className="h-12 w-12" />
       </button>
     </div>
   );

@@ -1,5 +1,5 @@
 /**
- * Peppy 2.0 — shared response contract between the /api/peppy endpoint, the
+ * Pepita — shared response contract between the /api/peppy endpoint, the
  * deterministic fallback engine and the /ai-assistant UI.
  */
 
@@ -41,7 +41,7 @@ export interface PeppySourceCard extends ResearchSource {
   limitation: string;
 }
 
-/** Catalog product as Peppy sees it (Firestore first, products.ts fallback). */
+/** Catalog product as Pepita sees it (Firestore first, products.ts fallback). */
 export interface PeppyProduct {
   id: string;
   name: string;
@@ -120,7 +120,7 @@ export const PEPPY_LIMITS = {
   maxHistoryTurns: 8,
   maxHistoryChars: 1200,
   maxSources: 5,
-  maxProducts: 2,
+  maxProducts: 3,
   maxFollowUps: 3,
   maxSuggestions: 4,
 } as const;

@@ -1,3 +1,4 @@
+import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import { Link, useSearch } from "wouter";
 import PageSeo from "@/components/seo/PageSeo";
 import {
@@ -10,9 +11,7 @@ import {
 } from "react";
 import {
   Send,
-  Bot,
   AlertTriangle,
-  Sparkles,
   ClipboardList,
   Loader2,
 } from "lucide-react";
@@ -29,11 +28,12 @@ import {
 } from "@/components/ui/dialog";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { getProductById } from "@/data/products";
+import { getProductById, products as catalogProducts } from "@/data/products";
 import type { ProtocolGoal, ProtocolSex } from "@/data/protocols";
 import {
   GOAL_TEXT,
-  doctorQuestionsMessage,
+  doctorQuestionsMessageFor,
+  isMedicallyRelevant,
   parsePeppyParams,
   peppyPrefill,
   peppySchedule,
@@ -50,10 +50,28 @@ import {
 /** Bump the suffix if the modal wording ever changes, so everyone sees it again. */
 const DISCLAIMER_KEY = "pf-peppy-disclaimer-v1";
 
+/** Copies the doctor questions as plain text. */
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      data-testid="pepita-copy-doctor-questions"
+      onClick={() => {
+        void navigator.clipboard?.writeText(text).then(() => setCopied(true), () => setCopied(false));
+      }}
+      className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs text-gray-700 hover:border-orange-400 hover:bg-orange-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+    >
+      <ClipboardList className="h-3.5 w-3.5" aria-hidden="true" />
+      {copied ? "Copied" : "Copy questions"}
+    </button>
+  );
+}
+
 type ChatMessage =
   | { id: string; role: "user"; text: string }
   | { id: string; role: "assistant"; kind: "answer"; answer: PeppyResponse }
-  | { id: string; role: "assistant"; kind: "text"; text: string };
+  | { id: string; role: "assistant"; kind: "text"; text: string; doctorQuestions?: boolean };
 
 const QUICK_QUESTIONS = [
   "Why am I tired in the afternoon?",
@@ -142,7 +160,17 @@ export default function AIAssistant() {
         id: nextId(),
         role: "assistant",
         kind: "text",
-        text: doctorQuestionsMessage(contextProduct?.name),
+        doctorQuestions: true,
+        text: doctorQuestionsMessageFor(
+          messages.filter(m => m.role === "user").map(m => m.text),
+          Array.from(new Set([
+            ...(contextProduct ? [contextProduct.name] : []),
+            // Products the user named themselves.
+            ...catalogProducts
+              .map(p => p.name)
+              .filter(n => messages.some(m => m.role === "user" && m.text.toLowerCase().includes(n.toLowerCase()))),
+          ])),
+        ),
       },
     ]);
   };
@@ -186,7 +214,7 @@ export default function AIAssistant() {
     <div className="min-h-screen flex flex-col">
       <PageSeo
         title="AI Health Optimizer | Pure Fire Nutritional"
-        description="Ask Peppy, Pure Fire's research assistant, about peptide bioregulators, supplements and wellness goals: direct answers with linked PubMed studies, their limitations, and related products."
+        description="Ask Pepita, Pure Fire's research assistant, about peptide bioregulators, supplements and wellness goals: direct answers with linked PubMed studies, their limitations, and related products."
         path="/ai-assistant"
         type="website"
       />
@@ -240,15 +268,15 @@ export default function AIAssistant() {
         <div className="max-w-4xl mx-auto px-4 py-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-brand-gradient text-white px-6 py-2 rounded-full mb-4">
-              <Sparkles className="w-5 h-5" />
-              <span className="font-semibold">Peppy 2.0</span>
+            <div className="inline-flex items-center gap-2 bg-brand-gradient text-white pl-1.5 pr-6 py-1.5 rounded-full mb-4">
+              <PepitaAvatar size={32} className="ring-2 ring-white/70" />
+              <span className="font-semibold">Pepita</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">
               Your Personal Health Guide
             </h1>
             <p className="text-gray-600">
-              Ask about a symptom, goal, peptide or product. Peppy answers
+              Ask about a symptom, goal, peptide or product. Pepita answers
               first, shows the research and its limits, and only then any
               related products.
             </p>
@@ -350,17 +378,14 @@ export default function AIAssistant() {
                 role="log"
                 aria-live="polite"
                 aria-relevant="additions"
-                aria-label="Conversation with Peppy"
+                aria-label="Conversation with Pepita"
                 data-testid="peppy-log"
               >
                 {messages.length === 0 && (
                   <div className="text-center text-gray-500 py-8">
-                    <Bot
-                      className="w-14 h-14 mx-auto mb-3 text-orange-300"
-                      aria-hidden="true"
-                    />
+                    <PepitaAvatar size={56} className="mx-auto mb-3 block" />
                     <p className="text-gray-700">
-                      Hi! I'm Peppy, Pure Fire's research assistant.
+                      Hi! I'm Pepita, Pure Fire's research assistant.
                     </p>
                     <p className="text-sm">
                       Ask a question, or try one of these:
@@ -380,7 +405,7 @@ export default function AIAssistant() {
                   </div>
                 )}
 
-                {messages.map(m => (
+                {messages.map((m, mi) => (
                   <div
                     key={m.id}
                     ref={el => {
@@ -395,12 +420,7 @@ export default function AIAssistant() {
                     }
                   >
                     {m.role === "assistant" && (
-                      <div
-                        className="hidden sm:flex w-8 h-8 bg-brand-gradient rounded-full items-center justify-center flex-shrink-0"
-                        aria-hidden="true"
-                      >
-                        <Bot className="w-5 h-5 text-white" />
-                      </div>
+                      <PepitaAvatar size={28} className="mt-0.5 sm:h-8 sm:w-8" />
                     )}
                     {m.role === "user" ? (
                       <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-orange-500 px-4 py-2 text-white [overflow-wrap:anywhere]">
@@ -409,19 +429,30 @@ export default function AIAssistant() {
                       </p>
                     ) : (
                       <div className="min-w-0 flex-1 rounded-xl border bg-white p-4 shadow-sm">
-                        <span className="sr-only">Peppy: </span>
+                        <span className="sr-only">Pepita: </span>
                         {m.kind === "answer" ? (
                           <PeppyAnswer
                             answer={m.answer}
+                            question={[...messages.slice(0, mi)].reverse().find(x => x.role === "user")?.text}
                             onAsk={q => void send(q)}
                             disabled={isLoading}
                             headingId={`${baseId}-${m.id}`}
+                            onDoctorQuestions={
+                              isMedicallyRelevant(
+                                [...messages.slice(0, mi)].reverse().find(x => x.role === "user")?.text ?? ""
+                              ) && !messages.slice(mi).some(x => x.role === "assistant" && x.kind === "text" && x.doctorQuestions)
+                                ? askDoctorQuestions
+                                : undefined
+                            }
                           />
                         ) : (
-                          <RichText
-                            text={m.text}
-                            className="text-[15px] leading-relaxed text-gray-800"
-                          />
+                          <>
+                            <RichText
+                              text={m.text}
+                              className="text-[15px] leading-relaxed text-gray-800"
+                            />
+                            {m.doctorQuestions && <CopyButton text={m.text} />}
+                          </>
                         )}
                       </div>
                     )}
@@ -446,7 +477,7 @@ export default function AIAssistant() {
               <div className="sticky bottom-0 rounded-b-xl border-t bg-white/95 p-3 backdrop-blur sm:p-4">
                 <form onSubmit={onSubmit} className="flex gap-2">
                   <label htmlFor={`${baseId}-input`} className="sr-only">
-                    Ask Peppy a question
+                    Ask Pepita a question
                   </label>
                   <Input
                     id={`${baseId}-input`}

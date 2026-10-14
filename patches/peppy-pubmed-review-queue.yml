@@ -1,0 +1,27 @@
+# Monthly PubMed refresh for Pepita -> review queue only (nothing is published).
+# Runs on the 1st of each month; the queue JSON is attached to the run as an artifact for
+# Julia / Regulatory to review. Approved papers are added to research-registry.ts by hand.
+name: Pepita PubMed review queue
+on:
+  schedule:
+    - cron: "0 13 1 * *" # 1st of the month, 09:00 ET (13:00 UTC during EDT)
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/peppy-pubmed-review-queue.mjs --days 31
+        env:
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: peppy-review-queue
+          path: data/peppy-review-queue.json
+          if-no-files-found: ignore
