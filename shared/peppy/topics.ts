@@ -429,7 +429,7 @@ export const TOPICS: Topic[] = [
       /\b(peptide|bioregulator|cytomax\w*|cytogen\w*)s? (?:course|protocol)s?\b.*\b(repeat|how often|how long|length)\b/i,
     ],
     summary:
-      "Khavinson bioregulators are taken in courses rather than every day, and the manufacturer directions frame them in two ways. A standard, preventive-style course is usually about a month, then a break, then a repeat course a few months later; the cards below show two products' own label directions as real examples. When the aim is restoring function, the directions describe extending the course, pairing it with bioregulators for other organs, or running 2–3 courses a year, with a doctor's input first. Every product has its own directions, so the course is always set per product, never borrowed from another.",
+      "Khavinson bioregulators are taken in courses rather than every day, and the manufacturer directions frame them in two ways. A standard, preventive-style course is usually about a month, then a break, then sometimes a repeat course a few months to a year later; the cards below show two products' own label directions as real examples. When the aim is restoring function, the directions describe extending the course, pairing it with bioregulators for other organs, or running 2–3 courses a year, with a doctor's input first. Every product has its own directions, so the course is always set per product, never borrowed from another.",
     sections: [
       {
         heading: "Check with your doctor first if",
@@ -439,7 +439,7 @@ export const TOPICS: Topic[] = [
     learnMore: [
       {
         heading: "How a standard course is framed",
-        body: "In the manufacturer directions (peptideproduct.com and the institute store, peptid.ru), most capsule Cytomaxes and Cytogens follow one shape: 1–2 capsules with meals for about a month, a break, then a repeat course after a few months. Some products state their own window; for Cartalax the institute store gives 10–30 days with a repeat course after 4–6 months. These are label directions, not schedules compared against each other in trials.",
+        body: "In the manufacturer directions (peptideproduct.com and the institute store, peptid.ru), most capsule Cytomaxes and Cytogens follow one shape: 1–2 capsules with meals for about a month, a break, then sometimes a repeat course a few months to a year later. Each product's card shows its own label directions. These are label directions, not schedules compared against each other in trials.",
       },
       {
         heading: "What the directions say about restoring function",
