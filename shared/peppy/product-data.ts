@@ -9,7 +9,7 @@
  *  - No generic or template schedule anywhere: shared strings (e.g. one Cytomax line reused for
  *    every product) never become "verified". A schedule needs RD verification for that product.
  *  - Protocol types stay separate: label / manufacturer-protocol / research-regimen.
- *  - Package duration is arithmetic from a verified schedule, labelled as such. Nothing else is derived,
+ *  - Package duration is arithmetic from a verified schedule. Nothing else is derived,
  *    extrapolated between products, or adjusted by age/sex/goal.
  */
 import DATA from "./product-data.json";
@@ -161,6 +161,14 @@ function packDurations(id: string, s: Schedule): { format: string; days: string 
     .map(f => ({ format: f.format, days: fmtRange(packageDurationDays(f.units, s)) }));
 }
 
+/** Say "Adults" rather than "Adults over 14" / "adults and children older 14 years" (Julia, 2026-10-13). */
+export function plainAudience(label: string): string {
+  return label
+    .replace(/\badults(?:\s+and\s+children)?\s+(?:over|older(?:\s+than)?|from)\s+14(?:\s+years)?(?:\s+old)?\b/gi, "adults")
+    .replace(/^adults by /i, "adults take ")
+    .replace(/^adults\b/, "Adults");
+}
+
 const end = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 /** Short dosing answer: exact verified numbers, or a plain "not verified yet". */
@@ -173,12 +181,12 @@ export function dosingAnswer(id: string, name: string, packUnits?: number | null
       text: `I can't give you a schedule for ${name} yet, because its label directions haven't been verified for our site, and schedules really do differ between products (some aren't taken every day). Please follow the package insert that came with yours, and check it with your doctor.`,
     };
   }
-  const parts = [`The manufacturer's directions for ${name}: ${end(label.replace(/^adults by /i, "adults take "))}`];
+  const parts = [`The manufacturer's directions for ${name}: ${end(plainAudience(label))}`];
   const all = sched ? packDurations(id, sched) : [];
   const mine = all.filter(p => packUnits && p.format.startsWith(`${packUnits}-`));
   const packs = mine.length ? mine : all;
   if (packs.length)
-    parts.push(`At that schedule ${packs.map(p => `${mine.length ? "your" : "a"} ${p.format} pack lasts about ${p.days} days`).join(" and ")} (simple arithmetic from the label).`);
+    parts.push(`At that schedule ${packs.map(p => `${mine.length ? "your" : "a"} ${p.format} pack lasts about ${p.days} days`).join(" and ")}.`);
   const proto = verifiedSchedules(id, "manufacturer-protocol")[0];
   if (proto) parts.push(`The manufacturer also documents a separate protocol: ${end(proto.text)}`);
   const sex = verified(id, "sexSpecificNotes");

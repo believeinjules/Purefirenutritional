@@ -56,9 +56,16 @@ describe("product data layer (single JSON file)", () => {
     expect(s.source).toContain("https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/");
     expect(verified("endoluten", "contraindications")).toBe("individual intolerance to the components, pregnancy, breastfeeding");
     const t = dosingAnswer("endoluten", "Endoluten").text;
-    expect(t).toMatch(/^The manufacturer's directions for Endoluten: Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months\./);
+    expect(t).toMatch(/^The manufacturer's directions for Endoluten: Adults take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months\./);
     expect(t).toMatch(/20-capsule pack lasts about 60 days and a 60-capsule pack lasts about 180 days/);
     expect(t).not.toMatch(/catalog|differen|disagree|conflict|Maintenance|Intensive|1–2 capsules/i);
+  });
+  it("says 'Adults', never an 'over 14' age line, and no arithmetic aside, for every product", () => {
+    for (const p of products) {
+      const t = ask(`How much ${p.name} should I take?`).summary;
+      expect(t, p.id).not.toMatch(/over 14|older 14|14 years|simple arithmetic/i);
+    }
+    expect(dosingAnswer("revifort", "Revifort").text).toMatch(/^The manufacturer's directions for Revifort: Adults take 1 capsule 2 times a day/);
   });
   it("no answer or prompt hedges with 'other catalogs/sources differ'", () => {
     const HEDGE = /(other|some|english) (catalogs?|sources?)[^.]*(differ|different|disagree|show)/i;
