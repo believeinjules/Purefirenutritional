@@ -9,13 +9,13 @@ import { products } from "../../client/src/data/products";
 const catalog = buildCatalog(products as unknown as Parameters<typeof buildCatalog>[0]);
 
 describe("Pepita v6 response logic", () => {
-  it("joint pain: cartilage bioregulator + Prime Peptide Joints (+ collagen), verified protocols, 1–2 follow-ups", async () => {
+  it("joint pain: cartilage bioregulator + Prime Peptide Joints (+ collagen), verified protocols, 2–3 follow-ups", async () => {
     const { response } = await answerPeppy({ message: "My knees ache, what could help?" }, { catalog });
     expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "prime-peptide-collagen"]);
     expect(response.products.map(p => p.family)).toEqual(["khavinson", "prime-peptide", "prime-peptide"]);
     for (const p of response.products) expect(p.protocol).toMatch(/^Manufacturer protocol: .*not a clinically validated regimen/);
-    expect(response.followUps.length).toBeGreaterThanOrEqual(1);
-    expect(response.followUps.length).toBeLessThanOrEqual(2);
+    expect(response.followUps.length).toBeGreaterThanOrEqual(2);
+    expect(response.followUps.length).toBeLessThanOrEqual(3);
     expect(response.learnMore?.map(s => s.heading)).toContain("How the three picks differ");
     expect(response.summary).not.toMatch(/^(evidence is limited|only animal)/i);
     expect(response.summary).not.toMatch(/only cell and animal studies/i);

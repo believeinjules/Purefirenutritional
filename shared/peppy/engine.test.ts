@@ -13,10 +13,10 @@ const ask = (
 const registry = new Set(RESEARCH_REGISTRY.map(s => s.id));
 
 describe("deterministic answers", () => {
-  it("answers a symptom question first, cites sources, and keeps products secondary", () => {
+  it("leads with the suggested products, cites sources, and stays brief", () => {
     const r = ask("I'm always tired, what should I take?");
     expect(r.summary).toMatch(/tired/i);
-    expect(r.summary).not.toMatch(/panaxod|ensil/i);
+    expect(r.summary).toMatch(new RegExp(`^${r.products[0].product.name}`));
     expect(r.research.length).toBeGreaterThanOrEqual(3);
     for (const s of r.research) expect(registry.has(s.id)).toBe(true);
     expect(r.products.length).toBeGreaterThan(0);

@@ -769,7 +769,10 @@ export function composeFallback(
       evidenceNote: topic.evidenceNote,
       safety,
       followUps: askFollowUps
-        ? (topic.slotFollowUps ? slotQs : topic.followUps).slice(0, PEPPY_LIMITS.maxFollowUps)
+        ? (topic.slotFollowUps
+            ? [...slotQs, ...topic.followUps.filter(q => !slotQs.includes(q))]
+            : topic.followUps
+          ).slice(0, PEPPY_LIMITS.maxFollowUps)
         : [],
       suggestions: suggestionFor(topic, used),
       products,
