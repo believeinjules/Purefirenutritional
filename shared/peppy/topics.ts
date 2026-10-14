@@ -459,7 +459,7 @@ export const TOPICS: Topic[] = [
         id: "cartalax",
         family: "khavinson",
         tissue: "Cartilage bioregulator (AED tripeptide)",
-        why: "A Cytogen whose directions show the standard course shape: about a month, then a repeat course after a few months.",
+        why: "A Cytogen whose directions show the standard course shape: 10–30 days, then a repeat course after 4–6 months.",
         evidenceNote:
           "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
       },
