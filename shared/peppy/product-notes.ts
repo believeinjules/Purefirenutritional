@@ -16,6 +16,17 @@ export const DOCTOR_CONSULT_LINE =
 export const DOSING_NOTE =
   "Dosage may vary depending on factors like sex, age, health status, and whether the goal is preventive (general upkeep) or regenerative (more active support); label directions are on the product page, and your doctor can help decide what's right for you, ideally informed by proper blood tests.";
 
+/** Permanent, subtle health footer on every Pepita answer (v11); replaces the per-answer doctor line. */
+export const HEALTH_FOOTER =
+  "Educational, not medical advice. Doses, combinations and courses vary: check them with your healthcare provider before starting, especially if you have a medical condition, take medications, or are pregnant or breastfeeding.";
+
+/** Footer for symptom answers (pink, stethoscope). */
+export const SYMPTOM_FOOTER =
+  "Symptoms like these can have many causes. This is educational, not medical advice: please see your healthcare provider for a proper evaluation, and check doses and combinations with them, especially if you take medications.";
+
+/** The only intro disclaimer: first line of every substantive Pepita answer (Julia, 2026-10-14). */
+export const CONSULT_LINE = "Please consult with a medical/healthcare professional.";
+
 /** Short pre-order mention added when a suggested product is a liquid/drop (pre-order) product. */
 export const PREORDER_LINE =
   "Liquid forms are available by pre-order and usually ship within about two extra weeks.";

@@ -40,7 +40,8 @@ describe("universal dosing note", () => {
 
   it("is required in the system prompt", () => {
     expect(PEPPY_SYSTEM_PROMPT).toContain(DOSING_NOTE);
-    expect(PEPPY_SYSTEM_PROMPT).toContain(DOCTOR_CONSULT_LINE);
+    // v11: the per-answer doctor line is replaced by the permanent health footer (rendered by the UI).
+    expect(PEPPY_SYSTEM_PROMPT).toMatch(/HEALTH FOOTER/);
   });
 
   const base = {

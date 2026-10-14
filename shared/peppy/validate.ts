@@ -234,6 +234,8 @@ export function validateLlmAnswer(input: {
         tissue: candidate.tissue,
         family: candidate.family,
         protocol: candidate.protocol,
+        research: candidate.research,
+        alternatives: candidate.alternatives,
       });
     }
   } else {

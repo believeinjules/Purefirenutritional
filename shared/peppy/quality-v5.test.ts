@@ -21,8 +21,8 @@ describe("v5 answer quality (rules, not canned text)", () => {
     expect(r.summary).toMatch(/Revifort/);
   });
   it("uses the pack size the user already gave, without re-asking", () => {
-    const r = ask("How long will it last?", [{ role: "user", content: "I have Endoluten 60" }, { role: "assistant", content: "Sure." }]);
-    expect(r.summary).toMatch(/your 60-capsule pack lasts about 180 days/);
+    const r = ask("How long will it last?", [{ role: "user", content: "I have Prime Peptide Brain 90" }, { role: "assistant", content: "Sure." }]);
+    expect(r.summary).toMatch(/your 90-capsule pack lasts about 30 days/);
     expect(r.summary).not.toMatch(/catalogs?/);
     expect(r.followUps).toEqual([]);
   });

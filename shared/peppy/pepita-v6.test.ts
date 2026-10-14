@@ -1,3 +1,4 @@
+import { pepitaDirections } from "../product-facts";
 import { describe, expect, it } from "vitest";
 import { answerPeppy } from "./respond";
 import { buildCatalog } from "./catalog";
@@ -9,13 +10,18 @@ import { products } from "../../client/src/data/products";
 const catalog = buildCatalog(products as unknown as Parameters<typeof buildCatalog>[0]);
 
 describe("Pepita v6 response logic", () => {
-  it("joint pain: cartilage bioregulator + Prime Peptide Joints (+ collagen), verified protocols, 1–2 follow-ups", async () => {
+  it("joint pain: cartilage bioregulator + Prime Peptide Joints (+ collagen), verified protocols, 2–3 follow-ups", async () => {
     const { response } = await answerPeppy({ message: "My knees ache, what could help?" }, { catalog });
-    expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "prime-peptide-collagen"]);
-    expect(response.products.map(p => p.family)).toEqual(["khavinson", "prime-peptide", "prime-peptide"]);
-    for (const p of response.products) expect(p.protocol).toMatch(/^Manufacturer protocol: .*not a clinically validated regimen/);
-    expect(response.followUps.length).toBeGreaterThanOrEqual(1);
-    expect(response.followUps.length).toBeLessThanOrEqual(2);
+    expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "revilab-sl-04"]);
+    expect(response.products.map(p => p.family)).toEqual(["khavinson", "prime-peptide", "revilab"]);
+    // Protocols only where the facts file has verified label directions (Sigumir: Cytomax frequency conflict, held).
+    for (const p of response.products)
+      if (pepitaDirections(p.product.id)) expect(p.protocol).toMatch(/^Manufacturer protocol: .*not a clinically validated regimen/);
+      else expect(p.protocol).toBeUndefined();
+    expect(response.products.find(p => p.product.id === "prime-peptide-joints")?.protocol).toMatch(/3 times a day/);
+    // v11 L1: one follow-up question plus 2–3 chips.
+    expect(response.followUps.length).toBe(1);
+    expect(response.suggestions).toEqual([]); // v12: no generic chips
     expect(response.learnMore?.map(s => s.heading)).toContain("How the three picks differ");
     expect(response.summary).not.toMatch(/^(evidence is limited|only animal)/i);
     expect(response.summary).not.toMatch(/only cell and animal studies/i);

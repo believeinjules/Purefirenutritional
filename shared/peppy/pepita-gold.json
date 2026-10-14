@@ -1,0 +1,524 @@
+{
+ "_doc": "Pepita gold test set (v11). Runner: shared/peppy/pepita-gold.test.ts. Each case: question → gold answer id, eligible products (cards must be a subset, all sold), expected short answer (regex), follow-up count, minimum citations, expandable detail kind, safety ordering. Endoluten directions are Pepita-only (known storefront exception pending Julia).",
+ "cases": [
+  {
+   "question": "I can't sleep well",
+   "gold": "sleep",
+   "eligibleProducts": [
+    "endoluten",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "Endoluten is our closest match",
+   "followUps": 1,
+   "minCitations": 1,
+   "expandable": "learnMore"
+  },
+  {
+   "question": "How do I take Endoluten?",
+   "gold": "endoluten-dosing",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "not taken daily",
+   "followUps": 0,
+   "minCitations": 0,
+   "mustNotContain": "sources differ|check (the|your) package|label versions",
+   "dosingFacts": {
+    "dose": "1 capsule every 3 days",
+    "timing": "In the morning or at midday",
+    "course": "20 days to 2 months"
+   }
+  },
+  {
+   "question": "My joints ache",
+   "gold": "joints",
+   "eligibleProducts": [
+    "sigumir",
+    "prime-peptide-joints",
+    "revilab-sl-04"
+   ],
+   "expectedShortAnswer": "Sigumir is a cartilage and bone peptide complex",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "What helps bladder health?",
+   "gold": "bladder",
+   "eligibleProducts": [
+    "chitomur",
+    "revilab-sl-08"
+   ],
+   "expectedShortAnswer": "Chitomur",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "prostate support",
+   "gold": "prostate",
+   "eligibleProducts": [
+    "libidon",
+    "revilab-sl-09"
+   ],
+   "expectedShortAnswer": "Libidon",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "What can help my memory and focus?",
+   "gold": "brain",
+   "eligibleProducts": [
+    "cerluten",
+    "pinealon",
+    "prime-peptide-brain"
+   ],
+   "expectedShortAnswer": "Cerluten",
+   "followUps": 1,
+   "minCitations": 1
+  },
+  {
+   "question": "liver support",
+   "gold": "liver",
+   "eligibleProducts": [
+    "svetinorm",
+    "ovagen",
+    "revilab-sl-05"
+   ],
+   "expectedShortAnswer": "Ovagen a synthesized complex for the liver and gastrointestinal tract",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "What helps with menopause?",
+   "gold": "menopause",
+   "eligibleProducts": [
+    "zhenoluten",
+    "revilab-ml-08",
+    "revilab-sl-10"
+   ],
+   "expectedShortAnswer": "Zhenoluten is a natural ovarian peptide complex",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Can I take these together?",
+   "gold": "combining",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "Manufacturers do describe combining peptides, usually in sequence",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Cytomax vs Cytogen vs Revilab",
+   "gold": "families",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "Cytomaxes are natural peptide complexes",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Do peptide bioregulators work?",
+   "gold": "efficacy",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "^Possibly, but the evidence is early",
+   "followUps": 1,
+   "minCitations": 1
+  },
+  {
+   "question": "It hurts when I urinate",
+   "gold": "rf-painful-urination",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "should be checked by a doctor first",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first"
+  },
+  {
+   "question": "Trouble sleeping lately",
+   "gold": "sleep",
+   "eligibleProducts": [
+    "endoluten",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "Endoluten",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "I have insomnia",
+   "gold": "sleep",
+   "eligibleProducts": [
+    "endoluten",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "Endoluten",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "I keep waking up at night",
+   "gold": "sleep",
+   "eligibleProducts": [
+    "endoluten",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "Endoluten",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "What is Endoluten?",
+   "gold": "endoluten-what",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "natural peptide complex from the pineal gland",
+   "followUps": 1,
+   "minCitations": 1
+  },
+  {
+   "question": "Tell me about Endoluten",
+   "gold": "endoluten-what",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "pineal gland",
+   "followUps": 1,
+   "minCitations": 1
+  },
+  {
+   "question": "How much Endoluten should I take?",
+   "gold": "endoluten-dosing",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "not taken daily",
+   "followUps": 0,
+   "minCitations": 0,
+   "dosingFacts": {
+    "dose": "1 capsule every 3 days",
+    "timing": "In the morning or at midday",
+    "course": "20 days to 2 months"
+   }
+  },
+  {
+   "question": "How often do I take Endoluten?",
+   "gold": "endoluten-dosing",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "not taken daily",
+   "followUps": 0,
+   "minCitations": 0,
+   "dosingFacts": {
+    "dose": "1 capsule every 3 days",
+    "timing": "In the morning or at midday",
+    "course": "20 days to 2 months"
+   }
+  },
+  {
+   "question": "Endoluten vs Pinealon",
+   "gold": "endoluten-vs-pinealon",
+   "eligibleProducts": [
+    "endoluten",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "Choose by target",
+   "followUps": 1,
+   "minCitations": 1
+  },
+  {
+   "question": "What's the difference between Pinealon and Endoluten?",
+   "gold": "endoluten-vs-pinealon",
+   "eligibleProducts": [
+    "endoluten",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "Choose by target",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "knee pain and stiffness",
+   "gold": "joints",
+   "eligibleProducts": [
+    "sigumir",
+    "prime-peptide-joints",
+    "revilab-sl-04"
+   ],
+   "expectedShortAnswer": "Sigumir",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "cartilage support",
+   "gold": "joints",
+   "eligibleProducts": [
+    "sigumir",
+    "prime-peptide-joints",
+    "revilab-sl-04"
+   ],
+   "expectedShortAnswer": "Sigumir",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "urinary health support",
+   "gold": "bladder",
+   "eligibleProducts": [
+    "chitomur",
+    "revilab-sl-08"
+   ],
+   "expectedShortAnswer": "Chitomur",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Is there anything for the prostate?",
+   "gold": "prostate",
+   "eligibleProducts": [
+    "libidon",
+    "revilab-sl-09"
+   ],
+   "expectedShortAnswer": "Libidon",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "brain fog",
+   "gold": "brain",
+   "eligibleProducts": [
+    "cerluten",
+    "pinealon",
+    "prime-peptide-brain"
+   ],
+   "expectedShortAnswer": "Prime Peptide Brain",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Something for my liver",
+   "gold": "liver",
+   "eligibleProducts": [
+    "svetinorm",
+    "ovagen",
+    "revilab-sl-05"
+   ],
+   "expectedShortAnswer": "Svetinorm",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "hot flashes",
+   "gold": "menopause",
+   "eligibleProducts": [
+    "zhenoluten",
+    "revilab-ml-08",
+    "revilab-sl-10"
+   ],
+   "expectedShortAnswer": "Zhenoluten is a natural ovarian peptide complex",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Show me the menopause course",
+   "gold": "menopause-course",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "SL 10 in month 1, then Revilab ML 08 in month 2",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "Can I combine peptides?",
+   "gold": "combining",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "in sequence",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Can I stack them at the same time?",
+   "gold": "combining",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "in sequence",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "What's the difference between Cytomax and Cytogen?",
+   "gold": "families",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "Cytogens are synthesized copies",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Do Khavinson peptides actually work?",
+   "gold": "efficacy",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "evidence is early",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "Does it actually work?",
+   "gold": "efficacy",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "evidence is early",
+   "followUps": 1,
+   "minCitations": 0
+  },
+  {
+   "question": "preventive cardiovascular protocol",
+   "gold": "cardio-preventive",
+   "eligibleProducts": [
+    "revilab-ml-04",
+    "ventfort"
+   ],
+   "expectedShortAnswer": "premature-ageing course",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "How can I prevent heart problems with peptides?",
+   "gold": "cardio-preventive",
+   "eligibleProducts": [
+    "revilab-ml-04",
+    "ventfort"
+   ],
+   "expectedShortAnswer": "premature-ageing course",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "Show me the full four-month course",
+   "gold": "cardio-four-month",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "four-month heart and blood-vessel course",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "What's in the 4-month heart course?",
+   "gold": "cardio-four-month",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "four-month heart and blood-vessel course",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "Epitalon research",
+   "gold": "epitalon-research",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "^Bottom line:",
+   "followUps": 1,
+   "minCitations": 1,
+   "expandable": "learnMore"
+  },
+  {
+   "question": "What does the evidence say about Epitalon?",
+   "gold": "epitalon-research",
+   "eligibleProducts": [
+    "endoluten"
+   ],
+   "expectedShortAnswer": "^Bottom line:",
+   "followUps": 1,
+   "minCitations": 1
+  },
+  {
+   "question": "burning when I pee",
+   "gold": "rf-painful-urination",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "doctor first",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first"
+  },
+  {
+   "question": "There is blood in my urine",
+   "gold": "rf-blood-in-urine",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "doctor's assessment",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first"
+  },
+  {
+   "question": "I have severe dizziness",
+   "gold": "rf-severe-dizziness",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "medical care first",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first"
+  },
+  {
+   "question": "sudden dizziness and I almost fell",
+   "gold": "rf-severe-dizziness",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "medical care first",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first"
+  },
+  {
+   "question": "I have new chest symptoms",
+   "gold": "rf-new-chest",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "doctor before any supplement",
+   "followUps": 0,
+   "minCitations": 0,
+   "safety": "urgent"
+  },
+  {
+   "question": "my heart is racing and fluttering",
+   "gold": "rf-new-chest",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "doctor before any supplement",
+   "followUps": 0,
+   "minCitations": 0,
+   "safety": "urgent"
+  },
+  {
+   "question": "What's the recommended protocol for heart and menopause support?",
+   "gold": "heart-menopause",
+   "eligibleProducts": [],
+   "expectedShortAnswer": "two courses based on the manufacturer",
+   "followUps": 1,
+   "minCitations": 0,
+   "expandable": "protocol"
+  },
+  {
+   "question": "What can help with vertigo and feeling off balance?",
+   "gold": "vertigo",
+   "eligibleProducts": [
+    "cerluten",
+    "ventfort",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "work with a healthcare provider to find the reason",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first-products"
+  },
+  {
+   "question": "I get dizzy when I stand up",
+   "gold": "vertigo",
+   "eligibleProducts": [
+    "cerluten",
+    "ventfort",
+    "pinealon"
+   ],
+   "expectedShortAnswer": "healthcare provider",
+   "followUps": 1,
+   "minCitations": 0,
+   "safety": "medical-first-products"
+  }
+ ]
+}

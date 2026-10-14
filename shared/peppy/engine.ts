@@ -23,6 +23,8 @@ import {
 } from "./claims.js";
 import { findMentionedProducts } from "./catalog.js";
 import { RESEARCH_REGISTRY } from "./research-registry.js";
+import { getProductFacts } from "../product-facts.js";
+import { goldResponse, matchGold } from "./gold.js";
 import {
   bloodThinnerResponse,
   combinationResponse,
@@ -487,15 +489,39 @@ export function protocolLine(id: string): string | undefined {
   if (!label) return undefined;
   const text = plainAudience(label).replace(/^for adults/i, "Adults:");
   const t = text.charAt(0).toUpperCase() + text.slice(1);
-  return `Manufacturer protocol: ${/[.!?]$/.test(t) ? t : `${t}.`} (Label directions, not a clinically validated regimen.)`;
+  const body = /[.!?]$/.test(t) ? t : `${t}.`;
+  if (getProductFacts(id)?.pepitaOverride) return `Manufacturer directions: ${body}`;
+  return `Manufacturer protocol: ${body} (Label directions, not a clinically validated regimen.)`;
 }
 
-function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProductSuggestion {
+/** Alternative course schedules (dealer/scheme documents) — educational, shown only in card details. */
+export function productAlternatives(id: string): PeppyProductSuggestion["alternatives"] {
+  const alt = getProductFacts(id)?.alternativeProtocols ?? [];
+  return alt.length ? alt.map(a => ({ text: a.text, kind: a.kind })) : undefined;
+}
+
+/** Studies with lifespan, mortality, survival or tumour outcomes are never surfaced on cards. */
+const BANNED_FINDING = /life ?span|mortality|surviv|tumou?r|cancer|oncolog/i;
+
+/** Up to 2 curated studies for a product's details panel (its lineage evidence). */
+export function productResearch(id: string): PeppyProductSuggestion["research"] {
+  const ids = PRODUCT_EVIDENCE[id]?.sourceIds ?? [];
+  const out = ids
+    .map(x => REGISTRY_BY_ID.get(x))
+    .filter((s): s is NonNullable<typeof s> => !!s && !!s.url && !BANNED_FINDING.test(`${s.title} ${s.finding}`))
+    .slice(0, 2)
+    .map(s => ({ id: s.id, title: s.title, url: s.url!, finding: s.finding }));
+  return out.length ? out : undefined;
+}
+
+export function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProductSuggestion {
   return {
     ...s,
     tissue: tp?.tissue,
     family: tp?.family ?? productFamily(s.product.id, s.product.category),
     protocol: protocolLine(s.product.id),
+    research: productResearch(s.product.id),
+    alternatives: productAlternatives(s.product.id),
   };
 }
 
@@ -636,6 +662,19 @@ export function composeFallback(
   used.add(normalizeForMatch(analysis.message));
   const topic = analysis.topics[0];
 
+  // 0) Curated gold answers (progressive disclosure v11). Red-flag gold answers put medical advice first.
+  const gold = matchGold(analysis.message);
+  const broad = gold && ["symptom", "combining", "efficacy"].includes(gold.intent);
+  const specific = analysis.mentioned.length > 0 || analysis.intent === "dosage" || /ketamine/i.test(analysis.message);
+  if (gold && !(analysis.redFlag && gold.intent !== "red-flag") && !(broad && specific)) {
+    const g = goldResponse(gold, catalog, withCardFacts, ids =>
+      pickSources(ids.flatMap(id => (id.startsWith("topic:") ? TOPICS_BY_ID.get(id.slice(6))?.sourceIds ?? [] : [id])), [], 2)
+    );
+    const t = TOPICS_BY_ID.get(gold.id) ?? TOPICS_BY_ID.get(gold.sourceIds.find(i => i.startsWith("topic:"))?.slice(6) ?? "");
+    if (!g.learnMore && t?.learnMore) g.learnMore = t.learnMore;
+    return g;
+  }
+
   // 1) Emergencies short-circuit everything.
   if (analysis.redFlag) {
     const u = urgentResponse(analysis.redFlag);
@@ -769,7 +808,10 @@ export function composeFallback(
       evidenceNote: topic.evidenceNote,
       safety,
       followUps: askFollowUps
-        ? (topic.slotFollowUps ? slotQs : topic.followUps).slice(0, PEPPY_LIMITS.maxFollowUps)
+        ? (topic.slotFollowUps
+            ? [...slotQs, ...topic.followUps.filter(q => !slotQs.includes(q))]
+            : topic.followUps
+          ).slice(0, PEPPY_LIMITS.maxFollowUps)
         : [],
       suggestions: suggestionFor(topic, used),
       products,
@@ -913,6 +955,9 @@ function composeProductAnswer(
       )
       .slice(0, PEPPY_LIMITS.maxSuggestions),
     products: showCard && evidenceOk && product.inStock ? [card] : [],
+    dosingFacts: dosing?.verified
+      ? { product: product.name, dose: verified(product.id, "labelDirections") ?? "", source: "Manufacturer label directions" }
+      : undefined,
     topics: topic ? [topic.id] : [],
   };
 }

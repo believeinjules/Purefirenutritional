@@ -182,7 +182,8 @@ export function dosingAnswer(id: string, name: string, packUnits?: number | null
     };
   }
   const parts = [`The manufacturer's directions for ${name}: ${end(plainAudience(label))}`];
-  const all = sched ? packDurations(id, sched) : [];
+  // Endoluten (Pepita-only override): the course length, not pack arithmetic, is the guide.
+  const all = sched && id !== "endoluten" ? packDurations(id, sched) : [];
   const mine = all.filter(p => packUnits && p.format.startsWith(`${packUnits}-`));
   const packs = mine.length ? mine : all;
   if (packs.length)

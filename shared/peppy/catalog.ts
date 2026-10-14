@@ -11,6 +11,7 @@ import {
 import { clampText, normalizeForMatch, splitSentences } from "./text.js";
 import type { PeppyProduct } from "./types.js";
 import { isHiddenProduct } from "../hidden-products.js";
+import { plainAudience, verified } from "./product-data.js";
 
 /** Minimal shape shared by products.ts entries and Firestore product docs. */
 export interface RawCatalogProduct {
@@ -55,6 +56,11 @@ export function safeSummary(description: string): string {
   return clampText(sentences.slice(0, 2).join(" "), 260);
 }
 
+function verifiedLabel(id: string): string | undefined {
+  const v = verified(id, "labelDirections");
+  return v ? plainAudience(v) : undefined;
+}
+
 function safeUsage(v: unknown): string | undefined {
   if (typeof v !== "string" || !v.trim()) return undefined;
   const kept = splitSentences(v).filter(
@@ -93,7 +99,8 @@ export function toPeppyProduct(raw: RawCatalogProduct): PeppyProduct | null {
     summary: safeSummary(
       typeof raw.description === "string" ? raw.description : ""
     ),
-    usage: safeUsage(raw.usage),
+    // Verified manufacturer directions win over Pure Fire page text (e.g. Endoluten is not a daily schedule).
+    usage: safeUsage(verifiedLabel(String(raw.id)) ?? raw.usage),
     inStock,
   };
 }

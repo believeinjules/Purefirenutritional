@@ -47,13 +47,13 @@ describe("Pepita and pre-order (liquid) products", () => {
     const compact = ctx.user.replace(/\s+/g, "");
     expect(compact).toMatch(/"id":"revilab-sl-06"[^}]*"preorder":true/);
     expect(compact).toMatch(/"id":"revilab-ml-05"[^}]*"preorder":false/);
-    expect(candidates[0].product.id).toBe("revilab-ml-05");
+    expect(isPreorderProduct(candidates[0].product.id)).toBe(false);
   });
 
   it("fallback answers that include a liquid product mention pre-order", async () => {
     const { response } = await answerPeppy({ message: "Anything for my lungs?" }, { catalog });
     if (response.products.some(p => isPreorderProduct(p.product.id))) expect(text(response)).toMatch(/pre-order/i);
-    expect(response.products[0]?.product.id).toBe("revilab-ml-05");
+    expect(isPreorderProduct(response.products[0]!.product.id)).toBe(false);
   });
 
   it("LLM answer suggesting a liquid without mentioning pre-order gets the line appended", async () => {

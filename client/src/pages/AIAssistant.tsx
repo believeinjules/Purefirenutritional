@@ -128,6 +128,33 @@ export default function AIAssistant() {
     setShowDisclaimer(false);
   };
 
+  // Mobile: keep chat content clear of the sticky site header and the sticky composer. The real
+  // heights are measured (they change with safe-area insets and text size) and exposed as
+  // scroll-padding, so scrollIntoView / focus / anchor jumps never land under either bar.
+  useEffect(() => {
+    const nav = document.querySelector("nav");
+    const composer = document.querySelector<HTMLElement>("[data-testid=pepita-composer]");
+    const root = document.documentElement;
+    const apply = () => {
+      const top = (nav?.getBoundingClientRect().height ?? 64) + 8;
+      const bottom = (composer?.getBoundingClientRect().height ?? 72) + 8;
+      root.style.setProperty("--pf-nav-h", `${top}px`);
+      root.style.scrollPaddingTop = `${top}px`;
+      root.style.scrollPaddingBottom = `${bottom}px`;
+    };
+    apply();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(apply) : null;
+    if (nav) ro?.observe(nav);
+    if (composer) ro?.observe(composer);
+    window.addEventListener("resize", apply);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", apply);
+      root.style.scrollPaddingTop = "";
+      root.style.scrollPaddingBottom = "";
+    };
+  }, []);
+
   // Bring the newest message's top into view (long answers are read top-down).
   const lastId = messages[messages.length - 1]?.id;
   useEffect(() => {
@@ -417,7 +444,7 @@ export default function AIAssistant() {
                       if (el) messageRefs.current.set(m.id, el);
                       else messageRefs.current.delete(m.id);
                     }}
-                    className={`scroll-mt-24 flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}
+                    className={`scroll-mt-2 flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}
                     data-testid={
                       m.role === "user"
                         ? "peppy-user-message"
@@ -483,7 +510,7 @@ export default function AIAssistant() {
               </div>
 
               {/* Composer */}
-              <div className="sticky bottom-0 rounded-b-xl border-t bg-white/95 p-3 backdrop-blur sm:p-4">
+              <div className="sticky bottom-0 z-10 rounded-b-xl border-t bg-white/95 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] backdrop-blur sm:p-4" data-testid="pepita-composer">
                 <form onSubmit={onSubmit} className="flex gap-2">
                   <label htmlFor={`${baseId}-input`} className="sr-only">
                     Ask Pepita a question
@@ -494,13 +521,14 @@ export default function AIAssistant() {
                     onChange={e => setInput(e.target.value)}
                     maxLength={PEPPY_LIMITS.maxMessageChars}
                     placeholder="Ask about a symptom, peptide or product…"
-                    className="flex-1"
+                    className="h-11 flex-1 text-base sm:text-sm"
                     autoComplete="off"
+                    enterKeyHint="send"
                     data-testid="peppy-input"
                   />
                   <Button
                     type="submit"
-                    className="bg-brand-gradient"
+                    className="bg-brand-gradient h-11 w-11 flex-shrink-0 p-0"
                     disabled={!input.trim() || isLoading}
                     aria-label="Send"
                   >
