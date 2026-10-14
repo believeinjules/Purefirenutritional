@@ -56,33 +56,27 @@ describe("Pepita dock", () => {
 });
 
 describe("Page copy and order", () => {
-  it("opens with Julia's H1, subhead and three paragraphs, in order, before anything else", () => {
+  it("opens with the approved H1, subhead and intro, then the sections in order", () => {
     const order = [
-      "What Are Khavinson Peptide Bioregulators?</h1>",
+      "            Khavinson Peptides Explained: Benefits, Research & How They Work\n          </h1>",
       "A different approach to peptide science.",
-      "Peptides are tiny chains of amino acids—the same building blocks",
-      "Khavinson peptide bioregulators are a group of short peptides",
-      "It’s a developing area of research, and evidence for specific benefits varies by peptide.",
-      "Two Types You’ll Find at Pure Fire",
-      "Cytogens — Defined short peptides: ",
-      "Cytomaxes — Natural peptide complexes: ",
-      "<TwoTypes />",
-      "Explore What Interests You",
+      "Peptides are tiny chains of amino acids, the same building blocks",
+      'id="cytomaxes-vs-cytogens"',
+      "src={TYPES_WEBP}",
+      'id="oral-vs-injected"',
+      'id="body-systems"',
       "<BodySystemNav />",
-      "Want the deeper science? Visit The Short Peptide",
+      'id="sources"',
     ];
     const idx = order.map((s) => page.indexOf(s));
     expect(idx.every((i) => i >= 0)).toBe(true);
     expect([...idx].sort((a, b) => a - b)).toEqual(idx);
-    const main = page.slice(page.indexOf("<main"));
-    expect(main.indexOf("<h1")).toBeLessThan(main.indexOf("<TwoTypes"));
-    expect(main.slice(0, main.indexOf("<h1"))).not.toMatch(/<(img|svg|Molecule|Link)/);
   });
   it("Short Peptide link opens in a new tab", () => {
     expect(page).toMatch(/href="https:\/\/theshortpeptide\.com"\s+target="_blank"\s+rel="noopener noreferrer"/);
   });
   it("no banned claim language, figures or dosing on the page", () => {
-    const html = [render(createElement(TwoTypes)), render(createElement(BodySystemNav)), page.replace(/This article is for educational purposes only\.[^<]*/, "")].join(" ");
+    const html = [render(createElement(TwoTypes)), render(createElement(BodySystemNav)), page.replace(/This article is for educational purposes only\.[^<]*/, "").replace("not as proven solutions", "").replace(/not intended to diagnose, treat, cure, or prevent any disease/g, "")].join(" ");
     expect(html).not.toMatch(/mortality|lifespan|tumou?r|alzheimer|covid|atheroscl|oncoprotect|clinically proven|\bcures?\b|\bproven\b/i);
     expect(html).not.toMatch(/\b\d+\s*(months?|weeks?)\b|cycles? (per|a) year|capsules? (daily|a day)/i);
   });

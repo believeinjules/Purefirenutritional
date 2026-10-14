@@ -5,9 +5,11 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 // Body text: the-short-peptide/pf-perimenopause-khavinson-article.md, verbatim (HTML comments omitted).
-// TODO(cover): cover art not yet approved. Using the site's neutral Journal placeholder block
-// (same gradient as Journal.tsx's no-cover card). Replace with an approved image and add `cover`
-// in learnArticles.ts + image in PageSeo / JSON-LD when ready.
+const COVER_JPG = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg";
+const COVER_WEBP = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.webp";
+const COVER_ALT = "A woman with short hair in a rust sweater reads printed research papers at a sunlit kitchen table, beside a mug and a bowl of oranges, with the title: Khavinson Peptides for Perimenopause: Injection Data Isn't Oral Proof";
+const EVIDENCE_WEBP = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-evidence-types-limits.webp";
+const EVIDENCE_ALT = "Evidence Types and Limits infographic with four panels: Older adults (6–8 years; linked to better health indices); Animal research (aged monkeys: glucose, insulin, melatonin effects); Perimenopause (small observations; support, not care replacement); Trial gap (no large trials show symptom relief).";
 
 export default function ArticlePerimenopauseOralEvidence() {
   return (
@@ -17,6 +19,8 @@ export default function ArticlePerimenopauseOralEvidence() {
         description="What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality."
         path="/learn/khavinson-bioregulators-perimenopause-oral-evidence"
         type="article"
+        image={COVER_JPG}
+        imageAlt={COVER_ALT}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify({
@@ -24,6 +28,7 @@ export default function ArticlePerimenopauseOralEvidence() {
           "@type": "Article",
           "headline": "Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show",
           "description": "What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality.",
+          "image": "https://www.purefirenutritional.com/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg",
           "author": { "@type": "Person", "name": "Julia Shulman" },
           "datePublished": "2026-10-14",
           "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
@@ -46,14 +51,16 @@ export default function ArticlePerimenopauseOralEvidence() {
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>
 
-          {/* TODO(cover): placeholder until Julia approves the cover image. */}
-          <div
-            aria-hidden="true"
-            className="w-full aspect-video flex items-end p-5 rounded-lg mb-10"
-            style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
-          >
-            <span className="text-[10px] uppercase tracking-[0.22em] text-white/60">Pure Fire Nutritional</span>
-          </div>
+          <picture>
+            <source srcSet={COVER_WEBP} type="image/webp" />
+            <img
+              src={COVER_JPG}
+              alt={COVER_ALT}
+              width={1035}
+              height={568}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
 
           <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
 
@@ -75,6 +82,14 @@ export default function ArticlePerimenopauseOralEvidence() {
             <p><strong>A 2025 review of Epitalon.</strong> Researchers at the Medical University of Warsaw reviewed about 25 years of lab, animal, and computer-modeling studies. They note that most in-vivo work used subcutaneous injection. They also describe a rat study where Epitalon given by mouth had measurable effects, and say that oral delivery is still an area for future work. It's a helpful map of what's known, and it's open about how little structural and human data there is. (<a href="https://pubmed.ncbi.nlm.nih.gov/40141333/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">PubMed 40141333</a>)</p>
             <p><strong>Perimenopause-specific human data.</strong> We looked for clinical studies of oral Khavinson bioregulators in perimenopausal women and couldn't find any we could verify. So we're not citing any.</p>
             <p><strong>The limits.</strong> Midlife symptoms are very responsive to expectation. Harvard Health reports that placebos alone can reduce hot flashes by about 30%, measured objectively. The Menopause Society's 2023 position statement on nonhormone therapy doesn't recommend any dietary supplement for vasomotor symptoms. (<a href="https://www.health.harvard.edu/womens-health/menopause-supplements-effective-relief-or-empty-promises" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Harvard Health</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/37252752/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Menopause Society 2023, PubMed 37252752</a>) So how good you feel isn't proof that a product worked. That's one more reason to make decisions with a clinician (see <a href="#clinician-questions" className="text-orange-600 hover:underline">Section 6</a>).</p>
+            <img
+              src={EVIDENCE_WEBP}
+              alt={EVIDENCE_ALT}
+              width={1083}
+              height={609}
+              loading="lazy"
+              className="w-full h-auto rounded-lg"
+            />
             <h2 id="supplement-status" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">3. What "dietary supplement" actually means</h2>
             <p>Under the Dietary Supplement Health and Education Act of 1994 (DSHEA), supplements are regulated differently from drugs. A few things to know:</p>
             <ul className="list-disc pl-6 space-y-2"><li><strong>No pre-market approval.</strong> The FDA doesn't evaluate whether a supplement works before it goes on sale. The manufacturer is responsible for making sure the product is safe and the label is truthful. (<a href="https://ods.od.nih.gov/factsheets/WYNTK-Consumer/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">NIH ODS</a>; <a href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/dietary-supplements-guidance-documents-regulatory-information" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA DSHEA guidance</a>)</li><li><strong>Structure/function claims only.</strong> A supplement can say it supports a normal body function. It can't say it treats a disease, and that kind of claim has to carry the FDA disclaimer you'll see throughout this article.</li><li><strong>Peptides are a gray zone right now.</strong> Johns Hopkins notes that many peptides sold online, especially injectables, have not been reviewed for safety or effectiveness. (<a href="https://publichealth.jhu.edu/2026/how-the-fda-regulates-peptides" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Johns Hopkins Bloomberg School of Public Health, 2026</a>)</li></ul>
