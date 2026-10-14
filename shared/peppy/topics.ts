@@ -421,6 +421,69 @@ export const TOPICS: Topic[] = [
     ],
   },
   {
+    id: "course-protocols",
+    label: "Preventive vs restorative protocols",
+    patterns: [
+      /\b(prevent\w*|maintenance|prophyla\w*)\b.*\b(restor\w*|intensive|recover\w*)\b/i,
+      /\b(restor\w*|intensive)\b.*\b(prevent\w*|maintenance|prophyla\w*)\b/i,
+      /\b(peptide|bioregulator|cytomax\w*|cytogen\w*)s? (?:course|protocol)s?\b.*\b(repeat|how often|how long|length)\b/i,
+    ],
+    summary:
+      "Khavinson bioregulators are taken in courses rather than every day, and the manufacturer directions frame them in two ways. A standard, preventive-style course is usually about a month, then a break, then a repeat course a few months later; the cards below show two products' own label directions as real examples. When the aim is restoring function, the directions describe extending the course, pairing it with bioregulators for other organs, or running 2–3 courses a year, with a doctor's input first. Every product has its own directions, so the course is always set per product, never borrowed from another.",
+    sections: [
+      {
+        heading: "Check with your doctor first if",
+        body: "you take medicines, are pregnant or breastfeeding, or have an ongoing health condition.",
+      },
+    ],
+    learnMore: [
+      {
+        heading: "How a standard course is framed",
+        body: "In the manufacturer directions (peptideproduct.com and the institute store, peptid.ru), most capsule Cytomaxes and Cytogens follow one shape: 1–2 capsules with meals for about a month, a break, then a repeat course after a few months. Some products state their own window; for Cartalax the institute store gives 10–30 days with a repeat course after 4–6 months. These are label directions, not schedules compared against each other in trials.",
+      },
+      {
+        heading: "What the directions say about restoring function",
+        body: "The institute store's directions say the course can be extended and combined with bioregulators for other organs when the body is weakened or several systems are involved, and suggest 2–3 courses a year for long-standing concerns, after talking with a doctor. They don't set a separate, higher 'restorative' dose.",
+      },
+      {
+        heading: "Why schedules aren't interchangeable",
+        body: "Some products follow a very different rhythm from the usual twice-daily pattern; the pineal Cytomax shown below, for example, is taken once every few days. Where sources print different frequencies for the same product, each product card shows only its verified label directions rather than a blended regimen.",
+      },
+    ],
+    sourceIds: [],
+    evidenceNote:
+      "Course framing comes from manufacturer directions; no trials have compared preventive and restorative schedules.",
+    pubmedQuery: "Khavinson peptide bioregulator course",
+    products: [
+      {
+        id: "cartalax",
+        family: "khavinson",
+        tissue: "Cartilage bioregulator (AED tripeptide)",
+        why: "A Cytogen whose directions show the standard course shape: about a month, then a repeat course after a few months.",
+        evidenceNote:
+          "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
+      },
+      {
+        id: "endoluten",
+        family: "khavinson",
+        tissue: "Pineal gland bioregulator (natural extract)",
+        why: "A Khavinson Cytomax from the pineal gland, with its own course directions.",
+        evidenceNote:
+          "Pineal peptide preparations have been studied for night-time melatonin; Endoluten as a finished product has no published human trials.",
+      },
+    ],
+    productPolicy: "symptom",
+    maxProducts: 2,
+    followUps: [
+      "Which body system or product are you thinking about?",
+      "Is your goal prevention, or getting back to normal function?",
+    ],
+    suggestions: [
+      "Cytogens vs Cytomaxes?",
+      "What does peptide research show?",
+    ],
+  },
+  {
     id: "khavinson-evidence",
     label: "Do Khavinson peptides work?",
     patterns: [
@@ -428,31 +491,40 @@ export const TOPICS: Topic[] = [
       /\b(work|works|effective|evidence|proof|legit|scam)\b.*\b(khavinson|bioregulators?|cytomax\w*|cytogens?)\b/i,
     ],
     summary:
-      "Honest answer: there is some human evidence, but it's limited and not convincing by modern standards. Most studies come from Khavinson's own network in Russia and Ukraine, were small, often weren't properly blinded, and used injectable pharmaceutical extracts rather than oral supplements. Large independent randomised trials haven't been done.",
+      "Researchers have investigated Khavinson peptides at several levels: how short peptides interact with DNA and get into cells, how they behave in cell cultures and ageing animals, and how older adults responded to the original injectable preparations. Together, that work suggests these tiny peptides can act as tissue-specific signals that influence gene activity. Most of it comes from Khavinson's own research network and used injectables rather than oral capsules, so independent controlled trials of the oral products are the step the field still needs.",
     sections: [
       {
-        heading: "What's been reported in humans",
-        body: "- 266 older adults followed for 6–8 years: groups given injectable Thymalin and/or Epithalamin had lower reported mortality.\n- A 12-year randomised study of Epithalamin in older adults with heart disease reported lower mortality and better exercise tolerance.\n- Small studies of pineal peptides reported higher night-time melatonin in older people.",
-      },
-      {
-        heading: "Why scientists stay cautious",
-        body: "- One research network, rarely replicated independently.\n- Small samples and unclear randomisation or blinding; many papers are in Russian with limited methods detail.\n- Injectable drugs aren't oral capsules. Oral absorption is plausible (gut transporters carry di- and tripeptides) but unproven for these products.\n- The proposed mechanism — peptides regulating genes — comes mainly from cell and computer-modelling studies.",
-      },
-      {
         heading: "How to read product claims",
-        body: "Treat lifespan or telomere numbers in marketing as early research, not proof. If you try a bioregulator, treat it as a personal experiment with your clinician's knowledge, track something you can measure, and stop if you notice side effects.",
+        body: "Treat headline numbers in marketing as early research, not proof. If you try a bioregulator, do it with your clinician's knowledge, track something you can measure, and stop if you notice side effects.",
+      },
+    ],
+    learnMore: [
+      {
+        heading: "Mechanistic and cellular research",
+        body: "Computer-modelling work (\"Systematic search for structural motifs of peptide binding to double-stranded DNA\") found a small set of dipeptides that could bind specific DNA sequences. The group's review \"Peptide Regulation of Gene Expression: A Systematic Review\" summarises cell studies proposing that 2–7 amino-acid peptides enter cell nuclei and influence gene expression, and a review of POT and LAT carriers explains how di- and tripeptides are carried into cells, which is why oral use is considered plausible.",
+      },
+      {
+        heading: "Animal research",
+        body: "Ageing-animal studies looked at hormone rhythms and tissue markers. For example, synthetic Epitalon raised evening melatonin and normalised the cortisol rhythm in old rhesus monkeys, in a very small, injected-peptide study.",
+      },
+      {
+        heading: "Human research",
+        body: "The developers' clinical review \"[Peptide bioregulators: the new class of geroprotectors. Message 2. Clinical studies results]\" summarises studies in which older adults received injectable preparations such as Thymalin and Epithalamin over several years. Independent groups have reported small comparative studies too, such as \"[Comparative analysis of different methods of geroprotection]\" (Myakotnykh et al., 2016), which included Vesugen and Pinealon in 110 people.",
+      },
+      {
+        heading: "Where the uncertainty sits",
+        body: "The human studies were small, mostly from one network, often Russian-language, and rarely describe randomisation or blinding in detail. They used injectables, and no published controlled trial has tested the oral capsules sold today, so product directions are manufacturer guidance rather than trial-tested regimens.",
       },
     ],
     sourceIds: [
-      "pmid:14523363",
-      "pmid:17426848",
+      "pmid:31598715",
       "pmid:34834147",
-      "pmid:19830585",
       "pmid:35887081",
+      "pmid:11524632",
       "pmid:24003726",
     ],
     evidenceNote:
-      "Small, single-network human trials of injectable extracts; mechanism mostly lab-based; no independent large trials.",
+      "Mechanistic, cellular and animal work plus small human studies of injectable preparations, mostly from one network; no controlled trials of the oral products yet.",
     pubmedQuery: "Khavinson peptide bioregulator",
     products: [],
     productPolicy: "never",

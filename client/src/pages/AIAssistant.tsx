@@ -77,7 +77,7 @@ type ChatMessage =
 
 const QUICK_QUESTIONS = [
   "Joint & connective tissue support?",
-  "Preventive vs restorative protocol for Endoluten?",
+  "Preventive vs restorative protocols?",
   "Cytogens vs Cytomaxes?",
   "Which peptides support sleep?",
   "What does peptide research show?",
