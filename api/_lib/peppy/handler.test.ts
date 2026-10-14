@@ -1,3 +1,4 @@
+import { PEPPY_LIMITS } from "../../../shared/peppy/types.js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handlePeppy, parsePeppyBody } from "./handler";
@@ -137,7 +138,7 @@ describe("POST /api/peppy", () => {
   it("caps history and sanitises productId", () => {
     const parsed = parsePeppyBody({
       message: "hi",
-      history: Array.from({ length: 20 }, (_, i) => ({
+      history: Array.from({ length: 30 }, (_, i) => ({
         role: i % 2 ? "assistant" : "user",
         content: "x".repeat(5000),
       })),
@@ -145,8 +146,8 @@ describe("POST /api/peppy", () => {
     });
     expect("error" in parsed).toBe(false);
     if ("error" in parsed) return;
-    expect(parsed.history).toHaveLength(8);
-    expect(parsed.history[0].content.length).toBe(1200);
+    expect(parsed.history).toHaveLength(PEPPY_LIMITS.maxHistoryTurns);
+    expect(parsed.history[0].content.length).toBe(PEPPY_LIMITS.maxHistoryChars);
     expect(parsed.productId).toBeUndefined();
   });
 });

@@ -117,6 +117,7 @@
       "id": "cartalax",
       "name": "Cartalax",
       "sourceDocs": [
+        "https://peptid.ru/catalog/citogeny/kartalaks/",
         "https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/",
         "https://www.purefirenutritional.com/products/cartalax",
         "/workspace/Purefirenutritional/client/src/data/products.ts"
@@ -129,8 +130,8 @@
           "units": 20,
           "directions": {
             "status": "verified",
-            "value": "adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.",
-            "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/ ; https://peptid.ru/catalog/citogeny/kartalaks/"
+            "value": "Adults: take 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
           }
         },
         {
@@ -138,8 +139,8 @@
           "units": 60,
           "directions": {
             "status": "verified",
-            "value": "adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.",
-            "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/ ; https://peptid.ru/catalog/citogeny/kartalaks/"
+            "value": "Adults: take 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
           }
         }
       ],
@@ -153,58 +154,57 @@
             2
           ],
           "dosesPerDay": [
-            2,
+            1,
             2
           ],
           "everyNDays": 1,
-          "text": "adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.",
-          "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/ ; https://peptid.ru/catalog/citogeny/kartalaks/"
+          "text": "Adults: take 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "microcrystalline cellulose (bulking agent); hydroxypropyl methylcellulose (capsule shell), water, carrageenan (thickener), potassium acetate (acidity regulator); peptide complex AC-4, containing amino acids (alanine, glutamic acid, aspartic acid); calcium salts of fatty acids (anti-caking agent). The recommended daily dose, or 2 or 4 capsules, contains 20 mg or 40 mg of peptide complex АC-4.",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "quantities": {
         "status": "verified",
         "value": "Recommended daily dose (2 or 4 capsules) contains 20 mg or 40 mg of peptide complex AC-4; capsule 0,215 g",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "labelDirections": {
         "status": "verified",
-        "value": "adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/ ; https://peptid.ru/catalog/citogeny/kartalaks/"
+        "value": "Adults: take 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
       },
       "food": {
-        "status": "verified",
-        "value": "with meal",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/ ; https://peptid.ru/catalog/citogeny/kartalaks/"
+        "status": "unverified",
+        "value": null
       },
       "courseDuration": {
         "status": "verified",
-        "value": "Duration of use is 1 month",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/ ; https://peptid.ru/catalog/citogeny/kartalaks/"
+        "value": "10–30 days; repeat course advisable after 4–6 months",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
       },
       "sizes": {
         "status": "verified",
         "value": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "sizeDifferences": {
         "status": "verified",
         "value": "Manufacturer: same capsule (0,215 g) and same directions for both packs; 20 or 60 capsules per pack is the only printed difference. Pure Fire page: 20 Capsules | $47.99 | 60 Capsules | $116.99. At the label dose of 2–4 capsules/day, 20 caps = 5–10 days, 60 caps = 15–30 days (arithmetic from label, not a manufacturer statement).",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "documentedProtocols": {
         "status": "verified",
         "value": "Manufacturer page states only: course 1 month, repeat after 3-6 months. No maintenance/preventive/intensive protocol found on manufacturer page.",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "sexSpecificNotes": {
         "status": "unverified",
@@ -216,8 +216,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Карталакс противопоказан при индивидуальной непереносимости компонентов.\"",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "value": "individual intolerance to the components; consult a doctor first if pregnant, breastfeeding or with an ongoing condition",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
       },
       "warnings": {
         "status": "unverified",

@@ -355,7 +355,7 @@
   "quantities_confidence": "manufacturer-claim",
   "directions_confidence": "manufacturer-claim",
   "with_or_without_food": "with meal",
-  "course_duration": "Duration of use is 1 month",
+  "course_duration": "10–30 days; repeat course advisable after 4–6 months",
   "pure_fire_page_directions": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
   "pure_fire_page_ingredients": "Cartilage peptide complex (AC-4)",
   "pack_20_vs_60_differences": "Manufacturer: same capsule (0,215 g) and same directions for both packs; 20 or 60 capsules per pack is the only printed difference. Pure Fire page: 20 Capsules | $47.99 | 60 Capsules | $116.99. At the label dose of 2–4 capsules/day, 20 caps = 5–10 days, 60 caps = 15–30 days (arithmetic from label, not a manufacturer statement).",
@@ -366,6 +366,7 @@
   "contraindications_confidence": "manufacturer-claim",
   "pure_fire_page_warnings": "Ask your doctor about current medications, pregnancy, and existing conditions before use. If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care. (generic site text on every product page)",
   "source_documents": [
+   "https://peptid.ru/catalog/citogeny/kartalaks/",
    "https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/",
    "https://www.purefirenutritional.com/products/cartalax",
    "/workspace/Purefirenutritional/client/src/data/products.ts"
@@ -402,7 +403,8 @@
   "organ_association": "",
   "organ_association_source": "",
   "organ_association_confidence": "not requested",
-  "label_directions_en_as_printed": "adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months."
+  "label_directions_en_as_printed": "Adults: take 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+  "label_directions_resolution": "2026-10-13: Julia Shulman chose the institute store (peptid.ru) version over peptideproduct.com; translated from Russian."
  },
  {
   "name": "Chelohart",

@@ -6,10 +6,11 @@
  * Logs only mode/topics/latency — never the user's text or IP.
  */
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { answerPeppy, type PeppyDeps } from "../../../shared/peppy/respond.js";
+import { answerPeppy, sanitizeProfile, type PeppyDeps } from "../../../shared/peppy/respond.js";
 import {
   PEPPY_LIMITS,
   type PeppyHistoryTurn,
+  type PeppyProfile,
 } from "../../../shared/peppy/types.js";
 import { makeLlmCaller, resolveLlmConfig } from "./llm.js";
 import { loadPeppyCatalog } from "./products.js";
@@ -20,6 +21,7 @@ export interface ParsedPeppyRequest {
   message: string;
   history: PeppyHistoryTurn[];
   productId?: string;
+  profile?: PeppyProfile;
 }
 
 export function parsePeppyBody(
@@ -64,7 +66,7 @@ export function parsePeppyBody(
     typeof rec.productId === "string" && /^[a-z0-9-]{1,80}$/.test(rec.productId)
       ? rec.productId
       : undefined;
-  return { message, history, productId };
+  return { message, history, productId, profile: sanitizeProfile(rec.profile) };
 }
 
 export async function handlePeppy(

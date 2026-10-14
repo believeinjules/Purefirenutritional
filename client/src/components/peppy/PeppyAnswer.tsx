@@ -4,7 +4,7 @@ import { inline, buildMentions } from "./RichText";
 import SafetyCallout from "./SafetyCallout";
 import StudyCitation from "./StudyCitation";
 import { ProductCardSmall } from "./ProductPreview";
-import { nextQuestions, relevantProduct, shortAnswer } from "@/lib/pepitaPreview";
+import { EVIDENCE_CATEGORY, answerProducts, nextQuestions, shortAnswer } from "@/lib/pepitaPreview";
 
 interface Props {
   answer: PeppyResponse;
@@ -15,21 +15,27 @@ interface Props {
   headingId: string;
   /** Offered only after a medically relevant question (opens Questions for my doctor). */
   onDoctorQuestions?: () => void;
+  /** Tapping a follow-up question puts it in the input so the shopper can answer it. */
+  onAnswerFollowUp?: (question: string) => void;
 }
 
 /** Inline research links under the answer (hover/tap for the lay summary). */
 const MAX_RESEARCH_LINKS = 3;
 
 /**
- * One Pepita answer (v3): the real answer first in 2–3 natural sentences, then at most:
- * inline research links, one "Worth knowing" note, one relevant product, two next questions.
- * Always ends with the doctor line. Nothing is hidden behind collapsed sections.
+ * One Pepita answer (v6): a short direct answer (2–5 sentences), inline research links,
+ * 1–3 compact product cards chosen by tissue relevance, 1–2 follow-up questions as chips,
+ * and the deeper science (physiology, mechanisms, how the products differ, what each study
+ * investigated, manufacturer protocols) in a collapsed "Learn more". Always ends with the doctor line.
  */
-export default function PeppyAnswer({ answer, question, onAsk, disabled, headingId, onDoctorQuestions }: Props) {
+export default function PeppyAnswer({ answer, question, onAsk, disabled, headingId, onDoctorQuestions, onAnswerFollowUp }: Props) {
   const urgent = answer.mode === "urgent";
-  const text = shortAnswer(withoutGenericDoctorLines(answer.summary));
-  const product = urgent ? null : relevantProduct(answer.products, question);
-  const mentions = buildMentions(product ? [product.product] : []);
+  const text = shortAnswer(withoutGenericDoctorLines(answer.summary), 5);
+  const cards = urgent ? [] : answerProducts(answer.products, question);
+  const mentions = buildMentions(cards.map(c => c.product));
+  const followUps = urgent ? [] : answer.followUps.slice(0, 2);
+  const learnMore = urgent ? [] : (answer.learnMore ?? []);
+  const hasLearnMore = learnMore.length > 0 || cards.length > 1 || answer.research.length > 0;
   const research = answer.research.slice(0, MAX_RESEARCH_LINKS);
   const chips = urgent ? [] : nextQuestions(answer.suggestions);
   const worth = !urgent && answer.safety ? answer.safety : null;
@@ -61,7 +67,83 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
         </div>
       )}
 
-      {product && <ProductCardSmall product={product.product} />}
+      {cards.length > 0 && (
+        <ul className="grid gap-2 sm:grid-cols-3" data-testid="pepita-product-cards">
+          {cards.map(c => (
+            <li key={c.product.id} className="min-w-0">
+              <ProductCardSmall product={c.product} tissue={c.tissue} family={c.family} />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {followUps.length > 0 && (
+        <div data-testid="pepita-follow-ups">
+          <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-gray-500">To narrow it down</p>
+          <div className="flex flex-wrap gap-2">
+            {followUps.map(q => (
+              <button
+                key={q}
+                type="button"
+                disabled={disabled}
+                onClick={() => (onAnswerFollowUp ? onAnswerFollowUp(q) : onAsk(q))}
+                className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-left text-xs text-gray-800 transition-colors hover:border-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 disabled:opacity-50"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {hasLearnMore && (
+        <details className="group rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700" data-testid="pepita-learn-more">
+          <summary className="cursor-pointer select-none font-medium text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400">
+            Learn more: the science
+          </summary>
+          <div className="mt-2 space-y-3">
+            {learnMore.map((sec, i) => (
+              <div key={i}>
+                {sec.heading && <p className="font-medium text-gray-900">{sec.heading}</p>}
+                <p>{shortAnswer(sec.body, 12)}</p>
+              </div>
+            ))}
+            {cards.length > 0 && (
+              <div>
+                <p className="font-medium text-gray-900">Why these products</p>
+                <ul className="mt-1 space-y-1.5">
+                  {cards.map(c => (
+                    <li key={c.product.id}>
+                      <span className="font-medium text-gray-900">{c.product.name}:</span> {c.why}{" "}
+                      <span className="text-gray-500">{c.evidenceNote}</span>
+                      {c.protocol && <span className="mt-0.5 block text-xs text-gray-600">{c.protocol}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {answer.research.length > 0 && (
+              <div>
+                <p className="font-medium text-gray-900">What the studies investigated</p>
+                <ul className="mt-1 space-y-1.5">
+                  {answer.research.map(s => (
+                    <li key={s.id}>
+                      <span className="mr-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-orange-800 ring-1 ring-orange-200">
+                        {EVIDENCE_CATEGORY[s.studyType] ?? EVIDENCE_CATEGORY.other}
+                      </span>
+                      {s.finding}{" "}
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="font-medium text-orange-700 underline underline-offset-2">
+                        Read it<span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                {answer.evidenceNote && <p className="mt-1.5 text-xs text-gray-500">{answer.evidenceNote}</p>}
+              </div>
+            )}
+          </div>
+        </details>
+      )}
 
       {(chips.length > 0 || onDoctorQuestions) && (
         <div>

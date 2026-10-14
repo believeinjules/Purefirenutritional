@@ -41,10 +41,15 @@ describe("product cap", () => {
   });
 
   it("fallback answers never pad to three", async () => {
-    for (const m of ["I'm always tired, what can help?", "What supports healthy ageing?", "What supports the immune system?", "What supports joint comfort?"]) {
+    for (const m of ["I'm always tired, what can help?", "What supports healthy ageing?", "What supports the immune system?"]) {
       const { response } = await answerPeppy({ message: m }, { catalog });
       expect(response.products.length).toBeLessThanOrEqual(FALLBACK_MAX_PRODUCTS);
     }
+  });
+
+  it("joints: a topic whose picks each serve a distinct reason shows three (bioregulator, joint formula, collagen)", async () => {
+    const { response } = await answerPeppy({ message: "What supports joint comfort?" }, { catalog });
+    expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "prime-peptide-collagen"]);
   });
 
   it("prompt states the restraint rule", () => {

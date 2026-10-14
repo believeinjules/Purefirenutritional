@@ -9,12 +9,15 @@
  *  - Product mappings follow each SKU's actual ingredients (e.g. Revilab ML 07 is the men's
  *    formula, ML 03 is brain/retina) — the old keyword map got several of these wrong.
  */
-import type { AnswerSection, SafetyNotice } from "./types.js";
+import type { AnswerSection, ProductFamily, SafetyNotice } from "./types.js";
 
 export interface TopicProduct {
   id: string;
   why: string;
   evidenceNote: string;
+  /** Short tissue-target line for the compact card. */
+  tissue?: string;
+  family?: ProductFamily;
 }
 
 export interface Topic {
@@ -37,6 +40,12 @@ export interface Topic {
   followUps: string[];
   suggestions: string[];
   safety?: SafetyNotice;
+  /** Deeper science shown under "Learn more" (physiology, mechanisms, how the picks differ). */
+  learnMore?: AnswerSection[];
+  /** Fallback product cap for this topic (default 2); only for topics whose picks each serve a distinct reason. */
+  maxProducts?: number;
+  /** Ask follow-ups from the customer's missing memory slots (goal, duration, age, activity). */
+  slotFollowUps?: boolean;
 }
 
 export const TOPICS: Topic[] = [
@@ -196,56 +205,91 @@ export const TOPICS: Topic[] = [
       /\b(joints?|knees?|hips?|ankles?|cartilage|stiff(?:ness)?|achy|aching|ache|mobility|connective tissue|running pain|hurts? when i run|sore when i run)\b/i,
     ],
     summary:
-      "Most everyday joint aches come from load or gradual age-related wear. Supplement evidence is modest at best: collagen modestly improved joint symptom scores and stiffness, glucosamine and chondroitin did no better than placebo for knee pain overall, and cartilage peptides have only cell and animal studies.",
+      "Achy joints are common, and they can come from load and overuse, a recent strain, or the slow turnover of cartilage that comes with age. Cartilage has no blood supply of its own, so its cells depend on signals from the joint fluid to keep rebuilding collagen, and that signalling is exactly what cartilage-peptide research looks at. The closest fits in our range are a cartilage bioregulator and two joint formulas, shown below.",
     sections: [
-      {
-        heading: "What the research says",
-        body: "Collagen has the best supplement data: a meta-analysis of placebo-controlled trials found a modest improvement in overall joint symptom scores and stiffness, but not in pain alone. In the large GAIT trial, glucosamine and chondroitin did no better than placebo for knee pain overall. Short cartilage peptides (such as the AED tripeptide) have only cell and animal studies so far.",
-      },
       {
         heading: "See a clinician or physio if",
         body: "the joint swells, locks or gives way, looks red or feels hot, hurts at night or at rest, or the pain persists after 2–3 weeks.",
       },
     ],
+    learnMore: [
+      {
+        heading: "How cartilage keeps itself going",
+        body: "Joint cartilage is a slow-turnover tissue. Chondrocytes keep making type II collagen and proteoglycans while enzymes break the old matrix down, and with age, heavy load or injury that balance can tip toward breakdown. Because cartilage has no blood vessels, nutrients and signals reach it through the synovial fluid, which is why researchers are interested in small molecules that can carry a signal to these cells.",
+      },
+      {
+        heading: "What peptide bioregulation is investigating",
+        body: "Khavinson's group proposes that short peptides (two to four amino acids) can enter cells and bind DNA regions that regulate tissue-specific genes. For cartilage the key sequence is AED (Ala-Glu-Asp, also called T-31). In lab work, AED and related peptides shifted ageing-related gene expression in human bone-marrow stem cells, and in ageing rats a cartilage extract and T-31 limited bone-density loss. A 2023 review maps how peptides can steer stem cells toward becoming cartilage cells. These are mechanistic, cellular and animal findings: they point to a plausible pathway, and human outcome trials of these peptides are the next step the field needs.",
+      },
+      {
+        heading: "How the three picks differ",
+        body: "Sigumir is a Khavinson Cytomax: a natural peptide complex from cartilage and bone tissue, taken as a course; Cartalax is its lab-made counterpart, the single synthesized AED cartilage tripeptide (complex AC-4). Prime Peptide Joints is a multi-ingredient formulation: the IPH AEN and IPH ESM peptide complexes plus liposomal glucosamine, MSM and PEA, so it combines a peptide signal with conventional joint nutrients taken daily. Prime Peptide Collagen is built on marine collagen with the IPH AEN peptide, vitamin C, copper and calcium, aimed more broadly at connective tissue, skin and nails.",
+      },
+      {
+        heading: "Conventional joint supplements, judged on their own",
+        body: "Collagen and glucosamine are a separate evidence story from bioregulators. Oral collagen has controlled clinical trials: a meta-analysis of placebo-controlled trials found a modest improvement in overall joint symptom scores and stiffness. Glucosamine and chondroitin were tested in the large GAIT trial, where they did no better than placebo for knee pain overall.",
+      },
+    ],
     sourceIds: [
-      "pmid:30368550",
-      "pmid:16495392",
+      "pmid:37176122",
       "pmid:32399807",
       "pmid:18306703",
+      "pmid:30368550",
+      "pmid:16495392",
       "ref:niams-oa",
       "ref:nccih-glucosamine",
     ],
     evidenceNote:
-      "Collagen: meta-analysis, modest effect. Glucosamine/chondroitin: large trial, no overall benefit. Cartilage peptides: lab and animal studies only.",
+      "Cartilage bioregulator peptides: mechanistic, cellular and animal research. Collagen: controlled clinical trials (meta-analysis, modest effect). Glucosamine/chondroitin: a large controlled trial with no overall benefit for knee pain.",
     pubmedQuery: "(collagen peptide OR cartilage peptide) AND joint AND randomized",
+    maxProducts: 3,
+    slotFollowUps: true,
     products: [
       {
-        id: "cartalax",
-        why: "A synthesized cartilage tripeptide (Ala-Glu-Asp) that the catalog describes for healthy cartilage and connective-tissue metabolism.",
+        id: "sigumir",
+        family: "khavinson",
+        tissue: "Cartilage and bone bioregulator (natural extract)",
+        why: "A Khavinson Cytomax: a natural peptide complex from cartilage and bone tissue, believed to support normal joint and spine function. Unlike Cartalax's single lab-made tripeptide, it is a natural tissue extract.",
         evidenceNote:
-          "Research on this peptide is cell and animal work; Cartalax as a finished product has no published human trials.",
+          "Researchers have investigated organ-derived cartilage peptides in cell and animal work; Sigumir as a finished product has no published human trials.",
+      },
+      {
+        id: "prime-peptide-joints",
+        family: "prime-peptide",
+        tissue: "Cartilage and joint formula (peptides + glucosamine, MSM)",
+        why: "A Prime Peptide formulation pairing the IPH AEN and IPH ESM peptide complexes with liposomal glucosamine, MSM and PEA for daily joint and cartilage support.",
+        evidenceNote:
+          "Its glucosamine has controlled trials with mixed results; the full formula hasn't been tested in published trials.",
       },
       {
         id: "prime-peptide-collagen",
-        why: "Contains marine collagen — the supplement ingredient with the most trial data for joint comfort — plus vitamin C.",
+        family: "prime-peptide",
+        tissue: "Connective tissue: marine collagen + IPH AEN peptide",
+        why: "Marine collagen, the joint supplement with the most controlled-trial data, plus the IPH AEN peptide, vitamin C and copper for collagen-rich connective tissue.",
         evidenceNote:
           "Collagen trials used various products and amounts; this formula itself hasn't been tested.",
       },
       {
+        id: "cartalax",
+        family: "khavinson",
+        tissue: "Cartilage bioregulator (AED tripeptide)",
+        why: "A Khavinson cytogen: the synthesized cartilage tripeptide Ala-Glu-Asp (complex AC-4), a single organ-specific signal for cartilage and connective-tissue metabolism.",
+        evidenceNote:
+          "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
+      },
+      {
         id: "revilab-ml-09",
-        why: "Pairs cartilage and vascular-wall peptide complexes with chondroitin sulfate and omega-3s for joint and connective-tissue support.",
+        family: "revilab",
+        tissue: "Cartilage and vascular-wall peptide complexes",
+        why: "A Revilab complex pairing cartilage and vascular-wall peptide complexes with chondroitin sulfate and omega-3s for joint and connective-tissue support.",
         evidenceNote:
           "Chondroitin has mixed trial results; the full formula hasn't been studied in published trials.",
       },
       {
-        id: "prime-peptide-joints",
-        why: "Peptide formula built for cartilage and joint comfort as part of the Prime Peptide line.",
-        evidenceNote:
-          "Its peptide research comes from the manufacturer's lab and animal work; no independent human trials of the finished formula.",
-      },
-      {
         id: "revilab-sl-04",
-        why: "Sublingual blend of cartilage, muscle and immune peptide complexes for the musculoskeletal system.",
+        family: "revilab",
+        tissue: "Cartilage, muscle and immune peptide complexes",
+        why: "Sublingual Revilab blend of cartilage, muscle and immune peptide complexes for the musculoskeletal system.",
         evidenceNote:
           "Cartilage peptide research is cell and animal work; Revilab SL 04 hasn't been tested in published trials.",
       },
@@ -255,18 +299,11 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "Calcium and magnesium matter most when dietary intake is low; Calsil-T itself hasn't been tested in published trials.",
       },
-      {
-        id: "sigumir",
-        why: "A Khavinson Cytomax: a natural peptide complex from cartilage and bone tissue, believed to support normal joint and spine function. Unlike Cartalax's single lab-made tripeptide, it is a natural tissue extract.",
-        evidenceNote:
-          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Sigumir as a finished product has no published human trials.",
-      },
     ],
     productPolicy: "symptom",
     followUps: [
-      "Which joint is it — knee, hip, ankle — and one side or both?",
-      "Any swelling, clicking or locking, or pain at rest or at night?",
-      "Did anything change recently — more activity, a new sport or shoes, or a knock or twist?",
+      "Which joint is it, and how long has it been bothering you?",
+      "Is your goal prevention, recovery after activity, or support for something you already feel?",
     ],
     suggestions: [
       "Does Cartalax help joints?",
@@ -383,6 +420,69 @@ export const TOPICS: Topic[] = [
     ],
   },
   {
+    id: "course-protocols",
+    label: "Preventive vs restorative protocols",
+    patterns: [
+      /\b(prevent\w*|maintenance|prophyla\w*)\b.*\b(restor\w*|intensive|recover\w*)\b/i,
+      /\b(restor\w*|intensive)\b.*\b(prevent\w*|maintenance|prophyla\w*)\b/i,
+      /\b(peptide|bioregulator|cytomax\w*|cytogen\w*)s? (?:course|protocol)s?\b.*\b(repeat|how often|how long|length)\b/i,
+    ],
+    summary:
+      "Khavinson bioregulators are taken in courses rather than every day, and the manufacturer directions frame them in two ways. A standard, preventive-style course is usually about a month, then a break, then sometimes a repeat course a few months to a year later; the cards below show two products' own label directions as real examples. When the aim is restoring function, the directions describe extending the course, pairing it with bioregulators for other organs, or running 2–3 courses a year, with a doctor's input first. Every product has its own directions, so the course is always set per product, never borrowed from another.",
+    sections: [
+      {
+        heading: "Check with your doctor first if",
+        body: "you take medicines, are pregnant or breastfeeding, or have an ongoing health condition.",
+      },
+    ],
+    learnMore: [
+      {
+        heading: "How a standard course is framed",
+        body: "In the manufacturer directions (peptideproduct.com and the institute store, peptid.ru), most capsule Cytomaxes and Cytogens follow one shape: 1–2 capsules with meals for about a month, a break, then sometimes a repeat course a few months to a year later. Each product's card shows its own label directions. These are label directions, not schedules compared against each other in trials.",
+      },
+      {
+        heading: "What the directions say about restoring function",
+        body: "The institute store's directions say the course can be extended and combined with bioregulators for other organs when the body is weakened or several systems are involved, and suggest 2–3 courses a year for long-standing concerns, after talking with a doctor. They don't set a separate, higher 'restorative' dose.",
+      },
+      {
+        heading: "Why schedules aren't interchangeable",
+        body: "Some products follow a very different rhythm from the usual twice-daily pattern; the pineal Cytomax shown below, for example, is taken once every few days. Where sources print different frequencies for the same product, each product card shows only its verified label directions rather than a blended regimen.",
+      },
+    ],
+    sourceIds: [],
+    evidenceNote:
+      "Course framing comes from manufacturer directions; no trials have compared preventive and restorative schedules.",
+    pubmedQuery: "Khavinson peptide bioregulator course",
+    products: [
+      {
+        id: "cartalax",
+        family: "khavinson",
+        tissue: "Cartilage bioregulator (AED tripeptide)",
+        why: "A Cytogen whose directions show the standard course shape: 10–30 days, then a repeat course after 4–6 months.",
+        evidenceNote:
+          "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
+      },
+      {
+        id: "endoluten",
+        family: "khavinson",
+        tissue: "Pineal gland bioregulator (natural extract)",
+        why: "A Khavinson Cytomax from the pineal gland, with its own course directions.",
+        evidenceNote:
+          "Pineal peptide preparations have been studied for night-time melatonin; Endoluten as a finished product has no published human trials.",
+      },
+    ],
+    productPolicy: "symptom",
+    maxProducts: 2,
+    followUps: [
+      "Which body system or product are you thinking about?",
+      "Is your goal prevention, or getting back to normal function?",
+    ],
+    suggestions: [
+      "Cytogens vs Cytomaxes?",
+      "What does peptide research show?",
+    ],
+  },
+  {
     id: "khavinson-evidence",
     label: "Do Khavinson peptides work?",
     patterns: [
@@ -390,31 +490,40 @@ export const TOPICS: Topic[] = [
       /\b(work|works|effective|evidence|proof|legit|scam)\b.*\b(khavinson|bioregulators?|cytomax\w*|cytogens?)\b/i,
     ],
     summary:
-      "Honest answer: there is some human evidence, but it's limited and not convincing by modern standards. Most studies come from Khavinson's own network in Russia and Ukraine, were small, often weren't properly blinded, and used injectable pharmaceutical extracts rather than oral supplements. Large independent randomised trials haven't been done.",
+      "Researchers have investigated Khavinson peptides at several levels: how short peptides interact with DNA and get into cells, how they behave in cell cultures and ageing animals, and how older adults responded to the original injectable preparations. Together, that work suggests these tiny peptides can act as tissue-specific signals that influence gene activity. Most of it comes from Khavinson's own research network and used injectables rather than oral capsules, so independent controlled trials of the oral products are the step the field still needs.",
     sections: [
       {
-        heading: "What's been reported in humans",
-        body: "- 266 older adults followed for 6–8 years: groups given injectable Thymalin and/or Epithalamin had lower reported mortality.\n- A 12-year randomised study of Epithalamin in older adults with heart disease reported lower mortality and better exercise tolerance.\n- Small studies of pineal peptides reported higher night-time melatonin in older people.",
-      },
-      {
-        heading: "Why scientists stay cautious",
-        body: "- One research network, rarely replicated independently.\n- Small samples and unclear randomisation or blinding; many papers are in Russian with limited methods detail.\n- Injectable drugs aren't oral capsules. Oral absorption is plausible (gut transporters carry di- and tripeptides) but unproven for these products.\n- The proposed mechanism — peptides regulating genes — comes mainly from cell and computer-modelling studies.",
-      },
-      {
         heading: "How to read product claims",
-        body: "Treat lifespan or telomere numbers in marketing as early research, not proof. If you try a bioregulator, treat it as a personal experiment with your clinician's knowledge, track something you can measure, and stop if you notice side effects.",
+        body: "Treat headline numbers in marketing as early research, not proof. If you try a bioregulator, do it with your clinician's knowledge, track something you can measure, and stop if you notice side effects.",
+      },
+    ],
+    learnMore: [
+      {
+        heading: "Mechanistic and cellular research",
+        body: "Computer-modelling work (\"Systematic search for structural motifs of peptide binding to double-stranded DNA\") found a small set of dipeptides that could bind specific DNA sequences. The group's review \"Peptide Regulation of Gene Expression: A Systematic Review\" summarises cell studies proposing that 2–7 amino-acid peptides enter cell nuclei and influence gene expression, and a review of POT and LAT carriers explains how di- and tripeptides are carried into cells, which is why oral use is considered plausible.",
+      },
+      {
+        heading: "Animal research",
+        body: "Ageing-animal studies looked at hormone rhythms and tissue markers. For example, synthetic Epitalon raised evening melatonin and normalised the cortisol rhythm in old rhesus monkeys, in a very small, injected-peptide study.",
+      },
+      {
+        heading: "Human research",
+        body: "The developers' clinical review \"[Peptide bioregulators: the new class of geroprotectors. Message 2. Clinical studies results]\" summarises studies in which older adults received injectable preparations such as Thymalin and Epithalamin over several years. Independent groups have reported small comparative studies too, such as \"[Comparative analysis of different methods of geroprotection]\" (Myakotnykh et al., 2016), which included Vesugen and Pinealon in 110 people.",
+      },
+      {
+        heading: "Where the uncertainty sits",
+        body: "The human studies were small, mostly from one network, often Russian-language, and rarely describe randomisation or blinding in detail. They used injectables, and no published controlled trial has tested the oral capsules sold today, so product directions are manufacturer guidance rather than trial-tested regimens.",
       },
     ],
     sourceIds: [
-      "pmid:14523363",
-      "pmid:17426848",
+      "pmid:31598715",
       "pmid:34834147",
-      "pmid:19830585",
       "pmid:35887081",
+      "pmid:11524632",
       "pmid:24003726",
     ],
     evidenceNote:
-      "Small, single-network human trials of injectable extracts; mechanism mostly lab-based; no independent large trials.",
+      "Mechanistic, cellular and animal work plus small human studies of injectable preparations, mostly from one network; no controlled trials of the oral products yet.",
     pubmedQuery: "Khavinson peptide bioregulator",
     products: [],
     productPolicy: "never",
