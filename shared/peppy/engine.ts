@@ -428,10 +428,16 @@ export function fairOrder<T extends { id: string }>(items: readonly T[]): T[] {
     if (newer[i]) out.push(newer[i]);
   }
   // Prefer capsules/tablets: liquid (pre-order) products move behind the others, order kept.
-  return [
+  const ordered = [
     ...out.filter(i => !isPreorderProduct(i.id)),
     ...out.filter(i => isPreorderProduct(i.id)),
   ];
+  // Moving a pre-order newer-line product back must not cost the newer lines their early slot.
+  if (ordered.length > 2 && !ordered.slice(0, 2).some(i => NEWER_LINE.test(i.id))) {
+    const j = ordered.findIndex((i, k) => k >= 2 && NEWER_LINE.test(i.id) && !isPreorderProduct(i.id));
+    if (j > 0) ordered.splice(1, 0, ...ordered.splice(j, 1));
+  }
+  return ordered;
 }
 
 /** Fallback (no-LLM) answers can't judge whether a third product adds a distinct reason, so they stop at 2. */

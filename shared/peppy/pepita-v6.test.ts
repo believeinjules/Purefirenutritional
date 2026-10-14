@@ -11,7 +11,7 @@ const catalog = buildCatalog(products as unknown as Parameters<typeof buildCatal
 describe("Pepita v6 response logic", () => {
   it("joint pain: cartilage bioregulator + Prime Peptide Joints (+ collagen), verified protocols, 1–2 follow-ups", async () => {
     const { response } = await answerPeppy({ message: "My knees ache, what could help?" }, { catalog });
-    expect(response.products.map(p => p.product.id)).toEqual(["cartalax", "prime-peptide-joints", "prime-peptide-collagen"]);
+    expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "prime-peptide-collagen"]);
     expect(response.products.map(p => p.family)).toEqual(["khavinson", "prime-peptide", "prime-peptide"]);
     for (const p of response.products) expect(p.protocol).toMatch(/^Manufacturer protocol: .*not a clinically validated regimen/);
     expect(response.followUps.length).toBeGreaterThanOrEqual(1);

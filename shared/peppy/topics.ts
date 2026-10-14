@@ -223,7 +223,7 @@ export const TOPICS: Topic[] = [
       },
       {
         heading: "How the three picks differ",
-        body: "Cartalax is a Khavinson bioregulator: one synthesized organ-specific peptide (the AED cartilage tripeptide, complex AC-4) taken as a short course, designed to send a single tissue signal. Prime Peptide Joints is a multi-ingredient formulation: the IPH AEN and IPH ESM peptide complexes plus liposomal glucosamine, MSM and PEA, so it combines a peptide signal with conventional joint nutrients taken daily. Prime Peptide Collagen is built on marine collagen with the IPH AEN peptide, vitamin C, copper and calcium, aimed more broadly at connective tissue, skin and nails.",
+        body: "Sigumir is a Khavinson Cytomax: a natural peptide complex from cartilage and bone tissue, taken as a course; Cartalax is its lab-made counterpart, the single synthesized AED cartilage tripeptide (complex AC-4). Prime Peptide Joints is a multi-ingredient formulation: the IPH AEN and IPH ESM peptide complexes plus liposomal glucosamine, MSM and PEA, so it combines a peptide signal with conventional joint nutrients taken daily. Prime Peptide Collagen is built on marine collagen with the IPH AEN peptide, vitamin C, copper and calcium, aimed more broadly at connective tissue, skin and nails.",
       },
       {
         heading: "Conventional joint supplements, judged on their own",
@@ -246,15 +246,6 @@ export const TOPICS: Topic[] = [
     slotFollowUps: true,
     products: [
       {
-        id: "cartalax",
-        family: "khavinson",
-        tissue: "Cartilage bioregulator (AED tripeptide)",
-        why: "A Khavinson cytogen: the synthesized cartilage tripeptide Ala-Glu-Asp (complex AC-4), a single organ-specific signal for cartilage and connective-tissue metabolism.",
-        evidenceNote:
-          "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
-      },
-      {
-        // Hidden until launch (PENDING_PRODUCT_IDS): never shown while hidden, appears as a card once visible.
         id: "sigumir",
         family: "khavinson",
         tissue: "Cartilage and bone bioregulator (natural extract)",
@@ -277,6 +268,14 @@ export const TOPICS: Topic[] = [
         why: "Marine collagen, the joint supplement with the most controlled-trial data, plus the IPH AEN peptide, vitamin C and copper for collagen-rich connective tissue.",
         evidenceNote:
           "Collagen trials used various products and amounts; this formula itself hasn't been tested.",
+      },
+      {
+        id: "cartalax",
+        family: "khavinson",
+        tissue: "Cartilage bioregulator (AED tripeptide)",
+        why: "A Khavinson cytogen: the synthesized cartilage tripeptide Ala-Glu-Asp (complex AC-4), a single organ-specific signal for cartilage and connective-tissue metabolism.",
+        evidenceNote:
+          "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
       },
       {
         id: "revilab-ml-09",
@@ -784,6 +783,18 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "Choline is an essential nutrient; Mesotel as a finished formula hasn't been tested in published trials.",
       },
+      {
+        id: "cerluten",
+        why: "A Khavinson Cytomax: a natural brain peptide complex (A-5), believed to support normal brain cell metabolism.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Cerluten as a finished product has no published human trials.",
+      },
+      {
+        id: "pinealon",
+        why: "A Khavinson peptide bioregulator for the central nervous system, believed to support normal brain function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Pinealon as a finished product has no published human trials.",
+      },
     ],
     productPolicy: "symptom",
     followUps: [
@@ -923,6 +934,18 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "No published trials of Complex 3D itself.",
       },
+      {
+        id: "svetinorm",
+        why: "A Khavinson Cytomax: a natural liver peptide complex (A-7), believed to support normal liver function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Svetinorm as a finished product has no published human trials.",
+      },
+      {
+        id: "ovagen",
+        why: "A Khavinson peptide bioregulator for the liver and digestive tract, believed to support normal liver function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Ovagen as a finished product has no published human trials.",
+      },
     ],
     productPolicy: "symptom",
     followUps: [
@@ -968,6 +991,18 @@ export const TOPICS: Topic[] = [
         why: "Herbal formula for nasal, sinus and throat comfort.",
         evidenceNote:
           "No published trials of Rinolax itself.",
+      },
+      {
+        id: "chonluten",
+        why: "A Khavinson peptide bioregulator for the respiratory system, believed to support normal bronchial function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Chonluten as a finished product has no published human trials.",
+      },
+      {
+        id: "taxorest",
+        why: "A Khavinson peptide bioregulator for the respiratory system, believed to support normal bronchial and lung function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Taxorest as a finished product has no published human trials.",
       },
     ],
     productPolicy: "symptom",
@@ -1038,6 +1073,18 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "No published trials of Pangluin itself; check with your doctor first if you take glucose-lowering medicine.",
       },
+      {
+        id: "stamakort",
+        why: "A Khavinson Cytomax: a natural stomach peptide complex, believed to support normal stomach function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Stamakort as a finished product has no published human trials.",
+      },
+      {
+        id: "suprefort",
+        why: "A Khavinson Cytomax: a natural pancreas peptide complex (A-1), believed to support normal pancreatic function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Suprefort as a finished product has no published human trials.",
+      },
     ],
     productPolicy: "symptom",
     followUps: [
@@ -1084,6 +1131,12 @@ export const TOPICS: Topic[] = [
         why: "Sublingual blend of bladder, vascular-wall and immune peptide complexes for the urinary tract.",
         evidenceNote:
           "No published trials of Revilab SL 08 itself.",
+      },
+      {
+        id: "chitomur",
+        why: "A Khavinson Cytomax: a natural bladder peptide complex (A-12), believed to support normal bladder function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Chitomur as a finished product has no published human trials.",
       },
     ],
     productPolicy: "symptom",
@@ -1187,6 +1240,12 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "Testes and bladder peptide research is animal and cell work; Revilab ML 07 hasn't been tested in published trials.",
       },
+      {
+        id: "libidon",
+        why: "A Khavinson peptide bioregulator associated with the prostate, believed to support normal male reproductive function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Libidon as a finished product has no published human trials.",
+      },
     ],
     productPolicy: "symptom",
     followUps: [
@@ -1239,6 +1298,12 @@ export const TOPICS: Topic[] = [
         why: "The women's formula: pineal, vascular-wall, cartilage and bladder peptide complexes with omega-3s.",
         evidenceNote:
           "No published trials of Revilab ML 08 itself.",
+      },
+      {
+        id: "zhenoluten",
+        why: "A Khavinson Cytomax: a natural ovarian peptide complex (A-15), believed to support normal ovarian function.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Zhenoluten as a finished product has no published human trials.",
       },
     ],
     productPolicy: "symptom",
@@ -1373,6 +1438,12 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "Thyroid peptide evidence is one small Russian study; Thyreogen itself hasn't been tested, and it is not a substitute for thyroid medicine.",
       },
+      {
+        id: "bonothyrk",
+        why: "A Khavinson Cytomax: a natural parathyroid gland peptide complex (A-21), believed to support normal parathyroid function and calcium balance.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Bonothyrk as a finished product has no published human trials.",
+      },
     ],
     productPolicy: "symptom",
     followUps: [
@@ -1419,6 +1490,12 @@ export const TOPICS: Topic[] = [
         why: "Blend of nine plant adaptogens for stress resilience and recovery from fatigue.",
         evidenceNote:
           "Adaptogen evidence is mixed and mostly small studies; Levain itself hasn't been tested in published trials.",
+      },
+      {
+        id: "glandokort",
+        why: "A Khavinson peptide bioregulator associated with the adrenal glands, believed to support the body's normal stress response.",
+        evidenceNote:
+          "Researchers have investigated organ-specific peptides mostly in cell and animal work; Glandokort as a finished product has no published human trials.",
       },
     ],
     productPolicy: "symptom",

@@ -4,16 +4,7 @@
  * listings, search, product pages, sitemap/prerender, Pepita and checkout.
  * To bring a product back, remove its id from this list and redeploy.
  */
-/**
- * New products drafted but not launched: hidden like the rest until their missing
- * store data arrives. Their verified label data is still built into Pepita's
- * product-data.json so they are ready the moment they go live.
- *   sigumir — TODO(Julia): needs priceUSD/priceEUR and a product image.
- */
-export const PENDING_PRODUCT_IDS: ReadonlySet<string> = new Set(["sigumir"]);
-
 export const HIDDEN_PRODUCT_IDS: ReadonlySet<string> = new Set([
-  ...Array.from(PENDING_PRODUCT_IDS),
   "femalin",
   "temero-genero",
   "trezvon",

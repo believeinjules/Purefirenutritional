@@ -8,8 +8,8 @@
  *    Julia live in data/pepita-rd-resolutions.json and become the verified label.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { allProducts, products } from "../client/src/data/products";
-import { PENDING_PRODUCT_IDS, isHiddenProduct } from "../shared/hidden-products";
+import { products } from "../client/src/data/products";
+import { isHiddenProduct } from "../shared/hidden-products";
 import {
   PRODUCT_DATA_FIELDS,
   emptyRecord,
@@ -120,11 +120,7 @@ export function mergeRecord(p: { id: string; name: string; ingredients?: string[
   return out;
 }
 
-// Visible products plus drafted-but-pending ones (hidden from the store until launch data arrives).
-const visible = [
-  ...products.filter(p => !isHiddenProduct(p)),
-  ...allProducts.filter(p => PENDING_PRODUCT_IDS.has(p.id)),
-];
+const visible = products.filter(p => !isHiddenProduct(p));
 const records = visible.map(p => mergeRecord(p, rdBy.get(p.id)));
 const file: ProductDataFile = {
   schemaVersion: 2,

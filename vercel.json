@@ -16,7 +16,7 @@
       "permanent": false
     },
     {
-      "source": "/products/:id(bonomarlot|cartalax|chelohart|crystagen|endoluten|gotratix|pielotax|testoluten|thyreogen|ventfort|vesugen|visoluten|vladonix)-:size(n20|n60)",
+      "source": "/products/:id(bonomarlot|bonothyrk|cartalax|cerluten|chelohart|chitomur|chonluten|crystagen|endoluten|glandokort|gotratix|libidon|ovagen|pielotax|pinealon|sigumir|stamakort|suprefort|svetinorm|taxorest|testoluten|thyreogen|ventfort|vesugen|visoluten|vladonix|zhenoluten)-:size(n20|n60)",
       "destination": "/products/:id",
       "statusCode": 301
     },

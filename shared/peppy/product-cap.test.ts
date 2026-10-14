@@ -49,7 +49,7 @@ describe("product cap", () => {
 
   it("joints: a topic whose picks each serve a distinct reason shows three (bioregulator, joint formula, collagen)", async () => {
     const { response } = await answerPeppy({ message: "What supports joint comfort?" }, { catalog });
-    expect(response.products.map(p => p.product.id)).toEqual(["cartalax", "prime-peptide-joints", "prime-peptide-collagen"]);
+    expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "prime-peptide-collagen"]);
   });
 
   it("prompt states the restraint rule", () => {
