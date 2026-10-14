@@ -463,7 +463,7 @@
           "units": 20,
           "directions": {
             "status": "verified",
-            "value": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+            "value": "Adults take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
             "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
           }
         },
@@ -472,7 +472,7 @@
           "units": 60,
           "directions": {
             "status": "verified",
-            "value": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+            "value": "Adults take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
             "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
           }
         }
@@ -491,7 +491,7 @@
             1
           ],
           "everyNDays": 3,
-          "text": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+          "text": "Adults take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
           "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
         }
       ],
@@ -512,7 +512,7 @@
       },
       "labelDirections": {
         "status": "verified",
-        "value": "Adults over 14 take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
+        "value": "Adults take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months.",
         "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
       },
       "food": {
@@ -3394,34 +3394,58 @@
     {
       "id": "chonluten",
       "name": "Chonluten",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptid.ru/catalog/citogeny/honluten/"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
       "formats": [],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "peptide complex AC-7 (glycine, glutamic acid, aspartic acid)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
       },
       "quantities": {
         "status": "unverified",
         "value": null
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meals",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "10–30 days (1–3 packs)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
       },
       "sizes": {
         "status": "unverified",
@@ -3455,34 +3479,58 @@
     {
       "id": "glandokort",
       "name": "Glandokort",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
       "formats": [],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "natural adrenal peptide complex A-17",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
       },
       "quantities": {
         "status": "unverified",
         "value": null
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meals",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "1 month",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
       },
       "sizes": {
         "status": "unverified",
@@ -3516,34 +3564,58 @@
     {
       "id": "libidon",
       "name": "Libidon",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
       "formats": [],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "natural prostate peptide complex A-16",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
       },
       "quantities": {
         "status": "unverified",
         "value": null
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meals",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "1 month",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
       },
       "sizes": {
         "status": "unverified",
@@ -3577,34 +3649,58 @@
     {
       "id": "ovagen",
       "name": "Ovagen",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptid.ru/catalog/citogeny/ovagen/"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
       "formats": [],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "peptide complex AC-3 (leucine, glutamic acid, aspartic acid)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
       },
       "quantities": {
         "status": "unverified",
         "value": null
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meals",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "10–30 days (1–3 packs)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
       },
       "sizes": {
         "status": "unverified",
@@ -3638,34 +3734,58 @@
     {
       "id": "pinealon",
       "name": "Pinealon",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptid.ru/catalog/citogeny/pinealon/"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
       "formats": [],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "peptide complex AC-5 (arginine, glutamic acid, aspartic acid)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
       },
       "quantities": {
         "status": "unverified",
         "value": null
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meals",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "10–30 days; repeat course advisable after 4–6 months",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
       },
       "sizes": {
         "status": "unverified",
@@ -4146,34 +4266,58 @@
     {
       "id": "taxorest",
       "name": "Taxorest",
-      "sourceDocs": [],
-      "verifiedOn": null,
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
+      ],
+      "verifiedOn": "2026-10-13",
       "productVersion": null,
       "formats": [],
-      "schedules": [],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
+        }
+      ],
       "ingredients": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "natural bronchial peptide complex A-19",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
       },
       "quantities": {
         "status": "unverified",
         "value": null
       },
       "formulation": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
       },
       "labelDirections": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
       },
       "food": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "with meals",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
       },
       "courseDuration": {
-        "status": "unverified",
-        "value": null
+        "status": "verified",
+        "value": "10–30 days (1–3 packs)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
       },
       "sizes": {
         "status": "unverified",

@@ -11,7 +11,7 @@ import { isPreorderProduct } from "../preorder.js";
  * constant; answer text that repeats it is stripped at render time so it shows once.
  */
 export const DOCTOR_CONSULT_LINE =
-  "Always consult your doctor or a medical professional before starting any new supplement.";
+  "Always consult your doctor before starting any new supplement.";
 
 export const DOSING_NOTE =
   "Dosage may vary depending on factors like sex, age, health status, and whether the goal is preventive (general upkeep) or regenerative (more active support); label directions are on the product page, and your doctor can help decide what's right for you, ideally informed by proper blood tests.";
@@ -53,7 +53,7 @@ export function ensureProductNotes<T extends PeppyResponse>(response: T): T {
  * Conditional red-flag guidance ("If you have chest pain, …", "Seek urgent care …") is kept.
  */
 const GENERIC_DOCTOR_SENTENCE =
-  /^(?:please\s+)?(?:always\s+)?(?:talk|speak|check|consult)(?:\s+it\s+over)?\s+(?:with\s+|to\s+)?(?:your|a)\s+(?:doctor|clinician|healthcare (?:provider|professional)|medical professional)(?:\s+or\s+(?:a\s+)?medical professional)?(?:\s+(?:before (?:starting|buying|trying|taking)(?: any(?:thing)?)?(?: new)?(?: supplements?)?|first))?[.!]$/i;
+  /^(?:please\s+)?(?:always\s+)?(?:talk|speak|check|consult)(?:\s+it\s+over)?\s+(?:with\s+|to\s+)?(?:your|a)\s+(?:doctor|clinician|healthcare (?:provider|professional))(?:\s+(?:before (?:starting|buying|trying|taking)(?: any(?:thing)?)?(?: new)?(?: supplements?)?|first))?[.!]$/i;
 
 /** Removes generic doctor reminders so the fixed DOCTOR_CONSULT_LINE appears once. */
 export function withoutGenericDoctorLines(text: string): string {

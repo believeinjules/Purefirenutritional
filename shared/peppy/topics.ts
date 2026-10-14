@@ -129,37 +129,61 @@ export const TOPICS: Topic[] = [
       /\b(sleep\w*|insomnia|can'?t sleep|cannot sleep|trouble sleeping|fall(?:ing)? asleep|stay(?:ing)? asleep|wak(?:e|ing) up (?:at night|in the night|at \d)|night waking|circadian|jet ?lag|bedtime|restless nights?)\b/i,
     ],
     summary:
-      "Endoluten is a pineal-focused peptide complex associated with research on circadian regulation and melatonin secretion. Unlike taking melatonin directly, pineal peptide bioregulation is intended to influence the body's own regulatory pathways, although clinical evidence for improved sleep remains limited. Its documented protocol is an intermittent course rather than a nightly dose.",
+      "Endoluten is the closest fit: a Khavinson Cytomax made from pineal gland peptides (A-8), and the pineal gland is the small brain gland that releases melatonin at night to keep the body's circadian clock in step with light and dark. Researchers have investigated whether pineal peptide preparations help the gland's own night-time melatonin release in older adults, which is a different idea from taking melatonin, where the hormone itself is supplied from outside. The manufacturer directions describe an intermittent course rather than a nightly dose: adults take 1 capsule once every 3 days, in the morning or at midday, for about 20 days to 2 months. Two related research peptides are often mentioned alongside it: Epitalon, the synthetic tetrapeptide AEDG, which Pure Fire doesn't sell, and Pinealon, the EDR tripeptide, studied mainly for neuroprotection and oxidative stress. The evidence is still early, because the pineal studies measured melatonin levels rather than sleep quality, and no published human trial has tested these products for sleep.",
     sections: [
       {
-        heading: "What the research says about supplements",
-        body: "Melatonin has the best supplement evidence, but the effect is modest: a meta-analysis of 19 trials found people fell asleep about 7 minutes faster and slept about 8 minutes longer. It's most useful for shifting your body clock (jet lag, a late sleep schedule). Pineal peptide preparations were studied by Khavinson's group mainly for raising night-time melatonin in older adults — small Russian studies that measured hormone levels, not sleep quality.",
+        heading: "What the research says",
+        body: "In small studies from Khavinson's group, the pineal preparations Epithalamin and Epitalon restored night-time melatonin release in older monkeys and older adults, and an injectable pineal extract almost doubled a night-time melatonin marker in 55 older adults with low output. These studies measured hormone levels, not how well people slept. Melatonin taken as a supplement has better sleep data, but the effect is modest: a meta-analysis of 19 trials found people fell asleep about 7 minutes faster and slept about 8 minutes longer.",
       },
       {
         heading: "When to get checked",
-        body: "Loud snoring, gasping at night, or daytime sleepiness despite enough time in bed can point to sleep apnea — that needs a sleep study, not a supplement. Ongoing low mood, pain or medicines can also drive poor sleep.",
+        body: "Loud snoring, gasping at night, or daytime sleepiness despite enough time in bed needs a sleep study, not a supplement. Ongoing low mood, pain or medicines can also drive poor sleep.",
       },
     ],
-    sourceIds: ["pmid:17969590", "pmid:28849889", "pmid:11524632", "pmid:23691095"],
+    learnMore: [
+      {
+        heading: "How the pineal gland, melatonin and the body clock fit together",
+        body: "The body's master clock in the hypothalamus reads light coming in through the eyes and signals the pineal gland to release melatonin after dark. Melatonin tells tissues that it's night, which helps line up sleep timing, body temperature and hormone rhythms. Night-time melatonin output tends to fall with age, and Khavinson's group studied pineal peptides as a way of supporting the gland's own rhythm rather than replacing the hormone.",
+      },
+      {
+        heading: "Endoluten vs taking melatonin",
+        body: "A melatonin supplement adds the hormone directly and acts within hours, so it's mainly used for timing problems such as jet lag. Endoluten is a pineal gland peptide complex taken as a short intermittent course; it contains no melatonin, and the idea researchers have investigated is a slower effect on the gland's own function. That idea rests on small melatonin-level studies, not on sleep trials.",
+      },
+      {
+        heading: "Endoluten, Epitalon and Pinealon are different things",
+        body: "Endoluten is a natural pineal gland peptide complex (A-8) sold by Pure Fire. Epitalon is a synthetic four-amino-acid peptide, Ala-Glu-Asp-Gly (AEDG), first identified in pineal extract research; Pure Fire doesn't sell it. Pinealon is a synthetic three-amino-acid peptide, Glu-Asp-Arg (EDR), studied in cell and animal work for neuroprotection and oxidative stress; it's sometimes discussed for sleep, but direct human sleep evidence is limited.",
+      },
+      {
+        heading: "Course directions: manufacturer vs research",
+        body: "Manufacturer directions for Endoluten (St. Petersburg Institute of Bioregulation and Gerontology): adults take 1 capsule once every 3 days, in the morning or at midday, for about 20 days to 2 months. The research studies used injectable pineal preparations, so their schedules don't carry over to the capsules.",
+      },
+    ],
+    sourceIds: ["pmid:17969590", "pmid:11524632", "pmid:21978084", "pmid:28849889", "pmid:23691095"],
     evidenceNote:
-      "Melatonin: meta-analysis, modest benefit. Pineal peptides: small human and animal studies of melatonin levels, not sleep outcomes.",
-    pubmedQuery: "(epithalamin OR pineal peptide) AND sleep",
+      "Pineal peptides: small human and animal studies of melatonin levels, not sleep outcomes. Pinealon: cell studies. Melatonin: meta-analysis, modest benefit.",
+    pubmedQuery: "(epithalamin OR epitalon OR pineal peptide) AND melatonin",
     products: [
       {
         id: "endoluten",
-        why: "A pineal gland peptide complex (A-8) — the gland that makes melatonin — which the catalog describes for healthy melatonin rhythm.",
+        why: "A Khavinson Cytomax from the pineal gland, the gland that releases melatonin at night, with its own intermittent course directions.",
         evidenceNote:
           "Pineal peptide research is mostly small Russian studies of injectable extracts measuring melatonin; Endoluten itself has no published sleep trial.",
       },
+      {
+        id: "pinealon",
+        why: "A Khavinson Cytogen whose peptide complex (AC-5) is made from the amino acids of the EDR tripeptide, studied mainly for neuroprotection and oxidative stress.",
+        evidenceNote:
+          "Sometimes discussed for sleep, but the research is cell and animal work; direct human sleep evidence is limited.",
+      },
     ],
-    maxProducts: 1,
+    maxProducts: 2,
     productPolicy: "symptom",
-    followUps: ["Is it trouble falling asleep, staying asleep, or waking unrefreshed?", "How long has your sleep been off?", "Would a comparison with taking melatonin directly help?"],
+    followUps: ["How is Endoluten different from Epitalon and Pinealon?", "How is an Endoluten course structured?", "How is a pineal peptide different from taking melatonin?"],
     suggestions: [
-      "Can I take Endoluten with melatonin?",
-      "What is Epitalon?",
-      "Tell me about Endoluten",
-      "Why am I tired in the afternoon?",
+      "How is Endoluten different from Epitalon?",
+      "How is a pineal peptide different from taking melatonin?",
+      "How is an Endoluten course structured?",
+      "What is Pinealon?",
     ],
     safety: {
       level: "info",
@@ -718,7 +742,7 @@ export const TOPICS: Topic[] = [
       },
       {
         id: "pinealon",
-        why: "A Khavinson peptide bioregulator for the central nervous system, believed to support normal brain function.",
+        why: "A Khavinson Cytogen: a synthesized brain-cortex peptide complex (AC-5) made from the amino acids of the EDR tripeptide (Glu-Asp-Arg), studied for neuroprotection and oxidative stress.",
         evidenceNote:
           "Researchers have investigated organ-specific peptides mostly in cell and animal work; Pinealon as a finished product has no published human trials.",
       },

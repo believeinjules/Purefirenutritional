@@ -4674,5 +4674,185 @@
   "research_study_regimens": [],
   "research_study_regimens_confidence": "unverified",
   "schedule_type": "daily"
+ },
+ {
+  "name": "Chonluten",
+  "slug": "chonluten",
+  "product_line": "Cytogen synthetic",
+  "body_system": "respiratory (bronchi & lungs)",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "ingredients_as_printed": "peptide complex AC-7 (glycine, glutamic acid, aspartic acid)",
+  "ingredients_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meals",
+  "course_duration": "10–30 days (1–3 packs)",
+  "source_documents": [
+   "https://peptid.ru/catalog/citogeny/honluten/"
+  ],
+  "background_source_note": "Live peptid.ru capture 2026-10-13 (/workspace/pepita-live/endo2/); Russian label text translated.",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/citogeny/honluten/",
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+    "language": "en"
+   }
+  ],
+  "label_directions_en_as_printed": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+  "label_directions_confidence": "manufacturer-claim",
+  "schedule_type": "daily course"
+ },
+ {
+  "name": "Taxorest",
+  "slug": "taxorest",
+  "product_line": "Cytomax natural",
+  "body_system": "respiratory (bronchi)",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "ingredients_as_printed": "natural bronchial peptide complex A-19",
+  "ingredients_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meals",
+  "course_duration": "10–30 days (1–3 packs)",
+  "source_documents": [
+   "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
+  ],
+  "background_source_note": "Live peptid.ru capture 2026-10-13 (/workspace/pepita-live/endo2/); Russian label text translated.",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/",
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+    "language": "en"
+   }
+  ],
+  "label_directions_en_as_printed": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+  "label_directions_confidence": "manufacturer-claim",
+  "schedule_type": "daily course"
+ },
+ {
+  "name": "Glandokort",
+  "slug": "glandokort",
+  "product_line": "Cytomax natural",
+  "body_system": "adrenal glands",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "ingredients_as_printed": "natural adrenal peptide complex A-17",
+  "ingredients_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meals",
+  "course_duration": "1 month",
+  "source_documents": [
+   "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
+  ],
+  "background_source_note": "Live peptid.ru capture 2026-10-13 (/workspace/pepita-live/endo2/); Russian label text translated.",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/",
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+    "language": "en"
+   }
+  ],
+  "label_directions_en_as_printed": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+  "label_directions_confidence": "manufacturer-claim",
+  "schedule_type": "daily course"
+ },
+ {
+  "name": "Libidon",
+  "slug": "libidon",
+  "product_line": "Cytomax natural",
+  "body_system": "prostate",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "ingredients_as_printed": "natural prostate peptide complex A-16",
+  "ingredients_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meals",
+  "course_duration": "1 month",
+  "source_documents": [
+   "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
+  ],
+  "background_source_note": "Live peptid.ru capture 2026-10-13 (/workspace/pepita-live/endo2/); Russian label text translated.",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/",
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+    "language": "en"
+   }
+  ],
+  "label_directions_en_as_printed": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+  "label_directions_confidence": "manufacturer-claim",
+  "schedule_type": "daily course"
+ },
+ {
+  "name": "Ovagen",
+  "slug": "ovagen",
+  "product_line": "Cytogen synthetic",
+  "body_system": "liver",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "ingredients_as_printed": "peptide complex AC-3 (leucine, glutamic acid, aspartic acid)",
+  "ingredients_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meals",
+  "course_duration": "10–30 days (1–3 packs)",
+  "source_documents": [
+   "https://peptid.ru/catalog/citogeny/ovagen/"
+  ],
+  "background_source_note": "Live peptid.ru capture 2026-10-13 (/workspace/pepita-live/endo2/); Russian label text translated.",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/citogeny/ovagen/",
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+    "language": "en"
+   }
+  ],
+  "label_directions_en_as_printed": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days (1–3 packs).",
+  "label_directions_confidence": "manufacturer-claim",
+  "schedule_type": "daily course"
+ },
+ {
+  "name": "Pinealon",
+  "slug": "pinealon",
+  "product_line": "Cytogen synthetic",
+  "body_system": "brain (cerebral cortex peptides)",
+  "body_system_confidence": "manufacturer-claim",
+  "formulation": "capsule",
+  "ingredients_as_printed": "peptide complex AC-5 (arginine, glutamic acid, aspartic acid)",
+  "ingredients_confidence": "manufacturer-claim",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meals",
+  "course_duration": "10–30 days; repeat course advisable after 4–6 months",
+  "source_documents": [
+   "https://peptid.ru/catalog/citogeny/pinealon/"
+  ],
+  "background_source_note": "Live peptid.ru capture 2026-10-13 (/workspace/pepita-live/endo2/); Russian label text translated.",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/citogeny/pinealon/",
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+    "language": "en"
+   }
+  ],
+  "label_directions_en_as_printed": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 10–30 days. A repeat course is advisable after 4–6 months.",
+  "label_directions_confidence": "manufacturer-claim",
+  "schedule_type": "daily course"
  }
 ]
