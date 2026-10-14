@@ -6,7 +6,7 @@ import { isHiddenProduct } from "@shared/hidden-products";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import type { PeppyProduct } from "@shared/peppy/types";
 import InlinePreview from "./InlinePreview";
-import { firstSentence } from "@/lib/pepitaPreview";
+import { FAMILY_LABEL, firstSentence } from "@/lib/pepitaPreview";
 import { useCart } from "@/contexts/CartContext";
 import { getProductById, type Product } from "@/data/products";
 import { fetchProductById } from "@/lib/productsStorage";
@@ -192,24 +192,36 @@ function ProductThumb({ product }: { product: PeppyProduct }) {
   );
 }
 
-/** v3: one small product card (image + name, links to the product page). No price push. */
-export function ProductCardSmall({ product }: { product: PeppyProduct }) {
+/** v6: compact product card (image, name, tissue-target line; links to the product page). No price push. */
+export function ProductCardSmall({
+  product,
+  tissue,
+  family,
+}: {
+  product: PeppyProduct;
+  tissue?: string;
+  family?: string;
+}) {
   const store = useStoreProduct(product.id);
   if (isHiddenProduct(product)) return null;
   const image = store?.image ?? product.image;
   const name = store?.name ?? product.name;
+  const familyLabel = family ? FAMILY_LABEL[family] : undefined;
   return (
     <Link
       href={productPath(product.id)}
       data-testid="pepita-product-card"
       data-product-id={product.id}
-      className="flex max-w-xs items-center gap-3 rounded-xl border border-gray-200 bg-white p-2 transition hover:border-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+      className="flex h-full items-center gap-3 rounded-xl border border-gray-200 bg-white p-2 transition hover:border-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
     >
       <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
         {image && <img src={image} alt="" className="h-full w-full object-contain p-0.5" loading="lazy" />}
       </span>
       <span className="min-w-0">
         <span className="block truncate text-sm font-medium text-gray-900">{name}</span>
+        {(tissue || familyLabel) && (
+          <span className="block text-xs leading-snug text-gray-600 line-clamp-2">{tissue ?? familyLabel}</span>
+        )}
         <span className="block text-xs text-orange-700">View product →</span>
       </span>
     </Link>

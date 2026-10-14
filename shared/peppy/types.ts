@@ -64,6 +64,27 @@ export interface PeppyProductSuggestion {
   why: string;
   /** Honesty line: ingredient evidence vs evidence for this finished product. */
   evidenceNote: string;
+  /** Short tissue-target line for the compact card ("Cartilage bioregulator"). */
+  tissue?: string;
+  /** Which family the product belongs to (shown on the card, used to explain differences). */
+  family?: ProductFamily;
+  /** Verified manufacturer protocol from product-data.json, if any (never a clinical regimen). */
+  protocol?: string;
+}
+
+export type ProductFamily = "khavinson" | "prime-peptide" | "revilab" | "other";
+
+/**
+ * Fallback memory: what the customer has told Pepita so far in this conversation
+ * (tracked in component state, sent with each request so picks refine instead of restarting).
+ */
+export interface PeppyProfile {
+  goal?: "prevention" | "recovery" | "existing";
+  duration?: string;
+  age?: string;
+  activity?: string;
+  /** Body area the customer named (knee, hip, back...). */
+  area?: string;
 }
 
 export interface AnswerSection {
@@ -89,6 +110,8 @@ export interface PeppyResponse {
   /** One-line overall evidence-strength note. */
   evidenceNote?: string;
   safety?: SafetyNotice;
+  /** Deeper science for the expandable "Learn more" section (physiology, mechanisms, how products differ). */
+  learnMore?: AnswerSection[];
   /** Clarifying questions — only when the answer would materially change (0–3). */
   followUps: string[];
   /** Tappable next questions (2–4). */
@@ -112,15 +135,17 @@ export interface PeppyRequestBody {
   /** Product page hand-off (/ai-assistant?product=...). */
   productId?: string;
   goal?: "preventive" | "restorative";
+  /** Slots remembered from earlier answers in this chat (fallback memory). */
+  profile?: PeppyProfile;
 }
 
 /** Limits shared by client and server. */
 export const PEPPY_LIMITS = {
   maxMessageChars: 800,
-  maxHistoryTurns: 8,
-  maxHistoryChars: 1200,
+  maxHistoryTurns: 24,
+  maxHistoryChars: 1500,
   maxSources: 5,
   maxProducts: 3,
-  maxFollowUps: 3,
+  maxFollowUps: 2,
   maxSuggestions: 4,
 } as const;

@@ -134,6 +134,22 @@ export function validateLlmAnswer(input: {
         : { body: body.text }
     );
   }
+  // "Learn more": deeper science, same prose filters as sections.
+  const learnMore: AnswerSection[] = [];
+  for (const item of arr(data.learnMore).slice(0, 4)) {
+    if (!item || typeof item !== "object") continue;
+    const rec = item as Record<string, unknown>;
+    const body = sanitizeAnswerProse(clampText(str(rec.body), 1400), names);
+    report.removedSentences += body.removed;
+    const scoped = withoutInterventionAdvice(body.text);
+    report.removedInterventions! += scoped.removed;
+    if (!scoped.text) continue;
+    const heading = clampText(str(rec.heading), 80);
+    learnMore.push(
+      heading && !BANNED_TERMS.test(heading) ? { heading, body: scoped.text } : { body: scoped.text }
+    );
+  }
+
   if (
     analysis.intent === "dosage" &&
     draft.sections[0]?.heading === "Manufacturer's directions"
@@ -210,7 +226,15 @@ export function validateLlmAnswer(input: {
         report.droppedProducts.push(id);
         continue;
       }
-      products.push({ product, why, evidenceNote });
+      // Card facts (tissue line, family, verified protocol) come only from our candidate, never the model.
+      products.push({
+        product,
+        why,
+        evidenceNote,
+        tissue: candidate.tissue,
+        family: candidate.family,
+        protocol: candidate.protocol,
+      });
     }
   } else {
     for (const item of arr(data.products)) {
@@ -249,6 +273,7 @@ export function validateLlmAnswer(input: {
       mode: "llm",
       summary: summaryText,
       sections,
+      learnMore: learnMore.length ? learnMore : draft.learnMore,
       research: finalResearch,
       evidenceNote,
       safety: draft.safety,

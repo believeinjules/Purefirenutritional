@@ -6,7 +6,9 @@
  * 2. composeFallback() — builds a complete structured answer from curated content when no
  *    LLM is configured or the LLM fails, so the assistant never shows an error.
  */
-import { dosingAnswer, nonDailyExamples } from "./product-data.js";
+import { dosingAnswer, nonDailyExamples, plainAudience, verified } from "./product-data.js";
+import { isHiddenProduct } from "../hidden-products.js";
+import { extractProfile, hasProfile, missingSlotQuestions, profileFromMessages, profileRecap } from "./profile.js";
 import { isPreorderProduct } from "../preorder.js";
 import {
   ASSISTANT_DISCLAIMER,
@@ -38,6 +40,7 @@ import {
   TOPICS,
   TOPICS_BY_ID,
   type Topic,
+  type TopicProduct,
 } from "./topics.js";
 import { normalizeForMatch, toInlinePhrase } from "./text.js";
 import {
@@ -46,6 +49,8 @@ import {
   type PeppyHistoryTurn,
   type PeppyProduct,
   type PeppyProductSuggestion,
+  type PeppyProfile,
+  type ProductFamily,
   type PeppyResponse,
   type PeppySourceCard,
   type ResearchSource,
@@ -92,6 +97,8 @@ export interface Analysis {
   pubmedQueries: string[];
   /** Recent turns (for context the user already gave, e.g. their pack size). */
   history: PeppyHistoryTurn[];
+  /** Memory slots (goal, duration, age, activity, area) from this conversation. */
+  profile: PeppyProfile;
 }
 
 const PRODUCT_FINDING =
@@ -158,6 +165,7 @@ export function analyze(input: {
   history?: PeppyHistoryTurn[];
   catalog: Map<string, PeppyProduct>;
   contextProductId?: string;
+  profile?: PeppyProfile;
 }): Analysis {
   const message = input.message.trim().slice(0, PEPPY_LIMITS.maxMessageChars);
   const history = (input.history ?? []).slice(-PEPPY_LIMITS.maxHistoryTurns);
@@ -168,8 +176,13 @@ export function analyze(input: {
   let topics = topicScores(message);
   let continuation = false;
 
+  // The most recent earlier user turn that set a topic or product, so a second or third short
+  // answer ("I'm 55", "I run") still refines the same conversation instead of restarting.
+  const userTurns = [...history].reverse().filter(h => h.role === "user").map(h => h.content);
   const lastUser =
-    [...history].reverse().find(h => h.role === "user")?.content ?? "";
+    userTurns.find(
+      u => topicScores(u).length > 0 || findMentionedProducts(u, input.catalog).length > 0
+    ) ?? userTurns[0] ?? "";
   const words = message.split(/\s+/).filter(Boolean).length;
   const asksNew =
     /\?/.test(message) || PRODUCT_FINDING.test(message) || INFO.test(message);
@@ -288,6 +301,12 @@ export function analyze(input: {
     productBlockReasons: reasons,
     pubmedQueries,
     history,
+    profile: {
+      ...profileFromMessages([...history.filter(h => h.role === "user").map(h => h.content), message]),
+      ...(input.profile ?? {}),
+      // What the customer says now wins over anything remembered.
+      ...extractProfile(message),
+    },
   };
 }
 
@@ -421,22 +440,71 @@ export const FALLBACK_MAX_PRODUCTS = 2;
 function productSuggestions(
   topic: Topic | undefined,
   catalog: Map<string, PeppyProduct>,
-  max: number
+  max: number,
+  profile: PeppyProfile = {}
 ): PeppyProductSuggestion[] {
   if (!topic) return [];
   const out: PeppyProductSuggestion[] = [];
-  for (const tp of fairOrder(topic.products)) {
+  // Topics with their own cap list products in biological-relevance order; keep that order
+  // (refined by what the customer told us) instead of alternating product lines.
+  const ordered = topic.maxProducts
+    ? refineOrder(topic.products, profile)
+    : fairOrder(topic.products);
+  for (const tp of ordered) {
     const product = catalog.get(tp.id);
-    if (!product || !product.inStock) continue;
+    if (!product || !product.inStock || isHiddenProduct(product)) continue;
     if (
       !isCompliantProductCopy(tp.why) ||
       !isCompliantEvidenceNote(tp.evidenceNote)
     )
       continue;
-    out.push({ product, why: tp.why, evidenceNote: tp.evidenceNote });
+    out.push(withCardFacts({ product, why: tp.why, evidenceNote: tp.evidenceNote }, tp));
     if (out.length >= max) break;
   }
   return out;
+}
+
+/** Family of a product id (Khavinson bioregulators vs Prime Peptide vs Revilab). */
+export function productFamily(id: string, category = ""): ProductFamily {
+  if (/^prime-peptide-/.test(id)) return "prime-peptide";
+  if (/^revilab-/.test(id)) return "revilab";
+  if (/bioregulator|cytomax|cytogen/i.test(category)) return "khavinson";
+  return "other";
+}
+
+/**
+ * Manufacturer protocol line, only from VERIFIED label directions in product-data.json.
+ * Labelled as the manufacturer's protocol, never as a clinically validated regimen.
+ */
+export function protocolLine(id: string): string | undefined {
+  const label = verified(id, "labelDirections");
+  if (!label) return undefined;
+  const text = plainAudience(label).replace(/^for adults/i, "Adults:");
+  const t = text.charAt(0).toUpperCase() + text.slice(1);
+  return `Manufacturer protocol: ${/[.!?]$/.test(t) ? t : `${t}.`} (Label directions, not a clinically validated regimen.)`;
+}
+
+function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProductSuggestion {
+  return {
+    ...s,
+    tissue: tp?.tissue,
+    family: tp?.family ?? productFamily(s.product.id, s.product.category),
+    protocol: protocolLine(s.product.id),
+  };
+}
+
+/**
+ * Fallback memory refines the picks: activity / recovery goals put the daily multi-ingredient
+ * formula first; prevention or later life stage keeps the organ-specific course first.
+ */
+function refineOrder(products: readonly TopicProduct[], p: PeppyProfile): TopicProduct[] {
+  const list = [...products];
+  const active = !!p.activity && !/desk|sit|sedentary/.test(p.activity);
+  if (p.goal === "recovery" || (active && p.goal !== "prevention")) {
+    const i = list.findIndex(x => x.family === "prime-peptide");
+    if (i > 0) list.unshift(...list.splice(i, 1));
+  }
+  return list;
 }
 
 /** Catalog-derived why line for a product the user asked about by name. */
@@ -655,16 +723,22 @@ export function composeFallback(
         analysis.intent === "info" ||
         analysis.intent === "general");
     const maxProducts =
-      topic.productPolicy === "ingredient" ? 1 : FALLBACK_MAX_PRODUCTS;
+      topic.productPolicy === "ingredient"
+        ? 1
+        : Math.min(topic.maxProducts ?? FALLBACK_MAX_PRODUCTS, PEPPY_LIMITS.maxProducts);
     const products = allowProducts
-      ? productSuggestions(topic, catalog, maxProducts)
+      ? productSuggestions(topic, catalog, maxProducts, analysis.profile)
       : [];
 
-    const askFollowUps =
-      !analysis.continuation &&
-      !hasDetail(analysis.message) &&
-      analysis.message.split(/\s+/).length <= 16 &&
-      topic.followUps.length > 0;
+    // Memory-driven follow-ups: ask only for slots the customer hasn't answered yet (1–2).
+    const slotQs = topic.slotFollowUps ? missingSlotQuestions(analysis.profile, 2) : [];
+    const askFollowUps = topic.slotFollowUps
+      ? slotQs.length > 0
+      : !analysis.continuation &&
+        !hasDetail(analysis.message) &&
+        analysis.message.split(/\s+/).length <= 16 &&
+        topic.followUps.length > 0;
+    const recap = hasProfile(analysis.profile) ? profileRecap(analysis.profile) : "";
 
     let safety = topic.safety;
     if (diseaseBlocked) {
@@ -679,14 +753,17 @@ export function composeFallback(
       summary: diseaseBlocked
         ? `${conditionLead(analysis.message)} ${topic.summary}`
         : analysis.continuation
-          ? `Thanks — that helps. ${topic.summary}`
+          ? topic.slotFollowUps && recap
+            ? `Thanks, that helps: ${recap}. ${refinedLead(topic, products, analysis.profile)}`
+            : `Thanks — that helps. ${topic.summary}`
           : topic.summary,
       sections: cleanSections(sections, catalog),
+      learnMore: topic.learnMore ? cleanSections(topic.learnMore, catalog) : undefined,
       research: pickSources(topic.sourceIds, liveSources),
       evidenceNote: topic.evidenceNote,
       safety,
       followUps: askFollowUps
-        ? topic.followUps.slice(0, PEPPY_LIMITS.maxFollowUps)
+        ? (topic.slotFollowUps ? slotQs : topic.followUps).slice(0, PEPPY_LIMITS.maxFollowUps)
         : [],
       suggestions: suggestionFor(topic, used),
       products,
@@ -710,6 +787,19 @@ export function composeFallback(
       : ["What's the main symptom or goal, and how long has it been going on?"],
     suggestions: suggestionFor(undefined, used),
   };
+}
+
+/** Continuation lead: how what the customer shared changes the picks (no restart). */
+function refinedLead(topic: Topic, products: PeppyProductSuggestion[], p: PeppyProfile): string {
+  const first = products[0];
+  if (!first) return firstSentenceOf(topic.summary);
+  const daily = first.family === "prime-peptide";
+  const why = daily
+    ? "With regular load on your joints, a daily formula that pairs cartilage peptides with joint nutrients fits best as the starting point"
+    : p.goal === "prevention"
+      ? "For a prevention goal, a short organ-specific bioregulator course fits best as the starting point"
+      : "An organ-specific cartilage bioregulator course is the most targeted starting point";
+  return `${why}, so I've put ${first.product.name} first${products.length > 1 ? ` and kept ${products.slice(1).map(x => x.product.name).join(" and ")} alongside it` : ""}.`;
 }
 
 function conditionLead(message: string): string {

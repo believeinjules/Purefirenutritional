@@ -9,12 +9,15 @@
  *  - Product mappings follow each SKU's actual ingredients (e.g. Revilab ML 07 is the men's
  *    formula, ML 03 is brain/retina) — the old keyword map got several of these wrong.
  */
-import type { AnswerSection, SafetyNotice } from "./types.js";
+import type { AnswerSection, ProductFamily, SafetyNotice } from "./types.js";
 
 export interface TopicProduct {
   id: string;
   why: string;
   evidenceNote: string;
+  /** Short tissue-target line for the compact card. */
+  tissue?: string;
+  family?: ProductFamily;
 }
 
 export interface Topic {
@@ -37,6 +40,12 @@ export interface Topic {
   followUps: string[];
   suggestions: string[];
   safety?: SafetyNotice;
+  /** Deeper science shown under "Learn more" (physiology, mechanisms, how the picks differ). */
+  learnMore?: AnswerSection[];
+  /** Fallback product cap for this topic (default 2); only for topics whose picks each serve a distinct reason. */
+  maxProducts?: number;
+  /** Ask follow-ups from the customer's missing memory slots (goal, duration, age, activity). */
+  slotFollowUps?: boolean;
 }
 
 export const TOPICS: Topic[] = [
@@ -196,56 +205,83 @@ export const TOPICS: Topic[] = [
       /\b(joints?|knees?|hips?|ankles?|cartilage|stiff(?:ness)?|achy|aching|ache|mobility|connective tissue|running pain|hurts? when i run|sore when i run)\b/i,
     ],
     summary:
-      "Most everyday joint aches come from load or gradual age-related wear. Supplement evidence is modest at best: collagen modestly improved joint symptom scores and stiffness, glucosamine and chondroitin did no better than placebo for knee pain overall, and cartilage peptides have only cell and animal studies.",
+      "Achy joints are common, and they can come from load and overuse, a recent strain, or the slow turnover of cartilage that comes with age. Cartilage has no blood supply of its own, so its cells depend on signals from the joint fluid to keep rebuilding collagen, and that signalling is exactly what cartilage-peptide research looks at. The closest fits in our range are a cartilage bioregulator and two joint formulas, shown below.",
     sections: [
-      {
-        heading: "What the research says",
-        body: "Collagen has the best supplement data: a meta-analysis of placebo-controlled trials found a modest improvement in overall joint symptom scores and stiffness, but not in pain alone. In the large GAIT trial, glucosamine and chondroitin did no better than placebo for knee pain overall. Short cartilage peptides (such as the AED tripeptide) have only cell and animal studies so far.",
-      },
       {
         heading: "See a clinician or physio if",
         body: "the joint swells, locks or gives way, looks red or feels hot, hurts at night or at rest, or the pain persists after 2–3 weeks.",
       },
     ],
+    learnMore: [
+      {
+        heading: "How cartilage keeps itself going",
+        body: "Joint cartilage is a slow-turnover tissue. Chondrocytes keep making type II collagen and proteoglycans while enzymes break the old matrix down, and with age, heavy load or injury that balance can tip toward breakdown. Because cartilage has no blood vessels, nutrients and signals reach it through the synovial fluid, which is why researchers are interested in small molecules that can carry a signal to these cells.",
+      },
+      {
+        heading: "What peptide bioregulation is investigating",
+        body: "Khavinson's group proposes that short peptides (two to four amino acids) can enter cells and bind DNA regions that regulate tissue-specific genes. For cartilage the key sequence is AED (Ala-Glu-Asp, also called T-31). In lab work, AED and related peptides shifted ageing-related gene expression in human bone-marrow stem cells, and in ageing rats a cartilage extract and T-31 limited bone-density loss. A 2023 review maps how peptides can steer stem cells toward becoming cartilage cells. These are mechanistic, cellular and animal findings: they point to a plausible pathway, and human outcome trials of these peptides are the next step the field needs.",
+      },
+      {
+        heading: "How the three picks differ",
+        body: "Cartalax is a Khavinson bioregulator: one synthesized organ-specific peptide (the AED cartilage tripeptide, complex AC-4) taken as a short course, designed to send a single tissue signal. Prime Peptide Joints is a multi-ingredient formulation: the IPH AEN and IPH ESM peptide complexes plus liposomal glucosamine, MSM and PEA, so it combines a peptide signal with conventional joint nutrients taken daily. Prime Peptide Collagen is built on marine collagen with the IPH AEN peptide, vitamin C, copper and calcium, aimed more broadly at connective tissue, skin and nails.",
+      },
+      {
+        heading: "Conventional joint supplements, judged on their own",
+        body: "Collagen and glucosamine are a separate evidence story from bioregulators. Oral collagen has controlled clinical trials: a meta-analysis of placebo-controlled trials found a modest improvement in overall joint symptom scores and stiffness. Glucosamine and chondroitin were tested in the large GAIT trial, where they did no better than placebo for knee pain overall.",
+      },
+    ],
     sourceIds: [
-      "pmid:30368550",
-      "pmid:16495392",
+      "pmid:37176122",
       "pmid:32399807",
       "pmid:18306703",
+      "pmid:30368550",
+      "pmid:16495392",
       "ref:niams-oa",
       "ref:nccih-glucosamine",
     ],
     evidenceNote:
-      "Collagen: meta-analysis, modest effect. Glucosamine/chondroitin: large trial, no overall benefit. Cartilage peptides: lab and animal studies only.",
+      "Cartilage bioregulator peptides: mechanistic, cellular and animal research. Collagen: controlled clinical trials (meta-analysis, modest effect). Glucosamine/chondroitin: a large controlled trial with no overall benefit for knee pain.",
     pubmedQuery: "(collagen peptide OR cartilage peptide) AND joint AND randomized",
+    maxProducts: 3,
+    slotFollowUps: true,
     products: [
       {
         id: "cartalax",
-        why: "A synthesized cartilage tripeptide (Ala-Glu-Asp) that the catalog describes for healthy cartilage and connective-tissue metabolism.",
+        family: "khavinson",
+        tissue: "Cartilage bioregulator (AED tripeptide)",
+        why: "A Khavinson cytogen: the synthesized cartilage tripeptide Ala-Glu-Asp (complex AC-4), a single organ-specific signal for cartilage and connective-tissue metabolism.",
         evidenceNote:
-          "Research on this peptide is cell and animal work; Cartalax as a finished product has no published human trials.",
+          "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
+      },
+      {
+        id: "prime-peptide-joints",
+        family: "prime-peptide",
+        tissue: "Cartilage and joint formula (peptides + glucosamine, MSM)",
+        why: "A Prime Peptide formulation pairing the IPH AEN and IPH ESM peptide complexes with liposomal glucosamine, MSM and PEA for daily joint and cartilage support.",
+        evidenceNote:
+          "Its glucosamine has controlled trials with mixed results; the full formula hasn't been tested in published trials.",
       },
       {
         id: "prime-peptide-collagen",
-        why: "Contains marine collagen — the supplement ingredient with the most trial data for joint comfort — plus vitamin C.",
+        family: "prime-peptide",
+        tissue: "Connective tissue: marine collagen + IPH AEN peptide",
+        why: "Marine collagen, the joint supplement with the most controlled-trial data, plus the IPH AEN peptide, vitamin C and copper for collagen-rich connective tissue.",
         evidenceNote:
           "Collagen trials used various products and amounts; this formula itself hasn't been tested.",
       },
       {
         id: "revilab-ml-09",
-        why: "Pairs cartilage and vascular-wall peptide complexes with chondroitin sulfate and omega-3s for joint and connective-tissue support.",
+        family: "revilab",
+        tissue: "Cartilage and vascular-wall peptide complexes",
+        why: "A Revilab complex pairing cartilage and vascular-wall peptide complexes with chondroitin sulfate and omega-3s for joint and connective-tissue support.",
         evidenceNote:
           "Chondroitin has mixed trial results; the full formula hasn't been studied in published trials.",
       },
       {
-        id: "prime-peptide-joints",
-        why: "Peptide formula built for cartilage and joint comfort as part of the Prime Peptide line.",
-        evidenceNote:
-          "Its peptide research comes from the manufacturer's lab and animal work; no independent human trials of the finished formula.",
-      },
-      {
         id: "revilab-sl-04",
-        why: "Sublingual blend of cartilage, muscle and immune peptide complexes for the musculoskeletal system.",
+        family: "revilab",
+        tissue: "Cartilage, muscle and immune peptide complexes",
+        why: "Sublingual Revilab blend of cartilage, muscle and immune peptide complexes for the musculoskeletal system.",
         evidenceNote:
           "Cartilage peptide research is cell and animal work; Revilab SL 04 hasn't been tested in published trials.",
       },
@@ -258,9 +294,8 @@ export const TOPICS: Topic[] = [
     ],
     productPolicy: "symptom",
     followUps: [
-      "Which joint is it — knee, hip, ankle — and one side or both?",
-      "Any swelling, clicking or locking, or pain at rest or at night?",
-      "Did anything change recently — more activity, a new sport or shoes, or a knock or twist?",
+      "Which joint is it, and how long has it been bothering you?",
+      "Is your goal prevention, recovery after activity, or support for something you already feel?",
     ],
     suggestions: [
       "Does Cartalax help joints?",

@@ -39,11 +39,13 @@ import {
   peppySchedule,
 } from "@/lib/peppyContext";
 import { askPeppy } from "@/lib/peppyClient";
+import { extractProfile } from "@shared/peppy/profile";
 import PeppyAnswer from "@/components/peppy/PeppyAnswer";
 import RichText from "@/components/peppy/RichText";
 import {
   PEPPY_LIMITS,
   type PeppyHistoryTurn,
+  type PeppyProfile,
   type PeppyResponse,
 } from "@shared/peppy/types";
 
@@ -88,6 +90,8 @@ function historyText(m: ChatMessage): string {
   const a = m.answer;
   return [
     a.summary,
+    ...(a.products.length ? [`Products shown: ${a.products.map(p => p.product.name).join(", ")}`] : []),
+    ...(a.followUps.length ? [`Pepita asked: ${a.followUps.join(" ")}`] : []),
     ...a.sections.map(s => `${s.heading ? `${s.heading}: ` : ""}${s.body}`),
   ]
     .join("\n")
@@ -102,6 +106,8 @@ export default function AIAssistant() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  // Fallback memory: goal, duration, age, activity and area the customer has told Pepita.
+  const [profile, setProfile] = useState<PeppyProfile>({});
   const messageRefs = useRef(new Map<string, HTMLDivElement>());
   const baseId = useId();
 
@@ -185,6 +191,8 @@ export default function AIAssistant() {
       const history: PeppyHistoryTurn[] = messages
         .slice(-PEPPY_LIMITS.maxHistoryTurns)
         .map(m => ({ role: m.role, content: historyText(m) }));
+      const nextProfile = extractProfile(text, profile);
+      setProfile(nextProfile);
       setMessages(prev => [...prev, { id: nextId(), role: "user", text }]);
       setInput("");
       setIsLoading(true);
@@ -192,6 +200,7 @@ export default function AIAssistant() {
         message: text,
         history,
         productId: contextProduct?.id,
+        profile: nextProfile,
       });
       setMessages(prev => [
         ...prev,
@@ -202,7 +211,7 @@ export default function AIAssistant() {
         .getElementById(`${baseId}-input`)
         ?.focus({ preventScroll: true });
     },
-    [input, isLoading, messages, contextProduct?.id, baseId]
+    [input, isLoading, messages, contextProduct?.id, baseId, profile]
   );
 
   const onSubmit = (e: FormEvent) => {
@@ -435,6 +444,10 @@ export default function AIAssistant() {
                             answer={m.answer}
                             question={[...messages.slice(0, mi)].reverse().find(x => x.role === "user")?.text}
                             onAsk={q => void send(q)}
+                            onAnswerFollowUp={() => {
+                              const el = document.getElementById(`${baseId}-input`) as HTMLInputElement | HTMLTextAreaElement | null;
+                              el?.focus();
+                            }}
                             disabled={isLoading}
                             headingId={`${baseId}-${m.id}`}
                             onDoctorQuestions={

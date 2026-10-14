@@ -33,7 +33,7 @@ export async function answerLocally(
     products as unknown as Parameters<typeof buildCatalog>[0]
   );
   const { response } = await answerPeppy(
-    { message: body.message, history: body.history, productId: body.productId },
+    { message: body.message, history: body.history, productId: body.productId, profile: body.profile },
     { catalog }
   );
   return response;

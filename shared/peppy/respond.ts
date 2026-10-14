@@ -16,12 +16,25 @@ import { isCompliantEvidenceNote, isCompliantProductCopy } from "./claims.js";
 import {
   PEPPY_LIMITS,
   type PeppyHistoryTurn,
+  type PeppyProfile,
   type PeppyProduct,
   type PeppyProductSuggestion,
   type PeppyResponse,
   type ResearchSource,
 } from "./types.js";
-import { productWhyFromCatalog } from "./engine.js";
+import { productFamily, productWhyFromCatalog, protocolLine } from "./engine.js";
+
+/** Only short plain strings in known slots (the profile comes from the browser). */
+export function sanitizeProfile(p: unknown): PeppyProfile | undefined {
+  if (!p || typeof p !== "object") return undefined;
+  const r = p as Record<string, unknown>;
+  const str = (v: unknown) =>
+    typeof v === "string" && v.trim() && v.length <= 40 ? v.replace(/[^\w +/-]/g, "").trim() : undefined;
+  const goal = r.goal === "prevention" || r.goal === "recovery" || r.goal === "existing" ? r.goal : undefined;
+  const out: PeppyProfile = { goal, duration: str(r.duration), age: str(r.age), activity: str(r.activity), area: str(r.area) };
+  (Object.keys(out) as (keyof PeppyProfile)[]).forEach(k => out[k] === undefined && delete out[k]);
+  return Object.keys(out).length ? out : undefined;
+}
 
 export interface PeppyDeps {
   catalog: Map<string, PeppyProduct>;
@@ -90,13 +103,17 @@ export function llmCandidates(
       !isCompliantEvidenceNote(s.evidenceNote)
     )
       return;
-    out.push(s);
+    out.push({
+      ...s,
+      family: s.family ?? productFamily(s.product.id, s.product.category),
+      protocol: s.protocol ?? protocolLine(s.product.id),
+    });
   };
   const topic = analysis.topics[0];
   if (topic && topic.productPolicy !== "never") {
     for (const tp of fairOrder(topic.products)) {
       const product = catalog.get(tp.id);
-      if (product) add({ product, why: tp.why, evidenceNote: tp.evidenceNote });
+      if (product) add({ product, why: tp.why, evidenceNote: tp.evidenceNote, tissue: tp.tissue, family: tp.family });
     }
   }
   for (const product of analysis.mentioned) {
@@ -116,6 +133,7 @@ async function answerPeppyUnfiltered(
     history?: PeppyHistoryTurn[];
     productId?: string;
     usedSuggestions?: string[];
+    profile?: PeppyProfile;
   },
   deps: PeppyDeps
 ): Promise<{ response: PeppyResponse; analysis: Analysis; meta: PeppyMeta }> {
@@ -136,6 +154,7 @@ async function answerPeppyUnfiltered(
     history,
     catalog: deps.catalog,
     contextProductId: req.productId,
+    profile: sanitizeProfile(req.profile),
   });
   const meta: PeppyMeta = {
     llm: deps.callLlm ? "skipped" : "not-configured",

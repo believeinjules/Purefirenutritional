@@ -220,3 +220,37 @@ export const SHORT_STUDY_TYPE: Record<StudyType, string> = {
   guidance: "NIH / FDA",
   other: "Study",
 };
+
+/**
+ * Pepita v6: the product cards for an answer (1–3, already chosen by biological relevance on
+ * the server/fallback). A product the shopper named comes first; hidden products never show.
+ */
+export const MAX_PRODUCT_CARDS = 3;
+export function answerProducts(
+  suggestions: readonly PeppyProductSuggestion[],
+  question: string | undefined
+): PeppyProductSuggestion[] {
+  const visible = visibleSuggestions(suggestions);
+  const named = relevantProduct(visible, question);
+  const rest = visible.filter(s => s !== named);
+  return (named ? [named, ...rest] : rest).slice(0, MAX_PRODUCT_CARDS);
+}
+
+/** Evidence category for a research link, in the brief's terms. */
+export const EVIDENCE_CATEGORY: Record<StudyType, string> = {
+  "systematic-review": "Controlled clinical (pooled trials)",
+  rct: "Controlled clinical",
+  clinical: "Human study",
+  observational: "Observational human",
+  review: "Research review",
+  animal: "Animal",
+  "in-vitro": "Cellular",
+  guidance: "Health guidance",
+  other: "Study",
+};
+
+export const FAMILY_LABEL: Record<string, string> = {
+  khavinson: "Khavinson bioregulator",
+  "prime-peptide": "Prime Peptide formula",
+  revilab: "Revilab complex",
+};
