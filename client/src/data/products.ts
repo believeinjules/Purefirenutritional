@@ -344,7 +344,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML1.jpg",
     imageAlt: "Revilab ML 01 peptide complex for nervous system, immune, and cardiovascular support",
     name: "Revilab ML 01",
-    description: "Multifunctional peptide complex combining epiphysis, immune B-cell, and liver peptides with resveratrol, choline, omega-3 fatty acids, and vitamins E, A, and C. Designed to support antioxidant protection, cerebral circulation, central nervous system function, immune system balance, and cardiovascular health. The peptide complexes send targeted signals to support the pineal gland's timing functions, the immune system's antibody production, and the liver's filtering capacity. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Multifunctional peptide complex combining epiphysis, immune B-cell, and liver peptides with resveratrol, choline, omega-3 fatty acids, and vitamins E, A, and C. Designed to support antioxidant protection, cerebral circulation, central nervous system function, immune system balance, and cardiovascular health. The peptide complexes send targeted signals to support the pineal gland's timing functions, the immune system's antibody production, and the liver's filtering capacity. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -352,7 +352,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Antioxidant protection", "Cerebral circulation", "CNS function", "Immune balance", "Cardiovascular health", "Liver support", "Healthy aging — epiphysis peptide studied as a geroprotector"],
     ingredients: ["Epiphysis peptide complex (AA-1)", "B-link immune peptide complex (AA-3)", "Liver peptide complex (AA-10)", "Resveratrol", "Choline bitartrate", "Omega-3 polyunsaturated fatty acids", "Vitamins E, A, C"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -360,7 +360,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML2.jpg",
     imageAlt: "Revilab ML 02 hematopoietic and immune support formula",
     name: "Revilab ML 02",
-    description: "Peptide-based formula designed to support the hematopoietic (blood-forming) system, immune function, and metabolic balance. Combines T-cell immune peptides, B-cell immune peptides, bone marrow peptides, and liver peptides with omega-3 fatty acids and vitamins E, B6, and B9. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Peptide-based formula designed to support the hematopoietic (blood-forming) system, immune function, and metabolic balance. Combines T-cell immune peptides, B-cell immune peptides, bone marrow peptides, and liver peptides with omega-3 fatty acids and vitamins E, B6, and B9. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -368,7 +368,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Hematopoietic support", "Immune function", "Metabolic balance", "Toxin resistance", "Blood cell production"],
     ingredients: ["T-link immune peptide complex (AA-2)", "B-link immune peptide complex (AA-3)", "Bone marrow peptide complex (AA-4)", "Liver peptide complex (AA-10)", "Omega-3 polyunsaturated fatty acids", "Vitamins E, B6, B9"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -376,7 +376,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML3.jpg",
     imageAlt: "Revilab ML 03 nervous system and eye health formula",
     name: "Revilab ML 03",
-    description: "Formulation combining brain, retina, and vascular wall peptides with astaxanthin, choline, omega-3 fatty acids, B vitamins, and marigold extract. Supports nervous system and eye health, including maintenance of visual function. Astaxanthin and marigold extract (rich in lutein and zeaxanthin) provide antioxidant protection for sensitive neural and retinal tissues. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Formulation combining brain, retina, and vascular wall peptides with astaxanthin, choline, omega-3 fatty acids, B vitamins, and marigold extract. Supports nervous system and eye health, including maintenance of visual function. Astaxanthin and marigold extract (rich in lutein and zeaxanthin) provide antioxidant protection for sensitive neural and retinal tissues. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -384,7 +384,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Nervous system support", "Eye and retinal health", "Brain recovery", "Visual function", "Antioxidant protection", "Nerve metabolism"],
     ingredients: ["Brain peptide complex (AA-5)", "Retina peptide complex (AA-6)", "Vascular wall peptide complex (AA-7)", "Astaxanthin", "Choline bitartrate", "Omega-3 polyunsaturated fatty acids", "Vitamins B1, B2, B6", "Marigold extract (lutein, zeaxanthin)"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -392,7 +392,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML4.jpg",
     imageAlt: "Revilab ML 04 cardiovascular support formula",
     name: "Revilab ML 04",
-    description: "Cardiovascular support formula combining epiphysis, vascular wall, and heart muscle peptides with resveratrol, rutin, omega-3 fatty acids, and Vitamin PP (Niacin). Supports vascular integrity, heart muscle function, and healthy circulation. Resveratrol and rutin provide antioxidant and vascular support, while omega-3s and niacin contribute to cardiovascular function and healthy cholesterol metabolism. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Cardiovascular support formula combining epiphysis, vascular wall, and heart muscle peptides with resveratrol, rutin, omega-3 fatty acids, and Vitamin PP (Niacin). Supports vascular integrity, heart muscle function, and healthy circulation. Resveratrol and rutin provide antioxidant and vascular support, while omega-3s and niacin contribute to cardiovascular function and healthy cholesterol metabolism. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -400,7 +400,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Cardiovascular health", "Vascular integrity", "Heart muscle support", "Circulation", "Cholesterol metabolism", "Antioxidant protection"],
     ingredients: ["Epiphysis peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Heart muscle peptide complex (AA-8)", "Resveratrol", "Rutin", "Omega-3 polyunsaturated fatty acids", "Vitamin PP (Niacin)"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -408,7 +408,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML5.jpg",
     imageAlt: "Revilab ML 05 respiratory system support formula",
     name: "Revilab ML 05",
-    description: "Respiratory system support formula featuring T-cell immune peptides, bronchi peptides, and lung/stomach wall peptides combined with omega-3 fatty acids, vitamins E and A, and licorice root extract. Supports respiratory function and immune defense in the lungs and bronchi. Vitamins and omega-3s provide antioxidant and anti-inflammatory support, while licorice root extract helps maintain respiratory tract comfort. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Respiratory system support formula featuring T-cell immune peptides, bronchi peptides, and lung/stomach wall peptides combined with omega-3 fatty acids, vitamins E and A, and licorice root extract. Supports respiratory function and immune defense in the lungs and bronchi. Vitamins and omega-3s provide antioxidant and anti-inflammatory support, while licorice root extract helps maintain respiratory tract comfort. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -416,7 +416,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Respiratory health", "Bronchial support", "Immune defense", "Lung tissue integrity", "Anti-inflammatory", "Antioxidant protection"],
     ingredients: ["T-link immune peptide complex (AA-2)", "Bronchi peptide complex (AA-14)", "Lungs and stomach wall peptide complex (AA-15)", "Omega-3 polyunsaturated fatty acids", "Vitamins E, A", "Licorice root extract"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -424,7 +424,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML6.jpg",
     imageAlt: "Revilab ML 06 gastrointestinal and liver support formula",
     name: "Revilab ML 06",
-    description: "Gastrointestinal and liver support formula combining liver, pancreas, and stomach wall peptides with omega-3 fatty acids, licorice root extract, artichoke fruit extract, plantain leaves extract, and strawberry leaves extract. Supports digestive health and metabolic balance. Botanical extracts provide soothing and antioxidant effects, while omega-3s support overall tissue health. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Gastrointestinal and liver support formula combining liver, pancreas, and stomach wall peptides with omega-3 fatty acids, licorice root extract, artichoke fruit extract, plantain leaves extract, and strawberry leaves extract. Supports digestive health and metabolic balance. Botanical extracts provide soothing and antioxidant effects, while omega-3s support overall tissue health. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -432,7 +432,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Liver health", "Digestive support", "Pancreatic function", "Metabolic balance", "Detoxification", "Gastric mucosa protection"],
     ingredients: ["Liver peptide complex (AA-10)", "Pancreas peptide complex (AA-11)", "Lungs and stomach wall peptide complex (AA-15)", "Omega-3 polyunsaturated fatty acids", "Licorice root extract", "Artichoke fruit extract", "Plantain leaves extract", "Strawberry leaves extract"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -440,7 +440,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML7.jpg",
     imageAlt: "Revilab ML 07 male reproductive and urinary system support",
     name: "Revilab ML 07",
-    description: "Male reproductive and urinary system support formula combining epiphysis, vascular wall, testes, and bladder peptides with omega-3 fatty acids, L-carnitine, and zinc citrate. Supports hormonal balance, sperm function, and urinary health. L-carnitine supports energy metabolism in sperm cells, while zinc is essential for reproductive health and hormone regulation. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Male reproductive and urinary system support formula combining epiphysis, vascular wall, testes, and bladder peptides with omega-3 fatty acids, L-carnitine, and zinc citrate. Supports hormonal balance, sperm function, and urinary health. L-carnitine supports energy metabolism in sperm cells, while zinc is essential for reproductive health and hormone regulation. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -448,7 +448,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Male reproductive health", "Hormonal balance", "Sperm motility", "Urinary health", "Testosterone support", "Vascular health"],
     ingredients: ["Epiphysis peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Testes peptide complex (AA-12)", "Bladder peptide complex (AA-13)", "Omega-3 polyunsaturated fatty acids", "L-carnitine", "Zinc citrate"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -456,7 +456,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML8.jpg",
     imageAlt: "Revilab ML 08 female reproductive and skeletal system support",
     name: "Revilab ML 08",
-    description: "Female reproductive, neuroendocrine, urinary, and skeletal system support formula combining epiphysis, vascular wall, cartilage, and bladder peptides with omega-3 fatty acids, resveratrol, and arginine. Supports hormonal balance, fertility, bone health, and urinary function. Resveratrol provides antioxidant support and hormonal balance, while arginine helps maintain healthy circulation and tissue repair. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Female reproductive, neuroendocrine, urinary, and skeletal system support formula combining epiphysis, vascular wall, cartilage, and bladder peptides with omega-3 fatty acids, resveratrol, and arginine. Supports hormonal balance, fertility, bone health, and urinary function. Resveratrol provides antioxidant support and hormonal balance, while arginine helps maintain healthy circulation and tissue repair. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -464,7 +464,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Female reproductive health", "Hormonal balance", "Bone and cartilage health", "Urinary function", "Neuroendocrine support", "Antioxidant protection"],
     ingredients: ["Epiphysis peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Cartilage peptide complex (AA-9)", "Bladder peptide complex (AA-13)", "Omega-3 polyunsaturated fatty acids", "Resveratrol", "Arginine"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -472,7 +472,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabML9.jpg",
     imageAlt: "Revilab ML 09 musculoskeletal and joint support formula",
     name: "Revilab ML 09",
-    description: "Musculoskeletal support formula combining B-cell immune, vascular wall, and cartilage peptides with chondroitin sulfate, omega-3 fatty acids, superoxide dismutase (SOD), catalase, and carnosine. Chondroitin sulfate and omega-3s help maintain joint mobility and reduce inflammation, while antioxidant enzymes SOD and catalase protect tissues from oxidative stress. Carnosine supports antioxidant protection and tissue repair. Take 1 capsule daily in the morning on an empty stomach.",
+    description: "Musculoskeletal support formula combining B-cell immune, vascular wall, and cartilage peptides with chondroitin sulfate, omega-3 fatty acids, superoxide dismutase (SOD), catalase, and carnosine. Chondroitin sulfate and omega-3s help maintain joint mobility and reduce inflammation, while antioxidant enzymes SOD and catalase protect tissues from oxidative stress. Carnosine supports antioxidant protection and tissue repair. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 113.99,
     priceEUR: 80,
@@ -480,7 +480,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Joint health", "Cartilage integrity", "Connective tissue support", "Anti-inflammatory", "Antioxidant defense", "Immune balance"],
     ingredients: ["B-link immune peptide complex (AA-3)", "Vascular wall peptide complex (AA-7)", "Cartilage peptide complex (AA-9)", "Chondroitin sulfate", "Omega-3 polyunsaturated fatty acids", "Superoxide dismutase (SOD)", "Catalase", "Carnosine"],
-    usage: "Take 1 capsule daily in the morning on an empty stomach. Course: 4–6 weeks. May be repeated 1–2 times per year.",
+    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -529,7 +529,7 @@ export const allProducts: Product[] = [
     image: "/products/sl_1-228x228.jpg",
     imageAlt: "Revilab SL 01 sublingual cardiovascular support",
     name: "Revilab SL 01",
-    description: "Sublingual cardiovascular support complex delivering peptides directly into the bloodstream through the mucous membrane for rapid absorption. Combines vascular wall and cardiac muscle peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides signal heart and vascular cells to maintain their natural function. Dihydroquercetin supports blood vessel integrity and elasticity. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual cardiovascular support complex delivering peptides directly into the bloodstream through the mucous membrane for rapid absorption. Combines vascular wall and cardiac muscle peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides signal heart and vascular cells to maintain their natural function. Dihydroquercetin supports blood vessel integrity and elasticity. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -537,7 +537,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Cardiovascular support", "Heart muscle health", "Vascular integrity", "Rapid sublingual absorption", "Antioxidant protection", "Circulation support"],
     ingredients: ["Vascular wall peptide complex (AA-7)", "Cardiac muscle peptide complex (AA-8)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -545,7 +545,7 @@ export const allProducts: Product[] = [
     image: "/products/sl_2-228x228.jpg",
     imageAlt: "Revilab SL 02 sublingual nervous system and eye support",
     name: "Revilab SL 02",
-    description: "Sublingual complex for nervous system and eye health. Combines brain, retina, and vascular wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Brain and retina peptides support neural and visual cells, while vascular peptides help maintain the blood vessels that nourish these tissues. Supports cerebral circulation, retinal function, and visual comfort. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for nervous system and eye health. Combines brain, retina, and vascular wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Brain and retina peptides support neural and visual cells, while vascular peptides help maintain the blood vessels that nourish these tissues. Supports cerebral circulation, retinal function, and visual comfort. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -553,7 +553,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Nervous system support", "Eye and retinal health", "Cerebral circulation", "Visual comfort", "Rapid absorption", "Neuroprotection"],
     ingredients: ["Brain peptide complex (AA-5)", "Retina peptide complex (AA-6)", "Vascular wall peptide complex (AA-7)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -561,7 +561,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL3.jpg",
     imageAlt: "Revilab SL 03 sublingual immune and neuroendocrine support",
     name: "Revilab SL 03",
-    description: "Sublingual complex for immune system regulation and neuroendocrine balance. Combines pineal gland, T-cell immune, and B-cell immune peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Pineal peptides support biological rhythm regulation and immune signaling. T- and B-cell peptides help maintain immune balance and antibody production. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for immune system regulation and neuroendocrine balance. Combines pineal gland, T-cell immune, and B-cell immune peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Pineal peptides support biological rhythm regulation and immune signaling. T- and B-cell peptides help maintain immune balance and antibody production. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -569,7 +569,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Immune regulation", "Neuroendocrine balance", "Biological rhythm support", "T-cell and B-cell function", "Rapid absorption", "Antioxidant defense"],
     ingredients: ["Pineal gland peptide complex (AA-1)", "T-cell immune peptide complex (AA-2)", "B-cell immune peptide complex (AA-3)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -577,7 +577,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL4.png",
     imageAlt: "Revilab SL 04 sublingual musculoskeletal support",
     name: "Revilab SL 04",
-    description: "Sublingual complex for joint, muscle, and bone health. Combines B-cell immune, cartilage, and muscle peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides act as signals to cartilage, muscle, and immune cells to support their natural maintenance. Plant extracts and antioxidants help protect tissues and support metabolic balance. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for joint, muscle, and bone health. Combines B-cell immune, cartilage, and muscle peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides act as signals to cartilage, muscle, and immune cells to support their natural maintenance. Plant extracts and antioxidants help protect tissues and support metabolic balance. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -585,7 +585,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Joint health", "Muscle support", "Cartilage maintenance", "Bone health", "Rapid absorption", "Anti-inflammatory"],
     ingredients: ["B-cell immune peptide complex (AA-3)", "Cartilage peptide complex (AA-9)", "Muscle peptide complex (AA-17)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -593,7 +593,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL5.jpg",
     imageAlt: "Revilab SL 05 sublingual gastrointestinal support",
     name: "Revilab SL 05",
-    description: "Sublingual complex for liver, pancreas, stomach, and gallbladder health. Combines liver, pancreas, and stomach wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support the natural function of digestive and detoxification organs. Plant extracts and antioxidants provide additional support to maintain healthy metabolic processes. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for liver, pancreas, stomach, and gallbladder health. Combines liver, pancreas, and stomach wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support the natural function of digestive and detoxification organs. Plant extracts and antioxidants provide additional support to maintain healthy metabolic processes. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -601,7 +601,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Liver health", "Pancreatic support", "Digestive function", "Detoxification", "Gastric mucosa protection", "Rapid absorption"],
     ingredients: ["Liver peptide complex (AA-10)", "Pancreas peptide complex (AA-11)", "Lungs and stomach wall peptide complex (AA-15)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -609,7 +609,7 @@ export const allProducts: Product[] = [
     image: "/products/sl_6-228x228.jpg",
     imageAlt: "Revilab SL 06 sublingual respiratory support",
     name: "Revilab SL 06",
-    description: "Sublingual complex for respiratory system health and immune response in the lungs and bronchi. Combines B-cell immune, bronchi, and lung/stomach wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides help maintain immune and tissue health in the respiratory tract. Plant extracts and antioxidants support respiratory comfort and tissue resilience. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for respiratory system health and immune response in the lungs and bronchi. Combines B-cell immune, bronchi, and lung/stomach wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides help maintain immune and tissue health in the respiratory tract. Plant extracts and antioxidants support respiratory comfort and tissue resilience. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -617,7 +617,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Respiratory health", "Bronchial support", "Lung tissue integrity", "Immune defense", "Rapid absorption", "Anti-inflammatory"],
     ingredients: ["B-cell immune peptide complex (AA-3)", "Bronchi peptide complex (AA-14)", "Lungs and stomach wall peptide complex (AA-15)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -625,15 +625,15 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL7.jpg",
     imageAlt: "Revilab SL 07 sublingual hematopoietic support",
     name: "Revilab SL 07",
-    description: "Sublingual complex for healthy blood formation and immune function. Combines B-cell immune, bone marrow, and vascular wall peptides with Vitamins B1 (thiamine) and B12 (cobalamin), licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Bone marrow peptides support blood cell production, B vitamins aid energy and nerve function, and vascular peptides support circulatory health. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for healthy blood formation and immune function. Combines B-cell immune, bone marrow, and vascular wall peptides with folic acid and vitamin B12 (cobalamin), licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Bone marrow peptides support blood cell production, B vitamins aid energy and nerve function, and vascular peptides support circulatory health. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
     benefits: ["Hematopoietic support", "Blood cell production", "Immune function", "Energy metabolism", "Nerve health", "Rapid absorption"],
-    ingredients: ["B-cell immune peptide complex (AA-3)", "Bone marrow peptide complex (AA-4)", "Vascular wall peptide complex (AA-7)", "Vitamin B1 (thiamine)", "Vitamin B12 (cobalamin)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    ingredients: ["B-cell immune peptide complex (AA-3)", "Bone marrow peptide complex (AA-4)", "Vascular wall peptide complex (AA-7)", "Folic acid (calcium L-methylfolate)", "Vitamin B12 (cobalamin)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -641,7 +641,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL8.jpg",
     imageAlt: "Revilab SL 08 sublingual urinary system support",
     name: "Revilab SL 08",
-    description: "Sublingual complex for urinary tract health and function. Combines T-cell immune, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support immune and vascular health related to the urinary system. Plant extracts and antioxidants help maintain tissue comfort and function. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for urinary tract health and function. Combines T-cell immune, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support immune and vascular health related to the urinary system. Plant extracts and antioxidants help maintain tissue comfort and function. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -649,7 +649,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Urinary tract health", "Bladder support", "Immune defense", "Vascular health", "Rapid absorption", "Tissue comfort"],
     ingredients: ["T-cell immune peptide complex (AA-2)", "Vascular wall peptide complex (AA-7)", "Bladder peptide complex (AA-13)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -657,7 +657,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL99.jpg",
     imageAlt: "Revilab SL 09 sublingual male reproductive support",
     name: "Revilab SL 09",
-    description: "Sublingual complex for male reproductive system function and prostate health. Combines pineal gland, testes, bladder, and prostate peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides signal the reproductive organs and neuroendocrine system to support natural function. Plant extracts and antioxidants help maintain tissue health and hormonal balance. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for male reproductive system function and prostate health. Combines pineal gland, testes, bladder, and prostate peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides signal the reproductive organs and neuroendocrine system to support natural function. Plant extracts and antioxidants help maintain tissue health and hormonal balance. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -665,7 +665,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Male reproductive health", "Prostate support", "Hormonal balance", "Testicular function", "Urinary health", "Rapid absorption"],
     ingredients: ["Pineal gland peptide complex (AA-1)", "Testes peptide complex (AA-12)", "Bladder peptide complex (AA-13)", "Prostate peptide complex (AA-16)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -806,14 +806,15 @@ export const allProducts: Product[] = [
     name: "Chonluten",
     image: "/products/chono1.jpg",
     imageAlt: "Chonluten respiratory peptide bioregulator",
-    description: "Chonluten® is a Khavinson peptide bioregulator: a peptide bioregulator for the respiratory system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Chonluten is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
+    description: "Chonluten® is a Khavinson Cytogen: a synthesized bronchopulmonary peptide complex (AC-7; glycine, glutamic acid, aspartic acid) for the respiratory system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Chonluten is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson peptide bioregulator"],
-    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson Cytogen"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    seriesInfo: "Cytogens are synthesized copies of key short peptides, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
         id: "20-count",
@@ -837,14 +838,15 @@ export const allProducts: Product[] = [
     name: "Glandokort",
     image: "/products/gland5.jpg",
     imageAlt: "Glandokort adrenal gland peptide bioregulator",
-    description: "Glandokort® is a Khavinson peptide bioregulator: a adrenal gland peptide complex. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Glandokort is believed to support normal adrenal function and the body's everyday stress response. Available in 20-capsule and 60-capsule formats.",
+    description: "Glandokort® is a Khavinson Cytomax: a natural adrenal gland peptide complex (A-17). Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Glandokort is believed to support normal adrenal function and the body's everyday stress response. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal adrenal function", "Supports the body's normal stress response", "Khavinson peptide bioregulator"],
-    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    benefits: ["Is believed to support normal adrenal function", "Supports the body's normal stress response", "Khavinson Cytomax"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
         id: "20-count",
@@ -868,14 +870,15 @@ export const allProducts: Product[] = [
     name: "Libidon",
     image: "/products/libi1.jpg",
     imageAlt: "Libidon prostate peptide bioregulator",
-    description: "Libidon® is a Khavinson peptide bioregulator: a prostate peptide complex. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Libidon is believed to support normal prostate and male reproductive function. Available in 20-capsule and 60-capsule formats.",
+    description: "Libidon® is a Khavinson Cytomax: a natural prostate peptide complex (A-16), extracted from the prostate tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Libidon is believed to support normal prostate and male reproductive function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal prostate function", "Supports normal male reproductive function", "Khavinson peptide bioregulator"],
-    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    benefits: ["Is believed to support normal prostate function", "Supports normal male reproductive function", "Khavinson Cytomax"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
         id: "20-count",
@@ -898,15 +901,16 @@ export const allProducts: Product[] = [
     id: "ovagen",
     name: "Ovagen",
     image: "/products/ova1.jpg",
-    imageAlt: "Ovagen liver and digestive peptide bioregulator",
-    description: "Ovagen® is a Khavinson peptide bioregulator: a peptide bioregulator for the liver and digestive tract. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Ovagen is believed to support normal liver and digestive function. Available in 20-capsule and 60-capsule formats.",
+    imageAlt: "Ovagen liver peptide bioregulator",
+    description: "Ovagen® is a Khavinson Cytogen: a synthesized liver peptide complex (AC-3; leucine, glutamic acid, aspartic acid). Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Ovagen is believed to support normal liver function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal liver function", "Supports normal digestive function", "Khavinson peptide bioregulator"],
-    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    benefits: ["Is believed to support normal liver function", "Supports normal liver cell metabolism", "Khavinson Cytogen"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    seriesInfo: "Cytogens are synthesized copies of key short peptides, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
         id: "20-count",
@@ -930,14 +934,15 @@ export const allProducts: Product[] = [
     name: "Pinealon",
     image: "/products/pinealon.jpg",
     imageAlt: "Pinealon brain peptide bioregulator",
-    description: "Pinealon® is a Khavinson peptide bioregulator: a peptide bioregulator for the central nervous system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Pinealon is believed to support normal brain function and everyday cognition. Available in 20-capsule and 60-capsule formats.",
+    description: "Pinealon® is a Khavinson Cytogen: a synthesized brain-cortex peptide complex (AC-5; arginine, glutamic acid, aspartic acid, the amino acids of the EDR tripeptide). Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Pinealon is believed to support normal brain function and everyday cognition. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal brain cell metabolism", "Supports normal cognitive function", "Khavinson peptide bioregulator"],
-    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    benefits: ["Is believed to support normal brain cell metabolism", "Supports normal cognitive function", "Khavinson Cytogen"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
+    seriesInfo: "Cytogens are synthesized copies of key short peptides, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
         id: "20-count",
@@ -1097,14 +1102,15 @@ export const allProducts: Product[] = [
     name: "Taxorest",
     image: "/products/taxorest.jpeg",
     imageAlt: "Taxorest respiratory peptide bioregulator",
-    description: "Taxorest® is a Khavinson peptide bioregulator: a peptide bioregulator for the respiratory system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Taxorest is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
+    description: "Taxorest® is a Khavinson Cytomax: a natural bronchial peptide complex (A-19), extracted from the bronchial tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Taxorest is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson peptide bioregulator"],
-    seriesInfo: "Khavinson peptide bioregulators are short organ-specific peptides developed at the St. Petersburg Institute of Bioregulation and Gerontology.",
+    benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson Cytomax"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
         id: "20-count",
@@ -1199,7 +1205,7 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports healthy blood vessels", "Microcirculation improvement", "Supports healthy vein function", "Supports healthy cardiovascular function", "Lymphatic vessel normalization"],
-    ingredients: ["Vascular peptide complex (AS-2)"],
+    ingredients: ["Vascular peptide complex (AC-2)"],
     usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Universal cytogen — appears in all major protocol stacks. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — providing faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
@@ -1317,7 +1323,7 @@ export const allProducts: Product[] = [
     image: "/products/RevilabSL10.jpg",
     imageAlt: "Revilab SL 10 sublingual female reproductive support",
     name: "Revilab SL 10",
-    description: "Sublingual complex for female neuroendocrine and reproductive system health, including cyclic regulation and menopausal support. Combines pineal gland, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support neuroendocrine signaling and reproductive tissue maintenance. Plant extracts and antioxidants provide supportive effects for overall female health and comfort. Place 4–6 drops on the mucous membrane of the mouth in the morning.",
+    description: "Sublingual complex for female neuroendocrine and reproductive system health, including cyclic regulation and menopausal support. Combines pineal gland, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support neuroendocrine signaling and reproductive tissue maintenance. Plant extracts and antioxidants provide supportive effects for overall female health and comfort. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
@@ -1325,7 +1331,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Female reproductive health", "Hormonal cycle regulation", "Menopausal support", "Neuroendocrine balance", "Urinary health", "Rapid absorption"],
     ingredients: ["Pineal gland peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Bladder peptide complex (AA-13)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Place 4–6 drops on the mucous membrane of the mouth in the morning. Course: 4–6 weeks. May be repeated as needed.",
+    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -1360,13 +1366,14 @@ export const allProducts: Product[] = [
     id: "alvenorm-forte",
     image: "/products/Alvenorm.jpg",
     name: "Alvenorm Forte",
-    description: "Advanced formula for brain health and sleep architecture support. Helps normalize healthy sleep patterns, supports deep restorative sleep, and promotes optimal brain function during rest. Beneficial for those experiencing sleep disturbances, irregular sleep-wake cycles, or reduced sleep quality due to stress and aging.",
+    description: "Alvenorm Forte is a herbal liquid from the Peptides treatment-and-prophylactic line, formulated for the lungs and bronchi. It combines Iceland moss decoction, liquorice root, thyme, nettle, broadleaf plantain, cowberry leaf, eucalyptus and calendula extracts in a red grape juice base, plants traditionally used to support the airways and normal breathing.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 49.99,
     priceEUR: 33,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Healthy sleep architecture", "Deep restorative sleep", "Brain health during rest", "Sleep-wake cycle normalization", "Stress-related sleep support"]
+    benefits: ["Formulated for the lungs and bronchi", "Supports normal breathing", "Iceland moss, thyme and liquorice root", "Herbal liquid in a red grape juice base"],
+    usage: "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after.",
   },
   {
     id: "volustom",
@@ -1482,7 +1489,7 @@ export const allProducts: Product[] = [
     sizes: 1,
     benefits: ["Antioxidant defense", "Cardiovascular protection", "Immune restoration", "Anti-inflammatory", "Cholesterol regulation", "Geroprotective action"],
     ingredients: ["Dihydroquercetin", "Resveratrol", "Coenzyme Q10"],
-    usage: "Take as directed."
+    usage: "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
   },
   {
     id: "levain",
@@ -1573,13 +1580,14 @@ export const allProducts: Product[] = [
     id: "pinalex-tab",
     image: "/products/pinalex.jpg",
     name: "Pinalex Tab",
-    description: "Innovative pineal gland bioregulator in tablet form for sleep optimization and circadian rhythm support. Promotes healthy melatonin production, supports deep restorative sleep architecture, and helps normalize the body's natural sleep-wake cycle. Designed for those with sleep disturbances, jet lag, and age-related sleep changes.",
+    description: "Pinalex Tab is an eye-focused peptide bioregulator in tablet form from the Peptides treatment-and-prophylactic line. It combines lutein (marigold extract), astaxanthin (Haematococcus microalgae), blueberry juice powder, grape peel extract, taurine, vitamin E, beta-carotene and B vitamins with the AA-6 peptide complex (lysine and glutamic acid). It is formulated to support normal visual function, help the eyes cope with intensive visual work and support eye tissues during age-related changes.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 55.99,
     priceEUR: 34,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Pineal gland support", "Sleep optimization", "Melatonin production", "Circadian rhythm normalization", "Deep restorative sleep"]
+    benefits: ["Supports normal visual function", "Helps the eyes cope with intensive visual work", "Lutein, astaxanthin and blueberry with the AA-6 peptide complex", "Supports eye tissues during age-related changes"],
+    usage: "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed.",
   },
   {
     id: "pangluin",
@@ -1809,7 +1817,7 @@ export const allProducts: Product[] = [
   {
     id: "thyreogen",
     name: "Thyreogen",
-    description: "Tyreogen® (A-2) is the Thyroid Peptide Bioregulator containing the thyroid gland peptide complex from young calves. The isolated peptides act selectively on thyroid gland cells, normalizing their metabolism and regulating thyroid functions. Studied for its role in supporting healthy thyroid function. Part of the female hormonal protocol: Zhenoluten + Tyreogen + Ventfort.",
+    description: "Thyreogen® (A-2) is the Thyroid Peptide Bioregulator containing the thyroid gland peptide complex from young calves. The isolated peptides act selectively on thyroid gland cells, normalizing their metabolism and regulating thyroid functions. Studied for its role in supporting healthy thyroid function. Part of the female hormonal protocol: Zhenoluten + Thyreogen + Ventfort.",
     category: "PEPTIDE BIOREGULATORS",
     image: "/products/Thyreogen.jpg",
     imageAlt: "Thyreogen thyroid peptide bioregulator",
@@ -1820,7 +1828,7 @@ export const allProducts: Product[] = [
     benefits: ["Thyroid function restoration", "Female hormonal health", "Metabolic normalization"],
     ingredients: ["Thyroid gland peptide complex (A-2)"],
     usage: "1–2 capsules 1–2 times daily with meals. Course: 10–30 days. Repeat in 4–6 months.",
-    seriesInfo: "Recommended combination: Zhenoluten + Tyreogen + Ventfort for female health. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson.",
+    seriesInfo: "Recommended combination: Zhenoluten + Thyreogen + Ventfort for female health. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson.",
     variants: [
       {
         id: "20-count",
