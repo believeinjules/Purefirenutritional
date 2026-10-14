@@ -356,6 +356,9 @@ export default function ProductDetail() {
                     </li>
                   ))}
                 </ul>
+                <p className="mt-4 text-xs text-gray-500">
+                  These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.
+                </p>
               </div>
             )}
           </div>
