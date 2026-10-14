@@ -6525,6 +6525,120 @@
         "status": "unverified",
         "value": null
       }
+    },
+    {
+      "id": "sigumir",
+      "name": "Sigumir",
+      "sourceDocs": [
+        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+        "https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/",
+        "/workspace/pepita-live/endo/p_sigumir.html",
+        "/workspace/pepita-live/endo/peptidru.json",
+        "/workspace/khavinson-pdfs/gcyto2.txt",
+        "Sigumir box photos supplied by Julia 2026-10-13 (client/public/products/sigumir-20.jpg, sigumir-60.webp)"
+      ],
+      "verifiedOn": "2026-10-13",
+      "productVersion": null,
+      "formats": [
+        {
+          "format": "20-capsule",
+          "units": 20,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+          }
+        },
+        {
+          "format": "60-capsule",
+          "units": 60,
+          "directions": {
+            "status": "verified",
+            "value": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+            "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "protocolType": "label",
+          "format": null,
+          "unit": "capsule",
+          "unitsPerDose": [
+            1,
+            2
+          ],
+          "dosesPerDay": [
+            1,
+            2
+          ],
+          "everyNDays": 1,
+          "text": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+          "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+        }
+      ],
+      "ingredients": {
+        "status": "verified",
+        "value": "Peptide complex A-4 (cartilage peptides), carrier microcrystalline cellulose; capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); anti-caking agent calcium stearate. [Translated from peptid.ru: \"Пептидный комплекс A-4 (пептиды хрящей), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеариновой кислоты.\"]",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "verified",
+        "value": "capsule",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+      },
+      "food": {
+        "status": "verified",
+        "value": "with meal",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+      },
+      "courseDuration": {
+        "status": "verified",
+        "value": "Duration of use is 1 month",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/"
+      },
+      "sizes": {
+        "status": "verified",
+        "value": "60 capsules of 0,2 g. 20 capsules of 0,215 g.",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "sizeDifferences": {
+        "status": "verified",
+        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs. Box photos (supplied by Julia 2026-10-13): 20 capsules of 0,215 g and 60 capsules of 0,2 g, so the capsule weight differs slightly between packs; both read \"A-4 peptides complex\" (20-capsule box: \"Dietary Supplement\").",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null,
+        "candidate": "No named maintenance/preventive/intensive protocol on the manufacturer page; repeat-course interval for capsules not stated.",
+        "source": "RD (manufacturer-claim)"
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "verified",
+        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Сигумир противопоказан при индивидуальной непереносимости компонентов.\" (Pregnancy, breastfeeding or chronic conditions: consult a doctor first. Contraindicated with individual intolerance to the components.)",
+        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
     }
   ]
 }

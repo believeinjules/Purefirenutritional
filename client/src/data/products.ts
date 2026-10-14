@@ -76,6 +76,46 @@ export const allProducts: Product[] = [
     ]
   },
   {
+    // DRAFT, hidden until launch (shared/hidden-products.ts PENDING_PRODUCT_IDS).
+    // TODO(Julia): price (priceUSD/priceEUR, product and variants) and rating. Images supplied by Julia 2026-10-13.
+    // Directions verified from the manufacturer's peptid.ru capsule instruction (see data/pepita-product-dataset.json).
+    id: "sigumir",
+    image: "/products/sigumir-60.webp",
+    imageAlt: "Sigumir A-4 peptides complex, 60 capsules",
+    name: "Sigumir",
+    description: "Sigumir® is a Khavinson Cytomax: a natural peptide complex (A-4) extracted from the cartilage and bone tissue of young animals, developed at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how organ-derived short peptides act selectively on the cells of their source tissue, and Sigumir's cartilage and bone peptides are believed to support normal joint and spine function. It is the natural-extract counterpart to Cartalax, the lab-made AED cartilage peptide. Dietary supplement; the box reads 'A-4 peptides complex'. Available in 20-capsule (0.215 g) and 60-capsule (0.2 g) formats.",
+    category: "PEPTIDE BIOREGULATORS",
+    priceUSD: 0, // TODO(Julia): price not supplied
+    priceEUR: 0, // TODO(Julia): price not supplied
+    rating: 0, // TODO(Julia): no rating yet
+    sizes: 2,
+    benefits: ["Is believed to support normal cartilage and bone tissue function", "Supports normal joint and spine function", "Natural cartilage and bone peptide complex (A-4)", "Natural-extract counterpart to Cartalax"],
+    ingredients: ["Cartilage and bone peptide complex A-4 (natural extract)"],
+    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson. Sigumir (natural cartilage and bone extract) and Cartalax (the synthesized AED cartilage tripeptide) both focus on cartilage; they differ in source and formulation."
+  ,
+    variants: [
+      {
+        id: "20-count",
+        name: "20 Capsules",
+        image: "/products/sigumir-20.jpg",
+        imageAlt: "Sigumir A-4 peptides complex, 20 capsules (0.215 g)",
+        priceUSD: 0, // TODO(Julia): price not supplied
+        priceEUR: 0, // TODO(Julia): price not supplied
+        inStock: false
+      },
+      {
+        id: "60-count",
+        name: "60 Capsules",
+        image: "/products/sigumir-60.webp",
+        imageAlt: "Sigumir A-4 peptides complex, 60 capsules (0.2 g)",
+        priceUSD: 0, // TODO(Julia): price not supplied
+        priceEUR: 0, // TODO(Julia): price not supplied
+        inStock: false
+      }
+    ]
+  },
+  {
     id: "cartalax",
     image: "/products/cartalax.jpg.webp",
     imageAlt: "Cartalax cartilage peptide bioregulator for joint health",

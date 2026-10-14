@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { products } from "../../client/src/data/products";
-import { HIDDEN_PRODUCT_IDS } from "../hidden-products";
+import { HIDDEN_PRODUCT_IDS, PENDING_PRODUCT_IDS } from "../hidden-products";
 import { buildCatalog } from "./catalog";
 import { analyze, composeFallback } from "./engine";
 import DATA from "./product-data.json";
@@ -27,7 +27,7 @@ describe("product data layer (single JSON file)", () => {
   it("covers every visible product and no hidden one", () => {
     const ids = new Set(RECORDS.map(p => p.id));
     for (const p of products) expect(ids.has(p.id)).toBe(true);
-    for (const h of HIDDEN_PRODUCT_IDS) expect(ids.has(h)).toBe(false);
+    for (const h of HIDDEN_PRODUCT_IDS) expect(ids.has(h)).toBe(PENDING_PRODUCT_IDS.has(h));
   });
   it("every field has a status; unverified fields carry no value; verified ones carry a source", () => {
     for (const r of RECORDS)

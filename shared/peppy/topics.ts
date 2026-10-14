@@ -254,6 +254,15 @@ export const TOPICS: Topic[] = [
           "The AED peptide has been studied in human stem cells and in ageing rats; Cartalax as a finished product has no published human trials.",
       },
       {
+        // Hidden until launch (PENDING_PRODUCT_IDS): never shown while hidden, appears as a card once visible.
+        id: "sigumir",
+        family: "khavinson",
+        tissue: "Cartilage and bone bioregulator (natural extract)",
+        why: "A Khavinson Cytomax: a natural peptide complex from cartilage and bone tissue, believed to support normal joint and spine function. Unlike Cartalax's single lab-made tripeptide, it is a natural tissue extract.",
+        evidenceNote:
+          "Researchers have investigated organ-derived cartilage peptides in cell and animal work; Sigumir as a finished product has no published human trials.",
+      },
+      {
         id: "prime-peptide-joints",
         family: "prime-peptide",
         tissue: "Cartilage and joint formula (peptides + glucosamine, MSM)",

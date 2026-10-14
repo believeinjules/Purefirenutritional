@@ -4293,5 +4293,62 @@
   "organ_association_source": "",
   "organ_association_confidence": "not requested",
   "label_directions_en_as_printed": "adults by 1 tablet 2 times a day, chewing during meal. Course duration is 1 month. Repeated courses within a year are possible, if needed."
+ },
+ {
+  "name": "Sigumir",
+  "slug": "sigumir",
+  "pure_fire_url": null,
+  "product_line": "Cytomax natural",
+  "body_system": "musculoskeletal (cartilage and bone tissue; joints and spine)",
+  "body_system_confidence": "manufacturer-claim",
+  "manufacturer_purpose_tags": "Пептиды хрящевой ткани (peptid.ru breadcrumb); EN: 'Cartilage and bone tissue peptides … regulate the function of joints and spine'",
+  "formulation": "capsule",
+  "pack_size_as_printed": "60 capsules of 0,2 g. 20 capsules of 0,215 g.",
+  "ingredients_as_printed": "Peptide complex A-4 (cartilage peptides), carrier microcrystalline cellulose; capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); anti-caking agent calcium stearate. [Translated from peptid.ru: \"Пептидный комплекс A-4 (пептиды хрящей), носитель МКЦ; оболочка капсулы (гидроксипропилметилцеллюлоза, вода очищенная, каррагинан, ацетат калия); антислеживающий агент кальциевая соль стеариновой кислоты.\"]",
+  "ingredients_confidence": "manufacturer-claim",
+  "quantities_as_printed": "",
+  "quantities_confidence": "unverified",
+  "directions_confidence": "manufacturer-claim",
+  "with_or_without_food": "with meal",
+  "course_duration": "Duration of use is 1 month",
+  "pure_fire_page_directions": "",
+  "pure_fire_page_ingredients": "",
+  "pack_20_vs_60_differences": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs. Box photos (supplied by Julia 2026-10-13): 20 capsules of 0,215 g and 60 capsules of 0,2 g, so the capsule weight differs slightly between packs; both read \"A-4 peptides complex\" (20-capsule box: \"Dietary Supplement\").",
+  "pack_differences_confidence": "manufacturer-claim",
+  "sex_specific_notes": "",
+  "sex_specific_confidence": "unverified",
+  "contraindications_warnings_as_printed": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Сигумир противопоказан при индивидуальной непереносимости компонентов.\" (Pregnancy, breastfeeding or chronic conditions: consult a doctor first. Contraindicated with individual intolerance to the components.)",
+  "contraindications_confidence": "manufacturer-claim",
+  "source_documents": [
+   "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+   "https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/",
+   "/workspace/pepita-live/endo/p_sigumir.html",
+   "/workspace/pepita-live/endo/peptidru.json",
+   "/workspace/khavinson-pdfs/gcyto2.txt",
+   "Sigumir box photos supplied by Julia 2026-10-13 (client/public/products/sigumir-20.jpg, sigumir-60.webp)"
+  ],
+  "background_source_note": "Directions and ingredients from the peptid.ru Sigumir page (captured in /workspace/pepita-live/endo/); EN tissue line from peptideproduct.com per data/pepita-endoluten-verification.md. Not in /workspace/pepita-khavinson-kb (no Sigumir record there).",
+  "verification_date": "2026-10-13",
+  "conflicts": [],
+  "overall_status": "partial",
+  "label_directions": [
+   {
+    "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+    "text": "Сигумир в капсулах. Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в день во время еды. Продолжительность приема — 1 месяц.",
+    "language": "ru"
+   }
+  ],
+  "label_directions_confidence": "manufacturer-claim",
+  "label_directions_en_as_printed": "adults by 1–2 capsules 1–2 times a day during meals. Duration of use is 1 month.",
+  "label_directions_en_note": "English translation of the peptid.ru capsule instruction (RU only; no EN capsule directions captured). Disease-course extension lines on the RU page deliberately omitted.",
+  "manufacturer_protocols": "No named maintenance/preventive/intensive protocol on the manufacturer page; repeat-course interval for capsules not stated.",
+  "manufacturer_protocols_confidence": "manufacturer-claim",
+  "research_study_regimens": [],
+  "research_study_regimens_confidence": "unverified",
+  "schedule_type": "daily",
+  "schedule_type_detail": "",
+  "organ_association": "cartilage and bone tissue",
+  "organ_association_source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+  "organ_association_confidence": "manufacturer-claim"
  }
 ]
