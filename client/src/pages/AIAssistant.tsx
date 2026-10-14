@@ -76,12 +76,11 @@ type ChatMessage =
   | { id: string; role: "assistant"; kind: "text"; text: string; doctorQuestions?: boolean };
 
 const QUICK_QUESTIONS = [
-  "Why am I tired in the afternoon?",
-  "What is Epitalon?",
-  "Do Khavinson peptides actually work in humans?",
-  "Which Pure Fire product for sleep?",
-  "Can I take Endoluten with melatonin?",
-  "What helps achy joints?",
+  "Joint & connective tissue support?",
+  "Preventive vs restorative protocol for Endoluten?",
+  "Cytogens vs Cytomaxes?",
+  "Which peptides support sleep?",
+  "What does peptide research show?",
 ];
 
 /** Plain-text version of an answer for the conversation history sent to the server. */
@@ -274,21 +273,19 @@ export default function AIAssistant() {
       </Dialog>
 
       <main className="flex-1 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4 sm:mb-8">
             <div className="inline-flex items-center gap-2 bg-brand-gradient text-white pl-1.5 pr-6 py-1.5 rounded-full mb-4">
               <PepitaAvatar size={32} className="ring-2 ring-white/70" />
               <span className="font-semibold">Pepita</span>
               <span className="text-xs font-medium text-white/85" data-testid="pepita-ai-label">AI assistant</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">
-              Your Personal Health Guide
+              Your Peptide Research Sidekick.
             </h1>
             <p className="text-gray-600">
-              Ask about a symptom, goal, peptide or product. Pepita answers
-              first, shows the research and its limits, and only then any
-              related products.
+              Curious about peptides, longevity, or how your body works? Ask Pepita. She’ll help you explore the science, understand your options, and find what’s relevant to you.
             </p>
           </div>
 
@@ -392,20 +389,18 @@ export default function AIAssistant() {
                 data-testid="peppy-log"
               >
                 {messages.length === 0 && (
-                  <div className="text-center text-gray-500 py-8">
-                    <PepitaAvatar size={56} className="mx-auto mb-3 block" />
+                  <div className="text-center text-gray-500 py-1">
+                    <PepitaAvatar size={48} className="mx-auto mb-2 block" />
                     <p className="text-gray-700">
-                      Hi! I'm Pepita, Pure Fire's research assistant.
+                      Hi, I'm Pepita! What would you like to explore today?
                     </p>
-                    <p className="text-sm">
-                      Ask a question, or try one of these:
-                    </p>
-                    <div className="mt-4 flex flex-wrap justify-center gap-2">
+                    <div className="mt-3 flex flex-wrap justify-center gap-2">
                       {QUICK_QUESTIONS.map(q => (
                         <button
                           key={q}
                           type="button"
                           onClick={() => void send(q)}
+                          data-testid="pepita-quick-question"
                           className="rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs text-gray-700 transition-colors hover:border-orange-400 hover:bg-orange-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
                         >
                           {q}
@@ -512,25 +507,12 @@ export default function AIAssistant() {
                     <Send className="w-5 h-5" />
                   </Button>
                 </form>
-                <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={askDoctorQuestions}
-                    className="text-xs"
-                    data-testid="peppy-doctor-questions"
-                  >
-                    <ClipboardList className="w-3.5 h-3.5 mr-1" />
-                    Questions for my doctor
-                  </Button>
-                  {input.length > PEPPY_LIMITS.maxMessageChars - 150 && (
-                    <span className="text-xs text-gray-500" aria-live="polite">
-                      {PEPPY_LIMITS.maxMessageChars - input.length} characters
-                      left
-                    </span>
-                  )}
-                </div>
+                {input.length > PEPPY_LIMITS.maxMessageChars - 150 && (
+                  <p className="mt-2 text-xs text-gray-500" aria-live="polite">
+                    {PEPPY_LIMITS.maxMessageChars - input.length} characters
+                    left
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>
