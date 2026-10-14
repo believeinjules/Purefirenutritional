@@ -32,9 +32,10 @@ import Wishlist from "./pages/Wishlist";
 import SiteSeo from "./components/seo/SiteSeo";
 
 // Learn articles
+import Journal from "./pages/Journal";
 import ArticleKhavinsonPeptides from "./pages/learn/WhatAreKhavinsonPeptides";
-import ArticleCytomaxesCytogens from "./pages/learn/CytomaxesCytogens";
 import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
+import ArticlePeptidesInContext from "./pages/learn/PeptidesInContext";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
 // Store policies (copy in content/policies.ts)
@@ -60,8 +61,8 @@ function Router() {
       <Route path="/science" component={Science} />
       <Route path="/research" component={Science} />
       <Route path="/about" component={About} />
-      <Route path="/documentation" component={Documentation} />
-      <Route path="/documentation/:slug" component={DocumentationDetail} />
+      <Route path="/authenticity" component={Documentation} />
+      <Route path="/authenticity/:slug" component={DocumentationDetail} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/dashboard" component={Dashboard} />
@@ -89,18 +90,19 @@ function Router() {
         )}
       </Route>
       <Route path="/wishlist" component={Wishlist} />
+      <Route path="/journal" component={Journal} />
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
-      <Route path="/learn/cytomaxes-vs-cytogens" component={ArticleCytomaxesCytogens} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
+      <Route path="/learn/peptides-in-context-systems-view" component={ArticlePeptidesInContext} />
       <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
       <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsPolicy} />
       <Route path="/shipping" component={ShippingPolicy} />
       <Route path="/returns" component={ReturnsPolicy} />
-      {/* No Learn index page: the Learn articles' "← Learn" link goes to the Science page.
-          vercel.json 301s /learn → /science for direct visits; this covers in-app clicks. */}
+      {/* The article index lives at /journal. vercel.json 301s /learn → /journal for
+          direct visits; this covers in-app navigation. */}
       <Route path="/learn">
-        <Redirect to="/science" replace />
+        <Redirect to="/journal" replace />
       </Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

@@ -76,7 +76,7 @@ async function prerender() {
   console.log(`SEO catalog: ${catalog.entries.length} products (${catalog.note})`);
 
   // ── Public static pages + certificate pages ───────────────────────────────
-  const certificateRoutes = ssr.publishedCertificates.map((c) => `/documentation/${c.slug}`);
+  const certificateRoutes = ssr.publishedCertificates.map((c) => `/authenticity/${c.slug}`);
   const publicRoutes = [...ssr.PUBLIC_STATIC_ROUTES, ...certificateRoutes];
   for (const route of publicRoutes) {
     writeFile(outPathFor(route), renderRoute(route));

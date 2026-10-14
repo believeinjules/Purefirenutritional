@@ -1,0 +1,8 @@
+@keyframes lm-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.lm-drift { animation: lm-drift 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .lm-drift { animation: none; }
+}

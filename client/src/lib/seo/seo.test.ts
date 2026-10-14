@@ -15,6 +15,7 @@ import {
   splitSentences,
 } from "./index";
 import { SPOT_A_FAKE } from "@/content/spotAFake";
+import { LEARN_ARTICLES } from "@/content/learnArticles";
 import { buildSitemapXml, PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES } from "./sitemap";
 
 const root = path.resolve(__dirname, "../../../..");
@@ -119,7 +120,7 @@ describe("routes, robots and sitemap", () => {
     const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
     const redirected = new Set<string>(vercel.redirects.map((r: { source: string }) => r.source));
     // Dynamic routes prerendered from data in prerender.mjs (catalog products, published certificates).
-    const prerenderedFromData = new Set(["/products/:id", "/documentation/:slug"]);
+    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug"]);
     const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES)]);
     const unserved = Array.from(appRoutes).filter(
       (r) => r !== "/404" && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)
@@ -203,5 +204,105 @@ describe("vercel.json redirects", () => {
       statusCode: 301,
     });
     expect(vercel.rewrites ?? []).toEqual([]);
+  });
+});
+
+describe("/journal index", () => {
+  const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
+  const page = fs.readFileSync(path.join(root, "client/src/pages/Journal.tsx"), "utf8");
+  const nav = fs.readFileSync(path.join(root, "client/src/components/Navigation.tsx"), "utf8");
+
+  it("is a real, prerendered, sitemap-listed public route", () => {
+    expect(app).toContain('<Route path="/journal" component={Journal} />');
+    expect(PUBLIC_STATIC_ROUTES).toContain("/journal");
+    expect(UNLISTED_ROUTES).not.toContain("/journal");
+    expect(PRIVATE_ROUTES["/journal"]).toBeUndefined();
+    expect(buildSitemapXml(PUBLIC_STATIC_ROUTES.map((p) => ({ path: p })))).toContain(`<loc>${canonicalUrl("/journal")}</loc>`);
+  });
+
+  it("sets its own title, meta description and canonical", () => {
+    expect(page).toMatch(/<PageSeo title=\{JOURNAL_TITLE\} description=\{JOURNAL_DESCRIPTION\} path="\/journal" \/>/);
+    expect(page).toContain('"Longevity Journal | Pure Fire Nutritional"');
+    expect(page).toContain(">Longevity Journal</h1>");
+    const desc = page.match(/JOURNAL_DESCRIPTION =\s*"([^"]+)"/)![1];
+    expect(desc).toContain("Longevity Journal");
+    expect(desc.length).toBeLessThanOrEqual(160);
+    expect(canonicalUrl("/journal")).toBe("https://www.purefirenutritional.com/journal");
+  });
+
+  it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
+    expect(LEARN_ARTICLES).toHaveLength(3);
+    for (const a of LEARN_ARTICLES) {
+      expect(a.href.startsWith("/learn/"), a.href).toBe(true);
+      expect(app).toContain(`<Route path="${a.href}"`);
+      expect(PUBLIC_STATIC_ROUTES).toContain(a.href);
+      expect(a.description.length, a.href).toBeGreaterThan(20);
+      expect(a.description.length, a.href).toBeLessThanOrEqual(160);
+      if (a.cover) expect(fs.existsSync(path.join(root, "client/public", a.cover.jpg)), a.cover.jpg).toBe(true);
+    }
+  });
+
+  it("the Science nav submenu lists 2 articles in order, then Longevity Journal (no TSP link)", () => {
+    const labels = LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => a.navLabel ?? a.title);
+    expect(labels).toEqual([
+      "What Are Khavinson Peptide Bioregulators?",
+      "Buying Khavinson Peptides in the U.S.",
+    ]);
+    // Peptides in Context is on /journal only, at its unchanged URL.
+    const pic = LEARN_ARTICLES.find((a) => a.href === "/learn/peptides-in-context-systems-view");
+    expect(pic?.hideFromNav).toBe(true);
+    // The on-page title of the US article stays the full title.
+    expect(LEARN_ARTICLES[1].title).toBe("Khavinson Peptides in the United States");
+    expect(nav).toContain("LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
+    expect(nav).toContain('{ label: "Longevity Journal", href: "/journal" }');
+    expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science
+    expect(nav).not.toMatch(/short ?peptide|theshortpeptide/i);
+    expect(nav).not.toMatch(/blog|\/articles/i);
+  });
+
+  it("/learn 301s to /journal and there is no /blog or /articles route", () => {
+    const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
+    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/journal", statusCode: 301 });
+    expect(app).not.toContain('"/blog"');
+    expect(PUBLIC_STATIC_ROUTES).not.toContain("/blog");
+    expect(app).not.toContain('"/articles"');
+    expect(PUBLIC_STATIC_ROUTES).not.toContain("/articles");
+    expect(app).not.toContain('"/insights"');
+    expect(PUBLIC_STATIC_ROUTES).not.toContain("/insights");
+  });
+});
+
+describe("Cytomaxes vs Cytogens merged into the What Are article", () => {
+  const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
+  const whatAre = fs.readFileSync(path.join(root, "client/src/pages/learn/WhatAreKhavinsonPeptides.tsx"), "utf8");
+  const faq = fs.readFileSync(path.join(root, "client/src/pages/FAQ.tsx"), "utf8");
+  const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
+  const OLD = "/learn/cytomaxes-vs-cytogens";
+  const TARGET = "/learn/what-are-khavinson-peptide-bioregulators#cytomaxes-vs-cytogens";
+
+  it("the standalone page, route, sitemap entry and index card are gone", () => {
+    expect(fs.existsSync(path.join(root, "client/src/pages/learn/CytomaxesCytogens.tsx"))).toBe(false);
+    expect(app).not.toContain(OLD);
+    expect(PUBLIC_STATIC_ROUTES).not.toContain(OLD);
+    expect(UNLISTED_ROUTES).not.toContain(OLD);
+    expect(LEARN_ARTICLES.map((a) => a.href)).not.toContain(OLD);
+  });
+
+  it("the old URL 301s to the merged section", () => {
+    expect(vercel.redirects).toContainEqual({ source: OLD, destination: TARGET, statusCode: 301 });
+  });
+
+  it("the What Are article has the #cytomaxes-vs-cytogens anchor on the Two Types section", () => {
+    // Julia's light version (2026-10-13): the anchor sits on "Two Types You’ll Find at Pure Fire".
+    expect(whatAre).toContain('<section id="cytomaxes-vs-cytogens"');
+    const sec = whatAre.slice(whatAre.indexOf('<section id="cytomaxes-vs-cytogens"'));
+    expect(sec).toContain("Two Types You’ll Find at Pure Fire</h2>");
+    expect(sec.indexOf("Two Types")).toBeLessThan(sec.indexOf("</section>"));
+  });
+
+  it("the FAQ has one Cytomaxes vs Cytogens entry linking to the section", () => {
+    expect(faq.match(/Cytomaxes and Cytogens\?"/g)).toHaveLength(1);
+    expect(faq).toContain(`question: "What's the difference between Cytomaxes and Cytogens?"`);
+    expect(faq).toContain(`CYTOMAXES_VS_CYTOGENS_HREF = "${TARGET}"`);
   });
 });

@@ -127,6 +127,7 @@ export default function AIAssistant() {
     setSex(params.sex);
     if (contextProduct)
       setInput(peppyPrefill(contextProduct.name, params.goal));
+    else if (params.question) setInput(params.question);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
   const schedule = contextProduct

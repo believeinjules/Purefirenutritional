@@ -6,14 +6,21 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
+import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 
 interface FAQItem {
   question: string;
   answer: string;
   category: string;
+  /** Optional "read more" link shown under the answer. */
+  link?: { href: string; label: string };
+  /** Optional extra links shown under the answer. */
+  links?: { href: string; label: string }[];
 }
 
-const faqs: FAQItem[] = [
+export const CYTOMAXES_VS_CYTOGENS_HREF = "/learn/what-are-khavinson-peptide-bioregulators#cytomaxes-vs-cytogens";
+
+export const faqs: FAQItem[] = [
   // General
   {
     category: "General",
@@ -32,19 +39,26 @@ const faqs: FAQItem[] = [
   },
   {
     category: "General",
-    question: "Are your products FDA approved?",
-    answer: "Our products are dietary supplements and are manufactured in FDA-registered facilities following Good Manufacturing Practices (GMP). As dietary supplements, they are not intended to diagnose, treat, cure, or prevent any disease. The FDA does not approve dietary supplements in the same way it approves drugs."
+    question: "Do bioregulators need to be injected?",
+    answer: "No. The bioregulators we carry are taken by mouth as capsules, and some come in liquid or under-the-tongue forms. Some related preparations were originally developed as injections in Russia, but these products are not injectables.",
   },
   {
     category: "General",
-    question: "Is Pure Fire Nutritional an authorized Khavinson retailer?",
-    answer: "Yes, Pure Fire Nutritional is an authorized US retailer of authentic Khavinson peptide bioregulators. We source directly from verified manufacturers to ensure authenticity and quality."
+    question: "Are bioregulators FDA approved?",
+    answer: "No. They are sold as dietary supplements, and the FDA does not approve supplements for effectiveness before they are sold. They are not intended to diagnose, treat, cure, or prevent any disease.",
+  },
+  {
+    category: "General",
+    question: "How do I know a product is genuine?",
+    answer: "Every genuine package carries a lot number and expiry date, and ours are listed on each product page so you can match them. Pure Fire Nutritional is an authorized US retailer of Khavinson peptide bioregulators. If you have a question about a product you already bought, email info@purefirenutritional.com with the lot number and we'll help you check it.",
+    links: [{ href: "/authenticity", label: "Authenticity" }],
   },
   // Products
   {
     category: "Products",
-    question: "What is the difference between Cytomaxes and Cytogens?",
-    answer: "Cytomaxes are natural peptide bioregulators derived from animal tissues, while Cytogens are synthetic peptides created in the laboratory. Both have similar effects, but Cytogens offer higher purity and consistency. Cytogens are ideal for those who prefer non-animal-derived products."
+    question: "What's the difference between Cytomaxes and Cytogens?",
+    answer: "Cytomaxes are natural peptide bioregulators extracted from the organs of young animals; they contain a complex mixture of short peptides and generally work gradually, over about four to six months. Cytogens are made in a laboratory from a defined sequence of two to seven amino acids, are free from animal-derived components, and often act within one to two months. Many people use both: a Cytomax for long-term organ support and a Cytogen for more targeted support of a specific system.",
+    link: { href: CYTOMAXES_VS_CYTOGENS_HREF, label: "Read more: Cytomaxes vs Cytogens" },
   },
   {
     category: "Products",
@@ -53,8 +67,9 @@ const faqs: FAQItem[] = [
   },
   {
     category: "Products",
-    question: "Which peptide should I start with?",
-    answer: "For general wellness and anti-aging, we recommend starting with Endoluten (pineal gland) and Vladonix (thymus/immune). For specific concerns, choose peptides targeting those organs. Our AI Assistant can help recommend products based on your individual needs."
+    question: "Which one should I start with?",
+    answer: "There's no single right starting point; it depends on what you're interested in. Our guide explains how Cytomaxes and Cytogens differ, and Pepita, our AI assistant, can help you think through the options.",
+    links: [{ href: CYTOMAXES_VS_CYTOGENS_HREF, label: "Cytomaxes vs Cytogens" }, { href: "/ai-assistant?q=" + encodeURIComponent("Which bioregulator should I start with?"), label: "Ask Pepita" }],
   },
   {
     category: "Products",
@@ -63,8 +78,8 @@ const faqs: FAQItem[] = [
   },
   {
     category: "Products",
-    question: "What is the difference between lingual and capsule forms?",
-    answer: "Lingual (sublingual) products are absorbed directly through the mucous membranes under the tongue, providing faster absorption and higher bioavailability. Capsule forms pass through the digestive system. Both are effective; sublingual may be preferred for quicker results."
+    question: "What's the difference between capsules and liquids?",
+    answer: "Capsules are swallowed, while liquid and lingual forms are held under the tongue. Each product page lists the forms available for that product and its label directions. If the form you choose is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia.",
   },
   // Usage
   {
@@ -79,8 +94,8 @@ const faqs: FAQItem[] = [
   },
   {
     category: "Usage",
-    question: "Should I take peptides continuously or in cycles?",
-    answer: "The traditional protocol is to take peptides for 10-30 days, then take a break of 3-6 months before repeating. However, many practitioners recommend continuous low-dose supplementation for ongoing support. Consult with a healthcare provider for personalized advice."
+    question: "How long do people usually take them?",
+    answer: "Bioregulators are usually taken as a course for a set period, then paused, rather than every day indefinitely. Each product page lists its label directions, and your doctor can help you decide what fits you.",
   },
   {
     category: "Usage",
@@ -90,8 +105,8 @@ const faqs: FAQItem[] = [
   // Safety
   {
     category: "Safety",
-    question: "Are peptide bioregulators safe?",
-    answer: "Peptide bioregulators have been used safely for over 40 years in Russia and have been the subject of numerous clinical studies. They are generally well-tolerated with no known serious side effects. As with any supplement, individual responses may vary."
+    question: "Are they safe, and who should check with a clinician first?",
+    answer: "Published studies have reported few side effects, but the research is limited and no supplement is right for everyone. Check with a clinician before starting if you are pregnant or breastfeeding, under 18, take prescription medication, have a medical condition, or have surgery coming up.",
   },
   {
     category: "Safety",
@@ -116,13 +131,15 @@ const faqs: FAQItem[] = [
   },
   {
     category: "Shipping & Orders",
-    question: "How long does shipping take within the US?",
-    answer: "Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia."
+    question: "How much does shipping cost, and how long does it take?",
+    answer: `${SHIPPING_RULE_SENTENCE} We aim to ship in-stock orders within 1 to 3 business days, and most U.S. orders arrive within 3 to 7 business days after they ship. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia.`,
+    links: [{ href: "/shipping", label: "Shipping Policy" }],
   },
   {
     category: "Shipping & Orders",
     question: "What is your return policy?",
-    answer: "We offer a 30-day satisfaction guarantee. If you're not completely satisfied with your purchase, you may return unopened products within 30 days for a full refund. Please contact our customer service team to initiate a return."
+    answer: "You can return unopened products within 30 days of delivery, in their original sealed packaging, for a refund of the price you paid. Opened products can't be returned unless they arrived damaged, defective or incorrect. Email info@purefirenutritional.com first to start a return; approved refunds are issued within 5 business days to the original payment method.",
+    links: [{ href: "/returns", label: "Returns & Refunds" }],
   },
   {
     category: "Shipping & Orders",
@@ -202,6 +219,15 @@ export default function FAQ() {
                 {openIndex === index && (
                   <CardContent className="pt-0 pb-4 px-4">
                     <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                        {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].map((l) => (
+                          <a key={l.href} href={l.href} className="inline-block text-sm text-orange-600 hover:underline">
+                            {l.label} →
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </CardContent>
                 )}
               </Card>
