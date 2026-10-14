@@ -280,6 +280,7 @@ export default function AIAssistant() {
             <div className="inline-flex items-center gap-2 bg-brand-gradient text-white pl-1.5 pr-6 py-1.5 rounded-full mb-4">
               <PepitaAvatar size={32} className="ring-2 ring-white/70" />
               <span className="font-semibold">Pepita</span>
+              <span className="text-xs font-medium text-white/85" data-testid="pepita-ai-label">AI assistant</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">
               Your Personal Health Guide

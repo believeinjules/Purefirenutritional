@@ -27,7 +27,7 @@ export default function Navigation() {
     { label: "Authenticity", href: "/authenticity" },
     { label: "About", href: "/about" },
     { label: "FAQ", href: "/faq" },
-    { label: "AI Assistant", href: "/ai-assistant" },
+    { label: "Pepita AI", href: "/ai-assistant" },
   ];
 
   return (
