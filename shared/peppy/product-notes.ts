@@ -20,6 +20,10 @@ export const DOSING_NOTE =
 export const HEALTH_FOOTER =
   "Educational, not medical advice. Doses, combinations and courses vary: check them with your healthcare provider before starting, especially if you have a medical condition, take medications, or are pregnant or breastfeeding.";
 
+/** Footer for symptom answers (pink, stethoscope). */
+export const SYMPTOM_FOOTER =
+  "Symptoms like these can have many causes. This is educational, not medical advice: please see your healthcare provider for a proper evaluation, and check doses and combinations with them, especially if you take medications.";
+
 /** The only intro disclaimer: first line of every substantive Pepita answer (Julia, 2026-10-14). */
 export const CONSULT_LINE = "Please consult with a medical/healthcare professional.";
 

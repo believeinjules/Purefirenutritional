@@ -2,6 +2,8 @@ import { useId, useState } from "react";
 import { AlertTriangle, ChevronDown, FileText } from "lucide-react";
 import type { ProtocolItem, ProtocolTimeline } from "@shared/peppy/types";
 import { productPath } from "@/lib/seo";
+import { getProductById } from "@/data/products";
+import { Package } from "lucide-react";
 
 /** Small provenance label: keeps manufacturer protocol, research and Pepita's own notes visually apart. */
 export function KindLabel({ kind }: { kind: "protocol" | "research" | "pepita" }) {
@@ -30,14 +32,25 @@ function Name({ name, productId, sold }: { name: string; productId: string | nul
     <a href={productPath(productId)} className="font-medium text-orange-700 underline underline-offset-2">{name}</a>
   ) : (
     <span className="font-medium text-gray-900">
-      {name} <span className="text-[11px] font-normal text-gray-500" data-testid="pepita-protocol-unsold">(not sold by Pure Fire)</span>
+      {name} <span className="text-xs font-normal text-gray-500" data-testid="pepita-protocol-unsold">(Not sold by Pure Fire)</span>
+    </span>
+  );
+}
+
+function Thumb({ id }: { id: string | null }) {
+  const img = id ? getProductById(id)?.image : undefined;
+  return (
+    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50 ring-1 ring-gray-100" data-testid="pepita-protocol-thumb">
+      {img ? <img src={img} alt="" width={44} height={44} loading="lazy" className="h-full w-full object-contain p-0.5" /> : <Package className="h-5 w-5 text-gray-300" aria-hidden="true" />}
     </span>
   );
 }
 
 function Item({ it }: { it: ProtocolItem }) {
   return (
-    <li className="min-w-0 break-words py-1 text-gray-700" data-testid="pepita-protocol-item">
+    <li className="flex min-w-0 gap-3 break-words py-2 text-gray-700" data-testid="pepita-protocol-item">
+      <Thumb id={it.productId} />
+      <div className="min-w-0 flex-1">
       <p>
         <Name name={it.name} productId={it.productId} sold={it.sold} />
         {it.orWith?.map(o => (
@@ -51,6 +64,7 @@ function Item({ it }: { it: ProtocolItem }) {
       {it.sourceDirections && <p className="text-xs text-gray-600"><span className="font-medium text-gray-800">In the course document:</span> {it.sourceDirections}</p>}
       {it.substitution && <p className="text-xs text-gray-600"><span className="font-medium text-gray-800">Substitution:</span> {it.substitution}</p>}
       {it.discrepancy && <Differs text={it.discrepancy} />}
+      </div>
     </li>
   );
 }
@@ -65,12 +79,12 @@ export default function PepitaProtocol({ protocol }: { protocol: ProtocolTimelin
   const base = useId();
   return (
     <section className="space-y-1.5 text-sm" data-testid="pepita-protocol" aria-label={protocol.name}>
-      <div className="rounded-xl border border-gray-200 bg-gray-50 px-3 py-2" data-testid="pepita-protocol-overview">
-        <p className="flex items-center gap-1.5 font-semibold text-gray-900">
-          <FileText className="h-4 w-4 shrink-0 text-gray-500" aria-hidden="true" /> {protocol.name}
+      <div className="rounded-2xl border border-gray-200 bg-white px-4 py-3" data-testid="pepita-protocol-overview">
+        <p className="flex items-center gap-2 font-semibold text-gray-900">
+          <FileText className="h-5 w-5 shrink-0 text-gray-700" aria-hidden="true" /> Overview
         </p>
-        <div className="mt-1"><KindLabel kind="protocol" /></div>
-        <ul className="mt-1 space-y-0.5 text-xs text-gray-700">
+        <p className="mt-0.5 flex flex-wrap items-center gap-2 text-sm font-medium text-gray-800">{protocol.name} <KindLabel kind="protocol" /></p>
+        <ul className="mt-1.5 list-disc space-y-1 pl-5 text-sm text-gray-700">
           <li><span className="font-medium text-gray-900">Goal:</span> {protocol.goal}</li>
           <li><span className="font-medium text-gray-900">Length:</span> {protocol.duration}</li>
           <li><span className="font-medium text-gray-900">Includes:</span> {protocol.includes.join(", ")}</li>
@@ -82,7 +96,7 @@ export default function PepitaProtocol({ protocol }: { protocol: ProtocolTimelin
         {protocol.phases.map((ph, i) => {
           const isOpen = phase === i;
           return (
-            <li key={ph.label} className="rounded-xl border border-gray-200 bg-white" data-testid="pepita-protocol-phase">
+            <li key={ph.label} className="rounded-xl border border-gray-100 bg-gray-50" data-testid="pepita-protocol-phase">
               <button
                 type="button"
                 aria-expanded={isOpen}
@@ -98,7 +112,7 @@ export default function PepitaProtocol({ protocol }: { protocol: ProtocolTimelin
                 <ChevronDown className={`h-4 w-4 shrink-0 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`} aria-hidden="true" />
               </button>
               {isOpen && (
-                <div id={`${base}-p${i}`} className="border-t border-gray-100 px-3 pb-2 pt-1" data-testid="pepita-protocol-items">
+                <div id={`${base}-p${i}`} className="px-3 pb-2" data-testid="pepita-protocol-items">
                   <ul className="divide-y divide-gray-100">
                     {ph.items.map(it => <Item key={it.name} it={it} />)}
                   </ul>

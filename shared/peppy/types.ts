@@ -144,6 +144,12 @@ export interface ProtocolItem {
   sold?: boolean;
 }
 
+export interface AnswerAccordion {
+  icon: "info" | "book" | "shield" | "help" | "doctor";
+  title: string;
+  body: string;
+}
+
 /** Compact dosing facts block (shown BEFORE any product card). */
 export interface DosingFacts {
   product: string;
@@ -161,6 +167,12 @@ export interface PeppyResponse {
   gold?: string;
   /** Month-by-month manufacturer courses (L2/L3 only). */
   protocols?: ProtocolTimeline[];
+  /** Answer layout (v13 mockups): symptom = "Peptides that may be helpful" rows + supportive box. */
+  layout?: "dosing" | "protocol" | "symptom";
+  /** Icon-led accordions under the answer (one open at a time). */
+  accordions?: AnswerAccordion[];
+  /** "Other supportive approaches" (non-product) bullets. */
+  supportive?: string[];
   /** Dosing answers: verified dose/timing/course/source, rendered before any card. */
   dosingFacts?: DosingFacts;
   /** Short direct answer shown first. */

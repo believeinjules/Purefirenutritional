@@ -83,7 +83,7 @@ describe("Pepita gold set", () => {
       if (c.safety) {
         if (c.safety !== "medical-first-products") expect(ids).toEqual([]);
         expect(r.safety?.level).toBe(c.safety === "urgent" ? "urgent" : "caution");
-        expect(r.summary.slice(0, 120)).toMatch(/doctor|medical|911/i);
+        expect(r.summary.slice(0, 120)).toMatch(/doctor|medical|911|healthcare provider/i);
       }
       // Text never ties a product to disease terms.
       if (ids.length) expect(r.summary).not.toMatch(new RegExp(DISEASE_TERMS.source, "i"));
@@ -143,5 +143,22 @@ describe("Pepita gold set", () => {
     expect(r.products.map(p => p.product.id)).toEqual(["endoluten"]);
     expect(pepitaDirections("endoluten")).toBe("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.");
     expect(products.find(p => p.id === "endoluten")!.usage).toBe(getProductFacts("endoluten")!.storefrontUsage.text);
+  });
+
+  it("v13 mockup layouts: dosing, protocol, symptom", async () => {
+    const ask = async (q: string) => (await answerPeppy({ message: q }, { catalog })).response;
+    const e = await ask("How do I take Endoluten?");
+    expect(e.layout).toBe("dosing");
+    expect(e.accordions!.map(a => a.title)).toEqual(["What is Endoluten?", "Research and potential benefits", "Safety and considerations"]);
+    expect(e.research.length).toBeGreaterThan(0); // → "References (n)"
+    const v = await ask("What can help with vertigo and feeling off balance?");
+    expect(v.layout).toBe("symptom");
+    expect(v.accordions!.map(a => a.title)).toEqual(["Common causes of vertigo", "How these peptides may help", "When to see a doctor"]);
+    expect(v.supportive!.length).toBeGreaterThanOrEqual(3);
+    expect(v.summary).toMatch(/^Vertigo and balance problems have many causes/);
+    const sl = await ask("I can't sleep well");
+    expect(sl.layout).toBe("symptom");
+    const h = await ask("What's the recommended protocol for heart and menopause support?");
+    expect(h.layout).toBe("protocol");
   });
 });

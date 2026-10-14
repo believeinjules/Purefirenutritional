@@ -1,6 +1,7 @@
 import type { PeppyResponse } from "@shared/peppy/types";
-import { CONSULT_LINE, HEALTH_FOOTER, withoutGenericDoctorLines } from "@shared/peppy/product-notes";
-import { AlertTriangle, CalendarDays, Clock, FileText, Pill } from "lucide-react";
+import { CONSULT_LINE, HEALTH_FOOTER, SYMPTOM_FOOTER, withoutGenericDoctorLines } from "@shared/peppy/product-notes";
+import { AlertTriangle, CalendarDays, FileText, Leaf, Pill, Sparkles, Stethoscope, Sun } from "lucide-react";
+import PepitaAccordions from "./PepitaAccordions";
 import PepitaProtocol, { KindLabel } from "./PepitaProtocol";
 import { inline, buildMentions } from "./RichText";
 import SafetyCallout from "./SafetyCallout";
@@ -44,6 +45,9 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
   const substantive = answer.showDisclaimer || urgent;
   const facts = answer.dosingFacts;
   const protocols = urgent ? [] : (answer.protocols ?? []);
+  const layout = urgent ? undefined : answer.layout;
+  const accordions = urgent ? [] : (answer.accordions ?? []);
+  const curated = !!layout; // mockup layouts: References live in the accordions, no "Learn more"
 
   return (
     <article className="space-y-3 text-[15px] leading-relaxed text-gray-800" aria-labelledby={headingId} data-testid="pepita-answer">
@@ -53,18 +57,18 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
       {substantive && (
         <p className="font-medium text-gray-900" data-testid="pepita-consult-line">{CONSULT_LINE}</p>
       )}
-      {answer.safety && medicalFirst && <SafetyCallout notice={answer.safety} />}
+      {answer.safety && medicalFirst && layout !== "symptom" && <SafetyCallout notice={answer.safety} />}
 
       {facts && (
-        <dl className="space-y-1.5 rounded-xl bg-orange-50 px-3 py-2.5 text-sm ring-1 ring-orange-100" data-testid="pepita-dosing-facts" aria-label={`How to take ${facts.product}`}>
+        <dl className="space-y-3 rounded-2xl bg-orange-50 px-4 py-3.5 text-[15px] ring-1 ring-orange-100" data-testid="pepita-dosing-facts" aria-label={`How to take ${facts.product}`}>
           {([
             ["Dose", facts.dose, Pill],
-            ["Timing", facts.timing, Clock],
+            ["Timing", facts.timing, Sun],
             ["Course length", facts.course, CalendarDays],
             ["Source", facts.source, FileText],
           ] as const).filter(([, v]) => !!v).map(([k, v, Icon]) => (
             <div key={k} className="flex items-start gap-2">
-              <Icon className="mt-0.5 h-4 w-4 shrink-0 text-gray-600" aria-hidden="true" />
+              <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-800" aria-hidden="true" />
               <div className="min-w-0"><dt className="inline font-semibold text-gray-900">{k}: </dt><dd className="inline">{v}</dd></div>
             </div>
           ))}
@@ -77,17 +81,45 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
 
       {protocols.map(pr => <PepitaProtocol key={pr.id} protocol={pr} />)}
 
-      {cards.length > 0 && (
+      {cards.length > 0 && layout === "symptom" && (
+        <section className="rounded-2xl border border-orange-100 bg-orange-50/40 p-2.5" aria-label="Peptides that may be helpful">
+          <p className="mb-2 flex items-center gap-2 px-1 font-semibold text-orange-600" data-testid="pepita-helpful-heading">
+            <Sparkles className="h-4 w-4" aria-hidden="true" /> Peptides that may be helpful
+          </p>
+          <ul className="space-y-2" data-testid="pepita-product-cards" aria-label="Suggested products">
+            {cards.map(c => (
+              <li key={c.product.id} className="min-w-0">
+                <PepitaProductCard suggestion={c} fallbackResearch={answer.research} variant="row" />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {cards.length > 0 && layout !== "symptom" && (
         <ul className="space-y-1.5" data-testid="pepita-product-cards" aria-label="Suggested products">
           {cards.map(c => (
             <li key={c.product.id} className="min-w-0">
-              <PepitaProductCard suggestion={c} fallbackResearch={answer.research} />
+              <PepitaProductCard suggestion={c} fallbackResearch={answer.research} variant={layout === "dosing" && cards.length === 1 ? "hero" : "card"} />
             </li>
           ))}
         </ul>
       )}
 
-      {research.length > 0 && (
+      {answer.supportive && answer.supportive.length > 0 && (
+        <section className="rounded-2xl bg-orange-50/60 px-4 py-3 text-sm ring-1 ring-orange-100" data-testid="pepita-supportive">
+          <p className="mb-1.5 flex items-center gap-2 font-semibold text-gray-900">
+            <Leaf className="h-4 w-4 text-green-700" aria-hidden="true" /> Other supportive approaches
+          </p>
+          <ul className="list-disc space-y-0.5 pl-5 text-gray-700">
+            {answer.supportive.map(x => <li key={x}>{x}</li>)}
+          </ul>
+        </section>
+      )}
+
+      {curated && (accordions.length > 0 || research.length > 0) && <PepitaAccordions items={accordions} research={research} />}
+
+      {!curated && research.length > 0 && (
         <details className="text-sm" data-testid="pepita-research-links">
           <summary className="inline-flex min-h-[44px] cursor-pointer select-none items-center text-xs font-medium text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400">
             References ({research.length})
@@ -100,7 +132,7 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
         </details>
       )}
 
-      {hasLearnMore && (
+      {!curated && hasLearnMore && (
         <details className="group rounded-xl border border-gray-200 bg-gray-50 px-3 py-1 text-sm text-gray-700" data-testid="pepita-learn-more">
           <summary className="flex min-h-[44px] cursor-pointer select-none items-center font-medium text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400">
             Learn more
@@ -162,15 +194,24 @@ export default function PeppyAnswer({ answer, question, onAsk, disabled, heading
         </div>
       )}
 
-      {substantive && (
+      {substantive && (layout === "symptom" ? (
         <aside
-          className="flex items-start gap-2 rounded-xl bg-amber-50 px-3 py-2 text-xs leading-snug text-gray-700 ring-1 ring-amber-100"
+          className="flex items-start gap-3 rounded-2xl bg-pink-50 px-4 py-3 text-xs leading-snug text-gray-700 ring-1 ring-pink-100"
+          data-testid="pepita-health-footer"
+          data-variant="symptom"
+        >
+          <Stethoscope className="mt-px h-5 w-5 shrink-0 text-pink-700" aria-hidden="true" />
+          <span>{SYMPTOM_FOOTER}</span>
+        </aside>
+      ) : (
+        <aside
+          className="flex items-start gap-3 rounded-2xl bg-amber-50 px-4 py-3 text-xs leading-snug text-gray-700 ring-1 ring-amber-100"
           data-testid="pepita-health-footer"
         >
-          <AlertTriangle className="mt-px h-4 w-4 shrink-0 text-amber-600" aria-hidden="true" />
+          <AlertTriangle className="mt-px h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" />
           <span>{HEALTH_FOOTER}</span>
         </aside>
-      )}
+      ))}
     </article>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
-import { Check, ChevronDown, Loader2, ShoppingCart } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, Loader2, Package, ShoppingCart } from "lucide-react";
 import type { PeppyProductSuggestion, ResearchSource } from "@shared/peppy/types";
 import { isHiddenProduct } from "@shared/hidden-products";
 import PreorderBadge from "@/components/PreorderBadge";
@@ -22,7 +22,10 @@ const canHover = () =>
 export default function PepitaProductCard({
   suggestion,
   fallbackResearch = [],
+  variant = "card",
 }: {
+  /** card: compact card; hero: single product with a large image (dosing); row: list row, buy controls on tap. */
+  variant?: "card" | "hero" | "row";
   suggestion: PeppyProductSuggestion;
   /** Answer-level studies used when the product has none of its own. */
   fallbackResearch?: readonly ResearchSource[];
@@ -78,6 +81,33 @@ export default function PepitaProductCard({
         .map(s => ({ id: s.id, title: s.title, url: s.url ?? "", finding: s.finding }))
         .filter(s => s.url);
 
+  const sizeSelect = buyable && options.length > 1 ? (
+            <>
+              <label htmlFor={selectId} className="sr-only">
+                Size for {name}
+              </label>
+              <select
+                id={selectId}
+                value={chosen}
+                onChange={e => setSize(e.target.value as CartSize)}
+                data-testid="pepita-card-size"
+                className={`h-11 rounded-lg border border-gray-200 bg-white px-1.5 text-base text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 sm:text-sm ${variant === "hero" ? "min-w-[96px]" : "min-w-[44px]"}`}
+              >
+                {options.map(o => (
+                  <option key={o.variantId ?? o.size} value={o.size}>
+                    {o.label.replace(/\s*capsules?$/i, " caps").replace(/\s*tablets?$/i, " tabs")}
+                  </option>
+                ))}
+              </select>
+            </>
+  ) : null;
+  const priceTag =
+    typeof price === "number" ? (
+      <span className={`shrink-0 font-bold text-orange-600 ${variant === "hero" ? "text-base" : "ml-auto text-sm"}`} data-testid="pepita-card-price">
+        ${price.toFixed(2)}
+      </span>
+    ) : null;
+
   const onAdd = async () => {
     if (!store || !chosen || status === "adding") return;
     setStatus("adding");
@@ -104,6 +134,26 @@ export default function PepitaProductCard({
         }
       }}
     >
+      {variant === "hero" ? (
+        <div className="flex items-center gap-3 p-3" data-testid="pepita-card-hero">
+          <span className="flex h-[88px] w-[88px] flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50" data-testid="pepita-card-image">
+            {image ? <img src={image} alt={name} width={88} height={88} className="h-full w-full object-contain p-1" loading="lazy" /> : <Package className="h-8 w-8 text-gray-300" aria-hidden="true" />}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="flex items-center gap-2">
+              <span className="text-base font-bold text-gray-900">{name}</span>
+              <PreorderBadge productId={p.id} />
+            </span>
+            <span className="block text-sm leading-snug text-gray-500" data-testid="pepita-card-why">{firstSentence(why, 80)}</span>
+            {buyable && (
+              <span className="mt-2 flex items-center gap-3">
+                {sizeSelect}
+                {priceTag}
+              </span>
+            )}
+          </span>
+        </div>
+      ) : (
       <button
         ref={headerRef}
         type="button"
@@ -117,29 +167,26 @@ export default function PepitaProductCard({
         data-testid="pepita-card-toggle"
         className="flex w-full min-h-[44px] items-center gap-2.5 rounded-t-xl px-2 py-1.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
       >
-        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
-          {image && <img src={image} alt="" width={40} height={40} className="h-full w-full object-contain p-0.5" loading="lazy" />}
+        <span data-testid="pepita-card-image" className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+          {image ? <img src={image} alt="" width={40} height={40} className="h-full w-full object-contain p-0.5" loading="lazy" /> : <Package className="h-5 w-5 text-gray-300" aria-hidden="true" />}
         </span>
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-2">
             <span className="truncate text-sm font-semibold text-gray-900">{name}</span>
             <PreorderBadge productId={p.id} />
-            {typeof price === "number" && (
-              <span className="ml-auto shrink-0 text-sm font-bold text-orange-600" data-testid="pepita-card-price">
-                ${price.toFixed(2)}
-              </span>
-            )}
+            {variant === "card" && priceTag}
           </span>
-          <span className="block truncate text-xs leading-snug text-gray-600" data-testid="pepita-card-why">
+          <span className={`block text-xs leading-snug text-gray-600 ${variant === "row" ? "line-clamp-2" : "truncate"}`} data-testid="pepita-card-why">
             {firstSentence(why, 160)}
           </span>
         </span>
         <span className="-mr-1 flex h-11 w-11 flex-shrink-0 items-center justify-center" aria-hidden="true">
-          <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${open ? "rotate-180" : ""}`} />
+          {variant === "row" ? <ChevronRight className={`h-5 w-5 text-gray-500 transition-transform ${open ? "rotate-90" : ""}`} /> : <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${open ? "rotate-180" : ""}`} />}
         </span>
       </button>
+      )}
 
-      <div id={panelId} hidden={!open} className="border-t border-gray-100 px-3 py-2 text-xs text-gray-700" data-testid="pepita-card-details">
+      <div id={panelId} hidden={!open || variant === "hero"} className="border-t border-gray-100 px-3 py-2 text-xs text-gray-700" data-testid="pepita-card-details">
         <dl className="space-y-1.5">
           {tissue && (
             <div>
@@ -203,28 +250,11 @@ export default function PepitaProductCard({
         </dl>
       </div>
 
-      <div className="flex min-w-0 items-center gap-1.5 border-t border-gray-100 px-2 py-1" data-testid="pepita-card-buy">
+      {(variant !== "row" || open) && (
+      <div className={`flex min-w-0 items-center gap-1.5 ${variant === "hero" ? "px-3 pb-3" : "border-t border-gray-100 px-2 py-1"}`} data-testid="pepita-card-buy">
+        {variant === "row" && priceTag}
         <div className="flex shrink-0 items-center gap-1.5">
-          {buyable && options.length > 1 && (
-            <>
-              <label htmlFor={selectId} className="sr-only">
-                Size for {name}
-              </label>
-              <select
-                id={selectId}
-                value={chosen}
-                onChange={e => setSize(e.target.value as CartSize)}
-                data-testid="pepita-card-size"
-                className="h-11 min-w-[44px] rounded-lg border border-gray-200 bg-white px-1.5 text-base text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 sm:text-sm"
-              >
-                {options.map(o => (
-                  <option key={o.variantId ?? o.size} value={o.size}>
-                    {o.label.replace(/\s*capsules?$/i, " caps").replace(/\s*tablets?$/i, " tabs")}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
+          {variant !== "hero" && sizeSelect}
         </div>
         <div className="flex flex-1 items-center gap-1.5">
           {buyable ? (
@@ -241,9 +271,9 @@ export default function PepitaProductCard({
               ) : status === "added" ? (
                 <Check className="h-4 w-4" aria-hidden="true" />
               ) : (
-                <ShoppingCart className="hidden h-4 w-4 min-[400px]:block" aria-hidden="true" />
+                <ShoppingCart className={`h-4 w-4 ${variant === "hero" ? "" : "hidden min-[400px]:block"}`} aria-hidden="true" />
               )}
-              {status === "added" ? <span data-testid="pepita-card-added">Added</span> : state === "preorder" ? "Pre-order" : "Add"}
+              {status === "added" ? <span data-testid="pepita-card-added">Added</span> : state === "preorder" ? "Pre-order" : variant === "hero" ? "Add to Cart" : "Add"}
             </button>
           ) : (
             <span className="inline-flex h-11 flex-1 items-center text-sm text-gray-500" data-testid="pepita-card-unavailable">
@@ -262,6 +292,7 @@ export default function PepitaProductCard({
           {status === "added" ? `${name} added to cart` : ""}
         </span>
       </div>
+      )}
     </div>
   );
 }

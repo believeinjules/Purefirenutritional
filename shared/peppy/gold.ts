@@ -39,6 +39,9 @@ export interface GoldAnswer {
   protocols?: ProtocolTimeline[];
   /** Dosing questions: compact facts block shown before any product card. */
   dosingFacts?: DosingFacts;
+  layout?: "dosing" | "protocol" | "symptom";
+  accordions?: { icon: "info" | "book" | "shield" | "help" | "doctor"; title: string; body: string }[];
+  supportive?: string[];
   /** Extra contextual follow-up (0–2 total). */
   followUp2?: string;
 }
@@ -58,7 +61,7 @@ export const CARDIO_COURSE: ProtocolTimeline = {
   id: "cardio-4-month",
   name: "Four-month heart and blood-vessel course",
   goal: "Support for the heart muscle and blood vessels",
-  source: `Julia's brief, checked against ${CAP_2025}, “Atherosclerosis, arterial hypertension, cardiopsychoneurosis”, p. 6`,
+  source: `Adapted from ${CAP_2025}, cardiovascular section, p. 6 (differences noted per month)`,
   duration: "4 months",
   includes: ["Revilab SL 01", "Revilab SL 03", "Revilab ML 04", "Ventfort", "Chelohart", "Olecap", "Canacor", "Vedomir"],
   note: "Manufacturer-published educational reference, not a clinically validated regimen. The source writes it for people with diagnosed cardiovascular conditions. Course schedules can differ from each product's label.",
@@ -88,7 +91,7 @@ export const MENOPAUSE_COURSE: ProtocolTimeline = {
   id: "menopause-2-month",
   name: "Women's menopause-transition course",
   goal: "Support for the female reproductive and neuroendocrine systems",
-  source: `Julia's brief, checked against ${CAP_2025}, “Climacteric syndrome”, p. 62`,
+  source: `Adapted from ${CAP_2025}, reproductive system section, p. 62 (differences noted per month)`,
   duration: "2 months",
   includes: ["Revilab SL 10", "Revilab ML 08"],
   note: "Manufacturer-published educational reference, not a clinically validated regimen. Course schedules can differ from each product's label.",
@@ -174,8 +177,13 @@ export const GOLD: GoldAnswer[] = [
     patterns: [/\bhow (?:do|should|can) i take endoluten\b|\bendoluten\b.*\b(dos\w*|how (?:much|many|often|to take)|directions|schedule)\b|\b(dos\w*|how (?:much|many|often))\b.*\bendoluten\b/i],
     summary: "Endoluten is a pineal gland peptide complex studied for supporting the gland's own melatonin rhythm, rather than adding melatonin. It is not taken daily.",
     dosingFacts: { product: "Endoluten", dose: "1 capsule every 3 days", timing: "In the morning or at midday", course: "20 days to 2 months", source: "Manufacturer directions (peptid.ru); the 20- and 60-capsule packs are the same complex" },
-    products: [{ id: "endoluten", relevance: "Pineal gland peptide complex." }],
-    sourceIds: [],
+    products: [{ id: "endoluten", relevance: "Pineal gland peptide complex" }],
+    sourceIds: ["topic:sleep"],
+    accordions: [
+      { icon: "info", title: "What is Endoluten?", body: "A natural peptide complex (Cytomax A-8) from the pineal gland, the gland that releases melatonin at night. It contains no melatonin. The 20- and 60-capsule packs are the same complex in different quantities." },
+      { icon: "book", title: "Research and potential benefits", body: "Researchers have investigated pineal peptides for supporting the gland's own melatonin rhythm, mostly in small studies of injectable extracts in older adults. Endoluten itself has no published human trials." },
+      { icon: "shield", title: "Safety and considerations", body: "Not taken daily: 1 capsule every 3 days. Check with your doctor first if you take medicines (including sleep or hormone medicines), have a hormone-sensitive condition, or are pregnant or breastfeeding." },
+    ],
     chips: [],
   },
   {
@@ -204,17 +212,20 @@ export const GOLD: GoldAnswer[] = [
   {
     id: "vertigo", level: "show", intent: "red-flag",
     patterns: [/\b(vertigo|off[- ]balance|balance (?:problems?|issues?)|(?:feel(?:ing)?|get(?:ting)?) dizzy|dizziness|unsteady)\b/i],
-    summary: "Vertigo and balance problems have many causes, from the inner ear to blood pressure or medicines, so have a doctor find the reason first. Call 911 for sudden severe vertigo with headache, weakness, numbness, slurred speech or vision loss. Some peptides target the brain, nerves and blood vessels involved in balance.",
+    summary: "Vertigo and balance problems have many causes, so it's important to work with a healthcare provider to find the reason. Some peptides target the brain, nerves and blood vessels involved in balance.",
     products: [
-      { id: "cerluten", relevance: "Brain and nervous system peptide complex." },
-      { id: "ventfort", relevance: "Blood-vessel peptide complex (microcirculation)." },
-      { id: "pinealon", relevance: "Brain peptide complex (AC-5)." },
+      { id: "cerluten", relevance: "Brain and nervous system support" },
+      { id: "ventfort", relevance: "Vascular support (microcirculation)" },
+      { id: "pinealon", relevance: "Brain peptide, neuroregulation" },
     ],
     sourceIds: [],
     safety: MEDICAL_FIRST("See a doctor first", "Get balance problems checked before choosing a supplement."),
-    learnMore: [
-      { heading: "Other supportive approaches", body: "Hydration, regular sleep and stress management, and inner-ear (vestibular) exercises when a clinician recommends them." },
-      { heading: "When to see a doctor", body: "New, worsening or recurring vertigo, hearing loss or ringing in one ear, falls, or vertigo after a head injury." },
+    layout: "symptom",
+    supportive: ["Hydration and electrolyte balance", "Adequate sleep and stress management", "Inner ear and vestibular exercises (as recommended by a provider)"],
+    accordions: [
+      { icon: "help", title: "Common causes of vertigo", body: "Inner-ear problems (such as loose ear crystals or inflammation), migraine, blood-pressure changes, dehydration and some medicines. Less often, problems with blood flow to the brain." },
+      { icon: "book", title: "How these peptides may help", body: "Cerluten and Pinealon are brain peptide complexes researched for nerve-cell protection; Ventfort is a blood-vessel complex researched for vessel-wall cells. None has been studied for vertigo itself." },
+      { icon: "shield", title: "When to see a doctor", body: "New, worsening or recurring vertigo, hearing loss or ringing in one ear, falls, or vertigo after a head injury. Call 911 for sudden severe vertigo with headache, weakness, numbness, slurred speech or vision loss." },
     ],
     followUp: "Is it spinning, or feeling unsteady?",
     chips: [],
@@ -224,13 +235,19 @@ export const GOLD: GoldAnswer[] = [
     patterns: [/\b(can'?t|cannot|trouble|problems?|struggl\w*|hard to)\b.{0,15}\bsleep\w*\b|\binsomnia\b|\bsleep (?:better|well|poorly|badly|support)\b|\bwak(?:e|ing) up (?:at night|a lot|often)\b/i],
     summary: "Endoluten is our closest match: researchers have investigated pineal peptides for supporting the gland's own melatonin rhythm, rather than adding melatonin. Pinealon is a secondary option aimed at the brain and nervous system.",
     products: [
-      { id: "endoluten", relevance: "Pineal gland complex studied for the melatonin rhythm." },
-      { id: "pinealon", relevance: "Brain peptide complex; direct sleep evidence is limited." },
+      { id: "endoluten", relevance: "Pineal gland, melatonin rhythm" },
+      { id: "pinealon", relevance: "Brain peptide, neuroregulation" },
     ],
     sourceIds: ["topic:sleep"],
     followUp: "Is it falling asleep or waking at night?",
     chips: ["How do I take Endoluten?", "Endoluten vs Pinealon", "Is it the same as melatonin?"],
-    learnMore: [{ heading: "Endoluten vs melatonin", body: "A melatonin supplement adds the hormone directly. Endoluten contains no melatonin; the idea researchers have investigated is a slower effect on the pineal gland's own function, based on small melatonin-level studies rather than sleep trials." }],
+    layout: "symptom",
+    supportive: ["A regular sleep and wake time, with morning daylight", "A dark, cool bedroom and less screen light late in the evening", "Limiting caffeine after midday and alcohol near bedtime"],
+    accordions: [
+      { icon: "help", title: "Common causes of poor sleep", body: "Stress, irregular schedules, late light exposure, caffeine or alcohol, pain, and some medicines. Snoring with daytime sleepiness can point to sleep apnea." },
+      { icon: "book", title: "How these peptides may help", body: "A melatonin supplement adds the hormone directly. Endoluten contains no melatonin; researchers have investigated a slower effect on the pineal gland's own rhythm, in small melatonin-level studies rather than sleep trials. Pinealon targets the brain and nervous system." },
+      { icon: "shield", title: "When to see a doctor", body: "Poor sleep for more than a few weeks, loud snoring or gasping at night, or daytime sleepiness that affects driving or work." },
+    ],
   },
   {
     id: "joints", level: "show", intent: "symptom",
@@ -355,7 +372,7 @@ export const GOLD: GoldAnswer[] = [
   {
     id: "heart-menopause", level: "deep", intent: "protocol",
     patterns: [/\b(heart|cardio\w*|vascular)\b.*\b(menopaus\w*|women)\b|\b(menopaus\w*)\b.*\b(heart|cardio\w*|vascular)\b/i],
-    summary: "Here are the two manufacturer-published courses: a four-month heart and blood-vessel course and a two-month menopause-transition course. Each is shown as briefed, with notes where it differs from the published source. They're educational references, not clinically validated regimens.",
+    summary: "Here are two courses based on the manufacturer's published protocols: a four-month heart and blood-vessel course and a two-month menopause-transition course. Where a month differs from the published source, it shows a note. They're educational references, not clinically validated regimens.",
     products: [],
     sourceIds: [],
     protocols: [CARDIO_COURSE, MENOPAUSE_COURSE],
@@ -365,7 +382,7 @@ export const GOLD: GoldAnswer[] = [
   {
     id: "cardio-four-month", level: "deep", intent: "protocol",
     patterns: [/\b(full|whole|complete|4|four)[- ]?(month)?\b.{0,15}\b(month|course|protocol)\b.{0,25}(cardio|heart|vascular)?|\bfour[- ]month\b|\b4[- ]month\b|\bheart\b.{0,20}\b(protocol|course)\b/i],
-    summary: "Here is the four-month heart and blood-vessel course, month by month. It follows the course as briefed; where it differs from the published source, the month shows a note. It's an educational reference written for people with diagnosed conditions, not a validated regimen.",
+    summary: "Here is the four-month heart and blood-vessel course, month by month. Where a month differs from the manufacturer's published source, it shows a note. It's an educational reference written for people with diagnosed conditions, not a validated regimen.",
     products: [],
     sourceIds: [],
     protocols: [CARDIO_COURSE],
@@ -447,6 +464,9 @@ export function goldResponse(
     learnMore: g.learnMore,
     protocols,
     dosingFacts: g.dosingFacts,
+    layout: g.layout ?? (g.dosingFacts ? "dosing" : g.protocols?.length ? "protocol" : undefined),
+    accordions: g.accordions,
+    supportive: g.supportive,
     followUps: [g.followUp, g.followUp2].filter((x): x is string => !!x).slice(0, 2),
     suggestions: [],
     products,
