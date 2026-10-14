@@ -158,6 +158,20 @@ export default function PepitaProductCard({
               {directions ?? "Not verified yet; see the label on the product page."}
             </dd>
           </div>
+          {suggestion.alternatives && suggestion.alternatives.length > 0 && (
+            <div>
+              <dt className="font-medium text-gray-900">Other course schedules (educational, not the label)</dt>
+              <dd>
+                <ul className="space-y-0.5" data-testid="pepita-card-alternatives">
+                  {suggestion.alternatives.map(a => (
+                    <li key={a.text}>
+                      {a.text} <span className="text-gray-500">({a.kind})</span>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          )}
           {research.length > 0 && (
             <div>
               <dt className="font-medium text-gray-900">Related research</dt>

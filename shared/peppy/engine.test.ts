@@ -73,7 +73,7 @@ describe("deterministic answers", () => {
   });
   it("gives manufacturer directions for dosage questions", () => {
     const r = ask("how do I take Ensil?");
-    expect(r.summary).toMatch(/manufacturer's directions for Ensil: Adults take 1 capsule 3 times a day, with meal/);
+    expect(r.summary).toMatch(/manufacturer's directions for Ensil: Adults: 1 capsule 3 times a day with meals/);
     expect(r.summary).toMatch(/not results from clinical trials/);
     // Unverified products get no generic template.
     expect(ask("how do I take Calsil-T?").summary).toMatch(/haven't been verified/);

@@ -1,4 +1,5 @@
 import { isHiddenProduct } from "../../../shared/hidden-products.js";
+import { applyProductFacts } from "../../../shared/product-facts.js";
 
 export interface ProductVariant {
   id: string;
@@ -40,8 +41,8 @@ export interface Product {
   coaUrl?: string;
 }
 
-/** Full code catalog, including hidden products (data checks / admin import only). */
-export const allProducts: Product[] = [
+/** Usage and ingredients come from shared/product-facts.json (one source for store + Pepita). */
+const catalogProducts: Product[] = [
   {
     id: "bonomarlot",
     image: "/products/Banomarlot.png",
@@ -54,8 +55,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Restoring hematopoietic function", "Blood cell production (red cells, platelets, white cells)", "Low-quality nutrition effects recovery", "Immune system support"],
-    ingredients: ["Bone marrow peptide complex (A-20)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format (2 caps twice daily for 30 days).",
     seriesInfo: "Recommended combination: Vladonix + Svetinorm + Endoluten + Bonomarlot for detox/immune recovery protocols. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -87,8 +86,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports healthy cartilage and connective tissue metabolism", "Supports the health of cartilage tissue", "Supports connective tissue health", "Supports the body's natural connective-tissue recovery processes", "Supports healthy cartilage cell function", "Vegan compatible (fully synthesized)"],
-    ingredients: ["Cartilage peptide complex AC-4 (Ala-Glu-Asp / AED tripeptide)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
     seriesInfo: "Recommended combination: Cartalax + Vesugen + Crystagen for the cytogen locomotor apparatus protocol. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — developed by the St. Petersburg Institute of Bioregulation and Gerontology. Because they are synthesized rather than extracted, Cytogens provide faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
@@ -120,8 +117,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Myocardial cell support", "Cardiomyocyte metabolism normalization", "Supports healthy cardiovascular function"],
-    ingredients: ["Heart muscle peptide complex (A-14)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial. Intensive: N60 format.",
     seriesInfo: "Recommended combination: Ventfort + Chelohart + Vladonix for the cardiovascular system protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
   ,
     variants: [
@@ -153,8 +148,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["T-cell, B-cell, and NK cell activation", "Macrophage stimulation", "Antioxidant and stress-protective effects", "Supports healthy immune system function", "Supports the body's natural detoxification processes", "Crystagen is believed to support normal immune function, and researchers have investigated short peptides for their role in immune balance."],
-    ingredients: ["Thymus peptide complex (AC-6)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Recommended combinations: Ovagen + Vesugen + Crystagen (digestive protocol); Crystagen + Pinealon + Vesugen (CNS protocol). Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — providing faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
@@ -186,8 +179,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Most foundational Khavinson longevity peptide", "Melatonin secretion normalization", "Cyclic processes regulation", "Healthy aging of the pineal gland — studied as a geroprotector", "Reproductive system regulation", "Immune system support", "Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging.", "Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help."],
-    ingredients: ["Pineal gland peptide complex (A-8)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format.",
     seriesInfo: "Vladonix + Endoluten is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -219,8 +210,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports muscle strength", "Supports endurance during physical activity", "Supports recovery from muscle fatigue", "Supports muscle reserve capacity", "Supports the maintenance of healthy muscle tissue", "Non-hormonal muscle mass support", "Not classified as doping"],
-    ingredients: ["Muscle peptide complex (A-18)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial. Intensive: N60 (2 caps twice daily for 30 days).",
     seriesInfo: "Recommended combination: Sigumir + Ventfort + Vladonix + Gotratix + Cerluten for physical activity protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -252,8 +241,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports healthy kidney function", "Kidney cell metabolism normalization"],
-    ingredients: ["Kidney peptide complex (A-9)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Recommended combination: Vladonix + Chitomur + Pielotax for urinary system protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
   ,
     variants: [
@@ -285,7 +272,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Crosses blood-brain barrier", "Neuroplasticity activation", "Serotonin increase", "Neuroprotective antioxidant", "Myelin support", "Memory formation enhancement"],
-    usage: "1–2 capsules daily. Course: 1–2 months."
   },
   {
     id: "prime-peptide-collagen",
@@ -298,7 +284,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Formulated to support normal collagen and hyaluronic acid synthesis, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal cellular repair, drawing on peptide research the manufacturer has reported on.", "Skin firmness restoration", "Hair growth support", "Nail strength", "Formulated to support normal aging of skin and connective tissue, drawing on peptide research the manufacturer has reported on."],
-    usage: "1–2 capsules daily with meals. Course: 1–2 months."
   },
   {
     id: "prime-peptide-joints",
@@ -311,7 +296,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Formulated to support normal cartilage health, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal type II collagen synthesis, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal hyaluronic acid synthesis, drawing on peptide research the manufacturer has reported on.", "Joint pain and stiffness reduction", "Deep cartilage penetration", "COL2A1 gene activation"],
-    usage: "1–2 capsules daily with meals. Course: 1–2 months."
   },
   {
     id: "prime-peptide-omega",
@@ -324,7 +308,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["T-cell activation and differentiation", "Thymus structure restoration", "Formulated to support normal thymic growth, drawing on peptide research the manufacturer has reported on.", "Anti-inflammatory omega balance", "Cardiovascular support"],
-    usage: "1–2 capsules daily with meals. Course: 1–2 months."
   },
   {
     id: "prime-peptide-protect",
@@ -337,7 +320,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Formulated to support normal antioxidant protection, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal melatonin levels, drawing on peptide research the manufacturer has reported on.", "Formulated to support a normal, calm mood, drawing on peptide research the manufacturer has reported on."],
-    usage: "1–2 capsules daily with meals. Course: 1–2 months."
   },
   {
     id: "revilab-ml-01",
@@ -351,8 +333,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Antioxidant protection", "Cerebral circulation", "CNS function", "Immune balance", "Cardiovascular health", "Liver support", "Healthy aging — epiphysis peptide studied as a geroprotector"],
-    ingredients: ["Epiphysis peptide complex (AA-1)", "B-link immune peptide complex (AA-3)", "Liver peptide complex (AA-10)", "Resveratrol", "Choline bitartrate", "Omega-3 polyunsaturated fatty acids", "Vitamins E, A, C"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -367,8 +347,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Hematopoietic support", "Immune function", "Metabolic balance", "Toxin resistance", "Blood cell production"],
-    ingredients: ["T-link immune peptide complex (AA-2)", "B-link immune peptide complex (AA-3)", "Bone marrow peptide complex (AA-4)", "Liver peptide complex (AA-10)", "Omega-3 polyunsaturated fatty acids", "Vitamins E, B6, B9"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -383,8 +361,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Nervous system support", "Eye and retinal health", "Brain recovery", "Visual function", "Antioxidant protection", "Nerve metabolism"],
-    ingredients: ["Brain peptide complex (AA-5)", "Retina peptide complex (AA-6)", "Vascular wall peptide complex (AA-7)", "Astaxanthin", "Choline bitartrate", "Omega-3 polyunsaturated fatty acids", "Vitamins B1, B2, B6", "Marigold extract (lutein, zeaxanthin)"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -399,8 +375,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Cardiovascular health", "Vascular integrity", "Heart muscle support", "Circulation", "Cholesterol metabolism", "Antioxidant protection"],
-    ingredients: ["Epiphysis peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Heart muscle peptide complex (AA-8)", "Resveratrol", "Rutin", "Omega-3 polyunsaturated fatty acids", "Vitamin PP (Niacin)"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -415,8 +389,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Respiratory health", "Bronchial support", "Immune defense", "Lung tissue integrity", "Anti-inflammatory", "Antioxidant protection"],
-    ingredients: ["T-link immune peptide complex (AA-2)", "Bronchi peptide complex (AA-14)", "Lungs and stomach wall peptide complex (AA-15)", "Omega-3 polyunsaturated fatty acids", "Vitamins E, A", "Licorice root extract"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -431,8 +403,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Liver health", "Digestive support", "Pancreatic function", "Metabolic balance", "Detoxification", "Gastric mucosa protection"],
-    ingredients: ["Liver peptide complex (AA-10)", "Pancreas peptide complex (AA-11)", "Lungs and stomach wall peptide complex (AA-15)", "Omega-3 polyunsaturated fatty acids", "Licorice root extract", "Artichoke fruit extract", "Plantain leaves extract", "Strawberry leaves extract"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -447,8 +417,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Male reproductive health", "Hormonal balance", "Sperm motility", "Urinary health", "Testosterone support", "Vascular health"],
-    ingredients: ["Epiphysis peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Testes peptide complex (AA-12)", "Bladder peptide complex (AA-13)", "Omega-3 polyunsaturated fatty acids", "L-carnitine", "Zinc citrate"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -463,8 +431,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Female reproductive health", "Hormonal balance", "Bone and cartilage health", "Urinary function", "Neuroendocrine support", "Antioxidant protection"],
-    ingredients: ["Epiphysis peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Cartilage peptide complex (AA-9)", "Bladder peptide complex (AA-13)", "Omega-3 polyunsaturated fatty acids", "Resveratrol", "Arginine"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -479,8 +445,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Joint health", "Cartilage integrity", "Connective tissue support", "Anti-inflammatory", "Antioxidant defense", "Immune balance"],
-    ingredients: ["B-link immune peptide complex (AA-3)", "Vascular wall peptide complex (AA-7)", "Cartilage peptide complex (AA-9)", "Chondroitin sulfate", "Omega-3 polyunsaturated fatty acids", "Superoxide dismutase (SOD)", "Catalase", "Carnosine"],
-    usage: "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
     seriesInfo: "The Revilab ML series features multifunctional peptide capsules that take an all-in-one approach to healthy aging. Each capsule combines targeted short peptides (2–10 amino acids) with antioxidants, essential fatty acids, vitamins, and botanical extracts — all working together to support natural organ function, maintain metabolic balance, and assist the body's recovery processes. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, these formulas are designed to support various internal systems including the nervous, immune, cardiovascular, respiratory, gastrointestinal, reproductive, and musculoskeletal systems."
   },
   {
@@ -536,8 +500,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Cardiovascular support", "Heart muscle health", "Vascular integrity", "Rapid sublingual absorption", "Antioxidant protection", "Circulation support"],
-    ingredients: ["Vascular wall peptide complex (AA-7)", "Cardiac muscle peptide complex (AA-8)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -552,8 +514,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Nervous system support", "Eye and retinal health", "Cerebral circulation", "Visual comfort", "Rapid absorption", "Neuroprotection"],
-    ingredients: ["Brain peptide complex (AA-5)", "Retina peptide complex (AA-6)", "Vascular wall peptide complex (AA-7)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -568,8 +528,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Immune regulation", "Neuroendocrine balance", "Biological rhythm support", "T-cell and B-cell function", "Rapid absorption", "Antioxidant defense"],
-    ingredients: ["Pineal gland peptide complex (AA-1)", "T-cell immune peptide complex (AA-2)", "B-cell immune peptide complex (AA-3)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -584,8 +542,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Joint health", "Muscle support", "Cartilage maintenance", "Bone health", "Rapid absorption", "Anti-inflammatory"],
-    ingredients: ["B-cell immune peptide complex (AA-3)", "Cartilage peptide complex (AA-9)", "Muscle peptide complex (AA-17)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -600,8 +556,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Liver health", "Pancreatic support", "Digestive function", "Detoxification", "Gastric mucosa protection", "Rapid absorption"],
-    ingredients: ["Liver peptide complex (AA-10)", "Pancreas peptide complex (AA-11)", "Lungs and stomach wall peptide complex (AA-15)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -616,8 +570,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Respiratory health", "Bronchial support", "Lung tissue integrity", "Immune defense", "Rapid absorption", "Anti-inflammatory"],
-    ingredients: ["B-cell immune peptide complex (AA-3)", "Bronchi peptide complex (AA-14)", "Lungs and stomach wall peptide complex (AA-15)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -632,8 +584,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Hematopoietic support", "Blood cell production", "Immune function", "Energy metabolism", "Nerve health", "Rapid absorption"],
-    ingredients: ["B-cell immune peptide complex (AA-3)", "Bone marrow peptide complex (AA-4)", "Vascular wall peptide complex (AA-7)", "Folic acid (calcium L-methylfolate)", "Vitamin B12 (cobalamin)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -648,8 +598,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Urinary tract health", "Bladder support", "Immune defense", "Vascular health", "Rapid absorption", "Tissue comfort"],
-    ingredients: ["T-cell immune peptide complex (AA-2)", "Vascular wall peptide complex (AA-7)", "Bladder peptide complex (AA-13)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -664,8 +612,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Male reproductive health", "Prostate support", "Hormonal balance", "Testicular function", "Urinary health", "Rapid absorption"],
-    ingredients: ["Pineal gland peptide complex (AA-1)", "Testes peptide complex (AA-12)", "Bladder peptide complex (AA-13)", "Prostate peptide complex (AA-16)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -680,8 +626,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Male reproductive health", "Sperm motility", "Testosterone support", "Testicular function", "Hormonal balance", "Vitality"],
-    ingredients: ["Testicular peptide complex (A-13)"],
-    usage: "Prevention: 1 capsule twice daily with meals for 30 days. Repeat every 4–6 months.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Each Cytomax contains a tissue-specific peptide complex that acts as a biological messenger, signaling the corresponding organ's cells to normalize their metabolism and restore functional activity. Effects last 4–6 months per course."
   ,
     variants: [
@@ -714,8 +658,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal parathyroid gland function", "Supports the body's normal calcium balance", "Natural parathyroid peptide complex (A-21)"],
-    ingredients: ["Parathyroid gland peptide complex A-21 (natural extract)"],
-    usage: "Adults: 1–2 capsules 2 times a day with meals. Duration of course: 1 month. The course can be repeated after 3–6 months.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -747,8 +689,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal brain cell metabolism", "Supports normal nervous-system function", "Natural brain peptide complex (A-5)"],
-    ingredients: ["Brain peptide complex A-5 (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -780,8 +720,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal bladder function", "Supports normal urinary function", "Natural bladder peptide complex (A-12)"],
-    ingredients: ["Bladder peptide complex A-12 (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -813,7 +751,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson Cytogen"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
     seriesInfo: "Cytogens are synthesized copies of key short peptides, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -845,7 +782,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal adrenal function", "Supports the body's normal stress response", "Khavinson Cytomax"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -877,7 +813,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal prostate function", "Supports normal male reproductive function", "Khavinson Cytomax"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -901,15 +836,14 @@ export const allProducts: Product[] = [
     id: "ovagen",
     name: "Ovagen",
     image: "/products/ova1.jpg",
-    imageAlt: "Ovagen liver peptide bioregulator",
-    description: "Ovagen® is a Khavinson Cytogen: a synthesized liver peptide complex (AC-3; leucine, glutamic acid, aspartic acid). Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Ovagen is believed to support normal liver function. Available in 20-capsule and 60-capsule formats.",
+    imageAlt: "Ovagen liver and digestive peptide bioregulator",
+    description: "Ovagen® is a Khavinson Cytogen: a synthesized liver peptide complex (AC-3; leucine, glutamic acid, aspartic acid) for the liver and digestive tract. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Ovagen is believed to support normal liver function and the normal work of the digestive tract. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Is believed to support normal liver function", "Supports normal liver cell metabolism", "Khavinson Cytogen"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    benefits: ["Is believed to support normal liver function", "Supports normal digestive function", "Khavinson Cytogen"],
     seriesInfo: "Cytogens are synthesized copies of key short peptides, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -934,14 +868,13 @@ export const allProducts: Product[] = [
     name: "Pinealon",
     image: "/products/pinealon.jpg",
     imageAlt: "Pinealon brain peptide bioregulator",
-    description: "Pinealon® is a Khavinson Cytogen: a synthesized brain-cortex peptide complex (AC-5; arginine, glutamic acid, aspartic acid, the amino acids of the EDR tripeptide). Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Pinealon is believed to support normal brain function and everyday cognition. Available in 20-capsule and 60-capsule formats.",
+    description: "Pinealon® is a Khavinson Cytogen: a synthesized brain peptide complex (AC-5; arginine, glutamic acid, aspartic acid), formulated for the brain and central nervous system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Pinealon is believed to support normal brain function and everyday cognition. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal brain cell metabolism", "Supports normal cognitive function", "Khavinson Cytogen"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
     seriesInfo: "Cytogens are synthesized copies of key short peptides, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -973,8 +906,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal cartilage and bone tissue function", "Supports normal joint and spine function", "Natural cartilage and bone peptide complex (A-4)", "Natural-extract counterpart to Cartalax"],
-    ingredients: ["Cartilage and bone peptide complex A-4 (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson. Sigumir (natural cartilage and bone extract) and Cartalax (the synthesized AED cartilage tripeptide) both focus on cartilage; they differ in source and formulation.",
     variants: [
       {
@@ -1010,8 +941,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal stomach function", "Supports normal digestion", "Natural stomach peptide complex"],
-    ingredients: ["Stomach peptide complex (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -1043,8 +972,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal pancreatic function", "Supports normal digestion", "Natural pancreas peptide complex (A-1)"],
-    ingredients: ["Pancreas peptide complex A-1 (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -1076,8 +1003,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal liver cell metabolism", "Supports normal liver function", "Natural liver peptide complex (A-7)"],
-    ingredients: ["Liver peptide complex A-7 (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -1109,7 +1034,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal bronchial function", "Supports normal lung function", "Khavinson Cytomax"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -1141,8 +1065,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Is believed to support normal ovarian function", "Supports female reproductive health", "Natural ovarian peptide complex (A-15)"],
-    ingredients: ["Ovarian peptide complex A-15 (natural extract)"],
-    usage: "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
     seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific organs and tissues, developed under Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology.",
     variants: [
       {
@@ -1172,8 +1094,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Most universally recommended peptide bioregulator", "Supports healthy cardiovascular function", "Supports healthy blood vessels", "Supports healthy vein function", "Include in every peptide protocol"],
-    ingredients: ["Vascular peptide complex (A-3)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Include Ventfort in every peptide protocol. Recommended combination: Ventfort + Chelohart + Vladonix for cardiovascular system. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -1205,8 +1125,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports healthy blood vessels", "Microcirculation improvement", "Supports healthy vein function", "Supports healthy cardiovascular function", "Lymphatic vessel normalization"],
-    ingredients: ["Vascular peptide complex (AC-2)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Universal cytogen — appears in all major protocol stacks. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — providing faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
@@ -1237,8 +1155,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Visual organ restoration", "Retina, ciliary muscle, and conjunctiva support"],
-    ingredients: ["Eye tissue peptide complex (A-11)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Recommended combination: Visoluten + Cerluten + Ventfort for visual organ support protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -1269,8 +1185,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Most foundational immune peptide", "Thymalin analog", "Supports healthy immune system function", "Supports the body's natural detoxification processes", "Commonly paired with Endoluten in healthy-aging protocols"],
-    ingredients: ["Thymus peptide complex (A-6)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
     seriesInfo: "Endoluten + Vladonix is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -1308,15 +1222,6 @@ export const allProducts: Product[] = [
       "Deep moisturization",
       "Tightens facial oval"
     ],
-    ingredients: [
-      "Matrixyl® synthe'6™ (palmitoyl tripeptide-38)",
-      "Progeline™ (acetyl tripeptide-2)",
-      "Liftessense™ (Cyathea cumingii extract)",
-      "Low molecular weight hyaluronic acid",
-      "CO2 pomegranate extract",
-      "Evening primrose oil"
-    ],
-    usage: "Apply a few drops to clean skin on face, neck, and décolleté. Use 1-2 times daily. For best results, use regularly for 28-30 days, 3-4 times per year."
   },
   {
     id: "revilab-sl-10",
@@ -1330,8 +1235,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Female reproductive health", "Hormonal cycle regulation", "Menopausal support", "Neuroendocrine balance", "Urinary health", "Rapid absorption"],
-    ingredients: ["Pineal gland peptide complex (AA-1)", "Vascular wall peptide complex (AA-7)", "Bladder peptide complex (AA-13)", "Licorice extract", "Propolis extract", "Mint extract", "Essential oils of chamomile and clove", "Dihydroquercetin"],
-    usage: "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -1352,14 +1255,6 @@ export const allProducts: Product[] = [
       "Strong antioxidant protection",
       "Normalizes cellular metabolism"
     ],
-    ingredients: [
-      "Carnosine (beta-alanyl-L-histidine)",
-      "Astaxanthin (100x more effective than vitamin E)",
-      "Alpha-lipoic acid (vitamin N)",
-      "Rosemary extract",
-      "Taurine"
-    ],
-    usage: "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year.",
     seriesInfo: "The Revilab Preparation series represents advanced nutraceuticals developed for anti-aging and systemic support. Each product is enriched with active components that work at the cellular level to support internal restoration, slow aging processes, normalize organ and system functions, balance metabolism, and activate detoxification pathways. For enhanced rejuvenating effects, these products are recommended for combined use."
   },
   {
@@ -1373,7 +1268,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Formulated for the lungs and bronchi", "Supports normal breathing", "Iceland moss, thyme and liquorice root", "Herbal liquid in a red grape juice base"],
-    usage: "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after.",
   },
   {
     id: "volustom",
@@ -1399,7 +1293,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Gut microbiome support", "Immune activation"],
-    usage: "Chew 1 truffle thoroughly per day for 6–12 days. Wash down with water. Honey may be added to reduce bitterness."
   },
   {
     id: "gelmigon",
@@ -1448,8 +1341,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Immune regulation", "Cell proliferation control", "Antioxidant protection", "Hormone balance"],
-    ingredients: ["Indole-3-carbinol", "Broccoli extract", "Coenzyme Q10", "Superoxide dismutase", "Catalase", "Milky white iris grass extract"],
-    usage: "Take 1-2 tablets once daily before meals. Prophylactic course: minimum 1 month. Therapeutic course: 2 months or more."
   },
   {
     id: "calsil-t",
@@ -1474,8 +1365,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Cellular detoxification", "Oxidative stress reduction", "Anti-glycation", "Hepatoprotective action", "Immunoprotection", "Anti-inflammatory", "DNA protection"],
-    ingredients: ["Ascorbyl palmitate (Vitamin C)", "Selenium yeast", "L-cysteine", "Dihydroquercetin", "Catalase", "Vitamin E", "Barley sprout extract", "Retinol palmitate (Vitamin A)", "Glutathione"],
-    usage: "Take 1 capsule daily with meals. Duration: 4–6 weeks. Course may be repeated throughout the year."
   },
   {
     id: "complex-3r",
@@ -1488,8 +1377,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Antioxidant defense", "Cardiovascular protection", "Immune restoration", "Anti-inflammatory", "Cholesterol regulation", "Geroprotective action"],
-    ingredients: ["Dihydroquercetin", "Resveratrol", "Coenzyme Q10"],
-    usage: "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
   },
   {
     id: "levain",
@@ -1526,7 +1413,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Hormonal balance", "Estrogen regulation", "Menopause symptom relief", "PMS prevention", "Antioxidant protection", "Skin, hair and nail health", "Bone health"],
-    ingredients: ["Resveratrol", "Motherwort extract", "Mint extract", "Rosehip extract", "Nettle extract", "Knotweed extract", "Hops extract", "Laminaria extract", "Vitamin A", "Vitamin E", "Field horsetail extract", "Juglans regia pericarp extract"]
   },
   {
     id: "mesotel",
@@ -1587,7 +1473,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Supports normal visual function", "Helps the eyes cope with intensive visual work", "Lutein, astaxanthin and blueberry with the AA-6 peptide complex", "Supports eye tissues during age-related changes"],
-    usage: "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed.",
   },
   {
     id: "pangluin",
@@ -1612,8 +1497,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Blood pressure normalization", "Endothelium protection", "Cholesterol reduction", "Antioxidant defense", "Cognitive protection"],
-    ingredients: ["Hesperidin (citrus bioflavonoid)", "Niacinamide (Vitamin B3/PP)"],
-    usage: "Take 1 tablet per day during meals. Course duration: 4–6 weeks."
   },
   {
     id: "revimite",
@@ -1626,7 +1509,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Iron and B-vitamin replenishment", "Hematopoietic support", "Antioxidant protection", "Stress resilience", "Immune modulation", "Brain and nervous system support", "Energy restoration"],
-    ingredients: ["Pomegranate extract", "Green tea extract", "Echinacea extract", "Oat extract", "Grape seed extract", "Ginger extract", "Soy extract", "Iron", "B vitamins (B1, B6, B12)", "Soy lecithin"]
   },
   {
     id: "reviplant",
@@ -1664,7 +1546,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Immune fortification", "Liver recovery", "Hematopoiesis support", "Detoxification"],
-    ingredients: ["Shiitake mushroom extract", "Reishi mushroom extract", "Maitake mushroom extract", "Cordyceps extract", "Beta-glucans"]
   },
   {
     id: "regenart",
@@ -1773,8 +1654,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Immune defense", "Hormonal balance", "Mood and sleep improvement", "Blood sugar regulation", "Cholesterol reduction", "Skin health", "Antioxidant status restoration", "Longevity support"],
-    ingredients: ["Glycine (500mg)", "Zinc (8.6mg)", "Pyridoxine / Vitamin B6 (1.5mg)"],
-    usage: "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed."
   },
   {
     id: "ensil",
@@ -1787,8 +1666,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 1,
     benefits: ["Tissue respiration enhancement", "Cellular energy metabolism", "Immune fortification", "Hematopoietic support", "Antioxidant defense", "Hepatoprotective action", "Nervous system support"],
-    ingredients: ["Coenzyme Q10", "Nicotinamide (Vitamin PP)", "Folic acid", "Echinacea extract", "Succinic acid (amber acid)", "L-carnitine", "Vitamins B1, B5, B6", "Vitamins C and E"],
-    usage: "Take 1 capsule 3 times daily with meals. Course duration: 1 month."
   },
   {
     id: "anti-age-nb-activity",
@@ -1826,8 +1703,6 @@ export const allProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Thyroid function restoration", "Female hormonal health", "Metabolic normalization"],
-    ingredients: ["Thyroid gland peptide complex (A-2)"],
-    usage: "1–2 capsules 1–2 times daily with meals. Course: 10–30 days. Repeat in 4–6 months.",
     seriesInfo: "Recommended combination: Zhenoluten + Thyreogen + Ventfort for female health. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson.",
     variants: [
       {
@@ -1873,6 +1748,9 @@ export const allProducts: Product[] = [
     seriesInfo: "GPL Man contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Pancreatic, Testicular) plus alpha-lipoic acid for comprehensive male health restoration."
   },
 ];
+
+/** Full code catalog, including hidden products (data checks / admin import only). */
+export const allProducts: Product[] = catalogProducts.map(applyProductFacts);
 
 /** Storefront catalog: everything except products hidden in shared/hidden-products.ts. */
 export const products: Product[] = allProducts.filter((p) => !isHiddenProduct(p));

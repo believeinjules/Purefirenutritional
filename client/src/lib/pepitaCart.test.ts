@@ -71,7 +71,7 @@ describe("Pepita answer length", () => {
     expect(r.products[0].product.id).toBe("endoluten");
     expect(r.products.map(p => p.product.id)).not.toContain("pinalex-tab");
     expect(text).not.toMatch(/capsule|every 3 days|Epitalon/i);
-    expect(r.products[0].protocol).toMatch(/once every 3 days/);
+    expect(r.products[0].protocol).toBeUndefined(); // Endoluten dosing on hold (facts file)
     expect(r.products[0].research?.length).toBeGreaterThan(0);
   });
 });

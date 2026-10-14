@@ -1,0 +1,4245 @@
+{
+ "_schema": "shared/product-facts.ts",
+ "_seeded": "2026-10-14 by scripts/seed-product-facts.py; edit this file directly from now on.",
+ "products": {
+  "bonomarlot": {
+   "id": "bonomarlot",
+   "name": "Bonomarlot",
+   "composition": [
+    "Bone marrow peptide complex (A-20)"
+   ],
+   "biologicalTarget": "hematopoietic (bone marrow)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "'Maintenance/Intensive' labels appear in no manufacturer document (needs approval to remove). Frequency conflict as for all Cytomaxes."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format (2 caps twice daily for 30 days).",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом. Препарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пеп\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/",
+     "type": "catalog",
+     "formulation": "bonomarlot",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    },
+    {
+     "url": "https://peptid.ru/catalog/",
+     "type": "catalog",
+     "formulation": "bonomarlot",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group",
+    "Maintenance/Intensive – Bonomarlot"
+   ]
+  },
+  "cartalax": {
+   "id": "cartalax",
+   "name": "Cartalax",
+   "composition": [
+    "Cartilage peptide complex AC-4 (Ala-Glu-Asp / AED tripeptide)"
+   ],
+   "biologicalTarget": "musculoskeletal (cartilage/joints)",
+   "manufacturerDirections": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
+    "status": "verified",
+    "options": [],
+    "note": "Verified against peptid.ru (Julia's 2026-10-13 resolution); peptideproduct.com prints 2×/day, 1 month."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": "Research note (literature, not the label): AED tripeptide.",
+   "contraindications": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Карталакс противопоказан при индивидуальной непереносимости компонентов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/citogeny/kartalaks/",
+     "type": "official-doc",
+     "formulation": "cartalax; 20/60 caps; Cytogen AC-4 (alanine, glutamic acid, aspartic acid)",
+     "quote": "'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в день во время еды. Длительность приема — 10–30 дней. Целесообразно проводить повторный курс через 4–6 месяцев.'",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; 10–30 days; repeat after 4–6 months."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group",
+    "Cartalax"
+   ]
+  },
+  "chelohart": {
+   "id": "chelohart",
+   "name": "Chelohart",
+   "composition": [
+    "Heart muscle peptide complex (A-14)"
+   ],
+   "biologicalTarget": "cardiovascular (heart muscle)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "'Maintenance/Intensive' labels appear in no manufacturer document (needs approval to remove). Frequency conflict as for all Cytomaxes."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial. Intensive: N60 format.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом. Препарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/",
+     "type": "catalog",
+     "formulation": "chelohart",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    },
+    {
+     "url": "https://peptid.ru/catalog/",
+     "type": "catalog",
+     "formulation": "chelohart",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group",
+    "Maintenance/Intensive – Chelohart"
+   ]
+  },
+  "crystagen": {
+   "id": "crystagen",
+   "name": "Crystagen",
+   "composition": [
+    "Thymus peptide complex (AC-6)"
+   ],
+   "biologicalTarget": "immune (thymus)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. При беременности и лактации рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytogens/crystagen/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "endoluten": {
+   "id": "endoluten",
+   "name": "Endoluten",
+   "composition": [
+    "Pineal gland peptide complex (A-8)"
+   ],
+   "biologicalTarget": "neuroendocrine (pineal)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "blocked",
+    "options": [
+     {
+      "text": "Adults: 1 capsule once every 3 days, in the morning or at midday. Average course: 20 days to 2 months.",
+      "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+     },
+     {
+      "text": "Adults: 1–2 capsules 2 times a day with meals; duration 1 month.",
+      "source": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/"
+     }
+    ],
+    "note": "Blocked: label vs manufacturer discrepancy; both sources recorded in options."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": "Researchers have investigated pineal peptide preparations for night-time melatonin in small studies.",
+   "limitations": "Studies used injectable extracts; Endoluten itself has no published human trials.",
+   "researchNote": "Research note: AEDG (Epitalon's sequence) was detected in the pineal polypeptide complex (mass spectrometry).",
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\" (individual intolerance, pregnancy, breastfeeding; consult a doctor)",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/",
+     "type": "official-doc",
+     "formulation": "endoluten; 20 & 60 caps x 0.215 g; Cytomax A-8 (pineal/epiphysis peptides)",
+     "quote": "'Эндолутен в капсулах. Взрослым старше 14 лет принимать по 1 капсуле 1 раз в 3 дня, в утреннее или обеденное время. Средняя продолжительность курса — от 20 дней до 2 месяцев.'",
+     "translation": "Endoluten capsules: Adults over 14: 1 capsule once every 3 days, in the morning or at midday. Average course: 20 days to 2 months."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/",
+     "type": "catalog",
+     "formulation": "endoluten",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    },
+    {
+     "url": "https://peptid.ru/catalog/",
+     "type": "catalog",
+     "formulation": "endoluten",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/",
+     "type": "official-doc",
+     "formulation": "endoluten 20/60 caps",
+     "quote": "1 or 2 capsules 2 times a day… Duration of use is 1 month (as quoted in audit v2)",
+     "translation": null
+    }
+   ],
+   "verificationStatus": "blocked",
+   "hold": "Endoluten dosing HOLD: peptid.ru capsule label (1 capsule once every 3 days, 20 days–2 months) vs peptideproduct.com (1–2 capsules 2×/day, 1 month); current page text stays until Julia decides.",
+   "auditRows": [
+    "Endoluten",
+    "1–2× vs 2× group",
+    "Maintenance/Intensive – Endoluten"
+   ]
+  },
+  "gotratix": {
+   "id": "gotratix",
+   "name": "Gotratix",
+   "composition": [
+    "Muscle peptide complex (A-18)"
+   ],
+   "biologicalTarget": "musculoskeletal (muscle)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "'Maintenance/Intensive' labels appear in no manufacturer document (needs approval to remove). Frequency conflict as for all Cytomaxes."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial. Intensive: N60 (2 caps twice daily for 30 days).",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/",
+     "type": "catalog",
+     "formulation": "gotratix",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    },
+    {
+     "url": "https://peptid.ru/catalog/",
+     "type": "catalog",
+     "formulation": "gotratix",
+     "quote": "No such protocol on either source",
+     "translation": "—"
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group",
+    "Maintenance/Intensive – Gotratix"
+   ]
+  },
+  "pielotax": {
+   "id": "pielotax",
+   "name": "Pielotax",
+   "composition": [
+    "Kidney peptide complex (A-9)"
+   ],
+   "biologicalTarget": "urinary (kidney)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/pielotax/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "prime-peptide-brain": {
+   "id": "prime-peptide-brain",
+   "name": "Prime Peptide Brain",
+   "composition": null,
+   "biologicalTarget": "brain/cognitive",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "status": "verified",
+    "options": [],
+    "note": "90-capsule SKU and IPH peptide match the manufacturer for this formulation; EN and RU labels agree on 3 capsules a day. No course length is printed."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-brain; 90 caps, net 65.7 g (730 mg/cap); IPH AGAP (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    },
+    {
+     "url": "https://peptid.ru/catalog/prime-peptide/prime-peptide-brain/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-brain; 90 caps, net 65.7 g (730 mg/cap); IPH AGAP (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Prime Peptide Brain"
+   ]
+  },
+  "prime-peptide-collagen": {
+   "id": "prime-peptide-collagen",
+   "name": "Prime Peptide Collagen",
+   "composition": null,
+   "biologicalTarget": "skin/hair/nails/connective tissue",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "status": "verified",
+    "options": [],
+    "note": "90-capsule SKU and IPH peptide match the manufacturer for this formulation; EN and RU labels agree on 3 capsules a day. No course length is printed."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-collagen; 90 caps, net 65.7 g (730 mg/cap); IPH AEN (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    },
+    {
+     "url": "https://peptid.ru/catalog/prime-peptide/prime-peptide-collagen/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-collagen; 90 caps, net 65.7 g (730 mg/cap); IPH AEN (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Prime Peptide Collagen"
+   ]
+  },
+  "prime-peptide-joints": {
+   "id": "prime-peptide-joints",
+   "name": "Prime Peptide Joints",
+   "composition": null,
+   "biologicalTarget": "joints/connective tissue",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "status": "verified",
+    "options": [],
+    "note": "90-capsule SKU and IPH peptide match the manufacturer for this formulation; EN and RU labels agree on 3 capsules a day. No course length is printed."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-joints; 90 caps, net 65.7 g (730 mg/cap); IPH AEN + IPH ESM (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    },
+    {
+     "url": "https://peptid.ru/catalog/prime-peptide/prime-peptide-joints/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-joints; 90 caps, net 65.7 g (730 mg/cap); IPH AEN + IPH ESM (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Prime Peptide Joints"
+   ]
+  },
+  "prime-peptide-omega": {
+   "id": "prime-peptide-omega",
+   "name": "Prime Peptide Omega",
+   "composition": null,
+   "biologicalTarget": "immune/cardiovascular",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "status": "verified",
+    "options": [],
+    "note": "90-capsule SKU and IPH peptide match the manufacturer for this formulation; EN and RU labels agree on 3 capsules a day. No course length is printed."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-omega; 90 caps, net 65.7 g (730 mg/cap); IPH T (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    },
+    {
+     "url": "https://peptid.ru/catalog/prime-peptide/prime-peptide-omega/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-omega; 90 caps, net 65.7 g (730 mg/cap); IPH T (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Prime Peptide Omega"
+   ]
+  },
+  "prime-peptide-protect": {
+   "id": "prime-peptide-protect",
+   "name": "Prime Peptide Protect",
+   "composition": null,
+   "biologicalTarget": "antioxidant/general",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "status": "verified",
+    "options": [],
+    "note": "90-capsule SKU and IPH peptide match the manufacturer for this formulation; EN and RU labels agree on 3 capsules a day. No course length is printed."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-protect; 90 caps, net 65.7 g (730 mg/cap); IPH REG + IPH EP (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    },
+    {
+     "url": "https://peptid.ru/catalog/prime-peptide/prime-peptide-protect/",
+     "type": "official-doc",
+     "formulation": "prime-peptide-protect; 90 caps, net 65.7 g (730 mg/cap); IPH REG + IPH EP (matches Pure Fire description)",
+     "quote": "EN: 'for adults 3 capsules (2190 mg) a day, with a small amount of liquid, without chewing.' RU: 'Взрослым принимать ежедневно по 1 капсуле 3 раза в день во время еды.'",
+     "translation": "RU: Adults: daily, 1 capsule 3 times a day with meals."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Prime Peptide Protect"
+   ]
+  },
+  "revilab-ml-01": {
+   "id": "revilab-ml-01",
+   "name": "Revilab ML 01",
+   "composition": [
+    "Epiphysis peptide complex (AA-1)",
+    "B-link immune peptide complex (AA-3)",
+    "Liver peptide complex (AA-10)",
+    "Resveratrol",
+    "Choline bitartrate",
+    "Omega-3 polyunsaturated fatty acids",
+    "Vitamins E, A, C"
+   ],
+   "biologicalTarget": "multi-system (neuroendocrine/immune/liver)",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule once every 3 days in the morning.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-01; 30 caps x 0.39 g; epiphysis AA-1, B-link AA-3, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '1 капсула 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-01/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-01; 30 caps x 0.39 g; epiphysis AA-1, B-link AA-3, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '1 капсула 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-01; 30 caps x 0.39 g; epiphysis AA-1, B-link AA-3, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '1 капсула 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-01; 30 caps x 0.39 g; epiphysis AA-1, B-link AA-3, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '1 капсула 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 01"
+   ]
+  },
+  "revilab-ml-02": {
+   "id": "revilab-ml-02",
+   "name": "Revilab ML 02",
+   "composition": [
+    "T-link immune peptide complex (AA-2)",
+    "B-link immune peptide complex (AA-3)",
+    "Bone marrow peptide complex (AA-4)",
+    "Liver peptide complex (AA-10)",
+    "Omega-3 polyunsaturated fatty acids",
+    "Vitamins E, B6, B9"
+   ],
+   "biologicalTarget": "hematopoietic/immune",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule daily.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-02; 30 caps x 0.3 g; AA-2, AA-3, bone marrow AA-4, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-02/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-02; 30 caps x 0.3 g; AA-2, AA-3, bone marrow AA-4, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-02; 30 caps x 0.3 g; AA-2, AA-3, bone marrow AA-4, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-02; 30 caps x 0.3 g; AA-2, AA-3, bone marrow AA-4, liver AA-10",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 02"
+   ]
+  },
+  "revilab-ml-03": {
+   "id": "revilab-ml-03",
+   "name": "Revilab ML 03",
+   "composition": [
+    "Brain peptide complex (AA-5)",
+    "Retina peptide complex (AA-6)",
+    "Vascular wall peptide complex (AA-7)",
+    "Astaxanthin",
+    "Choline bitartrate",
+    "Omega-3 polyunsaturated fatty acids",
+    "Vitamins B1, B2, B6",
+    "Marigold extract (lutein, zeaxanthin)"
+   ],
+   "biologicalTarget": "nervous system and eyes",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule daily.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-03; 30 caps x 0.36 g; brain AA-5, retina AA-6, vascular AA-7",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-03/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-03; 30 caps x 0.36 g; brain AA-5, retina AA-6, vascular AA-7",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-03; 30 caps x 0.36 g; brain AA-5, retina AA-6, vascular AA-7",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-03; 30 caps x 0.36 g; brain AA-5, retina AA-6, vascular AA-7",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 03"
+   ]
+  },
+  "revilab-ml-04": {
+   "id": "revilab-ml-04",
+   "name": "Revilab ML 04",
+   "composition": [
+    "Epiphysis peptide complex (AA-1)",
+    "Vascular wall peptide complex (AA-7)",
+    "Heart muscle peptide complex (AA-8)",
+    "Resveratrol",
+    "Rutin",
+    "Omega-3 polyunsaturated fatty acids",
+    "Vitamin PP (Niacin)"
+   ],
+   "biologicalTarget": "cardiovascular",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule once every 3 days in the morning.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-04; 30 caps x 0.35 g; AA-1, AA-7, heart AA-8",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-04/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-04; 30 caps x 0.35 g; AA-1, AA-7, heart AA-8",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-04; 30 caps x 0.35 g; AA-1, AA-7, heart AA-8",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-04; 30 caps x 0.35 g; AA-1, AA-7, heart AA-8",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 04"
+   ]
+  },
+  "revilab-ml-05": {
+   "id": "revilab-ml-05",
+   "name": "Revilab ML 05",
+   "composition": [
+    "T-link immune peptide complex (AA-2)",
+    "Bronchi peptide complex (AA-14)",
+    "Lungs and stomach wall peptide complex (AA-15)",
+    "Omega-3 polyunsaturated fatty acids",
+    "Vitamins E, A",
+    "Licorice root extract"
+   ],
+   "biologicalTarget": "respiratory",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule daily.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-05; 30 caps x 0.3 g; AA-2, bronchi AA-14, lung/stomach AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'каждое утро ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-05/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-05; 30 caps x 0.3 g; AA-2, bronchi AA-14, lung/stomach AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'каждое утро ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-05; 30 caps x 0.3 g; AA-2, bronchi AA-14, lung/stomach AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'каждое утро ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-05; 30 caps x 0.3 g; AA-2, bronchi AA-14, lung/stomach AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: 'каждое утро ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 05"
+   ]
+  },
+  "revilab-ml-06": {
+   "id": "revilab-ml-06",
+   "name": "Revilab ML 06",
+   "composition": [
+    "Liver peptide complex (AA-10)",
+    "Pancreas peptide complex (AA-11)",
+    "Lungs and stomach wall peptide complex (AA-15)",
+    "Omega-3 polyunsaturated fatty acids",
+    "Licorice root extract",
+    "Artichoke fruit extract",
+    "Plantain leaves extract",
+    "Strawberry leaves extract"
+   ],
+   "biologicalTarget": "digestive (GI/liver/pancreas)",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule daily.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-06; 30 caps x 0.35 g; AA-10, pancreas AA-11, AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-06/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-06; 30 caps x 0.35 g; AA-10, pancreas AA-11, AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-06; 30 caps x 0.35 g; AA-10, pancreas AA-11, AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-06; 30 caps x 0.35 g; AA-10, pancreas AA-11, AA-15",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: daily 4–6 wk. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 06"
+   ]
+  },
+  "revilab-ml-07": {
+   "id": "revilab-ml-07",
+   "name": "Revilab ML 07",
+   "composition": [
+    "Epiphysis peptide complex (AA-1)",
+    "Vascular wall peptide complex (AA-7)",
+    "Testes peptide complex (AA-12)",
+    "Bladder peptide complex (AA-13)",
+    "Omega-3 polyunsaturated fatty acids",
+    "L-carnitine",
+    "Zinc citrate"
+   ],
+   "biologicalTarget": "male reproductive/urinary",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "1 capsule once every 48 hours with meals for 8–12 weeks.",
+     "source": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "kind": "dealer course document"
+    },
+    {
+     "text": "Express-prevention scheme: 1 capsule once every 3 days in the morning.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-07; 30 caps x 0.45 g; AA-1, AA-7, testes AA-12, bladder AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-07/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-07; 30 caps x 0.45 g; AA-1, AA-7, testes AA-12, bladder AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-07; 30 caps x 0.45 g; AA-1, AA-7, testes AA-12, bladder AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-07; 30 caps x 0.45 g; AA-1, AA-7, testes AA-12, bladder AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: 'утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 07"
+   ]
+  },
+  "revilab-ml-08": {
+   "id": "revilab-ml-08",
+   "name": "Revilab ML 08",
+   "composition": [
+    "Epiphysis peptide complex (AA-1)",
+    "Vascular wall peptide complex (AA-7)",
+    "Cartilage peptide complex (AA-9)",
+    "Bladder peptide complex (AA-13)",
+    "Omega-3 polyunsaturated fatty acids",
+    "Resveratrol",
+    "Arginine"
+   ],
+   "biologicalTarget": "female reproductive/neuroendocrine",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "1 capsule once every 48 hours with meals for 8–12 weeks.",
+     "source": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "kind": "dealer course document"
+    },
+    {
+     "text": "Express-prevention scheme: 1 capsule once every 3 days in the morning.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-08; 30 caps x 0.35 g; AA-1, AA-7, cartilage AA-9, AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: '(group 3) утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-08/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-08; 30 caps x 0.35 g; AA-1, AA-7, cartilage AA-9, AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: '(group 3) утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-08; 30 caps x 0.35 g; AA-1, AA-7, cartilage AA-9, AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: '(group 3) утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-08; 30 caps x 0.35 g; AA-1, AA-7, cartilage AA-9, AA-13",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: EVERY 48 H, 8–12 wk. Scheme: '(group 3) утром 1 раз в 3 дня'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 08"
+   ]
+  },
+  "revilab-ml-09": {
+   "id": "revilab-ml-09",
+   "name": "Revilab ML 09",
+   "composition": [
+    "B-link immune peptide complex (AA-3)",
+    "Vascular wall peptide complex (AA-7)",
+    "Cartilage peptide complex (AA-9)",
+    "Chondroitin sulfate",
+    "Omega-3 polyunsaturated fatty acids",
+    "Superoxide dismutase (SOD)",
+    "Catalase",
+    "Carnosine"
+   ],
+   "biologicalTarget": "musculoskeletal",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com + peptid.ru) agrees; formulation-specific course documents differ and are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 1 capsule daily.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-09; 30 caps x 0.39 g; AA-3, AA-7, AA-9",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: no directions printed. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-09/",
+     "type": "official-doc",
+     "formulation": "revilab-ml-09; 30 caps x 0.39 g; AA-3, AA-7, AA-9",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: no directions printed. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-ml-09; 30 caps x 0.39 g; AA-3, AA-7, AA-9",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: no directions printed. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-ml-09; 30 caps x 0.39 g; AA-3, AA-7, AA-9",
+     "quote": "EN: 'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks…' RU (peptid.ru): 'Взрослым (от 14 лет) по 1 капсуле в день во время приема пищи. Продолжительность приема — 4–6 недель.' Dealer nanopeptidi: no directions printed. Scheme: '(group 2) ежедневно'",
+     "translation": "Adults (14+): 1 capsule a day with food; 4–6 weeks. (Main's 'morning, empty stomach' appears in NO source.)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab ML 09"
+   ]
+  },
+  "revilab-pro-elements": {
+   "id": "revilab-pro-elements",
+   "name": "Revilab Pro Elements",
+   "composition": null,
+   "biologicalTarget": "general (minerals/vitamins)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_pro/revilab_elements/",
+     "type": "catalog",
+     "formulation": "90 tablets of 1.4 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "mesotel-neo": {
+   "id": "mesotel-neo",
+   "name": "Mesotel Neo",
+   "composition": null,
+   "biologicalTarget": "general/cardiovascular",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/mesotel_neo/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "revilab-sl-01": {
+   "id": "revilab-sl-01",
+   "name": "Revilab SL 01",
+   "composition": [
+    "Vascular wall peptide complex (AA-7)",
+    "Cardiac muscle peptide complex (AA-8)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "cardiovascular",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_01/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-01; 10 ml drops; AA-7, AA-8",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops morning+evening, 1 month. Scheme: '3–4 капли под язык утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-01/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-01; 10 ml drops; AA-7, AA-8",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops morning+evening, 1 month. Scheme: '3–4 капли под язык утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-01; 10 ml drops; AA-7, AA-8",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops morning+evening, 1 month. Scheme: '3–4 капли под язык утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-01; 10 ml drops; AA-7, AA-8",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops morning+evening, 1 month. Scheme: '3–4 капли под язык утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 01"
+   ]
+  },
+  "revilab-sl-02": {
+   "id": "revilab-sl-02",
+   "name": "Revilab SL 02",
+   "composition": [
+    "Brain peptide complex (AA-5)",
+    "Retina peptide complex (AA-6)",
+    "Vascular wall peptide complex (AA-7)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "nervous system and eyes",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_02/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-02; 10 ml drops; AA-5, AA-6, AA-7",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '(group 1) —'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-02/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-02; 10 ml drops; AA-5, AA-6, AA-7",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '(group 1) —'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-02; 10 ml drops; AA-5, AA-6, AA-7",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '(group 1) —'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-02; 10 ml drops; AA-5, AA-6, AA-7",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '(group 1) —'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 02"
+   ]
+  },
+  "revilab-sl-03": {
+   "id": "revilab-sl-03",
+   "name": "Revilab SL 03",
+   "composition": [
+    "Pineal gland peptide complex (AA-1)",
+    "T-cell immune peptide complex (AA-2)",
+    "B-cell immune peptide complex (AA-3)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "immune/neuroendocrine",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "5–7 drops once every 72 hours for 1–2 months.",
+     "source": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "kind": "dealer course document"
+    },
+    {
+     "text": "Express-prevention scheme: 1 dose every 3 days.",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_03/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-03; 10 ml drops; AA-1, AA-2, AA-3",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель под язык утром 1 раз в 3 дня'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-03/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-03; 10 ml drops; AA-1, AA-2, AA-3",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель под язык утром 1 раз в 3 дня'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-03; 10 ml drops; AA-1, AA-2, AA-3",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель под язык утром 1 раз в 3 дня'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-03; 10 ml drops; AA-1, AA-2, AA-3",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель под язык утром 1 раз в 3 дня'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 03"
+   ]
+  },
+  "revilab-sl-04": {
+   "id": "revilab-sl-04",
+   "name": "Revilab SL 04",
+   "composition": [
+    "B-cell immune peptide complex (AA-3)",
+    "Cartilage peptide complex (AA-9)",
+    "Muscle peptide complex (AA-17)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "musculoskeletal",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_04/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-04; 10 ml drops; AA-3, AA-9, AA-17",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops 2×/day, 1 mo. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-04/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-04; 10 ml drops; AA-3, AA-9, AA-17",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops 2×/day, 1 mo. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-04; 10 ml drops; AA-3, AA-9, AA-17",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops 2×/day, 1 mo. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-04; 10 ml drops; AA-3, AA-9, AA-17",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: 5–10 drops 2×/day, 1 mo. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 04"
+   ]
+  },
+  "revilab-sl-05": {
+   "id": "revilab-sl-05",
+   "name": "Revilab SL 05",
+   "composition": [
+    "Liver peptide complex (AA-10)",
+    "Pancreas peptide complex (AA-11)",
+    "Lungs and stomach wall peptide complex (AA-15)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "digestive (liver/pancreas/stomach)",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_05/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-05; 10 ml drops; AA-10, AA-11, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-05/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-05; 10 ml drops; AA-10, AA-11, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-05; 10 ml drops; AA-10, AA-11, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-05; 10 ml drops; AA-10, AA-11, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 05"
+   ]
+  },
+  "revilab-sl-06": {
+   "id": "revilab-sl-06",
+   "name": "Revilab SL 06",
+   "composition": [
+    "B-cell immune peptide complex (AA-3)",
+    "Bronchi peptide complex (AA-14)",
+    "Lungs and stomach wall peptide complex (AA-15)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "respiratory",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_06/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-06; 10 ml drops; AA-3, AA-14, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-06/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-06; 10 ml drops; AA-3, AA-14, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-06; 10 ml drops; AA-3, AA-14, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-06; 10 ml drops; AA-3, AA-14, AA-15",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '3–4 капли утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 06"
+   ]
+  },
+  "revilab-sl-07": {
+   "id": "revilab-sl-07",
+   "name": "Revilab SL 07",
+   "composition": [
+    "B-cell immune peptide complex (AA-3)",
+    "Bone marrow peptide complex (AA-4)",
+    "Vascular wall peptide complex (AA-7)",
+    "Folic acid (calcium L-methylfolate)",
+    "Vitamin B12 (cobalamin)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "hematopoietic/immune",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru agrees. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_07/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-07; 10 ml drops; AA-3, AA-4, AA-7 + folic acid (Ca-L-methylfolate) + B12",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '4–6 капель под язык днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-07/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-07; 10 ml drops; AA-3, AA-4, AA-7 + folic acid (Ca-L-methylfolate) + B12",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '4–6 капель под язык днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-07; 10 ml drops; AA-3, AA-4, AA-7 + folic acid (Ca-L-methylfolate) + B12",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '4–6 капель под язык днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-07; 10 ml drops; AA-3, AA-4, AA-7 + folic acid (Ca-L-methylfolate) + B12",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' RU (peptid.ru): 'Используйте утром и вечером, распределяя 5―10 капель по слизистой оболочке полости рта.' (no duration printed). Dealer: same. Scheme: '4–6 капель под язык днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 07"
+   ]
+  },
+  "revilab-sl-08": {
+   "id": "revilab-sl-08",
+   "name": "Revilab SL 08",
+   "composition": [
+    "T-cell immune peptide complex (AA-2)",
+    "Vascular wall peptide complex (AA-7)",
+    "Bladder peptide complex (AA-13)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "urinary",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru page returns 404. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_08/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-08; 10 ml drops; AA-2, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-08/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-08; 10 ml drops; AA-2, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-08; 10 ml drops; AA-2, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-08; 10 ml drops; AA-2, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '3–4 капли днем'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 08"
+   ]
+  },
+  "revilab-sl-09": {
+   "id": "revilab-sl-09",
+   "name": "Revilab SL 09",
+   "composition": [
+    "Pineal gland peptide complex (AA-1)",
+    "Testes peptide complex (AA-12)",
+    "Bladder peptide complex (AA-13)",
+    "Prostate peptide complex (AA-16)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "male reproductive",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru page returns 404. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_09/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-09; 10 ml drops; AA-1, AA-12, AA-13, AA-16",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-09/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-09; 10 ml drops; AA-1, AA-12, AA-13, AA-16",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-09; 10 ml drops; AA-1, AA-12, AA-13, AA-16",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-09; 10 ml drops; AA-1, AA-12, AA-13, AA-16",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: same. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 09"
+   ]
+  },
+  "testoluten": {
+   "id": "testoluten",
+   "name": "Testoluten",
+   "composition": [
+    "Testicular peptide complex (A-13)"
+   ],
+   "biologicalTarget": "male reproductive (testes)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Prevention: 1 capsule twice daily with meals for 30 days. Repeat every 4–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. Препарат не вызывает побочных эффектов, аллергических реакций и лекарственного привыкания. Перед применением рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/testoluten/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "bonothyrk": {
+   "id": "bonothyrk",
+   "name": "Bonothyrk",
+   "composition": [
+    "Parathyroid gland peptide complex A-21 (natural extract)"
+   ],
+   "biologicalTarget": "parathyroid glands",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 2 times a day with meals. Duration of course: 1 month. The course can be repeated after 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonothyrk/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "cerluten": {
+   "id": "cerluten",
+   "name": "Cerluten",
+   "composition": [
+    "Brain peptide complex A-5 (natural extract)"
+   ],
+   "biologicalTarget": "Пептиды мозга и нервной системы",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Аллергические реакции на желатин, входящий в состав оболочки капсулы, или лактозу. Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/",
+     "type": "catalog",
+     "formulation": "60 capsules. 20 capsules.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "chitomur": {
+   "id": "chitomur",
+   "name": "Chitomur",
+   "composition": [
+    "Bladder peptide complex A-12 (natural extract)"
+   ],
+   "biologicalTarget": "Пептиды мочевого пузыря",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/",
+     "type": "catalog",
+     "formulation": "60 capsules. 20 capsules.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "chonluten": {
+   "id": "chonluten",
+   "name": "Chonluten",
+   "composition": null,
+   "biologicalTarget": "respiratory (bronchi & lungs)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/citogeny/honluten/",
+     "type": "official-doc",
+     "formulation": "chonluten; 20/60 caps x 0.215 g; Cytogen AC-7 (glycine, glutamic acid, aspartic acid)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day with meals; 10–30 days (1–3 packs)."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytogens/chonluten/",
+     "type": "official-doc",
+     "formulation": "chonluten; 20/60 caps x 0.215 g; Cytogen AC-7 (glycine, glutamic acid, aspartic acid)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day with meals; 10–30 days (1–3 packs)."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Chonluten",
+    "1–2× vs 2× group"
+   ]
+  },
+  "glandokort": {
+   "id": "glandokort",
+   "name": "Glandokort",
+   "composition": null,
+   "biologicalTarget": "adrenal glands",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/",
+     "type": "official-doc",
+     "formulation": "glandokort; 20/60 caps x 0.215 g; Cytomax A-17 (adrenal peptides)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — 1 месяц.",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; average course 1 month."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/glandokort/",
+     "type": "official-doc",
+     "formulation": "glandokort; 20/60 caps x 0.215 g; Cytomax A-17 (adrenal peptides)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — 1 месяц.",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; average course 1 month."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Glandokort",
+    "1–2× vs 2× group"
+   ]
+  },
+  "libidon": {
+   "id": "libidon",
+   "name": "Libidon",
+   "composition": null,
+   "biologicalTarget": "prostate",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/",
+     "type": "official-doc",
+     "formulation": "libidon; 20/60 caps x 0.215 g; Cytomax A-16 (prostate peptides)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — 1 месяц.",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; average course 1 month."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/libidon/",
+     "type": "official-doc",
+     "formulation": "libidon; 20/60 caps x 0.215 g; Cytomax A-16 (prostate peptides)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — 1 месяц.",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; average course 1 month."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Libidon",
+    "1–2× vs 2× group"
+   ]
+  },
+  "ovagen": {
+   "id": "ovagen",
+   "name": "Ovagen",
+   "composition": null,
+   "biologicalTarget": "liver",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/",
+     "type": "official-doc",
+     "formulation": "ovagen; 20 & 60 caps x 0.215 g; Cytogen AC-3 (leucine, glutamic acid, aspartic acid)",
+     "quote": "EN: 'Ovagen represents a complex of the short peptides contributing to normalization of liver and digestive tract functions.' RU: 'Способствует нормализации работы всей пищеварительной системы.' / heading 'Защита пищеварительной системы'",
+     "translation": "Contributes to normalising liver and digestive-tract functions. RU: 'Helps normalise the work of the whole digestive system' / 'Protection of the digestive system'."
+    },
+    {
+     "url": "https://peptid.ru/catalog/citogeny/ovagen/",
+     "type": "official-doc",
+     "formulation": "ovagen; 20 & 60 caps x 0.215 g; Cytogen AC-3 (leucine, glutamic acid, aspartic acid)",
+     "quote": "EN: 'Ovagen represents a complex of the short peptides contributing to normalization of liver and digestive tract functions.' RU: 'Способствует нормализации работы всей пищеварительной системы.' / heading 'Защита пищеварительной системы'",
+     "translation": "Contributes to normalising liver and digestive-tract functions. RU: 'Helps normalise the work of the whole digestive system' / 'Protection of the digestive system'."
+    },
+    {
+     "url": "https://peptid.ru/catalog/citogeny/ovagen/",
+     "type": "official-doc",
+     "formulation": "ovagen 20/60 caps",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).' EN: 'adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.'",
+     "translation": "RU: Adults from 14: 1–2 capsules 1–2 times a day with meals; average course 10–30 days (1–3 packs)."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/",
+     "type": "official-doc",
+     "formulation": "ovagen 20/60 caps",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).' EN: 'adults by 1 or 2 capsules 2 times a day during meals. Duration of use is 1 month. The use can be repeated after 3-6 months.'",
+     "translation": "RU: Adults from 14: 1–2 capsules 1–2 times a day with meals; average course 10–30 days (1–3 packs)."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Ovagen",
+    "Ovagen – directions",
+    "1–2× vs 2× group"
+   ]
+  },
+  "pinealon": {
+   "id": "pinealon",
+   "name": "Pinealon",
+   "composition": null,
+   "biologicalTarget": "brain (cerebral cortex peptides)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": "Brain peptides have been studied in cell and animal work for neuroprotection and oxidative stress. Research note: the literature describes the EDR tripeptide (Glu-Asp-Arg); the label does not print a sequence.",
+   "limitations": "No published human trials of Pinealon as a finished product.",
+   "researchNote": "Research note (literature, not the label): EDR tripeptide (Glu-Asp-Arg).",
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytogens/pinealon/",
+     "type": "official-doc",
+     "formulation": "pinealon; 20 & 60 caps; Cytogen AC-5 (arginine, glutamic acid, aspartic acid)",
+     "quote": "EN: 'complex of the short peptides contributing to normalization of functional activity of brain cells'; category 'Brain & Nervous system'. RU: 'препарат на основе синтезированных пептидов коры головного мозга (цитогенов)'; lingual: 'АС-5 (экстракт пептидов головного мозга)'.",
+     "translation": "Normalises functional activity of brain cells. RU: based on synthesized peptides of the cerebral cortex (cytogens); AC-5 = brain peptide extract."
+    },
+    {
+     "url": "https://peptid.ru/catalog/citogeny/pinealon/",
+     "type": "official-doc",
+     "formulation": "pinealon; 20 & 60 caps; Cytogen AC-5 (arginine, glutamic acid, aspartic acid)",
+     "quote": "EN: 'complex of the short peptides contributing to normalization of functional activity of brain cells'; category 'Brain & Nervous system'. RU: 'препарат на основе синтезированных пептидов коры головного мозга (цитогенов)'; lingual: 'АС-5 (экстракт пептидов головного мозга)'.",
+     "translation": "Normalises functional activity of brain cells. RU: based on synthesized peptides of the cerebral cortex (cytogens); AC-5 = brain peptide extract."
+    },
+    {
+     "url": "https://peptid.ru/catalog/citogeny/pinealon/",
+     "type": "official-doc",
+     "formulation": "pinealon 20/60",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в день во время еды. Длительность приема — 10–30 дней. Целесообразно проводить повторный курс через 4–6 месяцев.'",
+     "translation": "Adults from 14: 1–2 capsules 1–2 times a day with meals; 10–30 days; repeat course advisable after 4–6 months."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Pinealon",
+    "Pinealon – directions",
+    "1–2× vs 2× group"
+   ]
+  },
+  "sigumir": {
+   "id": "sigumir",
+   "name": "Sigumir",
+   "composition": [
+    "Cartilage and bone peptide complex A-4 (natural extract)"
+   ],
+   "biologicalTarget": "musculoskeletal (cartilage and bone tissue; joints and spine)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Duration of use: 1 month.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Сигумир противопоказан при индивидуальной непереносимости компонентов.\" (Pregnancy, breastfeeding or chronic conditions: consult a doctor first. Contraindicated with individual intolerance to the components.)",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,2 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,2 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "stamakort": {
+   "id": "stamakort",
+   "name": "Stamakort",
+   "composition": [
+    "Stomach peptide complex (natural extract)"
+   ],
+   "biologicalTarget": "Пептиды желудка",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/",
+     "type": "catalog",
+     "formulation": "60 capsules. 20 capsules.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "suprefort": {
+   "id": "suprefort",
+   "name": "Suprefort",
+   "composition": [
+    "Pancreas peptide complex A-1 (natural extract)"
+   ],
+   "biologicalTarget": "Пептиды поджелудочной железы",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 10 to 30 days (1–3 packs).",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/",
+     "type": "catalog",
+     "formulation": "60 capsules. 20 capsules.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "svetinorm": {
+   "id": "svetinorm",
+   "name": "Svetinorm",
+   "composition": [
+    "Liver peptide complex A-7 (natural extract)"
+   ],
+   "biologicalTarget": "Пептиды печени",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/",
+     "type": "catalog",
+     "formulation": "60 capsules. 20 capsules.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "taxorest": {
+   "id": "taxorest",
+   "name": "Taxorest",
+   "composition": null,
+   "biologicalTarget": "respiratory (bronchi)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/",
+     "type": "official-doc",
+     "formulation": "taxorest; 20/60 caps x 0.215 g; Cytomax A-19 (bronchial peptides)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; 10–30 days."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/taxorest/",
+     "type": "official-doc",
+     "formulation": "taxorest; 20/60 caps x 0.215 g; Cytomax A-19 (bronchial peptides)",
+     "quote": "Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).",
+     "translation": "Adults 14+: 1–2 caps 1–2×/day; 10–30 days."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Taxorest",
+    "1–2× vs 2× group"
+   ]
+  },
+  "zhenoluten": {
+   "id": "zhenoluten",
+   "name": "Zhenoluten",
+   "composition": [
+    "Ovarian peptide complex A-15 (natural extract)"
+   ],
+   "biologicalTarget": "Пептиды репродуктивной системы, женские (дефицит)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1–2 capsules 1–2 times a day with meals. Average course: 1 month.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Женолутен противопоказан при индивидуальной непереносимости компонентов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/",
+     "type": "catalog",
+     "formulation": "60 capsules. 20 capsules.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "ventfort": {
+   "id": "ventfort",
+   "name": "Ventfort",
+   "composition": [
+    "Vascular peptide complex (A-3)"
+   ],
+   "biologicalTarget": "cardiovascular (blood vessels)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов продукта.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/ventfort/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "vesugen": {
+   "id": "vesugen",
+   "name": "Vesugen",
+   "composition": [
+    "Vascular peptide complex (AC-2)"
+   ],
+   "biologicalTarget": "cardiovascular (blood vessels)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Name/code fix verified (Thyreogen spelling, Vesugen AC-2); usage text matches neither manufacturer source exactly (held, conflicting)."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Везуген противопоказан при индивидуальной непереносимости компонентов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/citogeny/vezugen/",
+     "type": "official-doc",
+     "formulation": "vesugen; 20/60 caps; Cytogen AC-2 (lysine, glutamic acid, aspartic acid)",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).'",
+     "translation": "Adults from 14: 1–2 caps 1–2 times a day; average course 10–30 days (1–3 packs)."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytogens/vesugen/",
+     "type": "official-doc",
+     "formulation": "vesugen; 20/60 caps; Cytogen AC-2 (lysine, glutamic acid, aspartic acid)",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в сутки во время еды. Средняя продолжительность курса — от 10 до 30 дней (1–3 упаковки).'",
+     "translation": "Adults from 14: 1–2 caps 1–2 times a day; average course 10–30 days (1–3 packs)."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Vesugen",
+    "1–2× vs 2× group"
+   ]
+  },
+  "visoluten": {
+   "id": "visoluten",
+   "name": "Visoluten",
+   "composition": [
+    "Eye tissue peptide complex (A-11)"
+   ],
+   "biologicalTarget": "eyes",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/visoluten/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "vladonix": {
+   "id": "vladonix",
+   "name": "Vladonix",
+   "composition": [
+    "Thymus peptide complex (A-6)"
+   ],
+   "biologicalTarget": "immune (thymus)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 30 days. Repeat every 3–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. При беременности и кормлении грудью перед применением препарата рекомендуется проконсультироваться с врачом.\"",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/vladonix/",
+     "type": "catalog",
+     "formulation": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "1–2× vs 2× group"
+   ]
+  },
+  "anti-wrinkle-serum-7": {
+   "id": "anti-wrinkle-serum-7",
+   "name": "Anti-Wrinkle Serum №7",
+   "composition": [
+    "Matrixyl® synthe'6™ (palmitoyl tripeptide-38)",
+    "Progeline™ (acetyl tripeptide-2)",
+    "Liftessense™ (Cyathea cumingii extract)",
+    "Low molecular weight hyaluronic acid",
+    "CO2 pomegranate extract",
+    "Evening primrose oil"
+   ],
+   "biologicalTarget": "skin (topical)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Apply a few drops to clean skin on face, neck, and décolleté. Use 1-2 times daily. For best results, use regularly for 28-30 days, 3-4 times per year.",
+    "basis": "page-text-unaudited"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "revilab-sl-10": {
+   "id": "revilab-sl-10",
+   "name": "Revilab SL 10",
+   "composition": [
+    "Pineal gland peptide complex (AA-1)",
+    "Vascular wall peptide complex (AA-7)",
+    "Bladder peptide complex (AA-13)",
+    "Licorice extract",
+    "Propolis extract",
+    "Mint extract",
+    "Essential oils of chamomile and clove",
+    "Dihydroquercetin"
+   ],
+   "biologicalTarget": "female reproductive/neuroendocrine",
+   "manufacturerDirections": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "status": "verified",
+    "options": [],
+    "note": "Label (peptideproduct.com) agrees; peptid.ru page returns 404. Course documents are educational only."
+   },
+   "storefrontUsage": {
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [
+    {
+     "text": "5–7 drops once every 72 hours for 1–2 months.",
+     "source": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "kind": "dealer course document"
+    },
+    {
+     "text": "Express-prevention scheme: 3–6 drops under the tongue once a day (dose varies by formulation).",
+     "source": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "kind": "course scheme"
+    }
+   ],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_10/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-10; 10 ml drops; AA-1, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-10/",
+     "type": "official-doc",
+     "formulation": "revilab-sl-10; 10 ml drops; AA-1, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://www.nanopeptidi.com/ru/peptidnye-preparaty-revilab/",
+     "type": "course",
+     "formulation": "revilab-sl-10; 10 ml drops; AA-1, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    },
+    {
+     "url": "https://xn----gtbckc7aib1a6g.xn--p1ai/ekspress-profilaktika-prezhdevremennogo-stareniya",
+     "type": "course",
+     "formulation": "revilab-sl-10; 10 ml drops; AA-1, AA-7, AA-13",
+     "quote": "EN: 'for adults 5-10 drops under the tongue 2 times a day. Duration of use 1 month. It is permissible to use repeatedly in the form of courses.' peptid.ru page 404 (not listed). Dealer: 5–7 DROPS EVERY 72 H with food, 1–2 months. Scheme: '4–6 капель утром'",
+     "translation": "Adults: 5–10 drops under the tongue twice a day (RU: morning and evening, spread over the oral mucosa); 1 month; repeatable courses. Main's '4–6 drops in the morning' matches only the scheme for some SLs, not the label."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Revilab SL 10"
+   ]
+  },
+  "revilab-anti-age": {
+   "id": "revilab-anti-age",
+   "name": "Revilab Anti-A.G.E.",
+   "composition": [
+    "Carnosine (beta-alanyl-L-histidine)",
+    "Astaxanthin (100x more effective than vitamin E)",
+    "Alpha-lipoic acid (vitamin N)",
+    "Rosemary extract",
+    "Taurine"
+   ],
+   "biologicalTarget": "general (antioxidant/anti-glycation)",
+   "manufacturerDirections": {
+    "text": "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year.",
+    "status": "verified",
+    "options": [],
+    "note": "Usage consistent with label; '100x more effective than vitamin E' astaxanthin claim is unsupported (needs approval)."
+   },
+   "storefrontUsage": {
+    "text": "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year.",
+    "basis": "page-text-matches-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/revilab_preparations/revilab_pro/revilab_anti_a_g_e/",
+     "type": "official-doc",
+     "formulation": "revilab-anti-age; 30 caps x 0.3 g",
+     "quote": "'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revilab Anti-A.G.E."
+   ]
+  },
+  "alvenorm-forte": {
+   "id": "alvenorm-forte",
+   "name": "Alvenorm Forte",
+   "composition": null,
+   "biologicalTarget": "respiratory (lungs & bronchi)",
+   "manufacturerDirections": {
+    "text": "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after.",
+    "status": "verified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/alvenorm_forte/",
+     "type": "official-doc",
+     "formulation": "alvenorm-forte; 120 ml liquid",
+     "quote": "'adults by 1 teaspoon (5 ml) not dissolving or dissolving in a small amount of water, 1 or 2 times a day, before meal or 1 hour after.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Alvenorm Forte"
+   ]
+  },
+  "volustom": {
+   "id": "volustom",
+   "name": "Volustom",
+   "composition": null,
+   "biologicalTarget": "digestive (fiber)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/new_volustom/",
+     "type": "catalog",
+     "formulation": "150 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "getrufline": {
+   "id": "getrufline",
+   "name": "Getrufline",
+   "composition": null,
+   "biologicalTarget": "digestive",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Chew 1 truffle thoroughly per day for 6–12 days. Wash down with water. Honey may be added to reduce bitterness.",
+    "basis": "page-text-unaudited"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/Getrufline/",
+     "type": "catalog",
+     "formulation": "12 pcs",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "gelmigon": {
+   "id": "gelmigon",
+   "name": "Gelmigon",
+   "composition": null,
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "digemax": {
+   "id": "digemax",
+   "name": "Digemax",
+   "composition": null,
+   "biologicalTarget": "digestive",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/digemax/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "imusil": {
+   "id": "imusil",
+   "name": "Imusil",
+   "composition": null,
+   "biologicalTarget": "immune",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/imusil/",
+     "type": "catalog",
+     "formulation": "20 capsules by 0,31 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "indosine": {
+   "id": "indosine",
+   "name": "Indosine",
+   "composition": [
+    "Indole-3-carbinol",
+    "Broccoli extract",
+    "Coenzyme Q10",
+    "Superoxide dismutase",
+    "Catalase",
+    "Milky white iris grass extract"
+   ],
+   "biologicalTarget": "immune/antioxidant",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "blocked",
+    "options": [],
+    "note": "Blocked: formulation version unknown."
+   },
+   "storefrontUsage": {
+    "text": "Take 1-2 tablets once daily before meals. Prophylactic course: minimum 1 month. Therapeutic course: 2 months or more.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/indosine/",
+     "type": "official-doc",
+     "formulation": "indosine; 30 tablets x 0.63 g",
+     "quote": "'adults by 1 tablet once a day, with meal. Do not bite through before taking tablet. Course duration is 4-6 weeks.' Composition: '…catalase; superoxide dismutase (from barley (Hordeum vulgare) germ extract); coenzyme Q10; indole-3-carbinol (from broccoli inflorescences); Broccoli… inflorescence extract…'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "blocked",
+   "hold": "Indosine HOLD: formulation version unknown (current label has no iris grass and gives 1 tablet once a day); check the Pure Fire stock label.",
+   "auditRows": [
+    "Indosine"
+   ]
+  },
+  "calsil-t": {
+   "id": "calsil-t",
+   "name": "Calsil-T",
+   "composition": null,
+   "biologicalTarget": "musculoskeletal (bone)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "blocked",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "blocked",
+   "hold": "Calsil-T HOLD: product identity unconfirmed; no manufacturer source.",
+   "auditRows": [
+    "Calsil-T"
+   ]
+  },
+  "complex-3d": {
+   "id": "complex-3d",
+   "name": "Complex 3D",
+   "composition": [
+    "Ascorbyl palmitate (Vitamin C)",
+    "Selenium yeast",
+    "L-cysteine",
+    "Dihydroquercetin",
+    "Catalase",
+    "Vitamin E",
+    "Barley sprout extract",
+    "Retinol palmitate (Vitamin A)",
+    "Glutathione"
+   ],
+   "biologicalTarget": "general (antioxidant/detox)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Take 1 capsule daily with meals. Duration: 4–6 weeks. Course may be repeated throughout the year.",
+    "basis": "page-text-unaudited"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/complex_3d/",
+     "type": "catalog",
+     "formulation": "30 capsules by 0,4g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "complex-3r": {
+   "id": "complex-3r",
+   "name": "Complex 3R",
+   "composition": [
+    "Dihydroquercetin",
+    "Resveratrol",
+    "Coenzyme Q10"
+   ],
+   "biologicalTarget": "general (antioxidant)",
+   "manufacturerDirections": {
+    "text": "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "status": "verified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/complex_3r/",
+     "type": "official-doc",
+     "formulation": "complex-3r; 30 tablets x 0.25 g",
+     "quote": "'adults and children older 14 years by 1 tablet once a day or 1 tablet two times a day, with meal. Course duration is 4-6 weeks.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Complex 3R"
+   ]
+  },
+  "levain": {
+   "id": "levain",
+   "name": "Levain",
+   "composition": null,
+   "biologicalTarget": "immune/adaptogen",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/levain/",
+     "type": "catalog",
+     "formulation": "30 tablets by 0,3 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "likam": {
+   "id": "likam",
+   "name": "Likam",
+   "composition": null,
+   "biologicalTarget": "liver/detox",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/likam/",
+     "type": "catalog",
+     "formulation": "30 tablets by 0,5 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "mamiton": {
+   "id": "mamiton",
+   "name": "Mamiton",
+   "composition": [
+    "Resveratrol",
+    "Motherwort extract",
+    "Mint extract",
+    "Rosehip extract",
+    "Nettle extract",
+    "Knotweed extract",
+    "Hops extract",
+    "Laminaria extract",
+    "Vitamin A",
+    "Vitamin E",
+    "Field horsetail extract",
+    "Juglans regia pericarp extract"
+   ],
+   "biologicalTarget": "female reproductive",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/mamiton/",
+     "type": "catalog",
+     "formulation": "60 capsules by 0,39 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "mesotel": {
+   "id": "mesotel",
+   "name": "Mesotel",
+   "composition": null,
+   "biologicalTarget": "general (choline-based)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/mesotel/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "mesotel-beauty": {
+   "id": "mesotel-beauty",
+   "name": "Mesotel Beauty",
+   "composition": null,
+   "biologicalTarget": "general/skin",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/mesotel_beauty/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "olecap": {
+   "id": "olecap",
+   "name": "Olecap",
+   "composition": null,
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "panaxod": {
+   "id": "panaxod",
+   "name": "Panaxod",
+   "composition": null,
+   "biologicalTarget": "digestive/general",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/panaxod/",
+     "type": "catalog",
+     "formulation": "60 capsules by 0,17 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "pinalex-tab": {
+   "id": "pinalex-tab",
+   "name": "Pinalex Tab",
+   "composition": null,
+   "biologicalTarget": "eyes",
+   "manufacturerDirections": {
+    "text": "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed.",
+    "status": "verified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/pinalex_tab/",
+     "type": "official-doc",
+     "formulation": "pinalex-tab; 60 tablets x 500 mg; AA-6",
+     "quote": "'adults by 1 tablet 2-3 times a day, with meal. Course duration is 1 month. Repeated courses are allowed.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Pinalex Tab"
+   ]
+  },
+  "pangluin": {
+   "id": "pangluin",
+   "name": "Pangluin",
+   "composition": null,
+   "biologicalTarget": "pancreas/metabolic",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "Individual intolerance to any of the components, pregnancy, breastfeeding; to be used with caution by people with elevated blood pressure. It is recommended to consult a doctor before use.",
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/pangluin_forte/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "previn": {
+   "id": "previn",
+   "name": "Previn",
+   "composition": [
+    "Hesperidin (citrus bioflavonoid)",
+    "Niacinamide (Vitamin B3/PP)"
+   ],
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Take 1 tablet per day during meals. Course duration: 4–6 weeks.",
+    "basis": "page-text-unaudited"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "revimite": {
+   "id": "revimite",
+   "name": "Revimite",
+   "composition": [
+    "Pomegranate extract",
+    "Green tea extract",
+    "Echinacea extract",
+    "Oat extract",
+    "Grape seed extract",
+    "Ginger extract",
+    "Soy extract",
+    "Iron",
+    "B vitamins (B1, B6, B12)",
+    "Soy lecithin"
+   ],
+   "biologicalTarget": "general (iron/B vitamins)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/revimite/",
+     "type": "catalog",
+     "formulation": "100 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "reviplant": {
+   "id": "reviplant",
+   "name": "Reviplant",
+   "composition": null,
+   "biologicalTarget": "liver/general",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/reviplant/",
+     "type": "catalog",
+     "formulation": "200 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "reviform-cocktail": {
+   "id": "reviform-cocktail",
+   "name": "Reviform Cocktail",
+   "composition": null,
+   "biologicalTarget": "nutrition (protein shake)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/reviform_cocktail/",
+     "type": "catalog",
+     "formulation": "375 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "revifort": {
+   "id": "revifort",
+   "name": "Revifort",
+   "composition": [
+    "Shiitake mushroom extract (6:1)",
+    "Reishi mushroom extract (6:1)",
+    "Maitake mushroom extract (6:1)",
+    "Cordyceps extract (6:1)",
+    "Red echinacea top extract",
+    "Zinc citrate",
+    "Laminaria (kelp) extract",
+    "Sodium selenite"
+   ],
+   "biologicalTarget": "immune (mushroom complex)",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 2 times a day with meals for 15 days, then a break of at least 10 days, then another 15 days.",
+    "status": "verified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 2 times a day with meals for 15 days, then a break of at least 10 days, then another 15 days.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/revifort/",
+     "type": "official-doc",
+     "formulation": "revifort; 60 caps x 0.31 g",
+     "quote": "'adults and children older 14 years by 1 capsule 2 times a day with meal, for 15 days. After 15 days it is recommended to take a break for at least 10 days. After the break continue to use for 15 days.' Composition: '…shiitake… reishi… maitake… cordyceps… (6:1); red echinacea top extract… zinc citrate; laminaria thallus extract… sodium selenite.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Revifort"
+   ]
+  },
+  "regenart": {
+   "id": "regenart",
+   "name": "Regenart",
+   "composition": null,
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "renefort": {
+   "id": "renefort",
+   "name": "Renefort",
+   "composition": null,
+   "biologicalTarget": "urinary (kidney)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/renefort/",
+     "type": "catalog",
+     "formulation": "20 capsules by 0,41 g",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "retisil": {
+   "id": "retisil",
+   "name": "Retisil",
+   "composition": null,
+   "biologicalTarget": "eyes",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/retisil/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "rinolax": {
+   "id": "rinolax",
+   "name": "Rinolax",
+   "composition": null,
+   "biologicalTarget": "upper respiratory (nasal)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptide-products.com/en/online-store/peptide-and-non-peptide-preparations/rinolax-cleansing-and-regenerating-peptide-nasal-balms-detail",
+     "type": "catalog",
+     "formulation": "",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "temero-genero": {
+   "id": "temero-genero",
+   "name": "Temero Genero",
+   "composition": null,
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "trezvon": {
+   "id": "trezvon",
+   "name": "Trezvon",
+   "composition": null,
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "felicita": {
+   "id": "felicita",
+   "name": "Felicita",
+   "composition": null,
+   "biologicalTarget": "nervous system/mood",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/felicita/",
+     "type": "catalog",
+     "formulation": "30 tablets by 710 mg",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "femalin": {
+   "id": "femalin",
+   "name": "Femalin",
+   "composition": null,
+   "biologicalTarget": null,
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "zinsil-t": {
+   "id": "zinsil-t",
+   "name": "Zinsil-T",
+   "composition": [
+    "Glycine (500mg)",
+    "Zinc (8.6mg)",
+    "Pyridoxine / Vitamin B6 (1.5mg)"
+   ],
+   "biologicalTarget": "general (zinc/glycine/B6)",
+   "manufacturerDirections": {
+    "text": "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed.",
+    "status": "verified",
+    "options": [],
+    "note": "Usage verified; description has disease/pathogenesis wording to soften (needs approval). Tablets vs capsules wording to check."
+   },
+   "storefrontUsage": {
+    "text": "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed.",
+    "basis": "page-text-matches-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/zinsil-t/",
+     "type": "official-doc",
+     "formulation": "zinsil-t; 20 tablets x 1.0 g",
+     "quote": "'adults by 1 tablet 2 times a day, chewing during meal. Course duration is 1 month. Repeated courses within a year are possible, if needed.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Zinsil-T"
+   ]
+  },
+  "ensil": {
+   "id": "ensil",
+   "name": "Ensil",
+   "composition": [
+    "Coenzyme Q10",
+    "Nicotinamide (Vitamin PP)",
+    "Folic acid",
+    "Echinacea extract",
+    "Succinic acid (amber acid)",
+    "L-carnitine",
+    "Vitamins B1, B5, B6",
+    "Vitamins C and E",
+    "L-cysteine",
+    "Vitamin B2",
+    "Vitamin A",
+    "Vitamin D",
+    "Vitamin B12",
+    "Biotin"
+   ],
+   "biologicalTarget": "general (energy metabolism)",
+   "manufacturerDirections": {
+    "text": "Adults: 1 capsule 3 times a day with meals. Course duration: 1 month; the course can be repeated.",
+    "status": "verified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": "Adults: 1 capsule 3 times a day with meals. Course duration: 1 month; the course can be repeated.",
+    "basis": "manufacturer-label"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/ensil/",
+     "type": "official-doc",
+     "formulation": "ensil; 90 caps x 0.31 g",
+     "quote": "'adults by 1 capsule 3 times a day, with meal. Course duration is 1 month. It is allowed to repeat the course.' Composition: '…L-carnitine; L-cysteine; succinic acid; Vitamin C… echinacea… coenzyme Q10; niacin… Vitamin E… pantothenic acid… B6… B1… B2… vitamin A… folic acid (calcium-L-methylfolate); biotin… Vitamin D… Vitamin B12'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "verified",
+   "hold": null,
+   "auditRows": [
+    "Ensil"
+   ]
+  },
+  "anti-age-nb-activity": {
+   "id": "anti-age-nb-activity",
+   "name": "Anti-Age Complex NB Activity",
+   "composition": null,
+   "biologicalTarget": "general (energy)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "needs-approval",
+    "options": [
+     {
+      "text": "Adults: 25 drops in 100 ml of water once a day.",
+      "source": "https://peptideproduct.com/catalog/treatment_and_prophylactic/activity_anti_age_complex_nb/"
+     }
+    ],
+    "note": "Label directions found but not yet approved for the page."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/activity_anti_age_complex_nb/",
+     "type": "official-doc",
+     "formulation": "anti-age-nb-activity; 50 ml liquid; AA-9, AA-3",
+     "quote": "'adults by 25 drops, dissolving in 100 ml of water, once a day. Natural sediments are allowed. Shake well before use.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "needs-approval",
+   "hold": null,
+   "auditRows": [
+    "Anti-Age Complex NB Activity"
+   ]
+  },
+  "anti-age-nb-health": {
+   "id": "anti-age-nb-health",
+   "name": "Anti-Age Complex NB Health",
+   "composition": null,
+   "biologicalTarget": "general (anti-stress/antioxidant)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "needs-approval",
+    "options": [
+     {
+      "text": "Adults: 1 capsule a day; course 4–6 weeks.",
+      "source": "https://peptideproduct.com/catalog/treatment_and_prophylactic/health_anti_age_complex_nb/"
+     }
+    ],
+    "note": "Label directions found but not yet approved for the page."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/treatment_and_prophylactic/health_anti_age_complex_nb/",
+     "type": "official-doc",
+     "formulation": "anti-age-nb-health; 30 caps x 0.25 g; AA-3, AA-1",
+     "quote": "'adults by 1 capsule once a day, with meal. Course duration is 4-6 weeks. It is allowed to repeat a course within a year, if needed.'",
+     "translation": "(English original)"
+    }
+   ],
+   "verificationStatus": "needs-approval",
+   "hold": null,
+   "auditRows": [
+    "Anti-Age Complex NB Health"
+   ]
+  },
+  "thyreogen": {
+   "id": "thyreogen",
+   "name": "Thyreogen",
+   "composition": [
+    "Thyroid gland peptide complex (A-2)"
+   ],
+   "biologicalTarget": "endocrine (thyroid)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "conflicting",
+    "options": [],
+    "note": "Name/code fix verified (Thyreogen spelling, Vesugen AC-2); usage text matches neither manufacturer source exactly (held, conflicting)."
+   },
+   "storefrontUsage": {
+    "text": "1–2 capsules 1–2 times daily with meals. Course: 10–30 days. Repeat in 4–6 months.",
+    "basis": "held-page-text"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Тиреоген противопоказан при индивидуальной непереносимости компонентов.\"",
+   "sources": [
+    {
+     "url": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/tireogen/",
+     "type": "official-doc",
+     "formulation": "thyreogen; 20/60 caps; Cytomax A-2",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в день во время еды. Продолжительность приема — 1 месяц.'",
+     "translation": "Adults from 14: 1–2 caps 1–2 times a day with meals; 1 month."
+    },
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomaxes/thyreogen/",
+     "type": "official-doc",
+     "formulation": "thyreogen; 20/60 caps; Cytomax A-2",
+     "quote": "RU: 'Взрослым от 14 лет принимать по 1–2 капсулы 1–2 раза в день во время еды. Продолжительность приема — 1 месяц.'",
+     "translation": "Adults from 14: 1–2 caps 1–2 times a day with meals; 1 month."
+    }
+   ],
+   "verificationStatus": "conflicting",
+   "hold": null,
+   "auditRows": [
+    "Thyreogen",
+    "1–2× vs 2× group"
+   ]
+  },
+  "gpl-femme": {
+   "id": "gpl-femme",
+   "name": "GPL Femme",
+   "composition": null,
+   "biologicalTarget": "multi-system (female formula)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomax_complexes/gpl_femme/",
+     "type": "catalog",
+     "formulation": "30 capsules of 0,290 mg",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
+  "gpl-man": {
+   "id": "gpl-man",
+   "name": "GPL Man",
+   "composition": null,
+   "biologicalTarget": "multi-system (male formula)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": null
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptideproduct.com/catalog/peptide_products/cytomax_complexes/gpl_man/",
+     "type": "catalog",
+     "formulation": "30 capsules of 0,290 mg",
+     "quote": null,
+     "translation": null
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  }
+ }
+}

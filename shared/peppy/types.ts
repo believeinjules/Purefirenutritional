@@ -72,6 +72,8 @@ export interface PeppyProductSuggestion {
   protocol?: string;
   /** Research about this product's peptide or ingredients (curated registry only), for the card details. */
   research?: { id: string; title: string; url: string; finding?: string }[];
+  /** Course/research schedules from the facts file: educational only, never the label. */
+  alternatives?: { text: string; kind: string }[];
 }
 
 export type ProductFamily = "khavinson" | "prime-peptide" | "revilab" | "other";

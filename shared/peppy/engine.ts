@@ -23,6 +23,7 @@ import {
 } from "./claims.js";
 import { findMentionedProducts } from "./catalog.js";
 import { RESEARCH_REGISTRY } from "./research-registry.js";
+import { getProductFacts } from "../product-facts.js";
 import {
   bloodThinnerResponse,
   combinationResponse,
@@ -490,6 +491,12 @@ export function protocolLine(id: string): string | undefined {
   return `Manufacturer protocol: ${/[.!?]$/.test(t) ? t : `${t}.`} (Label directions, not a clinically validated regimen.)`;
 }
 
+/** Alternative course schedules (dealer/scheme documents) — educational, shown only in card details. */
+export function productAlternatives(id: string): PeppyProductSuggestion["alternatives"] {
+  const alt = getProductFacts(id)?.alternativeProtocols ?? [];
+  return alt.length ? alt.map(a => ({ text: a.text, kind: a.kind })) : undefined;
+}
+
 /** Studies with lifespan, mortality, survival or tumour outcomes are never surfaced on cards. */
 const BANNED_FINDING = /life ?span|mortality|surviv|tumou?r|cancer|oncolog/i;
 
@@ -511,6 +518,7 @@ function withCardFacts(s: PeppyProductSuggestion, tp?: TopicProduct): PeppyProdu
     family: tp?.family ?? productFamily(s.product.id, s.product.category),
     protocol: protocolLine(s.product.id),
     research: productResearch(s.product.id),
+    alternatives: productAlternatives(s.product.id),
   };
 }
 

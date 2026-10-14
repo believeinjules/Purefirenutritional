@@ -10,6 +10,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { products } from "../client/src/data/products";
 import { isHiddenProduct } from "../shared/hidden-products";
+import { getProductFacts, pepitaDirections } from "../shared/product-facts";
 import {
   PRODUCT_DATA_FIELDS,
   emptyRecord,
@@ -120,8 +121,35 @@ export function mergeRecord(p: { id: string; name: string; ingredients?: string[
   return out;
 }
 
+/**
+ * shared/product-facts.json is the single source: Pepita's ingredients and label directions are the
+ * storefront's. Directions are verified only when pepitaDirections() allows (verified label shown on
+ * the product page); otherwise every label-derived field is unverified (held/conflicting/blocked).
+ */
+function withFacts(out: ProductDataRecord): ProductDataRecord {
+  const f = getProductFacts(out.id);
+  if (!f) return out;
+  const fsrc = `shared/product-facts.json (${f.verificationStatus}): ${f.sources.filter(s => s.type !== "course").map(s => s.url).join(" ; ")}`.trim();
+  if (f.composition?.length) out.ingredients = ok(f.composition.join("; "), fsrc);
+  const label = pepitaDirections(out.id);
+  out.schedules = out.schedules.filter(s => s.protocolType !== "label");
+  if (label) {
+    out.labelDirections = ok(label, fsrc);
+    const parsed = parseSchedule(label);
+    if (parsed) out.schedules.unshift({ protocolType: "label", format: null, ...parsed, text: label, source: fsrc });
+    out.formats = out.formats.map(fm => ({ ...fm, directions: ok(label, fsrc) }));
+  } else {
+    const why = `${f.manufacturerDirections.status}${f.hold ? `: ${f.hold}` : f.manufacturerDirections.note ? `: ${f.manufacturerDirections.note}` : ""}`;
+    out.labelDirections = { status: "unverified", value: null, source: `shared/product-facts.json (${why})` };
+    out.food = { status: "unverified", value: null };
+    out.courseDuration = { status: "unverified", value: null };
+    out.formats = out.formats.map(fm => ({ ...fm, directions: { status: "unverified", value: null } }));
+  }
+  return out;
+}
+
 const visible = products.filter(p => !isHiddenProduct(p));
-const records = visible.map(p => mergeRecord(p, rdBy.get(p.id)));
+const records = visible.map(p => withFacts(mergeRecord(p, rdBy.get(p.id))));
 const file: ProductDataFile = {
   schemaVersion: 2,
   note: "Built by scripts/build-product-data.ts. Do not hand-edit: update data/pepita-product-dataset.json (Research Director) and re-run.",

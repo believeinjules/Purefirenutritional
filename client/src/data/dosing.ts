@@ -64,6 +64,6 @@ export const DOSING: Record<string, DosingFacts> = {
   "complex-3d": { unitsPerDay: 1, source: "Take 1 capsule daily with meals." },
   previn: { unitsPerDay: 1, unitLabel: "tablets", source: "Take 1 tablet per day during meals." },
   "zinsil-t": { unitsPerDay: 2, unitLabel: "tablets", source: "Take 1 tablet 2 times daily, chewing during meals." },
-  ensil: { unitsPerDay: 3, source: "Take 1 capsule 3 times daily with meals." },
+  ensil: { unitsPerDay: 3, source: "Adults: 1 capsule 3 times a day with meals." },
   getrufline: { unitsPerDay: 1, unitLabel: "truffles", source: "Chew 1 truffle thoroughly per day for 6–12 days." },
 };

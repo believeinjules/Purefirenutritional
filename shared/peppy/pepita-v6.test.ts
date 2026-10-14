@@ -1,3 +1,4 @@
+import { pepitaDirections } from "../product-facts";
 import { describe, expect, it } from "vitest";
 import { answerPeppy } from "./respond";
 import { buildCatalog } from "./catalog";
@@ -13,7 +14,11 @@ describe("Pepita v6 response logic", () => {
     const { response } = await answerPeppy({ message: "My knees ache, what could help?" }, { catalog });
     expect(response.products.map(p => p.product.id)).toEqual(["sigumir", "prime-peptide-joints", "prime-peptide-collagen"]);
     expect(response.products.map(p => p.family)).toEqual(["khavinson", "prime-peptide", "prime-peptide"]);
-    for (const p of response.products) expect(p.protocol).toMatch(/^Manufacturer protocol: .*not a clinically validated regimen/);
+    // Protocols only where the facts file has verified label directions (Sigumir: Cytomax frequency conflict, held).
+    for (const p of response.products)
+      if (pepitaDirections(p.product.id)) expect(p.protocol).toMatch(/^Manufacturer protocol: .*not a clinically validated regimen/);
+      else expect(p.protocol).toBeUndefined();
+    expect(response.products.find(p => p.product.id === "prime-peptide-joints")?.protocol).toMatch(/3 times a day/);
     expect(response.followUps.length).toBeGreaterThanOrEqual(2);
     expect(response.followUps.length).toBeLessThanOrEqual(3);
     expect(response.learnMore?.map(s => s.heading)).toContain("How the three picks differ");

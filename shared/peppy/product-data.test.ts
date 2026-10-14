@@ -1,3 +1,4 @@
+import { getProductFacts } from "../product-facts";
 import { describe, expect, it } from "vitest";
 import { products } from "../../client/src/data/products";
 import { HIDDEN_PRODUCT_IDS } from "../hidden-products";
@@ -40,7 +41,7 @@ describe("product data layer (single JSON file)", () => {
   it("no product shows a schedule without a per-product RD source", () => {
     for (const r of RECORDS)
       for (const s of r.schedules) {
-        expect(s.source, r.id).toMatch(/^RD .*https?:\/\//);
+        expect(s.source, r.id).toMatch(/^(RD|shared\/product-facts\.json).*https?:\/\//);
         expect(["label", "manufacturer-protocol", "research-regimen"]).toContain(s.protocolType);
       }
   });
@@ -50,22 +51,21 @@ describe("product data layer (single JSON file)", () => {
       for (const t of TEMPLATES) expect(label.includes(t), r.id).toBe(false);
     }
   });
-  it("Endoluten: verified institute directions, stated confidently with pack duration, no source-disagreement framing", () => {
-    const s = verifiedSchedules("endoluten", "label")[0];
-    expect(s).toMatchObject({ unitsPerDose: [1, 1], dosesPerDay: [1, 1], everyNDays: 3 });
-    expect(s.source).toContain("https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/");
-    expect(verified("endoluten", "contraindications")).toBe("individual intolerance to the components, pregnancy, breastfeeding");
+  it("Endoluten dosing is ON HOLD: no schedule stated, both sources recorded, page text unchanged", () => {
+    expect(verifiedSchedules("endoluten", "label")).toEqual([]);
+    expect(verified("endoluten", "labelDirections")).toBeNull();
+    const f = getProductFacts("endoluten")!;
+    expect(f.manufacturerDirections.status).toBe("blocked");
+    expect(f.manufacturerDirections.options.map(o => o.source).join(" ")).toMatch(/peptid\.ru.*peptideproduct\.com/);
     const t = dosingAnswer("endoluten", "Endoluten").text;
-    expect(t).toMatch(/^The manufacturer's directions for Endoluten: Adults take 1 capsule once every 3 days, in the morning or at midday, for a course of about 20 days to 2 months\./);
-    expect(t).toMatch(/20-capsule pack lasts about 60 days and a 60-capsule pack lasts about 180 days/);
-    expect(t).not.toMatch(/catalog|differen|disagree|conflict|Maintenance|Intensive|1–2 capsules/i);
+    expect(t).not.toMatch(/once every 3 days|1–2 capsules|Maintenance|Intensive/i);
   });
   it("says 'Adults', never an 'over 14' age line, and no arithmetic aside, for every product", () => {
     for (const p of products) {
       const t = ask(`How much ${p.name} should I take?`).summary;
       expect(t, p.id).not.toMatch(/over 14|older 14|14 years|simple arithmetic/i);
     }
-    expect(dosingAnswer("revifort", "Revifort").text).toMatch(/^The manufacturer's directions for Revifort: Adults take 1 capsule 2 times a day/);
+    expect(dosingAnswer("revifort", "Revifort").text).toMatch(/^The manufacturer's directions for Revifort: Adults: 1 capsule 2 times a day/);
   });
   it("no answer or prompt hedges with 'other catalogs/sources differ'", () => {
     const HEDGE = /(other|some|english) (catalogs?|sources?)[^.]*(differ|different|disagree|show)/i;

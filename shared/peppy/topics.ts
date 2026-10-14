@@ -129,7 +129,7 @@ export const TOPICS: Topic[] = [
       /\b(sleep\w*|insomnia|can'?t sleep|cannot sleep|trouble sleeping|fall(?:ing)? asleep|stay(?:ing)? asleep|wak(?:e|ing) up (?:at night|in the night|at \d)|night waking|circadian|jet ?lag|bedtime|restless nights?)\b/i,
     ],
     summary:
-      "Endoluten is a natural pineal gland peptide complex; the pineal gland releases melatonin at night to keep the body clock in step with light and dark, and researchers have investigated whether these peptides support the gland's own melatonin rhythm rather than adding the hormone. Pinealon, the EDR brain peptide, is studied for neuroprotection, but direct sleep evidence in people is limited.",
+      "Endoluten is a natural pineal gland peptide complex; the pineal gland releases melatonin at night to keep the body clock in step with light and dark, and researchers have investigated whether these peptides support the gland's own melatonin rhythm rather than adding the hormone. Pinealon, a brain peptide complex (AC-5), is studied for neuroprotection, but direct sleep evidence in people is limited.",
     sections: [
       {
         heading: "What the research says",
@@ -147,15 +147,15 @@ export const TOPICS: Topic[] = [
       },
       {
         heading: "Endoluten vs taking melatonin",
-        body: "A melatonin supplement adds the hormone directly and acts within hours, so it's mainly used for timing problems such as jet lag. Endoluten is a pineal gland peptide complex taken as a short intermittent course; it contains no melatonin, and the idea researchers have investigated is a slower effect on the gland's own function. That idea rests on small melatonin-level studies, not on sleep trials.",
+        body: "A melatonin supplement adds the hormone directly and acts within hours, so it's mainly used for timing problems such as jet lag. Endoluten is a pineal gland peptide complex taken as a course; it contains no melatonin, and the idea researchers have investigated is a slower effect on the gland's own function. That idea rests on small melatonin-level studies, not on sleep trials.",
       },
       {
         heading: "Endoluten, Epitalon and Pinealon are different things",
-        body: "Endoluten is a natural pineal gland peptide complex (A-8) sold by Pure Fire. Epitalon is a synthetic four-amino-acid peptide, Ala-Glu-Asp-Gly (AEDG), first identified in pineal extract research; Pure Fire doesn't sell it. Pinealon is a synthetic three-amino-acid peptide, Glu-Asp-Arg (EDR), studied in cell and animal work for neuroprotection and oxidative stress; it's sometimes discussed for sleep, but direct human sleep evidence is limited.",
+        body: "Endoluten is a natural pineal gland peptide complex (A-8) sold by Pure Fire. Epitalon is a synthetic four-amino-acid peptide, Ala-Glu-Asp-Gly (AEDG), first identified in pineal extract research; Pure Fire doesn't sell it. Pinealon is a synthesized brain peptide complex (AC-5) for the nervous system, studied in cell and animal work for neuroprotection and oxidative stress; it's sometimes discussed for sleep, but direct human sleep evidence is limited. Research note (literature, not the label): related papers describe the EDR tripeptide (Glu-Asp-Arg).",
       },
       {
         heading: "Course directions: manufacturer vs research",
-        body: "Manufacturer directions for Endoluten (St. Petersburg Institute of Bioregulation and Gerontology): adults take 1 capsule once every 3 days, in the morning or at midday, for about 20 days to 2 months. The research studies used injectable pineal preparations, so their schedules don't carry over to the capsules.",
+        body: "Manufacturer sources currently differ on Endoluten's schedule, so Pure Fire is checking them against the label on the batch it sells; until then, follow the directions on the product page and package. The research studies used injectable pineal preparations, so their schedules don't carry over to the capsules.",
       },
     ],
     sourceIds: ["pmid:17969590", "pmid:11524632", "pmid:21978084", "pmid:28849889", "pmid:23691095"],
@@ -172,8 +172,8 @@ export const TOPICS: Topic[] = [
       },
       {
         id: "pinealon",
-        why: "EDR brain peptide studied for neuroprotection and oxidative stress; its link to sleep is not established.",
-        tissue: "Brain cortex: neuroprotection (secondary for sleep)",
+        why: "A brain peptide complex (AC-5) for the nervous system, studied for neuroprotection; its link to sleep is not established.",
+        tissue: "Brain and nervous system (secondary for sleep)",
         evidenceNote:
           "Sometimes discussed for sleep, but the research is cell and animal work; direct human sleep evidence is limited.",
       },
@@ -696,11 +696,11 @@ export const TOPICS: Topic[] = [
       /\b(brain|memory|memor\w*|focus\w*|concentrat\w*|cognit\w*|brain fog|foggy|forgetful\w*|mental clarity|mental performance)\b/i,
     ],
     summary:
-      "Cerluten is a natural brain peptide complex, while Prime Peptide Brain builds on the IPH AGAP tetrapeptide with magnesium, choline, GABA and zinc. Researchers have investigated short brain peptides such as EDR (Pinealon) in neuron cultures, where they reduced age-related changes and oxidative stress. The difference is a tissue-specific course versus a daily peptide-plus-nutrient formula.",
+      "Cerluten is a natural brain peptide complex, while Prime Peptide Brain builds on the IPH AGAP tetrapeptide with magnesium, choline, GABA and zinc. Researchers have investigated short brain peptides in neuron cultures, where they reduced age-related changes and oxidative stress. The difference is a tissue-specific course versus a daily peptide-plus-nutrient formula.",
     sections: [
       {
         heading: "What the research says about brain peptides",
-        body: "Short brain peptides (such as EDR, also called Pinealon, and KED) protected neurons and raised serotonin-related activity in cell studies and are proposed as neuroprotective, but human data are thin and come from the originating group.",
+        body: "Research note: short brain peptides studied in the literature (such as EDR and KED) protected neurons and raised serotonin-related activity in cell studies and are proposed as neuroprotective, but human data are thin and come from the originating group.",
       },
       {
         heading: "See a doctor if",
@@ -744,7 +744,7 @@ export const TOPICS: Topic[] = [
       },
       {
         id: "pinealon",
-        why: "A Khavinson Cytogen: a synthesized brain-cortex peptide complex (AC-5) made from the amino acids of the EDR tripeptide (Glu-Asp-Arg), studied for neuroprotection and oxidative stress.",
+        why: "A Khavinson Cytogen: a synthesized brain peptide complex (AC-5) for the brain and nervous system, studied for neuroprotection and oxidative stress.",
         evidenceNote:
           "Researchers have investigated organ-specific peptides mostly in cell and animal work; Pinealon as a finished product has no published human trials.",
       },
@@ -1572,10 +1572,10 @@ export const PRODUCT_EVIDENCE: Record<
   },
   pinealon: {
     lineage:
-      "a synthesized Cytogen whose peptide complex (AC-5) is made from the amino acids of the EDR tripeptide (Glu-Asp-Arg)",
+      "a synthesized brain peptide complex (AC-5), a Cytogen for the brain and nervous system",
     sourceIds: ["pmid:21978084", "pmid:39518916"],
     productNote:
-      "Pinealon as a finished product has no published human trials; the EDR research is cell and animal work.",
+      "Pinealon as a finished product has no published human trials; research on related brain peptides is cell and animal work.",
   },
   vladonix: {
     lineage:
