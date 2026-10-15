@@ -7,6 +7,7 @@
  * (shared/product-prices.ts), so rich-result prices match what Stripe charges.
  */
 import { variantCartSize } from "@shared/product-prices";
+import { getPdpContent } from "@shared/product-facts";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
 export const SITE_NAME = "Pure Fire Nutritional";
@@ -175,10 +176,13 @@ function isUsageSentence(s: string): boolean {
  * up to ~160 characters. Falls back to a neutral catalog sentence.
  */
 export function productMetaDescription(product: {
+  id?: string;
   name: string;
   description?: string | null;
   category?: string | null;
 }): string {
+  const written = product.id ? getPdpContent(product.id)?.metaDescription : undefined;
+  if (written) return written;
   const safe = splitSentences(product.description || "").filter(
     (s) => !hasClaimLanguage(s) && !isAvailabilitySentence(s) && !isUsageSentence(s)
   );
@@ -333,7 +337,7 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
     "@type": "Product",
     "@id": `${url}#product`,
     name: product.name,
-    description: productMetaDescription(product),
+    description: productSnippet(product),
     sku: product.id,
     url,
     brand: { "@type": "Brand", name: SITE_NAME },
@@ -344,17 +348,147 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
   return ld;
 }
 
+// ─── Product titles / snippets ───────────────────────────────────────────────
+
+/** Target organ / tissue of each Khavinson peptide bioregulator (from the catalog copy). */
+export const BIOREGULATOR_ORGAN: Record<string, string> = {
+  bonomarlot: "Bone Marrow",
+  bonothyrk: "Parathyroid",
+  cartalax: "Cartilage",
+  cerluten: "Brain",
+  chelohart: "Heart",
+  chitomur: "Bladder",
+  chonluten: "Respiratory",
+  crystagen: "Immune",
+  endoluten: "Pineal",
+  glandokort: "Adrenal",
+  gotratix: "Muscle",
+  libidon: "Prostate",
+  ovagen: "Liver & Digestive",
+  pielotax: "Kidney",
+  pinealon: "Brain",
+  sigumir: "Cartilage & Bone",
+  stamakort: "Stomach",
+  suprefort: "Pancreas",
+  svetinorm: "Liver",
+  taxorest: "Respiratory",
+  testoluten: "Testicular",
+  thyreogen: "Thyroid",
+  ventfort: "Blood Vessel",
+  vesugen: "Blood Vessel",
+  visoluten: "Retina",
+  vladonix: "Thymus",
+  zhenoluten: "Ovarian",
+};
+
+export const TITLE_MAX = 60;
+
+/**
+ * "<Product> | <Organ> Peptide Bioregulator | Pure Fire Nutritional" when it
+ * fits in 60 characters; otherwise the longest shorter variant that still
+ * leads with the product name and keeps the brand.
+ */
+export function productTitle(product: { id: string; name: string }): string {
+  const name = product.name;
+  const organ = BIOREGULATOR_ORGAN[product.id];
+  const candidates = organ
+    ? [
+        `${name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`,
+        `${name} ${organ} Peptide Bioregulator | ${SITE_NAME}`,
+        `${name} | ${organ} Peptide Bioregulator | Pure Fire`,
+        `${name} ${organ} Peptide Bioregulator | Pure Fire`,
+        `${name} ${organ} Bioregulator | Pure Fire`,
+        `${name} Peptide Bioregulator | ${SITE_NAME}`,
+        `${name} Peptide Bioregulator | Pure Fire`,
+      ]
+    : [`${name} | ${SITE_NAME}`];
+  return candidates.find((t) => t.length <= TITLE_MAX) ?? `${name} | ${SITE_NAME}`;
+}
+
+export const SNIPPET_MIN = 150;
+
+/**
+ * 150–160 character search snippet: a branded lead sentence (product name,
+ * organ, Pure Fire Nutritional) followed by the claim-filtered product copy.
+ */
+export function productSnippet(product: {
+  id: string;
+  name: string;
+  description?: string | null;
+  category?: string | null;
+}): string {
+  // Per-product written meta (shared/product-facts.json → pdp.metaDescription) wins when present.
+  const written = getPdpContent(product.id)?.metaDescription;
+  if (written) return written;
+  const organ = BIOREGULATOR_ORGAN[product.id];
+  const lead = organ
+    ? `${product.name} ${organ.toLowerCase()} peptide bioregulator from Pure Fire Nutritional.`
+    : `${product.name} from Pure Fire Nutritional.`;
+  const body = splitSentences(productMetaDescription(product))
+    .map((s) => s.replace(/…$/, ""))
+    .filter((s) => !s.toLowerCase().startsWith(product.name.toLowerCase() + ":"));
+  const fillers = organ
+    ? ["Authorized U.S. Khavinson retailer.", "Shop authentic peptide bioregulators online.", "Shop now."]
+    : [
+        "Authorized U.S. retailer of Khavinson peptides and longevity supplements.",
+        "Shop authentic longevity supplements online.",
+        "Shipped from the USA.",
+        "Shop now.",
+        "Order online.",
+      ];
+  let out = lead;
+  // Product copy first (truncated to fit if needed), then generic fillers.
+  for (const s of body) {
+    const next = `${out} ${s}`;
+    if (next.length <= META_DESCRIPTION_MAX) out = next;
+    else {
+      if (out.length < SNIPPET_MIN) out = truncateAtWord(next, META_DESCRIPTION_MAX);
+      break;
+    }
+  }
+  for (const s of fillers) {
+    if (out.length >= SNIPPET_MIN) break;
+    const next = `${out} ${s}`;
+    if (next.length <= META_DESCRIPTION_MAX) out = next;
+  }
+  return out;
+}
+
+/** Home > Shop > Product breadcrumb trail. */
+export function productBreadcrumbJsonLd(product: { id: string; name: string }): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Shop", item: canonicalUrl("/products") },
+      { "@type": "ListItem", position: 3, name: product.name, item: canonicalUrl(productPath(product.id)) },
+    ],
+  };
+}
+
 /** Everything the <head> of a product page needs. */
+/** FAQPage structured data from the written PDP FAQs (same text the page renders). */
+export function productFaqJsonLd(id: string): Record<string, unknown>[] {
+  const faq = getPdpContent(id)?.faq;
+  if (!faq?.length) return [];
+  return [{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  }];
+}
+
 export function productHead(product: SeoProduct) {
   const images = productImageUrls(product);
   return {
-    title: `${product.name} | ${SITE_NAME}`,
-    description: productMetaDescription(product),
+    title: productTitle(product),
+    description: productSnippet(product),
     path: productPath(product.id),
     image: images[0],
     imageAlt: product.imageAlt || product.name,
     type: "product" as const,
-    jsonLd: [productJsonLd(product)],
+    jsonLd: [productJsonLd(product), productBreadcrumbJsonLd(product), ...productFaqJsonLd(product.id)],
   };
 }
 
