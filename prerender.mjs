@@ -35,6 +35,64 @@ function writeFile(outPath, contents) {
   fs.writeFileSync(outPath, contents);
 }
 
+/**
+ * Approved, public reviews grouped by product id, read with the Firebase Admin
+ * SDK (same FIREBASE_PROJECT_ID / FIREBASE_CLIENT_EMAIL / FIREBASE_PRIVATE_KEY
+ * env the api/ routes use). Returns an empty map when credentials are missing
+ * or the read fails: no AggregateRating is ever emitted without real reviews.
+ */
+async function loadApprovedReviews(ssr) {
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+  const byProduct = new Map();
+  if (!projectId || !clientEmail || !privateKey) return { byProduct, note: "no Admin credentials, skipped" };
+  try {
+    const { initializeApp, getApps, cert } = await import("firebase-admin/app");
+    const { getFirestore } = await import("firebase-admin/firestore");
+    const app =
+      getApps().find((a) => a.name === "prerender") ??
+      initializeApp({ credential: cert({ projectId, clientEmail, privateKey }) }, "prerender");
+    const snap = await getFirestore(app).collection("reviews").where("approved", "==", true).get();
+    for (const d of snap.docs) {
+      const data = d.data();
+      if (!ssr.isPublicReview(data)) continue;
+      const r = ssr.toPublicReview(d.id, data);
+      const list = byProduct.get(r.productId) ?? [];
+      list.push(r);
+      byProduct.set(r.productId, list);
+    }
+    return { byProduct, note: `${snap.size} approved docs` };
+  } catch (err) {
+    return { byProduct: new Map(), note: `read failed (${err.message}), skipped` };
+  }
+}
+
+/** Add aggregateRating to the page's existing Product JSON-LD block (no second Product block). */
+function withAggregateRating(page, summary) {
+  if (!summary || summary.count < 1) return page;
+  return page.replace(
+    /(<script[^>]*type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/g,
+    (whole, open, body, close) => {
+      let ld;
+      try {
+        ld = JSON.parse(body);
+      } catch {
+        return whole;
+      }
+      if (!ld || ld["@type"] !== "Product" || ld.aggregateRating) return whole;
+      ld.aggregateRating = {
+        "@type": "AggregateRating",
+        ratingValue: summary.average,
+        reviewCount: summary.count,
+        bestRating: 5,
+        worstRating: 1,
+      };
+      return `${open}${JSON.stringify(ld).replace(/</g, "\\u003c")}${close}`;
+    }
+  );
+}
+
 async function prerender() {
   const ssr = await import(path.join(distDir, "server/entry-server.js"));
   const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
@@ -90,14 +148,23 @@ async function prerender() {
   }
 
   // ── Product pages ─────────────────────────────────────────────────────────
+  const reviews = await loadApprovedReviews(ssr);
+  console.log(`Reviews for AggregateRating: ${reviews.note}`);
+  const rated = [];
   const missingLd = [];
   for (const { product } of catalog.entries) {
     const route = ssr.productPath(product.id);
-    const page = renderRoute(route, { product });
+    let page = renderRoute(route, { product });
+    const productReviews = reviews.byProduct.get(product.id);
+    if (productReviews?.length) {
+      page = withAggregateRating(page, ssr.summarizeReviews(productReviews));
+      rated.push(product.id);
+    }
     if (!page.includes('"@type":"Product"')) missingLd.push(product.id);
     writeFile(outPathFor(route), page);
   }
   console.log(`Prerendered: ${catalog.entries.length} product pages under /products/<id>`);
+  console.log(`AggregateRating added for ${rated.length} product(s)${rated.length ? `: ${rated.join(", ")}` : ""}`);
   if (missingLd.length) {
     console.warn(`Warning: no Product JSON-LD rendered for: ${missingLd.join(", ")}`);
   }

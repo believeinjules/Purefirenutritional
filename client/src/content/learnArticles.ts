@@ -1,14 +1,14 @@
-/** Hand-written Learn articles (client/src/pages/learn/*), listed in the Science nav dropdown and on the /journal index page. */
+/** Hand-written Learn articles (client/src/pages/learn/*), listed in the Science nav dropdown and on the /learn index page. */
 export type LearnArticle = {
   title: string;
   href: string;
   /** Shorter label for the Science nav dropdown (defaults to title). */
   navLabel?: string;
-  /** Listed on /journal only, not in the Science nav dropdown. */
+  /** Listed on /learn only, not in the Science nav dropdown. */
   hideFromNav?: boolean;
   /** One-line summary shown on the /articles index. */
   description: string;
-  /** Publish date (YYYY-MM-DD). /journal lists newest first; ties keep array order. */
+  /** Publish date (YYYY-MM-DD). /learn lists newest first; ties keep array order. */
   date: string;
   /** Optional cover image (site paths). */
   cover?: { jpg: string; webp?: string; alt: string };
@@ -67,5 +67,5 @@ export const LEARN_ARTICLES: LearnArticle[] = [
   },
 ];
 
-/** /journal order: newest first by `date`; equal dates keep LEARN_ARTICLES order (stable sort). */
+/** /learn order: newest first by `date`; equal dates keep LEARN_ARTICLES order (stable sort). */
 export const JOURNAL_ARTICLES: LearnArticle[] = [...LEARN_ARTICLES].sort((a, b) => b.date.localeCompare(a.date));

@@ -11,7 +11,7 @@ export const JOURNAL_DESCRIPTION =
 export default function Journal() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <PageSeo title={JOURNAL_TITLE} description={JOURNAL_DESCRIPTION} path="/journal" />
+      <PageSeo title={JOURNAL_TITLE} description={JOURNAL_DESCRIPTION} path="/learn" />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-5xl mx-auto px-4 py-16">
