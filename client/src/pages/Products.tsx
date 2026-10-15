@@ -19,6 +19,7 @@ import {
   ProductListRow,
 } from "@/components/ProductListingCard";
 import { fetchProducts, Product } from "@/lib/productsStorage";
+import { products as catalogProducts } from "@/data/products";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { useReviewSummaries } from "@/lib/reviewsApi";
 
@@ -58,8 +59,13 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Build-time prerender (no window): list the code catalog so the static HTML
+  // links every product page. In the browser this starts empty and loads as before.
+  const isPrerender = typeof window === "undefined";
+  const [products, setProducts] = useState<Product[]>(() =>
+    isPrerender ? (catalogProducts as unknown as Product[]) : []
+  );
+  const [loading, setLoading] = useState(!isPrerender);
   // Approved-review summaries only (empty until reviews are approved).
   const reviewSummaries = useReviewSummaries();
 

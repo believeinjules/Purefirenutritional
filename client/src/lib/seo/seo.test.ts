@@ -9,6 +9,8 @@ import {
   hasClaimLanguage,
   PRIVATE_ROUTES,
   productHead,
+  productTitle,
+  productSnippet,
   productJsonLd,
   productMetaDescription,
   routeHead,
@@ -52,7 +54,7 @@ describe("product structured data", () => {
     expect(ld.sku).toBe(p.id);
     expect(ld.url).toBe(`https://www.purefirenutritional.com/products/${p.id}`);
     expect(ld.image[0]).toMatch(/^https:\/\/www\.purefirenutritional\.com\//);
-    expect(ld.description).toBe(productMetaDescription(p));
+    expect(ld.description).toBe(productSnippet(p));
 
     const sized = (p.variants ?? []).length > 1;
     if (sized) {
@@ -87,7 +89,10 @@ describe("product structured data", () => {
   it("product head uses the canonical /products/<id> path", () => {
     const head = productHead(products[0]!);
     expect(head.path).toBe(`/products/${products[0]!.id}`);
-    expect(head.title).toBe(`${products[0]!.name} | Pure Fire Nutritional`);
+    expect(head.title).toBe(productTitle(products[0]!));
+    expect(head.title.startsWith(products[0]!.name)).toBe(true);
+    expect(head.title).toMatch(/Pure Fire/);
+    expect(head.title.length).toBeLessThanOrEqual(60);
   });
 });
 
