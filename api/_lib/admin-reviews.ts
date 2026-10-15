@@ -6,7 +6,7 @@
  * not given permission, or when its text makes a health claim
  * (cured / treated / fixed … — see shared/reviews.ts hasHealthClaim).
  */
-import { hasHealthClaim, type ReviewDoc } from "../../shared/reviews.js";
+import { hasHealthClaim, type ReviewDoc, type ReviewStatus } from "../../shared/reviews.js";
 
 export class ReviewValidationError extends Error {
   constructor(message: string) {
@@ -44,6 +44,8 @@ function firstName(v: unknown): string {
 
 function lastInitial(v: unknown): string {
   const s = typeof v === "string" ? v.trim().replace(/\.$/, "") : "";
+  // Customer-form submissions may give a first name only.
+  if (s === "") return "";
   if (!/^[A-Za-z\u00C0-\u024F]$/.test(s)) fail("Last initial must be one letter");
   return s.toUpperCase();
 }
@@ -68,6 +70,13 @@ function rating(v: unknown): number {
   const n = typeof v === "string" ? Number(v) : v;
   if (typeof n !== "number" || !Number.isInteger(n) || n < 1 || n > 5) fail("Rating must be 1–5");
   return n;
+}
+
+const STATUSES = ["pending", "approved", "rejected"] as const;
+
+function status(v: unknown): ReviewStatus {
+  if (typeof v !== "string" || !(STATUSES as readonly string[]).includes(v)) fail("status must be pending, approved or rejected");
+  return v as ReviewStatus;
 }
 
 function bool(v: unknown, field: string): boolean {
@@ -99,6 +108,8 @@ export function validateReviewInput(body: unknown): ReviewDoc {
     approved: b.approved === undefined ? false : bool(b.approved, "approved"),
     permission: b.permission === undefined ? false : bool(b.permission, "permission"),
   };
+  doc.status = doc.approved ? "approved" : "pending";
+  doc.source = "admin";
   assertApprovable(doc);
   return doc;
 }
@@ -117,6 +128,13 @@ export function validateReviewPatch(body: unknown): Partial<ReviewDoc> {
   if ("verified" in b) out.verified = bool(b.verified, "verified");
   if ("approved" in b) out.approved = bool(b.approved, "approved");
   if ("permission" in b) out.permission = bool(b.permission, "permission");
+  if ("status" in b) {
+    out.status = status(b.status);
+    // Keep the public `approved` flag in step with the moderation state.
+    if (!("approved" in b)) out.approved = out.status === "approved";
+  } else if ("approved" in b) {
+    out.status = out.approved ? "approved" : "pending";
+  }
   if (Object.keys(out).length === 0) fail("Nothing to update");
   return out;
 }

@@ -108,6 +108,15 @@ async function prerender() {
     console.log(`Prerendered (noindex): ${route}`);
   }
 
+  // ── Customer review form, one noindex shell per product (/review/<id>) ───
+  // Not in the sitemap. The page sets its own noindex; without a file here
+  // Vercel would serve 404.html for the link Julia sends customers.
+  for (const { product } of catalog.entries) {
+    const route = `/review/${product.id}`;
+    writeFile(outPathFor(route), renderRoute(route, { withBody: false }));
+  }
+  console.log(`Prerendered (noindex): ${catalog.entries.length} review forms under /review/<id>`);
+
   // ── 404 page (Vercel serves dist/404.html with status 404) ───────────────
   writeFile(path.join(distDir, "404.html"), renderRoute("/404"));
   console.log("Prerendered: 404.html");

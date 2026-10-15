@@ -29,13 +29,9 @@ import {
 } from '@/components/ui/table';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import {
-  getProductReviews,
-  updateReviewStatus,
-  deleteReview,
-  getPendingReviews,
-  type ProductReview
-} from '@/lib/reviewStorage';
+import ReviewModeration from '@/components/reviews/ReviewModeration';
+import { listAdminReviews } from '@/lib/reviewsAdmin';
+import type { ReviewStatus } from '@shared/reviews';
 import {
   getAbandonedCartStats,
   getCartsNeedingRecovery,
@@ -89,7 +85,8 @@ function formatAddress(a: Order['shipping_address']): string {
 
 export default function Admin() {
   const [, setLocation] = useLocation();
-  const [pendingReviews, setPendingReviews] = useState<ProductReview[]>([]);
+  // Counts reported by <ReviewModeration /> (Firestore `reviews` via /api/admin/reviews).
+  const [reviewCounts, setReviewCounts] = useState<Record<ReviewStatus, number>>({ pending: 0, approved: 0, rejected: 0 });
   const [abandonedCarts, setAbandonedCarts] = useState<AbandonedCart[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -115,15 +112,20 @@ export default function Admin() {
 
   const loadData = async () => {
     setLoading(true);
+    listAdminReviews()
+      .then((list) => {
+        const c: Record<ReviewStatus, number> = { pending: 0, approved: 0, rejected: 0 };
+        for (const r of list) c[r.status] += 1;
+        setReviewCounts(c);
+      })
+      .catch(() => {});
     try {
-      const [reviews, carts, stats, orderData, customerData] = await Promise.all([
-        getPendingReviews(),
+      const [carts, stats, orderData, customerData] = await Promise.all([
         getCartsNeedingRecovery(),
         getAbandonedCartStats(),
         fetchOrders(),
         fetchCustomers()
       ]);
-      setPendingReviews(reviews);
       setAbandonedCarts(carts);
       setCartStats(stats);
       setOrders(orderData);
@@ -165,23 +167,6 @@ export default function Admin() {
       console.error('Error fetching customers:', error);
       setCustomersError(error?.message ?? 'Failed to load customers');
       return [];
-    }
-  };
-
-  const handleApproveReview = async (reviewId: string) => {
-    await updateReviewStatus(reviewId, 'approved');
-    loadData();
-  };
-
-  const handleRejectReview = async (reviewId: string) => {
-    await updateReviewStatus(reviewId, 'rejected');
-    loadData();
-  };
-
-  const handleDeleteReview = async (reviewId: string) => {
-    if (confirm('Are you sure you want to delete this review permanently?')) {
-      await deleteReview(reviewId);
-      loadData();
     }
   };
 
@@ -287,7 +272,7 @@ export default function Admin() {
                 <MessageSquare className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{pendingReviews.length}</div>
+                <div className="text-2xl font-bold">{reviewCounts.pending}</div>
                 <p className="text-xs text-muted-foreground">
                   Awaiting moderation
                 </p>
@@ -341,10 +326,10 @@ export default function Admin() {
                 )}
               </TabsTrigger>
               <TabsTrigger value="reviews">
-                Review Moderation
-                {pendingReviews.length > 0 && (
+                Reviews
+                {reviewCounts.pending > 0 && (
                   <Badge variant="destructive" className="ml-2">
-                    {pendingReviews.length}
+                    {reviewCounts.pending}
                   </Badge>
                 )}
               </TabsTrigger>
@@ -492,99 +477,18 @@ export default function Admin() {
               </Card>
             </TabsContent>
 
-            {/* Review Moderation Tab */}
+            {/* Reviews Tab — customer reviews from /review links + admin-entered */}
             <TabsContent value="reviews" className="space-y-4">
               <Card>
                 <CardHeader>
-                  <CardTitle>Pending Reviews</CardTitle>
+                  <CardTitle>Customer Reviews</CardTitle>
                   <CardDescription>
-                    Review and moderate customer product reviews
+                    Submitted through the /review link. Only approved reviews show on product pages.
+                    Send customers <code>/review/&lt;product-id&gt;</code> (e.g. /review/endoluten).
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {loading ? (
-                    <p className="text-center py-8 text-muted-foreground">Loading...</p>
-                  ) : pendingReviews.length === 0 ? (
-                    <p className="text-center py-8 text-muted-foreground">
-                      No pending reviews to moderate
-                    </p>
-                  ) : (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Product</TableHead>
-                          <TableHead>Customer</TableHead>
-                          <TableHead>Rating</TableHead>
-                          <TableHead>Review</TableHead>
-                          <TableHead>Date</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {pendingReviews.map((review) => (
-                          <TableRow key={review.id}>
-                            <TableCell className="font-medium">
-                              {review.productId}
-                            </TableCell>
-                            <TableCell>
-                              <div>
-                                <div className="font-medium">{review.customerName}</div>
-                                <div className="text-sm text-muted-foreground">
-                                  {review.customerEmail}
-                                </div>
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <div className="flex items-center gap-1">
-                                <span className="font-medium">{review.rating}</span>
-                                <span className="text-yellow-400">★</span>
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <div>
-                                {review.title && (
-                                  <div className="font-medium mb-1">{review.title}</div>
-                                )}
-                                <div className="text-sm text-muted-foreground line-clamp-2">
-                                  {review.reviewText}
-                                </div>
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              {new Date(review.createdAt).toLocaleDateString()}
-                            </TableCell>
-                            <TableCell className="text-right">
-                              <div className="flex justify-end gap-2">
-                                <Button
-                                  size="sm"
-                                  variant="default"
-                                  onClick={() => handleApproveReview(review.id)}
-                                >
-                                  <CheckCircle className="h-4 w-4 mr-1" />
-                                  Approve
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => handleRejectReview(review.id)}
-                                >
-                                  <XCircle className="h-4 w-4 mr-1" />
-                                  Reject
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="destructive"
-                                  onClick={() => handleDeleteReview(review.id)}
-                                >
-                                  Delete
-                                </Button>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  )}
+                  <ReviewModeration onCountsChange={setReviewCounts} />
                 </CardContent>
               </Card>
             </TabsContent>

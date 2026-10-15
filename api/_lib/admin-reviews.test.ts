@@ -23,6 +23,8 @@ describe("admin review validation", () => {
       verified: false,
       approved: false,
       permission: false,
+      status: "pending",
+      source: "admin",
     });
   });
 
@@ -51,7 +53,11 @@ describe("admin review validation", () => {
   });
 
   it("patch validates only provided fields; approval checked on the merged doc", () => {
-    expect(validateReviewPatch({ approved: true })).toEqual({ approved: true });
+    expect(validateReviewPatch({ approved: true })).toEqual({ approved: true, status: "approved" });
+    expect(validateReviewPatch({ status: "rejected" })).toEqual({ status: "rejected", approved: false });
+    expect(validateReviewPatch({ status: "approved" })).toEqual({ status: "approved", approved: true });
+    expect(() => validateReviewPatch({ status: "live" })).toThrow(/status/);
+    expect(validateReviewInput({ ...base, lastInitial: "" }).lastInitial).toBe("");
     expect(() => validateReviewPatch({})).toThrow(/Nothing/);
     const stored = { ...validateReviewInput({ ...base, permission: true }) };
     expect(() => assertApprovable({ ...stored, approved: true })).not.toThrow();

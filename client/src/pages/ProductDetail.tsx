@@ -497,7 +497,7 @@ export default function ProductDetail() {
           {/* Similar products — biological relevance, sold products only */}
           <SimilarProducts productId={product.id} />
 
-          <ProductReviews productId={product.id} />
+          <ProductReviews productId={product.id} productName={product.name} />
 
         </div>
       </main>

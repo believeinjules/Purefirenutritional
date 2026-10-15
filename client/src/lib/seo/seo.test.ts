@@ -125,10 +125,11 @@ describe("routes, robots and sitemap", () => {
     const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
     const redirected = new Set<string>(vercel.redirects.map((r: { source: string }) => r.source));
     // Dynamic routes prerendered from data in prerender.mjs (catalog products, published certificates).
-    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug"]);
+    // /review/:slug: one noindex shell per catalog product. /__dev/*: DEV-only routes.
+    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug"]);
     const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES)]);
     const unserved = Array.from(appRoutes).filter(
-      (r) => r !== "/404" && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)
+      (r) => r !== "/404" && !r.startsWith("/__dev/") && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)
     );
     expect(unserved).toEqual([]);
   });

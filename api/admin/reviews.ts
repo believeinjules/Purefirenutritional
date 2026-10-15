@@ -10,7 +10,7 @@ import {
   validateReviewInput,
   validateReviewPatch,
 } from "../_lib/admin-reviews.js";
-import { hasHealthClaim, type ReviewDoc } from "../../shared/reviews.js";
+import { hasHealthClaim, reviewStatus, type ReviewDoc } from "../../shared/reviews.js";
 
 /**
  * Admin review CRUD via Firebase Admin SDK (Firestore `reviews`; browsers
@@ -18,7 +18,7 @@ import { hasHealthClaim, type ReviewDoc } from "../../shared/reviews.js";
  *
  *   GET    /api/admin/reviews            → { reviews: [{ id, ...doc, healthClaim }] } (all, newest first)
  *   POST   /api/admin/reviews            → create (approved/permission/verified default false)
- *   PATCH  /api/admin/reviews?id=<id>    → partial update (approval re-checked on the merged doc)
+ *   PATCH  /api/admin/reviews?id=<id>    → partial update incl. status pending|approved|rejected (approval re-checked on the merged doc)
  *   DELETE /api/admin/reviews?id=<id>    → delete
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -41,7 +41,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const list = snap.docs
         .map((d) => {
           const data = d.data() as Partial<ReviewDoc>;
-          return { ...serializeDoc(d.id, d.data()), healthClaim: hasHealthClaim(String(data.text ?? "")) };
+          return {
+            ...serializeDoc(d.id, d.data()),
+            status: reviewStatus(data),
+            healthClaim: hasHealthClaim(String(data.text ?? "")),
+          };
         })
         .sort((a, b) =>
           String((b as { date?: string }).date ?? "").localeCompare(String((a as { date?: string }).date ?? ""))
