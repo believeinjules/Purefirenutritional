@@ -107,7 +107,10 @@ function Router() {
           )}
         </Route>
       )}
-      <Route path="/journal" component={Journal} />
+      <Route path="/learn" component={Journal} />
+      <Route path="/journal">
+        <Redirect to="/learn" replace />
+      </Route>
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />
       <Route path="/learn/peptides-in-context-systems-view" component={ArticlePeptidesInContext} />
@@ -117,11 +120,6 @@ function Router() {
       <Route path="/terms" component={TermsPolicy} />
       <Route path="/shipping" component={ShippingPolicy} />
       <Route path="/returns" component={ReturnsPolicy} />
-      {/* The article index lives at /journal. vercel.json 301s /learn → /journal for
-          direct visits; this covers in-app navigation. */}
-      <Route path="/learn">
-        <Redirect to="/journal" replace />
-      </Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

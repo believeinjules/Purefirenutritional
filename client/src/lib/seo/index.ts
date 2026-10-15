@@ -385,25 +385,15 @@ export const BIOREGULATOR_ORGAN: Record<string, string> = {
 export const TITLE_MAX = 60;
 
 /**
- * "<Product> | <Organ> Peptide Bioregulator | Pure Fire Nutritional" when it
- * fits in 60 characters; otherwise the longest shorter variant that still
- * leads with the product name and keeps the brand.
+ * "<Product> | <Organ> Peptide Bioregulator | Pure Fire Nutritional" for every
+ * bioregulator, "<Product> | Pure Fire Nutritional" otherwise. One consistent
+ * pattern (no per-product shortening); TITLE_MAX is reported, not enforced.
  */
 export function productTitle(product: { id: string; name: string }): string {
-  const name = product.name;
   const organ = BIOREGULATOR_ORGAN[product.id];
-  const candidates = organ
-    ? [
-        `${name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`,
-        `${name} ${organ} Peptide Bioregulator | ${SITE_NAME}`,
-        `${name} | ${organ} Peptide Bioregulator | Pure Fire`,
-        `${name} ${organ} Peptide Bioregulator | Pure Fire`,
-        `${name} ${organ} Bioregulator | Pure Fire`,
-        `${name} Peptide Bioregulator | ${SITE_NAME}`,
-        `${name} Peptide Bioregulator | Pure Fire`,
-      ]
-    : [`${name} | ${SITE_NAME}`];
-  return candidates.find((t) => t.length <= TITLE_MAX) ?? `${name} | ${SITE_NAME}`;
+  return organ
+    ? `${product.name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`
+    : `${product.name} | ${SITE_NAME}`;
 }
 
 export const SNIPPET_MIN = 150;

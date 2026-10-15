@@ -4,12 +4,56 @@
   "installCommand": "pnpm install",
   "framework": null,
   "outputDirectory": "dist",
+  "trailingSlash": false,
   "functions": {
     "api/peppy.ts": {
       "maxDuration": 30
     }
   },
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "purefirenutritional.com"
+        }
+      ],
+      "destination": "https://www.purefirenutritional.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "product_shipping_class"
+        }
+      ],
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "taxonomy"
+        }
+      ],
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "statusCode": 301
+    },
     {
       "source": "/products/:id(femalin|temero-genero|trezvon|olecap|previn|regenart|gelmigon)",
       "destination": "/products",
@@ -46,8 +90,18 @@
       "statusCode": 301
     },
     {
-      "source": "/learn",
-      "destination": "/journal",
+      "source": "/journal",
+      "destination": "/learn",
+      "statusCode": 301
+    },
+    {
+      "source": "/journal/:slug",
+      "destination": "/learn/:slug",
+      "statusCode": 301
+    },
+    {
+      "source": "/pepita",
+      "destination": "/ai-assistant",
       "statusCode": 301
     }
   ]

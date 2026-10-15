@@ -50,8 +50,8 @@ describe("policy pages: routing and SEO", () => {
 
   it("/learn is a 301 to the /journal index (vercel.json) and redirects in-app too", () => {
     const vercel = JSON.parse(read("vercel.json"));
-    expect(vercel.redirects).toContainEqual({ source: "/learn", destination: "/journal", statusCode: 301 });
-    expect(app).toMatch(/<Route path="\/learn">\s*<Redirect to="\/journal" replace \/>/);
+    expect(vercel.redirects).toContainEqual({ source: "/journal", destination: "/learn", statusCode: 301 });
+    expect(app).toMatch(/<Route path="\/journal">\s*<Redirect to="\/learn" replace \/>/);
   });
 });
 

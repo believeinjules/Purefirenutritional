@@ -26,7 +26,7 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/ai-assistant",
   "/peptalk",
   "/authenticity",
-  "/journal",
+  "/learn",
   "/learn/what-are-khavinson-peptide-bioregulators",
   "/learn/buy-khavinson-peptides-usa",
   "/learn/peptides-in-context-systems-view",
