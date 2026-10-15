@@ -27,8 +27,13 @@ export default function ReviewCard({
       <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500">
         <span className="font-medium text-gray-900">{review.displayName}</span>
         {review.verified && (
-          <span className="inline-flex items-center gap-1 text-green-700">
+          <span
+            className="inline-flex items-center gap-1 text-green-700"
+            title="Purchase confirmed with Pure Fire"
+            data-testid="verified-badge"
+          >
             <BadgeCheck className="w-3.5 h-3.5" aria-hidden /> Verified buyer
+            <span className="sr-only"> — purchase confirmed with Pure Fire</span>
           </span>
         )}
         {date && <time dateTime={review.date}>{date}</time>}

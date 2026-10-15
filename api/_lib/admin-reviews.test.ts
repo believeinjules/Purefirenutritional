@@ -23,6 +23,8 @@ describe("admin review validation", () => {
       verified: false,
       approved: false,
       permission: false,
+      status: "pending",
+      source: "admin",
     });
   });
 
@@ -51,10 +53,31 @@ describe("admin review validation", () => {
   });
 
   it("patch validates only provided fields; approval checked on the merged doc", () => {
-    expect(validateReviewPatch({ approved: true })).toEqual({ approved: true });
+    expect(validateReviewPatch({ approved: true })).toEqual({ approved: true, status: "approved" });
+    expect(validateReviewPatch({ status: "rejected" })).toEqual({ status: "rejected", approved: false });
+    expect(validateReviewPatch({ status: "approved" })).toEqual({ status: "approved", approved: true });
+    expect(() => validateReviewPatch({ status: "live" })).toThrow(/status/);
+    expect(validateReviewInput({ ...base, lastInitial: "" }).lastInitial).toBe("");
     expect(() => validateReviewPatch({})).toThrow(/Nothing/);
     const stored = { ...validateReviewInput({ ...base, permission: true }) };
     expect(() => assertApprovable({ ...stored, approved: true })).not.toThrow();
     expect(() => assertApprovable({ ...stored, approved: true, text: "It cured me" })).toThrow(/health claim/);
+  });
+});
+
+import { itemMatchesProduct, orderConfirmsPurchase } from "./admin-reviews";
+describe("verified buyer order match", () => {
+  const order = { customer_email: "Jane@Example.com", payment_status: "paid", status: "processing", items: [{ product_id: "endoluten-n20" }] };
+  it("matches paid order with the product (incl. size variant) by email", () => {
+    expect(orderConfirmsPurchase(order, "jane@example.com", "endoluten")).toBe(true);
+    expect(itemMatchesProduct("endoluten", "endoluten")).toBe(true);
+  });
+  it("rejects other emails, products, unpaid or refunded orders", () => {
+    expect(orderConfirmsPurchase(order, "x@example.com", "endoluten")).toBe(false);
+    expect(orderConfirmsPurchase(order, "jane@example.com", "cartalax")).toBe(false);
+    expect(orderConfirmsPurchase({ ...order, payment_status: "unpaid" }, "jane@example.com", "endoluten")).toBe(false);
+    expect(orderConfirmsPurchase({ ...order, status: "refunded" }, "jane@example.com", "endoluten")).toBe(false);
+    expect(orderConfirmsPurchase(order, "", "endoluten")).toBe(false);
+    expect(itemMatchesProduct("endoluten-forte", "endoluten")).toBe(false);
   });
 });

@@ -6,7 +6,7 @@
  * not given permission, or when its text makes a health claim
  * (cured / treated / fixed … — see shared/reviews.ts hasHealthClaim).
  */
-import { hasHealthClaim, type ReviewDoc } from "../../shared/reviews.js";
+import { hasHealthClaim, type ReviewDoc, type ReviewStatus } from "../../shared/reviews.js";
 
 export class ReviewValidationError extends Error {
   constructor(message: string) {
@@ -44,6 +44,8 @@ function firstName(v: unknown): string {
 
 function lastInitial(v: unknown): string {
   const s = typeof v === "string" ? v.trim().replace(/\.$/, "") : "";
+  // Customer-form submissions may give a first name only.
+  if (s === "") return "";
   if (!/^[A-Za-z\u00C0-\u024F]$/.test(s)) fail("Last initial must be one letter");
   return s.toUpperCase();
 }
@@ -68,6 +70,13 @@ function rating(v: unknown): number {
   const n = typeof v === "string" ? Number(v) : v;
   if (typeof n !== "number" || !Number.isInteger(n) || n < 1 || n > 5) fail("Rating must be 1–5");
   return n;
+}
+
+const STATUSES = ["pending", "approved", "rejected"] as const;
+
+function status(v: unknown): ReviewStatus {
+  if (typeof v !== "string" || !(STATUSES as readonly string[]).includes(v)) fail("status must be pending, approved or rejected");
+  return v as ReviewStatus;
 }
 
 function bool(v: unknown, field: string): boolean {
@@ -99,6 +108,8 @@ export function validateReviewInput(body: unknown): ReviewDoc {
     approved: b.approved === undefined ? false : bool(b.approved, "approved"),
     permission: b.permission === undefined ? false : bool(b.permission, "permission"),
   };
+  doc.status = doc.approved ? "approved" : "pending";
+  doc.source = "admin";
   assertApprovable(doc);
   return doc;
 }
@@ -117,6 +128,39 @@ export function validateReviewPatch(body: unknown): Partial<ReviewDoc> {
   if ("verified" in b) out.verified = bool(b.verified, "verified");
   if ("approved" in b) out.approved = bool(b.approved, "approved");
   if ("permission" in b) out.permission = bool(b.permission, "permission");
+  if ("status" in b) {
+    out.status = status(b.status);
+    // Keep the public `approved` flag in step with the moderation state.
+    if (!("approved" in b)) out.approved = out.status === "approved";
+  } else if ("approved" in b) {
+    out.status = out.approved ? "approved" : "pending";
+  }
   if (Object.keys(out).length === 0) fail("Nothing to update");
   return out;
+}
+
+// ─── Verified buyer: match review email → paid order containing the product ──
+
+export type OrderLike = {
+  customer_email?: unknown;
+  payment_status?: unknown;
+  status?: unknown;
+  items?: unknown;
+};
+
+/** Order item product_id matches the review product ("endoluten" or a size variant "endoluten-n20"). */
+export function itemMatchesProduct(itemProductId: unknown, productId: string): boolean {
+  if (typeof itemProductId !== "string" || !productId) return false;
+  const id = itemProductId.trim().toLowerCase();
+  return id === productId || /^-n\d+$/.test(id.slice(productId.length)) && id.startsWith(productId);
+}
+
+/** True when the order is paid (not refunded/cancelled) and contains the product. */
+export function orderConfirmsPurchase(order: OrderLike, email: string, productId: string): boolean {
+  const e = (email || "").trim().toLowerCase();
+  if (!e || String(order.customer_email ?? "").trim().toLowerCase() !== e) return false;
+  if (order.payment_status !== "paid") return false;
+  if (["refunded", "cancelled", "canceled"].includes(String(order.status ?? "").toLowerCase())) return false;
+  if (!Array.isArray(order.items)) return false;
+  return order.items.some((it) => itemMatchesProduct((it as { product_id?: unknown })?.product_id, productId));
 }

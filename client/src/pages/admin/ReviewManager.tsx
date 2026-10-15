@@ -1,26 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "wouter";
-import { ArrowLeft, Plus, Trash2, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Plus, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ReviewModeration from "@/components/reviews/ReviewModeration";
 import { products as catalog } from "@/data/products";
-import { hasHealthClaim, isPublicReview, reviewDisplayName } from "@shared/reviews";
-import {
-  createReview,
-  deleteReview,
-  listAdminReviews,
-  updateReview,
-  type AdminReview,
-  type ReviewInput,
-} from "@/lib/reviewsAdmin";
+import { hasHealthClaim } from "@shared/reviews";
+import { createReview, type ReviewInput } from "@/lib/reviewsAdmin";
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -43,27 +36,10 @@ const emptyForm = (): ReviewInput => ({
  */
 export default function ReviewManager() {
   const [, setLocation] = useLocation();
-  const [reviews, setReviews] = useState<AdminReview[]>([]);
-  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<ReviewInput>(emptyForm());
   const [saving, setSaving] = useState(false);
+  const [listKey, setListKey] = useState(0);
 
-  const load = async () => {
-    setLoading(true);
-    try {
-      setReviews(await listAdminReviews());
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not load reviews");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
-  const productName = (id: string) => catalog.find((p) => p.id === id)?.name ?? id;
   const formClaim = hasHealthClaim(form.text);
 
   const submit = async () => {
@@ -72,30 +48,11 @@ export default function ReviewManager() {
       await createReview(form);
       toast.success("Review saved");
       setForm(emptyForm());
-      await load();
+      setListKey((k) => k + 1);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not save review");
     } finally {
       setSaving(false);
-    }
-  };
-
-  const patch = async (r: AdminReview, change: Partial<ReviewInput>) => {
-    try {
-      await updateReview(r.id, change);
-      await load();
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not update review");
-    }
-  };
-
-  const remove = async (r: AdminReview) => {
-    if (!window.confirm(`Delete the review from ${reviewDisplayName(r.firstName, r.lastInitial)}?`)) return;
-    try {
-      await deleteReview(r.id);
-      await load();
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not delete review");
     }
   };
 
@@ -196,60 +153,7 @@ export default function ReviewManager() {
             </CardContent>
           </Card>
 
-          <div className="space-y-3">
-            {loading ? (
-              <p className="text-sm text-gray-500">Loading…</p>
-            ) : reviews.length === 0 ? (
-              <p className="text-sm text-gray-500">No reviews yet.</p>
-            ) : (
-              reviews.map((r) => {
-                const live = isPublicReview(r);
-                return (
-                  <Card key={r.id}>
-                    <CardContent className="p-4 space-y-2">
-                      <div className="flex flex-wrap items-center gap-2 text-sm">
-                        <strong>{reviewDisplayName(r.firstName, r.lastInitial)}</strong>
-                        <span className="text-gray-500">{r.date}</span>
-                        <span className="text-gray-500">· {productName(r.productId)}</span>
-                        <span className="text-gray-500">· {r.rating}/5</span>
-                        {r.verified && <Badge variant="secondary">Verified buyer</Badge>}
-                        {live ? (
-                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-                            <CheckCircle2 className="h-3 w-3 mr-1" /> Live on site
-                          </Badge>
-                        ) : (
-                          <Badge variant="outline">Not shown</Badge>
-                        )}
-                        {r.healthClaim && <Badge variant="destructive">Health claim — cannot approve</Badge>}
-                      </div>
-                      <p className="text-sm text-gray-700 whitespace-pre-wrap">{r.text}</p>
-                      <div className="flex flex-wrap items-center gap-6 text-xs text-gray-600">
-                        <label className="flex items-center gap-2">
-                          <Switch checked={r.permission} onCheckedChange={(v) => patch(r, { permission: v, ...(v ? {} : { approved: false }) })} />
-                          Permission
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <Switch checked={r.verified} onCheckedChange={(v) => patch(r, { verified: v })} />
-                          Verified buyer
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <Switch
-                            checked={r.approved}
-                            disabled={!r.approved && (!r.permission || r.healthClaim)}
-                            onCheckedChange={(v) => patch(r, { approved: v })}
-                          />
-                          Approved
-                        </label>
-                        <Button variant="ghost" size="sm" className="ml-auto text-red-600" onClick={() => remove(r)}>
-                          <Trash2 className="h-4 w-4 mr-1" /> Delete
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })
-            )}
-          </div>
+          <ReviewModeration key={listKey} />
         </div>
       </main>
       <Footer />

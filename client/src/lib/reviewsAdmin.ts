@@ -3,9 +3,14 @@
  * The browser never writes Firestore `reviews` directly.
  */
 import { adminFetch } from "./adminApi";
-import type { ReviewDoc } from "@shared/reviews";
+import type { ReviewDoc, ReviewStatus } from "@shared/reviews";
 
-export type AdminReview = ReviewDoc & { id: string; healthClaim: boolean };
+export type AdminReview = ReviewDoc & {
+  id: string;
+  healthClaim: boolean;
+  status: ReviewStatus;
+  created_at?: string | null;
+};
 export type ReviewInput = ReviewDoc;
 
 export async function listAdminReviews(): Promise<AdminReview[]> {
@@ -27,3 +32,24 @@ export async function updateReview(id: string, patch: Partial<ReviewInput>): Pro
 export async function deleteReview(id: string): Promise<void> {
   await adminFetch(`/api/admin/reviews?id=${encodeURIComponent(id)}`, { method: "DELETE" });
 }
+
+/** Re-check unverified reviews against paid orders; returns how many became verified. */
+export async function checkReviewOrders(): Promise<number> {
+  const { verified } = await adminFetch<{ verified: number }>("/api/admin/reviews?action=check-orders", { method: "POST" });
+  return verified;
+}
+
+/** What the moderation UI needs; swapped for an in-memory mock in the DEV preview. */
+export type ReviewAdminApi = {
+  list: () => Promise<AdminReview[]>;
+  update: (id: string, patch: Partial<ReviewInput>) => Promise<void>;
+  remove: (id: string) => Promise<void>;
+  checkOrders?: () => Promise<number>;
+};
+
+export const reviewAdminApi: ReviewAdminApi = {
+  list: listAdminReviews,
+  update: updateReview,
+  remove: deleteReview,
+  checkOrders: checkReviewOrders,
+};

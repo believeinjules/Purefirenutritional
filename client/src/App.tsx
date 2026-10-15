@@ -29,6 +29,10 @@ import ProductManager from "./pages/admin/ProductManager";
 import ReviewManager from "./pages/admin/ReviewManager";
 import RequireAdmin from "./components/RequireAdmin";
 import Wishlist from "./pages/Wishlist";
+import WriteReview from "./pages/review/WriteReview";
+import { lazy, Suspense } from "react";
+// DEV-only mock moderation preview (dropped from production builds).
+const DevReviewsAdminPreview = import.meta.env.DEV ? lazy(() => import("./pages/review/DevReviewsAdminPreview")) : null;
 import SiteSeo from "./components/seo/SiteSeo";
 
 // Learn articles
@@ -91,6 +95,18 @@ function Router() {
         )}
       </Route>
       <Route path="/wishlist" component={Wishlist} />
+      {/* Customer review form (noindex; link sent by Julia) */}
+      <Route path="/review" component={WriteReview} />
+      <Route path="/review/:slug" component={WriteReview} />
+      {DevReviewsAdminPreview && (
+        <Route path="/__dev/reviews-admin">
+          {() => (
+            <Suspense fallback={null}>
+              <DevReviewsAdminPreview />
+            </Suspense>
+          )}
+        </Route>
+      )}
       <Route path="/journal" component={Journal} />
       <Route path="/learn/what-are-khavinson-peptide-bioregulators" component={ArticleKhavinsonPeptides} />
       <Route path="/learn/buy-khavinson-peptides-usa" component={ArticleBuyKhavinsonUSA} />

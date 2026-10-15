@@ -1,10 +1,12 @@
 /**
  * Customer reviews: shape, public-visibility rules and the health-claim guard.
  *
- * Storage: Firestore `reviews/{id}`, written ONLY through the Admin SDK
- * (/api/admin/reviews). Browsers read approved reviews through the public
- * GET /api/reviews endpoint, which returns only the fields below — never an
- * email address.
+ * Storage: Firestore `reviews/{id}`. Customers CREATE pending reviews from
+ * the public /review form (client write; firestore.rules only allow a
+ * `status: "pending"`, `approved: false` doc with validated fields). Every
+ * other write goes through the Admin SDK (/api/admin/reviews). Browsers read
+ * approved reviews through the public GET /api/reviews endpoint, which
+ * returns only the PublicReview fields below — never an email address.
  *
  * A review is shown publicly only when ALL of these are true:
  *   - approved === true      (Julia approved it)
@@ -31,7 +33,33 @@ export type ReviewDoc = {
   approved: boolean;
   /** Customer gave permission to publish. */
   permission: boolean;
+  /** Moderation state. Older admin-entered docs may lack it (see reviewStatus). */
+  status?: ReviewStatus;
+  /** Optional, private: never returned by the public API. */
+  email?: string;
+  /** "customer-form" for /review submissions. */
+  source?: string;
+  /** Customer ticked "I bought / used this product". */
+  usedProduct?: boolean;
 };
+
+export type ReviewStatus = "pending" | "approved" | "rejected";
+
+/** Moderation state, falling back to the `approved` flag for older docs. */
+export function reviewStatus(r: Partial<ReviewDoc>): ReviewStatus {
+  if (r.status === "pending" || r.status === "approved" || r.status === "rejected") {
+    // `approved` is the source of truth for public visibility.
+    if (r.status === "approved" && r.approved !== true) return "pending";
+    return r.status;
+  }
+  return r.approved === true ? "approved" : "pending";
+}
+
+/** Limits shared by the public form, firestore.rules and tests. */
+export const PUBLIC_REVIEW_TEXT_MAX = 1000;
+export const PUBLIC_REVIEW_TEXT_MIN = 10;
+export const PUBLIC_NAME_MAX = 40;
+export const PUBLIC_EMAIL_MAX = 200;
 
 export type PublicReview = {
   id: string;
@@ -87,6 +115,8 @@ export function isPublicReview(r: Partial<ReviewDoc> | null | undefined): boolea
   if (!r) return false;
   return (
     r.approved === true &&
+    r.status !== "rejected" &&
+    r.status !== "pending" &&
     r.permission === true &&
     typeof r.productId === "string" &&
     r.productId.length > 0 &&
@@ -137,4 +167,46 @@ export function summarizeByProduct(reviews: PublicReview[]): Record<string, Revi
     out[id] = summarize(list);
   });
   return out;
+}
+
+/**
+ * Parse the public form's single name field: "Jane", "Jane D", "Jane D." or
+ * "Jane Doe" → { firstName: "Jane", lastInitial: "D" | "" }.
+ */
+export function parseReviewerName(raw: string): { firstName: string; lastInitial: string } {
+  const parts = (raw || "").trim().replace(/\s+/g, " ").split(" ").filter(Boolean);
+  const firstName = (parts[0] || "").slice(0, PUBLIC_NAME_MAX);
+  const last = parts.length > 1 ? parts[parts.length - 1]!.replace(/\./g, "") : "";
+  const initial = last.charAt(0);
+  return { firstName, lastInitial: /^[A-Za-z\u00C0-\u024F]$/.test(initial) ? initial.toUpperCase() : "" };
+}
+
+/** schema.org AggregateRating + Review JSON-LD. Null when there are no reviews (never fabricated). */
+export function reviewsJsonLd(
+  product: { id: string; name: string; url: string },
+  reviews: PublicReview[]
+): Record<string, unknown> | null {
+  if (reviews.length === 0) return null;
+  const s = summarize(reviews);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${product.url}#product`,
+    name: product.name,
+    url: product.url,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: s.average,
+      reviewCount: s.count,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    review: reviews.slice(0, 10).map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.displayName },
+      ...(r.date ? { datePublished: r.date } : {}),
+      reviewBody: r.text,
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+    })),
+  };
 }
