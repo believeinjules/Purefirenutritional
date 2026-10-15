@@ -161,6 +161,8 @@ export default function ProductDetail() {
   // Decision (2026-10-14): conflicting/held directions show "Follow the directions on your package.";
   // Endoluten keeps its current storefront usage text for now.
   const usageText = pdp && product.id !== "endoluten" ? pdp.directions : product.usage;
+  // Key Benefits: soft-worded pdp.formulatedFor when written, else the catalog benefits list already shown on the page.
+  const keyBenefits: string[] = pdp?.formulatedFor?.length ? pdp.formulatedFor : product.benefits ?? [];
   const ingredientList = pdp?.ingredients?.length ? pdp.ingredients : product.ingredients;
   const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
@@ -308,13 +310,10 @@ export default function ProductDetail() {
           </div>
 
           {/* Detail sections below the fold */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="max-w-3xl space-y-8">
 
-            {/* Left: description + ingredients */}
-            <div className="lg:col-span-2 space-y-8">
-
-              {/* Intro stays visible; every other description category is a drop-down
-                  (native <details>, so all copy stays in the prerendered HTML). */}
+              {/* Intro + Key Benefits stay visible; every other description category is a
+                  drop-down (native <details>, so all copy stays in the prerendered HTML). */}
               {pdp ? (
                 <section data-testid="pdp-overview">
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product</h2>
@@ -327,8 +326,18 @@ export default function ProductDetail() {
                 </section>
               )}
 
+              {keyBenefits.length > 0 && (
+                <section data-testid="pdp-key-benefits">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Key Benefits</h2>
+                  <BulletList items={keyBenefits} />
+                  <p className="mt-3 text-xs text-gray-500">
+                    These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.
+                  </p>
+                </section>
+              )}
+
               <div className="border-t border-gray-200" data-testid="pdp-accordions">
-                {pdp && (pdp.overview.length > 1 || pdp.why) && (
+                {pdp && (pdp.overview.length > 1 || pdp.why || pdp.interest || pdp.researchBackground) && (
                   <PdpAccordion title={`More About ${product.name}`} testId="pdp-why">
                     <div className="space-y-3">
                       {pdp.overview.slice(1).map((para, i) => <p key={i} className="text-gray-600 leading-relaxed">{para}</p>)}
@@ -338,20 +347,21 @@ export default function ProductDetail() {
                           <p className="text-gray-600 leading-relaxed">{pdp.why}</p>
                         </>
                       )}
+                      {pdp.interest && (
+                        <div data-testid="pdp-interest">
+                          <h3 className="font-semibold text-gray-900 pt-1 mb-2">Areas of Scientific Interest</h3>
+                          <BulletList items={pdp.interest} />
+                          {pdp.interestNote && <p className="mt-3 text-xs text-gray-500">{pdp.interestNote}</p>}
+                        </div>
+                      )}
+                      {pdp.researchBackground && (
+                        <div className="pt-2">
+                          <PdpAccordion title="Research Background" testId="pdp-research" nested>
+                            <p className="text-gray-600 leading-relaxed">{pdp.researchBackground}</p>
+                          </PdpAccordion>
+                        </div>
+                      )}
                     </div>
-                  </PdpAccordion>
-                )}
-
-                {pdp?.formulatedFor && (
-                  <PdpAccordion title="What It's Formulated For" testId="pdp-formulated">
-                    <BulletList items={pdp.formulatedFor} />
-                  </PdpAccordion>
-                )}
-
-                {pdp?.interest && (
-                  <PdpAccordion title="Areas of Scientific Interest" testId="pdp-interest">
-                    <BulletList items={pdp.interest} />
-                    <p className="mt-3 text-xs text-gray-500">{pdp.interestNote}</p>
                   </PdpAccordion>
                 )}
 
@@ -365,12 +375,6 @@ export default function ProductDetail() {
                   <PdpAccordion title="Manufacturer Protocol" testId="pdp-directions">
                     {/* Manufacturer protocol — renders only when reviewed data exists */}
                     <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
-                  </PdpAccordion>
-                )}
-
-                {pdp?.researchBackground && (
-                  <PdpAccordion title="Research Background" testId="pdp-research">
-                    <p className="text-gray-600 leading-relaxed">{pdp.researchBackground}</p>
                   </PdpAccordion>
                 )}
 
@@ -397,12 +401,6 @@ export default function ProductDetail() {
                       <p>{pdp.safety}</p>
                       <p className="text-xs text-gray-500">{pdp.disclaimer}</p>
                     </div>
-                  </PdpAccordion>
-                )}
-
-                {product.seriesInfo && (
-                  <PdpAccordion title="About This Product Line" testId="pdp-line">
-                    <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
                   </PdpAccordion>
                 )}
               </div>
@@ -447,25 +445,14 @@ export default function ProductDetail() {
                   sex={protocolSelection.sex}
                 />
               </div>
-            </div>
 
-            {/* Right: benefits */}
-            {product.benefits && product.benefits.length > 0 && (
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Key Benefits</h2>
-                <ul className="space-y-2.5">
-                  {product.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm">
-                      <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold">✓</span>
-                      <span className="text-gray-700">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-xs text-gray-500">
-                  These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.
-                </p>
-              </div>
-            )}
+              {/* Product line info closes the description area, after the Pepita row */}
+              {product.seriesInfo && (
+                <section data-testid="pdp-line">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product Line</h2>
+                  <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
+                </section>
+              )}
           </div>
 
           <AuthenticityDocumentation productId={product.id} />

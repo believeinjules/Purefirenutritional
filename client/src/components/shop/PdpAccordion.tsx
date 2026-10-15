@@ -12,16 +12,19 @@ export default function PdpAccordion({
   children,
   testId,
   defaultOpen = false,
+  nested = false,
 }: {
   title: string;
   children: ReactNode;
   testId?: string;
   defaultOpen?: boolean;
+  /** Drop-down inside another drop-down: h3 title, smaller type, no bottom rule. */
+  nested?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <details
-      className="pdp-acc group border-b border-gray-200"
+      className={nested ? "pdp-acc group border-t border-b border-gray-200" : "pdp-acc group border-b border-gray-200"}
       open={defaultOpen || undefined}
       onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}
       data-testid={testId}
@@ -30,7 +33,11 @@ export default function PdpAccordion({
         aria-expanded={open}
         className="flex min-h-[52px] cursor-pointer list-none items-center justify-between gap-4 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 rounded-sm [&::-webkit-details-marker]:hidden"
       >
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+        {nested ? (
+          <h3 className="text-base font-semibold text-gray-900">{title}</h3>
+        ) : (
+          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+        )}
         <ChevronDown
           size={20}
           aria-hidden="true"
