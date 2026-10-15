@@ -46,7 +46,63 @@
    "auditRows": [
     "1–2× vs 2× group",
     "Maintenance/Intensive – Bonomarlot"
-   ]
+   ],
+   "pdp": {
+    "title": "Bonomarlot | Bone Marrow Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-20",
+    "tags": [
+     "Bone marrow",
+     "Blood cell formation",
+     "Immune system"
+    ],
+    "overview": [
+     "Bonomarlot® is a natural peptide complex (A-20) derived from bone marrow tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal function of the bone marrow, where blood cells are formed. Bonomarlot is taken orally as capsules and is often considered by adults who want to support their blood and immune health as they age."
+    ],
+    "why": "Bone marrow is the soft tissue inside larger bones. It makes red blood cells that carry oxygen, white blood cells that defend the body and platelets that help blood clot. It is one of the most active tissues in the body, renewing billions of cells every day.",
+    "interest": [
+     "Bone marrow peptides and blood-forming cells in laboratory models",
+     "Blood cell formation with age",
+     "Links between the bone marrow and the immune system"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Vladonix (Cytomax® A-6) and Crystagen (Cytogen® AC-6) are thymus complexes focused on the immune system; Bonomarlot targets the bone marrow where blood cells are made.",
+     "Revilab SL 07 combines immune and bone marrow complexes as lingual drops."
+    ],
+    "ingredients": [
+     "Bone marrow peptide complex (A-20)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Bonomarlot belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Bonomarlot itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Bonomarlot?",
+      "a": "Bonomarlot is a natural, tissue-derived bone marrow peptide bioregulator from the Khavinson Cytomax® line (A-20), taken orally as capsules."
+     },
+     {
+      "q": "Is Bonomarlot an injectable peptide?",
+      "a": "No. Bonomarlot is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Bonomarlot with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Bonomarlot is a Khavinson Cytomax® bone marrow peptide complex (A-20), believed to support the normal function of the bone marrow, where blood cells form."
+   }
   },
   "cartalax": {
    "id": "cartalax",
@@ -85,7 +141,63 @@
    "auditRows": [
     "1–2× vs 2× group",
     "Cartalax"
-   ]
+   ],
+   "pdp": {
+    "title": "Cartalax | Cartilage Peptide Bioregulator",
+    "lineCode": "Khavinson Cytogen® Peptide Complex AC-4",
+    "tags": [
+     "Cartilage",
+     "Joints",
+     "Mobility",
+     "Connective tissue"
+    ],
+    "overview": [
+     "Cartalax® is a Khavinson Cytogen®: a synthetic short-peptide complex (AC-4) made from the amino acids alanine, glutamic acid and aspartic acid, modelled on peptides of cartilage tissue.",
+     "It is believed to support the normal condition of cartilage and joint comfort. Cartalax is taken orally as capsules and is often chosen by active adults and people who want to support joint mobility as they age."
+    ],
+    "why": "Cartilage is the smooth, flexible tissue that covers the ends of bones in joints and cushions the spine. It lets joints glide and absorbs shock, but it has a limited blood supply and renews slowly, so it is sensitive to wear and age.",
+    "interest": [
+     "Short synthetic peptides and cartilage cells in laboratory models",
+     "Joint mobility and comfort with age",
+     "Connective-tissue renewal"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Sigumir is the natural, tissue-derived Cytomax® cartilage and bone complex (A-4); Cartalax is the synthetic Cytogen® version with a defined amino-acid composition.",
+     "Gotratix (A-18) targets muscle tissue rather than cartilage."
+    ],
+    "ingredients": [
+     "Cartilage peptide complex AC-4 (Ala-Glu-Asp / AED tripeptide)"
+    ],
+    "directions": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
+    "directionsBasis": "verified manufacturer label",
+    "researchBackground": "Cartalax belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Cartalax itself, so the research is best read as background rather than proof of effect. The research literature describes the AED tripeptide (Ala-Glu-Asp) in connection with this complex; this is research context, not label text.",
+    "faq": [
+     {
+      "q": "What is Cartalax?",
+      "a": "Cartalax is a synthetic cartilage peptide bioregulator from the Khavinson Cytogen® line (AC-4), taken orally as capsules."
+     },
+     {
+      "q": "Is Cartalax an injectable peptide?",
+      "a": "No. Cartalax is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Cartalax with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Cartalax is a Khavinson Cytogen® cartilage peptide (AC-4) in oral capsules, believed to support the normal condition of cartilage and everyday joint comfort."
+   }
   },
   "chelohart": {
    "id": "chelohart",
@@ -131,7 +243,65 @@
    "auditRows": [
     "1–2× vs 2× group",
     "Maintenance/Intensive – Chelohart"
-   ]
+   ],
+   "pdp": {
+    "title": "Chelohart | Heart Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-14",
+    "tags": [
+     "Heart muscle",
+     "Cardiovascular system",
+     "Energy",
+     "Healthy ageing"
+    ],
+    "overview": [
+     "Chelohart® is a natural peptide complex (A-14) derived from heart muscle tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal function of the heart muscle. Chelohart is taken orally as capsules and is often considered by adults who want to support cardiovascular wellness as they get older."
+    ],
+    "why": "The heart is a muscle that beats around 100,000 times a day, pumping blood with oxygen and nutrients to every tissue. Its muscle cells need a steady energy supply, and their function naturally changes with age and physical demands.",
+    "interest": [
+     "Heart muscle peptides and cardiac cell activity in laboratory models",
+     "Energy metabolism in heart muscle cells",
+     "How cardiac tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Ventfort (Cytomax® A-3) and Vesugen (Cytogen® AC-2) target the blood vessels; Chelohart targets the heart muscle itself.",
+     "Revilab SL 01 combines vascular and cardiac muscle complexes as lingual drops.",
+     "As a Cytomax®, Chelohart is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Heart muscle peptide complex (A-14)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Chelohart belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Chelohart itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Chelohart?",
+      "a": "Chelohart is a natural, tissue-derived heart peptide bioregulator from the Khavinson Cytomax® line (A-14), taken orally as capsules."
+     },
+     {
+      "q": "Is Chelohart an injectable peptide?",
+      "a": "No. Chelohart is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Chelohart with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Chelohart is a Khavinson Cytomax® heart muscle peptide complex (A-14) in oral capsules, believed to support the normal function of the heart muscle as we age."
+   }
   },
   "crystagen": {
    "id": "crystagen",
@@ -169,7 +339,62 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Crystagen | Immune Peptide Bioregulator",
+    "lineCode": "Khavinson Cytogen® Peptide Complex AC-6",
+    "tags": [
+     "Thymus",
+     "Immune system",
+     "Seasonal resilience"
+    ],
+    "overview": [
+     "Crystagen® is a Khavinson Cytogen®: a synthetic short-peptide complex (AC-6) modelled on peptides of the thymus, the gland where key immune cells mature.",
+     "It is believed to support normal immune function. Crystagen is taken orally as capsules and is often chosen by adults who want to support their immune resilience, for example during seasonal changes or as they age."
+    ],
+    "why": "The thymus is a small gland behind the breastbone where T cells, a key type of immune cell, mature. It gradually shrinks with age, which is one reason immune responses change over a lifetime.",
+    "interest": [
+     "Short synthetic peptides and immune-cell activity in laboratory models",
+     "Immune function and the ageing thymus",
+     "Balance between different immune-cell populations"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Vladonix is the natural, tissue-derived Cytomax® thymus complex (A-6); Crystagen is the synthetic Cytogen® version.",
+     "Bonomarlot (A-20) targets the bone marrow, where blood and immune cells are first formed."
+    ],
+    "ingredients": [
+     "Thymus peptide complex (AC-6)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Crystagen belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Crystagen itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Crystagen?",
+      "a": "Crystagen is a synthetic immune peptide bioregulator from the Khavinson Cytogen® line (AC-6), taken orally as capsules."
+     },
+     {
+      "q": "Is Crystagen an injectable peptide?",
+      "a": "No. Crystagen is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Crystagen with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Crystagen is a Khavinson Cytogen® immune peptide (AC-6) modelled on thymus peptides, believed to support normal immune function. Taken as oral capsules."
+   }
   },
   "endoluten": {
    "id": "endoluten",
@@ -245,6 +470,68 @@
     "basis": "peptid.ru capsule directions, confirmed definitive by Julia 2026-10-14 (20- and 60-capsule packs are the same complex, different quantity)",
     "source": "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/",
     "exception": "Known, intentional exception (Julia, 2026-10-14): Pepita states these definitive directions; the storefront product page/products.ts usage text is unchanged pending Julia. Internal only: peptideproduct.com lists 1–2 capsules 2×/day (recorded in manufacturerDirections.options); never shown to customers."
+   },
+   "pdp": {
+    "title": "Endoluten | Pineal Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-8",
+    "tags": [
+     "Pineal gland",
+     "Sleep–wake rhythm",
+     "Neuroendocrine system",
+     "Healthy ageing"
+    ],
+    "overview": [
+     "Endoluten® is a natural peptide complex (A-8) derived from pineal gland (epiphysis) tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal pineal gland function and the body's natural daily rhythms. Endoluten is taken orally as capsules and is often chosen by adults interested in sleep–wake balance and healthy ageing. It does not contain melatonin."
+    ],
+    "why": "The pineal gland is a tiny gland deep in the brain. It releases melatonin at night, helping set the body's internal clock that times sleep, hormone release and many other daily cycles. Its activity tends to decline with age.",
+    "interest": [
+     "Pineal peptides and the gland's own night-time melatonin rhythm",
+     "Circadian (daily) rhythms and the neuroendocrine system",
+     "How the pineal gland changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Pinealon is a synthetic Cytogen® brain peptide (AC-5), not a pineal product, despite the similar name.",
+     "Revilab ML 01 combines an epiphysis complex with an immune complex; Endoluten is the single-tissue pineal formula.",
+     "As a Cytomax®, Endoluten is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Pineal gland peptide complex (A-8)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.",
+    "directionsBasis": "pepitaOverride (Julia-confirmed 2026-10-14)",
+    "researchBackground": "Endoluten belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Endoluten itself, so the research is best read as background rather than proof of effect. Researchers have also investigated pineal peptide preparations in small studies looking at night-time melatonin; those studies used injectable extracts rather than these capsules.",
+    "faq": [
+     {
+      "q": "What is Endoluten?",
+      "a": "Endoluten is a natural, tissue-derived pineal peptide bioregulator from the Khavinson Cytomax® line (A-8), taken orally as capsules."
+     },
+     {
+      "q": "Is Endoluten an injectable peptide?",
+      "a": "No. Endoluten is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Does Endoluten contain melatonin?",
+      "a": "No. Endoluten is a pineal peptide complex. Researchers have investigated pineal peptides for their relationship with the gland's own melatonin rhythm, but the product itself does not contain melatonin."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Endoluten with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Endoluten is a Khavinson Cytomax® pineal gland peptide complex (A-8) in oral capsules, believed to support pineal function and the body's daily rhythms."
    }
   },
   "gotratix": {
@@ -291,7 +578,63 @@
    "auditRows": [
     "1–2× vs 2× group",
     "Maintenance/Intensive – Gotratix"
-   ]
+   ],
+   "pdp": {
+    "title": "Gotratix | Muscle Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-18",
+    "tags": [
+     "Muscle tissue",
+     "Physical performance",
+     "Recovery",
+     "Mobility"
+    ],
+    "overview": [
+     "Gotratix® is a natural peptide complex (A-18) derived from muscle tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal muscle function, physical performance and recovery. Gotratix is taken orally as capsules and is often considered by active adults and people who want to support strength and mobility as they age."
+    ],
+    "why": "Skeletal muscles move the body, hold posture, use much of the energy from food and help generate body heat. Muscle tissue adapts to training and recovers after effort, but muscle mass and strength tend to decline gradually with age.",
+    "interest": [
+     "Muscle tissue peptides and muscle cell activity in laboratory models",
+     "Recovery after physical effort",
+     "Muscle function with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Sigumir (cartilage and bone, A-4) and Cartalax (cartilage, AC-4) target the joints rather than muscle.",
+     "As a Cytomax®, Gotratix is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Muscle peptide complex (A-18)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Gotratix belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Gotratix itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Gotratix?",
+      "a": "Gotratix is a natural, tissue-derived muscle peptide bioregulator from the Khavinson Cytomax® line (A-18), taken orally as capsules."
+     },
+     {
+      "q": "Is Gotratix an injectable peptide?",
+      "a": "No. Gotratix is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Gotratix with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Gotratix is a Khavinson Cytomax® muscle peptide complex (A-18) in oral capsules, believed to support normal muscle function and physical performance with age."
+   }
   },
   "pielotax": {
    "id": "pielotax",
@@ -329,7 +672,62 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Pielotax | Kidney Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-9",
+    "tags": [
+     "Kidneys",
+     "Urinary system",
+     "Fluid balance"
+    ],
+    "overview": [
+     "Pielotax® is a natural peptide complex (A-9) derived from kidney tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal kidney function and the body's fluid balance. Pielotax is taken orally as capsules and is often considered by adults who want to support their urinary system as they age."
+    ],
+    "why": "The kidneys filter the entire blood supply many times a day, removing waste into urine and keeping water, salts and blood pressure in balance. They also help regulate red blood cell production and bone health. Kidney function naturally changes with age.",
+    "interest": [
+     "Kidney tissue peptides and kidney cell activity in laboratory models",
+     "Filtration and fluid balance",
+     "How kidney tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Chitomur is the bladder complex (A-12); Pielotax targets the kidneys, which filter the blood before urine reaches the bladder.",
+     "As a Cytomax®, Pielotax is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Kidney peptide complex (A-9)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Pielotax belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Pielotax itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Pielotax?",
+      "a": "Pielotax is a natural, tissue-derived kidney peptide bioregulator from the Khavinson Cytomax® line (A-9), taken orally as capsules."
+     },
+     {
+      "q": "Is Pielotax an injectable peptide?",
+      "a": "No. Pielotax is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Pielotax with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Pielotax is a Khavinson Cytomax® kidney peptide complex (A-9) in oral capsules, believed to support normal kidney function and the body's fluid balance."
+   }
   },
   "prime-peptide-brain": {
    "id": "prime-peptide-brain",
@@ -1955,7 +2353,69 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Testoluten | Testicular Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-13",
+    "tags": [
+     "Testes",
+     "Male reproductive system",
+     "Vitality"
+    ],
+    "overview": [
+     "Testoluten® is a natural peptide complex (A-13) derived from testicular tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal function of the male reproductive glands. Testoluten is taken orally as capsules and is often considered by adult men who want to support their vitality and reproductive health as they age."
+    ],
+    "why": "The testes produce sperm and most of the body's testosterone, a hormone that affects energy, muscle, bone, libido and mood. Testicular activity tends to change gradually with age.",
+    "interest": [
+     "Testicular tissue peptides and cell activity in laboratory models",
+     "Male reproductive and hormonal function with age",
+     "Tissue-specific peptide signalling in glandular tissue"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Libidon (prostate, A-16) targets the prostate gland; Testoluten targets the testes.",
+     "Testoluten does not contain testosterone or any other hormone.",
+     "As a Cytomax®, Testoluten is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Testicular peptide complex (A-13)",
+     "20 mg of peptide complex A-13 per 2 capsules (per the manufacturer)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Testoluten belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Testoluten itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Testoluten?",
+      "a": "Testoluten is a natural, tissue-derived testicular peptide bioregulator from the Khavinson Cytomax® line (A-13), taken orally as capsules."
+     },
+     {
+      "q": "Is Testoluten an injectable peptide?",
+      "a": "No. Testoluten is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Does Testoluten contain testosterone?",
+      "a": "No. Testoluten is a peptide complex derived from testicular tissue, not a hormone product."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Testoluten with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Testoluten is a Khavinson Cytomax® testicular peptide complex (A-13) in oral capsules, believed to support normal function of the male reproductive glands."
+   }
   },
   "bonothyrk": {
    "id": "bonothyrk",
@@ -1993,7 +2453,63 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Bonothyrk | Parathyroid Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-21",
+    "tags": [
+     "Parathyroid glands",
+     "Calcium balance",
+     "Bones"
+    ],
+    "overview": [
+     "Bonothyrk® is a natural peptide complex (A-21) derived from parathyroid gland tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal parathyroid function and the body's calcium balance. Bonothyrk is taken orally as capsules and is often considered by adults who want to support bone and mineral health as they age."
+    ],
+    "why": "The parathyroid glands are four tiny glands behind the thyroid. They release parathyroid hormone, which keeps calcium levels in the blood steady by drawing on bone, the kidneys and the gut. Stable calcium matters for bones, muscles and nerves.",
+    "interest": [
+     "Parathyroid tissue peptides and gland cell activity in laboratory models",
+     "Calcium and mineral balance",
+     "Bone health with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Thyreogen is the thyroid complex (A-2), concerned with metabolism rather than calcium.",
+     "Sigumir (cartilage and bone, A-4) targets the skeletal tissue itself.",
+     "As a Cytomax®, Bonothyrk is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Parathyroid gland peptide complex A-21 (natural extract)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Bonothyrk belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Bonothyrk itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Bonothyrk?",
+      "a": "Bonothyrk is a natural, tissue-derived parathyroid peptide bioregulator from the Khavinson Cytomax® line (A-21), taken orally as capsules."
+     },
+     {
+      "q": "Is Bonothyrk an injectable peptide?",
+      "a": "No. Bonothyrk is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Bonothyrk with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Bonothyrk is a Khavinson Cytomax® parathyroid peptide complex (A-21) in oral capsules, believed to support parathyroid function and the body's calcium balance."
+   }
   },
   "cerluten": {
    "id": "cerluten",
@@ -2031,7 +2547,64 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Cerluten | Brain Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-5",
+    "tags": [
+     "Brain",
+     "Nervous system",
+     "Memory & focus",
+     "Mental resilience"
+    ],
+    "overview": [
+     "Cerluten® is a natural peptide complex (A-5) derived from brain tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal function of the brain and nervous system. Cerluten is taken orally as capsules and is often chosen by adults interested in memory, focus and mental resilience over the years."
+    ],
+    "why": "The brain coordinates thinking, memory, mood, sleep and movement. Its nerve cells use a large share of the body's energy and are sensitive to stress and oxidative strain. Supporting normal brain function is a common goal for people who want to stay sharp as they age.",
+    "interest": [
+     "Brain tissue peptides and nerve-cell activity in laboratory models",
+     "Neuronal resilience to oxidative stress",
+     "Cognitive function and the ageing nervous system"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Pinealon is the synthetic Cytogen® brain peptide (AC-5); Cerluten is the natural, tissue-derived Cytomax® brain complex.",
+     "Revilab ML 03 combines brain and retina peptide complexes in one capsule; Cerluten is a single-tissue formula."
+    ],
+    "ingredients": [
+     "Brain peptide complex A-5 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Cerluten belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Cerluten itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Cerluten?",
+      "a": "Cerluten is a natural, tissue-derived brain peptide bioregulator from the Khavinson Cytomax® line (A-5), taken orally as capsules."
+     },
+     {
+      "q": "Is Cerluten an injectable peptide?",
+      "a": "No. Cerluten is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Cerluten with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children. The manufacturer notes possible allergy to the gelatin capsule shell or to lactose.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Cerluten is a Khavinson Cytomax® brain peptide complex (A-5) in oral capsules, believed to support the normal function of the brain and the nervous system."
+   }
   },
   "chitomur": {
    "id": "chitomur",
@@ -2069,12 +2642,71 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Chitomur | Bladder Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-12",
+    "tags": [
+     "Urinary bladder",
+     "Urinary system",
+     "Pelvic comfort"
+    ],
+    "overview": [
+     "Chitomur® is a natural peptide complex (A-12) derived from urinary bladder tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal bladder function and urinary comfort. Chitomur is taken orally as capsules and is often considered by adults who want to support their urinary system as they age."
+    ],
+    "why": "The bladder is a muscular organ that stores urine and releases it when you choose. Its wall stretches and contracts thousands of times a year, and its lining protects the tissue underneath. Bladder control and comfort often become more noticeable with age.",
+    "interest": [
+     "Bladder tissue peptides and bladder cell activity in laboratory models",
+     "Function of the bladder wall and lining with age",
+     "Coordination within the urinary system"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Pielotax is the kidney complex (A-9); the kidneys filter the blood, while Chitomur targets the bladder that stores urine.",
+     "Libidon is the prostate complex (A-16), relevant to men's urogenital wellness.",
+     "As a Cytomax®, Chitomur is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Bladder peptide complex A-12 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Chitomur belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Chitomur itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Chitomur?",
+      "a": "Chitomur is a natural, tissue-derived bladder peptide bioregulator from the Khavinson Cytomax® line (A-12), taken orally as capsules."
+     },
+     {
+      "q": "Is Chitomur an injectable peptide?",
+      "a": "No. Chitomur is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Chitomur with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Chitomur is a Khavinson Cytomax® bladder peptide complex (A-12) in oral capsules, believed to support normal bladder function and everyday urinary comfort."
+   }
   },
   "chonluten": {
    "id": "chonluten",
    "name": "Chonluten",
-   "composition": null,
+   "composition": [
+    "Respiratory peptide complex AC-7 (glycine, glutamic acid, aspartic acid)"
+   ],
    "biologicalTarget": "respiratory (bronchi & lungs)",
    "manufacturerDirections": {
     "text": null,
@@ -2113,12 +2745,70 @@
    "auditRows": [
     "Chonluten",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Chonluten | Bronchial & Lung Peptide Bioregulator",
+    "lineCode": "Khavinson Cytogen® Peptide Complex AC-7",
+    "tags": [
+     "Bronchi",
+     "Lungs",
+     "Respiratory system",
+     "Airway lining"
+    ],
+    "overview": [
+     "Chonluten® is a Khavinson Cytogen®: a synthetic short-peptide complex (AC-7) made from the amino acids glycine, glutamic acid and aspartic acid, modelled on peptides found in bronchial and lung tissue.",
+     "It is believed to support the normal function of the respiratory lining. Chonluten is taken orally as capsules and is often chosen by adults who want to support their airways and lungs as part of a wellness routine."
+    ],
+    "why": "The bronchi and lungs move air in and out of the body and exchange oxygen for carbon dioxide. Their delicate lining is constantly exposed to dust, pollutants and changes in air temperature, and it relies on steady cell renewal to stay in good working order.",
+    "interest": [
+     "Short synthetic peptides and bronchial lining cells in laboratory models",
+     "Gene-expression signalling in respiratory tissue",
+     "How the airway lining responds to environmental stress"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Taxorest is the natural, tissue-derived Cytomax® bronchial complex (A-19); Chonluten is the synthetic Cytogen® version with a defined amino-acid composition.",
+     "Revilab ML 05 pairs a bronchial complex with an immune complex; Chonluten is a single-target formula."
+    ],
+    "ingredients": [
+     "Respiratory peptide complex AC-7 (glycine, glutamic acid, aspartic acid)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Chonluten belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Chonluten itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Chonluten?",
+      "a": "Chonluten is a synthetic bronchial & lung peptide bioregulator from the Khavinson Cytogen® line (AC-7), taken orally as capsules."
+     },
+     {
+      "q": "Is Chonluten an injectable peptide?",
+      "a": "No. Chonluten is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Chonluten with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Chonluten is a Khavinson Cytogen® respiratory peptide (AC-7) in oral capsules, believed to support the normal function of the airway and lung lining as we age."
+   }
   },
   "glandokort": {
    "id": "glandokort",
    "name": "Glandokort",
-   "composition": null,
+   "composition": [
+    "Adrenal gland peptide complex A-17 (natural extract)"
+   ],
    "biologicalTarget": "adrenal glands",
    "manufacturerDirections": {
     "text": null,
@@ -2157,12 +2847,76 @@
    "auditRows": [
     "Glandokort",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Glandokort | Adrenal Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-17",
+    "tags": [
+     "Adrenal glands",
+     "Stress response",
+     "Hormonal balance",
+     "Energy"
+    ],
+    "overview": [
+     "Glandokort® is a natural peptide complex (A-17) derived from adrenal gland tissue, developed within Prof. Vladimir Khavinson's peptide bioregulator program. Like other Cytomax® formulas, it is built on the idea that short, organ-specific peptides may act selectively on the cells of the tissue they come from.",
+     "It is believed to support normal adrenal function and the body's everyday stress response. Glandokort is taken orally as capsules and is often considered by adults who want to support their endocrine system as part of a broader wellness routine."
+    ],
+    "why": "The adrenal glands are two small glands sitting on top of the kidneys. They make hormones such as cortisol and adrenaline, which help the body respond to stress, manage energy and keep blood pressure and fluid balance steady. Because they react to daily pressures, many people think about adrenal support during demanding periods.",
+    "interest": [
+     "Adrenal tissue peptides and adrenal cell activity in laboratory models",
+     "The body's normal stress response and the hormones involved",
+     "How hormone-producing tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Thyreogen is the Cytomax® peptide complex from thyroid tissue (A-2); Glandokort targets the adrenal glands, a different part of the endocrine system.",
+     "Endoluten is a pineal gland complex (A-8), associated with daily rhythms rather than the stress response.",
+     "As a Cytomax®, Glandokort is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Adrenal gland peptide complex A-17 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Glandokort belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Glandokort itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Glandokort?",
+      "a": "Glandokort is a natural, tissue-derived adrenal peptide bioregulator from the Khavinson Cytomax® line (A-17), taken orally as capsules."
+     },
+     {
+      "q": "Is Glandokort an injectable peptide?",
+      "a": "No. Glandokort is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Is Glandokort a hormone?",
+      "a": "No. Glandokort does not contain cortisol, adrenaline or any other hormone. It is a peptide complex derived from adrenal tissue, believed to support the gland's own normal function."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Glandokort with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Glandokort is a Khavinson Cytomax® adrenal peptide complex (A-17), believed to support normal adrenal function and the body's everyday stress response."
+   }
   },
   "libidon": {
    "id": "libidon",
    "name": "Libidon",
-   "composition": null,
+   "composition": [
+    "Prostate peptide complex A-16 (natural extract)"
+   ],
    "biologicalTarget": "prostate",
    "manufacturerDirections": {
     "text": null,
@@ -2201,12 +2955,75 @@
    "auditRows": [
     "Libidon",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Libidon | Prostate Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-16",
+    "tags": [
+     "Prostate",
+     "Male wellness",
+     "Urogenital system"
+    ],
+    "overview": [
+     "Libidon® is a natural peptide complex (A-16) derived from prostate tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal prostate function and men's urogenital wellness. Libidon is taken orally as capsules and is often considered by adult men who want to support prostate health as they get older."
+    ],
+    "why": "The prostate is a small gland below the bladder in men. It produces part of the seminal fluid and surrounds the urethra, so its condition affects both reproductive and urinary comfort. The prostate naturally changes with age, which is why many men pay attention to it after midlife.",
+    "interest": [
+     "Prostate tissue peptides and prostate cell activity in laboratory models",
+     "Male urogenital function with age",
+     "Tissue-specific peptide signalling in glandular tissue"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Testoluten is the Cytomax® complex from testicular tissue (A-13), associated with male reproductive function; Libidon focuses on the prostate.",
+     "Chitomur is the bladder complex (A-12), associated with the urinary bladder rather than the prostate.",
+     "As a Cytomax®, Libidon is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Prostate peptide complex A-16 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Libidon belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Libidon itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Libidon?",
+      "a": "Libidon is a natural, tissue-derived prostate peptide bioregulator from the Khavinson Cytomax® line (A-16), taken orally as capsules."
+     },
+     {
+      "q": "Is Libidon an injectable peptide?",
+      "a": "No. Libidon is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Can women take Libidon?",
+      "a": "Libidon is formulated around prostate tissue, which is specific to men. Women interested in reproductive-system peptides can look at Zhenoluten, the ovarian complex."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Libidon with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Libidon is a Khavinson Cytomax® peptide complex (A-16) for men, in oral capsules, believed to support normal male urogenital function and wellness with age."
+   }
   },
   "ovagen": {
    "id": "ovagen",
    "name": "Ovagen",
-   "composition": null,
+   "composition": [
+    "Peptide complex AC-3 (leucine, glutamic acid, aspartic acid)"
+   ],
    "biologicalTarget": "liver",
    "manufacturerDirections": {
     "text": null,
@@ -2260,12 +3077,71 @@
     "Ovagen",
     "Ovagen – directions",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Ovagen | Liver & Digestive Peptide Bioregulator",
+    "lineCode": "Khavinson Cytogen® Peptide Complex AC-3",
+    "tags": [
+     "Liver",
+     "Digestive tract",
+     "Metabolic pathways",
+     "Metabolism"
+    ],
+    "overview": [
+     "Ovagen® is a Khavinson Cytogen®: a synthetic short-peptide complex (AC-3) made from the amino acids leucine, glutamic acid and aspartic acid. The manufacturer describes it as contributing to the normal functioning of the liver and the digestive tract.",
+     "It is believed to support liver function and the work of the digestive system as a whole. Ovagen is taken orally as capsules and is often chosen by adults looking for digestive and liver support as part of a wellness routine."
+    ],
+    "why": "The liver processes nutrients, makes bile to help digest fats and clears waste and substances the body no longer needs. It works hand in hand with the stomach and intestines, which break down food and absorb nutrients. Together they form the digestive system that keeps the body supplied with energy.",
+    "interest": [
+     "Short synthetic peptides and liver cells in laboratory models",
+     "Coordination between the liver and the digestive tract",
+     "Metabolic pathways in liver tissue"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Svetinorm is the natural, tissue-derived Cytomax® liver complex (A-7); Ovagen is the synthetic Cytogen® peptide, and it covers the digestive tract as well as the liver.",
+     "Stamakort is a Cytomax® complex from the stomach lining, and Suprefort comes from pancreas tissue; both focus on a single digestive organ."
+    ],
+    "ingredients": [
+     "Peptide complex AC-3 (leucine, glutamic acid, aspartic acid)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Ovagen belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Ovagen itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Ovagen?",
+      "a": "Ovagen is a synthetic liver & digestive peptide bioregulator from the Khavinson Cytogen® line (AC-3), taken orally as capsules."
+     },
+     {
+      "q": "Is Ovagen an injectable peptide?",
+      "a": "No. Ovagen is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Ovagen with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Ovagen is a Khavinson Cytogen® peptide (AC-3), believed to support normal liver function and the work of the whole digestive tract. Taken as oral capsules."
+   }
   },
   "pinealon": {
    "id": "pinealon",
    "name": "Pinealon",
-   "composition": null,
+   "composition": [
+    "Brain peptide complex AC-5 (arginine, glutamic acid, aspartic acid)"
+   ],
    "biologicalTarget": "brain (cerebral cortex peptides)",
    "manufacturerDirections": {
     "text": null,
@@ -2312,7 +3188,68 @@
     "Pinealon",
     "Pinealon – directions",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Pinealon | Brain Peptide Bioregulator",
+    "lineCode": "Khavinson Cytogen® Peptide Complex AC-5",
+    "tags": [
+     "Brain",
+     "Nervous system",
+     "Cognitive function",
+     "Stress resilience"
+    ],
+    "overview": [
+     "Pinealon® is a Khavinson Cytogen® brain peptide complex (AC-5): a synthetic short-peptide formula made from the amino acids arginine, glutamic acid and aspartic acid, based on peptides of the cerebral cortex.",
+     "It is believed to support the normal functional activity of brain cells and the nervous system. Pinealon is taken orally as capsules and is often chosen by adults interested in memory, focus and mental resilience as they age."
+    ],
+    "why": "The brain coordinates everything from thinking and memory to sleep and movement. Its nerve cells are highly active and sensitive to stress, poor sleep and oxidative strain. Supporting normal brain-cell function is a common goal for people who want to stay sharp over the years.",
+    "interest": [
+     "Short peptides and nerve-cell activity in laboratory models",
+     "Neuronal resilience to oxidative stress",
+     "Cognitive function and the ageing nervous system"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Cerluten is the natural, tissue-derived Cytomax® brain complex (A-5); Pinealon is the synthetic Cytogen® version with a defined amino-acid composition.",
+     "Despite its name, Pinealon is a brain peptide complex; Endoluten is the product built on pineal gland peptides."
+    ],
+    "ingredients": [
+     "Brain peptide complex AC-5 (arginine, glutamic acid, aspartic acid)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Pinealon belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Pinealon itself, so the research is best read as background rather than proof of effect. Brain peptides have also been studied in cell and animal work on nerve-cell resilience to oxidative stress. The research literature describes the EDR tripeptide (Glu-Asp-Arg); the label itself does not print a sequence.",
+    "faq": [
+     {
+      "q": "What is Pinealon?",
+      "a": "Pinealon is a synthetic brain peptide bioregulator from the Khavinson Cytogen® line (AC-5), taken orally as capsules."
+     },
+     {
+      "q": "Is Pinealon an injectable peptide?",
+      "a": "No. Pinealon is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Is Pinealon a pineal gland product?",
+      "a": "No. Despite the name, Pinealon is a brain peptide complex (AC-5) based on cerebral-cortex peptides. If you are interested in the pineal gland, see Endoluten."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Pinealon with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Pinealon is a Khavinson Cytogen® brain peptide complex (AC-5), believed to support the normal functional activity of brain cells and the nervous system."
+   }
   },
   "sigumir": {
    "id": "sigumir",
@@ -2357,13 +3294,70 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Sigumir | Cartilage & Bone Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-4",
+    "tags": [
+     "Cartilage",
+     "Bones",
+     "Joints & spine",
+     "Mobility"
+    ],
+    "overview": [
+     "Sigumir® is a natural peptide complex (A-4) derived from cartilage and bone tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators. The manufacturer associates it with the function of joints and the spine.",
+     "It is believed to support the normal condition of cartilage and bone and joint comfort. Sigumir is taken orally as capsules and is often considered by active adults and people who want to support mobility as they age."
+    ],
+    "why": "Cartilage cushions the joints and the spine, while bone gives the body its structure and stores minerals. Both are living tissues that renew slowly and are affected by movement, load and age.",
+    "interest": [
+     "Cartilage and bone peptides and cell activity in laboratory models",
+     "Joint and spine mobility with age",
+     "Connective-tissue and bone renewal"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Cartalax is the synthetic Cytogen® cartilage peptide (AC-4); Sigumir is the natural, tissue-derived Cytomax® complex and covers bone as well as cartilage.",
+     "Bonothyrk (parathyroid, A-21) relates to calcium balance; Gotratix (A-18) targets muscle."
+    ],
+    "ingredients": [
+     "Cartilage and bone peptide complex A-4 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Sigumir belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Sigumir itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Sigumir?",
+      "a": "Sigumir is a natural, tissue-derived cartilage & bone peptide bioregulator from the Khavinson Cytomax® line (A-4), taken orally as capsules."
+     },
+     {
+      "q": "Is Sigumir an injectable peptide?",
+      "a": "No. Sigumir is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Sigumir with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Sigumir is a Khavinson Cytomax® cartilage and bone peptide complex (A-4) in oral capsules, believed to support cartilage, bone and everyday joint comfort."
+   }
   },
   "stamakort": {
    "id": "stamakort",
    "name": "Stamakort",
    "composition": [
-    "Stomach peptide complex (natural extract)"
+    "Stomach peptide complex A-10 (natural extract)"
    ],
    "biologicalTarget": "Пептиды желудка",
    "manufacturerDirections": {
@@ -2395,7 +3389,65 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Stamakort | Stomach Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-10",
+    "tags": [
+     "Stomach lining",
+     "Digestion",
+     "Digestive comfort"
+    ],
+    "overview": [
+     "Stamakort® is a natural peptide complex (A-10) derived from the stomach lining, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal condition of the stomach lining and healthy digestion. Stamakort is taken orally as capsules and is often considered by adults who want to support digestive comfort as part of a wellness routine."
+    ],
+    "why": "The stomach breaks down food with acid and enzymes. Its inner lining protects the stomach wall from that acid and renews itself constantly. Stress, irregular meals and age can all affect how comfortably the stomach does its job.",
+    "interest": [
+     "Stomach-lining peptides and gastric cell activity in laboratory models",
+     "Renewal of the stomach's protective lining",
+     "Digestive function with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Ovagen is the synthetic Cytogen® peptide for the liver and the digestive tract as a whole; Stamakort focuses on the stomach lining.",
+     "Suprefort (pancreas) and Svetinorm (liver) are Cytomax® complexes for other digestive organs.",
+     "Cytomax® products are natural peptide complexes extracted from the corresponding organ tissue of young animals."
+    ],
+    "ingredients": [
+     "Stomach peptide complex A-10 (natural extract)",
+     "20 mg of peptide complex A-10 per 2 capsules (per the manufacturer)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Stamakort belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Stamakort itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Stamakort?",
+      "a": "Stamakort is a natural, tissue-derived stomach peptide bioregulator from the Khavinson Cytomax® line (A-10), taken orally as capsules."
+     },
+     {
+      "q": "Is Stamakort an injectable peptide?",
+      "a": "No. Stamakort is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Stamakort with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Stamakort is a Khavinson Cytomax® stomach-lining peptide complex (A-10) in oral capsules, believed to support the stomach lining and healthy digestion."
+   }
   },
   "suprefort": {
    "id": "suprefort",
@@ -2433,7 +3485,65 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Suprefort | Pancreas Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-1",
+    "tags": [
+     "Pancreas",
+     "Digestive enzymes",
+     "Metabolism"
+    ],
+    "overview": [
+     "Suprefort® is a natural peptide complex (A-1) derived from pancreas tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal pancreatic function, both in digestion and in metabolism. Suprefort is taken orally as capsules and is often considered by adults who want to support their digestive and metabolic health as part of a wellness routine."
+    ],
+    "why": "The pancreas has two jobs. It releases digestive enzymes into the intestine to break down fats, proteins and carbohydrates, and it produces hormones, including insulin, that help the body use energy from food.",
+    "interest": [
+     "Pancreas tissue peptides and pancreatic cell activity in laboratory models",
+     "Digestive enzyme production",
+     "Metabolic function with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Svetinorm (liver) and Stamakort (stomach) are Cytomax® complexes for other digestive organs.",
+     "Ovagen is the synthetic Cytogen® peptide for the liver and the digestive tract as a whole.",
+     "Revilab ML 06 combines liver and pancreas complexes in one capsule; Suprefort is a single-tissue formula.",
+     "Cytomax® products are natural peptide complexes extracted from the corresponding organ tissue of young animals."
+    ],
+    "ingredients": [
+     "Pancreas peptide complex A-1 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Suprefort belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Suprefort itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Suprefort?",
+      "a": "Suprefort is a natural, tissue-derived pancreas peptide bioregulator from the Khavinson Cytomax® line (A-1), taken orally as capsules."
+     },
+     {
+      "q": "Is Suprefort an injectable peptide?",
+      "a": "No. Suprefort is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Suprefort with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Suprefort is a Khavinson Cytomax® pancreas peptide complex (A-1) in oral capsules, believed to support normal pancreatic function in digestion and metabolism."
+   }
   },
   "svetinorm": {
    "id": "svetinorm",
@@ -2471,12 +3581,70 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Svetinorm | Liver Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-7",
+    "tags": [
+     "Liver",
+     "Metabolism",
+     "Metabolic pathways"
+    ],
+    "overview": [
+     "Svetinorm® is a natural peptide complex (A-7) derived from liver tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal liver function and the liver's role in metabolism. Svetinorm is taken orally as capsules and is often considered by adults who want to support their liver as part of a wellness routine."
+    ],
+    "why": "The liver is the body's main chemical workshop. It processes nutrients from food, stores energy, makes proteins and bile, and clears waste and substances the body no longer needs. Diet, alcohol, medications and age all place demands on it.",
+    "interest": [
+     "Liver tissue peptides and liver cell activity in laboratory models",
+     "Metabolic pathways in the liver",
+     "How liver tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Ovagen is the synthetic Cytogen® peptide (AC-3) for the liver and digestive tract; Svetinorm is the natural, tissue-derived Cytomax® liver complex.",
+     "Suprefort (pancreas) and Stamakort (stomach) target other digestive organs."
+    ],
+    "ingredients": [
+     "Liver peptide complex A-7 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Svetinorm belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Svetinorm itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Svetinorm?",
+      "a": "Svetinorm is a natural, tissue-derived liver peptide bioregulator from the Khavinson Cytomax® line (A-7), taken orally as capsules."
+     },
+     {
+      "q": "Is Svetinorm an injectable peptide?",
+      "a": "No. Svetinorm is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Svetinorm with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Svetinorm is a Khavinson Cytomax® liver peptide complex (A-7) in oral capsules, believed to support normal liver function and the liver's role in metabolism."
+   }
   },
   "taxorest": {
    "id": "taxorest",
    "name": "Taxorest",
-   "composition": null,
+   "composition": [
+    "Bronchial peptide complex A-19 (natural extract)"
+   ],
    "biologicalTarget": "respiratory (bronchi)",
    "manufacturerDirections": {
     "text": null,
@@ -2515,7 +3683,63 @@
    "auditRows": [
     "Taxorest",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Taxorest | Bronchial Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-19",
+    "tags": [
+     "Bronchi",
+     "Respiratory system",
+     "Airway lining",
+     "Seasonal resilience"
+    ],
+    "overview": [
+     "Taxorest® is a natural peptide complex (A-19) derived from bronchial tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal function of the bronchial lining and the respiratory system. Taxorest is taken orally as capsules and is often chosen by adults who want to support their airways, for example during seasonal changes or in polluted environments."
+    ],
+    "why": "The bronchi are the branching airways that carry air from the windpipe into the lungs. Their lining produces mucus and moves it along with tiny hair-like cells, trapping dust and particles before they reach the deeper lung. Healthy airways are part of easy, comfortable breathing.",
+    "interest": [
+     "Bronchial tissue peptides and airway lining cells in laboratory models",
+     "The natural clearing function of the airways",
+     "How the respiratory lining changes with age and environmental exposure"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Chonluten is the Cytogen® (synthetic) respiratory peptide AC-7; Taxorest is the natural, tissue-derived Cytomax® complex.",
+     "Revilab ML 05 combines a bronchial complex with a T-link immune complex in one capsule; Taxorest is a single-tissue formula."
+    ],
+    "ingredients": [
+     "Bronchial peptide complex A-19 (natural extract)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Taxorest belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Taxorest itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Taxorest?",
+      "a": "Taxorest is a natural, tissue-derived bronchial peptide bioregulator from the Khavinson Cytomax® line (A-19), taken orally as capsules."
+     },
+     {
+      "q": "Is Taxorest an injectable peptide?",
+      "a": "No. Taxorest is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Taxorest with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Taxorest is a Khavinson Cytomax® airway peptide complex (A-19) in oral capsules, believed to support the normal function of the airway lining as we age."
+   }
   },
   "zhenoluten": {
    "id": "zhenoluten",
@@ -2553,7 +3777,68 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Zhenoluten | Ovarian Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-15",
+    "tags": [
+     "Ovaries",
+     "Female reproductive system",
+     "Hormonal balance"
+    ],
+    "overview": [
+     "Zhenoluten® is a natural peptide complex (A-15) derived from ovarian tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal ovarian function and women's hormonal balance. Zhenoluten is taken orally as capsules and is often considered by adult women who want to support their reproductive system, including around midlife."
+    ],
+    "why": "The ovaries produce eggs and the hormones estrogen and progesterone, which shape the menstrual cycle and affect bone, skin, mood and energy. Ovarian activity changes significantly through a woman's life, especially around menopause.",
+    "interest": [
+     "Ovarian tissue peptides and ovarian cell activity in laboratory models",
+     "Female hormonal balance across life stages",
+     "How reproductive tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Libidon (prostate) and Testoluten (testes) are the male reproductive-system complexes.",
+     "Endoluten (pineal, A-8) is associated with daily rhythms and the wider neuroendocrine system.",
+     "As a Cytomax®, Zhenoluten is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Ovarian peptide complex A-15 (natural extract)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Zhenoluten belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Zhenoluten itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Zhenoluten?",
+      "a": "Zhenoluten is a natural, tissue-derived ovarian peptide bioregulator from the Khavinson Cytomax® line (A-15), taken orally as capsules."
+     },
+     {
+      "q": "Is Zhenoluten an injectable peptide?",
+      "a": "No. Zhenoluten is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Does Zhenoluten contain estrogen?",
+      "a": "No. Zhenoluten is a peptide complex derived from ovarian tissue, not a hormone product."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Zhenoluten with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Zhenoluten is a Khavinson Cytomax® ovarian peptide complex (A-15) in oral capsules, believed to support normal ovarian function and women's hormonal balance."
+   }
   },
   "ventfort": {
    "id": "ventfort",
@@ -2591,7 +3876,63 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Ventfort | Vascular Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-3",
+    "tags": [
+     "Blood vessels",
+     "Circulation",
+     "Cardiovascular system"
+    ],
+    "overview": [
+     "Ventfort® is a natural peptide complex (A-3) derived from blood-vessel wall tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal function of blood vessels and healthy circulation. Ventfort is taken orally as capsules and is often considered by adults who want to support cardiovascular wellness as they age."
+    ],
+    "why": "Blood vessels carry blood to every organ. Their walls need to stay flexible, and their inner lining helps control blood flow and the passage of nutrients into tissues. Vessel walls naturally become stiffer with age.",
+    "interest": [
+     "Vascular tissue peptides and vessel-wall cells in laboratory models",
+     "Circulation and vascular tone",
+     "How blood vessels change with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Vesugen is the synthetic Cytogen® vascular peptide (AC-2); Ventfort is the natural, tissue-derived Cytomax® complex.",
+     "Chelohart (A-14) targets the heart muscle rather than the vessels."
+    ],
+    "ingredients": [
+     "Vascular peptide complex (A-3)",
+     "Other ingredients: microcrystalline cellulose (carrier); capsule shell (hydroxypropyl methylcellulose, purified water, carrageenan, potassium acetate); calcium stearate (anti-caking agent)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Ventfort belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Ventfort itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Ventfort?",
+      "a": "Ventfort is a natural, tissue-derived vascular peptide bioregulator from the Khavinson Cytomax® line (A-3), taken orally as capsules."
+     },
+     {
+      "q": "Is Ventfort an injectable peptide?",
+      "a": "No. Ventfort is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Ventfort with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Ventfort is a Khavinson Cytomax® vascular peptide complex (A-3) in oral capsules, believed to support the normal function of blood vessels and circulation."
+   }
   },
   "vesugen": {
    "id": "vesugen",
@@ -2637,7 +3978,62 @@
    "auditRows": [
     "Vesugen",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Vesugen | Vascular Peptide Bioregulator",
+    "lineCode": "Khavinson Cytogen® Peptide Complex AC-2",
+    "tags": [
+     "Blood vessels",
+     "Circulation",
+     "Cardiovascular system"
+    ],
+    "overview": [
+     "Vesugen® is a Khavinson Cytogen®: a synthetic short-peptide complex (AC-2) made from the amino acids lysine, glutamic acid and aspartic acid, modelled on peptides of the blood-vessel wall.",
+     "It is believed to support the normal function of blood vessels and healthy circulation. Vesugen is taken orally as capsules and is often chosen by adults who want to support cardiovascular wellness as they age."
+    ],
+    "why": "Blood vessels carry blood to every organ. Their inner lining helps control how widely they open, how smoothly blood flows and how nutrients pass into tissues. Flexible, well-functioning vessels are central to healthy circulation.",
+    "interest": [
+     "Short synthetic peptides and vessel-wall cells in laboratory models",
+     "Circulation and vascular tone",
+     "How blood vessels change with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Ventfort is the natural, tissue-derived Cytomax® vascular complex (A-3); Vesugen is the synthetic Cytogen® version with a defined amino-acid composition.",
+     "Chelohart (A-14) targets the heart muscle rather than the vessels."
+    ],
+    "ingredients": [
+     "Vascular peptide complex (AC-2)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Vesugen belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Vesugen itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Vesugen?",
+      "a": "Vesugen is a synthetic vascular peptide bioregulator from the Khavinson Cytogen® line (AC-2), taken orally as capsules."
+     },
+     {
+      "q": "Is Vesugen an injectable peptide?",
+      "a": "No. Vesugen is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Vesugen with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Vesugen is a Khavinson Cytogen® vascular peptide (AC-2) in oral capsules, believed to support the normal function of blood vessels and healthy circulation."
+   }
   },
   "visoluten": {
    "id": "visoluten",
@@ -2675,7 +4071,63 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Visoluten | Eye Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-11",
+    "tags": [
+     "Eyes",
+     "Vision",
+     "Retina",
+     "Screen-time strain"
+    ],
+    "overview": [
+     "Visoluten® is a natural peptide complex (A-11) derived from eye tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support the normal function of eye tissue and healthy vision. Visoluten is taken orally as capsules and is often considered by adults who spend long hours on screens or want to support their eyes as they age."
+    ],
+    "why": "The eyes turn light into signals the brain can read. The retina at the back of the eye is packed with light-sensitive cells that work constantly and need a good supply of nutrients and oxygen. Eye tissue is under strain from bright light, screens and age.",
+    "interest": [
+     "Eye tissue peptides and retinal cell activity in laboratory models",
+     "Visual function and eye strain",
+     "How eye tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Revilab ML 03 and SL 02 combine brain and retina peptide complexes; Visoluten is a single-tissue eye formula.",
+     "As a Cytomax®, Visoluten is a natural tissue-derived extract; Cytogen® products are synthetic short peptides."
+    ],
+    "ingredients": [
+     "Eye tissue peptide complex (A-11)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Visoluten belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Visoluten itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Visoluten?",
+      "a": "Visoluten is a natural, tissue-derived eye peptide bioregulator from the Khavinson Cytomax® line (A-11), taken orally as capsules."
+     },
+     {
+      "q": "Is Visoluten an injectable peptide?",
+      "a": "No. Visoluten is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Visoluten with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Visoluten is a Khavinson Cytomax® eye tissue peptide complex (A-11) in oral capsules, believed to support the normal function of eye tissue and healthy vision."
+   }
   },
   "vladonix": {
    "id": "vladonix",
@@ -2713,7 +4165,64 @@
    "hold": null,
    "auditRows": [
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Vladonix | Thymus Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-6",
+    "tags": [
+     "Thymus",
+     "Immune system",
+     "Seasonal resilience",
+     "Healthy ageing"
+    ],
+    "overview": [
+     "Vladonix® is a natural peptide complex (A-6) derived from thymus tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal function of the immune system. Vladonix is taken orally as capsules and is often considered by adults who want to support their immune resilience, especially during seasonal changes or as they age."
+    ],
+    "why": "The thymus is a small gland behind the breastbone where T cells, a key type of immune cell, mature. It is most active in childhood and gradually shrinks with age, which is one reason immune responses change over a lifetime.",
+    "interest": [
+     "Thymus peptides and immune-cell activity in laboratory models",
+     "Immune function and the ageing thymus",
+     "Balance between different immune-cell populations"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Crystagen is the synthetic Cytogen® immune peptide (AC-6); Vladonix is the natural, tissue-derived Cytomax® thymus complex.",
+     "Bonomarlot (A-20) targets the bone marrow, where blood and immune cells are first formed.",
+     "Revilab ML 02 combines T-link and B-link immune complexes in one capsule."
+    ],
+    "ingredients": [
+     "Thymus peptide complex (A-6)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Vladonix belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Vladonix itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Vladonix?",
+      "a": "Vladonix is a natural, tissue-derived thymus peptide bioregulator from the Khavinson Cytomax® line (A-6), taken orally as capsules."
+     },
+     {
+      "q": "Is Vladonix an injectable peptide?",
+      "a": "No. Vladonix is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Vladonix with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Vladonix is a Khavinson Cytomax® thymus peptide complex (A-6) in oral capsules, believed to support normal immune function and seasonal immune resilience."
+   }
   },
   "anti-wrinkle-serum-7": {
    "id": "anti-wrinkle-serum-7",
@@ -4177,7 +5686,69 @@
    "auditRows": [
     "Thyreogen",
     "1–2× vs 2× group"
-   ]
+   ],
+   "pdp": {
+    "title": "Thyreogen | Thyroid Peptide Bioregulator",
+    "lineCode": "Khavinson Cytomax® Peptide Complex A-2",
+    "tags": [
+     "Thyroid gland",
+     "Metabolism",
+     "Energy",
+     "Hormonal balance"
+    ],
+    "overview": [
+     "Thyreogen® is a natural peptide complex (A-2) derived from thyroid gland tissue, part of the Khavinson Cytomax® line of organ-specific peptide bioregulators.",
+     "It is believed to support normal thyroid function and the body's metabolic balance. Thyreogen is taken orally as capsules and is often considered by adults who want to support their endocrine system as they age."
+    ],
+    "why": "The thyroid is a butterfly-shaped gland at the front of the neck. Its hormones set the pace of metabolism: how quickly the body uses energy, keeps warm and supports heart rate, mood and weight. Small changes in thyroid activity can be felt throughout the body.",
+    "interest": [
+     "Thyroid tissue peptides and thyroid cell activity in laboratory models",
+     "Metabolic regulation by the endocrine system",
+     "How hormone-producing tissue changes with age"
+    ],
+    "interestNote": "These are areas of biological investigation, not guarantees of clinical benefit.",
+    "differences": [
+     "Bonothyrk is the parathyroid complex (A-21); the parathyroid glands sit next to the thyroid but regulate calcium rather than metabolism.",
+     "Glandokort (adrenal, A-17) targets another endocrine gland.",
+     "Thyreogen does not contain thyroid hormone and is not a substitute for thyroid medication.",
+     "Cytomax® products are natural peptide complexes extracted from the corresponding organ tissue of young animals."
+    ],
+    "ingredients": [
+     "Thyroid gland peptide complex (A-2)"
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "researchBackground": "Thyreogen belongs to a family of short peptide bioregulators developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how short peptides from specific tissues may interact with the cells of that tissue and influence gene activity, mostly in cell and animal studies. Much of this work has been published in Russian-language literature, and we are not aware of published controlled human trials of Thyreogen itself, so the research is best read as background rather than proof of effect.",
+    "faq": [
+     {
+      "q": "What is Thyreogen?",
+      "a": "Thyreogen is a natural, tissue-derived thyroid peptide bioregulator from the Khavinson Cytomax® line (A-2), taken orally as capsules."
+     },
+     {
+      "q": "Is Thyreogen an injectable peptide?",
+      "a": "No. Thyreogen is an oral dietary supplement in capsule form. It is a different class from injectable research peptides or GLP-1 medications."
+     },
+     {
+      "q": "Does Thyreogen contain thyroid hormone?",
+      "a": "No. Thyreogen is a peptide complex derived from thyroid tissue, not a hormone product. If you take thyroid medication, talk to your doctor before using it."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "What is the difference between the 20- and 60-capsule packs?",
+      "a": "Both contain the same capsules; the 60-capsule pack simply holds more."
+     },
+     {
+      "q": "Can I take Thyreogen with other bioregulators or supplements?",
+      "a": "Many people use several bioregulators, but combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Thyreogen is a Khavinson Cytomax® thyroid peptide complex (A-2) in oral capsules, believed to support normal thyroid function and the body's metabolic balance."
+   }
   },
   "gpl-femme": {
    "id": "gpl-femme",

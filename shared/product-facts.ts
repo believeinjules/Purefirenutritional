@@ -30,6 +30,28 @@ export interface FactSource {
   translation: string | null;
 }
 
+/** Full product-page copy (Julia's Endoluten template). Rendered by ProductDetail; review doc: /workspace/pf-pdp-copy-review.md. */
+export interface PdpContent {
+  title: string;
+  lineCode: string;
+  tags: string[];
+  overview: string[];
+  why: string;
+  interest: string[];
+  interestNote: string;
+  differences: string[];
+  ingredients: string[];
+  /** Verified label text only, else "Follow the directions on your package." */
+  directions: string;
+  directionsBasis: string;
+  researchBackground: string;
+  faq: { q: string; a: string }[];
+  safety: string;
+  disclaimer: string;
+  /** 150–160 characters, derived from the overview. */
+  metaDescription: string;
+}
+
 export interface ProductFacts {
   id: string;
   name: string;
@@ -59,6 +81,7 @@ export interface ProductFacts {
    * approved by Julia). The storefront keeps storefrontUsage; Pepita states this text.
    */
   pepitaOverride?: { text: string; basis: string; source: string; exception: string };
+  pdp?: PdpContent;
 }
 
 export const PRODUCT_FACTS: Record<string, ProductFacts> = (FACTS as unknown as { products: Record<string, ProductFacts> }).products;
@@ -93,3 +116,8 @@ export function applyProductFacts<T extends WithFacts>(product: T): T {
 
 /** Products whose Pepita directions intentionally differ from the storefront (pending Julia). */
 export const PEPITA_DIRECTION_EXCEPTIONS = Object.values(PRODUCT_FACTS).filter(f => f.pepitaOverride).map(f => f.id);
+
+/** Full PDP copy for a product, when written. */
+export function getPdpContent(id: string): PdpContent | undefined {
+  return PRODUCT_FACTS[id]?.pdp;
+}

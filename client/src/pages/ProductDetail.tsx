@@ -30,6 +30,8 @@ import AuthenticityDocumentation from "@/components/documentation/AuthenticityDo
 import PageSeo from "@/components/seo/PageSeo";
 import { SeoProductContext } from "@/components/seo/SeoProductContext";
 import { productHead } from "@/lib/seo";
+import { getPdpContent } from "@shared/product-facts";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -130,6 +132,12 @@ export default function ProductDetail() {
   const bundleOfferTotal = bundle > 1 ? getCartLineUnitUSD(product, selectedSize, bundle) : undefined;
   const activeBundle: BundleChoice = bundle > 1 && bundleOfferTotal === undefined ? 1 : bundle;
   const bundleTotal = activeBundle > 1 ? bundleOfferTotal : currentPrice;
+  // Full PDP copy (shared/product-facts.json → pdp), when written for this product.
+  const pdp = getPdpContent(product.id);
+  // Decision (2026-10-14): conflicting/held directions show "Follow the directions on your package.";
+  // Endoluten keeps its current storefront usage text for now.
+  const usageText = pdp && product.id !== "endoluten" ? pdp.directions : product.usage;
+  const ingredientList = pdp?.ingredients?.length ? pdp.ingredients : product.ingredients;
   const currentImage = selectedVariant?.image || product.image;
   const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product.images || []);
 
@@ -185,6 +193,17 @@ export default function ProductDetail() {
               </span>
 
               <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
+              {pdp && (
+                <div className="space-y-2" data-testid="pdp-header">
+                  <p className="text-base text-gray-700">{pdp.title.split(" | ")[1]}</p>
+                  <p className="text-sm text-gray-500">{pdp.lineCode}</p>
+                  <ul className="flex flex-wrap gap-2" aria-label="Areas">
+                    {pdp.tags.map((t) => (
+                      <li key={t} className="text-xs text-gray-700 px-3 py-1 rounded-full border border-gray-200 bg-gray-50">{t}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Stars — approved reviews only; nothing when there are none */}
               <RatingStars summary={reviewSummaries[product.id]} size={15} href="#reviews" />
@@ -285,10 +304,10 @@ export default function ProductDetail() {
               )}
 
               {/* Usage callout */}
-              {product.usage && (
-                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+              {usageText && (
+                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4" data-testid="usage-callout">
                   <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Recommended Usage</p>
-                  <p className="text-sm text-blue-800 leading-relaxed">{product.usage}</p>
+                  <p className="text-sm text-blue-800 leading-relaxed">{usageText}</p>
                 </div>
               )}
 
@@ -306,18 +325,57 @@ export default function ProductDetail() {
             {/* Left: description + ingredients */}
             <div className="lg:col-span-2 space-y-8">
 
-              {product.description && (
+              {pdp ? (
+                <section data-testid="pdp-overview">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product</h2>
+                  <div className="space-y-3">
+                    {pdp.overview.map((para, i) => <p key={i} className="text-gray-600 leading-relaxed">{para}</p>)}
+                  </div>
+                </section>
+              ) : product.description && (
                 <section>
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product</h2>
                   <p className="text-gray-600 leading-relaxed">{product.description}</p>
                 </section>
               )}
 
-              {product.ingredients && product.ingredients.length > 0 && (
+              {pdp && (
+                <>
+                  <section data-testid="pdp-why">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Why {product.name}?</h2>
+                    <p className="text-gray-600 leading-relaxed">{pdp.why}</p>
+                  </section>
+                  <section data-testid="pdp-interest">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Areas of Scientific Interest</h2>
+                    <ul className="space-y-2">
+                      {pdp.interest.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm">
+                          <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
+                          <span className="text-gray-700">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 text-xs text-gray-500">{pdp.interestNote}</p>
+                  </section>
+                  <section data-testid="pdp-differences">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">What Makes It Different</h2>
+                    <ul className="space-y-2">
+                      {pdp.differences.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm">
+                          <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
+                          <span className="text-gray-700">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                </>
+              )}
+
+              {ingredientList && ingredientList.length > 0 && (
                 <section>
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Active Ingredients</h2>
                   <ul className="space-y-2">
-                    {product.ingredients.map((ingredient, i) => (
+                    {ingredientList.map((ingredient, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm">
                         <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
                         <span className="text-gray-700">{ingredient}</span>
@@ -336,6 +394,34 @@ export default function ProductDetail() {
                   </div>
                   <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
                 </section>
+              )}
+
+              {pdp && (
+                <>
+                  <section className="bg-gray-50 border border-gray-100 rounded-xl p-6" data-testid="pdp-research">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Info size={16} className="text-gray-400 flex-shrink-0" />
+                      <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Research Background</h2>
+                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed">{pdp.researchBackground}</p>
+                  </section>
+                  <section data-testid="pdp-faq">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-1 pb-2 border-b">Frequently Asked Questions</h2>
+                    <Accordion type="single" collapsible>
+                      {pdp.faq.map((f, i) => (
+                        <AccordionItem key={i} value={`faq-${i}`}>
+                          <AccordionTrigger className="text-gray-900">{f.q}</AccordionTrigger>
+                          <AccordionContent className="text-gray-600 leading-relaxed">{f.a}</AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </section>
+                  <section className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-2" data-testid="pdp-safety">
+                    <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Safety</h2>
+                    <p>{pdp.safety}</p>
+                    <p className="text-xs text-gray-500">{pdp.disclaimer}</p>
+                  </section>
+                </>
               )}
 
               {/* Manufacturer protocol — renders only when reviewed data exists */}

@@ -3193,8 +3193,8 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "peptide complex AC-7 (glycine, glutamic acid, aspartic acid)",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
+        "value": "Respiratory peptide complex AC-7 (glycine, glutamic acid, aspartic acid)",
+        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/citogeny/honluten/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/chonluten/"
       },
       "quantities": {
         "status": "unverified",
@@ -3259,8 +3259,8 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "natural adrenal peptide complex A-17",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
+        "value": "Adrenal gland peptide complex A-17 (natural extract)",
+        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/glandokort/"
       },
       "quantities": {
         "status": "unverified",
@@ -3325,8 +3325,8 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "natural prostate peptide complex A-16",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
+        "value": "Prostate peptide complex A-16 (natural extract)",
+        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/libidon/"
       },
       "quantities": {
         "status": "unverified",
@@ -3391,8 +3391,8 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "peptide complex AC-3 (leucine, glutamic acid, aspartic acid)",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
+        "value": "Peptide complex AC-3 (leucine, glutamic acid, aspartic acid)",
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/ ; https://peptid.ru/catalog/citogeny/ovagen/ ; https://peptid.ru/catalog/citogeny/ovagen/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/"
       },
       "quantities": {
         "status": "unverified",
@@ -3457,8 +3457,8 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "peptide complex AC-5 (arginine, glutamic acid, aspartic acid)",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
+        "value": "Brain peptide complex AC-5 (arginine, glutamic acid, aspartic acid)",
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/peptide_products/cytogens/pinealon/ ; https://peptid.ru/catalog/citogeny/pinealon/ ; https://peptid.ru/catalog/citogeny/pinealon/"
       },
       "quantities": {
         "status": "unverified",
@@ -3635,7 +3635,7 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "Stomach peptide complex (natural extract)",
+        "value": "Stomach peptide complex A-10 (natural extract)",
         "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
       },
       "quantities": {
@@ -3886,8 +3886,8 @@
       "schedules": [],
       "ingredients": {
         "status": "verified",
-        "value": "natural bronchial peptide complex A-19",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
+        "value": "Bronchial peptide complex A-19 (natural extract)",
+        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/taxorest/"
       },
       "quantities": {
         "status": "unverified",

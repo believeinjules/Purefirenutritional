@@ -7,6 +7,7 @@
  * (shared/product-prices.ts), so rich-result prices match what Stripe charges.
  */
 import { variantCartSize } from "@shared/product-prices";
+import { getPdpContent } from "@shared/product-facts";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
 export const SITE_NAME = "Pure Fire Nutritional";
@@ -175,10 +176,13 @@ function isUsageSentence(s: string): boolean {
  * up to ~160 characters. Falls back to a neutral catalog sentence.
  */
 export function productMetaDescription(product: {
+  id?: string;
   name: string;
   description?: string | null;
   category?: string | null;
 }): string {
+  const written = product.id ? getPdpContent(product.id)?.metaDescription : undefined;
+  if (written) return written;
   const safe = splitSentences(product.description || "").filter(
     (s) => !hasClaimLanguage(s) && !isAvailabilitySentence(s) && !isUsageSentence(s)
   );
