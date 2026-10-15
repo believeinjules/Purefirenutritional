@@ -361,9 +361,8 @@ export default function ProductDetail() {
                   </PdpAccordion>
                 )}
 
-                {(usageText || hasProtocol) && (
-                  <PdpAccordion title="Directions" testId="pdp-directions">
-                    {usageText && <p className="text-gray-600 leading-relaxed mb-4">{usageText}</p>}
+                {hasProtocol && (
+                  <PdpAccordion title="Manufacturer Protocol" testId="pdp-directions">
                     {/* Manufacturer protocol — renders only when reviewed data exists */}
                     <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
                   </PdpAccordion>
