@@ -23,6 +23,38 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "product_shipping_class"
+        }
+      ],
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "taxonomy"
+        }
+      ],
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
       "source": "/products/:id(femalin|temero-genero|trezvon|olecap|previn|regenart|gelmigon)",
       "destination": "/products",
       "permanent": false
