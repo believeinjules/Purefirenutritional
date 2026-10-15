@@ -31,7 +31,24 @@ import PageSeo from "@/components/seo/PageSeo";
 import { SeoProductContext } from "@/components/seo/SeoProductContext";
 import { productHead } from "@/lib/seo";
 import { getPdpContent } from "@shared/product-facts";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import PdpAccordion from "@/components/shop/PdpAccordion";
+import SimilarProducts from "@/components/shop/SimilarProducts";
+import { getPublicProtocol, goalsWithData } from "@/data/protocols";
+import { lazy, Suspense } from "react";
+const PepitaLauncher = lazy(() => import("@/components/peppy/PepitaLauncher"));
+
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2">
+      {items.map((item, i) => (
+        <li key={i} className="flex items-start gap-3 text-sm">
+          <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
+          <span className="text-gray-700">{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -145,6 +162,7 @@ export default function ProductDetail() {
   // Endoluten keeps its current storefront usage text for now.
   const usageText = pdp && product.id !== "endoluten" ? pdp.directions : product.usage;
   const ingredientList = pdp?.ingredients?.length ? pdp.ingredients : product.ingredients;
+  const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
   const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product.images || []);
 
@@ -286,43 +304,6 @@ export default function ProductDetail() {
                 </Button>
               </div>
 
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-2">
-                <p>Ask your doctor about current medications, pregnancy, and existing conditions before use.</p>
-                <p>If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.</p>
-                <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
-              </div>
-
-              {/* Authorized retailer badge + sourcing / lot / expiry / COA (each only when filled) */}
-              <ProductAuthenticity
-                manufacturer={product.manufacturer}
-                lotNumber={product.lotNumber}
-                expiryDate={product.expiryDate}
-                coaUrl={product.coaUrl}
-              />
-
-              {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
-              {product.category === "PEPTIDE BIOREGULATORS" && (
-                <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">
-                  <span className="text-orange-500 text-sm mt-0.5 flex-shrink-0">ⓘ</span>
-                  <p className="text-xs text-orange-800 leading-relaxed">
-                    <strong>Oral bioregulator dietary supplement.</strong> Not an injectable peptide. These are short, tissue-specific Khavinson peptide bioregulators taken orally as capsules or lingual drops — a different class from injectable research peptides or GLP-1 medications.
-                  </p>
-                </div>
-              )}
-
-              {/* Usage callout */}
-              {usageText && (
-                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4" data-testid="usage-callout">
-                  <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Recommended Usage</p>
-                  <p className="text-sm text-blue-800 leading-relaxed">{usageText}</p>
-                </div>
-              )}
-
-              <AskPeppyButton
-                productId={product.id}
-                goal={protocolSelection.goal}
-                sex={protocolSelection.sex}
-              />
             </div>
           </div>
 
@@ -332,12 +313,12 @@ export default function ProductDetail() {
             {/* Left: description + ingredients */}
             <div className="lg:col-span-2 space-y-8">
 
+              {/* Intro stays visible; every other description category is a drop-down
+                  (native <details>, so all copy stays in the prerendered HTML). */}
               {pdp ? (
                 <section data-testid="pdp-overview">
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product</h2>
-                  <div className="space-y-3">
-                    {pdp.overview.map((para, i) => <p key={i} className="text-gray-600 leading-relaxed">{para}</p>)}
-                  </div>
+                  <p className="text-gray-600 leading-relaxed">{pdp.overview[0]}</p>
                 </section>
               ) : product.description && (
                 <section>
@@ -346,114 +327,126 @@ export default function ProductDetail() {
                 </section>
               )}
 
-              {pdp && (
-                <>
-                  {pdp.formulatedFor && (
-                    <section data-testid="pdp-formulated">
-                      <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">What It&apos;s Formulated For</h2>
-                      <ul className="space-y-2">
-                        {pdp.formulatedFor.map((item, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm">
-                            <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                            <span className="text-gray-700">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  )}
-                  {pdp.why && (
-                  <section data-testid="pdp-why">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">{`Why ${product.name}?`}</h2>
-                    <p className="text-gray-600 leading-relaxed">{pdp.why}</p>
-                  </section>
-                  )}
-                  {pdp.interest && (
-                  <section data-testid="pdp-interest">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Areas of Scientific Interest</h2>
-                    <ul className="space-y-2">
-                      {pdp.interest.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm">
-                          <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                          <span className="text-gray-700">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-3 text-xs text-gray-500">{pdp.interestNote}</p>
-                  </section>
-                  )}
-                  <section data-testid="pdp-differences">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">What Makes It Different</h2>
-                    <ul className="space-y-2">
-                      {pdp.differences.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm">
-                          <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                          <span className="text-gray-700">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                </>
-              )}
-
-              {ingredientList && ingredientList.length > 0 && (
-                <section>
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Active Ingredients</h2>
-                  <ul className="space-y-2">
-                    {ingredientList.map((ingredient, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm">
-                        <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                        <span className="text-gray-700">{ingredient}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-
-              {/* Series / product line info */}
-              {product.seriesInfo && (
-                <section className="bg-gray-50 border border-gray-100 rounded-xl p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Info size={16} className="text-gray-400 flex-shrink-0" />
-                    <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">About This Product Line</h2>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
-                </section>
-              )}
-
-              {pdp && (
-                <>
-                  {pdp.researchBackground && (
-                  <section className="bg-gray-50 border border-gray-100 rounded-xl p-6" data-testid="pdp-research">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Info size={16} className="text-gray-400 flex-shrink-0" />
-                      <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Research Background</h2>
+              <div className="border-t border-gray-200" data-testid="pdp-accordions">
+                {pdp && (pdp.overview.length > 1 || pdp.why) && (
+                  <PdpAccordion title={`More About ${product.name}`} testId="pdp-why">
+                    <div className="space-y-3">
+                      {pdp.overview.slice(1).map((para, i) => <p key={i} className="text-gray-600 leading-relaxed">{para}</p>)}
+                      {pdp.why && (
+                        <>
+                          <h3 className="font-semibold text-gray-900 pt-1">{`Why ${product.name}?`}</h3>
+                          <p className="text-gray-600 leading-relaxed">{pdp.why}</p>
+                        </>
+                      )}
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">{pdp.researchBackground}</p>
-                  </section>
-                  )}
-                  <section data-testid="pdp-faq">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-1 pb-2 border-b">Frequently Asked Questions</h2>
-                    <Accordion type="single" collapsible>
+                  </PdpAccordion>
+                )}
+
+                {pdp?.formulatedFor && (
+                  <PdpAccordion title="What It's Formulated For" testId="pdp-formulated">
+                    <BulletList items={pdp.formulatedFor} />
+                  </PdpAccordion>
+                )}
+
+                {pdp?.interest && (
+                  <PdpAccordion title="Areas of Scientific Interest" testId="pdp-interest">
+                    <BulletList items={pdp.interest} />
+                    <p className="mt-3 text-xs text-gray-500">{pdp.interestNote}</p>
+                  </PdpAccordion>
+                )}
+
+                {ingredientList && ingredientList.length > 0 && (
+                  <PdpAccordion title="Active Ingredients" testId="pdp-ingredients">
+                    <BulletList items={ingredientList} />
+                  </PdpAccordion>
+                )}
+
+                {hasProtocol && (
+                  <PdpAccordion title="Manufacturer Protocol" testId="pdp-directions">
+                    {/* Manufacturer protocol — renders only when reviewed data exists */}
+                    <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
+                  </PdpAccordion>
+                )}
+
+                {pdp?.researchBackground && (
+                  <PdpAccordion title="Research Background" testId="pdp-research">
+                    <p className="text-gray-600 leading-relaxed">{pdp.researchBackground}</p>
+                  </PdpAccordion>
+                )}
+
+                {pdp && pdp.faq.length > 0 && (
+                  <PdpAccordion title="Frequently Asked Questions" testId="pdp-faq">
+                    <dl className="space-y-4">
                       {pdp.faq.map((f, i) => (
-                        <AccordionItem key={i} value={`faq-${i}`}>
-                          <AccordionTrigger className="text-gray-900">{f.q}</AccordionTrigger>
-                          <AccordionContent forceMount className="text-gray-600 leading-relaxed">{f.a}</AccordionContent>
-                        </AccordionItem>
+                        <div key={i}>
+                          <dt className="font-medium text-gray-900">{f.q}</dt>
+                          <dd className="mt-1 text-gray-600 leading-relaxed">{f.a}</dd>
+                        </div>
                       ))}
-                    </Accordion>
-                  </section>
-                  <section className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-2" data-testid="pdp-safety">
-                    <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Safety</h2>
-                    <p>{pdp.safety}</p>
-                    <p className="text-xs text-gray-500">{pdp.disclaimer}</p>
-                  </section>
-                </>
-              )}
+                    </dl>
+                  </PdpAccordion>
+                )}
 
-              {/* Manufacturer protocol — renders only when reviewed data exists */}
-              <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
+                <PdpAccordion title="Questions to Ask Your Doctor" testId="pdp-doctor">
+                  <DoctorQuestionsCard productName={product.name} />
+                </PdpAccordion>
 
-              <DoctorQuestionsCard productName={product.name} />
+                {pdp && (
+                  <PdpAccordion title="Safety" testId="pdp-safety">
+                    <div className="text-sm text-gray-700 space-y-2">
+                      <p>{pdp.safety}</p>
+                      <p className="text-xs text-gray-500">{pdp.disclaimer}</p>
+                    </div>
+                  </PdpAccordion>
+                )}
+
+                {product.seriesInfo && (
+                  <PdpAccordion title="About This Product Line" testId="pdp-line">
+                    <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>
+                  </PdpAccordion>
+                )}
+              </div>
+
+              {/* Notes + Pepita, moved from the purchase panel to the end of the description */}
+              <div className="space-y-4" data-testid="pdp-end-boxes">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                  <p>Ask your doctor about current medications, pregnancy, and existing conditions before use.</p>
+                  <p>If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.</p>
+                  <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
+                </div>
+
+                {/* Authorized retailer badge + sourcing / lot / expiry / COA (each only when filled) */}
+                <ProductAuthenticity
+                  manufacturer={product.manufacturer}
+                  lotNumber={product.lotNumber}
+                  expiryDate={product.expiryDate}
+                  coaUrl={product.coaUrl}
+                />
+
+                {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
+                {product.category === "PEPTIDE BIOREGULATORS" && (
+                  <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">
+                    <span className="text-orange-500 text-sm mt-0.5 flex-shrink-0">ⓘ</span>
+                    <p className="text-xs text-orange-800 leading-relaxed">
+                      <strong>Oral bioregulator dietary supplement.</strong> Not an injectable peptide. These are short, tissue-specific Khavinson peptide bioregulators taken orally as capsules or lingual drops — a different class from injectable research peptides or GLP-1 medications.
+                    </p>
+                  </div>
+                )}
+
+                {/* Usage callout */}
+                {usageText && (
+                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-4" data-testid="usage-callout">
+                    <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Recommended Usage</p>
+                    <p className="text-sm text-blue-800 leading-relaxed">{usageText}</p>
+                  </div>
+                )}
+
+                <AskPeppyButton
+                  productId={product.id}
+                  goal={protocolSelection.goal}
+                  sex={protocolSelection.sex}
+                />
+              </div>
             </div>
 
             {/* Right: benefits */}
@@ -501,11 +494,20 @@ export default function ProductDetail() {
             );
           })()}
 
+          {/* Similar products — biological relevance, sold products only */}
+          <SimilarProducts productId={product.id} />
+
           <ProductReviews productId={product.id} />
 
         </div>
       </main>
       <Footer />
+      {/* Floating Pepita: browser only, chat code loaded on demand */}
+      {typeof window !== "undefined" && (
+        <Suspense fallback={null}>
+          <PepitaLauncher productId={product.id} productName={product.name} />
+        </Suspense>
+      )}
     </div>
   );
 }

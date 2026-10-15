@@ -252,3 +252,34 @@
     transition: opacity 0.2s ease;
   }
 }
+
+/* Product page drop-downs (PdpAccordion) */
+.pdp-acc-chevron { transition: transform 200ms ease; }
+.pdp-acc[open] > .pdp-acc-body { animation: pdp-acc-in 220ms ease-out; }
+@keyframes pdp-acc-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .pdp-acc-chevron { transition: none; }
+  .pdp-acc[open] > .pdp-acc-body { animation: none; }
+}
+
+/* Floating Pepita launcher + panel (PepitaLauncher / PepitaChatPanel).
+   Bottom-right, clear of the home indicator / notch via safe-area insets. */
+.pepita-launcher {
+  right: max(1rem, calc(env(safe-area-inset-right) + 0.75rem));
+  bottom: max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem));
+}
+.pepita-panel {
+  right: max(1rem, calc(env(safe-area-inset-right) + 0.75rem));
+  bottom: calc(max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem)) + 4.25rem);
+}
+@media (max-width: 639px) {
+  .pepita-panel {
+    left: 0; right: 0; bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+@keyframes pepita-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes pepita-pop-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+.pepita-panel { animation: pepita-pop-in 180ms ease-out; }
+@media (max-width: 639px) { .pepita-panel { animation: pepita-sheet-in 240ms cubic-bezier(.2,.8,.2,1); } }
+@media (prefers-reduced-motion: reduce) { .pepita-panel { animation: none; } }
