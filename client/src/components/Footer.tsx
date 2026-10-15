@@ -72,7 +72,7 @@ export default function Footer() {
               type="submit" 
               variant="secondary"
               disabled={isSubscribing}
-              className="bg-white text-orange-600 hover:bg-gray-100"
+              className="bg-white text-orange-700 hover:bg-gray-100"
             >
               {isSubscribing ? "Subscribing..." : "Subscribe"}
             </Button>
@@ -101,18 +101,18 @@ export default function Footer() {
               Nutrition supplements and oral peptide bioregulators for cognitive vitality, recovery, healthy aging, and resilience. Authorized US retailer of Khavinson peptide bioregulators.
             </p>
             {/* Social Links */}
-            <div className="flex gap-4 mt-4">
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Facebook className="w-5 h-5" />
+            <div className="flex gap-5 mt-4">
+              <a href="#" aria-label="Facebook" className="inline-flex p-2.5 -m-2.5 text-gray-400 hover:text-orange-500 transition-colors">
+                <Facebook className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a href="#" aria-label="Twitter" className="inline-flex p-2.5 -m-2.5 text-gray-400 hover:text-orange-500 transition-colors">
+                <Twitter className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Instagram className="w-5 h-5" />
+              <a href="#" aria-label="Instagram" className="inline-flex p-2.5 -m-2.5 text-gray-400 hover:text-orange-500 transition-colors">
+                <Instagram className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Linkedin className="w-5 h-5" />
+              <a href="#" aria-label="LinkedIn" className="inline-flex p-2.5 -m-2.5 text-gray-400 hover:text-orange-500 transition-colors">
+                <Linkedin className="w-5 h-5" aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -122,37 +122,37 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Products
                 </Link>
               </li>
               <li>
-                <Link href="/science" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/science" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Science & Research
                 </Link>
               </li>
               <li>
-                <Link href="/authenticity" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/authenticity" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Authenticity
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/about" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/faq" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/ai-assistant" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/ai-assistant" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Pepita AI
                 </Link>
               </li>
@@ -164,27 +164,27 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Our Products</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Brain & Cognitive Vitality
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Recovery & Resilience
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=ANTI+AGING-LONGEVITY" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products?category=ANTI+AGING-LONGEVITY" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Longevity & Healthy Aging
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products?category=PEPTIDE+BIOREGULATORS" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Organ & Foundational Support
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=NUTRITIONAL+SUPPLEMENTS" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products?category=NUTRITIONAL+SUPPLEMENTS" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Nutritional Supplements
                 </Link>
               </li>
@@ -197,13 +197,13 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-gray-400">
                 <Mail className="w-5 h-5 text-orange-500" />
-                <a href="mailto:info@purefirenutritional.com" className="hover:text-orange-500 transition-colors">
+                <a href="mailto:info@purefirenutritional.com" className="inline-block py-1.5 hover:text-orange-500 transition-colors">
                   info@purefirenutritional.com
                 </a>
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <Phone className="w-5 h-5 text-orange-500" />
-                <a href="tel:+13155677931" className="hover:text-orange-500 transition-colors">
+                <a href="tel:+13155677931" className="inline-block py-1.5 hover:text-orange-500 transition-colors">
                   (315) 567-7931
                 </a>
               </li>
@@ -222,23 +222,23 @@ export default function Footer() {
               © 2024 Pure Fire Nutritional. All rights reserved.
             </p>
             <div className="flex gap-4 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <Link href="/privacy" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <Link href="/terms" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/shipping" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <Link href="/shipping" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                 Shipping Info
               </Link>
-              <Link href="/returns" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <Link href="/returns" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                 Returns
               </Link>
             </div>
           </div>
           
           {/* FDA Disclaimer */}
-          <p className="text-gray-500 text-xs mt-6 text-center">
+          <p className="text-gray-400 text-xs mt-6 text-center">
             FDA Disclaimer: These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. Consult your healthcare provider before use, especially if you are pregnant, nursing, have a medical condition, or are taking medications. Keep out of reach of children.
           </p>
         </div>

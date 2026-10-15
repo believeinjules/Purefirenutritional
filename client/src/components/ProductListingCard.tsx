@@ -2,6 +2,8 @@ import { Link } from "wouter";
 import QuickAddToCart from "@/components/QuickAddToCart";
 import RatingStars from "@/components/shop/RatingStars";
 import { getProductFacts } from "@/lib/productFacts";
+import PreorderBadge from "@/components/PreorderBadge";
+import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 import type { ReviewSummary } from "@shared/reviews";
 
 export type ListingProduct = {
@@ -71,7 +73,7 @@ const getCategoryShort = (category: string) => {
   }
 };
 
-function FlipImage({ product }: { product: ListingProduct }) {
+function FlipImage({ product, eager = false }: { product: ListingProduct; eager?: boolean }) {
   const accent = getCategoryAccent(product.category);
   const detailHref = `/products/${product.id}`;
 
@@ -86,10 +88,14 @@ function FlipImage({ product }: { product: ListingProduct }) {
         <div className="product-flip-face product-flip-front bg-gradient-to-br from-gray-50 to-gray-100">
           {product.image ? (
             <img
-              src={product.image}
+              {...responsiveImage(product.image, "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw", 640)}
               alt={product.imageAlt || product.name}
+              width={400}
+              height={400}
               className="w-full h-full object-contain p-4"
-              loading="lazy"
+              loading={eager ? "eager" : "lazy"}
+              {...fetchPriority(eager)}
+              decoding="async"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -103,7 +109,7 @@ function FlipImage({ product }: { product: ListingProduct }) {
             aria-hidden
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3 pointer-events-none">
-            <span className="text-white text-xs font-medium tracking-wide">
+            <span className="text-white text-xs font-medium tracking-wide" aria-hidden="true">
               Hover for details
             </span>
           </div>
@@ -115,7 +121,7 @@ function FlipImage({ product }: { product: ListingProduct }) {
           aria-hidden="true"
         >
           <span
-            className={`text-[10px] font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full w-fit mb-2`}
+            className={`text-xs font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full w-fit mb-2`}
           >
             {getCategoryShort(product.category)}
           </span>
@@ -130,7 +136,7 @@ function FlipImage({ product }: { product: ListingProduct }) {
               {product.benefits.slice(0, 3).map((b, i) => (
                 <li
                   key={i}
-                  className="flex items-start gap-1.5 text-[11px] text-gray-200"
+                  className="flex items-start gap-1.5 text-xs text-gray-200"
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 bg-gradient-to-r ${accent.glow}`}
@@ -160,7 +166,7 @@ function ProductFactsLine({ product, className = "" }: { product: ListingProduct
   ].filter((p): p is string => Boolean(p));
   if (parts.length === 0) return null;
   return (
-    <p className={`text-[11px] text-gray-500 leading-snug ${className}`} data-testid="product-facts">
+    <p className={`text-xs text-gray-500 leading-snug ${className}`} data-testid="product-facts">
       {parts.join(" · ")}
     </p>
   );
@@ -170,30 +176,34 @@ function ProductFactsLine({ product, className = "" }: { product: ListingProduct
 export function ProductGridCard({
   product,
   reviewSummary,
+  eager = false,
 }: {
   product: ListingProduct;
   reviewSummary?: ReviewSummary;
+  /** First visible cards: load eagerly with high priority (LCP candidates). */
+  eager?: boolean;
 }) {
   const accent = getCategoryAccent(product.category);
 
   return (
     <div className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
-      <FlipImage product={product} />
+      <FlipImage product={product} eager={eager} />
 
       {/* Always-visible info under the image */}
       <div className="p-4 flex flex-col flex-1">
         <span
-          className={`text-[10px] font-bold uppercase tracking-widest mb-1.5 ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
+          className={`text-xs font-bold uppercase tracking-widest mb-1.5 ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
         >
           {getCategoryShort(product.category)}
         </span>
-        <Link href={`/products/${product.id}`}>
-          <h3 className="font-semibold text-sm leading-snug mb-1 hover:text-orange-600 transition-colors line-clamp-2">
+        <PreorderBadge productId={product.id} className="mb-1.5 w-fit" />
+        <Link href={`/products/${product.id}`} className="block py-1 mb-0.5">
+          <h3 className="font-semibold text-sm leading-snug hover:text-orange-600 transition-colors line-clamp-2">
             {product.name}
           </h3>
         </Link>
         {product.description && (
-          <p className="text-xs text-gray-400 line-clamp-2 mb-2">
+          <p className="text-xs text-gray-500 line-clamp-2 mb-2">
             {product.description}
           </p>
         )}
@@ -235,10 +245,13 @@ export function ProductListRow({
         <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
           {product.image ? (
             <img
-              src={product.image}
+              {...responsiveImage(product.image, "96px", 320)}
               alt={product.imageAlt || product.name}
+              width={96}
+              height={96}
               className="w-full h-full object-contain p-2"
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -254,16 +267,17 @@ export function ProductListRow({
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <span
-              className={`text-[10px] font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full`}
+              className={`text-xs font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full`}
             >
               {getCategoryShort(product.category)}
             </span>
-            <Link href={`/products/${product.id}`}>
-              <h3 className="font-semibold text-sm mt-1.5 mb-1 hover:text-orange-600 transition-colors">
+            <PreorderBadge productId={product.id} className="ml-2" />
+            <Link href={`/products/${product.id}`} className="block py-1 mt-0.5">
+              <h3 className="font-semibold text-sm hover:text-orange-600 transition-colors">
                 {product.name}
               </h3>
             </Link>
-            <p className="text-xs text-gray-400 line-clamp-2 mb-2">
+            <p className="text-xs text-gray-500 line-clamp-2 mb-2">
               {product.description}
             </p>
             <ProductFactsLine product={product} className="mb-2" />
@@ -272,7 +286,7 @@ export function ProductListRow({
                 {product.benefits.slice(0, 3).map((b, i) => (
                   <span
                     key={i}
-                    className="text-[10px] bg-gray-50 text-gray-500 border border-gray-100 px-2 py-0.5 rounded-full"
+                    className="text-xs bg-gray-50 text-gray-500 border border-gray-100 px-2 py-0.5 rounded-full"
                   >
                     {b}
                   </span>
@@ -292,7 +306,7 @@ export function ProductListRow({
               <Link href={`/products/${product.id}`}>
                 <button
                   type="button"
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-medium text-gray-600 hover:border-gray-400 transition-colors"
+                  className="min-h-[44px] px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-medium text-gray-600 hover:border-gray-400 transition-colors"
                 >
                   Details
                 </button>

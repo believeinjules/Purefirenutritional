@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -41,10 +42,14 @@ export default function ProductImageGallery({
       {/* Main Image Display */}
       <div className="relative w-full aspect-square bg-white rounded-lg overflow-hidden border border-gray-200 group">
         <img
-          src={images[currentIndex]}
+          {...responsiveImage(images[currentIndex], "(min-width: 768px) 600px, 100vw")}
           alt={altText || `${productName} - Image ${currentIndex + 1}`}
+          width={600}
+          height={600}
           className="w-full h-full object-contain p-4"
-          loading="lazy"
+          loading={currentIndex === 0 ? "eager" : "lazy"}
+          {...fetchPriority(currentIndex === 0)}
+          decoding="async"
         />
 
         {/* Navigation Arrows - Only show if multiple images */}
@@ -89,7 +94,10 @@ export default function ProductImageGallery({
               aria-label={`View image ${index + 1}`}
             >
               <img
-                src={image}
+                {...responsiveImage(image, "120px", 320)}
+                width={120}
+                height={120}
+                decoding="async"
                 alt={`${productName} thumbnail ${index + 1}`}
                 className="w-full h-full object-contain p-1 bg-white"
                 loading="lazy"

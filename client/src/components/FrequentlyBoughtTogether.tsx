@@ -91,7 +91,8 @@ export default function FrequentlyBoughtTogether({
           <Checkbox
             checked={selectedProducts.has(currentProduct.id)}
             onCheckedChange={() => toggleProduct(currentProduct.id)}
-            className="mt-1"
+            className="mt-1 size-6"
+            aria-label={`${currentProduct.name} (this item, always included)`}
             disabled
           />
           <div className="flex-1">
@@ -118,7 +119,8 @@ export default function FrequentlyBoughtTogether({
             <Checkbox
               checked={selectedProducts.has(product.id)}
               onCheckedChange={() => toggleProduct(product.id)}
-              className="mt-1"
+              className="mt-1 size-6"
+              aria-label={`Include ${product.name}`}
             />
             <div className="flex-1">
               <div className="flex items-start justify-between gap-4">

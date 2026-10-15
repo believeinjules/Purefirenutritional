@@ -28,3 +28,6 @@ export function isPreorderProduct(p: { id?: unknown; preorder?: unknown } | stri
   if (p.preorder === true) return true;
   return typeof p.id === "string" && PREORDER_PRODUCT_IDS.has(p.id);
 }
+
+/** Neutral cart / product-page line for pre-order items (no promised dates). */
+export const PREORDER_CART_NOTE = "Pre-order: ships when restocked";

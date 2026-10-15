@@ -100,7 +100,7 @@ export default function QuickAddToCart({
     options.find((o) => o.size === selectedSize) ?? options[0];
 
   const triggerClass = compact
-    ? `flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-900 text-white text-xs font-medium hover:bg-orange-600 transition-colors ${fullWidth ? "w-full justify-center" : ""} ${className}`
+    ? `min-h-[44px] flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-900 text-white text-xs font-medium hover:bg-orange-600 transition-colors ${fullWidth ? "w-full justify-center" : ""} ${className}`
     : `${fullWidth ? "w-full" : ""} ${className}`;
 
   return (
@@ -172,7 +172,7 @@ export default function QuickAddToCart({
                           )}
                         </div>
                         <div className="text-right">
-                          <div className="font-bold text-orange-600">
+                          <div className="font-bold text-orange-700">
                             ${opt.priceUSD.toFixed(2)}
                           </div>
                         </div>
@@ -186,7 +186,7 @@ export default function QuickAddToCart({
           <div className="flex items-center justify-between pt-4 border-t">
             <div>
               <div className="text-sm text-gray-500">Total</div>
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-orange-700">
                 ${selected?.priceUSD.toFixed(2) ?? "—"}
               </div>
             </div>

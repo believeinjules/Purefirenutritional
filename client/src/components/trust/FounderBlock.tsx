@@ -17,7 +17,7 @@ export default function FounderBlock({ founder = SITE_TRUST.founder }: { founder
       <div>
         <blockquote
           className="text-xl leading-snug text-gray-900"
-          style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: "italic" }}
+          style={{ fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif", fontStyle: "italic" }}
         >
           “{founder.quote}”
         </blockquote>

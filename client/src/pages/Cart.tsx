@@ -10,6 +10,8 @@ import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 import { bundleLabel, getBundleOffer } from "@shared/bundle-pricing";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
+import PreorderBadge from "@/components/PreorderBadge";
+import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
 function formatCartUSD(amount: number | undefined | null): string {
@@ -78,6 +80,12 @@ export default function Cart() {
                       </Link>
                       <p className="text-sm text-gray-500">{item.product.category}</p>
                       <p className="text-sm text-gray-500">Size: {item.size} caps</p>
+                      {isPreorderProduct(item.product.id) && (
+                        <p className="text-sm text-gray-700 mt-1" data-testid="cart-preorder-note">
+                          <PreorderBadge productId={item.product.id} className="mr-2" />
+                          {PREORDER_CART_NOTE}
+                        </p>
+                      )}
                       {item.bundle && (
                         <p className="text-sm text-gray-700 mt-1" data-testid="cart-bundle-line">
                           <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-800 mr-2">

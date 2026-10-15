@@ -12,7 +12,7 @@ export default function PreorderBadge({
   return (
     <span
       data-testid="preorder-badge"
-      className={`inline-block text-[10px] font-bold uppercase tracking-widest bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded-full ${className}`}
+      className={`inline-block text-xs font-bold uppercase tracking-widest bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded-full ${className}`}
     >
       {PREORDER_BADGE}
     </span>

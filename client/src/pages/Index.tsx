@@ -178,7 +178,7 @@ export default function Index() {
           <div style={{
             display: "inline-block",
             marginBottom: "32px",
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
             fontWeight: 400,
             fontSize: "10px",
             letterSpacing: "0.24em",
@@ -190,7 +190,7 @@ export default function Index() {
 
           {/* Headline */}
           <h1 style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
             fontWeight: 600,
             fontSize: "clamp(44px, 6vw, 66px)",
             color: "white",
@@ -212,7 +212,7 @@ export default function Index() {
 
           {/* Product line clarifier */}
           <p style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
             fontWeight: 400,
             fontSize: "12px",
             letterSpacing: "0.12em",
@@ -225,7 +225,7 @@ export default function Index() {
 
           {/* Subtitle */}
           <p style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
             fontWeight: 300,
             fontSize: "13px",
             color: "#666",
@@ -270,7 +270,7 @@ export default function Index() {
                 )}
                 <div style={{ textAlign: "center" }}>
                   <div style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
                     fontWeight: 600,
                     fontSize: "28px",
                     color: "white",
@@ -280,7 +280,7 @@ export default function Index() {
                     {stat.value}
                   </div>
                   <div style={{
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "'Inter', 'Inter Fallback', sans-serif",
                     fontWeight: 400,
                     fontSize: "9px",
                     letterSpacing: "0.18em",
@@ -380,7 +380,7 @@ export default function Index() {
       <section className="py-16 px-4 bg-gray-900">
         <div className="max-w-2xl mx-auto text-center">
           <p style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
             fontWeight: 400,
             fontSize: "11px",
             letterSpacing: "0.22em",
@@ -391,7 +391,7 @@ export default function Index() {
             Know the Difference
           </p>
           <h2 style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
             fontWeight: 600,
             fontSize: "clamp(28px, 4vw, 38px)",
             color: "white",
@@ -401,7 +401,7 @@ export default function Index() {
             These are not the peptides most people mean right now.
           </h2>
           <div style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
             fontWeight: 300,
             fontSize: "14px",
             color: "#999",
@@ -411,7 +411,7 @@ export default function Index() {
             <p style={{ marginBottom: "4px" }}>Not GLP-1 medications.</p>
             <p style={{ marginBottom: "20px" }}>Not injectable research peptides.</p>
             <p style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
               fontStyle: "italic",
               fontSize: "20px",
               color: "#ccc",
@@ -424,7 +424,7 @@ export default function Index() {
           </div>
           <Link href="/faq">
             <a style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'Inter', 'Inter Fallback', sans-serif",
               fontSize: "12px",
               letterSpacing: "0.12em",
               textTransform: "uppercase",

@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ShoppingCart, User, Heart, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
+import { responsiveImage, imageRatio, fetchPriority } from "@/lib/responsiveImage";
 import { useWishlist } from "@/contexts/WishlistContext";
 
 /** Items under the Science dropdown (desktop) and Science submenu (mobile). */
@@ -41,15 +42,19 @@ export default function Navigation() {
               <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center"
                 style={{ backgroundColor: "transparent" }}>
                 <img
-                  src="/logo-flame.jpeg"
+                  {...responsiveImage("/logo-flame.jpeg", "64px", 160)}
                   alt="Pure Fire Nutritional"
+                  width={64}
+                  height={64}
+                  {...fetchPriority(true)}
+                  decoding="async"
                   className="w-[115%] h-[115%] object-cover"
                   style={{ mixBlendMode: "lighten" }}
                 />
               </div>
               <span
                 style={{
-                  fontFamily: "'Inter', system-ui, sans-serif",
+                  fontFamily: "'Inter', 'Inter Fallback', system-ui, sans-serif",
                   fontWeight: 300,
                   letterSpacing: "0.22em",
                   textTransform: "uppercase",
@@ -99,32 +104,35 @@ export default function Navigation() {
           {/* Right Icons */}
           <div className="flex items-center gap-4">
             {/* Peptalk */}
-            <Link href="/peptalk" className="nav-scale inline-block">
+            <Link href="/peptalk" aria-label="Peptalk Podcast" className="nav-scale inline-block">
                 <img
-                  src="/peptalk-logo.png"
+                  {...responsiveImage("/peptalk-logo.png", `${Math.round(48 * (imageRatio("/peptalk-logo.png") ?? 1))}px`, 320)}
                   alt="Peptalk Podcast"
+                  height={48}
+                  width={Math.round(48 * (imageRatio("/peptalk-logo.png") ?? 1))}
+                  decoding="async"
                   className="h-12 w-auto object-contain"
                 />
             </Link>
 
-            <Link href="/dashboard" className="nav-scale inline-block text-white/80 hover:text-white transition-colors">
+            <Link href="/dashboard" aria-label="Account" className="nav-scale inline-block p-2 -m-2 text-white/80 hover:text-white transition-colors">
                 <User className="h-5 w-5" />
             </Link>
 
-            <Link href="/wishlist" className="nav-scale inline-block relative text-white/80 hover:text-white transition-colors">
+            <Link href="/wishlist" aria-label="Wishlist" className="nav-scale inline-block p-2 -m-2 relative text-white/80 hover:text-white transition-colors">
                 <Heart className="h-5 w-5" />
                 {wishlistItems.length > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-medium rounded-full h-3.5 w-3.5 flex items-center justify-center"
+                  <span className="absolute -top-1.5 -right-1.5 text-white text-xs leading-none font-medium rounded-full h-4 min-w-[1rem] px-0.5 flex items-center justify-center"
                     style={{ background: "linear-gradient(135deg, #E8793A, #B83870)" }}>
                     {wishlistItems.length}
                   </span>
                 )}
             </Link>
 
-            <Link href="/cart" className="nav-scale inline-block relative text-white/80 hover:text-white transition-colors">
+            <Link href="/cart" aria-label="Cart" className="nav-scale inline-block p-2 -m-2 relative text-white/80 hover:text-white transition-colors">
                 <ShoppingCart className="h-5 w-5" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-medium rounded-full h-3.5 w-3.5 flex items-center justify-center"
+                  <span className="absolute -top-1.5 -right-1.5 text-white text-xs leading-none font-medium rounded-full h-4 min-w-[1rem] px-0.5 flex items-center justify-center"
                     style={{ background: "linear-gradient(135deg, #E8793A, #B83870)" }}>
                     {cartItemsCount}
                   </span>
@@ -133,7 +141,7 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="nav-scale md:hidden text-white/80 hover:text-white transition-colors"
+              className="nav-scale md:hidden p-2 -m-2 text-white/80 hover:text-white transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -159,7 +167,7 @@ export default function Navigation() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
+                        className="block py-2.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {item.label}
