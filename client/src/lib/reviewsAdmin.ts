@@ -33,15 +33,23 @@ export async function deleteReview(id: string): Promise<void> {
   await adminFetch(`/api/admin/reviews?id=${encodeURIComponent(id)}`, { method: "DELETE" });
 }
 
+/** Re-check unverified reviews against paid orders; returns how many became verified. */
+export async function checkReviewOrders(): Promise<number> {
+  const { verified } = await adminFetch<{ verified: number }>("/api/admin/reviews?action=check-orders", { method: "POST" });
+  return verified;
+}
+
 /** What the moderation UI needs; swapped for an in-memory mock in the DEV preview. */
 export type ReviewAdminApi = {
   list: () => Promise<AdminReview[]>;
   update: (id: string, patch: Partial<ReviewInput>) => Promise<void>;
   remove: (id: string) => Promise<void>;
+  checkOrders?: () => Promise<number>;
 };
 
 export const reviewAdminApi: ReviewAdminApi = {
   list: listAdminReviews,
   update: updateReview,
   remove: deleteReview,
+  checkOrders: checkReviewOrders,
 };

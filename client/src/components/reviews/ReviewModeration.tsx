@@ -85,6 +85,7 @@ export default function ReviewModeration({
         </span>
       </div>
 
+      <div className="flex flex-wrap items-center gap-2">
       <div className="flex flex-wrap gap-2" role="tablist" aria-label="Review status">
         {FILTERS.map((f) => (
           <Button
@@ -99,6 +100,26 @@ export default function ReviewModeration({
             {f} <span className="ml-1.5 opacity-70">({counts[f]})</span>
           </Button>
         ))}
+      </div>
+        {api.checkOrders && (
+          <Button
+            size="sm"
+            variant="outline"
+            className="ml-auto"
+            title="Mark reviews verified when the email matches a paid order containing that product"
+            onClick={async () => {
+              try {
+                const n = await api.checkOrders!();
+                toast.success(n ? `${n} review${n === 1 ? "" : "s"} verified from orders` : "No new order matches");
+                await load();
+              } catch (e) {
+                toast.error(e instanceof Error ? e.message : "Order check failed");
+              }
+            }}
+          >
+            <BadgeCheck className="h-4 w-4 mr-1" /> Check orders
+          </Button>
+        )}
       </div>
 
       {loading ? (

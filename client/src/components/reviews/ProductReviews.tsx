@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { PenLine } from "lucide-react";
+import { BadgeCheck, PenLine } from "lucide-react";
 import { reviewsJsonLd, type PublicReview, type ReviewSummary } from "@shared/reviews";
 import { fetchProductReviews } from "@/lib/reviewsApi";
 import { canonicalUrl, productPath } from "@/lib/seo";
@@ -85,7 +85,13 @@ export default function ProductReviews({ productId, productName }: { productId: 
           <ReviewCard key={r.id} review={r} compact={!expanded} />
         ))}
       </div>
+      {reviews.some((r) => r.verified) && (
+        <p className="mt-3 text-xs text-gray-500 inline-flex items-center gap-1">
+          <BadgeCheck className="h-3.5 w-3.5 text-green-700" aria-hidden /> Verified buyer: purchase confirmed with Pure Fire.
+        </p>
+      )}
       {reviews.length > INITIAL_VISIBLE && (
+        <div>
         <button
           type="button"
           className="mt-4 text-sm font-medium text-gray-900 underline underline-offset-4 hover:no-underline"
@@ -96,6 +102,7 @@ export default function ProductReviews({ productId, productName }: { productId: 
         >
           {expanded ? "Show fewer" : `Show all ${reviews.length} reviews`}
         </button>
+        </div>
       )}
     </section>
   );

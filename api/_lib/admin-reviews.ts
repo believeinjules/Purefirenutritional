@@ -138,3 +138,29 @@ export function validateReviewPatch(body: unknown): Partial<ReviewDoc> {
   if (Object.keys(out).length === 0) fail("Nothing to update");
   return out;
 }
+
+// ─── Verified buyer: match review email → paid order containing the product ──
+
+export type OrderLike = {
+  customer_email?: unknown;
+  payment_status?: unknown;
+  status?: unknown;
+  items?: unknown;
+};
+
+/** Order item product_id matches the review product ("endoluten" or a size variant "endoluten-n20"). */
+export function itemMatchesProduct(itemProductId: unknown, productId: string): boolean {
+  if (typeof itemProductId !== "string" || !productId) return false;
+  const id = itemProductId.trim().toLowerCase();
+  return id === productId || /^-n\d+$/.test(id.slice(productId.length)) && id.startsWith(productId);
+}
+
+/** True when the order is paid (not refunded/cancelled) and contains the product. */
+export function orderConfirmsPurchase(order: OrderLike, email: string, productId: string): boolean {
+  const e = (email || "").trim().toLowerCase();
+  if (!e || String(order.customer_email ?? "").trim().toLowerCase() !== e) return false;
+  if (order.payment_status !== "paid") return false;
+  if (["refunded", "cancelled", "canceled"].includes(String(order.status ?? "").toLowerCase())) return false;
+  if (!Array.isArray(order.items)) return false;
+  return order.items.some((it) => itemMatchesProduct((it as { product_id?: unknown })?.product_id, productId));
+}
