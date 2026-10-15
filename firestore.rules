@@ -1,23 +1,107 @@
 rules_version = '2';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Pure Fire Nutritional — Firestore rules: `reviews` collection.
+// Pure Fire Nutritional — PRODUCTION Firestore rules (complete file).
 //
-// IMPORTANT: this repo did not previously contain the project's Firestore
-// rules (they live in the Firebase console). Do NOT deploy this file on its
-// own — deploying replaces ALL rules and would lock out wishlist, carts,
-// orders, profiles, products, etc. Paste the `match /reviews/{reviewId}` block
-// below INTO the existing rules in Firebase console → Firestore → Rules,
-// inside the existing `match /databases/{database}/documents { … }`.
+// Replaces the expired test-mode rule (`allow read, write: if request.time <
+// timestamp.date(2026, 7, 1)`). Deploy the WHOLE file (Firebase console →
+// Firestore → Rules → paste → Publish, or `firebase deploy --only
+// firestore:rules`).
+//
+// Server code (api/*, Stripe webhook, prerender) uses the Admin SDK and
+// bypasses these rules. Only browser (client SDK) access is governed here.
+//
+// Client-side access found in the repo (customer-reviews branch):
+//   products          read          storefront, search, cart, PDP (public)
+//   profiles/{uid}    create        AuthContext.signUp (signed-in, own uid)
+//   orders            list/read     Dashboard (where customer_email == user.email)
+//   reviews           create        /review form (pending only)
+//   abandoned_carts   read/update   Admin.tsx (admin only; client never creates)
+//   customer_wishlist (lib present, currently unused — owner-only by email)
+//   product_reviews   (legacy, unused — denied)
+// Everything else (customers, mailing_list, inventory, …) is Admin-SDK only.
+//
+// ADMINS: keep in sync with server ADMIN_EMAILS (Vercel env). Value below is
+// from .env.local.example — confirm it matches production.
 // ─────────────────────────────────────────────────────────────────────────────
 
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Customer reviews (public /review form).
-    // Browsers may only CREATE a pending review with validated fields.
-    // Reads/updates/deletes happen server-side via the Admin SDK
-    // (/api/reviews, /api/admin/reviews), which bypasses these rules.
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function verifiedEmail() {
+      return signedIn()
+        && request.auth.token.email is string
+        && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return verifiedEmail()
+        && request.auth.token.email.lower() in ['julesxshulman@gmail.com'];
+    }
+
+    // ── Catalog: public read, writes via /api/admin/products only ──────────
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // ── Customer profile: owner only ───────────────────────────────────────
+    match /profiles/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.uid == uid
+        && request.resource.data.keys().hasOnly(
+             ['uid', 'fullName', 'email', 'birthday', 'createdAt', 'updatedAt'])
+        && request.resource.data.fullName is string
+        && request.resource.data.fullName.size() <= 200
+        && request.resource.data.email is string
+        && request.resource.data.email.lower() == request.auth.token.email.lower();
+      allow update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.uid == uid
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.keys().hasOnly(
+             ['uid', 'fullName', 'email', 'birthday', 'createdAt', 'updatedAt']);
+      allow delete: if false;
+    }
+
+    // ── Orders: written by the Stripe webhook (Admin SDK). Customers read
+    //    their own (verified email must match), admins read all. ───────────
+    match /orders/{orderId} {
+      allow read: if isAdmin()
+        || (verifiedEmail()
+            && resource.data.customer_email == request.auth.token.email.lower());
+      allow write: if false;
+    }
+
+    // ── Wishlist (not currently used by the UI; kept owner-only) ──────────
+    match /customer_wishlist/{itemId} {
+      allow read, delete: if verifiedEmail()
+        && resource.data.customerEmail == request.auth.token.email;
+      allow create: if verifiedEmail()
+        && request.resource.data.customerEmail == request.auth.token.email
+        && request.resource.data.keys().hasOnly(
+             ['customerEmail', 'productId', 'notifyOnSale', 'notifyOnRestock', 'addedAt'])
+        && request.resource.data.productId is string
+        && request.resource.data.productId.size() <= 100;
+      allow update: if verifiedEmail()
+        && resource.data.customerEmail == request.auth.token.email
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['notifyOnSale', 'notifyOnRestock']);
+    }
+
+    // ── Abandoned carts: Admin dashboard reads + marks recovery sent ───────
+    match /abandoned_carts/{cartId} {
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['recoveryEmailSent', 'recoveryEmailSentAt', 'recovered', 'recoveredAt']);
+      allow create, delete: if false;
+    }
+
     match /reviews/{reviewId} {
       allow read, update, delete: if false;
 
@@ -59,6 +143,12 @@ service cloud.firestore {
           request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')) &&
         request.resource.data.date is string &&
         request.resource.data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
+    }
+
+    // ── Default deny: customers, mailing_list, product_inventory,
+    //    inventory_history, product_reviews (legacy), anything new. ────────
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
