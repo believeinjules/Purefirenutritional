@@ -40,7 +40,7 @@ service cloud.firestore {
 
     function isAdmin() {
       return verifiedEmail()
-        && request.auth.token.email.lower() in ['julesxshulman@gmail.com'];
+        && request.auth.token.email.lower() in ['julesxshulman@gmail.com', 'purefiren@gmail.com'];
     }
 
     // ── Catalog: public read, writes via /api/admin/products only ──────────

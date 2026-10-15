@@ -9,7 +9,7 @@ service firebase.storage {
     function isAdmin() {
       return request.auth != null
         && request.auth.token.email_verified == true
-        && request.auth.token.email.lower() in ['julesxshulman@gmail.com'];
+        && request.auth.token.email.lower() in ['julesxshulman@gmail.com', 'purefiren@gmail.com'];
     }
 
     match /products/{fileName} {
