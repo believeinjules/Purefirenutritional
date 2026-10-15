@@ -32,19 +32,23 @@ export interface FactSource {
 
 /** Full product-page copy (Julia's Endoluten template). Rendered by ProductDetail; review doc: /workspace/pf-pdp-copy-review.md. */
 export interface PdpContent {
+  /** "organ" = Khavinson organ template (default); "formula" = second template for multi-ingredient formulas. */
+  template?: "organ" | "formula";
   title: string;
-  lineCode: string;
-  tags: string[];
+  lineCode?: string;
+  tags?: string[];
   overview: string[];
-  why: string;
-  interest: string[];
-  interestNote: string;
+  why?: string;
+  interest?: string[];
+  interestNote?: string;
+  /** Formula template: what it's formulated for (soft wording). */
+  formulatedFor?: string[];
   differences: string[];
   ingredients: string[];
   /** Verified label text only, else "Follow the directions on your package." */
   directions: string;
   directionsBasis: string;
-  researchBackground: string;
+  researchBackground?: string;
   faq: { q: string; a: string }[];
   safety: string;
   disclaimer: string;

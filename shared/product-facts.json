@@ -770,7 +770,51 @@
    "hold": null,
    "auditRows": [
     "Prime Peptide Brain"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Prime Peptide Brain",
+    "overview": [
+     "Prime Peptide Brain is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH AGAP peptide and is formulated to support the brain and cognitive function.",
+     "It comes in capsules (90 per pack). The manufacturer describes its IPH peptides as short peptides combined with supporting nutrients; the research it cites is its own, and the finished product has not been tested in published independent trials."
+    ],
+    "formulatedFor": [
+     "Memory and focus",
+     "Mental clarity during demanding periods",
+     "Normal nervous-system function"
+    ],
+    "differences": [
+     "Compared with Cerluten and Pinealon (brain) or Revilab ML 03: those are single-tissue bioregulators, while Prime Peptide Brain pairs its IPH peptide with a broader nutrient formula.",
+     "Prime Peptide products are taken three times a day; most Khavinson bioregulators come in 20- or 60-capsule packs."
+    ],
+    "ingredients": [
+     "IPH AGAP peptide (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Prime Peptide Brain?",
+      "a": "Prime Peptide Brain is part of the Prime Peptide line from the Peptides company."
+     },
+     {
+      "q": "What is IPH AGAP?",
+      "a": "It is the manufacturer's name for the short peptide at the core of this formula. We describe it as the manufacturer does and do not add claims of our own."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid."
+     },
+     {
+      "q": "Can I use Prime Peptide Brain with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Prime Peptide Brain: Prime Peptide capsules with IPH AGAP, formulated to support memory and focus and mental clarity during demanding periods. Shop Pure Fire."
+   }
   },
   "prime-peptide-collagen": {
    "id": "prime-peptide-collagen",
@@ -813,7 +857,51 @@
    "hold": null,
    "auditRows": [
     "Prime Peptide Collagen"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Prime Peptide Collagen",
+    "overview": [
+     "Prime Peptide Collagen is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH AEN peptide and is formulated to support skin, hair, nails and connective tissue, with marine collagen.",
+     "It comes in capsules (90 per pack). The manufacturer describes its IPH peptides as short peptides combined with supporting nutrients; the research it cites is its own, and the finished product has not been tested in published independent trials."
+    ],
+    "formulatedFor": [
+     "Skin firmness and elasticity",
+     "Hair and nail strength",
+     "Normal collagen and hyaluronic acid production"
+    ],
+    "differences": [
+     "Compared with Prime Peptide Joints (same IPH AEN peptide, joint focus): those are single-tissue bioregulators, while Prime Peptide Collagen pairs its IPH peptide with a broader nutrient formula.",
+     "Prime Peptide products are taken three times a day; most Khavinson bioregulators come in 20- or 60-capsule packs."
+    ],
+    "ingredients": [
+     "IPH AEN peptide (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Prime Peptide Collagen?",
+      "a": "Prime Peptide Collagen is part of the Prime Peptide line from the Peptides company."
+     },
+     {
+      "q": "What is IPH AEN?",
+      "a": "It is the manufacturer's name for the short peptide at the core of this formula. We describe it as the manufacturer does and do not add claims of our own."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid."
+     },
+     {
+      "q": "Can I use Prime Peptide Collagen with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Prime Peptide Collagen: Prime Peptide capsules with IPH AEN, formulated to support skin firmness and elasticity and hair and nail strength. Shop Pure Fire."
+   }
   },
   "prime-peptide-joints": {
    "id": "prime-peptide-joints",
@@ -856,7 +944,51 @@
    "hold": null,
    "auditRows": [
     "Prime Peptide Joints"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Prime Peptide Joints",
+    "overview": [
+     "Prime Peptide Joints is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH AEN and IPH ESM peptides and is formulated to support the joints and cartilage.",
+     "It comes in capsules (90 per pack). The manufacturer describes its IPH peptides as short peptides combined with supporting nutrients; the research it cites is its own, and the finished product has not been tested in published independent trials."
+    ],
+    "formulatedFor": [
+     "Joint comfort and mobility",
+     "Cartilage and connective tissue",
+     "Normal collagen and hyaluronic acid production"
+    ],
+    "differences": [
+     "Compared with Sigumir and Cartalax (cartilage): those are single-tissue bioregulators, while Prime Peptide Joints pairs its IPH peptides with a broader nutrient formula.",
+     "Prime Peptide products are taken three times a day; most Khavinson bioregulators come in 20- or 60-capsule packs."
+    ],
+    "ingredients": [
+     "IPH AEN + IPH ESM peptides (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Prime Peptide Joints?",
+      "a": "Prime Peptide Joints is part of the Prime Peptide line from the Peptides company."
+     },
+     {
+      "q": "What is IPH IPH AEN and IPH ESM?",
+      "a": "It is the manufacturer's name for the short peptides at the core of this formula. We describe it as the manufacturer does and do not add claims of our own."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid."
+     },
+     {
+      "q": "Can I use Prime Peptide Joints with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Prime Peptide Joints: Prime Peptide capsules with IPH AEN and IPH ESM, formulated to support joint comfort and mobility and cartilage and connective tissue."
+   }
   },
   "prime-peptide-omega": {
    "id": "prime-peptide-omega",
@@ -899,7 +1031,51 @@
    "hold": null,
    "auditRows": [
     "Prime Peptide Omega"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Prime Peptide Omega",
+    "overview": [
+     "Prime Peptide Omega is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH T peptide and is formulated to support the immune system and the cardiovascular system, with omega fatty acids.",
+     "It comes in capsules (90 per pack). The manufacturer describes its IPH peptides as short peptides combined with supporting nutrients; the research it cites is its own, and the finished product has not been tested in published independent trials."
+    ],
+    "formulatedFor": [
+     "Normal immune function",
+     "Thymus-related immune signalling",
+     "Cardiovascular wellness"
+    ],
+    "differences": [
+     "Compared with Vladonix and Crystagen (thymus): those are single-tissue bioregulators, while Prime Peptide Omega pairs its IPH peptide with a broader nutrient formula.",
+     "Prime Peptide products are taken three times a day; most Khavinson bioregulators come in 20- or 60-capsule packs."
+    ],
+    "ingredients": [
+     "IPH T peptide (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Prime Peptide Omega?",
+      "a": "Prime Peptide Omega is part of the Prime Peptide line from the Peptides company."
+     },
+     {
+      "q": "What is IPH T?",
+      "a": "It is the manufacturer's name for the short peptide at the core of this formula. We describe it as the manufacturer does and do not add claims of our own."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid."
+     },
+     {
+      "q": "Can I use Prime Peptide Omega with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Prime Peptide Omega: Prime Peptide capsules with IPH T, formulated to support immune function, thymus-related immune signalling and cardiovascular wellness."
+   }
   },
   "prime-peptide-protect": {
    "id": "prime-peptide-protect",
@@ -942,7 +1118,51 @@
    "hold": null,
    "auditRows": [
     "Prime Peptide Protect"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Prime Peptide Protect",
+    "overview": [
+     "Prime Peptide Protect is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH REG and IPH EP peptides and is formulated to support antioxidant defences, normal melatonin levels and a calm mood.",
+     "It comes in capsules (90 per pack). The manufacturer describes its IPH peptides as short peptides combined with supporting nutrients; the research it cites is its own, and the finished product has not been tested in published independent trials."
+    ],
+    "formulatedFor": [
+     "Normal antioxidant enzyme activity",
+     "Normal melatonin levels",
+     "A calm, balanced mood"
+    ],
+    "differences": [
+     "Compared with Endoluten (pineal) or Complex 3R (antioxidants): those are single-tissue bioregulators, while Prime Peptide Protect pairs its IPH peptides with a broader nutrient formula.",
+     "Prime Peptide products are taken three times a day; most Khavinson bioregulators come in 20- or 60-capsule packs."
+    ],
+    "ingredients": [
+     "IPH REG + IPH EP peptides (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Prime Peptide Protect?",
+      "a": "Prime Peptide Protect is part of the Prime Peptide line from the Peptides company."
+     },
+     {
+      "q": "What is IPH IPH REG and IPH EP?",
+      "a": "It is the manufacturer's name for the short peptides at the core of this formula. We describe it as the manufacturer does and do not add claims of our own."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid."
+     },
+     {
+      "q": "Can I use Prime Peptide Protect with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Prime Peptide Protect: capsules with IPH REG and IPH EP peptides, formulated to support antioxidant enzyme activity, melatonin levels and a calm mood."
+   }
   },
   "revilab-ml-01": {
    "id": "revilab-ml-01",
@@ -1013,7 +1233,56 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 01"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 01",
+    "overview": [
+     "Revilab ML 01 is a Revilab ML formula from the Peptides company that combines pineal, immune and liver peptide complexes with supporting nutrients and plant extracts. It is designed to support antioxidant defences, the nervous system, immune balance and liver function.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Antioxidant defences",
+     "Normal nervous-system and immune function",
+     "Liver function"
+    ],
+    "differences": [
+     "Revilab SL 03 has a similar focus as lingual drops; Revilab ML 01 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Endoluten (pineal) and Svetinorm (liver) each target one tissue; Revilab ML 01 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Epiphysis peptide complex (AA-1)",
+     "B-link immune peptide complex (AA-3)",
+     "Liver peptide complex (AA-10)",
+     "Resveratrol",
+     "Choline bitartrate",
+     "Omega-3 polyunsaturated fatty acids",
+     "Vitamins E, A, C"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 01?",
+      "a": "Revilab ML 01 is a Revilab ML formula from the Peptides company that combines pineal, immune and liver peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 01 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 01 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 01: Revilab ML capsule peptide formula, formulated to support antioxidant defences and nervous-system and immune function. Authorized U.S. retailer."
+   }
   },
   "revilab-ml-02": {
    "id": "revilab-ml-02",
@@ -1083,7 +1352,55 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 02"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 02",
+    "overview": [
+     "Revilab ML 02 is a Revilab ML formula from the Peptides company that combines immune, bone marrow and liver peptide complexes with supporting nutrients and plant extracts. It is designed to support blood formation, immune function and metabolic balance.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal blood cell formation",
+     "Immune function",
+     "Metabolic balance"
+    ],
+    "differences": [
+     "Revilab SL 07 has a similar focus as lingual drops; Revilab ML 02 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Bonomarlot (bone marrow) and Vladonix (thymus) each target one tissue; Revilab ML 02 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "T-link immune peptide complex (AA-2)",
+     "B-link immune peptide complex (AA-3)",
+     "Bone marrow peptide complex (AA-4)",
+     "Liver peptide complex (AA-10)",
+     "Omega-3 polyunsaturated fatty acids",
+     "Vitamins E, B6, B9"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 02?",
+      "a": "Revilab ML 02 is a Revilab ML formula from the Peptides company that combines immune, bone marrow and liver peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 02 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 02 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 02: Revilab ML capsule peptide formula, formulated to support blood cell formation, immune function and metabolic balance. Authorized U.S. retailer."
+   }
   },
   "revilab-ml-03": {
    "id": "revilab-ml-03",
@@ -1155,7 +1472,57 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 03"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 03",
+    "overview": [
+     "Revilab ML 03 is a Revilab ML formula from the Peptides company that combines brain, retina and vascular wall peptide complexes with supporting nutrients and plant extracts. It is designed to support the nervous system and the eyes.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal nervous-system function",
+     "Visual function and eye comfort",
+     "The blood vessels that nourish these tissues"
+    ],
+    "differences": [
+     "Revilab SL 02 has a similar focus as lingual drops; Revilab ML 03 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Cerluten (brain) and Visoluten (eye) each target one tissue; Revilab ML 03 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Brain peptide complex (AA-5)",
+     "Retina peptide complex (AA-6)",
+     "Vascular wall peptide complex (AA-7)",
+     "Astaxanthin",
+     "Choline bitartrate",
+     "Omega-3 polyunsaturated fatty acids",
+     "Vitamins B1, B2, B6",
+     "Marigold extract (lutein, zeaxanthin)"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 03?",
+      "a": "Revilab ML 03 is a Revilab ML formula from the Peptides company that combines brain, retina and vascular wall peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 03 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 03 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 03: Revilab ML capsule peptide formula, formulated to support nervous-system function and visual function and eye comfort. Authorized U.S. retailer."
+   }
   },
   "revilab-ml-04": {
    "id": "revilab-ml-04",
@@ -1226,7 +1593,56 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 04"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 04",
+    "overview": [
+     "Revilab ML 04 is a Revilab ML formula from the Peptides company that combines pineal, vascular wall and heart muscle peptide complexes with supporting nutrients and plant extracts. It is designed to support the heart and blood vessels.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal heart muscle function",
+     "Healthy blood vessels and circulation",
+     "Antioxidant defences"
+    ],
+    "differences": [
+     "Revilab SL 01 has a similar focus as lingual drops; Revilab ML 04 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Chelohart (heart) and Ventfort (vessels) each target one tissue; Revilab ML 04 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Epiphysis peptide complex (AA-1)",
+     "Vascular wall peptide complex (AA-7)",
+     "Heart muscle peptide complex (AA-8)",
+     "Resveratrol",
+     "Rutin",
+     "Omega-3 polyunsaturated fatty acids",
+     "Vitamin PP (Niacin)"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 04?",
+      "a": "Revilab ML 04 is a Revilab ML formula from the Peptides company that combines pineal, vascular wall and heart muscle peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 04 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 04 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 04: Revilab ML capsule peptide formula, formulated to support heart muscle function, healthy blood vessels and circulation and antioxidant defences."
+   }
   },
   "revilab-ml-05": {
    "id": "revilab-ml-05",
@@ -1296,7 +1712,55 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 05"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 05",
+    "overview": [
+     "Revilab ML 05 is a Revilab ML formula from the Peptides company that combines immune, bronchial and lung/stomach wall peptide complexes with supporting nutrients and plant extracts. It is designed to support the respiratory system and its immune defences.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal function of the airways and lungs",
+     "Immune defences of the respiratory tract",
+     "Antioxidant support"
+    ],
+    "differences": [
+     "Revilab SL 06 has a similar focus as lingual drops; Revilab ML 05 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Taxorest and Chonluten (airways) each target one tissue; Revilab ML 05 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "T-link immune peptide complex (AA-2)",
+     "Bronchi peptide complex (AA-14)",
+     "Lungs and stomach wall peptide complex (AA-15)",
+     "Omega-3 polyunsaturated fatty acids",
+     "Vitamins E, A",
+     "Licorice root extract"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 05?",
+      "a": "Revilab ML 05 is a Revilab ML formula from the Peptides company that combines immune, bronchial and lung/stomach wall peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 05 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 05 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 05: Revilab ML capsule peptide formula, formulated to support function of the airways and lungs and immune defences of the respiratory tract."
+   }
   },
   "revilab-ml-06": {
    "id": "revilab-ml-06",
@@ -1368,7 +1832,57 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 06"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 06",
+    "overview": [
+     "Revilab ML 06 is a Revilab ML formula from the Peptides company that combines liver, pancreas and stomach wall peptide complexes with supporting nutrients and plant extracts. It is designed to support digestion and liver function.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal liver and pancreas function",
+     "Digestive comfort",
+     "Metabolic balance"
+    ],
+    "differences": [
+     "Revilab SL 05 has a similar focus as lingual drops; Revilab ML 06 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Svetinorm (liver), Suprefort (pancreas) and Stamakort (stomach) each target one tissue; Revilab ML 06 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Liver peptide complex (AA-10)",
+     "Pancreas peptide complex (AA-11)",
+     "Lungs and stomach wall peptide complex (AA-15)",
+     "Omega-3 polyunsaturated fatty acids",
+     "Licorice root extract",
+     "Artichoke fruit extract",
+     "Plantain leaves extract",
+     "Strawberry leaves extract"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 06?",
+      "a": "Revilab ML 06 is a Revilab ML formula from the Peptides company that combines liver, pancreas and stomach wall peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 06 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 06 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 06: Revilab ML capsule peptide formula, formulated to support liver and pancreas function, digestive comfort and metabolic balance. Shop Pure Fire."
+   }
   },
   "revilab-ml-07": {
    "id": "revilab-ml-07",
@@ -1444,7 +1958,50 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 07"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 07",
+    "overview": [
+     "Revilab ML 07 is a Revilab ML formula from the Peptides company that combines pineal, vascular wall, testes and bladder peptide complexes with supporting nutrients and plant extracts. It is designed to support the male reproductive and urinary systems.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal male reproductive function",
+     "Urinary comfort",
+     "Healthy circulation"
+    ],
+    "differences": [
+     "Revilab SL 09 has a similar focus as lingual drops; Revilab ML 07 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Testoluten (testes), Libidon (prostate) and Chitomur (bladder) each target one tissue; Revilab ML 07 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 07?",
+      "a": "Revilab ML 07 is a Revilab ML formula from the Peptides company that combines pineal, vascular wall, testes and bladder peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 07 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 07 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 07: Revilab ML capsule peptide formula, formulated to support male reproductive function, urinary comfort and healthy circulation. Shop Pure Fire."
+   }
   },
   "revilab-ml-08": {
    "id": "revilab-ml-08",
@@ -1520,7 +2077,50 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 08"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 08",
+    "overview": [
+     "Revilab ML 08 is a Revilab ML formula from the Peptides company that combines pineal, vascular wall, cartilage and bladder peptide complexes with supporting nutrients and plant extracts. It is designed to support women's reproductive, neuroendocrine, urinary and skeletal health.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Women's hormonal balance",
+     "Bone and cartilage health",
+     "Urinary comfort"
+    ],
+    "differences": [
+     "Revilab SL 10 has a similar focus as lingual drops; Revilab ML 08 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Zhenoluten (ovary) and Endoluten (pineal) each target one tissue; Revilab ML 08 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 08?",
+      "a": "Revilab ML 08 is a Revilab ML formula from the Peptides company that combines pineal, vascular wall, cartilage and bladder peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 08 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 08 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 08: Revilab ML capsule peptide formula, formulated to support women's hormonal balance and bone and cartilage health. From Pure Fire Nutritional."
+   }
   },
   "revilab-ml-09": {
    "id": "revilab-ml-09",
@@ -1592,7 +2192,57 @@
    "hold": null,
    "auditRows": [
     "Revilab ML 09"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab ML 09",
+    "overview": [
+     "Revilab ML 09 is a Revilab ML formula from the Peptides company that combines immune, vascular wall and cartilage peptide complexes with supporting nutrients and plant extracts. It is designed to support the joints and connective tissue.",
+     "It is taken as capsules. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Joint mobility and comfort",
+     "Cartilage and connective tissue",
+     "Antioxidant defences"
+    ],
+    "differences": [
+     "Revilab SL 04 has a similar focus as lingual drops; Revilab ML 09 is the capsule version.",
+     "Single-organ Khavinson bioregulators such as Sigumir and Cartalax (cartilage) each target one tissue; Revilab ML 09 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "B-link immune peptide complex (AA-3)",
+     "Vascular wall peptide complex (AA-7)",
+     "Cartilage peptide complex (AA-9)",
+     "Chondroitin sulfate",
+     "Omega-3 polyunsaturated fatty acids",
+     "Superoxide dismutase (SOD)",
+     "Catalase",
+     "Carnosine"
+    ],
+    "directions": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab ML 09?",
+      "a": "Revilab ML 09 is a Revilab ML formula from the Peptides company that combines immune, vascular wall and cartilage peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab ML 09 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as capsules."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Revilab ML 09 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab ML 09: Revilab ML capsule peptide formula, formulated to support joint mobility and comfort, cartilage and connective tissue and antioxidant defences."
+   }
   },
   "revilab-pro-elements": {
    "id": "revilab-pro-elements",
@@ -1626,7 +2276,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab Pro Elements",
+    "overview": [
+     "Revilab Pro Elements is a mineral and vitamin complex that includes glycine, calcium, magnesium and zinc citrates, vitamins A, E, D3 and B6, and chromium picolinate.",
+     "It is designed to support everyday nutrition, mineral balance and vitality at the cellular level."
+    ],
+    "formulatedFor": [
+     "Mineral balance",
+     "Everyday nutrition and vitality",
+     "Resilience to everyday stress"
+    ],
+    "differences": [
+     "Zinsil-T focuses on zinc, glycine and vitamin B6.",
+     "The Revilab ML and SL formulas add peptide complexes."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Revilab Pro Elements?",
+      "a": "Revilab Pro Elements is a mineral and vitamin complex that includes glycine, calcium, magnesium and zinc citrates, vitamins A, E, D3 and B6, and chromium picolinate."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Revilab Pro Elements with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab Pro Elements: Revilab mineral and vitamin complex, formulated to support mineral balance and everyday nutrition and vitality. Authorized U.S. retailer."
+   }
   },
   "mesotel-neo": {
    "id": "mesotel-neo",
@@ -1660,7 +2349,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Mesotel Neo",
+    "overview": [
+     "Mesotel Neo is a liquid formula based on choline, enriched with gotu kola and wolfberry extracts, zinc, vitamins and resveratrol.",
+     "It is designed to support the nervous system, the cardiovascular system and the skin as part of healthy ageing."
+    ],
+    "formulatedFor": [
+     "Normal nervous-system function",
+     "Healthy blood vessels",
+     "Antioxidant defences and skin"
+    ],
+    "differences": [
+     "Mesotel is the base choline formula; Mesotel Beauty focuses on skin.",
+     "Complex 3R is a resveratrol-based antioxidant formula in tablets."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Mesotel Neo?",
+      "a": "Mesotel Neo is a liquid formula based on choline, enriched with gotu kola and wolfberry extracts, zinc, vitamins and resveratrol."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Mesotel Neo with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Mesotel Neo: choline liquid with gotu kola, goji and resveratrol, formulated to support nervous-system function and healthy blood vessels. Shop Pure Fire."
+   }
   },
   "revilab-sl-01": {
    "id": "revilab-sl-01",
@@ -1731,7 +2459,60 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 01"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 01",
+    "overview": [
+     "Revilab SL 01 is a Revilab SL formula from the Peptides company that combines vascular wall and cardiac muscle peptide complexes with supporting nutrients and plant extracts. It is designed to support the heart and blood vessels.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal heart muscle function",
+     "Healthy blood vessels and circulation",
+     "Antioxidant support"
+    ],
+    "differences": [
+     "Revilab ML 04 has a similar focus as capsules; Revilab SL 01 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Chelohart (heart) and Ventfort (vessels) each target one tissue; Revilab SL 01 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Vascular wall peptide complex (AA-7)",
+     "Cardiac muscle peptide complex (AA-8)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 01?",
+      "a": "Revilab SL 01 is a Revilab SL formula from the Peptides company that combines vascular wall and cardiac muscle peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 01 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 01 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 01: Revilab SL lingual peptide formula, formulated to support heart muscle function, healthy blood vessels and circulation and antioxidant support."
+   }
   },
   "revilab-sl-02": {
    "id": "revilab-sl-02",
@@ -1803,7 +2584,61 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 02"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 02",
+    "overview": [
+     "Revilab SL 02 is a Revilab SL formula from the Peptides company that combines brain, retina and vascular wall peptide complexes with supporting nutrients and plant extracts. It is designed to support the nervous system and the eyes.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal nervous-system function",
+     "Visual comfort",
+     "The blood vessels that nourish these tissues"
+    ],
+    "differences": [
+     "Revilab ML 03 has a similar focus as capsules; Revilab SL 02 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Cerluten (brain) and Visoluten (eye) each target one tissue; Revilab SL 02 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Brain peptide complex (AA-5)",
+     "Retina peptide complex (AA-6)",
+     "Vascular wall peptide complex (AA-7)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 02?",
+      "a": "Revilab SL 02 is a Revilab SL formula from the Peptides company that combines brain, retina and vascular wall peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 02 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 02 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 02: Revilab SL lingual peptide formula, formulated to support nervous-system function. Shop at Pure Fire Nutritional, an authorized U.S. retailer."
+   }
   },
   "revilab-sl-03": {
    "id": "revilab-sl-03",
@@ -1880,7 +2715,54 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 03"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 03",
+    "overview": [
+     "Revilab SL 03 is a Revilab SL formula from the Peptides company that combines pineal, T-cell and B-cell immune peptide complexes with supporting nutrients and plant extracts. It is designed to support immune balance and daily neuroendocrine rhythms.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Immune balance",
+     "Daily (circadian) rhythms",
+     "Antioxidant support"
+    ],
+    "differences": [
+     "Revilab ML 01 has a similar focus as capsules; Revilab SL 03 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Vladonix and Crystagen (thymus) and Endoluten (pineal) each target one tissue; Revilab SL 03 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 03?",
+      "a": "Revilab SL 03 is a Revilab SL formula from the Peptides company that combines pineal, T-cell and B-cell immune peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 03 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 03 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 03: Revilab SL lingual peptide formula, formulated to support immune balance, daily (circadian) rhythms and antioxidant support. Shop Pure Fire."
+   }
   },
   "revilab-sl-04": {
    "id": "revilab-sl-04",
@@ -1952,7 +2834,61 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 04"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 04",
+    "overview": [
+     "Revilab SL 04 is a Revilab SL formula from the Peptides company that combines B-cell immune, cartilage and muscle peptide complexes with supporting nutrients and plant extracts. It is designed to support the joints, muscles and bones.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Joint comfort and mobility",
+     "Muscle function",
+     "Cartilage maintenance"
+    ],
+    "differences": [
+     "Revilab ML 09 has a similar focus as capsules; Revilab SL 04 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Sigumir (cartilage and bone) and Gotratix (muscle) each target one tissue; Revilab SL 04 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "B-cell immune peptide complex (AA-3)",
+     "Cartilage peptide complex (AA-9)",
+     "Muscle peptide complex (AA-17)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 04?",
+      "a": "Revilab SL 04 is a Revilab SL formula from the Peptides company that combines B-cell immune, cartilage and muscle peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 04 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 04 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 04: Revilab SL lingual peptide formula, formulated to support joint comfort and mobility, muscle function and cartilage maintenance. Shop Pure Fire."
+   }
   },
   "revilab-sl-05": {
    "id": "revilab-sl-05",
@@ -2024,7 +2960,61 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 05"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 05",
+    "overview": [
+     "Revilab SL 05 is a Revilab SL formula from the Peptides company that combines liver, pancreas and stomach wall peptide complexes with supporting nutrients and plant extracts. It is designed to support the liver, pancreas and stomach.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal liver and pancreas function",
+     "Digestive comfort",
+     "Metabolic balance"
+    ],
+    "differences": [
+     "Revilab ML 06 has a similar focus as capsules; Revilab SL 05 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Svetinorm (liver), Suprefort (pancreas) and Stamakort (stomach) each target one tissue; Revilab SL 05 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Liver peptide complex (AA-10)",
+     "Pancreas peptide complex (AA-11)",
+     "Lungs and stomach wall peptide complex (AA-15)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 05?",
+      "a": "Revilab SL 05 is a Revilab SL formula from the Peptides company that combines liver, pancreas and stomach wall peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 05 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 05 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 05: Revilab SL lingual peptide formula, formulated to support liver and pancreas function, digestive comfort and metabolic balance. Shop Pure Fire."
+   }
   },
   "revilab-sl-06": {
    "id": "revilab-sl-06",
@@ -2096,7 +3086,61 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 06"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 06",
+    "overview": [
+     "Revilab SL 06 is a Revilab SL formula from the Peptides company that combines B-cell immune, bronchial and lung/stomach wall peptide complexes with supporting nutrients and plant extracts. It is designed to support the respiratory system and its immune defences.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal function of the airways and lungs",
+     "Immune defences of the respiratory tract",
+     "Respiratory comfort"
+    ],
+    "differences": [
+     "Revilab ML 05 has a similar focus as capsules; Revilab SL 06 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Taxorest and Chonluten (airways) each target one tissue; Revilab SL 06 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "B-cell immune peptide complex (AA-3)",
+     "Bronchi peptide complex (AA-14)",
+     "Lungs and stomach wall peptide complex (AA-15)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 06?",
+      "a": "Revilab SL 06 is a Revilab SL formula from the Peptides company that combines B-cell immune, bronchial and lung/stomach wall peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 06 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 06 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 06: Revilab SL lingual peptide formula, formulated to support function of the airways and lungs and immune defences of the respiratory tract."
+   }
   },
   "revilab-sl-07": {
    "id": "revilab-sl-07",
@@ -2170,7 +3214,63 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 07"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 07",
+    "overview": [
+     "Revilab SL 07 is a Revilab SL formula from the Peptides company that combines B-cell immune, bone marrow and vascular wall peptide complexes with folate and vitamin B12 with supporting nutrients and plant extracts. It is designed to support blood formation and immune function.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal blood cell formation",
+     "Immune function",
+     "Energy and nerve function (B vitamins)"
+    ],
+    "differences": [
+     "Revilab ML 02 has a similar focus as capsules; Revilab SL 07 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Bonomarlot (bone marrow) each target one tissue; Revilab SL 07 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "B-cell immune peptide complex (AA-3)",
+     "Bone marrow peptide complex (AA-4)",
+     "Vascular wall peptide complex (AA-7)",
+     "Folic acid (calcium L-methylfolate)",
+     "Vitamin B12 (cobalamin)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 07?",
+      "a": "Revilab SL 07 is a Revilab SL formula from the Peptides company that combines B-cell immune, bone marrow and vascular wall peptide complexes with folate and vitamin B12 with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 07 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 07 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 07: Revilab SL lingual peptide formula, formulated to support blood cell formation, immune function and energy and nerve function (B vitamins)."
+   }
   },
   "revilab-sl-08": {
    "id": "revilab-sl-08",
@@ -2242,7 +3342,60 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 08"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 08",
+    "overview": [
+     "Revilab SL 08 is a Revilab SL formula from the Peptides company that combines T-cell immune, vascular wall and bladder peptide complexes with supporting nutrients and plant extracts. It is designed to support the urinary tract.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal bladder function",
+     "Urinary comfort",
+     "Immune and vascular support of the urinary tract"
+    ],
+    "differences": [
+     "Single-organ Khavinson bioregulators such as Chitomur (bladder) and Pielotax (kidney) each target one tissue; Revilab SL 08 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "T-cell immune peptide complex (AA-2)",
+     "Vascular wall peptide complex (AA-7)",
+     "Bladder peptide complex (AA-13)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 08?",
+      "a": "Revilab SL 08 is a Revilab SL formula from the Peptides company that combines T-cell immune, vascular wall and bladder peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 08 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 08 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 08: Revilab SL lingual peptide formula, formulated to support bladder function, urinary comfort and immune and vascular support of the urinary tract."
+   }
   },
   "revilab-sl-09": {
    "id": "revilab-sl-09",
@@ -2315,7 +3468,62 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 09"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 09",
+    "overview": [
+     "Revilab SL 09 is a Revilab SL formula from the Peptides company that combines pineal, testes, bladder and prostate peptide complexes with supporting nutrients and plant extracts. It is designed to support the male reproductive system.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Normal male reproductive function",
+     "Prostate and urinary comfort",
+     "Hormonal balance"
+    ],
+    "differences": [
+     "Revilab ML 07 has a similar focus as capsules; Revilab SL 09 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Testoluten (testes) and Libidon (prostate) each target one tissue; Revilab SL 09 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "Pineal gland peptide complex (AA-1)",
+     "Testes peptide complex (AA-12)",
+     "Bladder peptide complex (AA-13)",
+     "Prostate peptide complex (AA-16)",
+     "Licorice extract",
+     "Propolis extract",
+     "Mint extract",
+     "Essential oils of chamomile and clove",
+     "Dihydroquercetin"
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 09?",
+      "a": "Revilab SL 09 is a Revilab SL formula from the Peptides company that combines pineal, testes, bladder and prostate peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 09 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 09 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 09: Revilab SL lingual peptide formula, formulated to support male reproductive function. Shop at Pure Fire Nutritional, an authorized U.S. retailer."
+   }
   },
   "testoluten": {
    "id": "testoluten",
@@ -4255,7 +5463,50 @@
    "sources": [],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Anti-Wrinkle Serum №7",
+    "overview": [
+     "Anti-Wrinkle Serum №7 is a professional cosmetic peptide serum for the face, neck and décolleté. Its formula features the peptide ingredients Matrixyl® synthe'6™ and Progeline™, the plant-based lifting ingredient Liftessense™ and low-molecular-weight hyaluronic acid.",
+     "It is designed for adults who want smoother-looking, firmer-feeling skin as part of a regular skincare routine."
+    ],
+    "formulatedFor": [
+     "The look of fine lines and wrinkles",
+     "Skin firmness and elasticity",
+     "Skin hydration"
+    ],
+    "differences": [
+     "Unlike our oral peptide supplements, this serum is applied to the skin.",
+     "Prime Peptide Collagen supports skin from within as a capsule; the serum works on the skin's surface."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Anti-Wrinkle Serum №7?",
+      "a": "Anti-Wrinkle Serum №7 is a professional cosmetic peptide serum for the face, neck and décolleté."
+     },
+     {
+      "q": "Is this a supplement?",
+      "a": "No. It is a cosmetic serum for external use only."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Anti-Wrinkle Serum №7 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "For external use only. Avoid contact with the eyes; patch-test on a small area first and stop use if irritation occurs. Do not use if you are allergic or sensitive to any component. If you are pregnant or breastfeeding, ask a healthcare professional before use. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Anti-Wrinkle Serum №7: cosmetic peptide serum for face, neck and décolleté, formulated to support the look of fine lines and wrinkles. Shop Pure Fire."
+   }
   },
   "revilab-sl-10": {
    "id": "revilab-sl-10",
@@ -4332,7 +5583,54 @@
    "hold": null,
    "auditRows": [
     "Revilab SL 10"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab SL 10",
+    "overview": [
+     "Revilab SL 10 is a Revilab SL formula from the Peptides company that combines pineal, vascular wall and bladder peptide complexes with supporting nutrients and plant extracts. It is designed to support women's neuroendocrine and reproductive health.",
+     "It is taken as lingual (under-the-tongue) drops. The Revilab range pairs several short peptide complexes in one product, so it suits adults who want broader, multi-system support in a single step rather than one organ at a time."
+    ],
+    "formulatedFor": [
+     "Women's hormonal balance across life stages",
+     "Monthly cycle regularity",
+     "Urinary comfort"
+    ],
+    "differences": [
+     "Revilab ML 08 has a similar focus as capsules; Revilab SL 10 is the lingual-drop version.",
+     "Single-organ Khavinson bioregulators such as Zhenoluten (ovary) and Endoluten (pineal) each target one tissue; Revilab SL 10 combines several peptide complexes with nutrients."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab SL 10?",
+      "a": "Revilab SL 10 is a Revilab SL formula from the Peptides company that combines pineal, vascular wall and bladder peptide complexes with supporting nutrients and plant extracts."
+     },
+     {
+      "q": "Is Revilab SL 10 an injectable peptide?",
+      "a": "No. It is an oral dietary supplement taken as lingual (under-the-tongue) drops."
+     },
+     {
+      "q": "How do I take lingual drops?",
+      "a": "Place the drops under the tongue and hold them there briefly before swallowing. Shake the bottle before use and follow the directions on the label."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+     },
+     {
+      "q": "Can I use Revilab SL 10 with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab SL 10: a Revilab lingual peptide formula with pineal, vascular and bladder peptides, formulated to support women's hormonal balance and comfort."
+   }
   },
   "revilab-anti-age": {
    "id": "revilab-anti-age",
@@ -4374,7 +5672,50 @@
    "hold": null,
    "auditRows": [
     "Revilab Anti-A.G.E."
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revilab Anti-A.G.E.",
+    "overview": [
+     "Revilab Anti-A.G.E. is a Revilab capsule formula built around carnosine, astaxanthin and alpha-lipoic acid, with rosemary extract and taurine.",
+     "It is formulated to support the body's antioxidant defences and to help protein structures such as collagen keep their normal function as we age."
+    ],
+    "formulatedFor": [
+     "Antioxidant defences",
+     "Healthy-looking, elastic skin",
+     "Normal protein and cellular metabolism with age"
+    ],
+    "differences": [
+     "Anti-Age Complex NB Health is a peptide-based formula for similar goals; Revilab Anti-A.G.E. relies on nutrients and plant extracts.",
+     "Complex 3R is another antioxidant formula, built on dihydroquercetin, resveratrol and coenzyme Q10."
+    ],
+    "ingredients": [
+     "Carnosine (beta-alanyl-L-histidine)",
+     "Astaxanthin",
+     "Alpha-lipoic acid (vitamin N)",
+     "Rosemary extract",
+     "Taurine"
+    ],
+    "directions": "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revilab Anti-A.G.E.?",
+      "a": "Revilab Anti-A.G.E."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year."
+     },
+     {
+      "q": "Can I use Revilab Anti-A.G.E. with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revilab Anti-A.G.E.: Revilab capsules with carnosine, astaxanthin and lipoic acid, formulated to support antioxidant defences and healthy-looking, elastic skin."
+   }
   },
   "alvenorm-forte": {
    "id": "alvenorm-forte",
@@ -4410,7 +5751,54 @@
    "hold": null,
    "auditRows": [
     "Alvenorm Forte"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Alvenorm Forte",
+    "overview": [
+     "Alvenorm Forte is a herbal liquid from the Peptides company's treatment-and-prophylactic line, formulated for the lungs and bronchi. It combines Iceland moss, liquorice root, thyme, nettle, plantain, cowberry leaf, eucalyptus and calendula in a red grape juice base.",
+     "These plants have traditionally been used to support the airways and comfortable breathing."
+    ],
+    "formulatedFor": [
+     "The lungs and airways",
+     "Comfortable breathing",
+     "Seasonal respiratory comfort"
+    ],
+    "differences": [
+     "Taxorest and Chonluten are peptide bioregulators for the airways; Alvenorm Forte is a herbal liquid.",
+     "Rinolax focuses on the upper airways."
+    ],
+    "ingredients": [
+     "Iceland moss decoction",
+     "Liquorice root",
+     "Thyme",
+     "Nettle",
+     "Broadleaf plantain",
+     "Cowberry leaf",
+     "Eucalyptus",
+     "Calendula",
+     "Red grape juice (base)"
+    ],
+    "directions": "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Alvenorm Forte?",
+      "a": "Alvenorm Forte is a herbal liquid from the Peptides company's treatment-and-prophylactic line, formulated for the lungs and bronchi."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after."
+     },
+     {
+      "q": "Can I use Alvenorm Forte with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Alvenorm Forte: herbal liquid for the lungs and airways, formulated to support the lungs and airways, comfortable breathing and seasonal respiratory comfort."
+   }
   },
   "volustom": {
    "id": "volustom",
@@ -4444,7 +5832,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Volustom",
+    "overview": [
+     "Volustom is a dietary-fibre formula from the Peptides company, designed to support digestion, the stomach lining and a balanced gut.",
+     "Its fibres are adsorbent, meaning they bind substances in the gut and help carry them out of the body, and it is often used alongside weight-management goals."
+    ],
+    "formulatedFor": [
+     "Digestive regularity",
+     "A balanced gut microbiome",
+     "Weight-management routines"
+    ],
+    "differences": [
+     "Stamakort is a peptide bioregulator for the stomach lining; Volustom is a fibre-based formula.",
+     "Getrufline supports the gut in a herbal truffle form."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Volustom?",
+      "a": "Volustom is a dietary-fibre formula from the Peptides company, designed to support digestion, the stomach lining and a balanced gut."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Volustom with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Volustom: adsorbent dietary-fibre formula, formulated to support digestive regularity, a balanced gut microbiome and weight-management routines. Shop Pure Fire."
+   }
   },
   "getrufline": {
    "id": "getrufline",
@@ -4478,7 +5905,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Getrufline",
+    "overview": [
+     "Getrufline is a herbal complex in a chewable truffle form, developed with the Institute of Innovative Biomedical Technology.",
+     "It is designed to support the gut lining and a healthy gut microbiome. Its bitter herbs are traditionally associated with bile flow and the body's natural defences."
+    ],
+    "formulatedFor": [
+     "A healthy gut microbiome",
+     "The gut lining",
+     "Digestive comfort"
+    ],
+    "differences": [
+     "Volustom is a fibre-based gut formula; Getrufline is a herbal truffle.",
+     "Ovagen is a peptide bioregulator for the liver and digestive tract."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Getrufline?",
+      "a": "Getrufline is a herbal complex in a chewable truffle form, developed with the Institute of Innovative Biomedical Technology."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Getrufline with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Getrufline: chewable herbal truffle, formulated to support a healthy gut microbiome, the gut lining and digestive comfort. From Pure Fire Nutritional."
+   }
   },
   "gelmigon": {
    "id": "gelmigon",
@@ -4538,7 +6004,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Digemax",
+    "overview": [
+     "Digemax is a digestive support formula from the Peptides company's nutritional range. It is designed for adults who want to support comfortable digestion and nutrient absorption.",
+     "Please check your package for the full ingredient list; we only list ingredients we have verified against the manufacturer."
+    ],
+    "formulatedFor": [
+     "Comfortable digestion",
+     "Nutrient absorption",
+     "Everyday digestive regularity"
+    ],
+    "differences": [
+     "Stamakort (stomach) and Ovagen (liver and digestive tract) are peptide bioregulators; Digemax is a nutritional support formula.",
+     "Getrufline is a herbal truffle-form product with a gut focus."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Digemax?",
+      "a": "Digemax is a digestive support formula from the Peptides company's nutritional range."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Digemax with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Digemax: digestive support formula, formulated to support comfortable digestion, nutrient absorption and everyday digestive regularity. Shop Pure Fire."
+   }
   },
   "imusil": {
    "id": "imusil",
@@ -4572,7 +6077,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Imusil",
+    "overview": [
+     "Imusil is an immune and skin support formula from the Peptides company's nutritional range.",
+     "It is designed to support the body's natural defences, healthy skin and adaptation to physical and environmental stress."
+    ],
+    "formulatedFor": [
+     "Immune function",
+     "Healthy skin barrier",
+     "Adaptation to everyday stress"
+    ],
+    "differences": [
+     "Vladonix and Crystagen are thymus peptide bioregulators for immune support.",
+     "Revifort supports immunity with medicinal mushrooms."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Imusil?",
+      "a": "Imusil is an immune and skin support formula from the Peptides company's nutritional range."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Imusil with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Imusil: immune and skin support formula, formulated to support immune function, healthy skin barrier and adaptation to everyday stress. Shop Pure Fire."
+   }
   },
   "indosine": {
    "id": "indosine",
@@ -4687,7 +6231,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Complex 3D",
+    "overview": [
+     "Complex 3D combines antioxidants and nutrients including vitamin C (ascorbyl palmitate), selenium yeast, L-cysteine, dihydroquercetin, catalase, vitamin E, barley sprout extract, vitamin A and glutathione.",
+     "It is designed to support the body's natural cleansing processes and antioxidant defences, especially during periods of poor sleep or stress."
+    ],
+    "formulatedFor": [
+     "The body's natural cleansing processes",
+     "Antioxidant defences",
+     "Liver function"
+    ],
+    "differences": [
+     "Complex 3R focuses on dihydroquercetin, resveratrol and coenzyme Q10.",
+     "Svetinorm is a liver peptide bioregulator."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Complex 3D?",
+      "a": "Complex 3D combines antioxidants and nutrients including vitamin C (ascorbyl palmitate), selenium yeast, L-cysteine, dihydroquercetin, catalase, vitamin E, barley sprout extract, vitamin A and glutathione."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Complex 3D with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Complex 3D: antioxidant formula with glutathione and selenium, formulated to support the body's natural cleansing processes. From Pure Fire Nutritional."
+   }
   },
   "complex-3r": {
    "id": "complex-3r",
@@ -4727,7 +6310,48 @@
    "hold": null,
    "auditRows": [
     "Complex 3R"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Complex 3R",
+    "overview": [
+     "Complex 3R is an antioxidant formula that combines dihydroquercetin, resveratrol and coenzyme Q10 in tablets.",
+     "It is designed to support the body's antioxidant defences, healthy blood vessels and energy metabolism."
+    ],
+    "formulatedFor": [
+     "Antioxidant defences",
+     "Healthy blood vessels",
+     "Energy metabolism in the heart muscle"
+    ],
+    "differences": [
+     "Revilab Anti-A.G.E. focuses on carnosine and astaxanthin.",
+     "Complex 3D focuses on detoxification-related nutrients."
+    ],
+    "ingredients": [
+     "Dihydroquercetin",
+     "Resveratrol",
+     "Coenzyme Q10"
+    ],
+    "directions": "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Complex 3R?",
+      "a": "Complex 3R is an antioxidant formula that combines dihydroquercetin, resveratrol and coenzyme Q10 in tablets."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+     },
+     {
+      "q": "Can I use Complex 3R with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Complex 3R: dihydroquercetin, resveratrol and CoQ10 tablets, formulated to support antioxidant defences and healthy blood vessels. From Pure Fire Nutritional."
+   }
   },
   "levain": {
    "id": "levain",
@@ -4761,7 +6385,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Levain",
+    "overview": [
+     "Levain is an adaptogen formula that combines nine plant-based adaptogens.",
+     "It is designed for periods of intense stress and fatigue, to support stress resilience, energy, mood and immune function."
+    ],
+    "formulatedFor": [
+     "Stress resilience",
+     "Everyday energy and muscle performance",
+     "A balanced mood"
+    ],
+    "differences": [
+     "Panaxod is built on ginseng; Levain combines nine adaptogens.",
+     "Felicita focuses on mood."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Levain?",
+      "a": "Levain is an adaptogen formula that combines nine plant-based adaptogens."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Levain with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Levain: nine-adaptogen plant formula, formulated to support stress resilience, everyday energy and muscle performance and a balanced mood. Shop Pure Fire."
+   }
   },
   "likam": {
    "id": "likam",
@@ -4795,7 +6458,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Likam",
+    "overview": [
+     "Likam is a liver and bile-duct support formula from the Peptides company's nutritional range.",
+     "It is designed for adults who want to support normal liver function and healthy bile flow as part of a wellness routine."
+    ],
+    "formulatedFor": [
+     "Normal liver function",
+     "Healthy bile flow",
+     "Everyday energy and metabolism"
+    ],
+    "differences": [
+     "Svetinorm (Cytomax®) and Ovagen (Cytogen®) are peptide bioregulators for the liver; Likam is a nutritional formula.",
+     "Revilab ML 06 combines liver, pancreas and stomach peptides."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Likam?",
+      "a": "Likam is a liver and bile-duct support formula from the Peptides company's nutritional range."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Likam with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Likam: liver and bile-duct support formula, formulated to support liver function, healthy bile flow and everyday energy and metabolism. Shop Pure Fire."
+   }
   },
   "mamiton": {
    "id": "mamiton",
@@ -4842,7 +6544,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Mamiton",
+    "overview": [
+     "Mamiton is a herbal formula for the female reproductive system. It combines resveratrol with motherwort, mint, rosehip, nettle, knotweed, hops, laminaria, field horsetail and walnut pericarp extracts plus vitamins A and E.",
+     "It is designed to support women's hormonal balance, especially from the mid-thirties and around perimenopause."
+    ],
+    "formulatedFor": [
+     "Women's hormonal balance",
+     "Antioxidant defences",
+     "Comfort through the monthly cycle"
+    ],
+    "differences": [
+     "Zhenoluten is the ovarian peptide bioregulator; Mamiton is a herbal formula.",
+     "Revilab ML 08 and SL 10 combine peptides for women's health."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Mamiton?",
+      "a": "Mamiton is a herbal formula for the female reproductive system."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Mamiton with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Mamiton: herbal formula for women, formulated to support women's hormonal balance, antioxidant defences and comfort through the monthly cycle. Shop Pure Fire."
+   }
   },
   "mesotel": {
    "id": "mesotel",
@@ -4876,7 +6617,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Mesotel",
+    "overview": [
+     "Mesotel is a choline-based formula from the Peptides company's anti-ageing range. It is designed to support the brain, the liver and the cardiovascular system as part of healthy ageing.",
+     "Choline is a nutrient the body uses to build cell membranes and the messenger acetylcholine."
+    ],
+    "formulatedFor": [
+     "Normal brain and nervous-system function",
+     "Liver function",
+     "Healthy cell membranes"
+    ],
+    "differences": [
+     "Mesotel Beauty and Mesotel Neo build on the same choline base with extra botanicals and vitamins.",
+     "Prime Peptide Brain is a peptide-based option for cognitive support."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Mesotel?",
+      "a": "Mesotel is a choline-based formula from the Peptides company's anti-ageing range."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Mesotel with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Mesotel: choline-based formula for healthy ageing, formulated to support brain and nervous-system function, liver function and healthy cell membranes."
+   }
   },
   "mesotel-beauty": {
    "id": "mesotel-beauty",
@@ -4910,7 +6690,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Mesotel Beauty",
+    "overview": [
+     "Mesotel Beauty is a choline-based antioxidant formula enriched with gotu kola, wolfberry (goji), zinc and vitamins. It is designed to support skin beauty and the body's antioxidant defences.",
+     "It is part of the Mesotel family, which uses choline as its foundation."
+    ],
+    "formulatedFor": [
+     "Healthy-looking skin",
+     "Antioxidant defences",
+     "Normal immune function"
+    ],
+    "differences": [
+     "Mesotel is the base formula; Mesotel Neo adds resveratrol.",
+     "Prime Peptide Collagen supports skin with marine collagen and a peptide."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Mesotel Beauty?",
+      "a": "Mesotel Beauty is a choline-based antioxidant formula enriched with gotu kola, wolfberry (goji), zinc and vitamins."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Mesotel Beauty with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Mesotel Beauty: choline formula with gotu kola, goji and zinc, formulated to support healthy-looking skin and antioxidant defences. From Pure Fire Nutritional."
+   }
   },
   "olecap": {
    "id": "olecap",
@@ -4970,7 +6789,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Panaxod",
+    "overview": [
+     "Panaxod is an adaptogen formula built on Panax ginseng with complementary botanicals.",
+     "It is designed to support physical and mental performance, everyday energy and a healthy stress response."
+    ],
+    "formulatedFor": [
+     "Everyday energy",
+     "Physical and mental performance",
+     "A healthy stress response"
+    ],
+    "differences": [
+     "Levain combines nine plant adaptogens; Panaxod is built on ginseng.",
+     "Glandokort is the adrenal peptide bioregulator."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Panaxod?",
+      "a": "Panaxod is an adaptogen formula built on Panax ginseng with complementary botanicals."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Panaxod with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Panaxod: Panax ginseng adaptogen formula, formulated to support everyday energy, physical and mental performance and a healthy stress response. Shop Pure Fire."
+   }
   },
   "pinalex-tab": {
    "id": "pinalex-tab",
@@ -5006,7 +6864,54 @@
    "hold": null,
    "auditRows": [
     "Pinalex Tab"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Pinalex Tab",
+    "overview": [
+     "Pinalex Tab is an eye-focused bioregulator in tablet form from the Peptides company's treatment-and-prophylactic line. It combines lutein (marigold extract), astaxanthin, blueberry juice powder, grape peel extract, taurine, vitamin E, beta-carotene and B vitamins with the AA-6 peptide complex.",
+     "It is formulated to support normal visual function and to help the eyes cope with intensive visual work."
+    ],
+    "formulatedFor": [
+     "Normal visual function",
+     "Intensive visual work",
+     "Eye tissues during age-related changes"
+    ],
+    "differences": [
+     "Visoluten is a single-tissue eye peptide bioregulator; Pinalex Tab adds eye nutrients.",
+     "Retisil is a lutein and zeaxanthin formula without peptides."
+    ],
+    "ingredients": [
+     "AA-6 peptide complex",
+     "Lutein (marigold extract)",
+     "Astaxanthin",
+     "Blueberry juice powder",
+     "Grape peel extract",
+     "Taurine",
+     "Vitamin E",
+     "Beta-carotene",
+     "B vitamins"
+    ],
+    "directions": "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Pinalex Tab?",
+      "a": "Pinalex Tab is an eye-focused bioregulator in tablet form from the Peptides company's treatment-and-prophylactic line."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed."
+     },
+     {
+      "q": "Can I use Pinalex Tab with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Pinalex Tab: eye tablets with lutein, astaxanthin and AA-6 peptides, formulated to support visual function and intensive visual work. Authorized U.S. retailer."
+   }
   },
   "pangluin": {
    "id": "pangluin",
@@ -5040,7 +6945,45 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Pangluin",
+    "overview": [
+     "Pangluin is a formula from the Peptides company's nutritional range, designed to support the pancreas and normal energy metabolism.",
+     "It is intended for adults who want to support their metabolic health; anyone managing a metabolic condition should talk to their doctor first."
+    ],
+    "formulatedFor": [
+     "Normal pancreatic function",
+     "Normal energy metabolism",
+     "Balanced metabolism through the day"
+    ],
+    "differences": [
+     "Suprefort is the Cytomax® peptide bioregulator for the pancreas; Pangluin is a nutritional formula."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Pangluin?",
+      "a": "Pangluin is a formula from the Peptides company's nutritional range, designed to support the pancreas and normal energy metabolism."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Pangluin with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Pangluin: pancreas and metabolism formula, formulated to support pancreatic function, energy metabolism and balanced metabolism through the day. Shop Pure Fire."
+   }
   },
   "previn": {
    "id": "previn",
@@ -5114,7 +7057,50 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Revimite",
+    "overview": [
+     "Revimite combines natural extracts (pomegranate, green tea, echinacea, oats, grape seed, ginger and soy) with iron, B vitamins and soy lecithin.",
+     "It is designed to support natural energy, normal blood formation and resilience to physical and emotional strain."
+    ],
+    "formulatedFor": [
+     "Everyday energy",
+     "Normal blood formation (iron and B vitamins)",
+     "Stress resilience"
+    ],
+    "differences": [
+     "Bonomarlot is a bone marrow peptide bioregulator; Revimite supplies iron and B vitamins.",
+     "Ensil supports energy metabolism."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Revimite?",
+      "a": "Revimite combines natural extracts (pomegranate, green tea, echinacea, oats, grape seed, ginger and soy) with iron, B vitamins and soy lecithin."
+     },
+     {
+      "q": "Does Revimite contain soy?",
+      "a": "Yes. Its formula includes soy extract and soy lecithin."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Revimite with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revimite: botanical formula with iron and B vitamins, formulated to support everyday energy, blood formation (iron and B vitamins) and stress resilience."
+   }
   },
   "reviplant": {
    "id": "reviplant",
@@ -5148,7 +7134,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Reviplant",
+    "overview": [
+     "Reviplant is a phytonutrient formula from the Peptides company that combines botanical extracts to support the liver and the immune system.",
+     "It is designed for adults who want broad plant-based antioxidant support as part of a wellness routine."
+    ],
+    "formulatedFor": [
+     "Normal liver function",
+     "Immune function",
+     "Antioxidant defences"
+    ],
+    "differences": [
+     "Revifort uses medicinal mushrooms for immune support; Reviplant uses other botanicals.",
+     "Svetinorm is a liver peptide bioregulator."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Reviplant?",
+      "a": "Reviplant is a phytonutrient formula from the Peptides company that combines botanical extracts to support the liver and the immune system."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Reviplant with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Reviplant: botanical phytonutrient formula, formulated to support liver function, immune function and antioxidant defences. From Pure Fire Nutritional."
+   }
   },
   "reviform-cocktail": {
    "id": "reviform-cocktail",
@@ -5182,7 +7207,45 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Reviform Cocktail",
+    "overview": [
+     "Reviform Cocktail is a nutritional shake that combines protein with vitamins and minerals.",
+     "It is designed to support body composition, lean muscle and an active lifestyle as part of a balanced diet."
+    ],
+    "formulatedFor": [
+     "Lean muscle maintenance",
+     "Weight-management routines",
+     "Everyday nutrition for an active lifestyle"
+    ],
+    "differences": [
+     "Gotratix is a muscle peptide bioregulator; Reviform Cocktail provides protein and nutrients as food."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Reviform Cocktail?",
+      "a": "Reviform Cocktail is a nutritional shake that combines protein with vitamins and minerals."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Reviform Cocktail with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Reviform Cocktail: protein, vitamin and mineral shake, formulated to support lean muscle maintenance and weight-management routines. From Pure Fire Nutritional."
+   }
   },
   "revifort": {
    "id": "revifort",
@@ -5227,7 +7290,53 @@
    "hold": null,
    "auditRows": [
     "Revifort"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Revifort",
+    "overview": [
+     "Revifort combines four medicinal mushrooms (shiitake, reishi, maitake and cordyceps) with red echinacea, zinc, kelp and selenium.",
+     "Mushroom glucans have been investigated for their role in immune function. Revifort is designed to support immune function, the liver and everyday energy, and it is often used with Ensil and Pinalex Tab."
+    ],
+    "formulatedFor": [
+     "Immune function",
+     "Normal liver function",
+     "Normal blood cell formation"
+    ],
+    "differences": [
+     "Vladonix and Crystagen are thymus peptide bioregulators; Revifort uses mushrooms and minerals.",
+     "Ensil supports energy metabolism with coenzyme Q10 and vitamins."
+    ],
+    "ingredients": [
+     "Shiitake mushroom extract (6:1)",
+     "Reishi mushroom extract (6:1)",
+     "Maitake mushroom extract (6:1)",
+     "Cordyceps extract (6:1)",
+     "Red echinacea top extract",
+     "Zinc citrate",
+     "Laminaria (kelp) extract",
+     "Sodium selenite"
+    ],
+    "directions": "Adults: 1 capsule 2 times a day with meals for 15 days, then a break of at least 10 days, then another 15 days.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Revifort?",
+      "a": "Revifort combines four medicinal mushrooms (shiitake, reishi, maitake and cordyceps) with red echinacea, zinc, kelp and selenium."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 2 times a day with meals for 15 days, then a break of at least 10 days, then another 15 days."
+     },
+     {
+      "q": "Can I use Revifort with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Revifort: four-mushroom formula with zinc and selenium, formulated to support immune function, liver function and blood cell formation. Shop Pure Fire."
+   }
   },
   "regenart": {
    "id": "regenart",
@@ -5287,7 +7396,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Renefort",
+    "overview": [
+     "Renefort is a kidney support formula from the Peptides company's nutritional range.",
+     "It is designed for adults who want to support normal kidney function and urinary-system balance."
+    ],
+    "formulatedFor": [
+     "Normal kidney function",
+     "Urinary-system balance",
+     "Antioxidant support for kidney tissue"
+    ],
+    "differences": [
+     "Pielotax is the Cytomax® peptide bioregulator for the kidneys; Renefort is a nutritional formula.",
+     "Chitomur targets the bladder."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Renefort?",
+      "a": "Renefort is a kidney support formula from the Peptides company's nutritional range."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Renefort with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Renefort: kidney support formula, formulated to support kidney function, urinary-system balance and antioxidant support for kidney tissue. Shop Pure Fire."
+   }
   },
   "retisil": {
    "id": "retisil",
@@ -5321,7 +7469,45 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Retisil",
+    "overview": [
+     "Retisil is an eye-health formula with lutein, zeaxanthin and complementary nutrients.",
+     "It is designed for adults who spend long hours on screens or want to support their eyes as they age."
+    ],
+    "formulatedFor": [
+     "Normal visual function",
+     "Eye comfort during screen work",
+     "The macula and retina"
+    ],
+    "differences": [
+     "Visoluten is the eye peptide bioregulator; Pinalex Tab combines lutein and astaxanthin with the AA-6 peptide complex."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Retisil?",
+      "a": "Retisil is an eye-health formula with lutein, zeaxanthin and complementary nutrients."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Retisil with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Retisil: lutein and zeaxanthin eye formula, formulated to support visual function, eye comfort during screen work and the macula and retina. Shop Pure Fire."
+   }
   },
   "rinolax": {
    "id": "rinolax",
@@ -5355,7 +7541,45 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Rinolax",
+    "overview": [
+     "Rinolax is a natural formula from the Peptides company's nutritional range, designed to support the nose, sinuses and throat.",
+     "It is intended for adults who want to support comfortable nasal breathing and the upper airways, for example during seasonal changes."
+    ],
+    "formulatedFor": [
+     "Comfortable nasal breathing",
+     "The nose, sinuses and throat",
+     "Upper-airway immune defences"
+    ],
+    "differences": [
+     "Alvenorm Forte and Taxorest focus on the lower airways and lungs; Rinolax focuses on the upper airways."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Rinolax?",
+      "a": "Rinolax is a natural formula from the Peptides company's nutritional range, designed to support the nose, sinuses and throat."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Rinolax with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Rinolax: natural formula for the nose, sinuses and throat, formulated to support comfortable nasal breathing and the nose, sinuses and throat. Shop Pure Fire."
+   }
   },
   "temero-genero": {
    "id": "temero-genero",
@@ -5441,7 +7665,50 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Felicita",
+    "overview": [
+     "Felicita is a mood-support formula from the Peptides company's nutritional range.",
+     "It is designed to support a balanced, positive mood and resilience to everyday stress."
+    ],
+    "formulatedFor": [
+     "A balanced, positive mood",
+     "Stress resilience",
+     "Mental clarity"
+    ],
+    "differences": [
+     "Levain and Panaxod are adaptogen-based formulas for stress and energy.",
+     "Pinealon and Cerluten are brain peptide bioregulators."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Felicita?",
+      "a": "Felicita is a mood-support formula from the Peptides company's nutritional range."
+     },
+     {
+      "q": "Is Felicita a replacement for mood medication?",
+      "a": "No. If you take medication for mood, do not stop it; talk to your doctor before adding any supplement."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Felicita with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Felicita: a mood-support formula from the Peptides company, formulated to support a balanced, positive mood, everyday stress resilience and mental clarity."
+   }
   },
   "femalin": {
    "id": "femalin",
@@ -5507,7 +7774,48 @@
    "hold": null,
    "auditRows": [
     "Zinsil-T"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Zinsil-T",
+    "overview": [
+     "Zinsil-T is a chewable tablet that combines glycine (500 mg), zinc (8.6 mg) and vitamin B6 (1.5 mg).",
+     "It is designed to support immune function, a calm mood, restful sleep and normal metabolism. Glycine also helps the body absorb zinc."
+    ],
+    "formulatedFor": [
+     "Immune function",
+     "A calm mood and restful sleep",
+     "Normal metabolism and healthy skin"
+    ],
+    "differences": [
+     "Revilab Pro Elements is a broader mineral and vitamin complex.",
+     "Felicita is a dedicated mood formula."
+    ],
+    "ingredients": [
+     "Glycine (500mg)",
+     "Zinc (8.6mg)",
+     "Pyridoxine / Vitamin B6 (1.5mg)"
+    ],
+    "directions": "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Zinsil-T?",
+      "a": "Zinsil-T is a chewable tablet that combines glycine (500 mg), zinc (8.6 mg) and vitamin B6 (1.5 mg)."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed."
+     },
+     {
+      "q": "Can I use Zinsil-T with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Zinsil-T: chewable glycine, zinc and vitamin B6 tablets, formulated to support immune function, a calm mood, restful sleep and healthy skin. Shop Pure Fire."
+   }
   },
   "ensil": {
    "id": "ensil",
@@ -5558,7 +7866,59 @@
    "hold": null,
    "auditRows": [
     "Ensil"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Ensil",
+    "overview": [
+     "Ensil is an energy-metabolism formula with coenzyme Q10, nicotinamide, folic acid, echinacea, succinic acid, L-carnitine, L-cysteine and a broad range of vitamins.",
+     "It is designed to support cellular energy, immune function and the nervous system, and it is often used with Revifort and Pinalex Tab."
+    ],
+    "formulatedFor": [
+     "Cellular energy",
+     "Immune function",
+     "Normal nervous-system function"
+    ],
+    "differences": [
+     "Revifort supports immunity with medicinal mushrooms.",
+     "Complex 3R also contains coenzyme Q10, with resveratrol and dihydroquercetin."
+    ],
+    "ingredients": [
+     "Coenzyme Q10",
+     "Nicotinamide (Vitamin PP)",
+     "Folic acid",
+     "Echinacea extract",
+     "Succinic acid (amber acid)",
+     "L-carnitine",
+     "Vitamins B1, B5, B6",
+     "Vitamins C and E",
+     "L-cysteine",
+     "Vitamin B2",
+     "Vitamin A",
+     "Vitamin D",
+     "Vitamin B12",
+     "Biotin"
+    ],
+    "directions": "Adults: 1 capsule 3 times a day with meals. Course duration: 1 month; the course can be repeated.",
+    "directionsBasis": "verified manufacturer label",
+    "faq": [
+     {
+      "q": "What is Ensil?",
+      "a": "Ensil is an energy-metabolism formula with coenzyme Q10, nicotinamide, folic acid, echinacea, succinic acid, L-carnitine, L-cysteine and a broad range of vitamins."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Adults: 1 capsule 3 times a day with meals. Course duration: 1 month; the course can be repeated."
+     },
+     {
+      "q": "Can I use Ensil with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Ensil: CoQ10, carnitine and vitamin formula, formulated to support cellular energy, immune function and nervous-system function. From Pure Fire Nutritional."
+   }
   },
   "anti-age-nb-activity": {
    "id": "anti-age-nb-activity",
@@ -5599,7 +7959,47 @@
    "hold": null,
    "auditRows": [
     "Anti-Age Complex NB Activity"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Anti-Age Complex NB Activity",
+    "overview": [
+     "Anti-Age Complex NB Activity is a liquid concentrate from the Peptides company's Anti-Age Complex NB line. It contains the AA-9 and AA-3 peptide complexes and is described by the manufacturer as an energy concentrate and collagen activator.",
+     "It is designed for adults who want to support everyday energy, skin and connective tissue as they age."
+    ],
+    "formulatedFor": [
+     "Everyday energy and vitality",
+     "Skin and connective tissue",
+     "Normal collagen production"
+    ],
+    "differences": [
+     "Anti-Age Complex NB Health is its companion formula, focused on antioxidant and stress support.",
+     "Prime Peptide Collagen is a capsule formula for skin, hair and nails."
+    ],
+    "ingredients": [
+     "Peptide complexes AA-9 and AA-3 (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Anti-Age Complex NB Activity?",
+      "a": "Anti-Age Complex NB Activity is a liquid concentrate from the Peptides company's Anti-Age Complex NB line."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Anti-Age Complex NB Activity with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Anti-Age Complex NB Activity: NB-line peptide liquid concentrate (AA-9, AA-3), formulated to support everyday energy and vitality. From Pure Fire Nutritional."
+   }
   },
   "anti-age-nb-health": {
    "id": "anti-age-nb-health",
@@ -5640,7 +8040,47 @@
    "hold": null,
    "auditRows": [
     "Anti-Age Complex NB Health"
-   ]
+   ],
+   "pdp": {
+    "template": "formula",
+    "title": "Anti-Age Complex NB Health",
+    "overview": [
+     "Anti-Age Complex NB Health is a capsule formula from the Peptides company's Anti-Age Complex NB line, containing the AA-3 and AA-1 peptide complexes. The manufacturer describes it as an AGE protector, referring to advanced glycation end-products, compounds that build up in proteins with age.",
+     "It is designed for adults who want to support protein structures and antioxidant defences as they age."
+    ],
+    "formulatedFor": [
+     "Normal protein structure with age",
+     "Antioxidant defences",
+     "Resilience to everyday stress"
+    ],
+    "differences": [
+     "Anti-Age Complex NB Activity is its companion formula, focused on energy and collagen.",
+     "Revilab Anti-A.G.E. targets similar goals with carnosine, astaxanthin and alpha-lipoic acid instead of peptides."
+    ],
+    "ingredients": [
+     "Peptide complexes AA-3 and AA-1 (per the manufacturer)",
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is Anti-Age Complex NB Health?",
+      "a": "Anti-Age Complex NB Health is a capsule formula from the Peptides company's Anti-Age Complex NB line, containing the AA-3 and AA-1 peptide complexes."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use Anti-Age Complex NB Health with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Anti-Age Complex NB Health: NB-line peptide capsules (AA-3, AA-1), formulated to support protein structure with age and antioxidant defences. Shop Pure Fire."
+   }
   },
   "thyreogen": {
    "id": "thyreogen",
@@ -5782,7 +8222,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "GPL Femme",
+    "overview": [
+     "GPL Femme is a multi-peptide formula for women. According to the product description, each capsule combines pineal, brain, vascular, liver, thyroid and ovarian peptides with alpha-lipoic acid.",
+     "It is designed to support women's reproductive, endocrine, cardiovascular and nervous systems in one product."
+    ],
+    "formulatedFor": [
+     "Women's hormonal balance",
+     "Endocrine and nervous-system function",
+     "Cardiovascular wellness"
+    ],
+    "differences": [
+     "Zhenoluten (ovary) and Thyreogen (thyroid) are single-tissue bioregulators; GPL Femme combines several.",
+     "GPL Man is the companion formula for men."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is GPL Femme?",
+      "a": "GPL Femme is a multi-peptide formula for women."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use GPL Femme with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "GPL Femme: multi-peptide capsules for women, formulated to support women's hormonal balance, endocrine and nervous-system function and cardiovascular wellness."
+   }
   },
   "gpl-man": {
    "id": "gpl-man",
@@ -5816,7 +8295,46 @@
    ],
    "verificationStatus": "unaudited",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "GPL Man",
+    "overview": [
+     "GPL Man is a multi-peptide formula for men. According to the product description, each capsule combines pineal, brain, vascular, liver, pancreas and testicular peptides with alpha-lipoic acid.",
+     "It is designed to support men's reproductive, endocrine, cardiovascular and nervous systems in one product."
+    ],
+    "formulatedFor": [
+     "Male vitality",
+     "Endocrine and nervous-system function",
+     "Cardiovascular wellness"
+    ],
+    "differences": [
+     "Testoluten (testes) and Libidon (prostate) are single-tissue bioregulators; GPL Man combines several.",
+     "GPL Femme is the companion formula for women."
+    ],
+    "ingredients": [
+     "See the full ingredient list on your package."
+    ],
+    "directions": "Follow the directions on your package.",
+    "directionsBasis": "unverified/conflicting: no regimen shown",
+    "faq": [
+     {
+      "q": "What is GPL Man?",
+      "a": "GPL Man is a multi-peptide formula for men."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "Follow the directions printed on your package. If you are unsure, ask a healthcare professional."
+     },
+     {
+      "q": "Can I use GPL Man with other products?",
+      "a": "Many people combine supplements, but specific combinations have not been studied as such. Check with a healthcare professional, especially if you take medications."
+     }
+    ],
+    "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "GPL Man: multi-peptide capsules for men, formulated to support male vitality, endocrine and nervous-system function and cardiovascular wellness. Shop Pure Fire."
+   }
   }
  }
 }

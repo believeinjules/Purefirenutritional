@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { PRODUCT_FACTS } from "./product-facts";
+import { HIDDEN_PRODUCT_IDS } from "./hidden-products";
 import { DISEASE_TERMS } from "./peppy/claims";
 import { hasClaimLanguage, productMetaDescription } from "../client/src/lib/seo";
 
-const WITH_PDP = Object.values(PRODUCT_FACTS).filter((f) => f.pdp);
+const WITH_PDP = Object.values(PRODUCT_FACTS).filter((f) => f.pdp && f.pdp.template !== "formula");
+const FORMULA = Object.values(PRODUCT_FACTS).filter((f) => f.pdp?.template === "formula");
 const BANNED = /\b(lifespan|life span|mortality|cancer\w*|tumou?r\w*|military|soldier\w*|cytamin\w*|gerontology\.ru|over 14|14\+|cures?|treats?)\b/i;
 
 describe("full PDP copy (shared/product-facts.json → pdp)", () => {
@@ -53,4 +55,34 @@ describe("full PDP copy (shared/product-facts.json → pdp)", () => {
     expect(PRODUCT_FACTS.ovagen.pdp!.overview.join(" ")).toMatch(/digestive/i);
     expect(PRODUCT_FACTS.pinealon.pdp!.overview[0]).toMatch(/brain peptide complex \(AC-5\)/);
   });
+
+  it("formula template covers every remaining product except the Indosine/Calsil-T holds", () => {
+    const missing = Object.values(PRODUCT_FACTS).filter((f) => !f.pdp && !HIDDEN_PRODUCT_IDS.has(f.id)).map((f) => f.id).sort();
+    expect(missing).toEqual(["calsil-t", "indosine"]);
+  });
+
+  for (const f of FORMULA) {
+    const p = f.pdp!;
+    it(`${f.id}: formula template, compliant wording, verified directions only`, () => {
+      expect(p.overview.length).toBeGreaterThanOrEqual(1);
+      expect(p.formulatedFor!.length).toBeGreaterThanOrEqual(3);
+      expect(p.differences.length).toBeGreaterThanOrEqual(1);
+      expect(p.ingredients.length).toBeGreaterThanOrEqual(1);
+      expect(p.faq.length).toBeGreaterThanOrEqual(3);
+      expect(p.faq.length).toBeLessThanOrEqual(5);
+      expect(p.safety).toMatch(/pregnan/i);
+      expect(p.safety).toMatch(/allerg/i);
+      expect(p.safety).toMatch(/healthcare professional/i);
+      expect(p.disclaimer).toMatch(/Food and Drug Administration/);
+      expect(p.metaDescription.length).toBeGreaterThanOrEqual(150);
+      expect(p.metaDescription.length).toBeLessThanOrEqual(160);
+      expect(hasClaimLanguage(p.metaDescription), p.metaDescription).toBe(false);
+      const verified = f.manufacturerDirections.status === "verified" ? f.manufacturerDirections.text : null;
+      expect(p.directions).toBe(verified ?? "Follow the directions on your package.");
+      const copy = [...p.overview, ...p.formulatedFor!, ...p.differences, ...p.ingredients, ...p.faq.flatMap((q) => [q.q, q.a]), p.metaDescription].join(" \n");
+      expect(copy).not.toMatch(DISEASE_TERMS);
+      expect(copy + p.safety).not.toMatch(BANNED);
+      expect(copy).not.toMatch(/\d+\s*%|\d+x more/);
+    });
+  }
 });

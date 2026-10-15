@@ -200,12 +200,12 @@ export default function ProductDetail() {
               </span>
 
               <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
-              {pdp && (
+              {pdp?.lineCode && (
                 <div className="space-y-2" data-testid="pdp-header">
                   <p className="text-base text-gray-700">{pdp.title.split(" | ")[1]}</p>
                   <p className="text-sm text-gray-500">{pdp.lineCode}</p>
                   <ul className="flex flex-wrap gap-2" aria-label="Areas">
-                    {pdp.tags.map((t) => (
+                    {(pdp.tags ?? []).map((t) => (
                       <li key={t} className="text-xs text-gray-700 px-3 py-1 rounded-full border border-gray-200 bg-gray-50">{t}</li>
                     ))}
                   </ul>
@@ -348,10 +348,26 @@ export default function ProductDetail() {
 
               {pdp && (
                 <>
+                  {pdp.formulatedFor && (
+                    <section data-testid="pdp-formulated">
+                      <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">What It&apos;s Formulated For</h2>
+                      <ul className="space-y-2">
+                        {pdp.formulatedFor.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3 text-sm">
+                            <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
+                            <span className="text-gray-700">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+                  {pdp.why && (
                   <section data-testid="pdp-why">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Why {product.name}?</h2>
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">{`Why ${product.name}?`}</h2>
                     <p className="text-gray-600 leading-relaxed">{pdp.why}</p>
                   </section>
+                  )}
+                  {pdp.interest && (
                   <section data-testid="pdp-interest">
                     <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Areas of Scientific Interest</h2>
                     <ul className="space-y-2">
@@ -364,6 +380,7 @@ export default function ProductDetail() {
                     </ul>
                     <p className="mt-3 text-xs text-gray-500">{pdp.interestNote}</p>
                   </section>
+                  )}
                   <section data-testid="pdp-differences">
                     <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">What Makes It Different</h2>
                     <ul className="space-y-2">
@@ -405,6 +422,7 @@ export default function ProductDetail() {
 
               {pdp && (
                 <>
+                  {pdp.researchBackground && (
                   <section className="bg-gray-50 border border-gray-100 rounded-xl p-6" data-testid="pdp-research">
                     <div className="flex items-center gap-2 mb-3">
                       <Info size={16} className="text-gray-400 flex-shrink-0" />
@@ -412,13 +430,14 @@ export default function ProductDetail() {
                     </div>
                     <p className="text-sm text-gray-600 leading-relaxed">{pdp.researchBackground}</p>
                   </section>
+                  )}
                   <section data-testid="pdp-faq">
                     <h2 className="text-lg font-semibold text-gray-900 mb-1 pb-2 border-b">Frequently Asked Questions</h2>
                     <Accordion type="single" collapsible>
                       {pdp.faq.map((f, i) => (
                         <AccordionItem key={i} value={`faq-${i}`}>
                           <AccordionTrigger className="text-gray-900">{f.q}</AccordionTrigger>
-                          <AccordionContent className="text-gray-600 leading-relaxed">{f.a}</AccordionContent>
+                          <AccordionContent forceMount className="text-gray-600 leading-relaxed">{f.a}</AccordionContent>
                         </AccordionItem>
                       ))}
                     </Accordion>

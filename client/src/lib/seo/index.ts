@@ -417,6 +417,9 @@ export function productSnippet(product: {
   description?: string | null;
   category?: string | null;
 }): string {
+  // Per-product written meta (shared/product-facts.json → pdp.metaDescription) wins when present.
+  const written = getPdpContent(product.id)?.metaDescription;
+  if (written) return written;
   const organ = BIOREGULATOR_ORGAN[product.id];
   const lead = organ
     ? `${product.name} ${organ.toLowerCase()} peptide bioregulator from Pure Fire Nutritional.`
@@ -465,6 +468,17 @@ export function productBreadcrumbJsonLd(product: { id: string; name: string }): 
 }
 
 /** Everything the <head> of a product page needs. */
+/** FAQPage structured data from the written PDP FAQs (same text the page renders). */
+export function productFaqJsonLd(id: string): Record<string, unknown>[] {
+  const faq = getPdpContent(id)?.faq;
+  if (!faq?.length) return [];
+  return [{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  }];
+}
+
 export function productHead(product: SeoProduct) {
   const images = productImageUrls(product);
   return {
@@ -474,7 +488,7 @@ export function productHead(product: SeoProduct) {
     image: images[0],
     imageAlt: product.imageAlt || product.name,
     type: "product" as const,
-    jsonLd: [productJsonLd(product), productBreadcrumbJsonLd(product)],
+    jsonLd: [productJsonLd(product), productBreadcrumbJsonLd(product), ...productFaqJsonLd(product.id)],
   };
 }
 
