@@ -35,18 +35,25 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+  const prerenderProduct = useContext(SeoProductContext);
+  // Build-time prerender: render the full page body (H1, copy, price) from the
+  // catalog snapshot instead of "Loading product...". In the browser the
+  // context is null, so state starts empty and Firestore loads as before.
+  const ssrProduct =
+    prerenderProduct && prerenderProduct.id === id ? (prerenderProduct as unknown as Product) : null;
+  const [product, setProduct] = useState<Product | null>(ssrProduct);
+  const [loading, setLoading] = useState(!ssrProduct);
   const [protocolSelection, setProtocolSelection] = useState<ProtocolSelection>({});
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState<any>(null);
+  const [selectedVariant, setSelectedVariant] = useState<any>(
+    () => ssrProduct?.variants?.find((v: any) => v.inStock) ?? ssrProduct?.variants?.[0] ?? null
+  );
   const [inWishlist, setInWishlist] = useState(false);
   const [bundle, setBundle] = useState<BundleChoice>(1);
   const reviewSummaries = useReviewSummaries();
 
   const { addToCart } = useCart();
   const { addItem, removeItem, isInWishlist } = useWishlist();
-  const prerenderProduct = useContext(SeoProductContext);
 
   // Head tags (title, description, canonical, share card, Product JSON-LD).
   // Live product once loaded; until then the build-time snapshot (prerender)
