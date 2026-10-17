@@ -4,7 +4,6 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageSeo from "@/components/seo/PageSeo";
 import {
-  CONTACT_EMAIL,
   POLICY_LAST_UPDATED,
   POLICY_LIST,
   type Policy,
@@ -112,8 +111,8 @@ export default function PolicyPage({ policy }: { policy: Policy }) {
           <div className="mt-12 border-t border-gray-100 pt-6 text-sm text-gray-600 space-y-3">
             <p>
               Contact:{" "}
-              <a href={`mailto:${CONTACT_EMAIL}`} className={linkClass}>
-                {CONTACT_EMAIL}
+              <a href={`mailto:${policy.contactEmail}`} className={linkClass}>
+                {policy.contactEmail}
               </a>
             </p>
             <p className="flex flex-wrap gap-x-4 gap-y-1">

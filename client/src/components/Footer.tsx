@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 import { toast } from "sonner";
+import { CONTACT_EMAIL, mailto } from "@shared/contact-emails";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -197,8 +198,8 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-gray-400">
                 <Mail className="w-5 h-5 text-orange-500" />
-                <a href="mailto:info@purefirenutritional.com" className="hover:text-orange-500 transition-colors">
-                  info@purefirenutritional.com
+                <a href={mailto(CONTACT_EMAIL)} className="hover:text-orange-500 transition-colors">
+                  {CONTACT_EMAIL}
                 </a>
               </li>
               <li className="flex items-center gap-2 text-gray-400">
