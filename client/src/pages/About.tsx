@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Heart, Shield, Award, Users, Globe, Microscope, ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'wouter';
+import { CONTACT_EMAIL, FOUNDER_EMAIL, mailto } from '@shared/contact-emails';
 
 export default function About() {
   return (
@@ -140,6 +141,13 @@ export default function About() {
                 <p className="text-gray-700 leading-relaxed">
                   She also founded Mindscaping NYC, her private wellness and hypnotherapy practice.
                 </p>
+                <p className="text-sm text-gray-600">
+                  Questions for our co-founder? Email Julia at{" "}
+                  <a href={mailto(FOUNDER_EMAIL)} className="font-medium text-gray-800 underline hover:text-amber-600">
+                    {FOUNDER_EMAIL}
+                  </a>
+                  .
+                </p>
               </CardContent>
             </Card>
 
@@ -249,9 +257,11 @@ export default function About() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Button variant="outline">
-                  <Mail className="mr-2 h-4 w-4" />
-                  Contact Us
+                <Button variant="outline" asChild>
+                  <a href={mailto(CONTACT_EMAIL)} aria-label={`Contact Us by email at ${CONTACT_EMAIL}`}>
+                    <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
+                    Contact Us
+                  </a>
                 </Button>
               </div>
             </div>

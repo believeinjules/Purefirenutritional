@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { Package, User, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import EmailVerificationBanner from "@/components/EmailVerificationBanner";
+import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 
 interface Order {
   id: string;
@@ -190,6 +191,13 @@ export default function Dashboard() {
                     ))}
                   </div>
                 )}
+                <p className="mt-6 text-sm text-gray-600">
+                  Questions about an order? Email{" "}
+                  <a href={mailto(SUPPORT_EMAIL)} className="text-orange-600 hover:underline">
+                    {SUPPORT_EMAIL}
+                  </a>{" "}
+                  with your order number.
+                </p>
               </CardContent>
             </Card>
           </div>

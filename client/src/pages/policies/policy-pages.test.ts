@@ -4,6 +4,7 @@ import path from "node:path";
 import { COMMERCE_CONFIG } from "@shared/commerce-config";
 import {
   CONTACT_EMAIL,
+  SUPPORT_EMAIL,
   FDA_DISCLAIMER,
   POLICIES,
   POLICY_LAST_UPDATED,
@@ -60,7 +61,7 @@ describe("policy pages: content", () => {
     const t = allText(p);
     expect(POLICY_LAST_UPDATED).toBe("October 8, 2026");
     expect(t).not.toMatch(/\bTBD\b|\bTODO\b|lorem|ipsum|placeholder|\bXXX\b|\[insert|\{\{/i);
-    expect(t).toContain(CONTACT_EMAIL);
+    expect(t).toContain(p.contactEmail);
     expect(p.sections.length).toBeGreaterThanOrEqual(5);
   });
 
@@ -75,6 +76,16 @@ describe("policy pages: content", () => {
     const t = allText(p).split(FDA_DISCLAIMER).join(" ");
     expect(t).not.toMatch(/\b(cures?|heals?|prevents? (disease|illness)|boosts?|anti-aging|lifespan|longevity|clinically proven|guaranteed results?)\b/i);
     expect(t).not.toMatch(/\b(treats?|treatment for|relie(f|ves?)|supports?|improves?|reduces?) (your |a |any )?(condition|disease|illness|symptoms?|health|immunity|energy|sleep|aging)\b/i);
+  });
+
+  it("order policies point to support@, legal policies to contact@", () => {
+    expect(POLICIES.shipping.contactEmail).toBe(SUPPORT_EMAIL);
+    expect(POLICIES.returns.contactEmail).toBe(SUPPORT_EMAIL);
+    expect(POLICIES.privacy.contactEmail).toBe(CONTACT_EMAIL);
+    expect(POLICIES.terms.contactEmail).toBe(CONTACT_EMAIL);
+    expect(allText(POLICIES.shipping)).not.toContain(CONTACT_EMAIL);
+    expect(allText(POLICIES.returns)).not.toContain(CONTACT_EMAIL);
+    for (const p of POLICY_LIST) expect(allText(p)).not.toMatch(/info@|purefiren@gmail\.com|julia@/);
   });
 
   it("terms carry the FDA dietary-supplement disclaimer", () => {

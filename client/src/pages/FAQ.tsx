@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import PageSeo from "@/components/seo/PageSeo";
 import { ChevronDown, Phone, Mail, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +8,22 @@ import Footer from "@/components/Footer";
 import { Link } from "wouter";
 import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
+import { CONTACT_EMAIL, SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
+
+const EMAIL_PATTERN = /([A-Za-z0-9._%+-]+@purefirenutritional\.com)/g;
+
+/** Renders an answer with any of our addresses turned into mailto links. */
+function linkEmails(text: string): ReactNode[] {
+  return text.split(EMAIL_PATTERN).map((part, i) =>
+    i % 2 === 1 ? (
+      <a key={i} href={mailto(part)} className="text-orange-600 hover:underline">
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
 
 interface FAQItem {
   question: string;
@@ -51,7 +67,7 @@ export const faqs: FAQItem[] = [
   {
     category: "General",
     question: "How do I know a product is genuine?",
-    answer: "Every genuine package carries a lot number and expiry date, and ours are listed on each product page so you can match them. Pure Fire Nutritional is an authorized US retailer of Khavinson peptide bioregulators. If you have a question about a product you already bought, email info@purefirenutritional.com with the lot number and we'll help you check it.",
+    answer: `Every genuine package carries a lot number and expiry date, and ours are listed on each product page so you can match them. Pure Fire Nutritional is an authorized US retailer of Khavinson peptide bioregulators. If you have a question about a product you already bought, email ${SUPPORT_EMAIL} with the lot number and we'll help you check it.`,
     links: [{ href: "/authenticity", label: "Authenticity" }],
   },
   // Products
@@ -139,7 +155,7 @@ export const faqs: FAQItem[] = [
   {
     category: "Shipping & Orders",
     question: "What is your return policy?",
-    answer: "You can return unopened products within 30 days of delivery, in their original sealed packaging, for a refund of the price you paid. Opened products can't be returned unless they arrived damaged, defective or incorrect. Email info@purefirenutritional.com first to start a return; approved refunds are issued within 5 business days to the original payment method.",
+    answer: `You can return unopened products within 30 days of delivery, in their original sealed packaging, for a refund of the price you paid. Opened products can't be returned unless they arrived damaged, defective or incorrect. Email ${SUPPORT_EMAIL} first to start a return; approved refunds are issued within 5 business days to the original payment method.`,
     links: [{ href: "/returns", label: "Returns & Refunds" }],
   },
   {
@@ -150,7 +166,7 @@ export const faqs: FAQItem[] = [
   {
     category: "Shipping & Orders",
     question: "Do you offer wholesale or bulk pricing?",
-    answer: "Yes, we offer wholesale pricing for healthcare practitioners and retailers. Please contact us at info@purefirenutritional.com for wholesale inquiries and pricing information."
+    answer: `Yes, we offer wholesale pricing for healthcare practitioners and retailers. Please contact us at ${CONTACT_EMAIL} for wholesale inquiries and pricing information.`
   },
 ];
 
@@ -219,7 +235,7 @@ export default function FAQ() {
                 </button>
                 {openIndex === index && (
                   <CardContent className="pt-0 pb-4 px-4">
-                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    <p className="text-gray-600 leading-relaxed">{linkEmails(faq.answer)}</p>
                     {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                         {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].map((l) => (
@@ -248,8 +264,13 @@ export default function FAQ() {
                   <Phone className="w-5 h-5" />
                   (315) 567-7931
                 </a>
-                <a href="mailto:info@purefirenutritional.com" className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
-                  <Mail className="w-5 h-5" />
+                <a
+                  href={mailto(SUPPORT_EMAIL)}
+                  aria-label={`Email us at ${SUPPORT_EMAIL}`}
+                  title={SUPPORT_EMAIL}
+                  className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
+                >
+                  <Mail className="w-5 h-5" aria-hidden="true" />
                   Email Us
                 </a>
                 <Link href="/ai-assistant" className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">

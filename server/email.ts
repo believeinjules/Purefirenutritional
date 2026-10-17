@@ -156,7 +156,7 @@ function getOrderConfirmationHTML(order: OrderDetails): string {
               <tr>
                 <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                   <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 14px;">
-                    Questions? Contact us at <a href="mailto:support@purefire.com" style="color: #f97316; text-decoration: none;">support@purefire.com</a>
+                    Questions? Contact us at <a href="mailto:support@purefirenutritional.com" style="color: #f97316; text-decoration: none;">support@purefirenutritional.com</a>
                   </p>
                   <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                     © ${new Date().getFullYear()} Pure Fire Nutritional. All rights reserved.
@@ -193,7 +193,7 @@ Total: $${order.total.toFixed(2)}
 
 We've received your order and are preparing it for shipment. You'll receive another email with tracking information once your order ships.
 
-Questions? Contact us at support@purefire.com
+Questions? Contact us at support@purefirenutritional.com
 
 © ${new Date().getFullYear()} Pure Fire Nutritional. All rights reserved.
   `.trim();

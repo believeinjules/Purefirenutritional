@@ -21,11 +21,15 @@ import {
   SHIPPING_RULE_SENTENCE,
   STANDARD_SHIPPING_LABEL,
 } from "@/lib/shippingCopy";
+import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
 
 export const POLICY_LAST_UPDATED = "October 8, 2026";
-/** The contact address shown in the site footer and FAQ. */
-export const CONTACT_EMAIL = "info@purefirenutritional.com";
-const EMAIL_LINK = `[${CONTACT_EMAIL}](mailto:${CONTACT_EMAIL})`;
+export { CONTACT_EMAIL, SUPPORT_EMAIL };
+const emailLink = (email: string) => `[${email}](mailto:${email})`;
+/** General inquiries: Privacy and Terms. */
+const EMAIL_LINK = emailLink(CONTACT_EMAIL);
+/** Orders, shipping and returns. */
+const SUPPORT_LINK = emailLink(SUPPORT_EMAIL);
 
 /** Countries Stripe Checkout accepts as a ship-to address (must match checkout-session.ts). */
 export const SHIP_TO_COUNTRIES: Array<{ code: string; name: string }> = [
@@ -62,6 +66,8 @@ export type Policy = {
   /** Short "at a glance" facts shown in a box under the intro. */
   summary?: string[];
   sections: PolicySection[];
+  /** Address shown in this page's "Contact" footer line. */
+  contactEmail: string;
 };
 
 const SITE = "purefirenutritional.com";
@@ -196,6 +202,7 @@ const privacy: Policy = {
       body: [`Questions about this policy or your information: ${EMAIL_LINK}.`],
     },
   ],
+  contactEmail: CONTACT_EMAIL,
 };
 
 // ─── Terms of Service ─────────────────────────────────────────────────────────
@@ -329,6 +336,7 @@ const terms: Policy = {
       body: [`Questions about these Terms: ${EMAIL_LINK}.`],
     },
   ],
+  contactEmail: CONTACT_EMAIL,
 };
 
 // ─── Shipping Policy ──────────────────────────────────────────────────────────
@@ -397,22 +405,23 @@ const shipping: Policy = {
     {
       heading: "Address changes and undeliverable packages",
       body: [
-        `Please check your shipping address carefully at checkout. If you need to change it, email ${EMAIL_LINK} as soon as possible. We cannot change the address after your order has shipped.`,
+        `Please check your shipping address carefully at checkout. If you need to change it, email ${SUPPORT_LINK} as soon as possible. We cannot change the address after your order has shipped.`,
         "If a package is returned to us because the address was incorrect or it was not collected, we can send it again for another shipping charge, or refund the products.",
       ],
     },
     {
       heading: "Lost, late or damaged packages",
       body: [
-        `If tracking shows your package as delivered but you cannot find it, please check around your delivery location and with neighbors, then email ${EMAIL_LINK} within 7 days of the delivery date shown in tracking. If tracking has not updated for 10 business days, let us know. We will work with the carrier and, if the package is confirmed lost, send a replacement or refund your order.`,
+        `If tracking shows your package as delivered but you cannot find it, please check around your delivery location and with neighbors, then email ${SUPPORT_LINK} within 7 days of the delivery date shown in tracking. If tracking has not updated for 10 business days, let us know. We will work with the carrier and, if the package is confirmed lost, send a replacement or refund your order.`,
         "If your order arrives damaged, see [Returns & Refunds](/returns) for how to report it.",
       ],
     },
     {
       heading: "Questions",
-      body: [`Email ${EMAIL_LINK} with your order number and we will help.`],
+      body: [`Email ${SUPPORT_LINK} with your order number and we will help.`],
     },
   ],
+  contactEmail: SUPPORT_EMAIL,
 };
 
 // ─── Returns & Refunds ────────────────────────────────────────────────────────
@@ -446,7 +455,7 @@ const returns: Policy = {
     {
       heading: "Damaged, defective or incorrect items",
       body: [
-        `If an item arrives damaged, defective or is not what you ordered, email ${EMAIL_LINK} within 7 days of delivery. Include your order number and photos of the item and its packaging. We will send a replacement or give you a full refund for that item, including any shipping you paid for it. If we need the item back, we will pay for the return shipping.`,
+        `If an item arrives damaged, defective or is not what you ordered, email ${SUPPORT_LINK} within 7 days of delivery. Include your order number and photos of the item and its packaging. We will send a replacement or give you a full refund for that item, including any shipping you paid for it. If we need the item back, we will pay for the return shipping.`,
       ],
     },
     {
@@ -454,7 +463,7 @@ const returns: Policy = {
       body: [
         {
           list: [
-            `Email ${EMAIL_LINK} with your order number, the items you want to return and the reason.`,
+            `Email ${SUPPORT_LINK} with your order number, the items you want to return and the reason.`,
             "We will reply with return instructions and the address to send your return to.",
             "Pack the items securely and use a shipping service with tracking. We cannot be responsible for returns lost on the way to us.",
           ],
@@ -478,7 +487,7 @@ const returns: Policy = {
     {
       heading: "Cancellations and changes",
       body: [
-        `To cancel or change an order, email ${EMAIL_LINK} as soon as possible. If your order has not shipped yet, we will cancel it and refund the full amount, including shipping and tax. Once an order has shipped, it can no longer be cancelled, and this returns policy applies.`,
+        `To cancel or change an order, email ${SUPPORT_LINK} as soon as possible. If your order has not shipped yet, we will cancel it and refund the full amount, including shipping and tax. Once an order has shipped, it can no longer be cancelled, and this returns policy applies.`,
       ],
     },
     {
@@ -495,9 +504,10 @@ const returns: Policy = {
     },
     {
       heading: "Questions",
-      body: [`Email ${EMAIL_LINK} with your order number and we will help.`],
+      body: [`Email ${SUPPORT_LINK} with your order number and we will help.`],
     },
   ],
+  contactEmail: SUPPORT_EMAIL,
 };
 
 export const POLICIES: Record<PolicyKey, Policy> = { privacy, terms, shipping, returns };

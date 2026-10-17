@@ -11,6 +11,7 @@
  * Julia can review it).
  */
 import { SITE_TRUST } from "@/data/siteConfig";
+import { SUPPORT_EMAIL } from "@shared/contact-emails";
 
 export type FakeCheckItem = {
   title: string;
@@ -65,7 +66,7 @@ export const SPOT_A_FAKE = {
   ] as FakeCheckItem[],
   closing: {
     text: "Questions about a product you already bought? Email",
-    email: "info@purefirenutritional.com",
+    email: SUPPORT_EMAIL,
     after: "with the lot number and we'll help you check it.",
   },
 };

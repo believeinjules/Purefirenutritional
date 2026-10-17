@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { SUPPORT_EMAIL } from "../../shared/contact-emails.js";
 
 interface OrderDetails {
   orderId: string;
@@ -51,9 +52,10 @@ export async function sendOrderConfirmation(
     await transporter.sendMail({
       from: `"Pure Fire Nutritional" <${process.env.EMAIL_USER}>`,
       to: order.customerEmail,
+      replyTo: SUPPORT_EMAIL,
       subject: `Order Confirmation #${order.orderId} - Pure Fire Nutritional`,
-      text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\nTotal: $${order.total.toFixed(2)}`,
-      html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p><p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p>`,
+      text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\nTotal: $${order.total.toFixed(2)}\n\nQuestions about your order? Email ${SUPPORT_EMAIL} with your order number.`,
+      html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p><p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p><p>Questions about your order? Email <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> with your order number.</p>`,
     });
     return true;
   } catch (err) {

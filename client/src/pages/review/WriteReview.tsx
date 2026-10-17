@@ -16,6 +16,7 @@ import {
   validateReviewForm,
   type ReviewFormInput,
 } from "@/lib/reviewSubmit";
+import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 
 const RATING_LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"];
 
@@ -267,6 +268,13 @@ export default function WriteReview() {
                 <Link href="/privacy" className="underline">
                   privacy policy
                 </Link>
+                .
+              </p>
+              <p className="text-xs text-gray-500 text-center">
+                Need help with an order or a product? Email{" "}
+                <a href={mailto(SUPPORT_EMAIL)} className="underline">
+                  {SUPPORT_EMAIL}
+                </a>
                 .
               </p>
             </form>
