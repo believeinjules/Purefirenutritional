@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
+import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 
 export default function CheckoutSuccess() {
   const [, setLocation] = useLocation();
@@ -156,8 +157,8 @@ export default function CheckoutSuccess() {
           <div className="text-center mt-8">
             <p className="text-sm text-gray-600">
               Need help? Contact our support team at{" "}
-              <a href="mailto:support@purefirenutritional.com" className="text-orange-600 font-medium">
-                support@purefirenutritional.com
+              <a href={mailto(SUPPORT_EMAIL)} className="text-orange-600 font-medium">
+                {SUPPORT_EMAIL}
               </a>
             </p>
           </div>

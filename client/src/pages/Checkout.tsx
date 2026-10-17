@@ -12,6 +12,7 @@ import { getCartLineUnitUSD } from "@shared/product-prices";
 import { bundleLabel } from "@shared/bundle-pricing";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
+import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 
 function formatCheckoutUSD(amount: number | undefined | null): string {
   if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
@@ -165,6 +166,13 @@ export default function Checkout() {
                   </div>
                   <p className="text-sm text-gray-500">
                     You will be redirected to Stripe's secure checkout to complete your payment.
+                  </p>
+                  <p className="text-sm text-gray-500 mt-3">
+                    Questions about your order? Email{" "}
+                    <a href={mailto(SUPPORT_EMAIL)} className="text-orange-600 hover:underline">
+                      {SUPPORT_EMAIL}
+                    </a>
+                    .
                   </p>
                 </CardContent>
               </Card>
