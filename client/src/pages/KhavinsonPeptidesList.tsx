@@ -9,10 +9,10 @@ import { productPath } from "@/lib/seo";
 import {
   CATEGORY_PAGES_LIVE,
   LIST_PAGE_PATH,
+  browsePath,
   codeFor,
   copyFor,
   listPageGroups,
-  systemPath,
 } from "@/data/bodySystems";
 
 const TYPE_LABEL: Record<string, string> = {
@@ -60,8 +60,8 @@ export default function KhavinsonPeptidesList() {
           {groups.map((g) => (
             <section key={g.name} aria-labelledby={`grp-${g.name}`}>
               <h2 id={`grp-${g.name}`} className="text-xl font-semibold text-gray-900 mb-3">
-                {g.slug ? (
-                  <Link href={systemPath(g.slug)} className="hover:text-orange-600">{g.name}</Link>
+                {g.page ? (
+                  <Link href={browsePath(g.page)} className="hover:text-orange-600">{g.name}</Link>
                 ) : (
                   g.name
                 )}
@@ -83,7 +83,7 @@ export default function KhavinsonPeptidesList() {
                           <Link href={productPath(p.id)} className="text-gray-900 hover:text-orange-600">{p.name}</Link>
                         </td>
                         <td className="px-4 py-2.5 text-gray-500">{TYPE_LABEL[p.category] ?? p.category}</td>
-                        <td className="px-4 py-2.5 text-gray-500 whitespace-nowrap">{codeFor(p.id, g.system) ?? "—"}</td>
+                        <td className="px-4 py-2.5 text-gray-500 whitespace-nowrap">{codeFor(p.id) ?? "—"}</td>
                         <td className="px-4 py-2.5 text-gray-500 hidden md:table-cell">{shortDescription(p.id) ?? ""}</td>
                       </tr>
                     ))}
