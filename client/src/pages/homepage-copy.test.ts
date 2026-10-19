@@ -5,6 +5,15 @@ import path from "node:path";
 const read = (rel: string) => fs.readFileSync(path.resolve(__dirname, rel), "utf8");
 const index = read("./Index.tsx");
 
+describe("homepage SEO head", () => {
+  it("title and meta description are the approved wording", () => {
+    expect(index).toContain('title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"');
+    const desc = "Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, a US retailer of oral capsule supplements for healthy aging.";
+    expect(index).toContain(`description="${desc}"`);
+    expect(desc.length).toBeLessThanOrEqual(160);
+  });
+});
+
 describe("homepage copy (approved items only)", () => {
   it("has the five 'Why we carry these' items", () => {
     expect(index).toContain("Why we carry these");
