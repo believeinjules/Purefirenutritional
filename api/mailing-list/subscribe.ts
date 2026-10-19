@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import { isValidEmail, normalizeEmail } from "../../shared/email-address.js";
 
 if (getApps().length === 0) {
   initializeApp({
@@ -25,8 +26,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: "Please enter a valid email address" });
+    }
 
-    const ref = db.collection("mailing_list").doc(email.toLowerCase());
+    const ref = db.collection("mailing_list").doc(normalizeEmail(email));
     const existing = await ref.get();
 
     if (existing.exists) {
@@ -43,7 +47,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     await ref.set({
-      email: email.toLowerCase(),
+      email: normalizeEmail(email),
       name: name || null,
       source,
       subscribed: true,
