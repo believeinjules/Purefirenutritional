@@ -40,7 +40,7 @@ export default function ProductReviews({ productId, productName }: { productId: 
   const writeLink = (
     <Link
       href={writeHref}
-      className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-900 underline underline-offset-4 hover:no-underline"
+      className="inline-flex items-center gap-1.5 py-2 text-sm font-medium text-gray-900 underline underline-offset-4 hover:no-underline"
       data-testid="write-review-link"
     >
       <PenLine className="h-4 w-4" aria-hidden /> Write a review

@@ -1,15 +1,31 @@
+/* Metric-matched local fallbacks so the web-font swap (fonts load non-blocking,
+   display=swap) does not reflow the page (CLS). Ratios measured against Times New Roman / Arial. */
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif");
+  size-adjust: 91%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 108%;
+  ascent-override: 90%;
+  descent-override: 22.5%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
     font-weight: 300;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif;
     font-weight: 600;
   }
 
@@ -86,7 +102,7 @@
 
 /* ── Section label utility ───────────────────────────────────────────────── */
 .section-label {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
   font-weight: 400;
   font-size: 11px;
   letter-spacing: 0.24em;
@@ -100,7 +116,7 @@
 /* ── Nav link gradient hover ─────────────────────────────────────────────── */
 .nav-link {
   position: relative;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
   font-weight: 300;
   font-size: 12.5px;
   letter-spacing: 0.14em;
@@ -147,7 +163,7 @@
   display: inline-block;
   background: linear-gradient(135deg, #E8793A, #CC4472);
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Inter Fallback', sans-serif;
   font-weight: 400;
   font-size: 10px;
   letter-spacing: 0.2em;
@@ -171,7 +187,7 @@
   display: inline-block;
   background: transparent;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Inter Fallback', sans-serif;
   font-weight: 400;
   font-size: 10px;
   letter-spacing: 0.2em;

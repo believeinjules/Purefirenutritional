@@ -248,7 +248,7 @@ export default function AIAssistant() {
   return (
     <div className="min-h-screen flex flex-col">
       <PageSeo
-        title="AI Health Optimizer | Pure Fire Nutritional"
+        title="Pepita — Peptide Research Sidekick | Pure Fire Nutritional"
         description="Ask Pepita, Pure Fire's research assistant, about peptide bioregulators, supplements and wellness goals: direct answers with linked PubMed studies, their limitations, and related products."
         path="/ai-assistant"
         type="website"
@@ -552,7 +552,7 @@ export default function AIAssistant() {
             <button
               type="button"
               onClick={() => setShowDisclaimer(true)}
-              className="underline underline-offset-2 hover:text-gray-700"
+              className="inline-block py-1 underline underline-offset-2 hover:text-gray-700"
             >
               Full disclaimer
             </button>

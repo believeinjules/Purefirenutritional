@@ -42,7 +42,7 @@ export default function VariantSelector({
               </div>
             </div>
             <div className="text-right">
-              <div className="font-bold text-lg text-orange-600">
+              <div className="font-bold text-lg text-orange-700">
                 ${variant.priceUSD.toFixed(2)}
               </div>
             </div>

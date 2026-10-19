@@ -184,7 +184,7 @@ export default function Products() {
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="text-gray-400 w-4 h-4 flex-shrink-0" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48 bg-white rounded-xl border-gray-200">
+                <SelectTrigger aria-label="Sort products" className="w-48 bg-white rounded-xl border-gray-200">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
@@ -201,7 +201,7 @@ export default function Products() {
                 <button
                   type="button"
                   onClick={() => setViewMode("grid")}
-                  className={`p-2.5 transition-colors ${
+                  className={`p-2.5 min-h-[44px] min-w-[44px] inline-flex items-center justify-center transition-colors ${
                     viewMode === "grid"
                       ? "bg-gray-900 text-white"
                       : "text-gray-400 hover:text-gray-700"
@@ -213,7 +213,7 @@ export default function Products() {
                 <button
                   type="button"
                   onClick={() => setViewMode("list")}
-                  className={`p-2.5 transition-colors ${
+                  className={`p-2.5 min-h-[44px] min-w-[44px] inline-flex items-center justify-center transition-colors ${
                     viewMode === "list"
                       ? "bg-gray-900 text-white"
                       : "text-gray-400 hover:text-gray-700"
@@ -236,14 +236,14 @@ export default function Products() {
                   type="button"
                   key={cat.value}
                   onClick={() => selectCollection(cat.value)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
+                  className={`min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                     isActive
                       ? "bg-gray-900 text-white border-gray-900 shadow-sm"
                       : "bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900"
                   }`}
                 >
                   {cat.label}
-                  <span className={`ml-2 text-xs ${isActive ? "text-gray-300" : "text-gray-400"}`}>
+                  <span className={`ml-2 text-xs ${isActive ? "text-gray-300" : "text-gray-500"}`}>
                     {count}
                   </span>
                 </button>
@@ -253,7 +253,7 @@ export default function Products() {
 
           {/* Shop by system */}
           <div className="flex flex-wrap items-center gap-2 -mt-4 mb-8" aria-label="Shop by system">
-            <span className="text-xs uppercase tracking-widest text-gray-400 mr-1">Shop by system</span>
+            <span className="text-xs uppercase tracking-widest text-gray-500 mr-1">Shop by system</span>
             {SHOP_SYSTEMS.map((system) => {
               const value = SYSTEM_FILTER_PREFIX + system.id;
               const isActive = activeCategory === value;
@@ -263,7 +263,7 @@ export default function Products() {
                   key={system.id}
                   onClick={() => selectCollection(isActive ? "all" : value)}
                   aria-pressed={isActive}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                  className={`min-h-[44px] px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
                     isActive
                       ? "bg-orange-50 text-orange-800 border-orange-200"
                       : "bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
@@ -298,10 +298,11 @@ export default function Products() {
           {activeSystem && <SystemIntro system={activeSystem} />}
 
           {/* Results count */}
-          <p className="text-sm text-gray-400 mb-5">
+          <p className="text-sm text-gray-500 mb-5">
             {loading ? "Loading…" : `${filteredAndSorted.length} product${filteredAndSorted.length !== 1 ? "s" : ""}`}
           </p>
 
+          <h2 className="sr-only">Product list</h2>
           {/* Product Display */}
           {loading ? (
             <GridSkeleton />
@@ -319,8 +320,8 @@ export default function Products() {
             </div>
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-              {filteredAndSorted.map((product) => (
-                <ProductGridCard key={product.id} product={product} reviewSummary={reviewSummaries[product.id]} />
+              {filteredAndSorted.map((product, i) => (
+                <ProductGridCard key={product.id} eager={i < 2} product={product} reviewSummary={reviewSummaries[product.id]} />
               ))}
             </div>
           ) : (

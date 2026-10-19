@@ -22,6 +22,7 @@ import { useReviewSummaries } from "@/lib/reviewsApi";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import { getProductById } from "@/data/products";
+import { isHiddenProduct } from "@shared/hidden-products";
 import ProductReviews from "@/components/reviews/ProductReviews";
 import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
@@ -36,6 +37,10 @@ import PdpAccordion from "@/components/shop/PdpAccordion";
 import SimilarProducts from "@/components/shop/SimilarProducts";
 import { getPublicProtocol, goalsWithData } from "@/data/protocols";
 import { lazy, Suspense } from "react";
+import PreorderBadge from "@/components/PreorderBadge";
+import { Helmet } from "react-helmet-async";
+import { responsiveImage } from "@/lib/responsiveImage";
+import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
 const PepitaLauncher = lazy(() => import("@/components/peppy/PepitaLauncher"));
 
 function BulletList({ items }: { items: string[] }) {
@@ -57,8 +62,15 @@ export default function ProductDetail() {
   // Build-time prerender: render the full page body (H1, copy, price) from the
   // catalog snapshot instead of "Loading product...". In the browser the
   // context is null, so state starts empty and Firestore loads as before.
+  // Browser: start from the code catalog (same snapshot the prerender used) so the page
+  // paints immediately instead of a "Loading product..." shell that later shifts (CLS).
+  // Firestore still loads below and replaces it (live price/stock).
   const ssrProduct =
-    prerenderProduct && prerenderProduct.id === id ? (prerenderProduct as unknown as Product) : null;
+    prerenderProduct && prerenderProduct.id === id
+      ? (prerenderProduct as unknown as Product)
+      : id && !isHiddenProduct({ id })
+        ? ((getProductById(id) as unknown as Product | undefined) ?? null)
+        : null;
   const [product, setProduct] = useState<Product | null>(ssrProduct);
   const [loading, setLoading] = useState(!ssrProduct);
   const [protocolSelection, setProtocolSelection] = useState<ProtocolSelection>({});
@@ -92,7 +104,8 @@ export default function ProductDetail() {
 
   const loadProduct = async () => {
     if (!id) return;
-    setLoading(true);
+    // Keep the catalog render on screen while the live product loads.
+    if (!product || product.id !== id) setLoading(true);
     try {
       const data = await fetchProductById(id);
       setProduct(data);
@@ -194,15 +207,23 @@ export default function ProductDetail() {
     }
   };
 
+  // Preload the LCP image (first gallery image) with the same srcset/sizes the gallery uses.
+  const heroImg = currentImages[0] ? responsiveImage(currentImages[0], "(min-width: 768px) 600px, 100vw") : null;
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {seo}
+      {heroImg?.src && (
+        <Helmet>
+          <link rel="preload" as="image" href={heroImg.src} {...(heroImg.srcSet ? { imagesrcset: heroImg.srcSet, imagesizes: heroImg.sizes } : {})} fetchpriority="high" />
+        </Helmet>
+      )}
       <Navigation />
       <main className="flex-1">
         <div className="max-w-7xl mx-auto px-4 py-8">
 
           {/* Back */}
-          <Link href="/products" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-8 text-sm transition-colors">
+          <Link href="/products" className="inline-flex items-center gap-2 py-2 text-gray-500 hover:text-gray-900 mb-6 text-sm transition-colors">
             <ArrowLeft size={16} />
             Back to Products
           </Link>
@@ -221,6 +242,10 @@ export default function ProductDetail() {
               </span>
 
               <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
+              {isPreorderProduct(product.id) && (
+                <p className="flex flex-wrap items-center gap-2 text-sm text-gray-700" data-testid="pdp-preorder">
+                  <PreorderBadge productId={product.id} />
+                  <span>{PREORDER_CART_NOTE}</span>
               {systemsForProduct(product.id).length > 0 && (
                 <p className="text-sm text-gray-500" data-testid="pdp-systems">
                   Part of:{" "}
@@ -287,11 +312,11 @@ export default function ProductDetail() {
               {/* Quantity + Add to cart */}
               <div className="flex gap-3">
                 <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-gray-50 transition-colors">
+                  <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3 py-2 hover:bg-gray-50 transition-colors">
                     <Minus size={16} />
                   </button>
                   <span className="px-4 font-semibold text-sm min-w-[2rem] text-center">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2 hover:bg-gray-50 transition-colors">
+                  <button type="button" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)} className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3 py-2 hover:bg-gray-50 transition-colors">
                     <Plus size={16} />
                   </button>
                 </div>
@@ -315,7 +340,7 @@ export default function ProductDetail() {
                     ? `Add ${activeBundle} bottles · $${(bundleTotal * quantity).toFixed(2)}`
                     : "Add to Cart"}
                 </Button>
-                <Button onClick={handleWishlistToggle} variant="outline" size="icon">
+                <Button onClick={handleWishlistToggle} variant="outline" size="icon" className="h-11 w-11" aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"} aria-pressed={inWishlist}>
                   <Heart size={16} className={inWishlist ? "fill-red-500 text-red-500" : ""} />
                 </Button>
               </div>
