@@ -28,6 +28,7 @@ import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
 import AuthenticityDocumentation from "@/components/documentation/AuthenticityDocumentation";
 import PageSeo from "@/components/seo/PageSeo";
+import { systemPath, systemsForProduct } from "@/data/bodySystems";
 import { SeoProductContext } from "@/components/seo/SeoProductContext";
 import { productHead } from "@/lib/seo";
 import { getPdpContent } from "@shared/product-facts";
@@ -220,6 +221,19 @@ export default function ProductDetail() {
               </span>
 
               <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
+              {systemsForProduct(product.id).length > 0 && (
+                <p className="text-sm text-gray-500" data-testid="pdp-systems">
+                  Part of:{" "}
+                  {systemsForProduct(product.id).map((s, i) => (
+                    <span key={s.slug}>
+                      {i > 0 && ", "}
+                      <Link href={systemPath(s.slug)} className="text-orange-600 hover:underline">
+                        {s.name} bioregulators
+                      </Link>
+                    </span>
+                  ))}
+                </p>
+              )}
               {pdp?.lineCode && (
                 <div className="space-y-2" data-testid="pdp-header">
                   <p className="text-base text-gray-700">{pdp.title.split(" | ")[1]}</p>

@@ -11,6 +11,7 @@ export { loadSeoCatalog } from "@shared/seo-catalog";
 export { publishedCertificates } from "./data/certificates";
 export { PRIVATE_ROUTES, SITE_URL, productPath, productHead } from "./lib/seo";
 export { PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES, buildSitemapXml, w3cDate } from "./lib/seo/sitemap";
+export { CATEGORY_ROUTES, CATEGORY_PAGES_LIVE } from "./data/bodySystems";
 export { isPublicReview, toPublicReview, summarize as summarizeReviews } from "@shared/reviews";
 
 // Simple static location hook for SSR — no useSyncExternalStore needed

@@ -31,6 +31,14 @@ describe("hidden products", () => {
     for (const id of Array.from(HIDDEN_PRODUCT_IDS)) expect(ids, id).toContain(id);
   });
 
+  it("Calsil-T and Indosine are hidden (on hold) and stay hidden even if Firestore lists them", () => {
+    for (const id of ["calsil-t", "indosine"]) {
+      expect(HIDDEN_PRODUCT_IDS.has(id), id).toBe(true);
+      expect(getProductById(id), id).toBeUndefined();
+      expect(isHiddenProduct({ id, hidden: false, active: true }), id).toBe(true);
+    }
+  });
+
   it("Panaxod is hidden (off the shop, Pepita, pairings and similar products)", () => {
     expect(HIDDEN_PRODUCT_IDS.has("panaxod")).toBe(true);
     expect(getProductById("panaxod")).toBeUndefined();

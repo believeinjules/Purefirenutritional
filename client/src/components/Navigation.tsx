@@ -1,7 +1,8 @@
 import { LEARN_ARTICLES } from "@/content/learnArticles";
 import { Link } from "wouter";
 import { ShoppingCart, User, Heart, Menu, X, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { MENU_BODY_SYSTEMS, COLLECTIONS, GOALS, LIST_PAGE_PATH, SYSTEMS_LANDING_PATH, browsePath } from "@/data/bodySystems";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 
@@ -12,7 +13,45 @@ const SCIENCE_SUBMENU = [
   { label: "Longevity Journal", href: "/learn" },
 ];
 
+/**
+ * Shop menu sections (desktop dropdown + mobile collapsible sections), built
+ * from the shop taxonomy (data/bodySystems.ts + data/productTags.ts).
+ */
+const SHOP_SECTIONS = [
+  {
+    id: "systems",
+    label: "Shop by Body System",
+    items: [
+      ...MENU_BODY_SYSTEMS.map((p) => ({ label: p.name, href: browsePath(p) })),
+      { label: "All body systems", href: SYSTEMS_LANDING_PATH },
+    ],
+  },
+  { id: "collections", label: "Shop by Collection", items: COLLECTIONS.map((p) => ({ label: p.name, href: browsePath(p) })) },
+  { id: "goals", label: "Shop by Goal", items: GOALS.map((p) => ({ label: p.name, href: browsePath(p) })) },
+];
+const SHOP_ALL_LINK = { label: "Shop All", href: "/products" };
+const ALL_KHAVINSON_LINK = { label: "All Khavinson Peptides", href: LIST_PAGE_PATH };
+const ASK_PEPITA_LINK = { before: "Not sure where to start?", label: "Ask Pepita", href: "/ai-assistant" };
+/** Small highlighted CTA under Shop by Goal; the site's existing accent gradient (cart/wishlist badges). */
+const CTA_GRADIENT = "linear-gradient(135deg, #E8793A, #B83870)";
+function AskPepitaCta({ onClick, className = "" }: { onClick?: () => void; className?: string }) {
+  return (
+    <Link
+      href={ASK_PEPITA_LINK.href}
+      onClick={onClick}
+      className={`inline-block rounded-full px-3 py-1 text-[12px] font-medium leading-snug text-white shadow-sm hover:opacity-90 transition-opacity ${className}`}
+      style={{ background: CTA_GRADIENT }}
+    >
+      {ASK_PEPITA_LINK.before} {ASK_PEPITA_LINK.label}
+    </Link>
+  );
+}
+
 export default function Navigation() {
+  const [shopOpen, setShopOpen] = useState(false);
+  const [mobileOpenSection, setMobileOpenSection] = useState<string | null>(null);
+  // Esc returns focus to "Shop" without reopening the menu.
+  const skipReopen = useRef(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items } = useCart();
   const { items: wishlistItems } = useWishlist();
@@ -22,7 +61,7 @@ export default function Navigation() {
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Products", href: "/products" },
+    { label: "Shop", href: "/products" },
     { label: "Science", href: "/science" },
     { label: "Authenticity", href: "/authenticity" },
     { label: "About", href: "/about" },
@@ -66,7 +105,78 @@ export default function Navigation() {
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-7">
             {navLinks.map(({ label, href }) =>
-              href === "/science" ? (
+              href === "/products" ? (
+                <div
+                  key={href}
+                  className="relative group"
+                  data-nav-shop
+                  onMouseEnter={() => setShopOpen(true)}
+                  onMouseLeave={() => setShopOpen(false)}
+                  onFocus={() => {
+                    if (skipReopen.current) skipReopen.current = false;
+                    else setShopOpen(true);
+                  }}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setShopOpen(false);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") {
+                      setShopOpen(false);
+                      skipReopen.current = true;
+                      (e.currentTarget.querySelector("a") as HTMLElement | null)?.focus();
+                    }
+                  }}
+                >
+                  <Link
+                    href={href}
+                    className="nav-link inline-flex items-center gap-1"
+                    aria-haspopup="true"
+                    aria-expanded={shopOpen}
+                    aria-controls="nav-shop-menu"
+                  >
+                    {label}
+                    <ChevronDown className="h-3 w-3 opacity-70" aria-hidden="true" />
+                  </Link>
+                  {/* Shop submenu: same panel as Science; shown on hover or keyboard focus, Esc closes */}
+                  <div
+                    id="nav-shop-menu"
+                    className={`absolute left-1/2 -translate-x-1/2 top-full pt-4 ${shopOpen ? "block" : "hidden"}`}
+                  >
+                    <div
+                      className="w-[46rem] rounded-md border border-white/10 py-2 shadow-xl"
+                      style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
+                    >
+                      <Link href={SHOP_ALL_LINK.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
+                        {SHOP_ALL_LINK.label}
+                      </Link>
+                      <div className="grid grid-cols-3 border-t border-white/10 mt-1 pt-1">
+                        {SHOP_SECTIONS.map((section) => (
+                          <div key={section.id} role="group" aria-labelledby={`nav-shop-${section.id}-label`}>
+                            <p id={`nav-shop-${section.id}-label`} className="px-5 pt-2 pb-1 text-[11px] uppercase tracking-widest text-white/50">
+                              {section.label}
+                            </p>
+                            {section.items.map((item) => (
+                              <Link key={item.href} href={item.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
+                                {item.label}
+                              </Link>
+                            ))}
+                            {section.id === "goals" && (
+                              <div className="px-5 pt-2 pb-1">
+                                <AskPepitaCta />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="border-t border-white/10 mt-1 pt-1">
+                        <Link href={ALL_KHAVINSON_LINK.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
+                          {ALL_KHAVINSON_LINK.label}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : href === "/science" ? (
                 <div key={href} className="relative group" data-nav-science>
                   <Link href={href} className="nav-link inline-flex items-center gap-1" aria-haspopup="true">
                     {label}
@@ -135,6 +245,7 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="nav-scale md:hidden text-white/80 hover:text-white transition-colors"
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -153,6 +264,49 @@ export default function Navigation() {
                 >
                   {label}
                 </Link>
+                {href === "/products" && (
+                  <div className="pl-4 pb-1 border-l border-white/10">
+                    <Link href={SHOP_ALL_LINK.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                      {SHOP_ALL_LINK.label}
+                    </Link>
+                    {SHOP_SECTIONS.map((section) => {
+                      const open = mobileOpenSection === section.id;
+                      return (
+                        <div key={section.id}>
+                          <button
+                            type="button"
+                            className="flex w-full items-center justify-between py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
+                            aria-expanded={open}
+                            aria-controls={`mobile-shop-${section.id}`}
+                            onClick={() => setMobileOpenSection(open ? null : section.id)}
+                          >
+                            {section.label}
+                            <ChevronDown className={`h-3 w-3 opacity-70 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+                          </button>
+                          {open && (
+                            <ul id={`mobile-shop-${section.id}`} className="pl-4 border-l border-white/10" aria-label={section.label}>
+                              {section.items.map((item) => (
+                                <li key={item.href}>
+                                  <Link href={item.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                    {item.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          {section.id === "goals" && (
+                            <div className="py-1.5">
+                              <AskPepitaCta onClick={() => setIsMenuOpen(false)} />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                    <Link href={ALL_KHAVINSON_LINK.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                      {ALL_KHAVINSON_LINK.label}
+                    </Link>
+                  </div>
+                )}
                 {href === "/science" && (
                   <div className="pl-4 pb-1 border-l border-white/10">
                     {SCIENCE_SUBMENU.map((item) => (

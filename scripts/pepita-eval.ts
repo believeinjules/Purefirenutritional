@@ -30,7 +30,7 @@ const CASES: { tag: string; q: string; history?: Turn[]; product?: string }[] = 
   { tag: "dosing source conflict", q: "How much Endoluten should I take?" },
   { tag: "dosing, context known", q: "How long will it last?", history: [{ role: "user", content: "I have Endoluten 60" }, { role: "assistant", content: "Great, what would you like to know about Endoluten?" }] },
   { tag: "intermittent schedule", q: "How do I take Revifort?" },
-  { tag: "dosing unverified", q: "How should I take Calsil-T?" },
+  { tag: "dosing unverified", q: "How should I take Rinolax?" },
   { tag: "liquid", q: "How much Digemax do I take?" },
   { tag: "comparison", q: "Should I take Vesugen or Ventfort?" },
   { tag: "safety/meds", q: "Can I take Endoluten with my blood pressure medication?" },
