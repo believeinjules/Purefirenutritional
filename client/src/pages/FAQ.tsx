@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import PageSeo from "@/components/seo/PageSeo";
+import { faqPageJsonLd } from "@/lib/seo";
 import { ChevronDown, Phone, Mail, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -184,6 +185,7 @@ export default function FAQ() {
         description="Get answers to common questions about Khavinson peptide bioregulators, ordering, shipping, and how our products support longevity and wellness."
         path="/faq"
         type="website"
+        jsonLd={[faqPageJsonLd(faqs)]}
       />
       <Navigation />
 
