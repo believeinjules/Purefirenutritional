@@ -76,7 +76,7 @@ describe("deterministic answers", () => {
     expect(r.summary).toMatch(/manufacturer's directions for Ensil: Adults: 1 capsule 3 times a day with meals/);
     expect(r.summary).toMatch(/not results from clinical trials/);
     // Unverified products get no generic template.
-    expect(ask("how do I take Calsil-T?").summary).toMatch(/haven't been verified/);
+    expect(ask("how do I take Rinolax?").summary).toMatch(/haven't been verified/);
   });
   it("names Endoluten + melatonin as unstudied rather than guessing", () => {
     const r = ask("Can I take Endoluten with melatonin?");

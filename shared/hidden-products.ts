@@ -9,9 +9,13 @@ export const HIDDEN_PRODUCT_IDS: ReadonlySet<string> = new Set([
   "temero-genero",
   "trezvon",
   "olecap",
+  "panaxod",
   "previn",
   "regenart",
   "gelmigon",
+  // On hold (Julia, 2026-10-19): Calsil-T identity unconfirmed; Indosine formulation version unknown.
+  "calsil-t",
+  "indosine",
 ]);
 
 export function isHiddenProduct(p: { id?: unknown; hidden?: unknown; active?: unknown } | null | undefined): boolean {

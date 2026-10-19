@@ -12,6 +12,9 @@ import { WishlistProvider } from "./contexts/WishlistContext";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import BrowseCategoryPage from "./pages/BrowseCategoryPage";
+import SystemsLanding from "./pages/SystemsLanding";
+import KhavinsonPeptidesList from "./pages/KhavinsonPeptidesList";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
@@ -56,6 +59,12 @@ function Router() {
     <Switch>
       <Route path="/" component={Index} />
       <Route path="/products" component={Products} />
+      {/* Category pages: registered before /products/:id */}
+      <Route path="/products/system" component={SystemsLanding} />
+      <Route path="/products/system/:slug">{() => <BrowseCategoryPage kind="system" />}</Route>
+      <Route path="/products/collection/:slug">{() => <BrowseCategoryPage kind="collection" />}</Route>
+      <Route path="/products/goal/:slug">{() => <BrowseCategoryPage kind="goal" />}</Route>
+      <Route path="/khavinson-peptides-list" component={KhavinsonPeptidesList} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/products/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />

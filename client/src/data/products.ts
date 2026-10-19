@@ -174,7 +174,7 @@ const catalogProducts: Product[] = [
     name: "Endoluten",
     description: "Endoluten® (A-8) is the Pineal Peptide Bioregulator — the most foundational peptide in the Khavinson longevity protocol. Contains the epiphyseal peptide complex that regulates hormonal metabolism, acts on neuroendocrine system cells, normalizes pineal cell metabolism and melatonin secretion. Analog of pharmaceutical Epithalamin. Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help. Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 126.99,
+    priceUSD: 124.99,
     priceEUR: 85,
     rating: 4.8,
     sizes: 2,
@@ -185,7 +185,7 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 126.99,
+        priceUSD: 124.99,
         priceEUR: 85,
         inStock: true
       },

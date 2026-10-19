@@ -4,6 +4,12 @@
 import nodemailer from 'nodemailer';
 import { logError } from './logger.js';
 
+/**
+ * Where customers see their orders: the account dashboard's Order History
+ * (client route /dashboard; there is no per-order page).
+ */
+const ORDERS_URL = 'https://www.purefirenutritional.com/dashboard';
+
 interface OrderDetails {
   orderId: string;
   customerName: string;
@@ -147,7 +153,7 @@ function getOrderConfirmationHTML(order: OrderDetails): string {
                   
                   <!-- Call to Action -->
                   <div style="text-align: center; margin-top: 40px;">
-                    <a href="https://purefire.com/orders/${order.orderId}" style="display: inline-block; background: linear-gradient(135deg, #f97316 0%, #f43f5e 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: bold; font-size: 16px;">View Order Details</a>
+                    <a href="${ORDERS_URL}" style="display: inline-block; background: linear-gradient(135deg, #f97316 0%, #f43f5e 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: bold; font-size: 16px;">View Order Details</a>
                   </div>
                 </td>
               </tr>
@@ -156,7 +162,7 @@ function getOrderConfirmationHTML(order: OrderDetails): string {
               <tr>
                 <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                   <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 14px;">
-                    Questions? Contact us at <a href="mailto:support@purefire.com" style="color: #f97316; text-decoration: none;">support@purefire.com</a>
+                    Questions? Contact us at <a href="mailto:support@purefirenutritional.com" style="color: #f97316; text-decoration: none;">support@purefirenutritional.com</a>
                   </p>
                   <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                     © ${new Date().getFullYear()} Pure Fire Nutritional. All rights reserved.
@@ -193,7 +199,7 @@ Total: $${order.total.toFixed(2)}
 
 We've received your order and are preparing it for shipment. You'll receive another email with tracking information once your order ships.
 
-Questions? Contact us at support@purefire.com
+Questions? Contact us at support@purefirenutritional.com
 
 © ${new Date().getFullYear()} Pure Fire Nutritional. All rights reserved.
   `.trim();

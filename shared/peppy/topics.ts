@@ -56,7 +56,7 @@ export const TOPICS: Topic[] = [
       /\b(tired\w*|fatigu\w*|exhaust\w*|low energy|no energy|lack of energy|more energy|energy levels?|energy|sluggish|drained|wiped out|afternoon (?:slump|crash|dip)|crash(?:ing)? in the afternoon|run down|worn out|lethargic)\b/i,
     ],
     summary:
-      "Panaxod is built on Panax ginseng, an adaptogen researchers have studied for everyday tiredness, while Ensil combines CoQ10, L-carnitine and B vitamins, nutrients involved in how cells make energy. The difference is a plant adaptogen versus an energy-metabolism blend. Tiredness lasting more than 2–3 weeks is worth checking for low iron, B12 or thyroid changes.",
+      "Ensil combines CoQ10, L-carnitine and B vitamins, nutrients involved in how cells make energy, while Revimite includes iron and B vitamins, which matter if a blood test shows your iron or B12 is low. Tiredness lasting more than 2–3 weeks is worth checking for low iron, B12 or thyroid changes.",
     sections: [
       {
         heading: "What usually drives it",
@@ -112,7 +112,7 @@ export const TOPICS: Topic[] = [
     followUps: ["How long has the tiredness been going on, and is it mainly in the afternoon or all day?", "How are you sleeping — roughly how many hours, and do you snore or wake up unrefreshed?", "Do you have heavy periods, follow a plant-based diet, or take any regular medicines?"],
     suggestions: [
       "How can I sleep better?",
-      "Tell me about Panaxod",
+      "Tell me about Ensil",
       "Is ginseng safe with my medications?",
       "Do Khavinson peptides actually work in humans?",
     ],
@@ -279,12 +279,6 @@ export const TOPICS: Topic[] = [
         why: "Sublingual Revilab blend of cartilage, muscle and immune peptide complexes for the musculoskeletal system.",
         evidenceNote:
           "Cartilage peptide research is cell and animal work; Revilab SL 04 hasn't been tested in published trials.",
-      },
-      {
-        id: "calsil-t",
-        why: "Calcium and magnesium formula for bone, teeth and muscle function.",
-        evidenceNote:
-          "Calcium and magnesium matter most when dietary intake is low; Calsil-T itself hasn't been tested in published trials.",
       },
     ],
     productPolicy: "symptom",
@@ -1411,7 +1405,7 @@ export const TOPICS: Topic[] = [
       /\b(stress\w*|anxious|worr\w*|overwhelm\w*|burn ?out|burnt out|low mood|mood|irritab\w*|calm)\b/i,
     ],
     summary:
-      "Glandokort is a natural adrenal gland peptide complex, believed to support the body's everyday stress response, while Panaxod is built on Panax ginseng, an adaptogen with modest, mixed evidence. The difference is a tissue-specific peptide course versus a daily plant adaptogen, and ginseng can interact with some medicines. Low mood lasting over two weeks deserves support from a clinician.",
+      "Glandokort is a natural adrenal gland peptide complex, believed to support the body's everyday stress response, while Felicita is a mood-support formula for a balanced, positive mood and stress resilience. Low mood lasting over two weeks deserves support from a clinician.",
     sections: [
       {
         heading: "What the research says",
@@ -1528,12 +1522,6 @@ export const TOPICS: Topic[] = [
         why: "Antioxidant peptide formula with broccoli extract and mushrooms from the Prime Peptide line.",
         evidenceNote:
           "Its peptide data is the manufacturer's lab and animal work; no independent human trials.",
-      },
-      {
-        id: "indosine",
-        why: "Indole-3-carbinol, broccoli extract, CoQ10 and antioxidant enzymes for cellular upkeep.",
-        evidenceNote:
-          "Ingredient research is mostly lab work; Indosine itself hasn't been tested in published trials.",
       },
     ],
     maxProducts: 2,

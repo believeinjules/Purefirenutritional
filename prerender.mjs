@@ -147,6 +147,23 @@ async function prerender() {
     console.log(`Prerendered (unlisted): ${route}`);
   }
 
+  // ── Khavinson Peptides List + body-system pages (/products/system/<slug>) ─
+  // Rendered from client/src/data/bodySystems.ts. While CATEGORY_PAGES_LIVE is
+  // false each page carries noindex and stays out of the sitemap.
+  const categoryProblems = [];
+  for (const route of ssr.CATEGORY_ROUTES) {
+    const page = renderRoute(route);
+    if (!page.includes('"@type":"CollectionPage"')) categoryProblems.push(`${route}: no CollectionPage JSON-LD`);
+    if (!page.includes('"@type":"BreadcrumbList"')) categoryProblems.push(`${route}: no BreadcrumbList JSON-LD`);
+    const noindex = /<meta[^>]*name="robots"[^>]*noindex/.test(page);
+    if (noindex === ssr.CATEGORY_PAGES_LIVE) categoryProblems.push(`${route}: noindex=${noindex} but CATEGORY_PAGES_LIVE=${ssr.CATEGORY_PAGES_LIVE}`);
+    writeFile(outPathFor(route), page);
+  }
+  if (categoryProblems.length) throw new Error(`Category pages:\n${categoryProblems.join("\n")}`);
+  console.log(
+    `Prerendered${ssr.CATEGORY_PAGES_LIVE ? "" : " (noindex, not in sitemap)"}: ${ssr.CATEGORY_ROUTES.length} category pages`
+  );
+
   // ── Product pages ─────────────────────────────────────────────────────────
   const reviews = await loadApprovedReviews(ssr);
   console.log(`Reviews for AggregateRating: ${reviews.note}`);
@@ -191,6 +208,8 @@ async function prerender() {
   // ── sitemap.xml ───────────────────────────────────────────────────────────
   const sitemapEntries = [
     ...publicRoutes.map((route) => ({ path: route, lastmod: buildDate })),
+    // Off until CATEGORY_PAGES_LIVE (client/src/data/bodySystems.ts) is true.
+    ...(ssr.CATEGORY_PAGES_LIVE ? ssr.CATEGORY_ROUTES.map((route) => ({ path: route, lastmod: buildDate })) : []),
     ...catalog.entries.map(({ product, updatedAt }) => ({
       path: ssr.productPath(product.id),
       lastmod: updatedAt ? ssr.w3cDate(updatedAt) : buildDate,

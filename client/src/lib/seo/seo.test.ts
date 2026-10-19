@@ -110,6 +110,8 @@ describe("urls", () => {
   });
 });
 
+import { CATEGORY_ROUTES } from "@/data/bodySystems";
+
 describe("routes, robots and sitemap", () => {
   const app = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
   const appRoutes = new Set(Array.from(app.matchAll(/<Route path="([^"]+)"/g), (m) => m[1]));
@@ -126,8 +128,9 @@ describe("routes, robots and sitemap", () => {
     const redirected = new Set<string>(vercel.redirects.map((r: { source: string }) => r.source));
     // Dynamic routes prerendered from data in prerender.mjs (catalog products, published certificates).
     // /review/:slug: one noindex shell per catalog product. /__dev/*: DEV-only routes.
-    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug"]);
-    const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES)]);
+    // /products/{system,collection,goal}/:slug: one page per browse page (CATEGORY_ROUTES).
+    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug", "/products/system/:slug", "/products/collection/:slug", "/products/goal/:slug"]);
+    const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES), ...CATEGORY_ROUTES]);
     const unserved = Array.from(appRoutes).filter(
       (r) => r !== "/404" && !r.startsWith("/__dev/") && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)
     );

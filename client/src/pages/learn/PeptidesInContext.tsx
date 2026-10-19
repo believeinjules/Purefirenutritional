@@ -201,12 +201,8 @@ export default function ArticlePeptidesInContext() {
 
             <hr className="my-10 border-gray-200" />
 
-            <blockquote className="border-l-4 border-orange-300 bg-orange-50/60 px-5 py-4 text-gray-700 not-italic">
-              <p><strong>Where the evidence stands.</strong> <em>Established in humans:</em> peptides such as insulin and oxytocin act across many systems; GLP-1 drug side effects and weight regain. <em>Animal evidence:</em> oxytocin–dopamine–vasopressin pair bonding; estrogen effects on oxytocin receptors. <em>Hypothesis:</em> Khavinson's bioregulation model, supported mainly by cell, animal, and small or uncontrolled human studies from one research group.</p>
-            </blockquote>
-
             <p>
-              That is also how we try to describe the products on this site: as tools connected to a research tradition we find worth taking seriously, not as proven solutions. If you want the full, independent version of this essay, it appears on The Short Peptide.
+              That is also how we try to describe the products on this site: as tools connected to a research tradition we find worth taking seriously, not as proven solutions.
             </p>
 
           </div>

@@ -20,7 +20,7 @@ import {
 import { products as catalog } from "@/data/products";
 
 /** Discontinued products (vercel.json redirects them to /products). */
-const DISCONTINUED = new Set(["femalin", "temero-genero", "trezvon", "olecap", "previn", "regenart", "gelmigon"]);
+const DISCONTINUED = new Set(["femalin", "temero-genero", "trezvon", "olecap", "panaxod", "previn", "regenart", "gelmigon", "calsil-t", "indosine"]);
 
 export function reviewableProducts(): Array<{ id: string; name: string }> {
   return catalog

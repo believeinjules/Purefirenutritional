@@ -22,6 +22,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { toast } from "sonner";
+import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
 
 // ─── Wellness category data ───────────────────────────────────────────────────
 
@@ -142,8 +143,8 @@ export default function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Khavinson Peptide Bioregulators & Longevity Supplements"
-        description="Explore evidence-backed nutrition supplements and Khavinson peptide bioregulators for cognitive vitality, recovery, resilience, and healthy aging. Shop now."
+        title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"
+        description="Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized US retailer of oral capsule supplements for healthy aging."
         path="/"
         type="website"
         jsonLd={[websiteJsonLd()]}
@@ -156,7 +157,16 @@ export default function Index() {
           "url": "https://www.purefirenutritional.com",
           "logo": "https://www.purefirenutritional.com/logo-flame.jpeg",
           "telephone": "(315) 567-7931",
-          "email": "info@purefirenutritional.com",
+          "email": CONTACT_EMAIL,
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "email": SUPPORT_EMAIL,
+              "telephone": "+1-315-567-7931",
+              "availableLanguage": "English"
+            }
+          ],
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "505 Brighton Beach Ave 2nd FL",

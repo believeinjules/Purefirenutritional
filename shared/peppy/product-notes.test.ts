@@ -98,14 +98,14 @@ describe("universal dosing note", () => {
     const a = analyze({ message, catalog });
     expect(a.productsAllowed).toBe(true);
     const topic = a.topics[0];
-    const id = topic.products.find(p => catalog.get(p.id)?.inStock !== false)!.id;
+    const id = topic.products.find(p => catalog.has(p.id) && catalog.get(p.id)!.inStock !== false)!.id;
     const callLlm = vi.fn(async () =>
       JSON.stringify({
         summary:
           "Tiredness is usually about sleep, meals, caffeine timing and movement; check iron and thyroid if it lasts weeks.",
         sections: [{ heading: "What helps", body: "A short walk after lunch helps many people." }],
         sourceIds: [],
-        products: [{ id, why: "Built on Panax ginseng.", evidenceNote: "No published trials of the finished formula." }],
+        products: [{ id, why: "From our catalog.", evidenceNote: "No published trials of the finished formula." }],
         followUps: [],
         suggestions: ["Is it safe with my medications?", "What helps with sleep?"],
       })

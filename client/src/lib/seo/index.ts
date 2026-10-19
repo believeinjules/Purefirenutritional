@@ -8,6 +8,7 @@
  */
 import { variantCartSize } from "@shared/product-prices";
 import { getPdpContent } from "@shared/product-facts";
+import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
 export const SITE_NAME = "Pure Fire Nutritional";
@@ -445,30 +446,49 @@ export function productSnippet(product: {
   return out;
 }
 
-/** Home > Shop > Product breadcrumb trail. */
-export function productBreadcrumbJsonLd(product: { id: string; name: string }): Record<string, unknown> {
+/**
+ * Home > Shop > Product breadcrumb trail. Once the body-system pages are live
+ * (CATEGORY_PAGES_LIVE) it becomes Home > Shop > <primary system> > Product.
+ */
+export function productBreadcrumbJsonLd(
+  product: { id: string; name: string },
+  live: boolean = CATEGORY_PAGES_LIVE
+): Record<string, unknown> {
+  const primary = live ? systemsForProduct(product.id)[0] : undefined;
+  const trail: Array<{ name: string; item: string }> = [
+    { name: "Home", item: `${SITE_URL}/` },
+    { name: "Shop", item: canonicalUrl("/products") },
+    ...(primary ? [{ name: primary.name, item: canonicalUrl(systemPath(primary.slug)) }] : []),
+    { name: product.name, item: canonicalUrl(productPath(product.id)) },
+  ];
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Shop", item: canonicalUrl("/products") },
-      { "@type": "ListItem", position: 3, name: product.name, item: canonicalUrl(productPath(product.id)) },
-    ],
+    itemListElement: trail.map((t, i) => ({ "@type": "ListItem", position: i + 1, ...t })),
   };
 }
 
-/** Everything the <head> of a product page needs. */
+/** FAQPage structured data: one Question/Answer per entry, plain text exactly as the page renders it. */
+export function faqPageJsonLd(items: ReadonlyArray<{ question: string; answer: string }>): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+}
+
 /** FAQPage structured data from the written PDP FAQs (same text the page renders). */
 export function productFaqJsonLd(id: string): Record<string, unknown>[] {
   const faq = getPdpContent(id)?.faq;
   if (!faq?.length) return [];
-  return [{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-  }];
+  return [faqPageJsonLd(faq.map((f) => ({ question: f.q, answer: f.a })))];
 }
+
+/** Everything the <head> of a product page needs. */
 
 export function productHead(product: SeoProduct) {
   const images = productImageUrls(product);

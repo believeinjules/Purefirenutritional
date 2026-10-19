@@ -29,6 +29,7 @@ import { variantToCartSize, type CartSize } from "@/lib/productSize";
 import { getUnitPriceUSD } from "@shared/product-prices";
 import AuthenticityDocumentation from "@/components/documentation/AuthenticityDocumentation";
 import PageSeo from "@/components/seo/PageSeo";
+import { systemPath, systemsForProduct } from "@/data/bodySystems";
 import { SeoProductContext } from "@/components/seo/SeoProductContext";
 import { productHead } from "@/lib/seo";
 import { getPdpContent } from "@shared/product-facts";
@@ -245,6 +246,17 @@ export default function ProductDetail() {
                 <p className="flex flex-wrap items-center gap-2 text-sm text-gray-700" data-testid="pdp-preorder">
                   <PreorderBadge productId={product.id} />
                   <span>{PREORDER_CART_NOTE}</span>
+              {systemsForProduct(product.id).length > 0 && (
+                <p className="text-sm text-gray-500" data-testid="pdp-systems">
+                  Part of:{" "}
+                  {systemsForProduct(product.id).map((s, i) => (
+                    <span key={s.slug}>
+                      {i > 0 && ", "}
+                      <Link href={systemPath(s.slug)} className="text-orange-600 hover:underline">
+                        {s.name} bioregulators
+                      </Link>
+                    </span>
+                  ))}
                 </p>
               )}
               {pdp?.lineCode && (
@@ -487,16 +499,14 @@ export default function ProductDetail() {
           {/* Founder line — hidden until Julia approves it and a photo is set */}
           <FounderBlock />
 
-          {/* Frequently bought together — catalog-backed companions only */}
+          {/* "Pairs well with" (FrequentlyBoughtTogether) — curated, catalog-backed companions only */}
           {(() => {
             const catalogProduct = getProductById(product.id);
             if (!catalogProduct) return null;
-            const recommendations = getRecommendations(catalogProduct.id, 2)
-              .map((rec) => {
-                const companion = getProductById(rec.productId);
-                return companion ? { product: companion, reason: rec.reason } : null;
-              })
-              .filter((r): r is { product: NonNullable<ReturnType<typeof getProductById>>; reason?: string } => r !== null);
+            const recommendations = getRecommendations(catalogProduct.id, 2).flatMap((rec) => {
+              const companion = getProductById(rec.productId);
+              return companion ? [{ product: companion, reason: rec.reason }] : [];
+            });
             if (recommendations.length === 0) return null;
             return (
               <div className="mt-12">
