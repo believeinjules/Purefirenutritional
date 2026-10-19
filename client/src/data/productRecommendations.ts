@@ -1,4 +1,5 @@
-// Product recommendation logic for "Frequently Bought Together"
+// Curated companions for the product page's "Pairs well with" box
+// (components/FrequentlyBoughtTogether.tsx). Hand-picked, not purchase data.
 // Maps product IDs to recommended complementary products.
 // All productIds MUST exist in products.ts (storefront, not hidden).
 // Pair products that share a body system, and keep each reason a plain label
@@ -134,7 +135,7 @@ export const productRecommendations: Record<string, ProductRecommendation[]> = {
     { productId: "revilab-ml-06", reason: "Liver function" }
   ],
 
-  // Adaptogen / immune
+  // Adaptogen / immune (Panaxod is hidden from the storefront; kept for when it returns)
   "panaxod": [
     { productId: "levain", reason: "Adaptogenic immune complex" },
     { productId: "revilab-ml-02", reason: "Immune & metabolic balance" }

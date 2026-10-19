@@ -9,6 +9,7 @@ export const HIDDEN_PRODUCT_IDS: ReadonlySet<string> = new Set([
   "temero-genero",
   "trezvon",
   "olecap",
+  "panaxod",
   "previn",
   "regenart",
   "gelmigon",
