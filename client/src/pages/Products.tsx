@@ -9,7 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useSearch, useLocation } from "wouter";
+import { Link, useSearch, useLocation } from "wouter";
+import { BODY_SYSTEMS, LIST_PAGE_PATH, systemPath } from "@/data/bodySystems";
 import SystemIntro from "@/components/guidance/SystemIntro";
 import { SHOP_SYSTEMS, SYSTEM_FILTER_PREFIX, getSystem, productInSystem } from "@/data/systems";
 import Navigation from "@/components/Navigation";
@@ -273,6 +274,26 @@ export default function Products() {
               );
             })}
           </div>
+
+          {/* Shop by body system: links to the /products/system/<slug> pages + the list page */}
+          <nav className="flex flex-wrap items-center gap-2 -mt-4 mb-8" aria-label="Shop by body system" data-testid="body-system-row">
+            <span className="text-xs uppercase tracking-widest text-gray-400 mr-1">Shop by body system</span>
+            {BODY_SYSTEMS.map((s) => (
+              <Link
+                key={s.slug}
+                href={systemPath(s.slug)}
+                className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+              >
+                {s.name}
+              </Link>
+            ))}
+            <Link
+              href={LIST_PAGE_PATH}
+              className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+            >
+              Khavinson Peptides List
+            </Link>
+          </nav>
 
           {activeSystem && <SystemIntro system={activeSystem} />}
 
