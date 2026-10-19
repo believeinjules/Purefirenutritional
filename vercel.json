@@ -55,7 +55,7 @@
       "statusCode": 301
     },
     {
-      "source": "/products/:id(femalin|temero-genero|trezvon|olecap|previn|regenart|gelmigon)",
+      "source": "/products/:id(femalin|temero-genero|trezvon|olecap|panaxod|previn|regenart|gelmigon)",
       "destination": "/products",
       "permanent": false
     },

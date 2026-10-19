@@ -458,17 +458,27 @@ export function productBreadcrumbJsonLd(product: { id: string; name: string }): 
   };
 }
 
-/** Everything the <head> of a product page needs. */
+/** FAQPage structured data: one Question/Answer per entry, plain text exactly as the page renders it. */
+export function faqPageJsonLd(items: ReadonlyArray<{ question: string; answer: string }>): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+}
+
 /** FAQPage structured data from the written PDP FAQs (same text the page renders). */
 export function productFaqJsonLd(id: string): Record<string, unknown>[] {
   const faq = getPdpContent(id)?.faq;
   if (!faq?.length) return [];
-  return [{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-  }];
+  return [faqPageJsonLd(faq.map((f) => ({ question: f.q, answer: f.a })))];
 }
+
+/** Everything the <head> of a product page needs. */
 
 export function productHead(product: SeoProduct) {
   const images = productImageUrls(product);

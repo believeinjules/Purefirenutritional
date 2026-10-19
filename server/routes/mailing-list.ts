@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { adminDb } from "../lib/firebase.js";
 import { logError, logAPICall } from "../logger.js";
+import { isValidEmail, normalizeEmail } from "../../shared/email-address.js";
 
 const router = Router();
 
@@ -14,8 +15,11 @@ router.post("/subscribe", async (req: Request, res: Response) => {
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: "Please enter a valid email address" });
+    }
 
-    const ref = adminDb.collection("mailing_list").doc(email.toLowerCase());
+    const ref = adminDb.collection("mailing_list").doc(normalizeEmail(email));
     const existing = await ref.get();
 
     if (existing.exists) {
@@ -34,7 +38,7 @@ router.post("/subscribe", async (req: Request, res: Response) => {
 
     // New subscription
     await ref.set({
-      email: email.toLowerCase(),
+      email: normalizeEmail(email),
       name: name || null,
       source,
       subscribed: true,
@@ -82,8 +86,11 @@ router.post("/unsubscribe", async (req: Request, res: Response) => {
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: "Please enter a valid email address" });
+    }
 
-    const ref = adminDb.collection("mailing_list").doc(email.toLowerCase());
+    const ref = adminDb.collection("mailing_list").doc(normalizeEmail(email));
     await ref.update({
       subscribed: false,
       unsubscribedAt: new Date().toISOString(),

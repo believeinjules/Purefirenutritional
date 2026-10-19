@@ -42,6 +42,12 @@ function profile(p: Product) {
   return { groups, tags, line: lineOf(p) };
 }
 
+/** Tissue/system groups a product belongs to (same rules Similar Products uses). */
+export function biologicalGroups(id: string): string[] {
+  const p = products.find((x) => x.id === id);
+  return p ? Array.from(profile(p).groups) : [];
+}
+
 function isSold(p: Product): boolean {
   return typeof p.priceUSD === "number" && p.priceUSD > 0;
 }

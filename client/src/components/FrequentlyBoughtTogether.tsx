@@ -80,10 +80,7 @@ export default function FrequentlyBoughtTogether({
 
   return (
     <Card className="p-6 mt-8">
-      <h2 className="text-2xl font-bold mb-4">Frequently Bought Together</h2>
-      <p className="text-muted-foreground mb-6">
-        Customers who bought this item also purchased these complementary products
-      </p>
+      <h2 className="text-2xl font-bold mb-4">Pairs well with</h2>
 
       <div className="space-y-4">
         {/* Current Product */}

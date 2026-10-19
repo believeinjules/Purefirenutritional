@@ -4,6 +4,12 @@
 import nodemailer from 'nodemailer';
 import { logError } from './logger.js';
 
+/**
+ * Where customers see their orders: the account dashboard's Order History
+ * (client route /dashboard; there is no per-order page).
+ */
+const ORDERS_URL = 'https://www.purefirenutritional.com/dashboard';
+
 interface OrderDetails {
   orderId: string;
   customerName: string;
@@ -147,7 +153,7 @@ function getOrderConfirmationHTML(order: OrderDetails): string {
                   
                   <!-- Call to Action -->
                   <div style="text-align: center; margin-top: 40px;">
-                    <a href="https://purefire.com/orders/${order.orderId}" style="display: inline-block; background: linear-gradient(135deg, #f97316 0%, #f43f5e 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: bold; font-size: 16px;">View Order Details</a>
+                    <a href="${ORDERS_URL}" style="display: inline-block; background: linear-gradient(135deg, #f97316 0%, #f43f5e 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: bold; font-size: 16px;">View Order Details</a>
                   </div>
                 </td>
               </tr>

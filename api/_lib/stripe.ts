@@ -9,7 +9,8 @@ export function getStripe(): Stripe {
   }
   if (!stripe) {
     stripe = new Stripe(key, {
-      // Keep in sync with server/routes/stripe.ts
+      // Must equal the installed stripe package's Stripe.LatestApiVersion
+      // (stripe@20.4.1 → 2026-02-25.clover). Keep in sync with server/routes/stripe.ts.
       apiVersion: "2026-02-25.clover",
     });
   }
