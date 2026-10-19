@@ -143,8 +143,8 @@ export default function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Khavinson Peptide Bioregulators & Longevity Supplements"
-        description="Explore evidence-backed nutrition supplements and Khavinson peptide bioregulators for cognitive vitality, recovery, resilience, and healthy aging. Shop now."
+        title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"
+        description="Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized US retailer of oral capsule supplements for healthy aging."
         path="/"
         type="website"
         jsonLd={[websiteJsonLd()]}

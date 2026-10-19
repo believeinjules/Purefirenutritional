@@ -46,6 +46,11 @@ export const faqs: FAQItem[] = [
   },
   {
     category: "General",
+    question: 'Are these the "Russian peptides" I\'ve heard about?',
+    answer: 'The bioregulators we carry were developed by researchers associated with Prof. Vladimir Khavinson at the St. Petersburg Institute of Bioregulation and Gerontology, so they\'re sometimes called "Russian peptides" informally. They\'re short, tissue-specific peptide complexes taken orally as capsules, a different class from injectable research peptides.',
+  },
+  {
+    category: "General",
     question: "How is this different from other peptides people talk about?",
     answer: "These are not the peptides most people mean right now. Not GLP-1 weight-loss medications. Not injectable research peptides (BPC-157, TB-500, and the rest). Pure Fire Nutritional carries oral, short, tissue-specific Khavinson peptide bioregulators — courses, not shots. Our capsules and lingual products are dietary supplements, not clinic injectables."
   },
