@@ -1,177 +1,127 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { supabase } from '../lib/supabase.js';
+import type { Request, Response } from 'express';
+import { isValidEmail, normalizeEmail } from '../../shared/email-address.js';
 
-// Mock the supabase client
-vi.mock('../lib/supabase.js', () => ({
-  supabase: {
-    from: vi.fn(() => ({
-      insert: vi.fn(),
-      select: vi.fn(),
+// In-memory stand-in for the Firestore `mailing_list` collection the route uses.
+const store = new Map<string, Record<string, unknown>>();
+const docIds: string[] = [];
+
+vi.mock('../lib/firebase.js', () => ({
+  adminDb: {
+    collection: vi.fn(() => ({
+      doc: vi.fn((id: string) => {
+        docIds.push(id);
+        return {
+          get: vi.fn(async () => ({ exists: store.has(id), data: () => store.get(id) })),
+          set: vi.fn(async (data: Record<string, unknown>) => void store.set(id, data)),
+          update: vi.fn(async (data: Record<string, unknown>) => void store.set(id, { ...store.get(id), ...data })),
+        };
+      }),
     })),
   },
 }));
+vi.mock('../logger.js', () => ({ logError: vi.fn(), logAPICall: vi.fn() }));
 
-describe('Mailing List API', () => {
+const { default: router } = await import('./mailing-list.js');
+
+type Handler = (req: Request, res: Response) => Promise<unknown>;
+function handlerFor(path: string): Handler {
+  const layer = (router.stack as Array<{ route?: { path: string; stack: Array<{ handle: Handler }> } }>).find(
+    (l) => l.route?.path === path,
+  );
+  if (!layer?.route) throw new Error(`no route ${path}`);
+  return layer.route.stack[0].handle;
+}
+
+async function call(path: string, body: unknown) {
+  const out: { status: number; body: any } = { status: 200, body: undefined };
+  const res = {
+    status(code: number) {
+      out.status = code;
+      return this;
+    },
+    json(payload: unknown) {
+      out.body = payload;
+      return this;
+    },
+  } as unknown as Response;
+  await handlerFor(path)({ body } as Request, res);
+  return out;
+}
+
+const INVALID = ['notanemail', '@example.com', 'test@', 'test..test@example.com', '', '   ', 'a b@example.com', 'user@example', 'user@-example.com', '.user@example.com', 'user.@example.com', 'a/b@example.com'];
+const VALID = ['test@example.com', 'user.name@example.co.uk', 'user+tag@example.com', 'test123@test-domain.com', "o'brien@example.ie"];
+
+describe('isValidEmail (shared/email-address.ts)', () => {
+  it('rejects malformed addresses', () => {
+    for (const email of INVALID) expect(isValidEmail(email), email).toBe(false);
+  });
+  it('accepts ordinary addresses', () => {
+    for (const email of VALID) expect(isValidEmail(email), email).toBe(true);
+  });
+  it('rejects non-strings and over-long addresses', () => {
+    expect(isValidEmail(null)).toBe(false);
+    expect(isValidEmail(undefined)).toBe(false);
+    expect(isValidEmail(42)).toBe(false);
+    expect(isValidEmail(`${'a'.repeat(65)}@example.com`)).toBe(false);
+    expect(isValidEmail(`a@${'b'.repeat(250)}.com`)).toBe(false);
+  });
+  it('accepts surrounding whitespace and normalizes case', () => {
+    expect(isValidEmail('  Test@Example.com  ')).toBe(true);
+    expect(normalizeEmail('  Test@Example.com  ')).toBe('test@example.com');
+  });
+});
+
+describe('POST /api/mailing-list/subscribe (server/routes/mailing-list.ts)', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    store.clear();
+    docIds.length = 0;
   });
 
-  describe('POST /api/mailing-list/subscribe', () => {
-    it('should successfully subscribe a new email', async () => {
-      const mockInsert = vi.fn().mockResolvedValue({ data: null, error: null });
-      const mockFrom = vi.fn().mockReturnValue({ insert: mockInsert });
-      (supabase.from as any) = mockFrom;
-
-      const email = 'test@example.com';
-      const result = await mockInsert([{ email, subscribed_at: expect.any(String) }]);
-
-      expect(result.error).toBeNull();
-      expect(mockInsert).toHaveBeenCalled();
-    });
-
-    it('should handle duplicate email subscription', async () => {
-      const mockInsert = vi.fn().mockResolvedValue({
-        data: null,
-        error: { code: '23505', message: 'duplicate key value' },
-      });
-      const mockFrom = vi.fn().mockReturnValue({ insert: mockInsert });
-      (supabase.from as any) = mockFrom;
-
-      const email = 'existing@example.com';
-      const result = await mockInsert([{ email, subscribed_at: expect.any(String) }]);
-
-      expect(result.error).not.toBeNull();
-      expect(result.error.code).toBe('23505');
-    });
-
-    it('should reject invalid email format', () => {
-      const invalidEmails = [
-        'notanemail',
-        '@example.com',
-        'test@',
-        'test..test@example.com',
-        '',
-      ];
-
-      invalidEmails.forEach((email) => {
-        const isValid = /\S+@\S+\.\S+/.test(email);
-        expect(isValid).toBe(false);
-      });
-    });
-
-    it('should accept valid email formats', () => {
-      const validEmails = [
-        'test@example.com',
-        'user.name@example.co.uk',
-        'user+tag@example.com',
-        'test123@test-domain.com',
-      ];
-
-      validEmails.forEach((email) => {
-        const isValid = /\S+@\S+\.\S+/.test(email);
-        expect(isValid).toBe(true);
-      });
-    });
-
-    it('should include timestamp when subscribing', () => {
-      const email = 'test@example.com';
-      const timestamp = new Date().toISOString();
-      const subscriptionData = { email, subscribed_at: timestamp };
-
-      expect(subscriptionData).toHaveProperty('email', email);
-      expect(subscriptionData).toHaveProperty('subscribed_at');
-      expect(new Date(subscriptionData.subscribed_at)).toBeInstanceOf(Date);
-    });
-
-    it('should handle database errors gracefully', async () => {
-      const mockInsert = vi.fn().mockResolvedValue({
-        data: null,
-        error: { code: 'CONNECTION_ERROR', message: 'Database connection failed' },
-      });
-      const mockFrom = vi.fn().mockReturnValue({ insert: mockInsert });
-      (supabase.from as any) = mockFrom;
-
-      const email = 'test@example.com';
-      const result = await mockInsert([{ email, subscribed_at: new Date().toISOString() }]);
-
-      expect(result.error).not.toBeNull();
-      expect(result.error.code).toBe('CONNECTION_ERROR');
-    });
+  it('requires an email', async () => {
+    const r = await call('/subscribe', {});
+    expect(r.status).toBe(400);
+    expect(r.body.error).toBe('Email is required');
   });
 
-  describe('Email validation', () => {
-    it('should validate email format correctly', () => {
-      const emailRegex = /\S+@\S+\.\S+/;
-      
-      // Valid emails
-      expect(emailRegex.test('user@example.com')).toBe(true);
-      expect(emailRegex.test('user.name@example.co.uk')).toBe(true);
-      expect(emailRegex.test('user+tag@example.com')).toBe(true);
-      
-      // Invalid emails
-      expect(emailRegex.test('notanemail')).toBe(false);
-      expect(emailRegex.test('@example.com')).toBe(false);
-      expect(emailRegex.test('user@')).toBe(false);
-      expect(emailRegex.test('')).toBe(false);
-    });
-
-    it('should trim whitespace from emails', () => {
-      const email = '  test@example.com  ';
-      const trimmed = email.trim();
-      expect(trimmed).toBe('test@example.com');
-      expect(/\S+@\S+\.\S+/.test(trimmed)).toBe(true);
-    });
-
-    it('should handle case sensitivity appropriately', () => {
-      const email1 = 'Test@Example.com';
-      const email2 = 'test@example.com';
-      
-      // Emails should be treated case-insensitively
-      expect(email1.toLowerCase()).toBe(email2.toLowerCase());
-    });
+  it('rejects invalid email format without touching the database', async () => {
+    for (const email of INVALID.filter(Boolean)) {
+      const r = await call('/subscribe', { email });
+      expect(r.status, email).toBe(400);
+      expect(r.body.error).toBe('Please enter a valid email address');
+    }
+    expect(docIds).toEqual([]);
   });
 
-  describe('Subscription data structure', () => {
-    it('should have correct data structure for new subscription', () => {
-      const email = 'test@example.com';
-      const subscriptionData = {
-        email,
-        subscribed_at: new Date().toISOString(),
-      };
-
-      expect(subscriptionData).toHaveProperty('email');
-      expect(subscriptionData).toHaveProperty('subscribed_at');
-      expect(typeof subscriptionData.email).toBe('string');
-      expect(typeof subscriptionData.subscribed_at).toBe('string');
-    });
-
-    it('should generate valid ISO timestamp', () => {
-      const timestamp = new Date().toISOString();
-      const parsed = new Date(timestamp);
-      
-      expect(parsed).toBeInstanceOf(Date);
-      expect(parsed.getTime()).toBeGreaterThan(0);
-      expect(isNaN(parsed.getTime())).toBe(false);
-    });
+  it('subscribes a new email, stored trimmed and lower-cased', async () => {
+    const r = await call('/subscribe', { email: '  Test@Example.com ' });
+    expect(r.status).toBe(200);
+    expect(r.body).toEqual({ message: 'Successfully subscribed!', success: true });
+    const doc = store.get('test@example.com');
+    expect(doc).toMatchObject({ email: 'test@example.com', subscribed: true, source: 'website' });
+    expect(Number.isNaN(Date.parse(String(doc?.subscribedAt)))).toBe(false);
   });
 
-  describe('Error handling', () => {
-    it('should handle missing email parameter', () => {
-      const email = '';
-      const isValid = email && /\S+@\S+\.\S+/.test(email);
-      expect(isValid).toBeFalsy();
-    });
+  it('reports an existing subscriber and resubscribes an unsubscribed one', async () => {
+    store.set('existing@example.com', { email: 'existing@example.com', subscribed: true });
+    expect((await call('/subscribe', { email: 'existing@example.com' })).body.alreadySubscribed).toBe(true);
 
-    it('should handle null email parameter', () => {
-      const email = null;
-      const isValid = email && /\S+@\S+\.\S+/.test(email);
-      expect(isValid).toBeFalsy();
-    });
+    store.set('gone@example.com', { email: 'gone@example.com', subscribed: false });
+    const r = await call('/subscribe', { email: 'Gone@example.com' });
+    expect(r.body).toEqual({ message: 'Successfully resubscribed!', success: true });
+    expect(store.get('gone@example.com')?.subscribed).toBe(true);
+  });
+});
 
-    it('should handle undefined email parameter', () => {
-      const email = undefined;
-      const isValid = email && /\S+@\S+\.\S+/.test(email);
-      expect(isValid).toBeFalsy();
-    });
+describe('POST /api/mailing-list/unsubscribe', () => {
+  it('rejects invalid email format', async () => {
+    const r = await call('/unsubscribe', { email: 'notanemail' });
+    expect(r.status).toBe(400);
+  });
+  it('unsubscribes by normalized address', async () => {
+    store.set('test@example.com', { email: 'test@example.com', subscribed: true });
+    const r = await call('/unsubscribe', { email: 'TEST@example.com' });
+    expect(r.body.success).toBe(true);
+    expect(store.get('test@example.com')?.subscribed).toBe(false);
   });
 });
