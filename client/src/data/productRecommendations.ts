@@ -1,6 +1,9 @@
 // Product recommendation logic for "Frequently Bought Together"
 // Maps product IDs to recommended complementary products.
-// All productIds MUST exist in products.ts.
+// All productIds MUST exist in products.ts (storefront, not hidden).
+// Pair products that share a body system, and keep each reason a plain label
+// for the companion taken from that companion's own description
+// (checked by productRecommendations.test.ts).
 
 export interface ProductRecommendation {
   productId: string;
@@ -21,55 +24,72 @@ export const productRecommendations: Record<string, ProductRecommendation[]> = {
   // Cardiovascular support combinations
   "chelohart": [
     { productId: "revilab-ml-04", reason: "Enhanced cardiovascular support" },
-    { productId: "olecap", reason: "Heart energy & protection" }
+    { productId: "ventfort", reason: "Blood vessel peptide bioregulator" }
   ],
   "revilab-ml-04": [
     { productId: "chelohart", reason: "Targeted heart peptides" },
-    { productId: "olecap", reason: "Mitochondrial support" }
+    { productId: "ventfort", reason: "Blood vessel peptide bioregulator" }
   ],
-  "revilab-sl-04": [
-    { productId: "chelohart", reason: "Fast-acting heart support" },
-    { productId: "prime-peptide-omega", reason: "Cardiovascular health" }
+  "revilab-sl-01": [
+    { productId: "revilab-ml-04", reason: "Cardiovascular capsule formula" },
+    { productId: "chelohart", reason: "Heart peptide bioregulator" }
   ],
   "ventfort": [
     { productId: "chelohart", reason: "Heart + vessel pairing" },
     { productId: "revilab-ml-04", reason: "Cardiovascular complex" }
   ],
-
-  // Brain & cognitive support
-  "prime-peptide-brain": [
-    { productId: "revilab-ml-07", reason: "Comprehensive brain support" },
-    { productId: "endoluten", reason: "Cognitive energy boost" }
+  // Olecap is hidden from the storefront; kept for when it returns.
+  "olecap": [
+    { productId: "ventfort", reason: "Blood vessel peptide bioregulator" },
+    { productId: "revilab-ml-04", reason: "Cardiovascular capsule formula" }
   ],
+
+  // Brain, nervous system & eyes
+  "prime-peptide-brain": [
+    { productId: "cerluten", reason: "Natural brain peptide complex" },
+    { productId: "pinealon", reason: "Synthesized brain peptide complex" }
+  ],
+  "revilab-ml-03": [
+    { productId: "revilab-sl-02", reason: "Sublingual nervous system & eye complex" },
+    { productId: "visoluten", reason: "Retina peptide bioregulator" }
+  ],
+  "revilab-sl-02": [
+    { productId: "revilab-ml-03", reason: "Nervous system & eye capsule formula" },
+    { productId: "visoluten", reason: "Retina peptide bioregulator" }
+  ],
+
+  // Pineal & foundational pairings
   "endoluten": [
     { productId: "vladonix", reason: "Foundational longevity pairing" },
     { productId: "revilab-anti-age", reason: "Anti-glycation support" }
   ],
-  "revilab-ml-07": [
-    { productId: "prime-peptide-brain", reason: "Brain peptide bioregulator" },
-    { productId: "endoluten", reason: "Mental clarity & focus" }
-  ],
-  "revilab-sl-07": [
-    { productId: "endoluten", reason: "Nervous system support" },
-    { productId: "prime-peptide-omega", reason: "Brain health" }
+  "revilab-ml-01": [
+    { productId: "endoluten", reason: "Pineal peptide bioregulator" },
+    { productId: "revilab-sl-03", reason: "Sublingual pineal & immune complex" }
   ],
 
   // Immune system support
   "crystagen": [
-    { productId: "revilab-ml-03", reason: "Enhanced immune defense" },
+    { productId: "revilab-sl-03", reason: "Sublingual immune complex" },
     { productId: "vladonix", reason: "Thymus support" }
   ],
   "vladonix": [
     { productId: "endoluten", reason: "Foundational longevity pairing" },
     { productId: "crystagen", reason: "Immune bioregulation" }
   ],
-  "revilab-ml-03": [
-    { productId: "crystagen", reason: "Immune bioregulation" },
-    { productId: "revilab-sl-03", reason: "Respiratory & immune" }
-  ],
   "revilab-sl-03": [
     { productId: "crystagen", reason: "Immune system strength" },
     { productId: "vladonix", reason: "Thymus health" }
+  ],
+
+  // Blood formation (hematopoietic) & immune
+  "revilab-ml-02": [
+    { productId: "revilab-sl-07", reason: "Sublingual blood-formation complex" },
+    { productId: "bonomarlot", reason: "Bone marrow peptide bioregulator" }
+  ],
+  "revilab-sl-07": [
+    { productId: "bonomarlot", reason: "Bone marrow peptide bioregulator" },
+    { productId: "revilab-ml-02", reason: "Blood-formation capsule formula" }
   ],
 
   // Joint & musculoskeletal
@@ -79,15 +99,25 @@ export const productRecommendations: Record<string, ProductRecommendation[]> = {
   ],
   "prime-peptide-joints": [
     { productId: "cartalax", reason: "Cartilage bioregulation" },
-    { productId: "prime-peptide-collagen", reason: "Joint structure" }
+    { productId: "prime-peptide-collagen", reason: "Connective tissue" }
   ],
   "revilab-ml-09": [
     { productId: "cartalax", reason: "Cartilage bioregulation" },
-    { productId: "prime-peptide-collagen", reason: "Joint structure" }
+    { productId: "prime-peptide-collagen", reason: "Connective tissue" }
+  ],
+  "revilab-sl-04": [
+    { productId: "cartalax", reason: "Cartilage peptide bioregulator" },
+    { productId: "revilab-ml-09", reason: "Musculoskeletal capsule formula" }
+  ],
+
+  // Respiratory system
+  "revilab-ml-05": [
+    { productId: "revilab-sl-06", reason: "Sublingual respiratory complex" },
+    { productId: "chonluten", reason: "Bronchopulmonary peptide bioregulator" }
   ],
   "revilab-sl-06": [
-    { productId: "cartalax", reason: "Musculoskeletal health" },
-    { productId: "prime-peptide-collagen", reason: "Joint support" }
+    { productId: "revilab-ml-05", reason: "Respiratory capsule formula" },
+    { productId: "chonluten", reason: "Bronchopulmonary peptide bioregulator" }
   ],
 
   // Digestive & liver support
@@ -97,71 +127,47 @@ export const productRecommendations: Record<string, ProductRecommendation[]> = {
   ],
   "revilab-ml-06": [
     { productId: "digemax", reason: "Digestive support" },
-    { productId: "prime-peptide-omega", reason: "Liver health" }
+    { productId: "svetinorm", reason: "Liver peptide bioregulator" }
   ],
   "revilab-sl-05": [
     { productId: "digemax", reason: "Gut health" },
     { productId: "revilab-ml-06", reason: "Liver function" }
   ],
 
-  // Longevity & energy stacks
-  "olecap": [
-    { productId: "endoluten", reason: "Longevity + vascular support" },
-    { productId: "panaxod", reason: "Adaptogenic energy" }
-  ],
+  // Adaptogen / immune
   "panaxod": [
-    { productId: "revilab-ml-02", reason: "Metabolic energy" },
-    { productId: "olecap", reason: "Cardiovascular support" }
+    { productId: "levain", reason: "Adaptogenic immune complex" },
+    { productId: "revilab-ml-02", reason: "Immune & metabolic balance" }
   ],
 
-  // Comprehensive anti-aging (Revilab SL 01 & ML 01)
-  "revilab-sl-01": [
-    { productId: "revilab-ml-01", reason: "Multi-level anti-aging" },
-    { productId: "endoluten", reason: "Cellular rejuvenation" }
-  ],
-  "revilab-ml-01": [
-    { productId: "revilab-sl-01", reason: "Fast-acting anti-aging" },
-    { productId: "olecap", reason: "Energy & longevity" }
-  ],
-
-  // Metabolic & energy (Revilab SL 02 & ML 02)
-  "revilab-sl-02": [
-    { productId: "revilab-ml-02", reason: "Metabolic optimization" },
-    { productId: "panaxod", reason: "Energy production" }
-  ],
-  "revilab-ml-02": [
-    { productId: "revilab-sl-02", reason: "Rapid energy boost" },
-    { productId: "endoluten", reason: "Cellular energy" }
-  ],
-
-  // Endocrine & hormonal
+  // Endocrine & female hormonal
   "thyreogen": [
-    { productId: "revilab-ml-08", reason: "Endocrine optimization" },
-    { productId: "revilab-sl-08", reason: "Hormonal balance" }
+    { productId: "zhenoluten", reason: "Ovarian peptide bioregulator" },
+    { productId: "ventfort", reason: "Blood vessel peptide bioregulator" }
   ],
   "revilab-ml-08": [
-    { productId: "revilab-sl-08", reason: "Hormonal balance" },
+    { productId: "revilab-sl-10", reason: "Sublingual female reproductive complex" },
     { productId: "thyreogen", reason: "Thyroid support" }
   ],
+
+  // Urinary system
   "revilab-sl-08": [
-    { productId: "revilab-ml-08", reason: "Endocrine optimization" },
-    { productId: "thyreogen", reason: "Thyroid health" }
+    { productId: "chitomur", reason: "Bladder peptide bioregulator" },
+    { productId: "pielotax", reason: "Kidney peptide bioregulator" }
   ],
 
   // Reproductive health (men)
+  "revilab-ml-07": [
+    { productId: "testoluten", reason: "Testicular peptide bioregulator" },
+    { productId: "revilab-sl-09", reason: "Sublingual male reproductive complex" }
+  ],
   "testoluten": [
     { productId: "revilab-sl-09", reason: "Urogenital support" },
-    { productId: "revilab-ml-08", reason: "Hormonal balance" }
+    { productId: "revilab-ml-07", reason: "Male reproductive & urinary formula" }
   ],
   "revilab-sl-09": [
     { productId: "testoluten", reason: "Testosterone support" },
-    { productId: "revilab-ml-08", reason: "Men's endocrine support" }
-  ],
-
-  // Respiratory system
-  "revilab-ml-05": [
-    { productId: "ventfort", reason: "Vessel + respiratory support" },
-    { productId: "crystagen", reason: "Immune & respiratory" }
+    { productId: "revilab-ml-07", reason: "Male reproductive & urinary formula" }
   ]
 };
 
