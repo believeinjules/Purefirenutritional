@@ -8,7 +8,7 @@ const index = read("./Index.tsx");
 describe("homepage SEO head", () => {
   it("title and meta description are the approved wording", () => {
     expect(index).toContain('title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"');
-    const desc = "Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, a US retailer of oral capsule supplements for healthy aging.";
+    const desc = "Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized US retailer of oral capsule supplements for healthy aging.";
     expect(index).toContain(`description="${desc}"`);
     expect(desc.length).toBeLessThanOrEqual(160);
   });

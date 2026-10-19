@@ -144,7 +144,7 @@ export default function Index() {
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
         title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"
-        description="Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, a US retailer of oral capsule supplements for healthy aging."
+        description="Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized US retailer of oral capsule supplements for healthy aging."
         path="/"
         type="website"
         jsonLd={[websiteJsonLd()]}
