@@ -128,8 +128,8 @@ describe("routes, robots and sitemap", () => {
     const redirected = new Set<string>(vercel.redirects.map((r: { source: string }) => r.source));
     // Dynamic routes prerendered from data in prerender.mjs (catalog products, published certificates).
     // /review/:slug: one noindex shell per catalog product. /__dev/*: DEV-only routes.
-    // /products/system/:system: one page per BODY_SYSTEMS entry (CATEGORY_ROUTES).
-    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug", "/products/system/:system"]);
+    // /products/{system,collection,goal}/:slug: one page per browse page (CATEGORY_ROUTES).
+    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug", "/products/system/:slug", "/products/collection/:slug", "/products/goal/:slug"]);
     const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES), ...CATEGORY_ROUTES]);
     const unserved = Array.from(appRoutes).filter(
       (r) => r !== "/404" && !r.startsWith("/__dev/") && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)

@@ -103,6 +103,71 @@
       "source": "/pepita",
       "destination": "/ai-assistant",
       "statusCode": 301
+    },
+    {
+      "source": "/products/system/heart-blood-vessels",
+      "destination": "/products/system/heart-circulation",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/immune-thymus",
+      "destination": "/products/system/immune-respiratory",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/lungs-airways",
+      "destination": "/products/system/immune-respiratory",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/liver-digestive",
+      "destination": "/products/system/digestion-metabolism",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/joints-bones-cartilage",
+      "destination": "/products/system/bones-joints-muscles",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/muscle",
+      "destination": "/products/system/bones-joints-muscles",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/endocrine-glands",
+      "destination": "/products/system/hormonal-reproductive-health",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/womens-health",
+      "destination": "/products/system/hormonal-reproductive-health",
+      "permanent": true
+    },
+    {
+      "source": "/products/system/mens-health",
+      "destination": "/products/system/hormonal-reproductive-health",
+      "permanent": true
+    },
+    {
+      "source": "/products/goal/stress-mood",
+      "destination": "/products/goal/stress-resilience",
+      "permanent": true
+    },
+    {
+      "source": "/products/collection/hair-skin-beauty",
+      "destination": "/products/goal/skin-hair-beauty",
+      "permanent": true
+    },
+    {
+      "source": "/products/goal/eyes-vision",
+      "destination": "/khavinson-peptides-list",
+      "permanent": true
+    },
+    {
+      "source": "/products/goal/antioxidant-support",
+      "destination": "/products",
+      "permanent": true
     }
   ]
 }

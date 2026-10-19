@@ -2,7 +2,7 @@ import { LEARN_ARTICLES } from "@/content/learnArticles";
 import { Link } from "wouter";
 import { ShoppingCart, User, Heart, Menu, X, ChevronDown } from "lucide-react";
 import { useRef, useState } from "react";
-import { BODY_SYSTEMS, LIST_PAGE_PATH, systemPath } from "@/data/bodySystems";
+import { MENU_BODY_SYSTEMS, COLLECTIONS, GOALS, LIST_PAGE_PATH, SYSTEMS_LANDING_PATH, browsePath } from "@/data/bodySystems";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 
@@ -13,14 +13,44 @@ const SCIENCE_SUBMENU = [
   { label: "Longevity Journal", href: "/learn" },
 ];
 
-/** "By body system" section under Products (Shop), desktop dropdown + mobile submenu. Approved by Julia 2026-10-19. */
-const BODY_SYSTEM_MENU = BODY_SYSTEMS.map((s) => ({ label: s.name, href: systemPath(s.slug) }));
-const FULL_LIST_LINK = { label: "Full Khavinson peptides list", href: LIST_PAGE_PATH };
+/**
+ * Shop menu sections (desktop dropdown + mobile collapsible sections), built
+ * from the shop taxonomy (data/bodySystems.ts + data/productTags.ts).
+ */
+const SHOP_SECTIONS = [
+  {
+    id: "systems",
+    label: "Shop by Body System",
+    items: [
+      ...MENU_BODY_SYSTEMS.map((p) => ({ label: p.name, href: browsePath(p) })),
+      { label: "All body systems", href: SYSTEMS_LANDING_PATH },
+    ],
+  },
+  { id: "collections", label: "Shop by Collection", items: COLLECTIONS.map((p) => ({ label: p.name, href: browsePath(p) })) },
+  { id: "goals", label: "Shop by Goal", items: GOALS.map((p) => ({ label: p.name, href: browsePath(p) })) },
+];
+const SHOP_ALL_LINK = { label: "Shop All", href: "/products" };
+const ALL_KHAVINSON_LINK = { label: "All Khavinson Peptides", href: LIST_PAGE_PATH };
+const ASK_PEPITA_LINK = { before: "Not sure where to start?", label: "Ask Pepita", href: "/ai-assistant" };
+/** Small highlighted CTA under Shop by Goal; the site's existing accent gradient (cart/wishlist badges). */
+const CTA_GRADIENT = "linear-gradient(135deg, #E8793A, #B83870)";
+function AskPepitaCta({ onClick, className = "" }: { onClick?: () => void; className?: string }) {
+  return (
+    <Link
+      href={ASK_PEPITA_LINK.href}
+      onClick={onClick}
+      className={`inline-block rounded-full px-3 py-1 text-[12px] font-medium leading-snug text-white shadow-sm hover:opacity-90 transition-opacity ${className}`}
+      style={{ background: CTA_GRADIENT }}
+    >
+      {ASK_PEPITA_LINK.before} {ASK_PEPITA_LINK.label}
+    </Link>
+  );
+}
 
 export default function Navigation() {
   const [shopOpen, setShopOpen] = useState(false);
-  const [mobileSystemsOpen, setMobileSystemsOpen] = useState(false);
-  // Esc returns focus to "Products" without reopening the menu.
+  const [mobileOpenSection, setMobileOpenSection] = useState<string | null>(null);
+  // Esc returns focus to "Shop" without reopening the menu.
   const skipReopen = useRef(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items } = useCart();
@@ -31,7 +61,7 @@ export default function Navigation() {
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Products", href: "/products" },
+    { label: "Shop", href: "/products" },
     { label: "Science", href: "/science" },
     { label: "Authenticity", href: "/authenticity" },
     { label: "About", href: "/about" },
@@ -113,37 +143,34 @@ export default function Navigation() {
                     className={`absolute left-1/2 -translate-x-1/2 top-full pt-4 ${shopOpen ? "block" : "hidden"}`}
                   >
                     <div
-                      className="w-[30rem] rounded-md border border-white/10 py-2 shadow-xl"
+                      className="w-[46rem] rounded-md border border-white/10 py-2 shadow-xl"
                       style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
                     >
-                      <Link
-                        href="/products"
-                        className="block px-5 py-2 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors"
-                      >
-                        Shop all products
+                      <Link href={SHOP_ALL_LINK.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
+                        {SHOP_ALL_LINK.label}
                       </Link>
-                      <div role="group" aria-labelledby="nav-shop-systems-label" className="border-t border-white/10 mt-1 pt-1">
-                        <p id="nav-shop-systems-label" className="px-5 pt-2 pb-1 text-[11px] uppercase tracking-widest text-white/50">
-                          By body system
-                        </p>
-                        <div className="grid grid-cols-2">
-                          {BODY_SYSTEM_MENU.map((item) => (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              className="block px-5 py-2 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors"
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
-                        </div>
+                      <div className="grid grid-cols-3 border-t border-white/10 mt-1 pt-1">
+                        {SHOP_SECTIONS.map((section) => (
+                          <div key={section.id} role="group" aria-labelledby={`nav-shop-${section.id}-label`}>
+                            <p id={`nav-shop-${section.id}-label`} className="px-5 pt-2 pb-1 text-[11px] uppercase tracking-widest text-white/50">
+                              {section.label}
+                            </p>
+                            {section.items.map((item) => (
+                              <Link key={item.href} href={item.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
+                                {item.label}
+                              </Link>
+                            ))}
+                            {section.id === "goals" && (
+                              <div className="px-5 pt-2 pb-1">
+                                <AskPepitaCta />
+                              </div>
+                            )}
+                          </div>
+                        ))}
                       </div>
                       <div className="border-t border-white/10 mt-1 pt-1">
-                        <Link
-                          href={FULL_LIST_LINK.href}
-                          className="block px-5 py-2 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors"
-                        >
-                          {FULL_LIST_LINK.label}
+                        <Link href={ALL_KHAVINSON_LINK.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
+                          {ALL_KHAVINSON_LINK.label}
                         </Link>
                       </div>
                     </div>
@@ -239,40 +266,44 @@ export default function Navigation() {
                 </Link>
                 {href === "/products" && (
                   <div className="pl-4 pb-1 border-l border-white/10">
-                    <button
-                      type="button"
-                      className="flex w-full items-center justify-between py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
-                      aria-expanded={mobileSystemsOpen}
-                      aria-controls="mobile-shop-systems"
-                      onClick={() => setMobileSystemsOpen((o) => !o)}
-                    >
-                      By body system
-                      <ChevronDown
-                        className={`h-3 w-3 opacity-70 transition-transform ${mobileSystemsOpen ? "rotate-180" : ""}`}
-                        aria-hidden="true"
-                      />
-                    </button>
-                    {mobileSystemsOpen && (
-                      <ul id="mobile-shop-systems" className="pl-4 border-l border-white/10" aria-label="Shop by body system">
-                        {BODY_SYSTEM_MENU.map((item) => (
-                          <li key={item.href}>
-                            <Link
-                              href={item.href}
-                              className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
-                              onClick={() => setIsMenuOpen(false)}
-                            >
-                              {item.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <Link
-                      href={FULL_LIST_LINK.href}
-                      className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {FULL_LIST_LINK.label}
+                    <Link href={SHOP_ALL_LINK.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                      {SHOP_ALL_LINK.label}
+                    </Link>
+                    {SHOP_SECTIONS.map((section) => {
+                      const open = mobileOpenSection === section.id;
+                      return (
+                        <div key={section.id}>
+                          <button
+                            type="button"
+                            className="flex w-full items-center justify-between py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors"
+                            aria-expanded={open}
+                            aria-controls={`mobile-shop-${section.id}`}
+                            onClick={() => setMobileOpenSection(open ? null : section.id)}
+                          >
+                            {section.label}
+                            <ChevronDown className={`h-3 w-3 opacity-70 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+                          </button>
+                          {open && (
+                            <ul id={`mobile-shop-${section.id}`} className="pl-4 border-l border-white/10" aria-label={section.label}>
+                              {section.items.map((item) => (
+                                <li key={item.href}>
+                                  <Link href={item.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                    {item.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          {section.id === "goals" && (
+                            <div className="py-1.5">
+                              <AskPepitaCta onClick={() => setIsMenuOpen(false)} />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                    <Link href={ALL_KHAVINSON_LINK.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                      {ALL_KHAVINSON_LINK.label}
                     </Link>
                   </div>
                 )}
