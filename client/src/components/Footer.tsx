@@ -198,6 +198,8 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-gray-400">
                 <Mail className="w-5 h-5 text-orange-500" />
+                <a href={mailto(CONTACT_EMAIL)} className="inline-block py-1.5 hover:text-orange-500 transition-colors">
+                  {CONTACT_EMAIL}
                 </a>
               </li>
               <li className="flex items-center gap-2 text-gray-400">

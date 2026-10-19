@@ -246,6 +246,8 @@ export default function ProductDetail() {
                 <p className="flex flex-wrap items-center gap-2 text-sm text-gray-700" data-testid="pdp-preorder">
                   <PreorderBadge productId={product.id} />
                   <span>{PREORDER_CART_NOTE}</span>
+                </p>
+              )}
               {systemsForProduct(product.id).length > 0 && (
                 <p className="text-sm text-gray-500" data-testid="pdp-systems">
                   Part of:{" "}
