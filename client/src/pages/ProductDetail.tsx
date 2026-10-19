@@ -460,7 +460,7 @@ export default function ProductDetail() {
           {/* Founder line — hidden until Julia approves it and a photo is set */}
           <FounderBlock />
 
-          {/* Frequently bought together — catalog-backed companions only */}
+          {/* "Pairs well with" (FrequentlyBoughtTogether) — curated, catalog-backed companions only */}
           {(() => {
             const catalogProduct = getProductById(product.id);
             if (!catalogProduct) return null;
