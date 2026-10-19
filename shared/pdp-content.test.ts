@@ -56,9 +56,9 @@ describe("full PDP copy (shared/product-facts.json → pdp)", () => {
     expect(PRODUCT_FACTS.pinealon.pdp!.overview[0]).toMatch(/brain peptide complex \(AC-5\)/);
   });
 
-  it("formula template covers every remaining product except the Indosine/Calsil-T holds", () => {
+  it("formula template covers every storefront product (the Indosine/Calsil-T holds are now hidden)", () => {
     const missing = Object.values(PRODUCT_FACTS).filter((f) => !f.pdp && !HIDDEN_PRODUCT_IDS.has(f.id)).map((f) => f.id).sort();
-    expect(missing).toEqual(["calsil-t", "indosine"]);
+    expect(missing).toEqual([]);
   });
 
   for (const f of FORMULA) {

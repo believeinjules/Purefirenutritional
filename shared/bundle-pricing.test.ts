@@ -130,10 +130,19 @@ describe("bundle input validation", () => {
     }
   });
 
-  it("checkout rejects a bundle the product does not offer", () => {
-    expect(() =>
-      resolveCheckoutLine({ productId: "calsil-t", quantity: 1, bundle: 3 })
-    ).toThrow(/not available/);
+  it("checkout rejects a bundle the product does not offer", async () => {
+    const noBundles: PriceableProduct = { ...cytomax, bundlesEnabled: false };
+    await expect(
+      resolveCheckoutLinesWith(
+        [{ productId: "vladonix", size: "20", quantity: 1, bundle: 3 }],
+        async () => new Map([["vladonix", noBundles]])
+      )
+    ).rejects.toThrow(/not available/);
+  });
+
+  it("checkout refuses hidden products (Calsil-T, Indosine)", () => {
+    for (const productId of ["calsil-t", "indosine"])
+      expect(() => resolveCheckoutLine({ productId, quantity: 1 })).toThrow(CheckoutValidationError);
   });
 
   it("ignores any client-sent price for bundles", async () => {
