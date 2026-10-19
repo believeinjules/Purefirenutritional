@@ -12,6 +12,8 @@ import { WishlistProvider } from "./contexts/WishlistContext";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import BodySystemPage from "./pages/BodySystemPage";
+import KhavinsonPeptidesList from "./pages/KhavinsonPeptidesList";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
@@ -56,6 +58,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Index} />
       <Route path="/products" component={Products} />
+      {/* Category pages: registered before /products/:id */}
+      <Route path="/products/system/:system" component={BodySystemPage} />
+      <Route path="/khavinson-peptides-list" component={KhavinsonPeptidesList} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/products/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />
