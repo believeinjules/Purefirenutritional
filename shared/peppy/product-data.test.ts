@@ -79,8 +79,8 @@ describe("product data layer (single JSON file)", () => {
       for (const p of products) if (p.id === r.id) expect(ask(`How much ${p.name} should I take?`).summary).not.toMatch(/Maintenance:|Intensive:/);
     }
   });
-  it("the four products RD couldn't verify say so", () => {
-    for (const id of ["anti-wrinkle-serum-7", "calsil-t", "reviform-cocktail", "rinolax"])
+  it("the products RD couldn't verify say so", () => {
+    for (const id of ["anti-wrinkle-serum-7", "reviform-cocktail", "rinolax"])
       expect(dosingAnswer(id, id).verified, id).toBe(false);
   });
 });
@@ -128,7 +128,7 @@ describe("no invented doses", () => {
     expect(r.summary).toMatch(/manufacturer guidance, not results from clinical trials/);
   });
   it("says plainly when not verified, with no numbers", () => {
-    const r = ask("How should I take Calsil-T?");
+    const r = ask("How should I take Rinolax?");
     expect(r.summary).toMatch(/haven't been verified/);
     expect(nums(r.summary)).toEqual([]);
   });

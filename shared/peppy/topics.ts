@@ -280,12 +280,6 @@ export const TOPICS: Topic[] = [
         evidenceNote:
           "Cartilage peptide research is cell and animal work; Revilab SL 04 hasn't been tested in published trials.",
       },
-      {
-        id: "calsil-t",
-        why: "Calcium and magnesium formula for bone, teeth and muscle function.",
-        evidenceNote:
-          "Calcium and magnesium matter most when dietary intake is low; Calsil-T itself hasn't been tested in published trials.",
-      },
     ],
     productPolicy: "symptom",
     followUps: ["Would a comparison of Sigumir and Cartalax help?"],
@@ -1528,12 +1522,6 @@ export const TOPICS: Topic[] = [
         why: "Antioxidant peptide formula with broccoli extract and mushrooms from the Prime Peptide line.",
         evidenceNote:
           "Its peptide data is the manufacturer's lab and animal work; no independent human trials.",
-      },
-      {
-        id: "indosine",
-        why: "Indole-3-carbinol, broccoli extract, CoQ10 and antioxidant enzymes for cellular upkeep.",
-        evidenceNote:
-          "Ingredient research is mostly lab work; Indosine itself hasn't been tested in published trials.",
       },
     ],
     maxProducts: 2,
