@@ -464,12 +464,10 @@ export default function ProductDetail() {
           {(() => {
             const catalogProduct = getProductById(product.id);
             if (!catalogProduct) return null;
-            const recommendations = getRecommendations(catalogProduct.id, 2)
-              .map((rec) => {
-                const companion = getProductById(rec.productId);
-                return companion ? { product: companion, reason: rec.reason } : null;
-              })
-              .filter((r): r is { product: NonNullable<ReturnType<typeof getProductById>>; reason?: string } => r !== null);
+            const recommendations = getRecommendations(catalogProduct.id, 2).flatMap((rec) => {
+              const companion = getProductById(rec.productId);
+              return companion ? [{ product: companion, reason: rec.reason }] : [];
+            });
             if (recommendations.length === 0) return null;
             return (
               <div className="mt-12">

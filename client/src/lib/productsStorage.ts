@@ -20,6 +20,7 @@ export interface ProductVariant {
   priceEUR: number;
   image?: string;
   imageAlt?: string;
+  images?: string[];
   inStock: boolean;
 }
 
@@ -37,6 +38,8 @@ export interface Product {
   sizes: number;
   image?: string;
   imageAlt?: string;
+  /** Gallery images (same field as the code catalog's Product.images). */
+  images?: string[];
   benefits?: string[];
   ingredients?: string[];
   usage?: string;
@@ -52,6 +55,11 @@ export interface Product {
 
 // ─── Firestore doc → Product ──────────────────────────────────────────────────
 
+/** String entries of an array field (same rule as shared/seo-catalog.ts); undefined when absent. */
+function stringList(value: unknown): string[] | undefined {
+  return Array.isArray(value) ? value.filter((x): x is string => typeof x === "string") : undefined;
+}
+
 function docToProduct(id: string, data: any): Product {
   return {
     id,
@@ -65,6 +73,7 @@ function docToProduct(id: string, data: any): Product {
     sizes: data.sizes ?? 1,
     image: data.image ?? undefined,
     imageAlt: data.imageAlt ?? data.image_alt ?? undefined,
+    images: stringList(data.images),
     benefits: data.benefits || [],
     ingredients: data.ingredients || [],
     usage: data.usage || undefined,

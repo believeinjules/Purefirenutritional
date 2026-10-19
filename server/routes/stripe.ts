@@ -10,6 +10,7 @@ const router = Router();
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  // Keep in sync with api/_lib/stripe.ts and the installed stripe package (Stripe.LatestApiVersion).
   apiVersion: '2026-02-25.clover',
 });
 
