@@ -15,7 +15,7 @@
  * Conflicts are recorded, never silently resolved. Pepita shows directions only when they are
  * verified AND identical to what the product page shows (see pepitaDirections).
  */
-import FACTS from "./product-facts.json";
+import FACTS from "./product-facts.json" with { type: "json" };
 
 export type SourceType = "label" | "official-doc" | "catalog" | "study" | "course";
 export type DirectionsStatus = "verified" | "conflicting" | "blocked" | "needs-approval" | "unverified";

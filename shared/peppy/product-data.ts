@@ -12,7 +12,7 @@
  *  - Package duration is arithmetic from a verified schedule. Nothing else is derived,
  *    extrapolated between products, or adjusted by age/sex/goal.
  */
-import DATA from "./product-data.json";
+import DATA from "./product-data.json" with { type: "json" };
 
 export type FieldStatus = "verified" | "unverified";
 export interface DataField {
