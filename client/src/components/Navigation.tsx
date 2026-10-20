@@ -18,7 +18,13 @@ const SCIENCE_SUBMENU = [
  * Shop menu sections (desktop dropdown + mobile collapsible sections), built
  * from the shop taxonomy (data/bodySystems.ts + data/productTags.ts).
  */
-const SHOP_SECTIONS = [
+type ShopItem = { label: string; href: string; children?: { label: string; href: string }[] };
+function collection(slug: string) {
+  const page = COLLECTIONS.find((c) => c.slug === slug);
+  if (!page) throw new Error(`Unknown collection: ${slug}`);
+  return page;
+}
+const SHOP_SECTIONS: { id: string; label: string; items: ShopItem[] }[] = [
   {
     id: "systems",
     label: "Shop by Body System",
@@ -27,11 +33,25 @@ const SHOP_SECTIONS = [
       { label: "All body systems", href: SYSTEMS_LANDING_PATH },
     ],
   },
-  { id: "collections", label: "Shop by Collection", items: COLLECTIONS.map((p) => ({ label: p.name, href: browsePath(p) })) },
+  {
+    id: "collections",
+    label: "Shop by Collection",
+    items: [
+      {
+        label: "Khavinson Peptides",
+        href: LIST_PAGE_PATH,
+        children: [
+          { label: "Cytogens", href: browsePath(collection("khavinson-cytogens")) },
+          { label: "Cytomaxes", href: browsePath(collection("khavinson-cytomaxes")) },
+        ],
+      },
+      { label: collection("revilab").name, href: browsePath(collection("revilab")) },
+      { label: collection("prime-peptide").name, href: browsePath(collection("prime-peptide")) },
+    ],
+  },
   { id: "goals", label: "Shop by Goal", items: GOALS.map((p) => ({ label: p.name, href: browsePath(p) })) },
 ];
 const SHOP_ALL_LINK = { label: "Shop All", href: "/products" };
-const ALL_KHAVINSON_LINK = { label: "All Khavinson Peptides", href: LIST_PAGE_PATH };
 const ASK_PEPITA_LINK = { before: "Not sure where to start?", label: "Ask Pepita", href: "/ai-assistant" };
 /** Small highlighted CTA under Shop by Goal; the site's existing accent gradient (cart/wishlist badges). */
 const CTA_GRADIENT = "linear-gradient(135deg, #E8793A, #B83870)";
@@ -45,6 +65,86 @@ function AskPepitaCta({ onClick, className = "" }: { onClick?: () => void; class
     >
       {ASK_PEPITA_LINK.before} {ASK_PEPITA_LINK.label}
     </Link>
+  );
+}
+
+const DESKTOP_ITEM = "block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors";
+const MOBILE_ITEM = "block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors";
+
+/** Desktop item whose children reveal inline beneath it on hover and keyboard focus; Esc hides them (Shop stays open). */
+function DesktopFlyoutItem({ item }: { item: ShopItem & { children: { label: string; href: string }[] } }) {
+  const [open, setOpen] = useState(false);
+  const skipReopen = useRef(false);
+  const id = `nav-shop-flyout-${item.href.replace(/\W+/g, "-")}`;
+  return (
+    <div
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onFocus={() => {
+        if (skipReopen.current) skipReopen.current = false;
+        else setOpen(true);
+      }}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" && open) {
+          e.stopPropagation();
+          setOpen(false);
+          skipReopen.current = true;
+          (e.currentTarget.querySelector("a") as HTMLElement | null)?.focus();
+        }
+      }}
+    >
+      <Link href={item.href} className={`${DESKTOP_ITEM} flex items-center justify-between gap-2`} aria-expanded={open} aria-controls={id}>
+        {item.label}
+        <ChevronDown className={`h-3 w-3 opacity-70 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+      </Link>
+      {/* Revealed inline beneath the item (no overlay). The Body System column is taller, so the panel height doesn't change. */}
+      <div id={id} className={open ? "block" : "hidden"}>
+        {item.children.map((child) => (
+          <Link key={child.href} href={child.href} className={`${DESKTOP_ITEM} pl-9`}>
+            {child.label}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Mobile item with children: the label opens its page, a small toggle reveals the children. */
+function MobileNestedItem({ item, onNavigate }: { item: ShopItem & { children: { label: string; href: string }[] }; onNavigate: () => void }) {
+  const [open, setOpen] = useState(false);
+  const id = `mobile-shop-nested-${item.href.replace(/\W+/g, "-")}`;
+  return (
+    <>
+      <div className="flex items-center justify-between">
+        <Link href={item.href} className={MOBILE_ITEM} onClick={onNavigate}>
+          {item.label}
+        </Link>
+        <button
+          type="button"
+          className="p-1.5 -mr-1.5 text-white/75 hover:text-white transition-colors"
+          aria-expanded={open}
+          aria-controls={id}
+          aria-label={`${open ? "Hide" : "Show"} ${item.label} collections`}
+          onClick={() => setOpen(!open)}
+        >
+          <ChevronDown className={`h-3 w-3 opacity-70 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+        </button>
+      </div>
+      {open && (
+        <ul id={id} className="pl-4 border-l border-white/10">
+          {item.children.map((child) => (
+            <li key={child.href}>
+              <Link href={child.href} className={MOBILE_ITEM} onClick={onNavigate}>
+                {child.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 
@@ -160,11 +260,15 @@ export default function Navigation() {
                             <p id={`nav-shop-${section.id}-label`} className="px-5 pt-2 pb-1 text-[11px] uppercase tracking-widest text-white/50">
                               {section.label}
                             </p>
-                            {section.items.map((item) => (
-                              <Link key={item.href} href={item.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
-                                {item.label}
-                              </Link>
-                            ))}
+                            {section.items.map((item) =>
+                              item.children ? (
+                                <DesktopFlyoutItem key={item.href} item={{ ...item, children: item.children }} />
+                              ) : (
+                                <Link key={item.href} href={item.href} className={DESKTOP_ITEM}>
+                                  {item.label}
+                                </Link>
+                              )
+                            )}
                             {section.id === "goals" && (
                               <div className="px-5 pt-2 pb-1">
                                 <AskPepitaCta />
@@ -172,11 +276,6 @@ export default function Navigation() {
                             )}
                           </div>
                         ))}
-                      </div>
-                      <div className="border-t border-white/10 mt-1 pt-1">
-                        <Link href={ALL_KHAVINSON_LINK.href} className="block px-5 py-1.5 text-[13px] font-light leading-snug text-white/85 hover:text-white hover:bg-white/5 transition-colors">
-                          {ALL_KHAVINSON_LINK.label}
-                        </Link>
                       </div>
                     </div>
                   </div>
@@ -295,9 +394,13 @@ export default function Navigation() {
                             <ul id={`mobile-shop-${section.id}`} className="pl-4 border-l border-white/10" aria-label={section.label}>
                               {section.items.map((item) => (
                                 <li key={item.href}>
-                                  <Link href={item.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
-                                    {item.label}
-                                  </Link>
+                                  {item.children ? (
+                                    <MobileNestedItem item={{ ...item, children: item.children }} onNavigate={() => setIsMenuOpen(false)} />
+                                  ) : (
+                                    <Link href={item.href} className={MOBILE_ITEM} onClick={() => setIsMenuOpen(false)}>
+                                      {item.label}
+                                    </Link>
+                                  )}
                                 </li>
                               ))}
                             </ul>
@@ -310,9 +413,6 @@ export default function Navigation() {
                         </div>
                       );
                     })}
-                    <Link href={ALL_KHAVINSON_LINK.href} className="block py-1.5 text-[13px] font-light leading-snug text-white/75 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
-                      {ALL_KHAVINSON_LINK.label}
-                    </Link>
                   </div>
                 )}
                 {href === "/science" && (
