@@ -168,6 +168,11 @@
       "source": "/products/goal/antioxidant-support",
       "destination": "/products",
       "permanent": true
+    },
+    {
+      "source": "/reviews",
+      "destination": "/review",
+      "permanent": true
     }
   ]
 }
