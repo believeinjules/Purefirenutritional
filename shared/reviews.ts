@@ -1,10 +1,11 @@
 /**
  * Customer reviews: shape, public-visibility rules and the health-claim guard.
  *
- * Storage: Firestore `reviews/{id}`. Customers CREATE pending reviews from
- * the public /review form (client write; firestore.rules only allow a
- * `status: "pending"`, `approved: false` doc with validated fields). Every
- * other write goes through the Admin SDK (/api/admin/reviews). Browsers read
+ * Storage: Firestore `reviews/{id}`. The public /review form POSTs to
+ * /api/reviews, which validates (shared/review-submission.ts), rate-limits
+ * per IP, writes `status: "pending"` docs with the Admin SDK and emails
+ * Julia. Browsers cannot write `reviews` at all (firestore.rules). Admin
+ * writes go through /api/admin/reviews. Browsers read
  * approved reviews through the public GET /api/reviews endpoint, which
  * returns only the PublicReview fields below — never an email address.
  *
@@ -41,7 +42,28 @@ export type ReviewDoc = {
   source?: string;
   /** Customer ticked "I bought / used this product". */
   usedProduct?: boolean;
+  /** Missing on older docs = "product". */
+  kind?: ReviewKind;
+  /** Optional admin tag shown on the public review (default none). */
+  tag?: ReviewTag | null;
 };
+
+/**
+ * product: about one product (counts toward its stars, PDP + JSON-LD).
+ * general: "General / not product-specific" (site-wide only, never in product stars).
+ * service: answer to "How was your experience buying from Pure Fire Nutritional?" (no stars, site-wide only).
+ */
+export type ReviewKind = "product" | "general" | "service";
+export const REVIEW_TAGS = ["purchased-through-julia", "verified-buyer"] as const;
+export type ReviewTag = (typeof REVIEW_TAGS)[number];
+export const REVIEW_TAG_LABELS: Record<ReviewTag, string> = {
+  "purchased-through-julia": "Purchased through Julia",
+  "verified-buyer": "Verified buyer",
+};
+
+export function reviewKind(r: Partial<ReviewDoc>): ReviewKind {
+  return r.kind === "general" || r.kind === "service" ? r.kind : "product";
+}
 
 export type ReviewStatus = "pending" | "approved" | "rejected";
 
@@ -68,8 +90,12 @@ export type PublicReview = {
   displayName: string;
   date: string;
   text: string;
+  /** 1–5; 0 for service reviews (no stars). */
   rating: number;
   verified: boolean;
+  kind: ReviewKind;
+  /** Public badge text, e.g. "Purchased through Julia". Undefined = none. */
+  tagLabel?: string;
 };
 
 export type ReviewSummary = { count: number; average: number };
@@ -113,18 +139,23 @@ function isValidRating(n: unknown): n is number {
 /** Visibility rule for the public site. */
 export function isPublicReview(r: Partial<ReviewDoc> | null | undefined): boolean {
   if (!r) return false;
+  const kind = reviewKind(r);
+  const kindOk =
+    kind === "product"
+      ? typeof r.productId === "string" && r.productId.length > 0 && isValidRating(r.rating)
+      : kind === "general"
+        ? isValidRating(r.rating)
+        : true;
   return (
     r.approved === true &&
     r.status !== "rejected" &&
     r.status !== "pending" &&
     r.permission === true &&
-    typeof r.productId === "string" &&
-    r.productId.length > 0 &&
+    kindOk &&
     typeof r.firstName === "string" &&
     r.firstName.trim().length > 0 &&
     typeof r.text === "string" &&
     r.text.trim().length > 0 &&
-    isValidRating(r.rating) &&
     !hasHealthClaim(r.text)
   );
 }
@@ -137,14 +168,20 @@ export function reviewDisplayName(firstName: string, lastInitial?: string): stri
 }
 
 export function toPublicReview(id: string, r: ReviewDoc): PublicReview {
+  const kind = reviewKind(r);
+  const tag = r.tag && (REVIEW_TAGS as readonly string[]).includes(r.tag) ? r.tag : null;
+  // "Verified buyer" from an order match keeps working; an explicit admin tag wins.
+  const tagLabel = tag ? REVIEW_TAG_LABELS[tag] : r.verified === true ? REVIEW_TAG_LABELS["verified-buyer"] : undefined;
   return {
     id,
-    productId: r.productId,
+    productId: kind === "product" ? r.productId : "",
     displayName: reviewDisplayName(r.firstName, r.lastInitial),
     date: typeof r.date === "string" ? r.date : "",
     text: r.text.trim(),
-    rating: r.rating,
-    verified: r.verified === true,
+    rating: kind === "service" ? 0 : r.rating,
+    verified: r.verified === true || tag === "verified-buyer",
+    kind,
+    ...(tagLabel ? { tagLabel } : {}),
   };
 }
 
@@ -158,6 +195,7 @@ export function summarize(reviews: Array<{ rating: number }>): ReviewSummary {
 export function summarizeByProduct(reviews: PublicReview[]): Record<string, ReviewSummary> {
   const groups = new Map<string, PublicReview[]>();
   for (const r of reviews) {
+    if (r.kind !== "product" || !r.productId) continue;
     const list = groups.get(r.productId) ?? [];
     list.push(r);
     groups.set(r.productId, list);
@@ -184,8 +222,10 @@ export function parseReviewerName(raw: string): { firstName: string; lastInitial
 /** schema.org AggregateRating + Review JSON-LD. Null when there are no reviews (never fabricated). */
 export function reviewsJsonLd(
   product: { id: string; name: string; url: string },
-  reviews: PublicReview[]
+  allReviews: PublicReview[]
 ): Record<string, unknown> | null {
+  // Only approved product reviews for THIS product count (never general/service).
+  const reviews = allReviews.filter((r) => r.kind === "product" && r.productId === product.id && r.rating >= 1);
   if (reviews.length === 0) return null;
   const s = summarize(reviews);
   return {

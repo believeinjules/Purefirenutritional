@@ -59,6 +59,8 @@ describe("review visibility", () => {
       text: base.text,
       rating: 5,
       verified: true,
+      kind: "product",
+      tagLabel: "Verified buyer",
     });
   });
 
