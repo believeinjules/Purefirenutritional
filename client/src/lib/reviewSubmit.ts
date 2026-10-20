@@ -1,78 +1,43 @@
 /**
- * Public review submission (/review form) — direct Firestore client write.
+ * Public review submission (/review form) → POST /api/reviews.
  *
- * firestore.rules only allow CREATE of a doc shaped exactly like
- * buildPendingReview() (status "pending", approved false, validated fields);
- * clients can never read, update or delete reviews. Julia approves in Admin.
- *
- * Spam protection (no captcha service): honeypot field, minimum time on the
- * form, and a per-browser throttle (localStorage). Rules enforce field shapes
- * and sizes server-side.
+ * The server validates with the same zod schema (shared/review-submission.ts),
+ * checks the honeypot, rate-limits per IP, writes `status: "pending"` docs with
+ * the Admin SDK and emails Julia. Browsers never write Firestore `reviews`.
+ * A per-browser throttle (localStorage) stops accidental repeat sends.
  */
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "./firebase";
+import { findReviewableProduct, isReviewableProduct, reviewableProducts } from "@shared/reviewable-products";
 import {
-  PUBLIC_EMAIL_MAX,
-  PUBLIC_REVIEW_TEXT_MAX,
-  PUBLIC_REVIEW_TEXT_MIN,
-  parseReviewerName,
-} from "@shared/reviews";
-import { products as catalog } from "@/data/products";
+  GENERAL_REVIEW_VALUE,
+  looksLikeBot,
+  parseReviewSubmission,
+  type ReviewSubmission,
+} from "@shared/review-submission";
 
-/** Discontinued products (vercel.json redirects them to /products). */
-const DISCONTINUED = new Set(["femalin", "temero-genero", "trezvon", "olecap", "panaxod", "previn", "regenart", "gelmigon", "calsil-t", "indosine"]);
-
-export function reviewableProducts(): Array<{ id: string; name: string }> {
-  return catalog
-    .filter((p) => !DISCONTINUED.has(p.id))
-    .map((p) => ({ id: p.id, name: p.name }))
-    .sort((a, b) => a.name.localeCompare(b.name));
-}
-
-export function findReviewableProduct(id: string | undefined) {
-  if (!id) return undefined;
-  return reviewableProducts().find((p) => p.id === id);
-}
+export { findReviewableProduct, isReviewableProduct, reviewableProducts };
 
 export type ReviewFormInput = {
   productId: string;
   rating: number;
   text: string;
-  name: string;
+  firstName: string;
+  lastInitial: string;
   email: string;
-  usedProduct: boolean;
-  /** Honeypot: real people leave it empty. */
+  consent: boolean;
+  serviceText: string;
   website: string;
-  /** ms since the form was shown. */
   elapsedMs: number;
 };
 
-export const MIN_FILL_MS = 3000;
+/** Returns field → message. Empty object = valid. */
+export function validateReviewForm(f: ReviewFormInput): Record<string, string> {
+  const r = parseReviewSubmission(f, isReviewableProduct);
+  return r.ok ? {} : r.errors;
+}
+
 const THROTTLE_KEY = "pf_review_submits";
 const THROTTLE_MAX = 3;
 const THROTTLE_WINDOW_MS = 60 * 60 * 1000;
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-const PRODUCT_ID_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
-
-/** Returns field → message. Empty object = valid. */
-export function validateReviewForm(f: ReviewFormInput): Record<string, string> {
-  const errors: Record<string, string> = {};
-  if (!PRODUCT_ID_RE.test(f.productId) || !findReviewableProduct(f.productId)) errors.productId = "Choose a product.";
-  if (!Number.isInteger(f.rating) || f.rating < 1 || f.rating > 5) errors.rating = "Choose a star rating.";
-  const text = f.text.trim();
-  if (text.length < PUBLIC_REVIEW_TEXT_MIN) errors.text = `Please write at least ${PUBLIC_REVIEW_TEXT_MIN} characters.`;
-  else if (text.length > PUBLIC_REVIEW_TEXT_MAX) errors.text = `Please keep it under ${PUBLIC_REVIEW_TEXT_MAX} characters.`;
-  if (!parseReviewerName(f.name).firstName) errors.name = "Add your first name.";
-  const email = f.email.trim();
-  if (email && (email.length > PUBLIC_EMAIL_MAX || !EMAIL_RE.test(email))) errors.email = "Check your email address.";
-  if (!f.usedProduct) errors.usedProduct = "Please confirm you bought or used this product.";
-  return errors;
-}
-
-/** True when the submission looks automated (honeypot filled or too fast). */
-export function looksLikeBot(f: Pick<ReviewFormInput, "website" | "elapsedMs">): boolean {
-  return f.website.trim() !== "" || f.elapsedMs < MIN_FILL_MS;
-}
 
 function readThrottle(now: number): number[] {
   try {
@@ -96,51 +61,33 @@ function recordSubmit(now = Date.now()) {
   }
 }
 
-/** The exact Firestore document firestore.rules accept (createdAt added on write). */
-export function buildPendingReview(f: ReviewFormInput, today = new Date().toISOString().slice(0, 10)) {
-  const { firstName, lastInitial } = parseReviewerName(f.name);
-  return {
-    productId: f.productId,
-    rating: f.rating,
-    text: f.text.trim(),
-    firstName,
-    lastInitial,
-    email: f.email.trim().toLowerCase(),
-    date: today,
-    usedProduct: true,
-    permission: true,
-    verified: false,
-    approved: false,
-    status: "pending" as const,
-    source: "customer-form" as const,
-  };
-}
-
 export type SubmitResult = { ok: true } | { ok: false; error: string };
 
 export async function submitReview(f: ReviewFormInput): Promise<SubmitResult> {
   const errors = validateReviewForm(f);
   if (Object.keys(errors).length) return { ok: false, error: Object.values(errors)[0]! };
   // Bots get a silent "success" so they learn nothing.
-  if (looksLikeBot(f)) return { ok: true };
+  if (looksLikeBot({ website: f.website, elapsedMs: f.elapsedMs })) return { ok: true };
   if (isThrottled()) return { ok: false, error: "Thanks — we've already received several reviews from this device. Please try again later." };
 
-  const doc = buildPendingReview(f);
-  if (!isFirebaseConfigured()) {
-    if (import.meta.env.DEV) {
-      // Local preview without Firebase env: simulate success, write nothing.
-      console.warn("[review] Firebase not configured — DEV simulated submit:", doc);
+  const body: ReviewSubmission = { ...f, consent: f.consent as true };
+  try {
+    const res = await fetch("/api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
       recordSubmit();
       return { ok: true };
     }
-    return { ok: false, error: "Reviews are temporarily unavailable. Please try again later." };
-  }
-  try {
-    await addDoc(collection(db, "reviews"), { ...doc, createdAt: serverTimestamp() });
-    recordSubmit();
-    return { ok: true };
+    if (res.status === 429) return { ok: false, error: "Thanks — we've received several reviews from you already. Please try again in an hour." };
+    const data = (await res.json().catch(() => null)) as { error?: string } | null;
+    return { ok: false, error: data?.error || "Something went wrong sending your review. Please try again." };
   } catch (err) {
     console.error("[review] submit failed:", err);
     return { ok: false, error: "Something went wrong sending your review. Please try again." };
   }
 }
+
+export { GENERAL_REVIEW_VALUE };
