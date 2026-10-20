@@ -56,3 +56,9 @@ export async function fetchLatestReviews(): Promise<PublicReview[]> {
   const body = await getJson<{ reviews?: PublicReview[] }>("/api/reviews?latest=1");
   return body?.reviews ?? [];
 }
+
+/** Approved general + service reviews for the site-wide trust section (never product stars). */
+export async function fetchSiteReviews(): Promise<PublicReview[]> {
+  const body = await getJson<{ reviews?: PublicReview[] }>("/api/reviews?site=1");
+  return (body?.reviews ?? []).filter((r) => r.kind === "general" || r.kind === "service");
+}

@@ -4,7 +4,7 @@ import { AlertTriangle, CheckCircle, XCircle, Trash2, Pencil, BadgeCheck } from 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { hasHealthClaim, reviewDisplayName, type ReviewStatus } from "@shared/reviews";
+import { REVIEW_TAGS, REVIEW_TAG_LABELS, hasHealthClaim, reviewDisplayName, reviewKind, type ReviewStatus, type ReviewTag } from "@shared/reviews";
 import { products as catalog } from "@/data/products";
 import { reviewAdminApi, type AdminReview, type ReviewAdminApi } from "@/lib/reviewsAdmin";
 
@@ -56,7 +56,12 @@ export default function ReviewModeration({
     onCountsChange?.(counts);
   }, [counts, onCountsChange]);
 
-  const productName = (id: string) => catalog.find((p) => p.id === id)?.name ?? id;
+  const productName = (r: AdminReview) => {
+    const kind = reviewKind(r);
+    if (kind === "general") return "General (not product-specific)";
+    if (kind === "service") return "Service: buying from Pure Fire";
+    return catalog.find((p) => p.id === r.productId)?.name ?? r.productId;
+  };
   const shown = reviews.filter((r) => r.status === filter);
 
   const run = async (fn: () => Promise<void>, ok: string) => {
@@ -137,17 +142,21 @@ export default function ReviewModeration({
               <li key={r.id} className="rounded-lg border bg-white p-4 space-y-2" data-testid="admin-review">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
                   <strong>{reviewDisplayName(r.firstName, r.lastInitial)}</strong>
-                  <span className="text-amber-500" aria-label={`${r.rating} out of 5`}>
-                    {"★".repeat(r.rating)}
-                    <span className="text-gray-300">{"★".repeat(5 - r.rating)}</span>
-                  </span>
-                  <span className="text-gray-500">· {productName(r.productId)}</span>
+                  {r.rating >= 1 && (
+                    <span className="text-amber-500" aria-label={`${r.rating} out of 5`}>
+                      {"★".repeat(r.rating)}
+                      <span className="text-gray-300">{"★".repeat(5 - r.rating)}</span>
+                    </span>
+                  )}
+                  <span className="text-gray-500">· {productName(r)}</span>
                   <span className="text-gray-500">· {r.date}</span>
                   {r.verified && (
                     <Badge variant="secondary">
                       <BadgeCheck className="h-3 w-3 mr-1" /> Verified buyer
                     </Badge>
                   )}
+                  {r.tag && <Badge variant="secondary">{REVIEW_TAG_LABELS[r.tag]}</Badge>}
+                  {reviewKind(r) === "service" && <Badge variant="outline">Service review</Badge>}
                   {r.source === "customer-form" && <Badge variant="outline">Review link</Badge>}
                   {claim && <Badge variant="destructive">Health claim</Badge>}
                 </div>
@@ -203,6 +212,25 @@ export default function ReviewModeration({
                     >
                       {r.verified ? "Unmark verified" : "Mark verified"}
                     </Button>
+                    <label className="flex items-center gap-1.5 text-xs text-gray-600">
+                      Tag
+                      <select
+                        className="rounded-md border border-input bg-background px-2 py-1 text-xs"
+                        value={r.tag ?? ""}
+                        aria-label="Public tag"
+                        onChange={(e) => {
+                          const next = (e.target.value || null) as ReviewTag | null;
+                          run(() => api.update(r.id, { tag: next }), next ? `Tagged “${REVIEW_TAG_LABELS[next]}”` : "Tag removed");
+                        }}
+                      >
+                        <option value="">None</option>
+                        {REVIEW_TAGS.map((t) => (
+                          <option key={t} value={t}>
+                            {REVIEW_TAG_LABELS[t]}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                     <Button
                       size="sm"
                       variant="ghost"
