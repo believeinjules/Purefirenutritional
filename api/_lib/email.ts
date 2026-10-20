@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { SUPPORT_EMAIL } from "../../shared/contact-emails.js";
+import { FOUNDER_EMAIL, SUPPORT_EMAIL } from "../../shared/contact-emails.js";
 
 interface OrderDetails {
   orderId: string;
@@ -60,6 +60,53 @@ export async function sendOrderConfirmation(
     return true;
   } catch (err) {
     console.error("[email] sendOrderConfirmation failed:", err);
+    return false;
+  }
+}
+
+/** Where new-review notifications go: REVIEW_NOTIFY_EMAIL if set, else Julia (FOUNDER_EMAIL). */
+export function reviewNotifyAddress(): string {
+  return (process.env.REVIEW_NOTIFY_EMAIL || "").trim() || FOUNDER_EMAIL;
+}
+
+export type ReviewNotification = {
+  kindLabel: string;
+  productName: string;
+  rating: number;
+  text: string;
+  displayName: string;
+  email: string;
+  serviceText: string;
+};
+
+/** Plain notification to Julia for each /review submission. Returns false when email isn't configured. */
+export async function sendReviewNotification(n: ReviewNotification): Promise<boolean> {
+  const transporter = createTransporter();
+  if (!transporter) return false;
+  const stars = n.rating ? `${"★".repeat(n.rating)}${"☆".repeat(5 - n.rating)} (${n.rating}/5)` : "";
+  const lines: string[] = [
+    `New ${n.kindLabel} review (pending approval)`,
+    `Product: ${n.productName}`,
+    ...(stars ? [`Rating: ${stars}`] : []),
+    `From: ${n.displayName}${n.email ? ` <${n.email}> (private)` : ""}`,
+    "",
+    n.text,
+    ...(n.serviceText ? ["", "Buying experience (separate service review):", n.serviceText] : []),
+    "",
+    "Approve or reject in Admin → Reviews: https://www.purefirenutritional.com/admin/reviews",
+  ];
+  try {
+    await transporter.sendMail({
+      from: `"Pure Fire Nutritional" <${process.env.EMAIL_USER}>`,
+      to: reviewNotifyAddress(),
+      ...(n.email ? { replyTo: n.email } : {}),
+      subject: `New review: ${n.productName}${n.rating ? ` (${n.rating}★)` : ""} from ${n.displayName}`,
+      text: lines.join("\n"),
+      html: lines.map((l) => (l ? `<p>${escapeHtml(l).replace(/\n/g, "<br>")}</p>` : "")).join(""),
+    });
+    return true;
+  } catch (err) {
+    console.error("[email] sendReviewNotification failed:", err);
     return false;
   }
 }

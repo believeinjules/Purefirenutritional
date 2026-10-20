@@ -6,7 +6,7 @@
  * not given permission, or when its text makes a health claim
  * (cured / treated / fixed … — see shared/reviews.ts hasHealthClaim).
  */
-import { hasHealthClaim, type ReviewDoc, type ReviewStatus } from "../../shared/reviews.js";
+import { REVIEW_TAGS, hasHealthClaim, type ReviewDoc, type ReviewStatus, type ReviewTag } from "../../shared/reviews.js";
 
 export class ReviewValidationError extends Error {
   constructor(message: string) {
@@ -79,6 +79,13 @@ function status(v: unknown): ReviewStatus {
   return v as ReviewStatus;
 }
 
+/** Optional public tag: null/"" clears it. */
+function tag(v: unknown): ReviewTag | null {
+  if (v === null || v === "") return null;
+  if (typeof v !== "string" || !(REVIEW_TAGS as readonly string[]).includes(v)) fail("tag must be purchased-through-julia, verified-buyer or empty");
+  return v as ReviewTag;
+}
+
 function bool(v: unknown, field: string): boolean {
   if (typeof v !== "boolean") fail(`${field} must be true or false`);
   return v;
@@ -128,6 +135,7 @@ export function validateReviewPatch(body: unknown): Partial<ReviewDoc> {
   if ("verified" in b) out.verified = bool(b.verified, "verified");
   if ("approved" in b) out.approved = bool(b.approved, "approved");
   if ("permission" in b) out.permission = bool(b.permission, "permission");
+  if ("tag" in b) out.tag = tag(b.tag);
   if ("status" in b) {
     out.status = status(b.status);
     // Keep the public `approved` flag in step with the moderation state.

@@ -81,3 +81,13 @@ describe("verified buyer order match", () => {
     expect(itemMatchesProduct("endoluten-forte", "endoluten")).toBe(false);
   });
 });
+
+describe("admin review tag", async () => {
+  const { validateReviewPatch } = await import("./admin-reviews.js");
+  it("accepts the two tags and clearing, rejects anything else", () => {
+    expect(validateReviewPatch({ tag: "purchased-through-julia" })).toEqual({ tag: "purchased-through-julia" });
+    expect(validateReviewPatch({ tag: "verified-buyer" })).toEqual({ tag: "verified-buyer" });
+    expect(validateReviewPatch({ tag: null })).toEqual({ tag: null });
+    expect(() => validateReviewPatch({ tag: "best-ever" })).toThrow();
+  });
+});
