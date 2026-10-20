@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PUBLIC_REVIEW_TEXT_MAX, PUBLIC_NAME_MAX } from "@shared/reviews";
+import { CONSENT_LABEL, GENERAL_REVIEW_VALUE, SERVICE_QUESTION, SERVICE_TEXT_MAX } from "@shared/review-submission";
 import {
   findReviewableProduct,
   reviewableProducts,
@@ -34,9 +35,11 @@ export default function WriteReview() {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [text, setText] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastInitial, setLastInitial] = useState("");
   const [email, setEmail] = useState("");
-  const [usedProduct, setUsedProduct] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [serviceText, setServiceText] = useState("");
   const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState("");
@@ -56,9 +59,11 @@ export default function WriteReview() {
       productId,
       rating,
       text,
-      name,
+      firstName,
+      lastInitial,
       email,
-      usedProduct,
+      consent,
+      serviceText,
       website,
       elapsedMs: Date.now() - shownAt.current,
     };
@@ -133,6 +138,7 @@ export default function WriteReview() {
                     aria-invalid={!!errors.productId}
                   >
                     <option value="">Choose a product…</option>
+                    <option value={GENERAL_REVIEW_VALUE}>General / not product-specific</option>
                     {products.map((p) => (
                       <option key={p.id} value={p.id}>
                         {p.name}
@@ -192,36 +198,48 @@ export default function WriteReview() {
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="rv-name">First name &amp; last initial</Label>
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                <div className="col-span-2 sm:col-span-3">
+                  <Label htmlFor="rv-first">First name</Label>
                   <Input
-                    id="rv-name"
+                    id="rv-first"
                     autoComplete="given-name"
-                    maxLength={PUBLIC_NAME_MAX + 4}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Jane D."
+                    maxLength={PUBLIC_NAME_MAX}
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                     className="mt-1 text-base sm:text-sm"
-                    aria-invalid={!!errors.name}
+                    aria-invalid={!!errors.firstName}
                   />
-                  {errors.name && <p className="mt-1 text-xs text-red-700">{errors.name}</p>}
+                  {errors.firstName && <p className="mt-1 text-xs text-red-700">{errors.firstName}</p>}
                 </div>
                 <div>
-                  <Label htmlFor="rv-email">
-                    Email <span className="font-normal text-gray-500">(optional, not shown)</span>
-                  </Label>
+                  <Label htmlFor="rv-initial">Last initial</Label>
                   <Input
-                    id="rv-email"
-                    type="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    id="rv-initial"
+                    maxLength={2}
+                    value={lastInitial}
+                    onChange={(e) => setLastInitial(e.target.value)}
+                    placeholder="D"
                     className="mt-1 text-base sm:text-sm"
-                    aria-invalid={!!errors.email}
+                    aria-invalid={!!errors.lastInitial}
                   />
-                  {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email}</p>}
+                  {errors.lastInitial && <p className="mt-1 text-xs text-red-700">{errors.lastInitial}</p>}
                 </div>
+              </div>
+              <div>
+                <Label htmlFor="rv-email">
+                  Email <span className="font-normal text-gray-500">(optional, not shown)</span>
+                </Label>
+                <Input
+                  id="rv-email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 text-base sm:text-sm"
+                  aria-invalid={!!errors.email}
+                />
+                {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email}</p>}
               </div>
 
               {/* Honeypot — hidden from people, filled by bots. */}
@@ -238,20 +256,35 @@ export default function WriteReview() {
               </div>
 
               <div>
+                <Label htmlFor="rv-service">
+                  {SERVICE_QUESTION} <span className="font-normal text-gray-500">(optional)</span>
+                </Label>
+                <Textarea
+                  id="rv-service"
+                  rows={3}
+                  maxLength={SERVICE_TEXT_MAX}
+                  value={serviceText}
+                  onChange={(e) => setServiceText(e.target.value)}
+                  placeholder="Ordering, shipping, questions answered…"
+                  className="mt-1 text-base sm:text-sm"
+                  aria-invalid={!!errors.serviceText}
+                />
+                <p className="mt-1 text-xs text-gray-500">Saved separately as a review of our service, never in product ratings.</p>
+              </div>
+
+              <div>
                 <label className="flex items-start gap-3 text-sm text-gray-700">
                   <input
                     type="checkbox"
                     className="mt-0.5 h-5 w-5 shrink-0 accent-current"
-                    checked={usedProduct}
-                    onChange={(e) => setUsedProduct(e.target.checked)}
-                    aria-invalid={!!errors.usedProduct}
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    aria-invalid={!!errors.consent}
+                    data-testid="review-consent"
                   />
-                  <span>
-                    I bought or used this product, and Pure Fire Nutritional may publish my review with my first name and
-                    last initial.
-                  </span>
+                  <span>{CONSENT_LABEL}</span>
                 </label>
-                {errors.usedProduct && <p className="mt-1 text-xs text-red-700">{errors.usedProduct}</p>}
+                {errors.consent && <p className="mt-1 text-xs text-red-700">{errors.consent}</p>}
               </div>
 
               {formError && (

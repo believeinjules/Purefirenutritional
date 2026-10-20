@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Heart, Shield, Award, Users, Globe, Microscope, ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'wouter';
+import SiteReviews from '@/components/reviews/SiteReviews';
 import { CONTACT_EMAIL, FOUNDER_EMAIL, mailto } from '@shared/contact-emails';
 
 export default function About() {
@@ -134,7 +135,7 @@ export default function About() {
                   <p className="text-sm font-semibold text-gray-800">Professional background</p>
                   <ul className="text-sm text-gray-600 space-y-1 ml-4">
                     <li>• National Guild of Hypnotists–certified hypnotherapist</li>
-                    <li>• 10+ years in hypnotherapy, behavior change &amp; wellness education</li>
+                    <li>• A therapist of 20 years, working in hypnotherapy, behavior change &amp; wellness education</li>
                     <li>• Founder, Mindscaping NYC</li>
                   </ul>
                 </div>
@@ -379,7 +380,8 @@ export default function About() {
         </div>
       </section>
 
-
+      {/* Approved service / general reviews; renders nothing until one exists */}
+      <SiteReviews />
 
       {/* CTA Section */}
       <section className="py-20 bg-brand-gradient text-white">

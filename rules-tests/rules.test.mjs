@@ -75,19 +75,13 @@ test("abandoned_carts: admin read + recovery flags only", async () => {
   await assertFails(setDoc(doc(anon(), "abandoned_carts/s2"), { items: [] }));
 });
 
-test("reviews: anonymous pending create only", async () => {
-  await assertSucceeds(addDoc(collection(anon(), "reviews"), review()));
-  await assertSucceeds(addDoc(collection(anon(), "reviews"), { ...review(), email: "a@b.co", lastInitial: "" }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), approved: true }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), status: "approved" }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), verified: true }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), rating: 6 }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), text: "x".repeat(1001) }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), extra: 1 }));
-  await assertFails(addDoc(collection(anon(), "reviews"), { ...review(), email: "not-an-email" }));
+test("reviews: no browser access (server-only via /api/reviews)", async () => {
+  await assertFails(addDoc(collection(anon(), "reviews"), review()));
+  await assertFails(addDoc(collection(as("a", ADMIN), "reviews"), review()));
   await assertFails(getDoc(doc(anon(), "reviews/r1")));
   await assertFails(updateDoc(doc(as("a", ADMIN), "reviews/r1"), { approved: false }));
   await assertFails(deleteDoc(doc(anon(), "reviews/r1")));
+  await assertFails(getDoc(doc(anon(), "review_rate_limits/x")));
 });
 
 test("default deny: customers, mailing_list, product_reviews", async () => {
