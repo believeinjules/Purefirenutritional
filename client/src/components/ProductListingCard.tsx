@@ -3,6 +3,7 @@ import QuickAddToCart from "@/components/QuickAddToCart";
 import RatingStars from "@/components/shop/RatingStars";
 import { getProductFacts } from "@/lib/productFacts";
 import PreorderBadge from "@/components/PreorderBadge";
+import { FULFILLMENT_CARD_LABEL, resolveFulfillment } from "@shared/fulfillment";
 import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 import type { ReviewSummary } from "@shared/reviews";
 
@@ -18,6 +19,8 @@ export type ListingProduct = {
   image?: string;
   imageAlt?: string;
   benefits?: string[];
+  in_stock?: boolean;
+  fulfillment?: string;
   variants?: Array<{
     id: string;
     name: string;
@@ -172,6 +175,19 @@ function ProductFactsLine({ product, className = "" }: { product: ListingProduct
   );
 }
 
+/** Small "In stock" tag for in-stock items; nothing for 2-week or out-of-stock items. */
+function StockTag({ product, className = "" }: { product: ListingProduct; className?: string }) {
+  if (product.in_stock === false) return null;
+  if (product.variants?.length && product.variants.every((v) => v.inStock === false)) return null;
+  const label = FULFILLMENT_CARD_LABEL[resolveFulfillment(product.id, product.fulfillment)];
+  if (!label) return null;
+  return (
+    <p className={`text-xs font-medium text-gray-700 ${className}`} data-testid="stock-tag">
+      {label}
+    </p>
+  );
+}
+
 /** Grid card: image flips on hover; title/price/ATC stay visible underneath. */
 export function ProductGridCard({
   product,
@@ -209,6 +225,7 @@ export function ProductGridCard({
         )}
 
         <ProductFactsLine product={product} className="mb-2" />
+        <StockTag product={product} className="-mt-1 mb-2" />
         {/* Stars only from approved reviews; nothing when there are none. */}
         <RatingStars summary={reviewSummary} className="mb-3" />
 
@@ -281,6 +298,7 @@ export function ProductListRow({
               {product.description}
             </p>
             <ProductFactsLine product={product} className="mb-2" />
+            <StockTag product={product} className="-mt-1 mb-2" />
             {product.benefits && product.benefits.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {product.benefits.slice(0, 3).map((b, i) => (

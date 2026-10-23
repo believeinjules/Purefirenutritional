@@ -66,6 +66,13 @@ import {
   type ProductVariant,
 } from "@/lib/productsStorage";
 import { storage } from "@/lib/firebase";
+import {
+  DEFAULT_FULFILLMENT,
+  FULFILLMENT_ADMIN_LABEL,
+  FULFILLMENT_VALUES,
+  resolveFulfillment,
+  type Fulfillment,
+} from "@shared/fulfillment";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -106,6 +113,7 @@ interface ProductFormData {
   usage: string;
   seriesInfo: string;
   in_stock: boolean;
+  fulfillment: Fulfillment;
   variants: VariantFormData[];
   manufacturer: string;
   lotNumber: string;
@@ -152,6 +160,7 @@ function emptyForm(): ProductFormData {
     usage: "",
     seriesInfo: "",
     in_stock: true,
+    fulfillment: DEFAULT_FULFILLMENT,
     variants: [],
     manufacturer: "",
     lotNumber: "",
@@ -176,6 +185,7 @@ function productToForm(p: Product): ProductFormData {
     usage: p.usage ?? "",
     seriesInfo: p.seriesInfo ?? "",
     in_stock: p.in_stock !== false, // default true
+    fulfillment: resolveFulfillment(p.id, p.fulfillment),
     variants: (p.variants ?? []).map((v) => ({
       id: v.id,
       name: v.name,
@@ -227,6 +237,7 @@ function formToInput(form: ProductFormData): ProductInput {
     usage: form.usage.trim() || null,
     seriesInfo: form.seriesInfo.trim() || null,
     in_stock: form.in_stock,
+    fulfillment: form.fulfillment,
     variants,
     manufacturer: form.manufacturer.trim() || null,
     lotNumber: form.lotNumber.trim() || null,
@@ -1066,6 +1077,26 @@ export default function ProductManager() {
               <Label htmlFor="pm-stock" className="cursor-pointer">
                 In Stock
               </Label>
+            </div>
+
+            {/* Fulfillment: shopper-facing stock line (shared/fulfillment.ts) */}
+            <div className="space-y-1.5">
+              <Label className="text-xs">Fulfillment (stock line shown to shoppers)</Label>
+              <Select
+                value={form.fulfillment}
+                onValueChange={(v) => setForm((p) => ({ ...p, fulfillment: v as Fulfillment }))}
+              >
+                <SelectTrigger data-testid="pm-fulfillment">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {FULFILLMENT_VALUES.map((f) => (
+                    <SelectItem key={f} value={f}>
+                      {FULFILLMENT_ADMIN_LABEL[f]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Save button */}
