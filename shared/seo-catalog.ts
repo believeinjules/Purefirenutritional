@@ -12,6 +12,7 @@
  */
 import { products as codeProducts } from "../client/src/data/products.js";
 import { firestoreDocToPriceable } from "../api/_lib/catalog.js";
+import { resolveFulfillment } from "./fulfillment.js";
 import type { SeoProduct, SeoVariant } from "../client/src/lib/seo/index.js";
 
 export type SeoCatalogEntry = {
@@ -111,6 +112,7 @@ export function mergeFirestoreProduct(
       : code?.images ?? null,
     imageAlt: str(data.imageAlt) ?? str(data.image_alt) ?? code?.imageAlt ?? null,
     in_stock: data.in_stock !== false,
+    fulfillment: resolveFulfillment(id, data.fulfillment),
     variants,
   };
 }

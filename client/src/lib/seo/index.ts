@@ -8,6 +8,7 @@
  */
 import { variantCartSize } from "@shared/product-prices";
 import { getPdpContent } from "@shared/product-facts";
+import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
@@ -236,11 +237,15 @@ export type SeoProduct = {
   images?: string[] | null;
   imageAlt?: string | null;
   in_stock?: boolean;
+  /** Stock line (shared/fulfillment.ts); unset → code default → ships_2_weeks. */
+  fulfillment?: string | null;
   variants?: SeoVariant[] | null;
 };
 
 const IN_STOCK = "https://schema.org/InStock";
 const OUT_OF_STOCK = "https://schema.org/OutOfStock";
+/** Purchasable now but ships in ~2 weeks (shared/fulfillment.ts): Merchant Center "backorder". */
+const BACK_ORDER = "https://schema.org/BackOrder";
 
 function validPrice(n: unknown): n is number {
   return typeof n === "number" && Number.isFinite(n) && n > 0;
@@ -294,6 +299,8 @@ export function productOffers(product: SeoProduct): Array<{
 export function productJsonLd(product: SeoProduct): Record<string, unknown> {
   const url = canonicalUrl(productPath(product.id));
   const offers = productOffers(product);
+  const sellable = resolveFulfillment(product.id, product.fulfillment) === "in_stock" ? IN_STOCK : BACK_ORDER;
+  const avail = (inStock: boolean) => (inStock ? sellable : OUT_OF_STOCK);
   const seller = { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` };
   const images = productImageUrls(product);
 
@@ -306,7 +313,7 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
       sku: o.sku,
       priceCurrency: "USD",
       price: money(o.price),
-      availability: o.inStock ? IN_STOCK : OUT_OF_STOCK,
+      availability: avail(o.inStock),
       itemCondition: "https://schema.org/NewCondition",
       seller,
     };
@@ -319,7 +326,7 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
       lowPrice: money(Math.min(...prices)),
       highPrice: money(Math.max(...prices)),
       offerCount: offers.length,
-      availability: offers.some((o) => o.inStock) ? IN_STOCK : OUT_OF_STOCK,
+      availability: avail(offers.some((o) => o.inStock)),
       seller,
       offers: offers.map((o) => ({
         "@type": "Offer",
@@ -328,7 +335,7 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
         name: o.name,
         priceCurrency: "USD",
         price: money(o.price),
-        availability: o.inStock ? IN_STOCK : OUT_OF_STOCK,
+        availability: avail(o.inStock),
         itemCondition: "https://schema.org/NewCondition",
       })),
     };

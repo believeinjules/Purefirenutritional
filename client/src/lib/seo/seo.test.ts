@@ -69,8 +69,18 @@ describe("product structured data", () => {
       expect(ld.offers["@type"]).toBe("Offer");
       expect(ld.offers.priceCurrency).toBe("USD");
       expect(ld.offers.price).toBe(getUnitPriceUSD(p).toFixed(2));
-      expect(ld.offers.availability).toBe("https://schema.org/InStock");
+      expect(ld.offers.availability).toBe(
+        p.fulfillment === "in_stock" ? "https://schema.org/InStock" : "https://schema.org/BackOrder"
+      );
     }
+  });
+
+  it("in-stock products are InStock, 2-week products BackOrder, out of stock wins", () => {
+    const base = { name: "X", priceUSD: 10 };
+    expect((productJsonLd({ ...base, id: "sigumir" }) as any).offers.availability).toBe("https://schema.org/InStock");
+    expect((productJsonLd({ ...base, id: "x", fulfillment: "in_stock" }) as any).offers.availability).toBe("https://schema.org/InStock");
+    expect((productJsonLd({ ...base, id: "x" }) as any).offers.availability).toBe("https://schema.org/BackOrder");
+    expect((productJsonLd({ ...base, id: "sigumir", in_stock: false }) as any).offers.availability).toBe("https://schema.org/OutOfStock");
   });
 
   it("marks out-of-stock variants", () => {

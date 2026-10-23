@@ -41,6 +41,7 @@ import PreorderBadge from "@/components/PreorderBadge";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
 import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
+import { FULFILLMENT_PDP_LABEL, resolveFulfillment } from "@shared/fulfillment";
 const PepitaLauncher = lazy(() => import("@/components/peppy/PepitaLauncher"));
 
 function BulletList({ items }: { items: string[] }) {
@@ -279,6 +280,12 @@ export default function ProductDetail() {
               {/* Price */}
               <div className="border-t border-b py-4">
                 <div className="text-3xl font-bold text-gray-900">{priceLabel}</div>
+                {/* Stock line (shared/fulfillment.ts); out of stock wins → no line. */}
+                {product.in_stock !== false && selectedVariant?.inStock !== false && (
+                  <p className="text-sm font-medium text-gray-700 mt-1" data-testid="pdp-fulfillment">
+                    {FULFILLMENT_PDP_LABEL[resolveFulfillment(product.id, product.fulfillment)]}
+                  </p>
+                )}
                 {(facts.sizeLabel || facts.coverageLabel || facts.costPerDayUSD !== undefined) && (
                   <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">
                     {[
