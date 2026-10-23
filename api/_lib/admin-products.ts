@@ -2,6 +2,7 @@
  * Validation for admin product writes (POST/PATCH /api/admin/products).
  * Pure — no Firebase imports — so it is unit-testable.
  */
+import { isFulfillment, type Fulfillment } from "../../shared/fulfillment.js";
 import { BUNDLE_DISCOUNT_LIMITS_USD, isAllowedBundleDiscount } from "../../shared/commerce-config.js";
 
 export const PRODUCT_CATEGORIES = [
@@ -42,6 +43,8 @@ export type ProductDoc = {
   seriesInfo: string | null;
   variants: ProductVariantDoc[];
   in_stock: boolean;
+  /** Stock line (shared/fulfillment.ts); unset = code default / ships_2_weeks. */
+  fulfillment?: Fulfillment | null;
   /** Optional authenticity fields — each renders on the product page only when filled. */
   manufacturer?: string | null;
   lotNumber?: string | null;
@@ -167,6 +170,14 @@ function variants(value: unknown): ProductVariantDoc[] {
   });
 }
 
+/** Optional fulfillment; null/"" clears it (falls back to the code default). */
+function fulfillmentField(b: Record<string, unknown>): Pick<ProductDoc, "fulfillment"> {
+  if (!Object.prototype.hasOwnProperty.call(b, "fulfillment") || b.fulfillment === undefined) return {};
+  if (b.fulfillment === null || b.fulfillment === "") return { fulfillment: null };
+  if (!isFulfillment(b.fulfillment)) fail('fulfillment must be "in_stock" or "ships_2_weeks"');
+  return { fulfillment: b.fulfillment };
+}
+
 const EXPIRY_RE = /^\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?$/;
 
 /**
@@ -226,6 +237,7 @@ export function validateProductInput(body: unknown): ProductDoc {
     ...bundleFields(b),
     variants: variantDocs,
     in_stock: b.in_stock !== false,
+    ...fulfillmentField(b),
     ...authenticityFields(b),
   };
 }
@@ -262,6 +274,7 @@ export function validateProductPatch(body: unknown): Partial<ProductDoc> {
   if (has("seriesInfo")) out.seriesInfo = nullableStr(b.seriesInfo, "seriesInfo", 5000);
   Object.assign(out, bundleFields(b));
   if (has("in_stock")) out.in_stock = b.in_stock !== false;
+  Object.assign(out, fulfillmentField(b));
   Object.assign(out, authenticityFields(b));
   if (has("variants")) {
     out.variants = variants(b.variants);

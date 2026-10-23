@@ -1,5 +1,6 @@
 import { isHiddenProduct } from "../../../shared/hidden-products.js";
 import { applyProductFacts } from "../../../shared/product-facts.js";
+import { resolveFulfillment, type Fulfillment } from "../../../shared/fulfillment.js";
 
 export interface ProductVariant {
   id: string;
@@ -39,6 +40,8 @@ export interface Product {
   expiryDate?: string;
   /** Certificate of analysis link (https:// or /path) */
   coaUrl?: string;
+  /** Stock line (shared/fulfillment.ts). Resolved for every product; default ships_2_weeks. */
+  fulfillment?: Fulfillment;
 }
 
 /** Usage and ingredients come from shared/product-facts.json (one source for store + Pepita). */
@@ -1750,7 +1753,10 @@ const catalogProducts: Product[] = [
 ];
 
 /** Full code catalog, including hidden products (data checks / admin import only). */
-export const allProducts: Product[] = catalogProducts.map(applyProductFacts);
+export const allProducts: Product[] = catalogProducts.map((p) => ({
+  ...applyProductFacts(p),
+  fulfillment: resolveFulfillment(p.id, p.fulfillment),
+}));
 
 /** Storefront catalog: everything except products hidden in shared/hidden-products.ts. */
 export const products: Product[] = allProducts.filter((p) => !isHiddenProduct(p));

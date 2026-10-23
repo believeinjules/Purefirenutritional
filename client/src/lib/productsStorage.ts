@@ -12,6 +12,7 @@ import { adminFetch } from "./adminApi";
 import { products as localProducts } from "@/data/products";
 import { readBundleOverrides } from "@shared/bundle-pricing";
 import { isHiddenProduct } from "@shared/hidden-products";
+import { resolveFulfillment, type Fulfillment } from "@shared/fulfillment";
 
 export interface ProductVariant {
   id: string;
@@ -51,6 +52,8 @@ export interface Product {
   lotNumber?: string;
   expiryDate?: string;
   coaUrl?: string;
+  /** Stock line; unset in Firestore → code default → ships_2_weeks. */
+  fulfillment?: Fulfillment;
 }
 
 // ─── Firestore doc → Product ──────────────────────────────────────────────────
@@ -84,6 +87,7 @@ function docToProduct(id: string, data: any): Product {
     lotNumber: data.lotNumber || undefined,
     expiryDate: data.expiryDate || undefined,
     coaUrl: data.coaUrl || undefined,
+    fulfillment: resolveFulfillment(id, data.fulfillment),
   };
 }
 
