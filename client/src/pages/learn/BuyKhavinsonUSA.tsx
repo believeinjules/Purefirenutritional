@@ -3,6 +3,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { WHY_BUY_PATH } from "@/content/learnArticles";
 
 // Body text: the-short-peptide/pf-buy-khavinson-usa-rewrite.md (Julia-approved, 2026-10-14), verbatim; HTML comments omitted.
 const BANNER_JPG = "/images/learn/buy-khavinson-peptides-usa-banner.jpg";
@@ -96,6 +97,7 @@ export default function ArticleBuyKhavinsonUSA() {
             <p>Please use this checklist with every seller, us included:</p>
             <ol className="list-decimal pl-6 space-y-2"><li><strong>A Certificate of Analysis (COA) whose lot number matches the bottle.</strong></li><li><strong>A clear Supplement Facts panel,</strong> plus the manufacturer's or distributor's name and contact information (<a href="https://ods.od.nih.gov/factsheets/WYNTK-Consumer/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">NIH ODS</a>).</li><li><strong>Single-ingredient products over blends.</strong> Harvard Health makes this point about supplements generally: with a single ingredient, you know what you're getting (<a href="https://www.health.harvard.edu/womens-health/menopause-supplements-effective-relief-or-empty-promises" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Harvard Health</a>).</li><li><strong>No disease or treatment claims.</strong> A supplement legally can't promise to cure or treat anything. If a seller does, that's a red flag (<a href="https://ods.od.nih.gov/factsheets/WYNTK-Consumer/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">NIH ODS</a>).</li><li><strong>A way to report problems.</strong> If you have a bad reaction, stop the product, tell your clinician, and report it to the FDA through <a href="https://www.fda.gov/safety/medwatch-fda-safety-information-and-adverse-event-reporting-program" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">MedWatch</a> and to the seller.</li></ol>
             <p>You can see how we document our own products on our <Link href="/authenticity" className="text-orange-600 hover:underline">Authenticity page</Link>.</p>
+            <p>Same product name, lower price elsewhere? See <Link href={WHY_BUY_PATH} className="text-orange-600 hover:underline">Same Name. Same Peptides. So Why Buy From Us?</Link></p>
             <h2 id="how-we-source" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">5. How Pure Fire sources Khavinson bioregulators</h2>
             <p>We started Pure Fire to close this gap. We source directly from the original manufacturers in the Khavinson research lineage, and we are an authorized US retailer of their products.</p>
             <p>So when you order from us, you get the manufacturer's own product, not a generic version or a gray-market import of unknown origin, shipped to you within the US. Every lot comes with its documentation (see <a href="#check-a-seller" className="text-orange-600 hover:underline">Section 4</a>).</p>

@@ -106,3 +106,6 @@ temp/
 *.sqlite3
 .copilot-specs-cache/
 client/.env.local
+
+# decoded at build time from assets-b64/
+client/public/images/learn/why-buy-khavinson-peptides-from-pure-fire-cover.*
