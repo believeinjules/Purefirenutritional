@@ -14,6 +14,11 @@ export type LearnArticle = {
   cover?: { jpg: string; webp?: string; alt: string };
 };
 
+/** URL of "Same Name. Same Peptides. So Why Buy From Us?" — change here to switch slug
+ * (also update the literal <Route path> in App.tsx and llms.txt; seo.test.ts checks they match). */
+export const WHY_BUY_PATH = "/learn/why-buy-khavinson-peptides-from-pure-fire";
+export const BUY_KHAVINSON_USA_PATH = "/learn/buy-khavinson-peptides-usa";
+
 export const LEARN_ARTICLES: LearnArticle[] = [
   {
     title: "Khavinson Peptides Explained: Benefits, Research & How They Work",
@@ -63,6 +68,19 @@ export const LEARN_ARTICLES: LearnArticle[] = [
       jpg: "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg",
       webp: "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.webp",
       alt: "A woman with short hair in a rust sweater reads printed research papers at a sunlit kitchen table, beside a mug and a bowl of oranges, with the title: Khavinson Peptides for Perimenopause: Injection Data Isn't Oral Proof",
+    },
+  },
+  {
+    title: "Same Name. Same Peptides. So Why Buy From Us?",
+    navLabel: "Why Buy From Pure Fire",
+    hideFromNav: true,
+    href: WHY_BUY_PATH,
+    date: "2026-10-23",
+    description: "Same peptide name, very different prices. What a sequence can't tell you, why the manufacturer and paperwork matter, and what to ask before you buy.",
+    cover: {
+      jpg: "/images/learn/why-buy-khavinson-peptides-from-pure-fire-cover.jpg",
+      webp: "/images/learn/why-buy-khavinson-peptides-from-pure-fire-cover.webp",
+      alt: "Two plain product boxes and folded paperwork on a dark lab bench under glowing molecule models, with the title: Same Name. Same Peptides. So Why Buy From Us?",
     },
   },
 ];

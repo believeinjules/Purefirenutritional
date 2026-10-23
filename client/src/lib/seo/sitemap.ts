@@ -6,6 +6,7 @@
 import { SPOT_A_FAKE } from "@/content/spotAFake";
 import { POLICY_PATHS } from "@/content/policies";
 import { canonicalUrl } from "./index";
+import { WHY_BUY_PATH } from "@/content/learnArticles";
 
 /**
  * Public pages that can be held back as drafts. While unpublished the page
@@ -31,6 +32,7 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/learn/buy-khavinson-peptides-usa",
   "/learn/peptides-in-context-systems-view",
   "/learn/khavinson-bioregulators-perimenopause-oral-evidence",
+  WHY_BUY_PATH,
   // /privacy, /terms, /shipping, /returns
   ...POLICY_PATHS,
   ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),
