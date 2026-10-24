@@ -57,7 +57,7 @@ const catalogProducts: Product[] = [
     priceEUR: 52,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Restoring hematopoietic function", "Blood cell production (red cells, platelets, white cells)", "Low-quality nutrition effects recovery", "Immune system support"],
+    benefits: ["Supports normal hematopoietic function", "Blood cell production (red cells, platelets, white cells)", "Low-quality nutrition effects recovery", "Immune system support"],
     seriesInfo: "Recommended combination: Vladonix + Svetinorm + Endoluten + Bonomarlot for detox/immune recovery protocols. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -113,13 +113,13 @@ const catalogProducts: Product[] = [
     image: "/products/chelohart-a-14-20-capsules__83804.1738112709.jpg",
     imageAlt: "Chelohart heart peptide bioregulator capsules",
     name: "Chelohart",
-    description: "Chelohart® (A-14) is the Heart Peptide Bioregulator containing the peptide complex of the cardiac muscle from young calves. Acts selectively on myocardial cells, normalizing cardiomyocyte metabolism. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting heart muscle health. Available in 20-capsule and 60-capsule formats.",
+    description: "Chelohart® (A-14) is the Heart Peptide Bioregulator containing the peptide complex of the cardiac muscle from young calves. Acts selectively on myocardial cells and supports healthy metabolic processes within heart muscle cells. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting heart muscle health. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Myocardial cell support", "Cardiomyocyte metabolism normalization", "Supports healthy cardiovascular function"],
+    benefits: ["Myocardial cell support", "Supports healthy metabolic processes within heart muscle cells", "Supports healthy cardiovascular function"],
     seriesInfo: "Recommended combination: Ventfort + Chelohart + Vladonix for the cardiovascular system protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
   ,
     variants: [
@@ -268,7 +268,7 @@ const catalogProducts: Product[] = [
     name: "Prime Peptide Brain",
     image: "/products/pp-brain.png",
     imageAlt: "Prime Peptide Brain - IPH AGAP peptide complex for cognitive support and brain health",
-    description: "Built around IPH AGAP tetrapeptide — penetrates the blood-brain barrier, regulates neurometabolic processes, activates neuronal repair, and enhances cognitive functions. Enriched with magnesium N-acetyltaurate, choline bitartrate, GABA, nervonic acid, vitamin C, zinc, and biotin. Stimulates neurotransmitter synthesis, increases serotonin levels, and activates neuroplasticity genes in the hippocampus. Clinically proven to enhance memory, improve concentration, and support mental clarity during high cognitive demand and aging.",
+    description: "Built around IPH AGAP tetrapeptide — penetrates the blood-brain barrier, regulates neurometabolic processes, activates neuronal repair, and enhances cognitive functions. Enriched with magnesium N-acetyltaurate, choline bitartrate, GABA, nervonic acid, vitamin C, zinc, and biotin. Stimulates neurotransmitter synthesis, increases serotonin levels, and activates neuroplasticity genes in the hippocampus. Formulated with ingredients studied to support memory, concentration, and mental clarity during high cognitive demand.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 139.99,
     priceEUR: 90,
@@ -292,13 +292,13 @@ const catalogProducts: Product[] = [
     id: "prime-peptide-joints",
     name: "Prime Peptide Joints",
     image: "/products/pp-joints.png",
-    description: "Built around IPH AEN (formulated to support normal hyaluronic acid synthesis and cartilage regeneration, drawing on peptide research the manufacturer has reported on; activates COL2A1 gene) and IPH ESM (reduces joint pain and stiffness). Enriched with liposomal glucosamine, MSM with SNL technology, PEA, and ascorbyl palmitate. Advanced joint support utilizing IPH technology for deep cartilage penetration and targeted cellular repair.",
+    description: "Built around IPH AEN (formulated to support normal hyaluronic acid synthesis and cartilage regeneration, drawing on peptide research the manufacturer has reported on; activates COL2A1 gene) and IPH ESM (supports joint comfort, mobility, and eases everyday stiffness). Enriched with liposomal glucosamine, MSM with SNL technology, PEA, and ascorbyl palmitate. Advanced joint support utilizing IPH technology for deep cartilage penetration and targeted cellular repair.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 169.99,
     priceEUR: 110,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Formulated to support normal cartilage health, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal type II collagen synthesis, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal hyaluronic acid synthesis, drawing on peptide research the manufacturer has reported on.", "Joint pain and stiffness reduction", "Deep cartilage penetration", "COL2A1 gene activation"],
+    benefits: ["Formulated to support normal cartilage health, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal type II collagen synthesis, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal hyaluronic acid synthesis, drawing on peptide research the manufacturer has reported on.", "Supports joint comfort, mobility, and eases everyday stiffness", "Deep cartilage penetration", "COL2A1 gene activation"],
   },
   {
     id: "prime-peptide-omega",
@@ -1157,7 +1157,7 @@ const catalogProducts: Product[] = [
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Visual organ restoration", "Retina, ciliary muscle, and conjunctiva support"],
+    benefits: ["Supports structural integrity of the retina, ciliary muscle, and conjunctiva", "Retina, ciliary muscle, and conjunctiva support"],
     seriesInfo: "Recommended combination: Visoluten + Cerluten + Ventfort for visual organ support protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -1264,7 +1264,7 @@ const catalogProducts: Product[] = [
     id: "alvenorm-forte",
     image: "/products/Alvenorm.jpg",
     name: "Alvenorm Forte",
-    description: "Alvenorm Forte is a herbal liquid from the Peptides treatment-and-prophylactic line, formulated for the lungs and bronchi. It combines Iceland moss decoction, liquorice root, thyme, nettle, broadleaf plantain, cowberry leaf, eucalyptus and calendula extracts in a red grape juice base, plants traditionally used to support the airways and normal breathing.",
+    description: "Alvenorm Forte is a herbal liquid from Peptides, formulated as part of a wellness and preventative nutrition line for the lungs and bronchi. It combines Iceland moss decoction, liquorice root, thyme, nettle, broadleaf plantain, cowberry leaf, eucalyptus and calendula extracts in a red grape juice base, plants traditionally used to support the airways and normal breathing.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 49.99,
     priceEUR: 33,
@@ -1705,7 +1705,7 @@ const catalogProducts: Product[] = [
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Thyroid function restoration", "Female hormonal health", "Metabolic normalization"],
+    benefits: ["Supports normal thyroid metabolism", "Female hormonal health", "Metabolic normalization"],
     seriesInfo: "Recommended combination: Zhenoluten + Thyreogen + Ventfort for female health. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson.",
     variants: [
       {
@@ -1734,20 +1734,20 @@ const catalogProducts: Product[] = [
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
-    benefits: ["65mg multi-peptide complex per capsule", "Female reproductive system restoration", "Thyroid and ovarian peptide support", "Cardiovascular and nervous system health", "Hormonal balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
+    benefits: ["65mg multi-peptide complex per capsule", "Formulated to support the natural balance of the reproductive system", "Thyroid and ovarian peptide support", "Cardiovascular and nervous system health", "Hormonal balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
     seriesInfo: "GPL Femme contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Thyroid, Ovarian) plus alpha-lipoic acid for comprehensive female health restoration."
   },
   {
     id: "gpl-man",
     image: "/products/GPL_M.jpg",
     name: "GPL Man",
-    description: "Comprehensive male health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Pancreatic + Testicular peptides + Alpha-lipoic acid. Minimizes post-illness changes and disorders in the male body, restoring normal functioning of the cardiovascular, nervous, endocrine, and reproductive systems. Provides broad-spectrum support for male vitality and active longevity.",
+    description: "Comprehensive male health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Pancreatic + Testicular peptides + Alpha-lipoic acid. Supports systemic recovery and vitality during periods of intense physical stress or fatigue, restoring normal functioning of the cardiovascular, nervous, endocrine, and reproductive systems. Provides broad-spectrum support for male vitality and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 420,
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
-    benefits: ["65mg multi-peptide complex per capsule", "Male reproductive system restoration", "Pancreatic and testicular peptide support", "Cardiovascular and nervous system health", "Endocrine balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
+    benefits: ["65mg multi-peptide complex per capsule", "Formulated to support the natural balance of the reproductive system", "Pancreatic and testicular peptide support", "Cardiovascular and nervous system health", "Endocrine balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
     seriesInfo: "GPL Man contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Pancreatic, Testicular) plus alpha-lipoic acid for comprehensive male health restoration."
   },
 ];

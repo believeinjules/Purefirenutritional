@@ -52,6 +52,11 @@ export const faqs: FAQItem[] = [
   },
   {
     category: "General",
+    question: "Are these the same formulas used in the original Russian longevity studies?",
+    answer: "The foundational research conducted by the St. Petersburg Institute of Bioregulation and Gerontology historically evaluated specific peptide preparations, often utilizing injectable delivery methods in clinical settings. The products we carry are oral dietary supplement capsules (such as Cytomaxes and Cytogens) meant strictly to support general wellness, tissue-specific metabolic processes, and everyday vitality. They are not intended to replicate clinical pharmaceutical protocols.",
+  },
+  {
+    category: "General",
     question: "How is this different from other peptides people talk about?",
     answer: "These are not the peptides most people mean right now. Not GLP-1 weight-loss medications. Not injectable research peptides (BPC-157, TB-500, and the rest). Pure Fire Nutritional carries oral, short, tissue-specific Khavinson peptide bioregulators — courses, not shots. Our capsules and lingual products are dietary supplements, not clinic injectables."
   },
