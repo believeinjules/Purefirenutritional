@@ -13,8 +13,7 @@ const COVER_ALT = "Two plain product boxes and folded paperwork on a dark lab be
 const HEADLINE = "Same Name. Same Peptides. So Why Buy From Us?";
 const DESCRIPTION =
   "Same peptide name, very different prices. What a sequence can't tell you, why the manufacturer and paperwork matter, and what to ask before you buy.";
-// Companion link removed until live; restore in the "Curious about the science?" block.
-// const TSP_COMPANION_URL = "https://theshortpeptide.com/same-molecule-different-product";
+const TSP_COMPANION_URL = "https://theshortpeptide.com/same-molecule-different-product";
 
 const a = "text-orange-600 hover:underline";
 const ext = { target: "_blank", rel: "noopener noreferrer", className: a } as const;
@@ -113,7 +112,7 @@ export default function ArticleWhyBuyFromPureFire() {
             <hr className="my-10 border-gray-200" />
 
             <p><strong>Curious about the science?</strong><br />
-              {/* TODO restore once TSP page is live (TSP_COMPANION_URL): "Read our companion explainer at The Short Peptide: <a href={TSP_COMPANION_URL}><em>Same Molecule. Different Product? Why How You Make a Peptide Matters</em></a> — peptide synthesis, manufacturing differences, and links to the scientific literature." */}
+              Read our companion explainer at The Short Peptide: <a href={TSP_COMPANION_URL} {...ext}><em>Same Molecule. Different Product? Why How You Make a Peptide Matters</em></a> — peptide synthesis, manufacturing differences, and links to the scientific literature.<br />
               New to reading studies? See <a href="https://theshortpeptide.com/how-to-read-peptide-research" {...ext}>How to Read Peptide Research</a>.</p>
 
             <p><em>Educational content only. Research findings discussed here do not establish that any particular product is safe or effective for treating or preventing disease. These statements have not been evaluated by the Food and Drug Administration.</em></p>
