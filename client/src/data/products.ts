@@ -58,7 +58,7 @@ const catalogProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports normal hematopoietic function", "Blood cell production (red cells, platelets, white cells)", "Low-quality nutrition effects recovery", "Immune system support"],
-    seriesInfo: "Recommended combination: Vladonix + Svetinorm + Endoluten + Bonomarlot for detox/immune recovery protocols. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson."
+    seriesInfo: "Recommended combination: Vladonix + Svetinorm + Endoluten + Bonomarlot, often used together for general immune and detox support. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson."
   ,
     variants: [
       {
@@ -89,7 +89,7 @@ const catalogProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports healthy cartilage and connective tissue metabolism", "Supports the health of cartilage tissue", "Supports connective tissue health", "Supports the body's natural connective-tissue recovery processes", "Supports healthy cartilage cell function", "Vegan compatible (fully synthesized)"],
-    seriesInfo: "Recommended combination: Cartalax + Vesugen + Crystagen for the cytogen locomotor apparatus protocol. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — developed by the St. Petersburg Institute of Bioregulation and Gerontology. Because they are synthesized rather than extracted, Cytogens provide faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
+    seriesInfo: "Recommended combination: Cartalax + Vesugen + Crystagen for musculoskeletal wellness support. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — developed by the St. Petersburg Institute of Bioregulation and Gerontology. Because they are synthesized rather than extracted, Cytogens provide faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
       {
@@ -120,7 +120,7 @@ const catalogProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Myocardial cell support", "Supports healthy metabolic processes within heart muscle cells", "Supports healthy cardiovascular function"],
-    seriesInfo: "Recommended combination: Ventfort + Chelohart + Vladonix for the cardiovascular system protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
+    seriesInfo: "Recommended combination: Ventfort + Chelohart + Vladonix for cardiovascular wellness support. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
   ,
     variants: [
       {
@@ -144,14 +144,14 @@ const catalogProducts: Product[] = [
     image: "/products/Crystagen_peptide_side_2021_vita_stream__36125.1628292022.png",
     imageAlt: "Crystagen immune system peptide bioregulator",
     name: "Crystagen",
-    description: "Crystagen® is a synthesized cytogen (AC-6, thymus) — copies of natural peptide fractions that normalize immune system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function during periods of psychoemotional stress. Crystagen is believed to support normal immune function, and researchers have investigated short peptides for their role in immune balance. The active tripeptide stimulates T-cells, B-cells, macrophages, NK cells, and exhibits antioxidant and stress-protective effects. Available in 20-capsule and 60-capsule formats.",
+    description: "Crystagen® is a synthesized cytogen (AC-6, thymus) — copies of natural peptide fractions studied for their role in normal immune system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function during periods of psychoemotional stress. Crystagen is believed to support normal immune function, and researchers have investigated short peptides for their role in immune balance. The active tripeptide stimulates T-cells, B-cells, macrophages, NK cells, and exhibits antioxidant and stress-protective effects. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 47.99,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
     benefits: ["T-cell, B-cell, and NK cell activation", "Macrophage stimulation", "Antioxidant and stress-protective effects", "Supports healthy immune system function", "Supports the body's natural detoxification processes", "Crystagen is believed to support normal immune function, and researchers have investigated short peptides for their role in immune balance."],
-    seriesInfo: "Recommended combinations: Ovagen + Vesugen + Crystagen (digestive protocol); Crystagen + Pinealon + Vesugen (CNS protocol). Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — providing faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
+    seriesInfo: "Recommended combinations: Ovagen + Vesugen + Crystagen (digestive wellness); Crystagen + Pinealon + Vesugen (nervous system support). Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — providing faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
       {
@@ -175,13 +175,13 @@ const catalogProducts: Product[] = [
     image: "/products/endoluten(1).jpeg",
     imageAlt: "Endoluten pineal gland peptide for circadian rhythm",
     name: "Endoluten",
-    description: "Endoluten® (A-8) is the Pineal Peptide Bioregulator — the most foundational peptide in the Khavinson longevity protocol. Contains the epiphyseal peptide complex that regulates hormonal metabolism, acts on neuroendocrine system cells, normalizes pineal cell metabolism and melatonin secretion. Analog of pharmaceutical Epithalamin. Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help. Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging. Available in 20-capsule and 60-capsule formats.",
+    description: "Endoluten® (A-8) is the Pineal Peptide Bioregulator — the most foundational peptide in the Khavinson longevity protocol. Contains the epiphyseal peptide complex that regulates hormonal metabolism, acts on neuroendocrine system cells, and is studied for its role in pineal cell metabolism and melatonin secretion. Analog of pharmaceutical Epithalamin. Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help. Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 124.99,
     priceEUR: 85,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Most foundational Khavinson longevity peptide", "Melatonin secretion normalization", "Cyclic processes regulation", "Healthy aging of the pineal gland — studied as a geroprotector", "Reproductive system regulation", "Immune system support", "Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging.", "Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help."],
+    benefits: ["Most foundational Khavinson longevity peptide", "Studied for its role in melatonin secretion", "Cyclic processes regulation", "Healthy aging of the pineal gland — studied as a geroprotector", "Reproductive system regulation", "Immune system support", "Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging.", "Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help."],
     seriesInfo: "Vladonix + Endoluten is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -237,14 +237,14 @@ const catalogProducts: Product[] = [
     image: "/products/pielotax.jpeg",
     imageAlt: "Pielotax kidney peptide bioregulator supplement",
     name: "Pielotax",
-    description: "Pielotax® (A-9) is the Kidney Peptide Bioregulator containing kidney peptide complex from kidney parenchyma. Acts with targeted selectivity on kidney cells, normalizes metabolism and urinary system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting kidney health. Available in 20-capsule and 60-capsule formats.",
+    description: "Pielotax® (A-9) is the Kidney Peptide Bioregulator containing kidney peptide complex from kidney parenchyma. Acts with targeted selectivity on kidney cells, and is studied for its role in kidney cell metabolism and urinary system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting kidney health. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Supports healthy kidney function", "Kidney cell metabolism normalization"],
-    seriesInfo: "Recommended combination: Vladonix + Chitomur + Pielotax for urinary system protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
+    benefits: ["Supports healthy kidney function", "Studied for its role in kidney cell metabolism"],
+    seriesInfo: "Recommended combination: Vladonix + Chitomur + Pielotax for urinary system wellness support. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson. Effects last 4–6 months per course."
   ,
     variants: [
       {
@@ -280,13 +280,13 @@ const catalogProducts: Product[] = [
     id: "prime-peptide-collagen",
     name: "Prime Peptide Collagen",
     image: "/products/pp-collagen.png",
-    description: "Built around IPH AEN peptide. Formulated to support normal collagen and hyaluronic acid synthesis and cellular repair, drawing on peptide research the manufacturer has reported on. Enriched with 800mg marine collagen, calcium bisglycinate, vitamin C, copper gluconate, and biotin. Premium formula utilizing IPH technology for comprehensive skin, hair, nail, and connective tissue support with enhanced cellular regeneration. Formulated to support normal aging of skin and connective tissue, drawing on peptide research the manufacturer has reported on.",
+    description: "Built around IPH AEN peptide. Formulated to support normal collagen and hyaluronic acid synthesis and cellular repair, drawing on peptide research the manufacturer has reported on. Enriched with 800mg marine collagen, calcium bisglycinate, vitamin C, copper gluconate, and biotin. Premium formula utilizing IPH technology for comprehensive skin, hair, nail, and connective tissue support with ingredients studied for their role in cellular renewal. Formulated to support normal aging of skin and connective tissue, drawing on peptide research the manufacturer has reported on.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 124.99,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Formulated to support normal collagen and hyaluronic acid synthesis, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal cellular repair, drawing on peptide research the manufacturer has reported on.", "Skin firmness restoration", "Hair growth support", "Nail strength", "Formulated to support normal aging of skin and connective tissue, drawing on peptide research the manufacturer has reported on."],
+    benefits: ["Formulated to support normal collagen and hyaluronic acid synthesis, drawing on peptide research the manufacturer has reported on.", "Formulated to support normal cellular repair, drawing on peptide research the manufacturer has reported on.", "Supports skin firmness", "Hair growth support", "Nail strength", "Formulated to support normal aging of skin and connective tissue, drawing on peptide research the manufacturer has reported on."],
   },
   {
     id: "prime-peptide-joints",
@@ -304,19 +304,19 @@ const catalogProducts: Product[] = [
     id: "prime-peptide-omega",
     name: "Prime Peptide Omega",
     image: "/products/pp-omega.png",
-    description: "Built around IPH T peptide — activates T-lymphocyte differentiation, and restores thymus structure. Formulated to support normal thymic growth, drawing on peptide research the manufacturer has reported on. Enriched with Omega 3-6-9, vitamins C, E, D3, and zinc. Provides comprehensive immune and cardiovascular support with anti-inflammatory omega balance for healthy aging.",
+    description: "Built around IPH T peptide — studied for its role in T-lymphocyte differentiation and thymus structure. Formulated to support normal thymic growth, drawing on peptide research the manufacturer has reported on. Enriched with Omega 3-6-9, vitamins C, E, D3, and zinc. Provides comprehensive immune and cardiovascular support with anti-inflammatory omega balance for healthy aging.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 124.99,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
-    benefits: ["T-cell activation and differentiation", "Thymus structure restoration", "Formulated to support normal thymic growth, drawing on peptide research the manufacturer has reported on.", "Anti-inflammatory omega balance", "Cardiovascular support"],
+    benefits: ["T-cell activation and differentiation", "Studied for its role in thymus structure", "Formulated to support normal thymic growth, drawing on peptide research the manufacturer has reported on.", "Anti-inflammatory omega balance", "Cardiovascular support"],
   },
   {
     id: "prime-peptide-protect",
     name: "Prime Peptide Protect",
     image: "/products/pp-protect.png",
-    description: "Built around IPH REG and IPH EP. Formulated to support normal antioxidant enzyme activity, melatonin levels, and calm mood, drawing on peptide research the manufacturer has reported on. Enriched with broccoli/I3C, bioactive mushroom peptides, PEA, choline, zinc, selenium, and vitamin K2. Provides powerful antioxidant protection and tissue regeneration support.",
+    description: "Built around IPH REG and IPH EP. Formulated to support normal antioxidant enzyme activity, melatonin levels, and calm mood, drawing on peptide research the manufacturer has reported on. Enriched with broccoli/I3C, bioactive mushroom peptides, PEA, choline, zinc, selenium, and vitamin K2. Provides powerful antioxidant protection and ingredients studied for their role in tissue renewal.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 169.99,
     priceEUR: 110,
@@ -453,7 +453,7 @@ const catalogProducts: Product[] = [
   {
     id: "revilab-pro-elements",
     name: "Revilab Pro Elements",
-    description: "New-generation biologically active complex developed to support key body systems at the cellular level. Contains balanced combination of micro- and macroelements, vitamins, and bioactive compounds including glycine, calcium citrate, magnesium citrate, zinc citrate, vitamins A, E, D3, B6, and chromium picolinate. Strengthens immune resilience, protects against stress, slows aging processes, and promotes deep cellular restoration.",
+    description: "New-generation biologically active complex developed to support key body systems at the cellular level. Contains balanced combination of micro- and macroelements, vitamins, and bioactive compounds including glycine, calcium citrate, magnesium citrate, zinc citrate, vitamins A, E, D3, B6, and chromium picolinate. Strengthens immune resilience, protects against stress, supports healthy aging, and promotes cellular vitality.",
     category: "ANTI AGING-LONGEVITY",
     priceUSD: 97.99,
     priceEUR: 70,
@@ -462,19 +462,19 @@ const catalogProducts: Product[] = [
     image: "/products/revilab-pro-elements.jpg",
     imageAlt: "Revilab Pro Elements vitamin-mineral complex with micro-elements premix",
     benefits: [
-      "Deep cellular restoration",
+      "Supports cellular vitality",
       "Comprehensive nutritional support",
       "Antioxidant protection",
       "Replenishes collagen deficiency",
       "Optimal mineral balance",
       "Increased vitality"
     ],
-    seriesInfo: "The Revilab Preparation series represents advanced nutraceuticals developed for anti-aging and systemic support. Each product is enriched with active components that work at the cellular level to support internal restoration, slow aging processes, normalize organ and system functions, balance metabolism, and activate detoxification pathways. For enhanced rejuvenating effects, these products are recommended for combined use."
+    seriesInfo: "The Revilab Preparation series represents advanced nutraceuticals developed for anti-aging and systemic support. Each product is enriched with active components that work at the cellular level to support internal balance and healthy aging, with components studied for their role in normal organ and system function, balance metabolism, and activate detoxification pathways. For enhanced rejuvenating effects, these products are recommended for combined use."
   },
   {
     id: "mesotel-neo",
     name: "Mesotel Neo",
-    description: "Advanced anti-aging liquid formula based on choline, enriched with gotu kola and wolfberry extracts, zinc, vitamins and resveratrol. Powerful antioxidant. Promotes detoxification, strengthens immunity, improves cardiovascular and nervous system function, and stimulates cellular regeneration for youthful skin.",
+    description: "Advanced anti-aging liquid formula based on choline, enriched with gotu kola and wolfberry extracts, zinc, vitamins and resveratrol. Powerful antioxidant. Promotes detoxification, strengthens immunity, improves cardiovascular and nervous system function, and includes ingredients studied for their role in cellular renewal for youthful skin.",
     category: "ANTI AGING-LONGEVITY",
     priceUSD: 33.99,
     priceEUR: 23,
@@ -488,7 +488,7 @@ const catalogProducts: Product[] = [
       "Antioxidant protection",
       "Enhances immunity",
       "Prevents aging",
-      "Stimulates cell regeneration"
+      "Studied for its role in cell renewal"
     ]
   },
   {
@@ -629,7 +629,7 @@ const catalogProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Male reproductive health", "Sperm motility", "Testosterone support", "Testicular function", "Hormonal balance", "Vitality"],
-    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Each Cytomax contains a tissue-specific peptide complex that acts as a biological messenger, signaling the corresponding organ's cells to normalize their metabolism and restore functional activity. Effects last 4–6 months per course."
+    seriesInfo: "Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research at the St. Petersburg Institute of Bioregulation and Gerontology under Prof. Vladimir Khavinson. Each Cytomax contains a tissue-specific peptide complex that acts as a biological messenger, studied for its role in signaling the corresponding organ's cells to support normal metabolism and functional activity. Effects last 4–6 months per course."
   ,
     variants: [
       {
@@ -1090,7 +1090,7 @@ const catalogProducts: Product[] = [
     id: "ventfort",
     name: "Ventfort",
     image: "/products/ventfort.png",
-    description: "Ventfort® (A-3) is the Blood Vessel Peptide Bioregulator. Prof. Khavinson recommends including Ventfort in EVERY peptide combination protocol. Acts on vascular wall cells, normalizes metabolism, and regulates vascular functions. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting cardiovascular and blood vessel health. Ventfort is believed to support healthy circulation and everyday stamina, and some studies have reported encouraging results with vascular peptides. Available in 20-capsule and 60-capsule formats.",
+    description: "Ventfort® (A-3) is the Blood Vessel Peptide Bioregulator. Frequently included in multi-peptide routines. Studied for its role in vascular wall cell metabolism and vascular function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting cardiovascular and blood vessel health. Ventfort is believed to support healthy circulation and everyday stamina, and some studies have reported encouraging results with vascular peptides. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
@@ -1121,13 +1121,13 @@ const catalogProducts: Product[] = [
     image: "/products/Vesugen_peptide_side_2021_vita_stream__14678.1628291284.png",
     imageAlt: "Vesugen blood vessel peptide bioregulator",
     name: "Vesugen",
-    description: "Vesugen® is a synthesized cytogen for the vascular system. Normalizes vessels of circulatory and lymphatic channels. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting healthy blood vessels and microcirculation. Used by the Russian Olympic rhythmic gymnastics team for vascular health maintenance. Available in 20-capsule and 60-capsule formats.",
+    description: "Vesugen® is a synthesized cytogen for the vascular system. Studied for its role in the health of circulatory and lymphatic vessels. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting healthy blood vessels and microcirculation. Used by the Russian Olympic rhythmic gymnastics team for vascular health maintenance. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 47.99,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Supports healthy blood vessels", "Microcirculation improvement", "Supports healthy vein function", "Supports healthy cardiovascular function", "Lymphatic vessel normalization"],
+    benefits: ["Supports healthy blood vessels", "Microcirculation improvement", "Supports healthy vein function", "Supports healthy cardiovascular function", "Supports healthy lymphatic vessels"],
     seriesInfo: "Universal cytogen — appears in all major protocol stacks. Cytogens are synthesized short peptide bioregulators — the lab-made counterparts to natural Cytomaxes — providing faster action (effects within 1.5–2 months) compared to natural Cytomaxes (4–6 months)."
   ,
     variants: [
@@ -1158,7 +1158,7 @@ const catalogProducts: Product[] = [
     rating: 4.8,
     sizes: 2,
     benefits: ["Supports structural integrity of the retina, ciliary muscle, and conjunctiva", "Retina, ciliary muscle, and conjunctiva support"],
-    seriesInfo: "Recommended combination: Visoluten + Cerluten + Ventfort for visual organ support protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
+    seriesInfo: "Recommended combination: Visoluten + Cerluten + Ventfort for eye health support. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
       {
@@ -1181,13 +1181,13 @@ const catalogProducts: Product[] = [
     id: "vladonix",
     name: "Vladonix",
     image: "/products/vladonix.png",
-    description: "Vladonix® (A-6) is one of the two most important Khavinson peptides alongside Endoluten. Contains thymus peptide complex — analog of pharmaceutical Thymalin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function. Vladonix and Endoluten are commonly paired in healthy-aging protocols. Core component of virtually every Khavinson combination protocol. Available in 20-capsule and 60-capsule formats.",
+    description: "Vladonix® (A-6) is one of the two most important Khavinson peptides alongside Endoluten. Contains thymus peptide complex — based on the same thymus peptide research as Thymalin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function. Vladonix and Endoluten are commonly paired in healthy-aging protocols. Core component of virtually every Khavinson combination protocol. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 58.99,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Most foundational immune peptide", "Thymalin analog", "Supports healthy immune system function", "Supports the body's natural detoxification processes", "Commonly paired with Endoluten in healthy-aging protocols"],
+    benefits: ["Most foundational immune peptide", "Based on the same thymus peptide research as Thymalin", "Supports healthy immune system function", "Supports the body's natural detoxification processes", "Commonly paired with Endoluten in healthy-aging protocols"],
     seriesInfo: "Endoluten + Vladonix is the foundational pairing for every Khavinson protocol. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson."
   ,
     variants: [
@@ -1220,7 +1220,7 @@ const catalogProducts: Product[] = [
     benefits: [
       "Instant lifting effect",
       "Smooths deep wrinkles",
-      "Restores collagen skeleton",
+      "Supports the skin's collagen structure",
       "Improves skin elasticity",
       "Deep moisturization",
       "Tightens facial oval"
@@ -1231,13 +1231,13 @@ const catalogProducts: Product[] = [
     image: "/products/RevilabSL10.jpg",
     imageAlt: "Revilab SL 10 sublingual female reproductive support",
     name: "Revilab SL 10",
-    description: "Sublingual complex for female neuroendocrine and reproductive system health, including cyclic regulation and menopausal support. Combines pineal gland, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support neuroendocrine signaling and reproductive tissue maintenance. Plant extracts and antioxidants provide supportive effects for overall female health and comfort. Adults place 5–10 drops under the tongue 2 times a day.",
+    description: "Sublingual complex for female neuroendocrine and reproductive system health, including cyclic regulation and support during the menopausal transition. Combines pineal gland, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support neuroendocrine signaling and reproductive tissue maintenance. Plant extracts and antioxidants provide supportive effects for overall female health and comfort. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 40.99,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Female reproductive health", "Hormonal cycle regulation", "Menopausal support", "Neuroendocrine balance", "Urinary health", "Rapid absorption"],
+    benefits: ["Female reproductive health", "Hormonal cycle regulation", "Support during the menopausal transition", "Neuroendocrine balance", "Urinary health", "Rapid absorption"],
     seriesInfo: "The Revilab SL series is a pioneering line of sublingual peptide complexes that deliver active peptides and plant extracts directly into the bloodstream through the mucous membrane under the tongue. This method bypasses digestion and liver metabolism, allowing for faster and more efficient absorption — with effects typically within 2–5 minutes. Each 10 ml bottle combines targeted peptide complexes with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, each formula targets a specific body system for focused support."
   },
   {
@@ -1256,9 +1256,9 @@ const catalogProducts: Product[] = [
       "Protects against age-related changes",
       "Rejuvenates all body protein structures",
       "Strong antioxidant protection",
-      "Normalizes cellular metabolism"
+      "Studied for its role in cellular metabolism"
     ],
-    seriesInfo: "The Revilab Preparation series represents advanced nutraceuticals developed for anti-aging and systemic support. Each product is enriched with active components that work at the cellular level to support internal restoration, slow aging processes, normalize organ and system functions, balance metabolism, and activate detoxification pathways. For enhanced rejuvenating effects, these products are recommended for combined use."
+    seriesInfo: "The Revilab Preparation series represents advanced nutraceuticals developed for anti-aging and systemic support. Each product is enriched with active components that work at the cellular level to support internal balance and healthy aging, with components studied for their role in normal organ and system function, balance metabolism, and activate detoxification pathways. For enhanced rejuvenating effects, these products are recommended for combined use."
   },
   {
     id: "alvenorm-forte",
@@ -1277,19 +1277,19 @@ const catalogProducts: Product[] = [
     name: "Volustom",
     image: "/products/Volustom.jpg",
     imageAlt: "Volustom gastrointestinal health supplement",
-    description: "Adsorbent dietary fiber complex for detoxification and weight management. Comprehensive gastrointestinal support formula that helps normalize digestive function, supports the gastric mucosa, promotes healthy gut microbiome balance, and facilitates the body's natural detox pathways through fiber-based adsorption.",
+    description: "Adsorbent dietary fiber complex for detoxification and weight management. Comprehensive gastrointestinal support formula that supports normal digestive function and the gastric mucosa, promotes healthy gut microbiome balance, and facilitates the body's natural detox pathways through fiber-based adsorption.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 36.99,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Adsorbent detoxification", "Weight management support", "Gastric mucosa protection", "Digestive normalization", "Gut microbiome balance", "Dietary fiber supplementation"]
+    benefits: ["Adsorbent detoxification", "Weight management support", "Gastric mucosa protection", "Supports normal digestion", "Gut microbiome balance", "Dietary fiber supplementation"]
   },
   {
     id: "getrufline",
     image: "/products/getruflineINFO.jpg",
     name: "Getrufline",
-    description: "Europe's first herbal truffle-form complex, developed in conjunction with leading experts at the Institute of Innovative Biomedical Technology. 100% natural composition, EU-certified, GMO-free, and low in fat. The truffle form is uniquely effective — chewing creates a 'lump' that treats the intestinal mucosa along its entire length, while the bitterness activates non-specific immunity and triggers bile secretion. Also supports a healthy gut microbiome.",
+    description: "Europe's first herbal truffle-form complex, developed in conjunction with leading experts at the Institute of Innovative Biomedical Technology. 100% natural composition, EU-certified, GMO-free, and low in fat. The truffle form is uniquely effective — chewing creates a 'lump' that coats the intestinal mucosa along its entire length, while the bitterness activates non-specific immunity and triggers bile secretion. Also supports a healthy gut microbiome.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 36.99,
     priceEUR: 22,
@@ -1313,7 +1313,7 @@ const catalogProducts: Product[] = [
     id: "digemax",
     image: "/products/digimax2.jpg",
     name: "Digemax",
-    description: "Digestive enzyme and support complex for optimal gastrointestinal function. Helps normalize digestion, supports nutrient absorption, and reduces digestive discomfort. Beneficial for those with irregular digestive function.",
+    description: "Digestive enzyme and support complex for optimal gastrointestinal function. Supports normal digestion and nutrient absorption, and reduces digestive discomfort. Beneficial for those with irregular digestive function.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 21.99,
     priceEUR: 16,
@@ -1373,49 +1373,49 @@ const catalogProducts: Product[] = [
     id: "complex-3r",
     image: "/products/complex3r.jpg",
     name: "Complex 3R",
-    description: "Multi-component antioxidant bioregulator combining three of the most powerful antioxidants: dihydroquercetin, resveratrol, and Coenzyme Q10. Dihydroquercetin impedes lipid peroxidation in cell membranes, protects vascular endothelium, enhances vascular elasticity, and prevents early cellular aging. Resveratrol binds and removes free radicals, exhibits anti-inflammatory properties, regulates blood lipid levels and cholesterol, and reduces blood viscosity for unobstructed blood flow. Coenzyme Q10 is a natural immunomodulator that restores immune function, maintains energy metabolism in the heart muscle, and possesses geroprotective properties.",
+    description: "Multi-component antioxidant bioregulator combining three of the most powerful antioxidants: dihydroquercetin, resveratrol, and Coenzyme Q10. Dihydroquercetin impedes lipid peroxidation in cell membranes, protects vascular endothelium, enhances vascular elasticity, and prevents early cellular aging. Resveratrol binds and removes free radicals, exhibits anti-inflammatory properties, regulates blood lipid levels and cholesterol, and reduces blood viscosity for unobstructed blood flow. Coenzyme Q10 is a natural immunomodulator studied for its role in immune function, maintains energy metabolism in the heart muscle, and possesses geroprotective properties.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 36.99,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Antioxidant defense", "Cardiovascular protection", "Immune restoration", "Anti-inflammatory", "Cholesterol regulation", "Geroprotective action"],
+    benefits: ["Antioxidant defense", "Cardiovascular protection", "Supports normal immune function", "Anti-inflammatory", "Cholesterol regulation", "Geroprotective action"],
   },
   {
     id: "levain",
     image: "/products/levain.jpg",
     name: "Levain",
-    description: "Modern adaptogenic complex combining nine powerful plant-based adaptogens. Activates the body's internal immune defenses while improving lymphatic circulation to reduce inflammation and stagnation. Has immunoregulatory and sedative effects. Increases the performance of tired skeletal muscles, improves lipid metabolism, normalizes blood pressure, and boosts immunity. Designed for periods of intense stress and fatigue.",
+    description: "Modern adaptogenic complex combining nine powerful plant-based adaptogens. Activates the body's internal immune defenses while improving lymphatic circulation to reduce inflammation and stagnation. Has immunoregulatory and sedative effects. Increases the performance of tired skeletal muscles, improves lipid metabolism, is studied for its role in healthy circulation, and boosts immunity. Designed for periods of intense stress and fatigue.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 36.99,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Adaptogenic immune support", "Lymphatic circulation", "Anti-inflammatory", "Supports a balanced mood", "Muscle performance", "Lipid metabolism", "Blood pressure normalization", "Stress resilience"]
+    benefits: ["Adaptogenic immune support", "Lymphatic circulation", "Anti-inflammatory", "Supports a balanced mood", "Muscle performance", "Lipid metabolism", "Supports healthy circulation", "Stress resilience"]
   },
   {
     id: "likam",
     image: "/products/likam.png",
     name: "Likam",
-    description: "Comprehensive liver and bile duct support complex. Strengthens hepatic function, supports bile flow optimization, promotes liver cell regeneration, and helps normalize metabolic processes for sustained energy and vitality. Beneficial for those seeking preventive liver care.",
+    description: "Comprehensive liver and bile duct support complex. Strengthens hepatic function, supports bile flow optimization, includes ingredients studied for their role in liver cell renewal, and supports normal metabolic processes for sustained energy and vitality. Beneficial for those seeking preventive liver care.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 36.99,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Liver health", "Bile duct support", "Hepatic regeneration", "Bile flow optimization", "Metabolic normalization"]
+    benefits: ["Liver health", "Bile duct support", "Studied for its role in liver cell renewal", "Bile flow optimization", "Supports normal metabolism"]
   },
   {
     id: "mamiton",
     image: "/products/felicita.jpg",
     name: "Mamiton",
-    description: "Natural formula designed specifically for the female reproductive system, combining the best of herbal tradition and modern science. Fights oxidative stress and helps balance estrogen levels. Reduces risks linked to hormonal imbalances and aging. Active ingredients include resveratrol (antioxidant), motherwort and mint (sedative and antispasmodic), rosehip, nettle and knotweed (anti-inflammatory and regenerative), hops and laminaria (hormonal homeostasis and thyroid support), vitamins A and E (antioxidant and immune modulation), field horsetail (vascular and connective tissue strength), and Juglans regia pericarp (immunostimulatory). Recommended for women over 35, during menopause and perimenopause, for PMS, and during recovery after gynecological procedures.",
+    description: "Natural formula designed specifically for the female reproductive system, combining the best of herbal tradition and modern science. Fights oxidative stress and helps balance estrogen levels. Reduces risks linked to hormonal imbalances and aging. Active ingredients include resveratrol (antioxidant), motherwort and mint (sedative and antispasmodic), rosehip, nettle and knotweed (anti-inflammatory; studied for their role in tissue renewal), hops and laminaria (hormonal homeostasis and thyroid support), vitamins A and E (antioxidant and immune modulation), field horsetail (vascular and connective tissue strength), and Juglans regia pericarp (immunostimulatory). Recommended for women over 35, during perimenopause and the menopausal transition, and for monthly-cycle comfort.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 40.99,
     priceEUR: 27,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Hormonal balance", "Estrogen regulation", "Menopause symptom relief", "PMS prevention", "Antioxidant protection", "Skin, hair and nail health", "Bone health"],
+    benefits: ["Hormonal balance", "Estrogen regulation", "Supports comfort during the menopausal transition", "PMS prevention", "Antioxidant protection", "Skin, hair and nail health", "Bone health"],
   },
   {
     id: "mesotel",
@@ -1433,13 +1433,13 @@ const catalogProducts: Product[] = [
     id: "mesotel-beauty",
     image: "/products/mesbeauty.jpg",
     name: "Mesotel Beauty",
-    description: "Choline-based antioxidant and neurotransmitter complex enriched with gotu kola extract, wolfberry (goji), zinc, and vitamins. Provides pronounced antioxidant effects. Enhances immunity, supports skin beauty, and promotes youthful cellular regeneration.",
+    description: "Choline-based antioxidant and neurotransmitter complex enriched with gotu kola extract, wolfberry (goji), zinc, and vitamins. Provides pronounced antioxidant effects. Enhances immunity, supports skin beauty, and includes ingredients studied for their role in cellular renewal.",
     category: "ANTI AGING-LONGEVITY",
     priceUSD: 29.99,
     priceEUR: 21,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Antioxidant protection", "Skin beauty support", "Immune enhancement", "Cellular regeneration"]
+    benefits: ["Antioxidant protection", "Skin beauty support", "Immune enhancement", "Studied for its role in cellular renewal"]
   },
   {
     id: "olecap",
@@ -1469,7 +1469,7 @@ const catalogProducts: Product[] = [
     id: "pinalex-tab",
     image: "/products/pinalex.jpg",
     name: "Pinalex Tab",
-    description: "Pinalex Tab is an eye-focused peptide bioregulator in tablet form from the Peptides treatment-and-prophylactic line. It combines lutein (marigold extract), astaxanthin (Haematococcus microalgae), blueberry juice powder, grape peel extract, taurine, vitamin E, beta-carotene and B vitamins with the AA-6 peptide complex (lysine and glutamic acid). It is formulated to support normal visual function, help the eyes cope with intensive visual work and support eye tissues during age-related changes.",
+    description: "Pinalex Tab is an eye-focused peptide bioregulator in tablet form formulated as part of the Peptides wellness and preventative nutrition line. It combines lutein (marigold extract), astaxanthin (Haematococcus microalgae), blueberry juice powder, grape peel extract, taurine, vitamin E, beta-carotene and B vitamins with the AA-6 peptide complex (lysine and glutamic acid). It is formulated to support normal visual function, help the eyes cope with intensive visual work and support eye tissues during age-related changes.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 55.99,
     priceEUR: 34,
@@ -1505,25 +1505,25 @@ const catalogProducts: Product[] = [
     id: "revimite",
     image: "/products/revimite.jpg",
     name: "Revimite",
-    description: "Innovative nutraceutical for those who want to preserve natural energy, strong vitality, and active longevity. Its formula combines natural extracts, B vitamins, and iron to restore nutrient balance and support the hematopoietic system. Contains pomegranate, green tea, echinacea, oats, grape seeds, ginger, soy, iron, B vitamins, and soy lecithin. These ingredients saturate the body with antioxidants, increase stress resistance, strengthen blood vessels, and help cells generate energy. Iron and B vitamins support blood formation and metabolism, while soy lecithin contributes to healthy brain and nervous system function. Recommended for weight loss, physical or emotional strain, reduced productivity, and recovery after exertion.",
+    description: "Innovative nutraceutical for those who want to preserve natural energy, strong vitality, and active longevity. Its formula combines natural extracts, B vitamins, and iron to support nutrient balance and support the hematopoietic system. Contains pomegranate, green tea, echinacea, oats, grape seeds, ginger, soy, iron, B vitamins, and soy lecithin. These ingredients saturate the body with antioxidants, increase stress resistance, strengthen blood vessels, and help cells generate energy. Iron and B vitamins support blood formation and metabolism, while soy lecithin contributes to healthy brain and nervous system function. Recommended for weight loss, physical or emotional strain, reduced productivity, and recovery after exertion.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 24.99,
     priceEUR: 17,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Iron and B-vitamin replenishment", "Hematopoietic support", "Antioxidant protection", "Stress resilience", "Immune modulation", "Brain and nervous system support", "Energy restoration"],
+    benefits: ["Iron and B-vitamin replenishment", "Hematopoietic support", "Antioxidant protection", "Stress resilience", "Immune modulation", "Brain and nervous system support", "Supports everyday energy"],
   },
   {
     id: "reviplant",
     image: "/products/Reviform_3.jpg",
     name: "Reviplant",
-    description: "Premium phytonutrient complex for liver and immune system support. Combines powerful botanical extracts to promote cellular regeneration, enhance hepatic detoxification pathways, support immune function, and provide broad-spectrum antioxidant and anti-inflammatory protection for systemic wellness.",
+    description: "Premium phytonutrient complex for liver and immune system support. Combines powerful botanical extracts with extracts studied for their role in cellular renewal, enhance hepatic detoxification pathways, support immune function, and provide broad-spectrum antioxidant and anti-inflammatory protection for systemic wellness.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 79.99,
     priceEUR: 53,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Phytonutrient liver support", "Immune system enhancement", "Cellular regeneration", "Hepatic detoxification", "Anti-inflammatory protection", "Broad-spectrum antioxidant"]
+    benefits: ["Phytonutrient liver support", "Immune system enhancement", "Studied for its role in cellular renewal", "Hepatic detoxification", "Anti-inflammatory protection", "Broad-spectrum antioxidant"]
   },
   {
     id: "reviform-cocktail",
@@ -1566,7 +1566,7 @@ const catalogProducts: Product[] = [
     id: "renefort",
     image: "/products/rene1.jpg",
     name: "Renefort",
-    description: "Nephroprotective complex for kidney health and renal function support. Helps maintain healthy kidney filtration, supports kidney tissue regeneration, protects against oxidative stress in renal tissue, and promotes balanced urinary system function. Beneficial for those seeking preventive renal care.",
+    description: "Nephroprotective complex for kidney health and renal function support. Helps maintain healthy kidney filtration, is studied for its role in kidney tissue renewal, protects against oxidative stress in renal tissue, and promotes balanced urinary system function. Beneficial for those seeking preventive renal care.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 21.99,
     priceEUR: 16,
@@ -1590,13 +1590,13 @@ const catalogProducts: Product[] = [
     id: "rinolax",
     image: "/products/Alvenorm.jpg",
     name: "Rinolax",
-    description: "Natural upper respiratory and ENT health complex for sinus, nasal, and throat support. Helps normalize nasal breathing, reduces inflammation in the respiratory mucosa, supports healthy sinus function, and strengthens immune defense of the upper airways.",
+    description: "Natural upper respiratory and ENT health complex for sinus, nasal, and throat support. Supports comfortable nasal breathing, reduces inflammation in the respiratory mucosa, supports healthy sinus function, and strengthens immune defense of the upper airways.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 55.99,
     priceEUR: 37,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Upper respiratory/ENT support", "Nasal breathing normalization", "Sinus health", "Respiratory mucosa protection", "Upper airway immune defense"]
+    benefits: ["Upper respiratory/ENT support", "Supports comfortable nasal breathing", "Sinus health", "Respiratory mucosa protection", "Upper airway immune defense"]
   },
   {
     id: "temero-genero",
@@ -1650,19 +1650,19 @@ const catalogProducts: Product[] = [
     id: "zinsil-t",
     image: "/products/zinsil1.jpg",
     name: "Zinsil-T",
-    description: "Comprehensive zinc, glycine, and pyridoxine (Vitamin B6) complex for prolonging active longevity. Affects key links in the pathogenesis of accelerated aging, corrects the work of many enzymes and hormones, and restores disturbed immune and antioxidant status. Glycine (500mg) reduces psycho-emotional stress, aggressiveness, and conflict; enhances mood; facilitates and normalizes sleep; increases mental performance; reduces toxic effects of alcohol; and significantly improves zinc absorption. Zinc (8.6mg) is required for healthy functioning of all body cells, stimulates leukocyte production, supports T-lymphocytes and natural killer cells, corrects blood sugar levels, helps the pancreas produce insulin, improves skin conditions, and supports protein synthesis. Vitamin B6 ensures substance exchange, participates in neurotransmitter metabolism (serotonin, dopamine), supports red blood cell production, and is essential for protein, fat, and carbohydrate metabolism.",
+    description: "Comprehensive zinc, glycine, and pyridoxine (Vitamin B6) complex for prolonging active longevity. Studied for its role in healthy aging, normal enzyme and hormone activity, and immune and antioxidant status. Glycine (500mg) reduces psycho-emotional stress, aggressiveness, and conflict; enhances mood; supports normal sleep; increases mental performance; and significantly improves zinc absorption. Zinc (8.6mg) is required for healthy functioning of all body cells, stimulates leukocyte production, supports T-lymphocytes and natural killer cells, corrects blood sugar levels, helps the pancreas produce insulin, improves skin conditions, and supports protein synthesis. Vitamin B6 ensures substance exchange, participates in neurotransmitter metabolism (serotonin, dopamine), supports red blood cell production, and is essential for protein, fat, and carbohydrate metabolism.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 19.99,
     priceEUR: 14,
     rating: 4.8,
     sizes: 1,
-    benefits: ["Immune defense", "Hormonal balance", "Mood and sleep improvement", "Blood sugar regulation", "Cholesterol reduction", "Skin health", "Antioxidant status restoration", "Longevity support"],
+    benefits: ["Immune defense", "Hormonal balance", "Mood and sleep improvement", "Blood sugar regulation", "Cholesterol reduction", "Skin health", "Supports healthy antioxidant status", "Longevity support"],
   },
   {
     id: "ensil",
     image: "/products/ensil2.jpg",
     name: "Ensil",
-    description: "Powerful formula of the latest generation, developed over more than six years of research. Markedly enhances tissue respiration processes and facilitates regeneration. Contains Coenzyme Q10 (cellular energizer, antioxidant, immunomodulatory, hepatoprotective), nicotinamide (vital for NAD/NADPH coenzymes, tissue respiration, fat/protein/amino acid metabolism), folic acid (DNA replication, hematopoiesis, immune system development), echinacea (immune system fortification, anti-inflammatory), amber acid/succinic acid (strengthens immunity, stimulates insulin production, normalizes nervous system, counteracts stress, neutralizes toxins), L-carnitine (fatty acid transport, cardiac muscle and immune support), B vitamins B1/B5/B6 (energy metabolism, immune and nervous system function), and Vitamins C and E (antioxidants, tissue regeneration). Part of the immunity and energy activation trio.",
+    description: "Powerful formula of the latest generation, developed over more than six years of research. Markedly enhances tissue respiration processes and is studied for its role in tissue renewal. Contains Coenzyme Q10 (cellular energizer, antioxidant, immunomodulatory, hepatoprotective), nicotinamide (vital for NAD/NADPH coenzymes, tissue respiration, fat/protein/amino acid metabolism), folic acid (DNA replication, hematopoiesis, immune system development), echinacea (immune system fortification, anti-inflammatory), amber acid/succinic acid (strengthens immunity, stimulates insulin production, studied for its role in nervous system function, counteracts stress, neutralizes toxins), L-carnitine (fatty acid transport, cardiac muscle and immune support), B vitamins B1/B5/B6 (energy metabolism, immune and nervous system function), and Vitamins C and E (antioxidants, studied for their role in tissue renewal). Part of the immunity and energy activation trio.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 48.99,
     priceEUR: 33,
@@ -1697,7 +1697,7 @@ const catalogProducts: Product[] = [
   {
     id: "thyreogen",
     name: "Thyreogen",
-    description: "Thyreogen® (A-2) is the Thyroid Peptide Bioregulator containing the thyroid gland peptide complex from young calves. The isolated peptides act selectively on thyroid gland cells, normalizing their metabolism and regulating thyroid functions. Studied for its role in supporting healthy thyroid function. Part of the female hormonal protocol: Zhenoluten + Thyreogen + Ventfort.",
+    description: "Thyreogen® (A-2) is the Thyroid Peptide Bioregulator containing the thyroid gland peptide complex from young calves. The isolated peptides act selectively on thyroid gland cells, studied for its role in thyroid cell metabolism and thyroid function. Studied for its role in supporting healthy thyroid function. Part of the female hormonal protocol: Zhenoluten + Thyreogen + Ventfort.",
     category: "PEPTIDE BIOREGULATORS",
     image: "/products/Thyreogen.jpg",
     imageAlt: "Thyreogen thyroid peptide bioregulator",
@@ -1705,7 +1705,7 @@ const catalogProducts: Product[] = [
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
-    benefits: ["Supports normal thyroid metabolism", "Female hormonal health", "Metabolic normalization"],
+    benefits: ["Supports normal thyroid metabolism", "Female hormonal health", "Supports normal metabolism"],
     seriesInfo: "Recommended combination: Zhenoluten + Thyreogen + Ventfort for female health. Cytomaxes are natural peptide bioregulators extracted from specific animal organs and tissues, developed over 40+ years of research under Prof. Vladimir Khavinson.",
     variants: [
       {
@@ -1728,27 +1728,27 @@ const catalogProducts: Product[] = [
     id: "gpl-femme",
     image: "/products/gplF.jpg",
     name: "GPL Femme",
-    description: "Comprehensive female health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Thyroid + Ovarian peptides + Alpha-lipoic acid. Designed to restore and maintain optimal function of the female reproductive, endocrine, cardiovascular, and nervous systems. Provides broad-spectrum support for hormonal balance, immune resilience, and active longevity.",
+    description: "Comprehensive female health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Thyroid + Ovarian peptides + Alpha-lipoic acid. Formulated to support optimal function of the female reproductive, endocrine, cardiovascular, and nervous systems. Provides broad-spectrum support for hormonal balance, immune resilience, and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 420,
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
     benefits: ["65mg multi-peptide complex per capsule", "Formulated to support the natural balance of the reproductive system", "Thyroid and ovarian peptide support", "Cardiovascular and nervous system health", "Hormonal balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
-    seriesInfo: "GPL Femme contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Thyroid, Ovarian) plus alpha-lipoic acid for comprehensive female health restoration."
+    seriesInfo: "GPL Femme contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Thyroid, Ovarian) plus alpha-lipoic acid for comprehensive female wellness support."
   },
   {
     id: "gpl-man",
     image: "/products/GPL_M.jpg",
     name: "GPL Man",
-    description: "Comprehensive male health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Pancreatic + Testicular peptides + Alpha-lipoic acid. Supports systemic recovery and vitality during periods of intense physical stress or fatigue, restoring normal functioning of the cardiovascular, nervous, endocrine, and reproductive systems. Provides broad-spectrum support for male vitality and active longevity.",
+    description: "Comprehensive male health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Pancreatic + Testicular peptides + Alpha-lipoic acid. Supports systemic recovery and vitality during periods of intense physical stress or fatigue, and supports normal functioning of the cardiovascular, nervous, endocrine, and reproductive systems. Provides broad-spectrum support for male vitality and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
     priceUSD: 420,
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
     benefits: ["65mg multi-peptide complex per capsule", "Formulated to support the natural balance of the reproductive system", "Pancreatic and testicular peptide support", "Cardiovascular and nervous system health", "Endocrine balance", "Active longevity", "Healthy aging — epiphysis peptide studied as a geroprotector"],
-    seriesInfo: "GPL Man contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Pancreatic, Testicular) plus alpha-lipoic acid for comprehensive male health restoration."
+    seriesInfo: "GPL Man contains six targeted peptide complexes (Epiphysis, Cerebrum, Vascular, Liver, Pancreatic, Testicular) plus alpha-lipoic acid for comprehensive male wellness support."
   },
 ];
 
