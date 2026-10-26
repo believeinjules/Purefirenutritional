@@ -3,7 +3,7 @@ import type Stripe from "stripe";
 import { getStripe } from "../_lib/stripe.js";
 import { FieldValue } from "firebase-admin/firestore";
 import { getAdminDb } from "../_lib/firebase.js";
-import { sendOrderConfirmation } from "../_lib/email.js";
+import { sendOrderConfirmation, sendOwnerOrderNotification } from "../_lib/email.js";
 import { readRawBody } from "../_lib/read-raw-body.js";
 
 /** Required so Stripe signature verification gets the unmodified body. */
@@ -78,6 +78,12 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   const items = lineItems.data.map(orderItemFromLineItem);
 
   const total = (session.amount_total || 0) / 100;
+  const subtotal = (session.amount_subtotal || 0) / 100;
+  const tax = (session.total_details?.amount_tax || 0) / 100;
+  const shipping = (session.total_details?.amount_shipping || 0) / 100;
+  const currency = session.currency?.toUpperCase() || "USD";
+  const shippingName = shippingDetails?.name || null;
+  const shippingAddress = shippingDetails?.address || null;
   let orderNumber = generateOrderNumber();
   let isNewOrder = true;
 
@@ -118,15 +124,15 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
             : session.customer?.id ?? null,
         items,
         bundles: session.metadata?.bundles || null,
-        subtotal: (session.amount_subtotal || 0) / 100,
-        tax: (session.total_details?.amount_tax || 0) / 100,
-        shipping: (session.total_details?.amount_shipping || 0) / 100,
+        subtotal,
+        tax,
+        shipping,
         total,
-        currency: session.currency?.toUpperCase() || "USD",
+        currency,
         status: "processing",
         payment_status: session.payment_status || "paid",
-        shipping_name: shippingDetails?.name || null,
-        shipping_address: shippingDetails?.address || null,
+        shipping_name: shippingName,
+        shipping_address: shippingAddress,
         billing_address: session.customer_details?.address || null,
         created_at: nowIso,
       });
@@ -178,6 +184,35 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
     });
     if (!sent) {
       console.warn(`[webhook] confirmation email not sent for ${orderNumber}`);
+    }
+  }
+
+  // Store-owner notification. Same isNewOrder guard as the customer email, so
+  // Stripe retries of an already-saved order don't re-notify. Isolated so a
+  // failure here never affects the saved order, customer email, or 200.
+  if (isNewOrder) {
+    try {
+      const sentOwner = await sendOwnerOrderNotification({
+        orderNumber,
+        customerName: customerName || null,
+        customerEmail: customerEmail || null,
+        items,
+        subtotal,
+        shipping,
+        tax,
+        total,
+        currency,
+        shippingName,
+        shippingAddress,
+      });
+      if (!sentOwner) {
+        console.warn(`[webhook] owner notification not sent for ${orderNumber}`);
+      }
+    } catch (err) {
+      console.error(
+        `[webhook] owner notification failed for ${orderNumber}:`,
+        err instanceof Error ? err.message : String(err)
+      );
     }
   }
 }

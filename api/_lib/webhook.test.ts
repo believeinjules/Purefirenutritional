@@ -41,7 +41,11 @@ vi.mock("firebase-admin/firestore", () => ({
 vi.mock("./firebase.js", () => ({ getAdminDb: () => fakeDb }));
 
 const sendOrderConfirmation = vi.fn(async () => true);
-vi.mock("./email.js", () => ({ sendOrderConfirmation: (...a: any[]) => sendOrderConfirmation(...a) }));
+const sendOwnerOrderNotification = vi.fn(async (_o: any) => true);
+vi.mock("./email.js", () => ({
+  sendOrderConfirmation: (...a: any[]) => sendOrderConfirmation(...a),
+  sendOwnerOrderNotification: (o: any) => sendOwnerOrderNotification(o),
+}));
 
 let currentEvent: any;
 const defaultLineItems = [{ description: "Bonomarlot (20 Capsules)", quantity: 2, amount_total: 15598 }];
@@ -109,6 +113,8 @@ describe("stripe webhook checkout.session.completed", () => {
     store.clear();
     currentLineItems = defaultLineItems;
     sendOrderConfirmation.mockClear();
+    sendOwnerOrderNotification.mockReset();
+    sendOwnerOrderNotification.mockImplementation(async () => true);
     process.env.STRIPE_SECRET_KEY = "sk_test_x";
     process.env.STRIPE_WEBHOOK_SECRET = "whsec_x";
   });
@@ -203,5 +209,57 @@ describe("stripe webhook checkout.session.completed", () => {
     });
     // older / non-bundle lines keep working with null bundle fields
     expect(order.items[1]).toMatchObject({ bundle_bottles: null, bottles_total: 1, product_id: null });
+  });
+
+  it("notifies the owner once with the same amounts/fields saved on the order", async () => {
+    currentEvent = sessionEvent({
+      amount_total: 17000,
+      amount_subtotal: 15598,
+      total_details: { amount_tax: 902, amount_shipping: 500 },
+    });
+    await handler(req(), mkRes());
+    await handler(req(), mkRes()); // Stripe retry
+    expect(sendOwnerOrderNotification).toHaveBeenCalledTimes(1);
+    const order = store.get("orders/cs_live_abc")!;
+    const arg = sendOwnerOrderNotification.mock.calls[0][0];
+    expect(arg).toMatchObject({
+      orderNumber: order.order_number,
+      customerEmail: order.customer_email,
+      customerName: order.customer_name,
+      items: order.items,
+      subtotal: order.subtotal,
+      shipping: order.shipping,
+      tax: order.tax,
+      total: order.total,
+      shippingName: order.shipping_name,
+      shippingAddress: order.shipping_address,
+    });
+    expect(arg.shipping).toBe(5);
+    expect(arg.tax).toBeCloseTo(9.02);
+  });
+
+  it("owner notification failure doesn't affect order save, customer email, or 200", async () => {
+    sendOwnerOrderNotification.mockImplementation(async () => {
+      throw new Error("SMTP down");
+    });
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    currentEvent = sessionEvent();
+    const res = mkRes();
+    await handler(req(), res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({ received: true });
+    expect(store.get("orders/cs_live_abc")).toBeTruthy();
+    expect(sendOrderConfirmation).toHaveBeenCalledTimes(1);
+    expect(err.mock.calls.some((c) => String(c[0]).includes("owner notification failed"))).toBe(true);
+    err.mockRestore();
+  });
+
+  it("owner notification failure (returns false) still returns 200", async () => {
+    sendOwnerOrderNotification.mockImplementation(async () => false);
+    currentEvent = sessionEvent();
+    const res = mkRes();
+    await handler(req(), res);
+    expect(res.statusCode).toBe(200);
+    expect(sendOrderConfirmation).toHaveBeenCalledTimes(1);
   });
 });
