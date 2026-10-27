@@ -7,7 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { CONTACT_EMAIL, mailto } from "@shared/contact-emails";
 
-export default function Footer({ showNewsletter = true }: { showNewsletter?: boolean }) {
+export default function Footer() {
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -50,41 +50,41 @@ export default function Footer({ showNewsletter = true }: { showNewsletter?: boo
 
   return (
     <footer className="bg-gray-900 text-white">
-      {/* Newsletter Section (hidden on the homepage, which has its own signup) */}
-      {showNewsletter && (
-        <div className="bg-brand-gradient py-12">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Mail className="w-8 h-8" />
-              <h3 className="text-2xl font-bold">Insights for the Informed</h3>
-            </div>
-            <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-              Occasional updates on new products, wellness research, and perspectives on resilience, longevity, and cognitive vitality. No noise — just substance.
-            </p>
-            <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-white text-gray-900"
-                disabled={isSubscribing}
-              />
-              <Button 
-                type="submit" 
-                variant="secondary"
-                disabled={isSubscribing}
-                className="bg-white text-orange-700 hover:bg-gray-100"
-              >
-                {isSubscribing ? "Subscribing..." : "Subscribe"}
-              </Button>
-            </form>
-            <p className="text-white/70 text-sm mt-3">
-              No spam, unsubscribe at any time.
-            </p>
+      {/* Newsletter Section */}
+      <div id="newsletter" className="bg-brand-gradient py-12">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Mail className="w-8 h-8" />
+            <h3 className="text-2xl font-bold">Insights for the Informed</h3>
           </div>
+          <p className="text-white/90 mb-6 max-w-2xl mx-auto">
+            Occasional updates on new products, wellness research, and perspectives on resilience, longevity, and cognitive vitality. No noise — just substance.
+          </p>
+          <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <Input
+              id="newsletter-email"
+              type="email"
+              aria-label="Email address"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 bg-white text-gray-900"
+              disabled={isSubscribing}
+            />
+            <Button 
+              type="submit" 
+              variant="secondary"
+              disabled={isSubscribing}
+              className="bg-white text-orange-700 hover:bg-gray-100"
+            >
+              {isSubscribing ? "Subscribing..." : "Subscribe"}
+            </Button>
+          </form>
+          <p className="text-white/70 text-sm mt-3">
+            No spam, unsubscribe at any time.
+          </p>
         </div>
-      )}
+      </div>
 
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

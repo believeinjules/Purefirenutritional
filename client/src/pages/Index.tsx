@@ -1,11 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { websiteJsonLd } from "@/lib/seo";
-import { useState } from "react";
 import { Link } from "wouter";
 import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { SITE_TRUST, isUsableUrl } from "@/data/siteConfig";
 import {
   ArrowRight,
@@ -21,7 +18,6 @@ import {
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
-import { toast } from "sonner";
 import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
 
 // ─── Wellness category data ───────────────────────────────────────────────────
@@ -115,31 +111,18 @@ const whyWeCarry: { stat: string; label: string; href?: string }[] = [
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
+// Slim CTA: jumps to the footer signup form (the single full form) instead of duplicating it.
+function jumpToSignup(e: React.MouseEvent<HTMLAnchorElement>) {
+  const form = document.getElementById("newsletter");
+  if (!form) return; // fall back to the plain #newsletter link
+  e.preventDefault();
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  history.replaceState(null, "", "#newsletter");
+  document.getElementById("newsletter-email")?.focus({ preventScroll: true });
+}
+
 export default function Index() {
-  const [email, setEmail] = useState("");
-  const [isSubscribing, setIsSubscribing] = useState(false);
-
-  const handleNewsletterSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) { toast.error("Please enter your email"); return; }
-    setIsSubscribing(true);
-    try {
-      const response = await fetch("/api/mailing-list/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (!response.ok) { toast.error(data.error || "Failed to subscribe"); return; }
-      toast.success("You're in. Welcome to the community.");
-      setEmail("");
-    } catch {
-      toast.error("Failed to subscribe. Please try again.");
-    } finally {
-      setIsSubscribing(false);
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
@@ -307,6 +290,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Customer reviews — renders nothing until an approved review exists */}
+      <HomeReviewStrip />
+
       {/* ── Is / Isn't Cut ────────────────────────────────────────────── */}
       <section id="know-the-difference" className="py-16 px-4 bg-gray-900">
         <div className="max-w-2xl mx-auto text-center">
@@ -370,8 +356,19 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Customer reviews — renders nothing until an approved review exists */}
-      <HomeReviewStrip />
+      {/* ── Slim subscribe CTA (links to the footer signup form; not a second form) ── */}
+      <div className="py-6 px-4 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 text-center">
+          <p className="text-sm text-gray-500">Get peptide research updates</p>
+          <a
+            href="#newsletter"
+            onClick={jumpToSignup}
+            className="inline-flex items-center justify-center min-h-[44px] px-5 rounded border border-orange-300 text-orange-600 text-xs uppercase tracking-widest hover:bg-orange-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+          >
+            Subscribe
+          </a>
+        </div>
+      </div>
 
       {/* ── Philosophy ────────────────────────────────────────────────────── */}
       <section className="py-20 px-4 bg-white">
@@ -446,39 +443,6 @@ export default function Index() {
               </a>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ── Newsletter ─────────────────────────────────────────────────────── */}
-      <section id="newsletter" className="py-16 px-4 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-xl mx-auto text-center">
-          <p className="section-label mb-3">Stay Connected</p>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Insights for the informed.</h2>
-          <p className="text-gray-500 mb-6 text-sm">
-            Occasional updates on new products, wellness research, and perspectives on resilience, longevity, and cognitive vitality. No noise.
-          </p>
-          <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3">
-            <Input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 rounded-full border-gray-200"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={isSubscribing}
-              required
-            />
-            <Button
-              type="submit"
-              className="bg-brand-gradient hover:brightness-110 rounded-full px-6"
-              disabled={isSubscribing}
-            >
-              {isSubscribing ? "Subscribing…" : "Subscribe"}
-            </Button>
-          </form>
-          <p className="text-xs text-gray-400 mt-3">
-            No spam. Unsubscribe anytime. Read our{" "}
-            <Link href="/privacy" className="text-orange-500 hover:underline">Privacy Policy</Link>.
-          </p>
         </div>
       </section>
 
@@ -614,7 +578,7 @@ export default function Index() {
         </div>
       </section>
 
-      <Footer showNewsletter={false} />
+      <Footer />
     </div>
   );
 }
