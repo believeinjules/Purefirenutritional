@@ -1,11 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { websiteJsonLd } from "@/lib/seo";
-import { useState } from "react";
 import { Link } from "wouter";
 import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import SubscribeStrip from "@/components/home/SubscribeStrip";
 import { SITE_TRUST, isUsableUrl } from "@/data/siteConfig";
 import {
   ArrowRight,
@@ -21,7 +19,6 @@ import {
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
-import { toast } from "sonner";
 import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
 
 // ─── Wellness category data ───────────────────────────────────────────────────
@@ -116,30 +113,6 @@ const whyWeCarry: { stat: string; label: string; href?: string }[] = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Index() {
-  const [email, setEmail] = useState("");
-  const [isSubscribing, setIsSubscribing] = useState(false);
-
-  const handleNewsletterSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) { toast.error("Please enter your email"); return; }
-    setIsSubscribing(true);
-    try {
-      const response = await fetch("/api/mailing-list/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (!response.ok) { toast.error(data.error || "Failed to subscribe"); return; }
-      toast.success("You're in. Welcome to the community.");
-      setEmail("");
-    } catch {
-      toast.error("Failed to subscribe. Please try again.");
-    } finally {
-      setIsSubscribing(false);
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
@@ -308,6 +281,72 @@ export default function Index() {
       {/* Customer reviews — renders nothing until an approved review exists */}
       <HomeReviewStrip />
 
+      {/* ── Is / Isn't Cut ────────────────────────────────────────────── */}
+      <section id="know-the-difference" className="py-16 px-4 bg-gray-900">
+        <div className="max-w-2xl mx-auto text-center">
+          <p style={{
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+            fontWeight: 400,
+            fontSize: "11px",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "#E8622A",
+            marginBottom: "24px",
+          }}>
+            Know the Difference
+          </p>
+          <h2 style={{
+            fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
+            fontWeight: 600,
+            fontSize: "clamp(28px, 4vw, 38px)",
+            color: "white",
+            lineHeight: 1.1,
+            marginBottom: "28px",
+          }}>
+            These are not the peptides most people mean right now.
+          </h2>
+          <div style={{
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+            fontWeight: 300,
+            fontSize: "14px",
+            color: "#999",
+            lineHeight: 2,
+            marginBottom: "32px",
+          }}>
+            <p style={{ marginBottom: "4px" }}>Not GLP-1 medications.</p>
+            <p style={{ marginBottom: "20px" }}>Not injectable research peptides.</p>
+            <p style={{
+              fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
+              fontStyle: "italic",
+              fontSize: "20px",
+              color: "#ccc",
+              marginBottom: "16px",
+            }}>
+              Khavinson peptide bioregulators: a different class.
+            </p>
+            <p style={{ marginBottom: "4px" }}>Short. Tissue-specific. Capsules in short cycles, not shots.</p>
+            <p>Deeper action. So cells start regulating themselves.</p>
+          </div>
+          <Link href="/faq">
+            <a style={{
+              fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+              fontSize: "12px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#E8622A",
+              textDecoration: "none",
+              borderBottom: "0.5px solid #E8622A44",
+              paddingBottom: "2px",
+            }}>
+              See FAQ for full comparison →
+            </a>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── Slim subscribe strip (expands in place; same endpoint as the footer form) ── */}
+      <SubscribeStrip />
+
       {/* ── Philosophy ────────────────────────────────────────────────────── */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
@@ -381,69 +420,6 @@ export default function Index() {
               </a>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ── Is / Isn't Cut ────────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-900">
-        <div className="max-w-2xl mx-auto text-center">
-          <p style={{
-            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
-            fontWeight: 400,
-            fontSize: "11px",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "#E8622A",
-            marginBottom: "24px",
-          }}>
-            Know the Difference
-          </p>
-          <h2 style={{
-            fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
-            fontWeight: 600,
-            fontSize: "clamp(28px, 4vw, 38px)",
-            color: "white",
-            lineHeight: 1.1,
-            marginBottom: "28px",
-          }}>
-            These are not the peptides most people mean right now.
-          </h2>
-          <div style={{
-            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
-            fontWeight: 300,
-            fontSize: "14px",
-            color: "#999",
-            lineHeight: 2,
-            marginBottom: "32px",
-          }}>
-            <p style={{ marginBottom: "4px" }}>Not GLP-1 medications.</p>
-            <p style={{ marginBottom: "20px" }}>Not injectable research peptides.</p>
-            <p style={{
-              fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
-              fontStyle: "italic",
-              fontSize: "20px",
-              color: "#ccc",
-              marginBottom: "16px",
-            }}>
-              Khavinson peptide bioregulators: a different class.
-            </p>
-            <p style={{ marginBottom: "4px" }}>Short. Tissue-specific. Capsules in short cycles, not shots.</p>
-            <p>Deeper action. So cells start regulating themselves.</p>
-          </div>
-          <Link href="/faq">
-            <a style={{
-              fontFamily: "'Inter', 'Inter Fallback', sans-serif",
-              fontSize: "12px",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#E8622A",
-              textDecoration: "none",
-              borderBottom: "0.5px solid #E8622A44",
-              paddingBottom: "2px",
-            }}>
-              See FAQ for full comparison →
-            </a>
-          </Link>
         </div>
       </section>
 
@@ -576,39 +552,6 @@ export default function Index() {
               </a>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ── Newsletter ─────────────────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-xl mx-auto text-center">
-          <p className="section-label mb-3">Stay Connected</p>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Insights for the informed.</h2>
-          <p className="text-gray-500 mb-6 text-sm">
-            Occasional updates on new products, wellness research, and perspectives on resilience, longevity, and cognitive vitality. No noise.
-          </p>
-          <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3">
-            <Input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 rounded-full border-gray-200"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={isSubscribing}
-              required
-            />
-            <Button
-              type="submit"
-              className="bg-brand-gradient hover:brightness-110 rounded-full px-6"
-              disabled={isSubscribing}
-            >
-              {isSubscribing ? "Subscribing…" : "Subscribe"}
-            </Button>
-          </form>
-          <p className="text-xs text-gray-400 mt-3">
-            No spam. Unsubscribe anytime. Read our{" "}
-            <Link href="/privacy" className="text-orange-500 hover:underline">Privacy Policy</Link>.
-          </p>
         </div>
       </section>
 

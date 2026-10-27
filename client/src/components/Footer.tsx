@@ -51,7 +51,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       {/* Newsletter Section */}
-      <div className="bg-brand-gradient py-12">
+      <div id="newsletter" className="bg-brand-gradient py-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Mail className="w-8 h-8" />
@@ -62,7 +62,9 @@ export default function Footer() {
           </p>
           <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input
+              id="newsletter-email"
               type="email"
+              aria-label="Email address"
               placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
