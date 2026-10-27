@@ -3,6 +3,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import { websiteJsonLd } from "@/lib/seo";
 import { Link } from "wouter";
 import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
+import SubscribeStrip from "@/components/home/SubscribeStrip";
 import { SITE_TRUST, isUsableUrl } from "@/data/siteConfig";
 import {
   ArrowRight,
@@ -110,17 +111,6 @@ const whyWeCarry: { stat: string; label: string; href?: string }[] = [
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
-
-// Slim CTA: jumps to the footer signup form (the single full form) instead of duplicating it.
-function jumpToSignup(e: React.MouseEvent<HTMLAnchorElement>) {
-  const form = document.getElementById("newsletter");
-  if (!form) return; // fall back to the plain #newsletter link
-  e.preventDefault();
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-  history.replaceState(null, "", "#newsletter");
-  document.getElementById("newsletter-email")?.focus({ preventScroll: true });
-}
 
 export default function Index() {
   return (
@@ -356,19 +346,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ── Slim subscribe CTA (links to the footer signup form; not a second form) ── */}
-      <div className="py-6 px-4 bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 text-center">
-          <p className="text-sm text-gray-500">Get peptide research updates</p>
-          <a
-            href="#newsletter"
-            onClick={jumpToSignup}
-            className="inline-flex items-center justify-center min-h-[44px] px-5 rounded border border-orange-300 text-orange-600 text-xs uppercase tracking-widest hover:bg-orange-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
-          >
-            Subscribe
-          </a>
-        </div>
-      </div>
+      {/* ── Slim subscribe strip (expands in place; same endpoint as the footer form) ── */}
+      <SubscribeStrip />
 
       {/* ── Philosophy ────────────────────────────────────────────────────── */}
       <section className="py-20 px-4 bg-white">
