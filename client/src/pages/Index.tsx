@@ -169,10 +169,8 @@ export default function Index() {
           ],
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "505 Brighton Beach Ave 2nd FL",
             "addressLocality": "Brooklyn",
             "addressRegion": "NY",
-            "postalCode": "11234",
             "addressCountry": "US"
           }
         })}</script>

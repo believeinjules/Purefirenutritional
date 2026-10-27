@@ -210,7 +210,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <MapPin className="w-5 h-5 text-orange-500" />
-                <span>505 Brighton Beach Ave 2nd FL<br />Brooklyn, NY 11234</span>
+                <span>Brooklyn, NY</span>
               </li>
             </ul>
           </div>
