@@ -994,7 +994,7 @@
    "id": "prime-peptide-omega",
    "name": "Prime Peptide Omega",
    "composition": null,
-   "biologicalTarget": "immune/cardiovascular",
+   "biologicalTarget": "immune",
    "manufacturerDirections": {
     "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
     "status": "verified",
@@ -1036,13 +1036,11 @@
     "template": "formula",
     "title": "Prime Peptide Omega",
     "overview": [
-     "Prime Peptide Omega is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH T peptide and is formulated to support the immune system and the cardiovascular system, with omega fatty acids.",
+     "Prime Peptide Omega is part of the Prime Peptide line from the Peptides company. It is built around the manufacturer's IPH T peptide and is formulated to support the immune system, with omega fatty acids.",
      "It comes in capsules (90 per pack). The manufacturer describes its IPH peptides as short peptides combined with supporting nutrients; the research it cites is its own, and the finished product has not been tested in published independent trials."
     ],
     "formulatedFor": [
-     "Normal immune function",
-     "Normal thymus function",
-     "Normal cardiovascular health"
+     "Normal immune function"
     ],
     "differences": [
      "Compared with Vladonix and Crystagen (thymus): those are single-tissue bioregulators, while Prime Peptide Omega pairs its IPH peptide with a broader nutrient formula.",
@@ -1074,7 +1072,7 @@
     ],
     "safety": "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Consult a healthcare professional before use, especially if you take medications or have a medical condition. Keep out of reach of children.",
     "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
-    "metaDescription": "Prime Peptide Omega: Prime Peptide capsules with IPH T and Omega 3-6-9, formulated to support normal immune function and normal cardiovascular health."
+    "metaDescription": "Prime Peptide Omega: capsules with the IPH T peptide, Omega 3-6-9, vitamins C, E, D3 and zinc. Formulated to support normal immune function."
    }
   },
   "prime-peptide-protect": {

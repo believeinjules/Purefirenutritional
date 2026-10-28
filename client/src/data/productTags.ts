@@ -55,7 +55,7 @@ export const PRODUCT_TAGS: Record<string, { tags: string[]; code?: string }> = {
   // ── Prime Peptide ────────────────────────────────────────────────────────
   "prime-peptide-brain": { tags: ["system:brain-nervous-system", "collection:prime-peptide", "goal:focus-cognition"] },
   "prime-peptide-protect": { tags: ["system:brain-nervous-system", "collection:prime-peptide", "goal:sleep-daily-rhythms", "goal:stress-resilience"] },
-  "prime-peptide-omega": { tags: ["system:immune-respiratory", "system:heart-circulation", "collection:prime-peptide"] },
+  "prime-peptide-omega": { tags: ["system:immune-respiratory", "collection:prime-peptide"] },
   "prime-peptide-joints": { tags: ["system:bones-joints-muscles", "collection:prime-peptide", "goal:recovery-mobility"] },
   "prime-peptide-collagen": { tags: ["collection:prime-peptide", "goal:skin-hair-beauty"] },
 
