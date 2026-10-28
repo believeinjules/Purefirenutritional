@@ -65,7 +65,8 @@ describe("full PDP copy (shared/product-facts.json → pdp)", () => {
     const p = f.pdp!;
     it(`${f.id}: formula template, compliant wording, verified directions only`, () => {
       expect(p.overview.length).toBeGreaterThanOrEqual(1);
-      expect(p.formulatedFor!.length).toBeGreaterThanOrEqual(3);
+      // Prime Peptide Omega lists a single item by Regulatory Advisor decision (Merchant Center review, PR #66).
+      expect(p.formulatedFor!.length).toBeGreaterThanOrEqual(f.id === "prime-peptide-omega" ? 1 : 3);
       expect(p.differences.length).toBeGreaterThanOrEqual(1);
       expect(p.ingredients.length).toBeGreaterThanOrEqual(1);
       expect(p.faq.length).toBeGreaterThanOrEqual(3);
