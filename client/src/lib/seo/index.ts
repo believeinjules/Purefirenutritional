@@ -360,6 +360,9 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
 // ─── Product titles / snippets ───────────────────────────────────────────────
 
 /** Target organ / tissue of each Khavinson peptide bioregulator (from the catalog copy). */
+import { SEO_TITLE_FOCUS } from "./productTitles";
+export { SEO_TITLE_FOCUS };
+
 export const BIOREGULATOR_ORGAN: Record<string, string> = {
   bonomarlot: "Bone Marrow",
   bonothyrk: "Parathyroid",
@@ -394,14 +397,15 @@ export const TITLE_MAX = 60;
 
 /**
  * "<Product> | <Organ> Peptide Bioregulator | Pure Fire Nutritional" for every
- * bioregulator, "<Product> | Pure Fire Nutritional" otherwise. One consistent
+ * bioregulator, "<Product> | <SEO_TITLE_FOCUS> | Pure Fire Nutritional" for other
+ * mapped products, "<Product> | Pure Fire Nutritional" as a last resort. One consistent
  * pattern (no per-product shortening); TITLE_MAX is reported, not enforced.
  */
 export function productTitle(product: { id: string; name: string }): string {
   const organ = BIOREGULATOR_ORGAN[product.id];
-  return organ
-    ? `${product.name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`
-    : `${product.name} | ${SITE_NAME}`;
+  if (organ) return `${product.name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`;
+  const focus = SEO_TITLE_FOCUS[product.id];
+  return focus ? `${product.name} | ${focus} | ${SITE_NAME}` : `${product.name} | ${SITE_NAME}`;
 }
 
 export const SNIPPET_MIN = 150;
