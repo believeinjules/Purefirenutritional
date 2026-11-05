@@ -100,22 +100,25 @@ function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: str
   );
 }
 
-function SidebarList({ title, note, items }: { title: string; note?: string; items: LearnArticle[] }) {
+/** Desktop: sidebar box. Mobile (<768px): a compact horizontal snap strip; `mobileLead` is shown first on mobile only. */
+function SidebarList({ title, note, items, mobileHidden, mobileLead }: { title: string; note?: string; items: LearnArticle[]; mobileHidden?: boolean; mobileLead?: LearnArticle }) {
+  const item = (a: LearnArticle, cls: string) => (
+    <li key={a.href} className={`py-3 ${cls} max-md:w-52 max-md:shrink-0 max-md:snap-start max-md:rounded-lg max-md:border max-md:border-gray-200 max-md:px-3 max-md:py-2`}>
+      <span className="block text-[11px] uppercase tracking-wider text-gray-500">{categoryLabel(a.category)}</span>
+      <Link href={a.href} className={`text-sm font-medium text-gray-900 hover:text-orange-600 max-md:line-clamp-2 max-md:min-h-[44px] ${focusRing}`}>
+        {a.navLabel ?? a.title}
+      </Link>
+    </li>
+  );
   return (
-    <section aria-labelledby={`side-${title}`} className="rounded-lg border border-gray-200 p-5">
+    <section aria-labelledby={`side-${title}`} className={`rounded-lg border border-gray-200 p-5 max-md:border-0 max-md:p-0 ${mobileHidden ? "max-md:hidden" : ""}`}>
       <h2 id={`side-${title}`} className="text-xs font-semibold uppercase tracking-widest text-orange-500">
         {title}
       </h2>
-      {note && <p className="mt-1 text-xs text-gray-500">{note}</p>}
-      <ol className="mt-3 divide-y divide-gray-100">
-        {items.map((a) => (
-          <li key={a.href} className="py-3 first:pt-1 last:pb-0">
-            <span className="block text-[11px] uppercase tracking-wider text-gray-500">{categoryLabel(a.category)}</span>
-            <Link href={a.href} className={`text-sm font-medium text-gray-900 hover:text-orange-600 ${focusRing}`}>
-              {a.navLabel ?? a.title}
-            </Link>
-          </li>
-        ))}
+      {note && <p className="mt-1 text-xs text-gray-500 max-md:hidden">{note}</p>}
+      <ol className="mt-3 divide-y divide-gray-100 max-md:mt-2 max-md:-mx-4 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-2 max-md:divide-y-0 max-md:overflow-x-auto max-md:px-4 max-md:pb-2">
+        {items.map((a, i) => item(a, `first:pt-1 ${i === items.length - 1 ? "pb-0" : ""}`))}
+        {mobileLead && !items.some((a) => a.href === mobileLead.href) && item(mobileLead, "md:hidden max-md:order-first")}
       </ol>
     </section>
   );
@@ -168,7 +171,7 @@ export default function Journal() {
           </nav>
 
           {/* DOM order = mobile order: the article grid first, then the sidebar. */}
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
+          <div className="grid gap-10 max-md:gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
             <section aria-labelledby="grid-heading" className="min-w-0">
               <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
                 <h2 id="grid-heading" className="text-2xl font-semibold text-gray-900">
@@ -190,9 +193,9 @@ export default function Journal() {
               </ul>
             </section>
 
-            <aside aria-label="Reference and start here" className="space-y-6">
-              <SidebarList title="Reference" items={pinnedArticles()} />
-              <SidebarList title="Start here" note="Editor's picks: one foundational read per topic." items={startHereArticles()} />
+            <aside aria-label="Reference and start here" className="space-y-6 max-md:order-first max-md:min-w-0 max-md:space-y-0">
+              <SidebarList title="Reference" items={pinnedArticles()} mobileHidden />
+              <SidebarList title="Start here" note="Editor's picks: one foundational read per topic." items={startHereArticles()} mobileLead={pinnedArticles().find((a) => a.tags.includes("glossary"))} />
             </aside>
 
           </div>
