@@ -145,7 +145,7 @@ export default function Journal() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
           <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-3 leading-tight">Longevity Journal</h1>
-          <p className="text-gray-500 mb-8 max-w-2xl">Articles on peptide bioregulators and how we think about them.</p>
+          <p className="text-gray-500 mb-8 max-w-2xl">Discover a different way of thinking about health and longevity through Pure Fire Nutritional.</p>
 
           <nav aria-label="Journal categories" className="mb-10">
             <ul className="flex flex-wrap gap-2">
