@@ -43,23 +43,23 @@ function Cover({ a, eager }: { a: LearnArticle; eager?: boolean }) {
         width={1280}
         height={720}
         loading={eager ? "eager" : "lazy"}
-        className="block w-full aspect-video object-cover"
+        className="block w-full aspect-video object-cover max-md:aspect-square"
       />
     </picture>
   ) : (
     <div
       aria-hidden="true"
-      className="w-full aspect-video flex items-end p-5"
+      className="w-full aspect-video flex items-end p-5 max-md:aspect-square max-md:p-2"
       style={{ background: "linear-gradient(135deg, #faf8f5, #f6f3ee)" }}
     >
-      <span className="text-[10px] uppercase tracking-[0.22em] text-gray-500">Pure Fire Nutritional</span>
+      <span className="text-[10px] uppercase tracking-[0.22em] text-gray-500 max-md:hidden">Pure Fire Nutritional</span>
     </div>
   );
 }
 
 function TagChips({ tags, activeTag }: { tags: JournalTag[]; activeTag?: string }) {
   return (
-    <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Tags">
+    <ul className="mt-3 flex flex-wrap gap-1.5 max-md:hidden" aria-label="Tags">
       {tags.map((t) => (
         <li key={t}>
           <Link
@@ -80,20 +80,20 @@ function TagChips({ tags, activeTag }: { tags: JournalTag[]; activeTag?: string 
 /** Card: the cover + title are the article link; tag chips are separate filter links (no nested anchors). */
 function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: string; eager?: boolean }) {
   return (
-    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-md transition">
-      <Link href={a.href} tabIndex={-1} aria-hidden="true">
+    <article className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-md transition max-md:flex-row max-md:items-center max-md:gap-3 max-md:p-2.5">
+      <Link href={a.href} tabIndex={-1} aria-hidden="true" className="max-md:w-[104px] max-md:shrink-0 max-md:self-start max-md:overflow-hidden max-md:rounded-md">
         <Cover a={a} eager={eager} />
       </Link>
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex min-w-0 flex-1 flex-col p-5 max-md:p-0">
         <p className="text-xs text-gray-500">
           {categoryLabel(a.category)} · <time dateTime={a.date}>{formatDate(a.date)}</time>
         </p>
-        <h3 className="kt-card mt-1 text-lg font-semibold text-gray-900 leading-snug">
-          <Link href={a.href} className={`hover:text-orange-600 group-hover:text-orange-600 transition-colors ${focusRing}`}>
+        <h3 className="kt-card mt-1 text-lg font-semibold max-md:text-base max-md:line-clamp-3 text-gray-900 leading-snug">
+          <Link href={a.href} className={`hover:text-orange-600 group-hover:text-orange-600 transition-colors max-md:after:absolute max-md:after:inset-0 max-md:after:content-[''] ${focusRing}`}>
             {a.title}
           </Link>
         </h3>
-        <p className={`mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3`}>{a.description}</p>
+        <p className={`mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3 max-md:hidden`}>{a.description}</p>
         <TagChips tags={a.tags} activeTag={activeTag} />
       </div>
     </article>
@@ -184,7 +184,7 @@ export default function Journal() {
                   </Link>
                 )}
               </div>
-              <ul className="grid gap-6 sm:grid-cols-2">
+              <ul className="grid gap-6 max-md:gap-3 md:grid-cols-2">
                 {list.map((a, i) => (
                   <li key={a.href} className="min-w-0">
                     <ArticleCard a={a} activeTag={tag} eager={i < 2} />
