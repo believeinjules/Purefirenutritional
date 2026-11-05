@@ -1,3 +1,5 @@
+import KineticHeading from "@/components/kinetic/KineticHeading";
+import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
@@ -40,6 +42,7 @@ const COA_THUMB = "/images/learn/example-coa-illustrative-thumb.png";
 const COA_ALT = "Illustrative certificate of analysis with placeholder values only, annotated with callouts for lot number, date, lab, identity method, purity, microbial tests, heavy metals, and signature. Watermarked EXAMPLE.";
 
 export default function ArticleRegistrationVsCoa() {
+  useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
@@ -62,9 +65,7 @@ export default function ArticleRegistrationVsCoa() {
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Science</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
-            {HEADLINE}
-          </h1>
+          <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight" text={HEADLINE} />
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>

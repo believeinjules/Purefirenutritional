@@ -1,3 +1,5 @@
+import KineticHeading from "@/components/kinetic/KineticHeading";
+import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { useEffect, useState } from "react";
 import { Link, useSearch } from "wouter";
 import PageSeo from "@/components/seo/PageSeo";
@@ -86,7 +88,7 @@ function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: str
         <p className="text-xs text-gray-500">
           {categoryLabel(a.category)} · <time dateTime={a.date}>{formatDate(a.date)}</time>
         </p>
-        <h3 className="mt-1 text-lg font-semibold text-gray-900 leading-snug">
+        <h3 className="kt-card mt-1 text-lg font-semibold text-gray-900 leading-snug">
           <Link href={a.href} className={`hover:text-orange-600 group-hover:text-orange-600 transition-colors ${focusRing}`}>
             {a.title}
           </Link>
@@ -136,6 +138,7 @@ export default function Journal() {
       : null;
 
   const list = filtered ?? JOURNAL_ARTICLES;
+  useKineticReveal(".kt-card", [category, tag]);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -144,8 +147,8 @@ export default function Journal() {
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-3 leading-tight">Longevity Journal</h1>
-          <p className="text-gray-500 mb-8 max-w-2xl">Discover a different way of thinking about health and longevity through Pure Fire Nutritional.</p>
+          <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-3 leading-tight" text="Longevity Journal" />
+          <KineticHeading as="p" className="text-gray-500 mb-8 max-w-2xl" delay={150} text="Discover a different way of thinking about health and longevity through Pure Fire Nutritional." />
 
           <nav aria-label="Journal categories" className="mb-10">
             <ul className="flex flex-wrap gap-2">

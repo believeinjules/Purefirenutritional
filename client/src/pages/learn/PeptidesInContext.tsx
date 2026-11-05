@@ -1,3 +1,5 @@
+import KineticHeading from "@/components/kinetic/KineticHeading";
+import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
@@ -10,6 +12,7 @@ const COVER_WEBP = "/images/learn/peptides-in-context-systems-view-cover.webp";
 const COVER_ALT = "Peptides in Context: A Systems View of How the Body Regulates Itself";
 
 export default function ArticlePeptidesInContext() {
+  useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
@@ -42,9 +45,7 @@ export default function ArticlePeptidesInContext() {
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
-            Peptides in Context: A Systems View of How the Body Regulates Itself
-          </h1>
+          <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight" text={"Peptides in Context: A Systems View of How the Body Regulates Itself"} />
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em><br />
             Originally published on <a href="https://mindscaping.substack.com/p/the-whole-body-problem-and-what-that" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Mindscaping</a>.

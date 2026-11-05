@@ -242,7 +242,7 @@ describe("/learn index", () => {
   it("sets its own title, meta description and canonical", () => {
     expect(page).toMatch(/<PageSeo title=\{JOURNAL_TITLE\} description=\{JOURNAL_DESCRIPTION\} path="\/learn" \/>/);
     expect(page).toContain('"Longevity Journal | Pure Fire Nutritional"');
-    expect(page).toContain(">Longevity Journal</h1>");
+    expect(page).toContain('text="Longevity Journal" />');
     const desc = page.match(/JOURNAL_DESCRIPTION =\s*"([^"]+)"/)![1];
     expect(desc).toContain("Longevity Journal");
     expect(desc.length).toBeLessThanOrEqual(160);

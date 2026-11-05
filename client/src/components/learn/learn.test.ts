@@ -58,7 +58,7 @@ describe("Pepita dock", () => {
 describe("Page copy and order", () => {
   it("opens with the approved H1, subhead and intro, then the sections in order", () => {
     const order = [
-      "            Khavinson Peptides Explained: Benefits, Research & How They Work\n          </h1>",
+      'text={"Khavinson Peptides Explained: Benefits, Research & How They Work"} />',
       "A different approach to peptide science.",
       "Peptides are tiny chains of amino acids, the same building blocks",
       'id="cytomaxes-vs-cytogens"',

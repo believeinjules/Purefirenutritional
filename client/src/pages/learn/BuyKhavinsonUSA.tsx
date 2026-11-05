@@ -1,3 +1,5 @@
+import KineticHeading from "@/components/kinetic/KineticHeading";
+import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
@@ -17,6 +19,7 @@ const DESCRIPTION =
   "Why authentic Khavinson bioregulators are hard to find in the US, oral bioregulators vs. injectable peptides, how to check any seller (lot-matched COA, clear labels), and how Pure Fire sources them.";
 
 export default function ArticleBuyKhavinsonUSA() {
+  useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
@@ -50,9 +53,7 @@ export default function ArticleBuyKhavinsonUSA() {
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
-            Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide
-          </h1>
+          <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight" text={"Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide"} />
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>

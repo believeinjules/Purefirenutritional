@@ -1,3 +1,5 @@
+import KineticHeading from "@/components/kinetic/KineticHeading";
+import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
@@ -12,6 +14,7 @@ const EVIDENCE_WEBP = "/images/learn/khavinson-bioregulators-perimenopause-oral-
 const EVIDENCE_ALT = "Evidence Types and Limits infographic with four panels: Older adults (6–8 years; linked to better health indices); Animal research (aged monkeys: glucose, insulin, melatonin effects); Perimenopause (small observations; support, not care replacement); Trial gap (no large trials show symptom relief).";
 
 export default function ArticlePerimenopauseOralEvidence() {
+  useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
@@ -44,9 +47,7 @@ export default function ArticlePerimenopauseOralEvidence() {
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
-            Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show
-          </h1>
+          <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight" text={"Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show"} />
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>

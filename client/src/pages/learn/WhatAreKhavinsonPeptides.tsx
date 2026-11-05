@@ -1,3 +1,5 @@
+import KineticHeading from "@/components/kinetic/KineticHeading";
+import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
@@ -18,6 +20,7 @@ const DESCRIPTION =
   "Khavinson peptide bioregulators are short peptides and peptide complexes studied for how they may influence cell activity and tissue function. Learn the two types, Cytogens and Cytomaxes, and what the research does and doesn't show.";
 
 export default function ArticleKhavinsonPeptides() {
+  useKineticReveal("main h2");
   // Old links (/learn/cytomaxes-vs-cytogens 301, FAQ) land on #cytomaxes-vs-cytogens; the
   // browser's own fragment scroll can run before the SPA has rendered, so scroll once mounted.
   useEffect(() => {
@@ -60,9 +63,7 @@ export default function ArticleKhavinsonPeptides() {
           </div>
 
           <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">Education</span>
-          <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
-            Khavinson Peptides Explained: Benefits, Research & How They Work
-          </h1>
+          <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight" text={"Khavinson Peptides Explained: Benefits, Research & How They Work"} />
           <p className="text-xl text-gray-600 mb-4">A different approach to peptide science.</p>
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
