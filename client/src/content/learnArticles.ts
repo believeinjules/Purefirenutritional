@@ -28,6 +28,10 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     href: "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval",
     date: "2026-11-05",
     description: "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.",
+    cover: {
+      jpg: "/images/learn/khavinson-peptide-bioregulators-research-vs-fda-approval-hero.jpg",
+      alt: "Capsules beside a document stamped Not FDA approved, with a peptide chain and a St. Petersburg cathedral",
+    },
   },
   {
     title: "Oral vs. Injectable Peptide Bioregulators: Digestion and Delivery",
@@ -36,6 +40,10 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     href: "/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery",
     date: "2026-11-05",
     description: "Explore oral peptide bioregulators, their proposed role, digestion and delivery, and Khavinson's research on tissue specificity and its evidence limits.",
+    cover: {
+      jpg: "/images/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery-hero.jpg",
+      alt: "Two capsules and a sublingual tablet on linen, with a syringe out of focus in the background",
+    },
   },
   {
     title: "Bioregulator Organ Pairings: Proposed Mechanism vs. Measured Evidence",
@@ -60,6 +68,10 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     href: "/learn/registration-certificate-vs-certificate-of-analysis",
     date: "2026-11-05",
     description: "What an EAEU registration certificate shows, how to read a certificate of analysis for a supplement lot, and what neither document tells you about results.",
+    cover: {
+      jpg: "/images/learn/registration-certificate-vs-certificate-of-analysis-hero.jpg",
+      alt: "Unbranded box with a holographic QR label and a magnifying glass over a hologram seal",
+    },
   },
   {
     title: "Khavinson Peptides Explained: Benefits, Research & How They Work",

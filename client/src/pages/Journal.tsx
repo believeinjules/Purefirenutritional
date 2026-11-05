@@ -44,9 +44,9 @@ export default function Journal() {
                     <div
                       aria-hidden="true"
                       className="w-full aspect-video flex items-end p-5"
-                      style={{ background: "linear-gradient(135deg, rgb(120, 20, 50), rgb(70, 10, 30), rgb(25, 5, 12))" }}
+                      style={{ background: "linear-gradient(135deg, #faf8f5, #f6f3ee)" }}
                     >
-                      <span className="text-[10px] uppercase tracking-[0.22em] text-white/60">Pure Fire Nutritional</span>
+                      <span className="text-[10px] uppercase tracking-[0.22em] text-gray-500">Pure Fire Nutritional</span>
                     </div>
                   )}
                   <div className="p-5">

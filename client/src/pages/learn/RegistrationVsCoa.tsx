@@ -9,6 +9,8 @@ const PATH = "/learn/registration-certificate-vs-certificate-of-analysis";
 const TITLE = "Registration Certificate vs Certificate of Analysis (COA)";
 const HEADLINE = "Registration Certificate vs. Certificate of Analysis: What Each Shows";
 const DESCRIPTION = "What an EAEU registration certificate shows, how to read a certificate of analysis for a supplement lot, and what neither document tells you about results.";
+const HERO_JPG = "/images/learn/registration-certificate-vs-certificate-of-analysis-hero.jpg";
+const HERO_ALT = "Unbranded box with a holographic QR label and a magnifying glass over a hologram seal";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -18,6 +20,7 @@ const JSON_LD = {
       "description": "What an EAEU registration certificate shows, how to read a certificate of analysis for a supplement lot, and what neither document tells you about results.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/registration-certificate-vs-certificate-of-analysis",
       "inLanguage": "en-US",
+      "image": "https://www.purefirenutritional.com" + HERO_JPG,
       "author": {
         "@type": "Organization",
         "name": "Pure Fire Nutritional"
@@ -44,6 +47,8 @@ export default function ArticleRegistrationVsCoa() {
         description={DESCRIPTION}
         path={PATH}
         type="article"
+        image={HERO_JPG}
+        imageAlt={HERO_ALT}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(JSON_LD)}</script>
@@ -63,6 +68,16 @@ export default function ArticleRegistrationVsCoa() {
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>
+
+          <picture>
+            <img
+              src={HERO_JPG}
+              alt={HERO_ALT}
+              width={1600}
+              height={900}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
 
           <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
 

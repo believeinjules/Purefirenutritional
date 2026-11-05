@@ -9,6 +9,10 @@ const PATH = "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval";
 const TITLE = "Khavinson Peptide Bioregulators: Research vs FDA Approval";
 const HEADLINE = "Khavinson Peptide Bioregulators: Research History vs. FDA Approval";
 const DESCRIPTION = "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.";
+const HERO_JPG = "/images/learn/khavinson-peptide-bioregulators-research-vs-fda-approval-hero.jpg";
+const HERO_ALT = "Capsules beside a document stamped Not FDA approved, with a peptide chain and a St. Petersburg cathedral";
+const INLINE_JPG = "/images/learn/khavinson-peptide-bioregulators-uses-safety-legality-inline.jpg";
+const INLINE_ALT = "Research books on peptide bioregulators, safety and regulatory status beside an unbranded box, capsules and brass scales";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -18,6 +22,7 @@ const JSON_LD = {
       "description": "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/khavinson-peptide-bioregulators-research-vs-fda-approval",
       "inLanguage": "en-US",
+      "image": "https://www.purefirenutritional.com" + HERO_JPG,
       "author": {
         "@type": "Organization",
         "name": "Pure Fire Nutritional"
@@ -84,6 +89,8 @@ export default function ArticleResearchVsFdaApproval() {
         description={DESCRIPTION}
         path={PATH}
         type="article"
+        image={HERO_JPG}
+        imageAlt={HERO_ALT}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(JSON_LD)}</script>
@@ -103,6 +110,16 @@ export default function ArticleResearchVsFdaApproval() {
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>
+
+          <picture>
+            <img
+              src={HERO_JPG}
+              alt={HERO_ALT}
+              width={1600}
+              height={900}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
 
           <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
 
@@ -153,6 +170,14 @@ export default function ArticleResearchVsFdaApproval() {
             <p>Thymalin, Epithalamin, Cortexin and Retinalamin are injectable drugs in Russia, and much of the human research on them used injected preparations. Not all of the human work was injected, though. The group also studied oral forms, including Cytomax-type (cytamin) and Cytogen capsules and sublingual preparations. For example, an oral synthetic tetrapeptide (Pancragen) was studied on metabolic markers in a small group of older adults (<a href="https://pubmed.ncbi.nlm.nih.gov/22448364/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Korkushko et al., 2011</a>). Because the route changes what reaches the body, oral and injected results should be read separately, not pooled.</p>
 
             <h2 id="us-regulatory-status" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Research history vs. FDA approval: US regulatory status</h2>
+            <img
+              src={INLINE_JPG}
+              alt={INLINE_ALT}
+              width={1600}
+              height={900}
+              loading="lazy"
+              className="w-full h-auto rounded-lg"
+            />
 
             <p>Peptide bioregulators are not FDA-approved drugs in the United States, and none is an established bulk drug substance for 503A pharmacy compounding. Availability as a dietary supplement is not approval as a drug or authorization for medical treatment. Under US rules, dietary supplements are not reviewed by the FDA for safety or effectiveness before they are marketed (<a href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/dietary-supplements-guidance-documents-regulatory-information" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA: dietary supplements</a>).</p>
 

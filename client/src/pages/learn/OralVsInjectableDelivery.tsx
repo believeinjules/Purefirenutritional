@@ -9,6 +9,8 @@ const PATH = "/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery
 const TITLE = "Oral vs Injectable Bioregulators: Digestion and Delivery";
 const HEADLINE = "Oral vs. Injectable Peptide Bioregulators: Digestion and Delivery";
 const DESCRIPTION = "Explore oral peptide bioregulators, their proposed role, digestion and delivery, and Khavinson's research on tissue specificity and its evidence limits.";
+const HERO_JPG = "/images/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery-hero.jpg";
+const HERO_ALT = "Two capsules and a sublingual tablet on linen, with a syringe out of focus in the background";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -18,6 +20,7 @@ const JSON_LD = {
       "description": "Explore oral peptide bioregulators, their proposed role, digestion and delivery, and Khavinson's research on tissue specificity and its evidence limits.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery",
       "inLanguage": "en-US",
+      "image": "https://www.purefirenutritional.com" + HERO_JPG,
       "author": {
         "@type": "Organization",
         "name": "Pure Fire Nutritional"
@@ -84,6 +87,8 @@ export default function ArticleOralVsInjectableDelivery() {
         description={DESCRIPTION}
         path={PATH}
         type="article"
+        image={HERO_JPG}
+        imageAlt={HERO_ALT}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(JSON_LD)}</script>
@@ -103,6 +108,16 @@ export default function ArticleOralVsInjectableDelivery() {
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>
+
+          <picture>
+            <img
+              src={HERO_JPG}
+              alt={HERO_ALT}
+              width={1600}
+              height={900}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
 
           <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
 
