@@ -103,7 +103,7 @@ function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: str
 /** Desktop: sidebar box. Mobile (<768px): a compact horizontal snap strip; `mobileLead` is shown first on mobile only. */
 function SidebarList({ title, note, items, mobileHidden, mobileLead }: { title: string; note?: string; items: LearnArticle[]; mobileHidden?: boolean; mobileLead?: LearnArticle }) {
   const item = (a: LearnArticle, cls: string) => (
-    <li key={a.href} className={`py-3 ${cls} max-md:w-52 max-md:shrink-0 max-md:snap-start max-md:rounded-lg max-md:border max-md:!border-gray-200 max-md:px-3 max-md:py-2`}>
+    <li key={a.href} className={`py-3 ${cls} max-md:w-52 max-md:shrink-0 max-md:snap-start max-md:rounded-lg max-md:!border max-md:!border-gray-200 max-md:px-3 max-md:py-2`}>
       <span className="block text-[11px] uppercase tracking-wider text-gray-500">{categoryLabel(a.category)}</span>
       <Link href={a.href} className={`text-sm font-medium text-gray-900 hover:text-orange-600 max-md:line-clamp-2 max-md:min-h-[44px] ${focusRing}`}>
         {a.navLabel ?? a.title}
@@ -117,7 +117,7 @@ function SidebarList({ title, note, items, mobileHidden, mobileLead }: { title: 
       </h2>
       {note && <p className="mt-1 text-xs text-gray-500 max-md:hidden">{note}</p>}
       <ol className="mt-3 divide-y divide-gray-100 max-md:mt-2 max-md:-mx-4 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-2 max-md:divide-y-0 max-md:overflow-x-auto max-md:px-4 max-md:pb-2">
-        {items.map((a, i) => item(a, `first:pt-1 ${i === items.length - 1 ? "pb-0" : ""}`))}
+        {items.map((a, i) => item(a, `md:first:pt-1 ${i === items.length - 1 ? "md:pb-0" : ""}`))}
         {mobileLead && !items.some((a) => a.href === mobileLead.href) && item(mobileLead, "md:hidden max-md:order-first")}
       </ol>
     </section>
