@@ -1,7 +1,8 @@
 import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { useEffect, useState } from "react";
-import { Link, useSearch } from "wouter";
+import { Link, useLocation, useSearch } from "wouter";
+import { ChevronDown } from "lucide-react";
 import PageSeo from "@/components/seo/PageSeo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -127,6 +128,7 @@ function SidebarList({ title, note, items, mobileHidden, mobileLead }: { title: 
 export default function Journal() {
   // Prerender has no query string; read it only after mount so hydration matches the static HTML.
   const search = useSearch();
+  const [, navigate] = useLocation();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const params = new URLSearchParams(mounted ? search : "");
@@ -153,8 +155,25 @@ export default function Journal() {
           <KineticHeading className="text-4xl font-bold text-gray-900 mt-2 mb-3 leading-tight" text="Longevity Journal" />
           <KineticHeading as="p" className="text-gray-500 mb-8 max-w-2xl" delay={150} text="Discover a different way of thinking about health and longevity through Pure Fire Nutritional." />
 
-          <nav aria-label="Journal categories" className="mb-10">
-            <ul className="flex flex-wrap gap-2">
+          <nav aria-label="Journal categories" className="mb-10 max-md:mb-8">
+            {/* Mobile: native dropdown. Chip links stay in the DOM (hidden <768px) for no-JS and crawlers. */}
+            <label htmlFor="journal-category" className="sr-only">Filter by category</label>
+            <div className="relative md:hidden">
+              <select
+                id="journal-category"
+                value={category ?? (tag ? `tag:${tag}` : "")}
+                onChange={(e) => navigate(e.target.value ? `/learn?category=${e.target.value}` : "/learn")}
+                className={`h-11 w-full appearance-none rounded-lg border border-gray-200 bg-white pl-4 pr-10 text-sm text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400`}
+              >
+                <option value="">All articles</option>
+                {JOURNAL_CATEGORIES.map((c) => (
+                  <option key={c.id} value={c.id}>{c.label}</option>
+                ))}
+                {tag && <option value={`tag:${tag}`} disabled>{`Tagged “${JOURNAL_TAGS[tag]}”`}</option>}
+              </select>
+              <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+            </div>
+            <ul className="flex flex-wrap gap-2 max-md:hidden">
               <li>
                 <Link href="/learn" aria-current={!filtered ? "page" : undefined} className={chip(!filtered)}>
                   All articles
