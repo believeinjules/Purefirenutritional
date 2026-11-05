@@ -12,7 +12,37 @@ export type LearnArticle = {
   date: string;
   /** Optional cover image (site paths). */
   cover?: { jpg: string; webp?: string; alt: string };
+  /** Primary /learn category (one per article). */
+  category: JournalCategory;
+  /** 2–4 topic tags (slugs from JOURNAL_TAGS); clicking one filters /learn by ?tag=. */
+  tags: JournalTag[];
+  /** Curated "Start here" pick for its category (editorial, not view data). */
+  startHere?: boolean;
+  /** Pinned in the /learn "Reference" sidebar. */
+  pinned?: boolean;
 };
+
+export const JOURNAL_CATEGORIES = [
+  { id: "basics", label: "Basics" },
+  { id: "science", label: "Science & Evidence" },
+  { id: "buying", label: "Buying & Authenticity" },
+] as const;
+export type JournalCategory = (typeof JOURNAL_CATEGORIES)[number]["id"];
+
+export const JOURNAL_TAGS = {
+  "khavinson": "Khavinson",
+  "regulation": "US regulation",
+  "glossary": "Glossary",
+  "oral-delivery": "Oral delivery",
+  "mechanism": "Mechanism",
+  "evidence": "Evidence limits",
+  "womens-health": "Women's health",
+  "sourcing": "Sourcing",
+  "documentation": "Certificates & COAs",
+  "authenticity": "Authenticity",
+  "systems": "Systems view",
+} as const;
+export type JournalTag = keyof typeof JOURNAL_TAGS;
 
 /** URL of "Same Name. Same Peptides. So Why Buy From Us?" — change here to switch slug
  * (also update the literal <Route path> in App.tsx and llms.txt; seo.test.ts checks they match). */
@@ -26,6 +56,8 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Research vs FDA Approval",
     hideFromNav: true,
     href: "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval",
+    category: "basics",
+    tags: ["khavinson", "regulation", "evidence"],
     date: "2026-11-05",
     description: "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.",
     cover: {
@@ -38,6 +70,8 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Oral vs Injectable Delivery",
     hideFromNav: true,
     href: "/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery",
+    category: "science",
+    tags: ["oral-delivery", "mechanism", "evidence"],
     date: "2026-11-05",
     description: "Explore oral peptide bioregulators, their proposed role, digestion and delivery, and Khavinson's research on tissue specificity and its evidence limits.",
     cover: {
@@ -50,6 +84,8 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Organ Pairings: Mechanism vs Evidence",
     hideFromNav: true,
     href: "/learn/bioregulator-organ-pairings-mechanism-vs-evidence",
+    category: "science",
+    tags: ["mechanism", "evidence", "oral-delivery"],
     date: "2026-11-05",
     description: "Explore Khavinson bioregulator supplements, organ pairings, proposed mechanisms, and how digestion and absorption may alter oral peptide uptake, availability.",
   },
@@ -58,6 +94,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Cytomaxes, Cytogens & A-Numbers",
     hideFromNav: true,
     href: "/learn/cytomaxes-cytogens-a-numbers-glossary",
+    category: "basics",
+    tags: ["glossary", "khavinson", "regulation"],
+    pinned: true,
     date: "2026-11-05",
     description: "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.",
   },
@@ -66,6 +105,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Registration Certificate vs COA",
     hideFromNav: true,
     href: "/learn/registration-certificate-vs-certificate-of-analysis",
+    category: "buying",
+    tags: ["documentation", "authenticity"],
+    pinned: true,
     date: "2026-11-05",
     description: "What an EAEU registration certificate shows, how to read a certificate of analysis for a supplement lot, and what neither document tells you about results.",
     cover: {
@@ -77,6 +119,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     title: "Khavinson Peptides Explained: Benefits, Research & How They Work",
     navLabel: "What Are Khavinson Peptide Bioregulators?",
     href: "/learn/what-are-khavinson-peptide-bioregulators",
+    category: "basics",
+    tags: ["khavinson", "mechanism"],
+    startHere: true, pinned: true,
     date: "2026-05-14",
     description: "What peptide bioregulators are, who Professor Vladimir Khavinson is, and the research behind Cytomaxes and Cytogens.",
     cover: {
@@ -89,6 +134,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     title: "Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide",
     navLabel: "Buying Khavinson Peptides in the U.S.",
     href: "/learn/buy-khavinson-peptides-usa",
+    category: "buying",
+    tags: ["sourcing", "authenticity", "regulation"],
+    startHere: true,
     date: "2026-05-14",
     description: "Why authentic Khavinson bioregulators are hard to find in the US, how to check any seller, and how we source them.",
     cover: {
@@ -102,6 +150,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Peptides in Context",
     hideFromNav: true,
     href: "/learn/peptides-in-context-systems-view",
+    category: "science",
+    tags: ["systems", "mechanism", "evidence"],
+    startHere: true,
     date: "2026-10-13",
     description: "Why we think about peptides as signals inside connected systems, and where Khavinson's model is still a hypothesis.",
     cover: {
@@ -115,6 +166,8 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Perimenopause: Oral Evidence",
     hideFromNav: true,
     href: "/learn/khavinson-bioregulators-perimenopause-oral-evidence",
+    category: "science",
+    tags: ["womens-health", "oral-delivery", "evidence"],
     date: "2026-10-14",
     description: "What the research does and doesn't show for oral Khavinson bioregulators in perimenopause, and how to check quality before you start.",
     cover: {
@@ -128,6 +181,8 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     navLabel: "Why Buy From Pure Fire",
     hideFromNav: true,
     href: WHY_BUY_PATH,
+    category: "buying",
+    tags: ["sourcing", "authenticity", "documentation"],
     date: "2026-10-23",
     description: "Same peptide name, very different prices. What a sequence can't tell you, why the manufacturer and paperwork matter, and what to ask before you buy.",
     cover: {
