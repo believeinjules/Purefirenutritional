@@ -43,23 +43,23 @@ function Cover({ a, eager }: { a: LearnArticle; eager?: boolean }) {
         width={1280}
         height={720}
         loading={eager ? "eager" : "lazy"}
-        className="block w-full aspect-video object-cover max-md:aspect-square"
+        className="block w-full aspect-video object-cover"
       />
     </picture>
   ) : (
     <div
       aria-hidden="true"
-      className="w-full aspect-video flex items-end p-5 max-md:aspect-square max-md:p-2"
+      className="w-full aspect-video flex items-end p-5"
       style={{ background: "linear-gradient(135deg, #faf8f5, #f6f3ee)" }}
     >
-      <span className="text-[10px] uppercase tracking-[0.22em] text-gray-500 max-md:hidden">Pure Fire Nutritional</span>
+      <span className="text-[10px] uppercase tracking-[0.22em] text-gray-500">Pure Fire Nutritional</span>
     </div>
   );
 }
 
 function TagChips({ tags, activeTag }: { tags: JournalTag[]; activeTag?: string }) {
   return (
-    <ul className="mt-3 flex flex-wrap gap-1.5 max-md:hidden" aria-label="Tags">
+    <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Tags">
       {tags.map((t) => (
         <li key={t}>
           <Link
@@ -80,20 +80,20 @@ function TagChips({ tags, activeTag }: { tags: JournalTag[]; activeTag?: string 
 /** Card: the cover + title are the article link; tag chips are separate filter links (no nested anchors). */
 function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: string; eager?: boolean }) {
   return (
-    <article className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-md transition max-md:flex-row max-md:items-center max-md:gap-3 max-md:p-2.5">
-      <Link href={a.href} tabIndex={-1} aria-hidden="true" className="max-md:w-[104px] max-md:shrink-0 max-md:self-start max-md:overflow-hidden max-md:rounded-md">
+    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-md transition">
+      <Link href={a.href} tabIndex={-1} aria-hidden="true">
         <Cover a={a} eager={eager} />
       </Link>
-      <div className="flex min-w-0 flex-1 flex-col p-5 max-md:p-0">
+      <div className="flex flex-1 flex-col p-5">
         <p className="text-xs text-gray-500">
           {categoryLabel(a.category)} · <time dateTime={a.date}>{formatDate(a.date)}</time>
         </p>
-        <h3 className="kt-card mt-1 text-lg font-semibold max-md:text-base max-md:line-clamp-3 text-gray-900 leading-snug">
-          <Link href={a.href} className={`hover:text-orange-600 group-hover:text-orange-600 transition-colors max-md:after:absolute max-md:after:inset-0 max-md:after:content-[''] ${focusRing}`}>
+        <h3 className="kt-card mt-1 text-lg font-semibold text-gray-900 leading-snug">
+          <Link href={a.href} className={`hover:text-orange-600 group-hover:text-orange-600 transition-colors ${focusRing}`}>
             {a.title}
           </Link>
         </h3>
-        <p className={`mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3 max-md:hidden`}>{a.description}</p>
+        <p className={`mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3`}>{a.description}</p>
         <TagChips tags={a.tags} activeTag={activeTag} />
       </div>
     </article>
@@ -102,16 +102,16 @@ function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: str
 
 function SidebarList({ title, note, items }: { title: string; note?: string; items: LearnArticle[] }) {
   return (
-    <section aria-labelledby={`side-${title}`} className="rounded-lg border border-gray-200 p-5 max-md:border-0 max-md:p-0">
+    <section aria-labelledby={`side-${title}`} className="rounded-lg border border-gray-200 p-5">
       <h2 id={`side-${title}`} className="text-xs font-semibold uppercase tracking-widest text-orange-500">
         {title}
       </h2>
-      {note && <p className="mt-1 text-xs text-gray-500 max-md:hidden">{note}</p>}
-      <ol className="mt-3 divide-y divide-gray-100 max-md:mt-2 max-md:-mx-4 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-2 max-md:divide-y-0 max-md:overflow-x-auto max-md:px-4 max-md:pb-2">
+      {note && <p className="mt-1 text-xs text-gray-500">{note}</p>}
+      <ol className="mt-3 divide-y divide-gray-100">
         {items.map((a) => (
-          <li key={a.href} className="py-3 md:first:pt-1 md:last:pb-0 max-md:w-56 max-md:shrink-0 max-md:snap-start max-md:rounded-lg max-md:border max-md:border-gray-200 max-md:px-3 max-md:py-2.5">
+          <li key={a.href} className="py-3 first:pt-1 last:pb-0">
             <span className="block text-[11px] uppercase tracking-wider text-gray-500">{categoryLabel(a.category)}</span>
-            <Link href={a.href} className={`text-sm font-medium text-gray-900 hover:text-orange-600 max-md:line-clamp-2 max-md:min-h-[44px] ${focusRing}`}>
+            <Link href={a.href} className={`text-sm font-medium text-gray-900 hover:text-orange-600 ${focusRing}`}>
               {a.navLabel ?? a.title}
             </Link>
           </li>
@@ -168,7 +168,7 @@ export default function Journal() {
           </nav>
 
           {/* DOM order = mobile order: the article grid first, then the sidebar. */}
-          <div className="grid gap-10 max-md:gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
             <section aria-labelledby="grid-heading" className="min-w-0">
               <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
                 <h2 id="grid-heading" className="text-2xl font-semibold text-gray-900">
@@ -181,7 +181,7 @@ export default function Journal() {
                   </Link>
                 )}
               </div>
-              <ul className="grid gap-6 max-md:gap-3 md:grid-cols-2">
+              <ul className="grid gap-6 sm:grid-cols-2">
                 {list.map((a, i) => (
                   <li key={a.href} className="min-w-0">
                     <ArticleCard a={a} activeTag={tag} eager={i < 2} />
@@ -190,7 +190,7 @@ export default function Journal() {
               </ul>
             </section>
 
-            <aside aria-label="Reference and start here" className="space-y-6 max-md:order-first max-md:min-w-0 max-md:space-y-4">
+            <aside aria-label="Reference and start here" className="space-y-6">
               <SidebarList title="Reference" items={pinnedArticles()} />
               <SidebarList title="Start here" note="Editor's picks: one foundational read per topic." items={startHereArticles()} />
             </aside>
