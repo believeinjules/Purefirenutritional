@@ -45,6 +45,11 @@ import ArticleBuyKhavinsonUSA from "./pages/learn/BuyKhavinsonUSA";
 import ArticlePeptidesInContext from "./pages/learn/PeptidesInContext";
 import ArticlePerimenopauseOralEvidence from "./pages/learn/PerimenopauseOralEvidence";
 import ArticleWhyBuyFromPureFire from "./pages/learn/WhyBuyFromPureFire";
+import ArticleResearchVsFdaApproval from "./pages/learn/ResearchVsFdaApproval";
+import ArticleOralVsInjectableDelivery from "./pages/learn/OralVsInjectableDelivery";
+import ArticleBioregulatorOrganPairings from "./pages/learn/BioregulatorOrganPairings";
+import ArticleCytomaxesCytogensGlossary from "./pages/learn/CytomaxesCytogensGlossary";
+import ArticleRegistrationVsCoa from "./pages/learn/RegistrationVsCoa";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
 // Store policies (copy in content/policies.ts)
@@ -126,6 +131,11 @@ function Router() {
       <Route path="/learn/peptides-in-context-systems-view" component={ArticlePeptidesInContext} />
       <Route path="/learn/khavinson-bioregulators-perimenopause-oral-evidence" component={ArticlePerimenopauseOralEvidence} />
       <Route path="/learn/why-buy-khavinson-peptides-from-pure-fire" component={ArticleWhyBuyFromPureFire} />
+      <Route path="/learn/khavinson-peptide-bioregulators-research-vs-fda-approval" component={ArticleResearchVsFdaApproval} />
+      <Route path="/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery" component={ArticleOralVsInjectableDelivery} />
+      <Route path="/learn/bioregulator-organ-pairings-mechanism-vs-evidence" component={ArticleBioregulatorOrganPairings} />
+      <Route path="/learn/cytomaxes-cytogens-a-numbers-glossary" component={ArticleCytomaxesCytogensGlossary} />
+      <Route path="/learn/registration-certificate-vs-certificate-of-analysis" component={ArticleRegistrationVsCoa} />
       <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
       <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsPolicy} />

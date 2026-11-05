@@ -33,6 +33,11 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/learn/peptides-in-context-systems-view",
   "/learn/khavinson-bioregulators-perimenopause-oral-evidence",
   WHY_BUY_PATH,
+  "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval",
+  "/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery",
+  "/learn/bioregulator-organ-pairings-mechanism-vs-evidence",
+  "/learn/cytomaxes-cytogens-a-numbers-glossary",
+  "/learn/registration-certificate-vs-certificate-of-analysis",
   // /privacy, /terms, /shipping, /returns
   ...POLICY_PATHS,
   ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),
