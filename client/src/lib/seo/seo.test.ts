@@ -250,7 +250,7 @@ describe("/learn index", () => {
   });
 
   it("every listed article is a real, sitemap-listed /learn/... page with a description", () => {
-    expect(LEARN_ARTICLES).toHaveLength(5);
+    expect(LEARN_ARTICLES).toHaveLength(10);
     for (const a of LEARN_ARTICLES) {
       expect(a.href.startsWith("/learn/"), a.href).toBe(true);
       expect(app).toContain(`<Route path="${a.href}"`);
@@ -271,7 +271,7 @@ describe("/learn index", () => {
     const pic = LEARN_ARTICLES.find((a) => a.href === "/learn/peptides-in-context-systems-view");
     expect(pic?.hideFromNav).toBe(true);
     // The on-page title of the US article stays the full title.
-    expect(LEARN_ARTICLES[1].title).toBe("Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide");
+    expect(LEARN_ARTICLES.find((a) => a.href === "/learn/buy-khavinson-peptides-usa")?.title).toBe("Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide");
     expect(nav).toContain("LEARN_ARTICLES.filter((a) => !a.hideFromNav).map((a) => ({ label: a.navLabel ?? a.title, href: a.href }))");
     expect(nav).toContain('{ label: "Longevity Journal", href: "/learn" }');
     expect(nav).toMatch(/href === "\/science"/); // "Science" itself still links to /science

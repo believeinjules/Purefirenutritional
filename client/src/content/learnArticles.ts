@@ -20,6 +20,47 @@ export const WHY_BUY_PATH = "/learn/why-buy-khavinson-peptides-from-pure-fire";
 export const BUY_KHAVINSON_USA_PATH = "/learn/buy-khavinson-peptides-usa";
 
 export const LEARN_ARTICLES: LearnArticle[] = [
+  // Newest Longevity Journal batch (2026-11-05). Order here = /learn order among equal dates.
+  {
+    title: "Khavinson Peptide Bioregulators: Research History vs. FDA Approval",
+    navLabel: "Research vs FDA Approval",
+    hideFromNav: true,
+    href: "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval",
+    date: "2026-11-05",
+    description: "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.",
+  },
+  {
+    title: "Oral vs. Injectable Peptide Bioregulators: Digestion and Delivery",
+    navLabel: "Oral vs Injectable Delivery",
+    hideFromNav: true,
+    href: "/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery",
+    date: "2026-11-05",
+    description: "Explore oral peptide bioregulators, their proposed role, digestion and delivery, and Khavinson's research on tissue specificity and its evidence limits.",
+  },
+  {
+    title: "Bioregulator Organ Pairings: Proposed Mechanism vs. Measured Evidence",
+    navLabel: "Organ Pairings: Mechanism vs Evidence",
+    hideFromNav: true,
+    href: "/learn/bioregulator-organ-pairings-mechanism-vs-evidence",
+    date: "2026-11-05",
+    description: "Explore Khavinson bioregulator supplements, organ pairings, proposed mechanisms, and how digestion and absorption may alter oral peptide uptake, availability.",
+  },
+  {
+    title: "Cytomaxes, Cytogens and A-Numbers: A Glossary",
+    navLabel: "Cytomaxes, Cytogens & A-Numbers",
+    hideFromNav: true,
+    href: "/learn/cytomaxes-cytogens-a-numbers-glossary",
+    date: "2026-11-05",
+    description: "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.",
+  },
+  {
+    title: "Registration Certificate vs. Certificate of Analysis: What Each Shows",
+    navLabel: "Registration Certificate vs COA",
+    hideFromNav: true,
+    href: "/learn/registration-certificate-vs-certificate-of-analysis",
+    date: "2026-11-05",
+    description: "What an EAEU registration certificate shows, how to read a certificate of analysis for a supplement lot, and what neither document tells you about results.",
+  },
   {
     title: "Khavinson Peptides Explained: Benefits, Research & How They Work",
     navLabel: "What Are Khavinson Peptide Bioregulators?",
