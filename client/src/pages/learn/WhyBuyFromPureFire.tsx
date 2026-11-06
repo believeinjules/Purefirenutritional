@@ -19,6 +19,7 @@ const TSP_COMPANION_URL = "https://theshortpeptide.com/same-molecule-different-p
 
 const a = "text-orange-600 hover:underline";
 const ext = { target: "_blank", rel: "noopener noreferrer", className: a } as const;
+const extTsp = { target: "_blank", rel: "noopener noreferrer nofollow", className: a } as const;
 function Fn({ n }: { n: number }) {
   return <sup><a href={`#ref-${n}`} className={a}>[{n}]</a></sup>;
 }
@@ -106,15 +107,15 @@ export default function ArticleWhyBuyFromPureFire() {
 
             <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Informed Choices, Not Blind Trust</h2>
             <p>We don't expect you to buy from us because we tell you to. We want you to know the questions worth asking before you buy from anyone:</p>
-            <p>Who made the finished product? Is the manufacturer identifiable? Is this the formulation you intended to buy? Can its origin be documented? What does the research actually support — and where does it have limits? (For that last one, see <a href="https://theshortpeptide.com/how-to-read-peptide-research" {...ext}>How to read peptide research</a> at The Short Peptide, and its <a href="https://theshortpeptide.com/editorial-standards" {...ext}>editorial standards</a>.)</p>
+            <p>Who made the finished product? Is the manufacturer identifiable? Is this the formulation you intended to buy? Can its origin be documented? What does the research actually support — and where does it have limits? (For that last one, see <a href="https://theshortpeptide.com/how-to-read-peptide-research" {...extTsp}>How to read peptide research</a> at The Short Peptide, and its <a href="https://theshortpeptide.com/editorial-standards" {...extTsp}>editorial standards</a>.)</p>
             <p><strong>The sequence may be reproducible. The source should be verifiable.</strong></p>
             <p><strong>Choose More. Choose Pure Fire.</strong></p>
 
             <hr className="my-10 border-gray-200" />
 
             <p><strong>Curious about the science?</strong><br />
-              Read our companion explainer at The Short Peptide: <a href={TSP_COMPANION_URL} {...ext}><em>Same Molecule. Different Product? Why How You Make a Peptide Matters</em></a> — peptide synthesis, manufacturing differences, and links to the scientific literature.<br />
-              New to reading studies? See <a href="https://theshortpeptide.com/how-to-read-peptide-research" {...ext}>How to Read Peptide Research</a>.</p>
+              Read our companion explainer at The Short Peptide: <a href={TSP_COMPANION_URL} {...extTsp}><em>Same Molecule. Different Product? Why How You Make a Peptide Matters</em></a> — peptide synthesis, manufacturing differences, and links to the scientific literature.<br />
+              New to reading studies? See <a href="https://theshortpeptide.com/how-to-read-peptide-research" {...extTsp}>How to Read Peptide Research</a>.</p>
 
             <p><em>Educational content only. Research findings discussed here do not establish that any particular product is safe or effective for treating or preventing disease. These statements have not been evaluated by the Food and Drug Administration.</em></p>
 
