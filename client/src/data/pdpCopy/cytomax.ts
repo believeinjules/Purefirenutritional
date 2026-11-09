@@ -28,13 +28,15 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     },
     about:
       "Bonomarlot contains A-20, a naturally derived peptide complex obtained from bone marrow tissue. It belongs to the Khavinson Cytomax collection, which consists of tissue-derived peptide complexes associated with specific organs and biological systems. Unlike multi-component formulations, Bonomarlot centers on one tissue-derived peptide complex rather than combining several peptide complexes with additional active ingredients.",
+    // Round-2 proposed directions wording (brochure + "Follow the instructions on the current product
+    // packaging…") is on hold until the quote is confirmed against the package label; current text kept.
     manufacturerDirections: { source: BONOMARLOT_BROCHURE_DIRECTIONS, line: LINE },
     compareIntro:
       "Revilab ML 02 and Revilab SL 07 are related combination formulations containing bone marrow-associated peptide ingredients. Unlike Bonomarlot, these products combine multiple ingredients within a single formulation. Compare their verified ingredients, quantities, and manufacturer directions to understand the differences. A shared tissue association does not establish identical composition or effects.",
     research:
-      "Khavinson peptide research has explored tissue-derived peptides and their potential involvement in cellular regulatory processes. Bonomarlot's research association centers on bone marrow and the hematopoietic system. However, laboratory findings and research involving related peptides do not necessarily establish clinical benefits for the finished product. Evidence establishing Bonomarlot's effectiveness and long-term safety in humans remains limited.",
+      "Khavinson peptide research has explored tissue-derived peptides and their possible role in cellular regulatory processes. Bonomarlot's research association centers on bone marrow and blood cell formation. Laboratory and animal findings on related peptides do not establish benefits for the finished product, and human evidence on Bonomarlot itself is limited.",
     importantInformation:
-      "Bonomarlot is not presented as a treatment for blood disorders, immune deficiencies, or other medical conditions. Review the complete product label and consult a qualified healthcare professional before use.",
+      "Bonomarlot is not a medicine and is not intended to diagnose, treat, cure, or prevent any disease. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use.",
     dosageCourse: true,
     flags: [
       "Amount per capsule not published: brochure p. 7 prints 10 mg per capsule or tablet; not verified against our label.",

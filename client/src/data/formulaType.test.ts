@@ -186,8 +186,14 @@ describe("formula type map", () => {
       const c = FORMULA_PDP_CONTENT[id];
       const name = PRODUCT_FACTS[id].name;
       expect(c.biologicalFocus.body, id).toMatch(/This association does not establish that taking the product \w/);
-      expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
-      expect(c.importantInformation, id).toMatch(new RegExp(`^${name.replace(/[-]/g, "\\-")} is not presented as a treatment for `));
+      if (id === "bonomarlot") {
+        // Julia's round-2 Bonomarlot wording (verbatim).
+        expect(c.research, id).toContain("human evidence on Bonomarlot itself is limited.");
+        expect(c.importantInformation, id).toMatch(/^Bonomarlot is not a medicine and is not intended to diagnose, treat, cure, or prevent any disease\. /);
+      } else {
+        expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
+        expect(c.importantInformation, id).toMatch(new RegExp(`^${name.replace(/[-]/g, "\\-")} is not presented as a treatment for `));
+      }
       expect(c.importantInformation, id).toContain("consult a qualified healthcare professional");
       expect(c.title.startsWith(name), id).toBe(true);
       expect(c.manufacturerDirections.line, id).toBe(MANUFACTURER_DIRECTIONS_LINE);
