@@ -181,7 +181,16 @@ export default function ProductDetail() {
   const ingredientList = pdp?.ingredients?.length ? pdp.ingredients : product.ingredients;
   const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
-  const currentImages = selectedVariant?.images || (currentImage ? [currentImage] : product.images || []);
+  const variantGallery = selectedVariant?.images?.filter((src: string) => src.length > 0) ?? [];
+  const productGallery = product.images?.filter((src: string) => src.length > 0) ?? [];
+  const currentImages =
+    variantGallery.length > 0
+      ? variantGallery
+      : productGallery.length > 0
+        ? productGallery
+        : currentImage
+          ? [currentImage]
+          : [];
 
   const handleWishlistToggle = async () => {
     try {

@@ -1407,7 +1407,14 @@ const catalogProducts: Product[] = [
   },
   {
     id: "mamiton",
-    image: "/products/felicita.jpg",
+    image: "/products/mamiton-main-native.webp",
+    imageAlt: "Mamiton bottle and box",
+    images: [
+      "/products/mamiton-main-native.webp",
+      "/products/mamiton-bottle-front-b.webp",
+      "/products/mamiton-box-ingredients.webp",
+      "/products/mamiton-box-manufacturer.webp",
+    ],
     name: "Mamiton",
     description: "Natural formula designed specifically for the female reproductive system, combining the best of herbal tradition and modern science. Fights oxidative stress and helps balance estrogen levels. Reduces risks linked to hormonal imbalances and aging. Active ingredients include resveratrol (antioxidant), motherwort and mint (sedative and antispasmodic), rosehip, nettle and knotweed (anti-inflammatory; studied for their role in tissue renewal), hops and laminaria (hormonal homeostasis and thyroid support), vitamins A and E (antioxidant and immune modulation), field horsetail (vascular and connective tissue strength), and Juglans regia pericarp (immunostimulatory). Recommended for women over 35, during perimenopause and the menopausal transition, and for monthly-cycle comfort.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1515,7 +1522,8 @@ const catalogProducts: Product[] = [
   },
   {
     id: "reviplant",
-    image: "/products/Reviform_3.jpg",
+    image: "/products/reviplant-main.webp",
+    imageAlt: "Reviplant bottle and box",
     name: "Reviplant",
     description: "Premium phytonutrient complex for liver and immune system support. Combines powerful botanical extracts with extracts studied for their role in cellular renewal, enhance hepatic detoxification pathways, support immune function, and provide broad-spectrum antioxidant and anti-inflammatory protection for systemic wellness.",
     category: "NUTRITIONAL SUPPLEMENTS",
@@ -1528,8 +1536,8 @@ const catalogProducts: Product[] = [
   {
     id: "reviform-cocktail",
     name: "Reviform Cocktail",
-    image: "/products/Reviform.jpg",
-    imageAlt: "Reviform Cocktail nutritional supplement",
+    image: "/products/reviform-cocktail-main.webp",
+    imageAlt: "Reviform Cocktail pouch",
     description: "Anti-aging nutritional shake combining high-quality protein, essential vitamins, and minerals for comprehensive body composition support and metabolic optimization. Supports healthy weight management, promotes lean muscle maintenance, and provides essential nutrients for active lifestyle, physical performance, and cellular renewal.",
     category: "NUTRITIONAL SUPPLEMENTS",
     priceUSD: 36.99,
@@ -1540,7 +1548,8 @@ const catalogProducts: Product[] = [
   },
   {
     id: "revifort",
-    image: "/products/Reviform.jpg",
+    image: "/products/revifort-main.webp",
+    imageAlt: "Revifort bottle and box",
     name: "Revifort",
     description: "Broad-spectrum formula combining four medicinal mushrooms — Shiitake, Reishi, Maitake, and Cordyceps — for the first time in a single formula. Contains glucans that stimulate the immune system. Promotes liver and cellular recovery after damage, stimulates the immune system, supports hematopoiesis, and provides natural detoxification support. Part of the immunity and energy activation trio alongside Ensil and Pinalex Tab.",
     category: "NUTRITIONAL SUPPLEMENTS",
