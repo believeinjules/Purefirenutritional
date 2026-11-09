@@ -1,12 +1,18 @@
 import { Link } from "wouter";
 import QuickAddToCart from "@/components/QuickAddToCart";
 import RatingStars from "@/components/shop/RatingStars";
-import { getProductFacts } from "@/lib/productFacts";
+import { getProductFacts, packageCountLabel } from "@/lib/productFacts";
 import PreorderBadge from "@/components/PreorderBadge";
 import { FULFILLMENT_CARD_LABEL, resolveFulfillment } from "@shared/fulfillment";
 import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 import type { ReviewSummary } from "@shared/reviews";
 import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
+import { isFormulaPreviewPdp } from "@/data/formulaType";
+
+/** The preview PDP (Bonomarlot) dropped its Key Benefits list, so its shop card hides them too. */
+function withoutPreviewBenefits<T extends { id: string; benefits?: string[] }>(product: T, formulaPreview: boolean): T {
+  return formulaPreview && isFormulaPreviewPdp(product.id) ? { ...product, benefits: [] } : product;
+}
 
 export type ListingProduct = {
   id: string;
@@ -160,7 +166,24 @@ function FlipImage({ product, eager = false }: { product: ListingProduct; eager?
  * Bottle size · cycle coverage · cost per day — each part only when the data
  * exists (variant names + client/src/data/dosing.ts). Renders nothing otherwise.
  */
-function ProductFactsLine({ product, className = "" }: { product: ListingProduct; className?: string }) {
+function ProductFactsLine({
+  product,
+  className = "",
+  countOnly = false,
+}: {
+  product: ListingProduct;
+  className?: string;
+  /** Preview: capsule count only, no cycle/duration or cost per day. */
+  countOnly?: boolean;
+}) {
+  if (countOnly) {
+    const label = packageCountLabel(product);
+    return label ? (
+      <p className={`text-xs text-gray-500 leading-snug ${className}`} data-testid="product-facts">
+        {label}
+      </p>
+    ) : null;
+  }
   const firstVariant = product.variants?.find((v) => v.inStock !== false) ?? product.variants?.[0];
   const facts = getProductFacts(product, undefined, firstVariant?.priceUSD ?? product.priceUSD);
   const parts = [
@@ -194,9 +217,12 @@ export function ProductGridCard({
   product,
   reviewSummary,
   eager = false,
+  formulaPreview = false,
 }: {
   product: ListingProduct;
   reviewSummary?: ReviewSummary;
+  /** Preview (/products only): formula-type tag; capsule count only (no cycle or $/day). */
+  formulaPreview?: boolean;
   /** First visible cards: load eagerly with high priority (LCP candidates). */
   eager?: boolean;
 }) {
@@ -204,18 +230,26 @@ export function ProductGridCard({
 
   return (
     <div className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
-      <FlipImage product={product} eager={eager} />
+      <FlipImage product={withoutPreviewBenefits(product, formulaPreview)} eager={eager} />
 
       {/* Always-visible info under the image */}
       <div className="p-4 flex flex-col flex-1">
-        <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+        {formulaPreview ? (
+          <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+            <span
+              className={`text-xs font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
+            >
+              {getCategoryShort(product.category)}
+            </span>
+            <FormulaTypeTag productId={product.id} />
+          </div>
+        ) : (
           <span
-            className={`text-xs font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
+            className={`text-xs font-bold uppercase tracking-widest mb-1.5 ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
           >
             {getCategoryShort(product.category)}
           </span>
-          <FormulaTypeTag productId={product.id} />
-        </div>
+        )}
         <PreorderBadge productId={product.id} className="mb-1.5 w-fit" />
         <Link href={`/products/${product.id}`} className="block py-1 mb-0.5">
           <h3 className="font-semibold text-sm leading-snug hover:text-orange-600 transition-colors line-clamp-2">
@@ -228,7 +262,7 @@ export function ProductGridCard({
           </p>
         )}
 
-        <ProductFactsLine product={product} className="mb-2" />
+        <ProductFactsLine product={product} className="mb-2" countOnly={formulaPreview} />
         <StockTag product={product} className="-mt-1 mb-2" />
         {/* Stars only from approved reviews; nothing when there are none. */}
         <RatingStars summary={reviewSummary} className="mb-3" />
@@ -250,9 +284,11 @@ export function ProductGridCard({
 export function ProductListRow({
   product,
   reviewSummary,
+  formulaPreview = false,
 }: {
   product: ListingProduct;
   reviewSummary?: ReviewSummary;
+  formulaPreview?: boolean;
 }) {
   const accent = getCategoryAccent(product.category);
 
@@ -292,7 +328,7 @@ export function ProductListRow({
             >
               {getCategoryShort(product.category)}
             </span>
-            <FormulaTypeTag productId={product.id} className="ml-2" />
+            {formulaPreview && <FormulaTypeTag productId={product.id} className="ml-2" />}
             <PreorderBadge productId={product.id} className="ml-2" />
             <Link href={`/products/${product.id}`} className="block py-1 mt-0.5">
               <h3 className="font-semibold text-sm hover:text-orange-600 transition-colors">
@@ -302,9 +338,9 @@ export function ProductListRow({
             <p className="text-xs text-gray-500 line-clamp-2 mb-2">
               {product.description}
             </p>
-            <ProductFactsLine product={product} className="mb-2" />
+            <ProductFactsLine product={product} className="mb-2" countOnly={formulaPreview} />
             <StockTag product={product} className="-mt-1 mb-2" />
-            {product.benefits && product.benefits.length > 0 && (
+            {!(formulaPreview && isFormulaPreviewPdp(product.id)) && product.benefits && product.benefits.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {product.benefits.slice(0, 3).map((b, i) => (
                   <span

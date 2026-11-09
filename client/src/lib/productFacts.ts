@@ -112,3 +112,21 @@ export function getProductFacts(
 
   return facts;
 }
+
+/**
+ * Preview (Bonomarlot + /products only): capsule count with no duration or cost-per-day,
+ * e.g. "20 Capsules" or "20 or 60 Capsules". Undefined unless variant names state capsules/tablets.
+ */
+export function packageCountLabel(product: FactsProduct, size?: string): string | undefined {
+  const parsed = (product.variants ?? [])
+    .map((v) => v.name.match(/\b(\d{1,4})\s*(capsules|caps|tablets|tabs)\b/i))
+    .filter((m): m is RegExpMatchArray => Boolean(m));
+  if (parsed.length === 0) return undefined;
+  const noun = /^tab/i.test(parsed[0][2]) ? "Tablets" : "Capsules";
+  const sizes = Array.from(new Set(parsed.map((m) => Number(m[1])))).sort((a, b) => a - b);
+  if (size !== undefined) {
+    const units = bottleUnits(product, size);
+    return units ? `${units} ${noun}` : undefined;
+  }
+  return `${sizes.join(" or ")} ${noun}`;
+}

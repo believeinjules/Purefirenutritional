@@ -20,6 +20,7 @@ export default function BundleSelector({
   facts,
   value,
   onChange,
+  packageLabel,
 }: {
   product: BundleOverrideFields & BundleSizingFields;
   singlePriceUSD: number | undefined;
@@ -28,6 +29,11 @@ export default function BundleSelector({
   facts?: ProductFacts;
   value: BundleChoice;
   onChange: (choice: BundleChoice) => void;
+  /**
+   * Preview (Bonomarlot): e.g. "20 Capsules". Options read "20 Capsules" / "2 × 20 Capsules" /
+   * "3 × 20 Capsules" and no "Covers …" / cycle notes are shown.
+   */
+  packageLabel?: string;
 }) {
   if (typeof singlePriceUSD !== "number" || !Number.isFinite(singlePriceUSD)) return null;
   const offers = getBundleOffers(product, singlePriceUSD, { size });
@@ -37,7 +43,7 @@ export default function BundleSelector({
 
   /** Coverage note only when dosing data exists. */
   const coverage = (bottles: number): string | undefined => {
-    if (!facts?.daysPerBottle) return undefined;
+    if (packageLabel || !facts?.daysPerBottle) return undefined;
     if (facts.bottlesPerCycle && facts.bottlesPerCycle > 1 && bottles === facts.bottlesPerCycle && facts.cycleDays) {
       return `Full ${facts.cycleDays}-day cycle`;
     }
@@ -51,10 +57,10 @@ export default function BundleSelector({
     perBottle?: number;
     savings?: number;
   }> = [
-    { bottles: 1, title: "1 bottle", total: singleCents },
+    { bottles: 1, title: packageLabel ?? "1 bottle", total: singleCents },
     ...offers.map((o) => ({
       bottles: o.bottles as BundleChoice,
-      title: `${o.bottles} bottles`,
+      title: packageLabel ? `${o.bottles} × ${packageLabel}` : `${o.bottles} bottles`,
       total: o.bundleCents,
       perBottle: o.bottleCents,
       savings: o.savingsCents,
@@ -63,7 +69,7 @@ export default function BundleSelector({
 
   return (
     <fieldset className="space-y-2" data-testid="bundle-selector">
-      <legend className="text-sm font-medium text-gray-700 mb-2">Cycle bundles</legend>
+      <legend className="text-sm font-medium text-gray-700 mb-2">{packageLabel ? "Bundles" : "Cycle bundles"}</legend>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2" role="radiogroup">
         {options.map((opt) => {
           const selected = value === opt.bottles;

@@ -1,27 +1,40 @@
+import { useId, useState } from "react";
 import { Link } from "wouter";
+import { ChevronRight } from "lucide-react";
 import { getProductById } from "@/data/products";
 import {
-  COMPARE_LEAD,
-  FORMULA_TYPE_EXPLAINER_ID,
+  COMPARE_BUTTON_CLOSE,
+  COMPARE_BUTTON_OPEN,
+  COMPARE_HEADING,
+  COMPARE_INTRO,
+  COMPARE_NONE_OTHER,
+  COMPARE_NOT_LISTED,
+  COMPARE_NOTE,
+  COMPARE_NOT_ESTABLISHED,
+  COMPARE_ROW_LABELS,
+  EXPLAINER_HEADING,
+  EXPLAINER_TEXT,
+  FORMULA_EXPLAINER_ID,
   FORMULA_TYPE_FILTERS,
-  FORMULA_TYPE_LABEL,
-  compareLine,
+  compareColumns,
+  counterpartsFor,
+  formulaTagText,
   formulaTypeFor,
   type FormulaType,
 } from "@/data/formulaType";
 
-/** "Single" / "Blend" pill. Text label (not colour-only), with a screen-reader prefix. */
+/** "Focused Formula · Cytomax" pill. Text label (not colour-only), with a screen-reader prefix. */
 export function FormulaTypeTag({ productId, className = "" }: { productId: string; className?: string }) {
-  const type = formulaTypeFor(productId);
-  if (!type) return null;
+  const text = formulaTagText(productId);
+  if (!text) return null;
   return (
     <span
       className={`inline-block text-xs font-medium text-gray-700 px-2 py-0.5 rounded-full border border-gray-200 bg-gray-50 ${className}`}
       data-testid="formula-type-tag"
-      data-formula-type={type}
+      data-formula-type={formulaTypeFor(productId)}
     >
       <span className="sr-only">Formula type: </span>
-      {FORMULA_TYPE_LABEL[type]}
+      {text}
     </span>
   );
 }
@@ -35,96 +48,203 @@ export function matchesFormulaType(id: string, filter: FormulaTypeFilterValue): 
 export function formulaTypeCounts(ids: string[]): Record<FormulaTypeFilterValue, number> {
   return {
     all: ids.length,
-    single: ids.filter((id) => matchesFormulaType(id, "single")).length,
-    blend: ids.filter((id) => matchesFormulaType(id, "blend")).length,
+    focused: ids.filter((id) => matchesFormulaType(id, "focused")).length,
+    combination: ids.filter((id) => matchesFormulaType(id, "combination")).length,
   };
 }
 
-/** Radio group styled like the existing shop pills. */
+/** Pill-styled radio option (same look as the existing shop pills). */
+export function PillRadio({
+  name,
+  value,
+  checked,
+  onChange,
+  label,
+  count,
+}: {
+  name: string;
+  value: string;
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+  count?: number;
+}) {
+  return (
+    <label className="cursor-pointer">
+      <input type="radio" name={name} value={value} checked={checked} onChange={onChange} className="sr-only peer" />
+      <span className="inline-flex items-center min-h-[44px] px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900 peer-checked:bg-gray-900 peer-checked:text-white peer-checked:border-gray-900 peer-focus-visible:ring-2 peer-focus-visible:ring-orange-500 peer-focus-visible:ring-offset-2">
+        {label}
+        {typeof count === "number" && <span className="ml-2 opacity-70">{count}</span>}
+      </span>
+    </label>
+  );
+}
+
+export const filterLegend = "block text-xs uppercase tracking-widest text-gray-500 mb-2";
+
 export function FormulaTypeFilter({
   value,
   onChange,
   counts,
-  explainerHref = `#${FORMULA_TYPE_EXPLAINER_ID}`,
-  name = "formula-type",
+  onExplain,
 }: {
   value: FormulaTypeFilterValue;
   onChange: (v: FormulaTypeFilterValue) => void;
   counts: Record<FormulaTypeFilterValue, number>;
-  explainerHref?: string;
-  name?: string;
+  onExplain?: () => void;
 }) {
   return (
-    <fieldset className="flex flex-wrap items-center gap-2 mb-8" data-testid="formula-type-filter">
-      <legend className="sr-only">Filter by formula type</legend>
-      <span className="text-xs uppercase tracking-widest text-gray-500 mr-1" aria-hidden="true">
-        Formula type
-      </span>
-      {FORMULA_TYPE_FILTERS.map((f) => (
-        <label key={f.value} className="cursor-pointer">
-          <input
-            type="radio"
-            name={name}
+    <fieldset data-testid="formula-type-filter">
+      <legend className={filterLegend}>Formula type</legend>
+      <div className="flex flex-wrap items-center gap-2">
+        {FORMULA_TYPE_FILTERS.map((f) => (
+          <PillRadio
+            key={f.value}
+            name="formula-type"
             value={f.value}
             checked={value === f.value}
             onChange={() => onChange(f.value)}
-            className="sr-only peer"
+            label={f.label}
+            count={counts[f.value]}
           />
-          <span className="inline-flex items-center min-h-[44px] px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900 peer-checked:bg-gray-900 peer-checked:text-white peer-checked:border-gray-900 peer-focus-visible:ring-2 peer-focus-visible:ring-orange-500 peer-focus-visible:ring-offset-2">
-            {f.label}
-            <span className="ml-2 opacity-70">{counts[f.value]}</span>
-          </span>
-        </label>
-      ))}
-      <a href={explainerHref} className="text-xs text-orange-600 hover:underline ml-1 py-3">
-        What's the difference?
-      </a>
+        ))}
+        <a href={`#${FORMULA_EXPLAINER_ID}`} onClick={onExplain} className="text-xs text-orange-600 hover:underline ml-1 py-3">
+          What's the difference?
+        </a>
+      </div>
     </fieldset>
   );
 }
 
-export const EXPLAINER_HEADING = "Single or blend?";
-export const EXPLAINER_TEXT =
-  "Singles, such as the Khavinson Cytomax® and Cytogen® lines, each contain one peptide or peptide complex associated with a single organ or tissue. Bonomarlot, for example, contains a bone marrow peptide complex. Blends, such as the Revilab ML and Revilab SL lines, combine several peptide complexes, often with vitamins or plant extracts. Some blends contain the same type of peptide complex as a single; where they do, the product page says so under \"How it compares.\" Neither type is better. A single contains one ingredient focus, and a blend combines several in one formula. A qualified healthcare professional can help you decide which suits you.";
-
-export function FormulaTypeExplainer({ className = "" }: { className?: string }) {
+/** Small expandable panel (native details/summary). */
+export function FormulaExplainer({
+  open,
+  onToggle,
+  className = "",
+}: {
+  open: boolean;
+  onToggle: (open: boolean) => void;
+  className?: string;
+}) {
   return (
-    <section
-      id={FORMULA_TYPE_EXPLAINER_ID}
-      aria-labelledby={`${FORMULA_TYPE_EXPLAINER_ID}-h`}
-      className={`bg-white rounded-2xl border border-gray-100 p-6 scroll-mt-24 ${className}`}
-      data-testid="formula-type-explainer"
+    <details
+      id={FORMULA_EXPLAINER_ID}
+      open={open}
+      onToggle={(e) => onToggle((e.currentTarget as HTMLDetailsElement).open)}
+      className={`bg-white rounded-2xl border border-gray-100 scroll-mt-24 ${className}`}
+      data-testid="formula-explainer"
     >
-      <h2 id={`${FORMULA_TYPE_EXPLAINER_ID}-h`} className="text-lg font-semibold text-gray-900 mb-2">
+      <summary className="cursor-pointer select-none px-5 py-3 min-h-[44px] flex items-center text-sm font-semibold text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-2xl">
         {EXPLAINER_HEADING}
-      </h2>
-      <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">{EXPLAINER_TEXT}</p>
-    </section>
+      </summary>
+      <p className="px-5 pb-5 text-sm text-gray-600 leading-relaxed max-w-3xl">{EXPLAINER_TEXT}</p>
+    </details>
   );
 }
 
-const storefrontName = (id: string) => getProductById(id)?.name;
+const storefrontName = (id: string) => getProductById(id)?.name ?? id;
 
 /**
- * One-line "How it compares" note. Placed at the end of the purchase panel, below
- * Add to Cart and set off by a rule, so it never sits next to the facts strip
- * (size · cycle · cost/day), usage/dose text or condition copy.
+ * "Compare Related Formulas": related products (both directions) + an inline,
+ * expandable side-by-side built only from each product's listed composition.
  */
-export function HowItCompares({ productId, className = "" }: { productId: string; className?: string }) {
-  const line = compareLine(productId, storefrontName);
-  if (!line) return null;
+export function CompareRelatedFormulas({
+  productId,
+  intro = COMPARE_INTRO,
+  className = "",
+}: {
+  productId: string;
+  /** Product-specific intro (Bonomarlot); defaults to the neutral one-sentence intro. */
+  intro?: string;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const tableId = useId();
+  const related = counterpartsFor(productId);
+  const columns = compareColumns(productId);
+  if (related.length === 0 || columns.length === 0) return null;
+  const cell = "px-3 py-2 align-top text-sm text-gray-700 border-t border-gray-100";
+  const rowHead = "px-3 py-2 align-top text-left text-xs font-semibold uppercase tracking-wide text-gray-500 border-t border-gray-100 whitespace-nowrap";
+  const list = (items: string[]) =>
+    items.length ? (
+      <ul className="space-y-1">
+        {items.map((x) => (
+          <li key={x}>{x}</li>
+        ))}
+      </ul>
+    ) : (
+      <span className="text-gray-500">{COMPARE_NONE_OTHER}</span>
+    );
   return (
-    <p className={`text-sm text-gray-600 leading-relaxed ${className}`} data-testid="pdp-how-it-compares">
-      <span className="font-semibold text-gray-900">{COMPARE_LEAD}</span>
-      {line.map((seg, i) =>
-        "productId" in seg ? (
-          <Link key={i} href={`/products/${seg.productId}`} className="text-orange-600 hover:underline">
-            {seg.text}
-          </Link>
-        ) : (
-          <span key={i}>{seg.text}</span>
-        ),
-      )}
-    </p>
+    <section aria-labelledby={`${tableId}-h`} className={className} data-testid="compare-related-formulas">
+      <h2 id={`${tableId}-h`} className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">
+        {COMPARE_HEADING}
+      </h2>
+      <p className="text-sm text-gray-600 leading-relaxed mb-3" data-testid="compare-intro">{intro}</p>
+      <ul className="divide-y divide-gray-100 border border-gray-200 rounded-lg mb-4" data-testid="compare-related-list">
+        {related.map((r) => (
+          <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+            <div className="flex flex-col gap-1">
+              <Link href={`/products/${r.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-gray-900 hover:text-orange-600 min-h-[24px]">
+                {storefrontName(r.id)}
+                <ChevronRight size={16} aria-hidden="true" className="text-gray-400" />
+              </Link>
+              <FormulaTypeTag productId={r.id} className="w-fit" />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={tableId}
+        onClick={() => setOpen((o) => !o)}
+        className="min-h-[44px] px-4 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:border-gray-400 transition-colors"
+      >
+        {open ? COMPARE_BUTTON_CLOSE : COMPARE_BUTTON_OPEN}
+      </button>
+      <div id={tableId} hidden={!open} className="mt-4 overflow-x-auto" data-testid="compare-table">
+        <table className="min-w-full border border-gray-200 rounded-lg">
+          <caption className="sr-only">{COMPARE_HEADING}</caption>
+          <thead>
+            <tr>
+              <td className="px-3 py-2" />
+              {columns.map((c) => (
+                <th key={c.id} scope="col" className="px-3 py-2 text-left text-sm font-semibold text-gray-900">
+                  {storefrontName(c.id)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" className={rowHead}>{COMPARE_ROW_LABELS.type}</th>
+              {columns.map((c) => <td key={c.id} className={cell}>{c.tag}</td>)}
+            </tr>
+            <tr>
+              <th scope="row" className={rowHead}>{COMPARE_ROW_LABELS.shared}</th>
+              {columns.map((c) => <td key={c.id} className={cell}>{list(c.shared)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row" className={rowHead}>{COMPARE_ROW_LABELS.other}</th>
+              {columns.map((c) => <td key={c.id} className={cell}>{list(c.other)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row" className={rowHead}>{COMPARE_ROW_LABELS.quantities}</th>
+              {columns.map((c) => <td key={c.id} className={cell}>{c.quantities ?? <span className="text-gray-500">{COMPARE_NOT_LISTED}</span>}</td>)}
+            </tr>
+            <tr>
+              <th scope="row" className={rowHead}>{COMPARE_ROW_LABELS.directions}</th>
+              {columns.map((c) => <td key={c.id} className={cell}>{c.directions ?? <span className="text-gray-500">{COMPARE_NOT_LISTED}</span>}</td>)}
+            </tr>
+            <tr data-testid="compare-not-established">
+              <th scope="row" className={rowHead}>{COMPARE_ROW_LABELS.notEstablished}</th>
+              <td colSpan={columns.length} className={cell}>{COMPARE_NOT_ESTABLISHED}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-xs text-gray-500">{COMPARE_NOTE}</p>
+    </section>
   );
 }

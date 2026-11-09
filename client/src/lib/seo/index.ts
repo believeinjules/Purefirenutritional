@@ -8,6 +8,8 @@
  */
 import { variantCartSize } from "@shared/product-prices";
 import { getPdpContent } from "@shared/product-facts";
+import { isFormulaPreviewPdp } from "@/data/formulaType";
+import { PREVIEW_REMOVED_FAQ } from "@/data/formulaPreviewContent";
 import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 
@@ -494,7 +496,8 @@ export function faqPageJsonLd(items: ReadonlyArray<{ question: string; answer: s
 
 /** FAQPage structured data from the written PDP FAQs (same text the page renders). */
 export function productFaqJsonLd(id: string): Record<string, unknown>[] {
-  const faq = getPdpContent(id)?.faq;
+  // Preview page (Bonomarlot) hides two FAQs; the schema must match what the page shows.
+  const faq = getPdpContent(id)?.faq?.filter((f) => !isFormulaPreviewPdp(id) || !PREVIEW_REMOVED_FAQ.includes(f.q));
   if (!faq?.length) return [];
   return [faqPageJsonLd(faq.map((f) => ({ question: f.q, answer: f.a })))];
 }

@@ -6,14 +6,6 @@ import NotFound from "@/pages/NotFound";
 import { ProductGridCard } from "@/components/ProductListingCard";
 import { Breadcrumbs, Intro } from "@/components/category/CategoryParts";
 import { useReviewSummaries } from "@/lib/reviewsApi";
-import { useState } from "react";
-import {
-  FormulaTypeExplainer,
-  FormulaTypeFilter,
-  formulaTypeCounts,
-  matchesFormulaType,
-  type FormulaTypeFilterValue,
-} from "@/components/shop/FormulaTypeParts";
 import { shortDescription, useCategoryCatalog } from "@/lib/categoryCatalog";
 import { breadcrumbJsonLd, collectionPageJsonLd, type Crumb } from "@/lib/seo/category";
 import {
@@ -45,16 +37,11 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
   const page = getBrowsePage(kind, params.slug);
   const catalog = useCategoryCatalog();
   const reviewSummaries = useReviewSummaries();
-  const [formulaType, setFormulaType] = useState<FormulaTypeFilterValue>("all");
   if (!page) return <NotFound />;
 
   const path = browsePath(page);
   const copy = copyFor(path);
-  const allItems = pageProducts(page, catalog);
-  const typeCounts = formulaTypeCounts(allItems.map((p) => p.id));
-  // Only offer the filter when the page actually mixes both types.
-  const showTypeFilter = typeCounts.single > 0 && typeCounts.blend > 0;
-  const items = showTypeFilter ? allItems.filter((p) => matchesFormulaType(p.id, formulaType)) : allItems;
+  const items = pageProducts(page, catalog);
   const crumbs: Crumb[] = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/products" },
@@ -71,7 +58,7 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
         path={path}
         type="website"
         noindex={!CATEGORY_PAGES_LIVE}
-        jsonLd={[collectionPageJsonLd({ name: copy.h1, path, description: copy.meta, items: allItems }), breadcrumbJsonLd(crumbs)]}
+        jsonLd={[collectionPageJsonLd({ name: copy.h1, path, description: copy.meta, items }), breadcrumbJsonLd(crumbs)]}
       />
       <Navigation />
       <main className="flex-1">
@@ -84,9 +71,6 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
-          {showTypeFilter && (
-            <FormulaTypeFilter value={formulaType} onChange={setFormulaType} counts={typeCounts} />
-          )}
           <p className="text-sm text-gray-400 mb-5">
             {items.length} product{items.length !== 1 ? "s" : ""}
           </p>
@@ -99,8 +83,6 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
               />
             ))}
           </div>
-
-          {(typeCounts.single > 0 || typeCounts.blend > 0) && <FormulaTypeExplainer className="mt-12" />}
 
           <section className="mt-12" aria-labelledby="related-browse">
             <h2 id="related-browse" className="text-lg font-semibold text-gray-900 mb-3">{siblings.heading}</h2>

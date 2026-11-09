@@ -3,6 +3,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import {
   Search,
   SlidersHorizontal,
+  ArrowUpDown,
   LayoutGrid,
   List,
 } from "lucide-react";
@@ -24,12 +25,15 @@ import { products as catalogProducts } from "@/data/products";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { useReviewSummaries } from "@/lib/reviewsApi";
 import {
-  FormulaTypeExplainer,
+  FormulaExplainer,
   FormulaTypeFilter,
+  PillRadio,
+  filterLegend,
   formulaTypeCounts,
   matchesFormulaType,
   type FormulaTypeFilterValue,
 } from "@/components/shop/FormulaTypeParts";
+import { FORMULA_EXPLAINER_ID } from "@/data/formulaType";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -68,6 +72,20 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
   const [formulaType, setFormulaType] = useState<FormulaTypeFilterValue>("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [explainerOpen, setExplainerOpen] = useState(false);
+  const activeFilterCount = (formulaType !== "all" ? 1 : 0) + (activeCategory !== "all" ? 1 : 0);
+  // /products#understanding-the-formulas (linked from the Bonomarlot page) opens the panel.
+  useEffect(() => {
+    const openFromHash = () => {
+      if (window.location.hash !== `#${FORMULA_EXPLAINER_ID}`) return;
+      setExplainerOpen(true);
+      requestAnimationFrame(() => document.getElementById(FORMULA_EXPLAINER_ID)?.scrollIntoView());
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, []);
   // Build-time prerender (no window): list the code catalog so the static HTML
   // links every product page. In the browser this starts empty and loads as before.
   const isPrerender = typeof window === "undefined";
@@ -188,13 +206,14 @@ export default function Products() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input
                 placeholder="Search products..."
+                aria-label="Search products"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-9 bg-white rounded-xl border-gray-200"
               />
             </div>
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="text-gray-400 w-4 h-4 flex-shrink-0" />
+              <ArrowUpDown className="text-gray-400 w-4 h-4 flex-shrink-0" aria-hidden="true" />
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger aria-label="Sort products" className="w-48 bg-white rounded-xl border-gray-200">
                   <SelectValue placeholder="Sort by" />
@@ -238,76 +257,107 @@ export default function Products() {
             </div>
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {CATEGORIES.map((cat) => {
-              const count = categoryCounts[cat.value] ?? 0;
-              const isActive = activeCategory === cat.value;
-              return (
-                <button
-                  type="button"
-                  key={cat.value}
-                  onClick={() => selectCollection(cat.value)}
-                  className={`min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                    isActive
-                      ? "bg-gray-900 text-white border-gray-900 shadow-sm"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900"
-                  }`}
-                >
-                  {cat.label}
-                  <span className={`ml-2 text-xs ${isActive ? "text-gray-300" : "text-gray-500"}`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Shop by system */}
-          <div className="flex flex-wrap items-center gap-2 -mt-4 mb-8" aria-label="Shop by system">
-            <span className="text-xs uppercase tracking-widest text-gray-500 mr-1">Shop by system</span>
-            {SHOP_SYSTEMS.map((system) => {
-              const value = SYSTEM_FILTER_PREFIX + system.id;
-              const isActive = activeCategory === value;
-              return (
-                <button
-                  type="button"
-                  key={system.id}
-                  onClick={() => selectCollection(isActive ? "all" : value)}
-                  aria-pressed={isActive}
-                  className={`min-h-[44px] px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
-                    isActive
-                      ? "bg-orange-50 text-orange-800 border-orange-200"
-                      : "bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
-                  }`}
-                >
-                  {system.name}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Shop by body system: links to the /products/system/<slug> pages + the list page */}
-          <nav className="flex flex-wrap items-center gap-2 -mt-4 mb-8" aria-label="Shop by body system" data-testid="body-system-row">
-            <span className="text-xs uppercase tracking-widest text-gray-400 mr-1">Shop by body system</span>
-            {BODY_SYSTEMS.map((s) => (
-              <Link
-                key={s.slug}
-                href={systemPath(s.slug)}
-                className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
-              >
-                {s.name}
-              </Link>
-            ))}
-            <Link
-              href={LIST_PAGE_PATH}
-              className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+          {/* Filters (preview): one disclosure holds Formula type + the existing category,
+              system and body-system choices that used to sit in four chip rows. */}
+          <div className="mb-6">
+            <button
+              type="button"
+              aria-expanded={filtersOpen}
+              aria-controls="shop-filters"
+              onClick={() => setFiltersOpen((o) => !o)}
+              className="inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-gray-400 transition-colors"
+              data-testid="filters-toggle"
             >
-              Khavinson Peptides List
-            </Link>
-          </nav>
+              <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="text-xs text-gray-500">({activeFilterCount})</span>
+              )}
+            </button>
+            <div
+              id="shop-filters"
+              hidden={!filtersOpen}
+              className="mt-3 bg-white rounded-2xl border border-gray-100 p-5 space-y-5"
+              data-testid="filters-panel"
+            >
+              <FormulaTypeFilter
+                value={formulaType}
+                onChange={setFormulaType}
+                counts={typeCounts}
+                onExplain={() => setExplainerOpen(true)}
+              />
 
-          <FormulaTypeFilter value={formulaType} onChange={setFormulaType} counts={typeCounts} />
+              <fieldset>
+                <legend className={filterLegend}>Category</legend>
+                <div className="flex flex-wrap gap-2">
+                  {CATEGORIES.map((cat) => (
+                    <PillRadio
+                      key={cat.value}
+                      name="shop-category"
+                      value={cat.value}
+                      checked={activeCategory === cat.value}
+                      onChange={() => selectCollection(cat.value)}
+                      label={cat.label}
+                      count={categoryCounts[cat.value] ?? 0}
+                    />
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend className={filterLegend}>Shop by system</legend>
+                <div className="flex flex-wrap gap-2">
+                  {SHOP_SYSTEMS.map((system) => {
+                    const value = SYSTEM_FILTER_PREFIX + system.id;
+                    return (
+                      <PillRadio
+                        key={system.id}
+                        name="shop-system"
+                        value={value}
+                        checked={activeCategory === value}
+                        onChange={() => selectCollection(value)}
+                        label={system.name}
+                      />
+                    );
+                  })}
+                </div>
+              </fieldset>
+
+              {/* Shop by body system: links to the /products/system/<slug> pages + the list page (routes unchanged) */}
+              <nav aria-label="Shop by body system" data-testid="body-system-row">
+                <span className={filterLegend}>Shop by body system</span>
+                <div className="flex flex-wrap gap-2">
+                  {BODY_SYSTEMS.map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={systemPath(s.slug)}
+                      className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+                    >
+                      {s.name}
+                    </Link>
+                  ))}
+                  <Link
+                    href={LIST_PAGE_PATH}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900"
+                  >
+                    Khavinson Peptides List
+                  </Link>
+                </div>
+              </nav>
+
+              {activeFilterCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => { setFormulaType("all"); selectCollection("all"); }}
+                  className="text-sm text-orange-600 hover:underline min-h-[44px]"
+                >
+                  Clear filters
+                </button>
+              )}
+            </div>
+          </div>
+
+          <FormulaExplainer open={explainerOpen} onToggle={setExplainerOpen} className="mb-8" />
 
           {activeSystem && <SystemIntro system={activeSystem} />}
 
@@ -335,18 +385,16 @@ export default function Products() {
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
               {filteredAndSorted.map((product, i) => (
-                <ProductGridCard key={product.id} eager={i < 2} product={product} reviewSummary={reviewSummaries[product.id]} />
+                <ProductGridCard key={product.id} eager={i < 2} product={product} reviewSummary={reviewSummaries[product.id]} formulaPreview />
               ))}
             </div>
           ) : (
             <div className="flex flex-col gap-3">
               {filteredAndSorted.map((product) => (
-                <ProductListRow key={product.id} product={product} reviewSummary={reviewSummaries[product.id]} />
+                <ProductListRow key={product.id} product={product} reviewSummary={reviewSummaries[product.id]} formulaPreview />
               ))}
             </div>
           )}
-
-          <FormulaTypeExplainer className="mt-12" />
         </div>
       </main>
 

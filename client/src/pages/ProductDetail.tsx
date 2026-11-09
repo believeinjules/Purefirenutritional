@@ -38,7 +38,11 @@ import SimilarProducts from "@/components/shop/SimilarProducts";
 import { getPublicProtocol, goalsWithData } from "@/data/protocols";
 import { lazy, Suspense } from "react";
 import PreorderBadge from "@/components/PreorderBadge";
-import { HowItCompares, FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
+import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
+import { FormulaPdpBody } from "@/components/shop/FormulaPdpSections";
+import { FORMULA_EXPLAINER_HREF, isFormulaPreviewPdp } from "@/data/formulaType";
+import { FORMULA_PDP_CONTENT, PREVIEW_REMOVED_FAQ } from "@/data/formulaPreviewContent";
+import { packageCountLabel } from "@/lib/productFacts";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
 import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
@@ -180,6 +184,10 @@ export default function ProductDetail() {
   // Key Benefits: soft-worded pdp.formulatedFor when written, else the catalog benefits list already shown on the page.
   const keyBenefits: string[] = pdp?.formulatedFor?.length ? pdp.formulatedFor : product.benefits ?? [];
   const ingredientList = pdp?.ingredients?.length ? pdp.ingredients : product.ingredients;
+  // Preview template (Bonomarlot only). Every other product page renders as on main.
+  const preview = isFormulaPreviewPdp(product.id) ? FORMULA_PDP_CONTENT[product.id] : undefined;
+  const previewPackage = preview ? packageCountLabel(product, selectedSize) : undefined;
+  const isCapsuleProduct = (product.variants ?? []).some((v: { name: string }) => /capsule/i.test(v.name));
   const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
   const variantGallery = selectedVariant?.images?.filter((src: string) => src.length > 0) ?? [];
@@ -247,15 +255,30 @@ export default function ProductDetail() {
 
             {/* Purchase panel */}
             <div className="space-y-5">
-              {/* Category badge + product type */}
-              <div className="flex flex-wrap items-center gap-2">
+              {/* Category badge (+ formula type on the preview page) */}
+              {preview ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={`inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border ${getCategoryAccent()}`}>
+                    {product.category}
+                  </span>
+                  <FormulaTypeTag productId={product.id} className="py-1" />
+                  <a href={FORMULA_EXPLAINER_HREF} className="text-xs text-orange-600 hover:underline py-1" data-testid="pdp-explainer-link">
+                    Understanding the Formulas
+                  </a>
+                </div>
+              ) : (
                 <span className={`inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border ${getCategoryAccent()}`}>
                   {product.category}
                 </span>
-                <FormulaTypeTag productId={product.id} className="py-1" />
-              </div>
+              )}
 
-              <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
+              <h1 className="text-3xl font-bold text-gray-900 leading-tight">{preview ? preview.title : product.name}</h1>
+              {preview && (
+                <div className="space-y-2" data-testid="pdp-preview-header">
+                  <p className="text-base text-gray-700">{preview.subline}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">{preview.snapshot}</p>
+                </div>
+              )}
               {isPreorderProduct(product.id) && (
                 <p className="flex flex-wrap items-center gap-2 text-sm text-gray-700" data-testid="pdp-preorder">
                   <PreorderBadge productId={product.id} />
@@ -275,7 +298,7 @@ export default function ProductDetail() {
                   ))}
                 </p>
               )}
-              {pdp?.lineCode && (
+              {!preview && pdp?.lineCode && (
                 <div className="space-y-2" data-testid="pdp-header">
                   <p className="text-base text-gray-700">{pdp.title.split(" | ")[1]}</p>
                   <p className="text-sm text-gray-500">{pdp.lineCode}</p>
@@ -299,7 +322,11 @@ export default function ProductDetail() {
                     {FULFILLMENT_PDP_LABEL[resolveFulfillment(product.id, product.fulfillment)]}
                   </p>
                 )}
-                {(facts.sizeLabel || facts.coverageLabel || facts.costPerDayUSD !== undefined) && (
+                {preview ? (
+                  previewPackage && (
+                    <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">{previewPackage}</p>
+                  )
+                ) : (facts.sizeLabel || facts.coverageLabel || facts.costPerDayUSD !== undefined) && (
                   <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">
                     {[
                       facts.sizeLabel,
@@ -329,6 +356,7 @@ export default function ProductDetail() {
                 facts={facts}
                 value={activeBundle}
                 onChange={setBundle}
+                packageLabel={previewPackage}
               />
 
               {/* Quantity + Add to cart */}
@@ -367,8 +395,6 @@ export default function ProductDetail() {
                 </Button>
               </div>
 
-              {/* "How it compares": own block below Add to Cart, away from facts/usage/condition copy */}
-              <HowItCompares productId={product.id} className="border-t border-gray-200 pt-5" />
             </div>
           </div>
 
@@ -377,7 +403,14 @@ export default function ProductDetail() {
 
               {/* Intro + Key Benefits stay visible; every other description category is a
                   drop-down (native <details>, so all copy stays in the prerendered HTML). */}
-              {pdp ? (
+              {preview ? (
+                <FormulaPdpBody
+                  productId={product.id}
+                  content={preview}
+                  otherIngredients={(ingredientList ?? []).filter((x: string) => /^Other ingredients:/.test(x))}
+                  isCapsuleProduct={isCapsuleProduct}
+                />
+              ) : pdp ? (
                 <section data-testid="pdp-overview">
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product</h2>
                   <p className="text-gray-600 leading-relaxed">{pdp.overview[0]}</p>
@@ -389,7 +422,7 @@ export default function ProductDetail() {
                 </section>
               )}
 
-              {keyBenefits.length > 0 && (
+              {!preview && keyBenefits.length > 0 && (
                 <section data-testid="pdp-key-benefits">
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">Key Benefits</h2>
                   <BulletList items={keyBenefits} />
@@ -400,7 +433,7 @@ export default function ProductDetail() {
               )}
 
               <div className="border-t border-gray-200" data-testid="pdp-accordions">
-                {pdp && (pdp.overview.length > 1 || pdp.why || pdp.interest || pdp.researchBackground) && (
+                {!preview && pdp && (pdp.overview.length > 1 || pdp.why || pdp.interest || pdp.researchBackground) && (
                   <PdpAccordion title={`More About ${product.name}`} testId="pdp-why">
                     <div className="space-y-3">
                       {pdp.overview.slice(1).map((para, i) => <p key={i} className="text-gray-600 leading-relaxed">{para}</p>)}
@@ -428,13 +461,13 @@ export default function ProductDetail() {
                   </PdpAccordion>
                 )}
 
-                {ingredientList && ingredientList.length > 0 && (
+                {!preview && ingredientList && ingredientList.length > 0 && (
                   <PdpAccordion title="Active Ingredients" testId="pdp-ingredients">
                     <BulletList items={ingredientList} />
                   </PdpAccordion>
                 )}
 
-                {hasProtocol && (
+                {!preview && hasProtocol && (
                   <PdpAccordion title="Manufacturer Protocol" testId="pdp-directions">
                     {/* Manufacturer protocol — renders only when reviewed data exists */}
                     <ProtocolTabs productId={product.id} onSelectionChange={setProtocolSelection} />
@@ -444,7 +477,7 @@ export default function ProductDetail() {
                 {pdp && pdp.faq.length > 0 && (
                   <PdpAccordion title="Frequently Asked Questions" testId="pdp-faq">
                     <dl className="space-y-4">
-                      {pdp.faq.map((f, i) => (
+                      {pdp.faq.filter((f) => !preview || !PREVIEW_REMOVED_FAQ.includes(f.q)).map((f, i) => (
                         <div key={i}>
                           <dt className="font-medium text-gray-900">{f.q}</dt>
                           <dd className="mt-1 text-gray-600 leading-relaxed">{f.a}</dd>
@@ -495,7 +528,7 @@ export default function ProductDetail() {
                 )}
 
                 {/* Usage callout */}
-                {usageText && (
+                {!preview && usageText && (
                   <div className="bg-blue-50 border border-blue-100 rounded-lg p-4" data-testid="usage-callout">
                     <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Recommended Usage</p>
                     <p className="text-sm text-blue-800 leading-relaxed">{usageText}</p>
