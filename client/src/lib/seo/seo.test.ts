@@ -12,6 +12,8 @@ import {
   productTitle,
   productSnippet,
   productJsonLd,
+  productBrand,
+  returnPolicyJsonLd,
   productMetaDescription,
   routeHead,
   splitSentences,
@@ -50,29 +52,60 @@ describe("product meta descriptions", () => {
 describe("product structured data", () => {
   it.each(products.map((p) => [p.id, p] as const))("%s: prices match checkout pricing", (_id, p) => {
     const ld = JSON.parse(JSON.stringify(productJsonLd(p))) as any;
-    expect(ld["@type"]).toBe("Product");
-    expect(ld.sku).toBe(p.id);
-    expect(ld.url).toBe(`https://www.purefirenutritional.com/products/${p.id}`);
+    const url = `https://www.purefirenutritional.com/products/${p.id}`;
+    expect(ld.url).toBe(url);
     expect(ld.image[0]).toMatch(/^https:\/\/www\.purefirenutritional\.com\//);
     expect(ld.description).toBe(productSnippet(p));
+    expect(JSON.stringify(ld)).not.toMatch(/AggregateOffer/);
 
     const sized = (p.variants ?? []).length > 1;
+    const checkOffer = (o: any, sku: string, price: number) => {
+      expect(o["@type"]).toBe("Offer");
+      expect(o.url).toBe(url);
+      expect(o.sku).toBe(sku);
+      expect(o.priceCurrency).toBe("USD");
+      expect(o.price).toBe(price.toFixed(2));
+      expect(o.itemCondition).toBe("https://schema.org/NewCondition");
+      expect(o.seller.name).toBe("Pure Fire Nutritional");
+      expect(o.shippingDetails[0].shippingRate.value).toBe(price >= 150 ? "0.00" : "19.95");
+    };
     if (sized) {
-      const p20 = getUnitPriceUSD(p, "20");
-      const p60 = getUnitPriceUSD(p, "60");
-      expect(ld.offers["@type"]).toBe("AggregateOffer");
-      expect(ld.offers.priceCurrency).toBe("USD");
-      expect(ld.offers.lowPrice).toBe(Math.min(p20, p60).toFixed(2));
-      expect(ld.offers.highPrice).toBe(Math.max(p20, p60).toFixed(2));
-      expect(ld.offers.offers.map((o: any) => o.price)).toEqual([p20.toFixed(2), p60.toFixed(2)]);
+      expect(ld["@type"]).toBe("ProductGroup");
+      expect(ld.productGroupID).toBe(p.id);
+      expect(ld.variesBy).toEqual(["https://schema.org/size"]);
+      expect(ld.offers).toBeUndefined();
+      expect(ld.hasVariant.map((v: any) => v.size)).toEqual(["20 Capsules", "60 Capsules"]);
+      expect(ld.hasVariant.map((v: any) => v.name)).toEqual([`${p.name} 20 Capsules`, `${p.name} 60 Capsules`]);
+      checkOffer(ld.hasVariant[0].offers, ld.hasVariant[0].sku, getUnitPriceUSD(p, "20"));
+      checkOffer(ld.hasVariant[1].offers, ld.hasVariant[1].sku, getUnitPriceUSD(p, "60"));
+      expect(ld.hasVariant[0].sku).toMatch(new RegExp(`^${p.id}-`));
     } else {
-      expect(ld.offers["@type"]).toBe("Offer");
-      expect(ld.offers.priceCurrency).toBe("USD");
-      expect(ld.offers.price).toBe(getUnitPriceUSD(p).toFixed(2));
+      expect(ld["@type"]).toBe("Product");
+      expect(ld.sku).toBe(p.id);
+      checkOffer(ld.offers, p.id, getUnitPriceUSD(p));
       expect(ld.offers.availability).toBe(
         p.fulfillment === "in_stock" ? "https://schema.org/InStock" : "https://schema.org/BackOrder"
       );
     }
+  });
+
+  it("brand is the manufacturer from the collection tags, seller is Pure Fire; unknown brands omitted", () => {
+    const brand = (id: string) => (productJsonLd(products.find((p) => p.id === id)!) as any).brand?.name;
+    expect(brand("bonomarlot")).toBe("Khavinson Cytomax");
+    expect(brand("pinealon")).toBe("Khavinson Cytogen");
+    expect(brand("revilab-ml-02")).toBe("Revilab");
+    expect(productBrand("zinsil-t")).toBeUndefined();
+    expect(brand("zinsil-t")).toBeUndefined();
+    for (const p of products) expect(productBrand(p.id)).not.toBe("Pure Fire Nutritional");
+  });
+
+  it("returns page carries the organization return policy from the Returns page", () => {
+    const ld = returnPolicyJsonLd() as any;
+    const pol = ld.hasMerchantReturnPolicy;
+    expect(pol.merchantReturnDays).toBe(30);
+    expect(pol.applicableCountry).toEqual(["US", "CA", "GB", "AU", "NZ", "IE"]);
+    expect(pol.returnPolicyCategory).toBe("https://schema.org/MerchantReturnFiniteReturnWindow");
+    expect(pol.merchantReturnLink).toBe("https://www.purefirenutritional.com/returns");
   });
 
   it("in-stock products are InStock, 2-week products BackOrder, out of stock wins", () => {
@@ -93,14 +126,18 @@ describe("product structured data", () => {
         { id: "60-count", name: "60 Capsules", priceUSD: 25, inStock: false },
       ],
     }) as any;
-    expect(ld.offers.availability).toBe("https://schema.org/OutOfStock");
+    expect(ld.hasVariant.map((v: any) => v.offers.availability)).toEqual([
+      "https://schema.org/OutOfStock",
+      "https://schema.org/OutOfStock",
+    ]);
   });
 
   it("product head uses the canonical /products/<id> path", () => {
-    const head = productHead(products[0]!);
-    expect(head.path).toBe(`/products/${products[0]!.id}`);
-    expect(head.title).toBe(productTitle(products[0]!));
-    expect(head.title.startsWith(products[0]!.name)).toBe(true);
+    const legacyProduct = products.find((p) => p.id === "cartalax")!;
+    const head = productHead(legacyProduct);
+    expect(head.path).toBe(`/products/${legacyProduct.id}`);
+    expect(head.title).toBe(productTitle(legacyProduct));
+    expect(head.title.startsWith(legacyProduct.name)).toBe(true);
     expect(head.title).toMatch(/Pure Fire/);
     expect(head.title).toMatch(/ \| Pure Fire Nutritional$/);
   });

@@ -9,7 +9,9 @@
 import { variantCartSize } from "@shared/product-prices";
 import { getPdpContent, getProductFacts } from "@shared/product-facts";
 import { isFormulaPreviewPdp } from "@/data/formulaType";
-import { isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
+import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
+import { tagsFor } from "@/data/productTags";
+import { COMMERCE_CONFIG } from "@shared/commerce-config";
 import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 
@@ -298,65 +300,161 @@ export function productOffers(product: SeoProduct): Array<{
   return [];
 }
 
+/**
+ * Manufacturer brand for JSON-LD, from the collection tags in productTags.ts. Pure Fire
+ * Nutritional is the seller, not the brand. Unknown → undefined (brand omitted).
+ */
+export function productBrand(id: string): string | undefined {
+  const tags = tagsFor(id);
+  if (tags.includes("collection:khavinson-cytomaxes")) return "Khavinson Cytomax";
+  if (tags.includes("collection:khavinson-cytogens")) return "Khavinson Cytogen";
+  if (tags.includes("collection:prime-peptide")) return "Prime Peptide";
+  if (tags.includes("collection:revilab")) return "Revilab";
+  return undefined;
+}
+
+/** Countries checkout ships to (api/_lib/checkout-session.ts allowed_countries; Shipping policy page). */
+export const SHIP_TO_COUNTRIES = ["US", "CA", "GB", "AU", "NZ", "IE"] as const;
+
+/**
+ * Offer shipping from the Shipping policy (shared/commerce-config.ts): flat
+ * $19.95, free at a $150+ merchandise subtotal, same charge for every country.
+ * Delivery times only for in-stock items (ship in 1–3 business days; US transit
+ * 3–7, international 7–21 business days); "ships in about 2 weeks" items get no
+ * delivery time rather than a guessed one.
+ */
+export function offerShippingDetails(priceUSD: number, inStockNow: boolean): Record<string, unknown>[] {
+  const rate = priceUSD >= COMMERCE_CONFIG.freeShippingThresholdUSD ? 0 : COMMERCE_CONFIG.standardShippingUSD;
+  const days = (min: number, max: number) => ({ "@type": "QuantitativeValue", minValue: min, maxValue: max, unitCode: "DAY" });
+  const businessDays = {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((d) => `https://schema.org/${d}`),
+  };
+  const detail = (countries: readonly string[], transit: [number, number]) => {
+    const d: Record<string, unknown> = {
+      "@type": "OfferShippingDetails",
+      shippingRate: { "@type": "MonetaryAmount", value: rate.toFixed(2), currency: "USD" },
+      shippingDestination: countries.map((c) => ({ "@type": "DefinedRegion", addressCountry: c })),
+    };
+    if (inStockNow) {
+      d.deliveryTime = {
+        "@type": "ShippingDeliveryTime",
+        businessDays,
+        handlingTime: days(1, 3),
+        transitTime: days(transit[0], transit[1]),
+      };
+    }
+    return d;
+  };
+  return [detail(["US"], [3, 7]), detail(SHIP_TO_COUNTRIES.filter((c) => c !== "US"), [7, 21])];
+}
+
+/** "20 Capsules" from a variant name, as the page shows it; otherwise the variant name. */
+function variantSizeLabel(v: SeoVariant): string {
+  const m = v.name.match(/\b(\d{1,4})\s*(capsules|caps|tablets|tabs)\b/i);
+  if (!m) return v.name;
+  return `${m[1]} ${/^tab/i.test(m[2]!) ? "Tablets" : "Capsules"}`;
+}
+
 export function productJsonLd(product: SeoProduct): Record<string, unknown> {
   const url = canonicalUrl(productPath(product.id));
   const offers = productOffers(product);
-  const sellable = resolveFulfillment(product.id, product.fulfillment) === "in_stock" ? IN_STOCK : BACK_ORDER;
+  const fulfillment = resolveFulfillment(product.id, product.fulfillment);
+  const sellable = fulfillment === "in_stock" ? IN_STOCK : BACK_ORDER;
   const avail = (inStock: boolean) => (inStock ? sellable : OUT_OF_STOCK);
   const seller = { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` };
   const images = productImageUrls(product);
+  const brandName = productBrand(product.id);
+  const rolled = FORMULA_PDP_CONTENT[product.id];
+  const name = rolled ? rolled.title : product.name;
 
-  let offersLd: Record<string, unknown> | undefined;
-  if (offers.length === 1) {
-    const o = offers[0]!;
-    offersLd = {
-      "@type": "Offer",
-      url,
-      sku: o.sku,
-      priceCurrency: "USD",
-      price: money(o.price),
-      availability: avail(o.inStock),
-      itemCondition: "https://schema.org/NewCondition",
-      seller,
-    };
-  } else if (offers.length > 1) {
-    const prices = offers.map((o) => o.price);
-    offersLd = {
-      "@type": "AggregateOffer",
-      url,
-      priceCurrency: "USD",
-      lowPrice: money(Math.min(...prices)),
-      highPrice: money(Math.max(...prices)),
-      offerCount: offers.length,
-      availability: avail(offers.some((o) => o.inStock)),
-      seller,
-      offers: offers.map((o) => ({
-        "@type": "Offer",
-        url,
-        sku: o.sku,
-        name: o.name,
-        priceCurrency: "USD",
-        price: money(o.price),
-        availability: avail(o.inStock),
-        itemCondition: "https://schema.org/NewCondition",
-      })),
+  const offerLd = (o: { sku: string; price: number; inStock: boolean }) => ({
+    "@type": "Offer",
+    url,
+    sku: o.sku,
+    priceCurrency: "USD",
+    price: money(o.price),
+    availability: avail(o.inStock),
+    itemCondition: "https://schema.org/NewCondition",
+    seller,
+    shippingDetails: offerShippingDetails(o.price, o.inStock && fulfillment === "in_stock"),
+  });
+
+  const base: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@id": `${url}#product`,
+    name,
+    description: productSnippet(product),
+    url,
+  };
+  if (brandName) base.brand = { "@type": "Brand", name: brandName };
+  if (images.length) base.image = images;
+  if (product.category) base.category = product.category;
+
+  // Several sizes: ProductGroup + one variant Product (own sku, size, Offer) per size.
+  // Variant URLs are the bare PDP: the page does not preselect a size from the URL.
+  const variants = (product.variants ?? []).filter((v) => validPrice(v.priceUSD));
+  if (offers.length > 1 && variants.length > 1) {
+    const byId = new Map(variants.map((v) => [`${product.id}-${v.id}`, v]));
+    return {
+      ...base,
+      "@type": "ProductGroup",
+      productGroupID: product.id,
+      variesBy: ["https://schema.org/size"],
+      hasVariant: offers.map((o) => {
+        const v = byId.get(o.sku)!;
+        const size = variantSizeLabel(v);
+        const vImages = [v.image, ...(v.images ?? [])].filter((x): x is string => typeof x === "string" && x.trim().length > 0).map((x) => absoluteUrl(x.trim()));
+        const variant: Record<string, unknown> = {
+          "@type": "Product",
+          "@id": `${url}#${o.sku}`,
+          sku: o.sku,
+          name: `${product.name} ${size}`,
+          size,
+          url,
+          offers: offerLd(o),
+        };
+        if (brandName) variant.brand = { "@type": "Brand", name: brandName };
+        const img = vImages.length ? vImages : images.slice(0, 1);
+        if (img.length) variant.image = img;
+        return variant;
+      }),
     };
   }
 
-  const ld: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `${url}#product`,
-    name: product.name,
-    description: productSnippet(product),
-    sku: product.id,
-    url,
-    brand: { "@type": "Brand", name: SITE_NAME },
-  };
-  if (images.length) ld.image = images;
-  if (product.category) ld.category = product.category;
-  if (offersLd) ld.offers = offersLd;
+  const ld: Record<string, unknown> = { ...base, "@type": "Product", sku: product.id };
+  if (offers.length >= 1) ld.offers = offerLd(offers[0]!);
   return ld;
+}
+
+/**
+ * Organization-level return policy, from the Returns & Refunds page (2026-10-08):
+ * unopened, sealed products within 30 days of delivery, by mail, refund of the
+ * price paid; the customer pays return shipping unless it was our mistake.
+ */
+export function returnPolicyJsonLd(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "@id": `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: `${SITE_URL}/`,
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      "@id": `${SITE_URL}/returns#policy`,
+      merchantReturnLink: canonicalUrl("/returns"),
+      applicableCountry: [...SHIP_TO_COUNTRIES],
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+      itemCondition: "https://schema.org/NewCondition",
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+      customerRemorseReturnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+      customerRemorseReturnLabelSource: "https://schema.org/ReturnLabelCustomerResponsibility",
+      itemDefectReturnFees: "https://schema.org/FreeReturn",
+      refundType: "https://schema.org/FullRefund",
+    },
+  };
 }
 
 // ─── Product titles / snippets ───────────────────────────────────────────────
@@ -404,10 +502,49 @@ export const TITLE_MAX = 60;
  * pattern (no per-product shortening); TITLE_MAX is reported, not enforced.
  */
 export function productTitle(product: { id: string; name: string }): string {
+  const rolled = FORMULA_PDP_CONTENT[product.id];
+  if (rolled) return rolledOutTitle(rolled.title);
   const organ = BIOREGULATOR_ORGAN[product.id];
   if (organ) return `${product.name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`;
   const focus = SEO_TITLE_FOCUS[product.id];
   return focus ? `${product.name} | ${focus} | ${SITE_NAME}` : `${product.name} | ${SITE_NAME}`;
+}
+
+/**
+ * Rolled-out pages: the <title> is the H1. "| Pure Fire Nutritional" is added when the
+ * whole stays within TITLE_MAX; a long descriptor is cut before " with " (factual,
+ * no new words). Some titles still exceed 60 characters and are reported.
+ */
+export function rolledOutTitle(h1: string): string {
+  let core = h1;
+  if (core.length > TITLE_MAX && core.includes(" with ")) core = core.slice(0, core.indexOf(" with "));
+  const full = `${core} | ${SITE_NAME}`;
+  return full.length <= TITLE_MAX ? full : core;
+}
+
+/**
+ * Rolled-out pages: meta description written from the page's Snapshot, led by the
+ * product name. No claims (the Snapshot is factual); checked with hasClaimLanguage in tests.
+ */
+export function rolledOutDescription(id: string, name: string): string | undefined {
+  const c = FORMULA_PDP_CONTENT[id];
+  if (!c) return undefined;
+  const brandMark = c.title.startsWith(`${name}®`) ? `${name}®` : name;
+  const snap = c.snapshot.replace(/^A /, "a ").replace(/^An /, "an ");
+  let out = `${brandMark}: ${snap}`;
+  // Too long: keep whole sentences that fit before falling back to a word cut.
+  if (out.length > META_DESCRIPTION_MAX) {
+    let kept = "";
+    for (const sentence of splitSentences(out)) {
+      const next = kept ? `${kept} ${sentence}` : sentence;
+      if (next.length > META_DESCRIPTION_MAX) break;
+      kept = next;
+    }
+    if (kept) out = kept;
+  }
+  const tail = ` From ${SITE_NAME}.`;
+  if (out.length + tail.length <= META_DESCRIPTION_MAX) out += tail;
+  return out.length <= META_DESCRIPTION_MAX ? out : truncateAtWord(out, META_DESCRIPTION_MAX);
 }
 
 export const SNIPPET_MIN = 150;
@@ -422,7 +559,9 @@ export function productSnippet(product: {
   description?: string | null;
   category?: string | null;
 }): string {
-  // Per-product written meta (shared/product-facts.json → pdp.metaDescription) wins when present.
+  // Rolled-out pages: from the Snapshot. Then per-product written meta (pdp.metaDescription).
+  const rolled = rolledOutDescription(product.id, product.name);
+  if (rolled) return rolled;
   const written = getPdpContent(product.id)?.metaDescription;
   if (written) return written;
   const organ = BIOREGULATOR_ORGAN[product.id];

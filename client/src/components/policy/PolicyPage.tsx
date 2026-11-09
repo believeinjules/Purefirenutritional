@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageSeo from "@/components/seo/PageSeo";
+import { returnPolicyJsonLd } from "@/lib/seo";
 import {
   POLICY_LAST_UPDATED,
   POLICY_LIST,
@@ -76,7 +77,13 @@ export default function PolicyPage({ policy }: { policy: Policy }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <PageSeo title={policy.metaTitle} description={policy.description} path={policy.path} type="website" />
+      <PageSeo
+        title={policy.metaTitle}
+        description={policy.description}
+        path={policy.path}
+        type="website"
+        jsonLd={policy.key === "returns" ? [returnPolicyJsonLd()] : undefined}
+      />
       <Navigation />
       <main className="flex-1">
         <article className="max-w-3xl mx-auto px-4 py-16">
