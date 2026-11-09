@@ -6,6 +6,7 @@ import PreorderBadge from "@/components/PreorderBadge";
 import { FULFILLMENT_CARD_LABEL, resolveFulfillment } from "@shared/fulfillment";
 import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 import type { ReviewSummary } from "@shared/reviews";
+import { ProductTypeTag } from "@/components/shop/ProductTypeParts";
 
 export type ListingProduct = {
   id: string;
@@ -207,11 +208,14 @@ export function ProductGridCard({
 
       {/* Always-visible info under the image */}
       <div className="p-4 flex flex-col flex-1">
-        <span
-          className={`text-xs font-bold uppercase tracking-widest mb-1.5 ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
-        >
-          {getCategoryShort(product.category)}
-        </span>
+        <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+          <span
+            className={`text-xs font-bold uppercase tracking-widest ${accent.pill} px-2 py-0.5 rounded-full w-fit`}
+          >
+            {getCategoryShort(product.category)}
+          </span>
+          <ProductTypeTag productId={product.id} />
+        </div>
         <PreorderBadge productId={product.id} className="mb-1.5 w-fit" />
         <Link href={`/products/${product.id}`} className="block py-1 mb-0.5">
           <h3 className="font-semibold text-sm leading-snug hover:text-orange-600 transition-colors line-clamp-2">
@@ -288,6 +292,7 @@ export function ProductListRow({
             >
               {getCategoryShort(product.category)}
             </span>
+            <ProductTypeTag productId={product.id} className="ml-2" />
             <PreorderBadge productId={product.id} className="ml-2" />
             <Link href={`/products/${product.id}`} className="block py-1 mt-0.5">
               <h3 className="font-semibold text-sm hover:text-orange-600 transition-colors">

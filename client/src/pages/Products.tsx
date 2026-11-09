@@ -23,6 +23,12 @@ import { fetchProducts, Product } from "@/lib/productsStorage";
 import { products as catalogProducts } from "@/data/products";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { useReviewSummaries } from "@/lib/reviewsApi";
+import {
+  ProductTypeExplainer,
+  ProductTypeFilter,
+  matchesProductType,
+  type ProductTypeFilterValue,
+} from "@/components/shop/ProductTypeParts";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -59,6 +65,7 @@ export default function Products() {
   const [sortBy, setSortBy] = useState("name-asc");
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [productType, setProductType] = useState<ProductTypeFilterValue>("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   // Build-time prerender (no window): list the code catalog so the static HTML
   // links every product page. In the browser this starts empty and loads as before.
@@ -108,6 +115,8 @@ export default function Products() {
       result = result.filter((p) => (system ? productInSystem(p, system) : p.category === activeCategory));
     }
 
+    if (productType !== "all") result = result.filter((p) => matchesProductType(p.id, productType));
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
@@ -138,7 +147,16 @@ export default function Products() {
     }
 
     return result;
-  }, [products, activeCategory, searchQuery, sortBy, reviewSummaries]);
+  }, [products, activeCategory, productType, searchQuery, sortBy, reviewSummaries]);
+
+  const typeCounts = useMemo(
+    () => ({
+      all: products.length,
+      targeted: products.filter((p) => matchesProductType(p.id, "targeted")).length,
+      "broad-spectrum": products.filter((p) => matchesProductType(p.id, "broad-spectrum")).length,
+    }),
+    [products]
+  );
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: products.length };
@@ -295,6 +313,8 @@ export default function Products() {
             </Link>
           </nav>
 
+          <ProductTypeFilter value={productType} onChange={setProductType} counts={typeCounts} />
+
           {activeSystem && <SystemIntro system={activeSystem} />}
 
           {/* Results count */}
@@ -313,7 +333,7 @@ export default function Products() {
               <Button
                 variant="outline"
                 className="mt-4 rounded-full"
-                onClick={() => { setSearchQuery(""); setActiveCategory("all"); }}
+                onClick={() => { setSearchQuery(""); setActiveCategory("all"); setProductType("all"); }}
               >
                 Clear filters
               </Button>
@@ -331,6 +351,8 @@ export default function Products() {
               ))}
             </div>
           )}
+
+          <ProductTypeExplainer className="mt-12" />
         </div>
       </main>
 

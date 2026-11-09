@@ -6,6 +6,13 @@ import NotFound from "@/pages/NotFound";
 import { ProductGridCard } from "@/components/ProductListingCard";
 import { Breadcrumbs, Intro } from "@/components/category/CategoryParts";
 import { useReviewSummaries } from "@/lib/reviewsApi";
+import { useState } from "react";
+import {
+  ProductTypeExplainer,
+  ProductTypeFilter,
+  matchesProductType,
+  type ProductTypeFilterValue,
+} from "@/components/shop/ProductTypeParts";
 import { shortDescription, useCategoryCatalog } from "@/lib/categoryCatalog";
 import { breadcrumbJsonLd, collectionPageJsonLd, type Crumb } from "@/lib/seo/category";
 import {
@@ -37,11 +44,20 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
   const page = getBrowsePage(kind, params.slug);
   const catalog = useCategoryCatalog();
   const reviewSummaries = useReviewSummaries();
+  const [productType, setProductType] = useState<ProductTypeFilterValue>("all");
   if (!page) return <NotFound />;
 
   const path = browsePath(page);
   const copy = copyFor(path);
-  const items = pageProducts(page, catalog);
+  const allItems = pageProducts(page, catalog);
+  const typeCounts = {
+    all: allItems.length,
+    targeted: allItems.filter((p) => matchesProductType(p.id, "targeted")).length,
+    "broad-spectrum": allItems.filter((p) => matchesProductType(p.id, "broad-spectrum")).length,
+  };
+  // Only offer the filter when the page actually mixes both types.
+  const showTypeFilter = typeCounts.targeted > 0 && typeCounts["broad-spectrum"] > 0;
+  const items = showTypeFilter ? allItems.filter((p) => matchesProductType(p.id, productType)) : allItems;
   const crumbs: Crumb[] = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/products" },
@@ -58,7 +74,7 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
         path={path}
         type="website"
         noindex={!CATEGORY_PAGES_LIVE}
-        jsonLd={[collectionPageJsonLd({ name: copy.h1, path, description: copy.meta, items }), breadcrumbJsonLd(crumbs)]}
+        jsonLd={[collectionPageJsonLd({ name: copy.h1, path, description: copy.meta, items: allItems }), breadcrumbJsonLd(crumbs)]}
       />
       <Navigation />
       <main className="flex-1">
@@ -71,6 +87,9 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
+          {showTypeFilter && (
+            <ProductTypeFilter value={productType} onChange={setProductType} counts={typeCounts} />
+          )}
           <p className="text-sm text-gray-400 mb-5">
             {items.length} product{items.length !== 1 ? "s" : ""}
           </p>
@@ -83,6 +102,8 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
               />
             ))}
           </div>
+
+          {(typeCounts.targeted > 0 || typeCounts["broad-spectrum"] > 0) && <ProductTypeExplainer className="mt-12" />}
 
           <section className="mt-12" aria-labelledby="related-browse">
             <h2 id="related-browse" className="text-lg font-semibold text-gray-900 mb-3">{siblings.heading}</h2>
