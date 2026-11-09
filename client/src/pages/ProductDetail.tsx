@@ -39,7 +39,7 @@ import { getPublicProtocol, goalsWithData } from "@/data/protocols";
 import { lazy, Suspense } from "react";
 import PreorderBadge from "@/components/PreorderBadge";
 import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
-import { FormulaPdpBody } from "@/components/shop/FormulaPdpSections";
+import { FormulaPdpBody, STREAMLINED_BODY, StreamlinedPdpBody } from "@/components/shop/FormulaPdpSections";
 import { FORMULA_EXPLAINER_HREF, formulaTypeFor, isFormulaPreviewPdp, isPrimePeptide } from "@/data/formulaType";
 import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
 import { packageCountLabel } from "@/lib/productFacts";
@@ -190,6 +190,11 @@ export default function ProductDetail() {
   const packageLabel = packageCountLabel(product, selectedSize);
   // Prime Peptide pages are frozen: their own facts strip and bundle picker stay as on main.
   const primeFrozen = isPrimePeptide(product.id);
+  // Streamlined page (round 3, Bonomarlot only): Snapshot after Add to Cart; FAQ, doctor
+  // questions and safety merged into one "Safety & FAQs" drop-down; no generic notes box,
+  // orange injectable note or product-line paragraph.
+  const streamlined = preview?.streamlined ? preview : undefined;
+  const visibleFaqs = (pdp?.faq ?? []).filter((f) => !preview || !isPreviewRemovedFaq(product.name, f.q));
   const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
   const variantGallery = selectedVariant?.images?.filter((src: string) => src.length > 0) ?? [];
@@ -280,7 +285,7 @@ export default function ProductDetail() {
               {preview && (
                 <div className="space-y-2" data-testid="pdp-preview-header">
                   <p className="text-base text-gray-700">{preview.subline}</p>
-                  <p className="text-sm text-gray-600 leading-relaxed">{preview.snapshot}</p>
+                  {!streamlined && <p className="text-sm text-gray-600 leading-relaxed">{preview.snapshot}</p>}
                 </div>
               )}
               {isPreorderProduct(product.id) && (
@@ -402,6 +407,9 @@ export default function ProductDetail() {
                 </Button>
               </div>
 
+              {streamlined && (
+                <p className={STREAMLINED_BODY} data-testid="pdp-snapshot">{streamlined.snapshot}</p>
+              )}
             </div>
           </div>
 
@@ -410,7 +418,15 @@ export default function ProductDetail() {
 
               {/* Intro + Key Benefits stay visible; every other description category is a
                   drop-down (native <details>, so all copy stays in the prerendered HTML). */}
-              {preview ? (
+              {streamlined ? (
+                <StreamlinedPdpBody
+                  productId={product.id}
+                  productName={product.name}
+                  content={streamlined}
+                  otherIngredients={(ingredientList ?? []).filter((x: string) => /^Other ingredients:/.test(x))}
+                  faqs={visibleFaqs}
+                />
+              ) : preview ? (
                 <FormulaPdpBody
                   productId={product.id}
                   content={preview}
@@ -439,6 +455,7 @@ export default function ProductDetail() {
                 </section>
               )}
 
+              {!streamlined && (
               <div className="border-t border-gray-200" data-testid="pdp-accordions">
                 {!preview && pdp && (pdp.overview.length > 1 || pdp.why || pdp.interest || pdp.researchBackground) && (
                   <PdpAccordion title={`More About ${product.name}`} testId="pdp-why">
@@ -484,7 +501,7 @@ export default function ProductDetail() {
                 {pdp && pdp.faq.length > 0 && (
                   <PdpAccordion title="Frequently Asked Questions" testId="pdp-faq">
                     <dl className="space-y-4">
-                      {pdp.faq.filter((f) => !preview || !isPreviewRemovedFaq(product.name, f.q)).map((f, i) => (
+                      {visibleFaqs.map((f, i) => (
                         <div key={i}>
                           <dt className="font-medium text-gray-900">{f.q}</dt>
                           <dd className="mt-1 text-gray-600 leading-relaxed">{f.a}</dd>
@@ -507,14 +524,17 @@ export default function ProductDetail() {
                   </PdpAccordion>
                 )}
               </div>
+              )}
 
               {/* Notes + Pepita, moved from the purchase panel to the end of the description */}
               <div className="space-y-4" data-testid="pdp-end-boxes">
+                {!streamlined && (
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-2">
                   <p>Ask your doctor about current medications, pregnancy, and existing conditions before use.</p>
                   <p>If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.</p>
                   <p>Please consult your medical doctor. These statements have not been evaluated by the FDA.</p>
                 </div>
+                )}
 
                 {/* Authorized retailer badge + sourcing / lot / expiry / COA (each only when filled) */}
                 <ProductAuthenticity
@@ -525,7 +545,7 @@ export default function ProductDetail() {
                 />
 
                 {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
-                {product.category === "PEPTIDE BIOREGULATORS" && (
+                {product.category === "PEPTIDE BIOREGULATORS" && !streamlined && (
                   <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">
                     <span className="text-orange-500 text-sm mt-0.5 flex-shrink-0">ⓘ</span>
                     <p className="text-xs text-orange-800 leading-relaxed">
@@ -550,7 +570,7 @@ export default function ProductDetail() {
               </div>
 
               {/* Product line info closes the description area, after the Pepita row */}
-              {product.seriesInfo && (
+              {product.seriesInfo && !streamlined && (
                 <section data-testid="pdp-line">
                   <h2 className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">About This Product Line</h2>
                   <p className="text-sm text-gray-600 leading-relaxed">{product.seriesInfo}</p>

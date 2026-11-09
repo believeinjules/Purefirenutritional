@@ -152,8 +152,11 @@ export function CompareRelatedFormulas({
   productId,
   intro = COMPARE_INTRO,
   className = "",
+  compact = false,
 }: {
   productId: string;
+  /** Compact card (streamlined Bonomarlot page): no heading rule, darker intro, no note line. */
+  compact?: boolean;
   /** Product-specific intro (Bonomarlot); defaults to the neutral one-sentence intro. */
   intro?: string;
   className?: string;
@@ -176,11 +179,20 @@ export function CompareRelatedFormulas({
       <span className="text-gray-500">{COMPARE_NONE_OTHER}</span>
     );
   return (
-    <section aria-labelledby={`${tableId}-h`} className={className} data-testid="compare-related-formulas">
-      <h2 id={`${tableId}-h`} className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">
+    <section
+      aria-labelledby={`${tableId}-h`}
+      className={compact ? `rounded-xl border border-gray-200 p-4 md:p-5 ${className}` : className}
+      data-testid="compare-related-formulas"
+    >
+      <h2 id={`${tableId}-h`} className={compact ? "text-lg font-semibold text-gray-900 mb-2" : "text-lg font-semibold text-gray-900 mb-3 pb-2 border-b"}>
         {COMPARE_HEADING}
       </h2>
-      <p className="text-sm text-gray-600 leading-relaxed mb-3" data-testid="compare-intro">{intro}</p>
+      <p
+        className={compact ? "text-[15px] md:text-sm text-gray-700 leading-relaxed mb-3" : "text-sm text-gray-600 leading-relaxed mb-3"}
+        data-testid="compare-intro"
+      >
+        {intro}
+      </p>
       <ul className="divide-y divide-gray-100 border border-gray-200 rounded-lg mb-4" data-testid="compare-related-list">
         {related.map((r) => (
           <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
@@ -244,7 +256,7 @@ export function CompareRelatedFormulas({
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-xs text-gray-500">{COMPARE_NOTE}</p>
+      {!compact && <p className="mt-3 text-xs text-gray-500">{COMPARE_NOTE}</p>}
     </section>
   );
 }

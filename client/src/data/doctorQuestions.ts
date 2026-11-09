@@ -5,3 +5,8 @@ export const DOCTOR_QUESTIONS: readonly string[] = [
   "How long should one cycle be for me?",
   "What labs, if any, should we check?",
 ];
+
+/** Default questions minus any a page leaves out (exact text match). */
+export function doctorQuestionsWithout(omit: readonly string[] = []): string[] {
+  return DOCTOR_QUESTIONS.filter((q) => !omit.includes(q));
+}

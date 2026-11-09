@@ -19,28 +19,50 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Bonomarlot® — A-20 Bone Marrow Peptide Complex",
     subline: SUBLINE,
     snapshot:
-      "A tissue-derived peptide bioregulator from the original Khavinson Cytomax collection, centered on the A-20 bone marrow peptide complex.",
-    ingredients: ["Primary ingredient: A-20 bone marrow-derived peptide complex.", FOCUSED],
+      "A bone marrow-derived peptide complex from the original Khavinson Cytomax collection, associated with research into blood cell formation and cellular regulation.",
+    // Snapshot is 161 characters, so the meta drops its last clause ("and cellular regulation").
+    metaDescription:
+      "Bonomarlot®: a bone marrow-derived peptide complex from the original Khavinson Cytomax collection, associated with research into blood cell formation.",
+    ingredients: ["Active complex: A-20, derived from bone marrow."],
     // TODO(julia): brochure p. 7 prints "Release form: 20 capsules or tablets containing 10 mg of BONOMARLOT®"; not verified against our label.
     biologicalFocus: {
       heading: "Bone marrow & hematopoietic system",
-      body: "Bone marrow is responsible for producing red blood cells, white blood cells, and platelets, which are essential for oxygen transport, immune defense, and blood clotting. Bonomarlot's tissue association places it within the broader research context of hematopoiesis (blood cell formation) and cellular regulation. This association does not establish that taking the product increases blood cell production.",
+      body: "Bone marrow produces red and white blood cells and platelets, which are involved in oxygen transport, immune defense, and clotting. This is the biological system associated with Bonomarlot's tissue-derived peptide complex, not an established clinical effect of the finished product.",
     },
-    about:
-      "Bonomarlot contains A-20, a naturally derived peptide complex obtained from bone marrow tissue. It belongs to the Khavinson Cytomax collection, which consists of tissue-derived peptide complexes associated with specific organs and biological systems. Unlike multi-component formulations, Bonomarlot centers on one tissue-derived peptide complex rather than combining several peptide complexes with additional active ingredients.",
-    // Round-2 proposed directions wording (brochure + "Follow the instructions on the current product
-    // packaging…") is on hold until the quote is confirmed against the package label; current text kept.
+    // Round 3: "About This Product" removed; the separate Manufacturer Directions section is folded into
+    // Dosage & Course Information (streamlined.labeledDirections). `line` is kept for the data model only.
     manufacturerDirections: { source: BONOMARLOT_BROCHURE_DIRECTIONS, line: LINE },
     compareIntro:
-      "Revilab ML 02 and Revilab SL 07 are related combination formulations containing bone marrow-associated peptide ingredients. Unlike Bonomarlot, these products combine multiple ingredients within a single formulation. Compare their verified ingredients, quantities, and manufacturer directions to understand the differences. A shared tissue association does not establish identical composition or effects.",
+      "Explore combination formulas with potentially related bone marrow peptide ingredients. Exact overlap should be confirmed from their ingredient lists.",
     research:
       "Khavinson peptide research has explored tissue-derived peptides and their possible role in cellular regulatory processes. Bonomarlot's research association centers on bone marrow and blood cell formation. Laboratory and animal findings on related peptides do not establish benefits for the finished product, and human evidence on Bonomarlot itself is limited.",
     importantInformation:
-      "Bonomarlot is not a medicine and is not intended to diagnose, treat, cure, or prevent any disease. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use.",
+      "Bonomarlot is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.",
     dosageCourse: true,
+    streamlined: {
+      ingredientsNote: "Full ingredient list and amounts available on the product label.",
+      labeledDirections: {
+        heading: "Manufacturer's Labeled Directions",
+        // TODO(julia): quote is from the brochure (p. 7); unconfirmed against the package label.
+        attribution: "As printed in the Cytomax and Cytogen product brochure (p. 7):",
+        text: `"${BONOMARLOT_BROCHURE_DIRECTIONS.text}"`,
+      },
+      safety: [
+        // Important Information (round 2) merged with the product-facts safety paragraph and the
+        // generic stop-use line; "consult … before use" appears once.
+        "Bonomarlot is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.",
+        "Not recommended during pregnancy or breastfeeding unless your doctor advises it. Do not use if you are allergic or sensitive to any component. Keep out of reach of children.",
+        "If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.",
+      ],
+      omitDoctorQuestions: [
+        "Should I take this preventively or restoratively?",
+        "How long should one cycle be for me?",
+      ],
+    },
     flags: [
       "Amount per capsule not published: brochure p. 7 prints 10 mg per capsule or tablet; not verified against our label.",
       "product-facts.json marks directions \"conflicting\"; brochure p. 7 quoted instead.",
+      "Labeled directions quote is from the brochure; unconfirmed against the package label.",
     ],
   },
 

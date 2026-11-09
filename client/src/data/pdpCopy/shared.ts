@@ -25,15 +25,31 @@ export interface FormulaPdpContent {
   /** TODO: amount per serving. Rendered only when verified. */
   amountPerCapsule?: string;
   biologicalFocus: { heading: string; body: string };
-  about: string;
+  /** Omitted on streamlined pages (Bonomarlot, round 3). */
+  about?: string;
   manufacturerDirections: { source?: DirectionsSource; line: string };
   compareIntro?: string;
   research: string;
   importantInformation: string;
   /** Show the shared "Dosage & Course Information" block (capsule/tablet products; never Prime). */
   dosageCourse: boolean;
+  /** Meta description when "{Name}®: {snapshot}" would exceed 160 characters (Snapshot, shortened only by cutting its last clause). */
+  metaDescription?: string;
+  /** Streamlined layout (Bonomarlot, round 3): essentials visible, deeper reading collapsed. */
+  streamlined?: StreamlinedPdp;
   /** Review flags for counsel/Julia. Never rendered. */
   flags?: string[];
+}
+
+export interface StreamlinedPdp {
+  /** Small line under the active complex. */
+  ingredientsNote: string;
+  /** Collapsible "Manufacturer's Labeled Directions" inside Dosage & Course Information. */
+  labeledDirections: { heading: string; attribution: string; text: string };
+  /** "Safety & FAQs": merged Important Information + Safety + stop-use paragraphs, no repeats. */
+  safety: string[];
+  /** Default doctor questions left out on this page (exact text from DOCTOR_QUESTIONS). */
+  omitDoctorQuestions: string[];
 }
 
 export const MANUFACTURER_DIRECTIONS_LINE =

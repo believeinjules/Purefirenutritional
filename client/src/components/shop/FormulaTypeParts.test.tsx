@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { CompareRelatedFormulas, FormulaTypeTag } from "./FormulaTypeParts";
-import { DosageCourseInfo, FormulaPdpBody } from "./FormulaPdpSections";
+import { DosageCourseInfo, FormulaPdpBody, StreamlinedPdpBody } from "./FormulaPdpSections";
 import { ProductGridCard } from "@/components/ProductListingCard";
 import { getProductById } from "@/data/products";
 import { COMPARE_NOT_ESTABLISHED, counterpartsFor } from "@/data/formulaType";
@@ -90,6 +90,7 @@ describe("gating and shared parts", () => {
 
   it("every rolled-out page body renders Important Information + FDA disclaimer, in Julia's order, with internal links only", () => {
     for (const id of Object.keys(FORMULA_PDP_CONTENT)) {
+      if (FORMULA_PDP_CONTENT[id].streamlined) continue; // streamlined layout tested below
       const { container, unmount } = render(
         <FormulaPdpBody productId={id} content={FORMULA_PDP_CONTENT[id]} otherIngredients={[]} showDosageCourse={FORMULA_PDP_CONTENT[id].dosageCourse} />,
       );
@@ -104,5 +105,34 @@ describe("gating and shared parts", () => {
       expect(Boolean(screen.queryByTestId("compare-related-formulas")), id).toBe(counterpartsFor(id).length > 0);
       unmount();
     }
+  });
+
+  it("streamlined Bonomarlot: essentials, then collapsed Research & Evidence and Safety & FAQs, FDA disclaimer once at the end", () => {
+    const c = FORMULA_PDP_CONTENT.bonomarlot!;
+    expect(c.streamlined).toBeDefined();
+    const faqs = [{ q: "Is Bonomarlot an injectable peptide?", a: "No." }];
+    const { container, unmount } = render(
+      <StreamlinedPdpBody productId="bonomarlot" productName="Bonomarlot" content={c} otherIngredients={["Other ingredients: x"]} faqs={faqs} />,
+    );
+    const text = container.textContent ?? "";
+    const order = ["Ingredients", "Biological Focus", "Dosage & Course Information", "Manufacturer's Labeled Directions", "Compare Related Formulas", "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER];
+    const at = order.map((h) => text.indexOf(h));
+    expect(at.every((i) => i >= 0), JSON.stringify(at)).toBe(true);
+    expect([...at].sort((a, b) => a - b)).toEqual(at);
+    expect(text.split(FDA_DISCLAIMER)).toHaveLength(2);
+    expect(text.match(/not intended to diagnose/g)).toHaveLength(1);
+    for (const gone of ["About This Product", "Important Information", "preventively", "How long should one cycle", "Ingredient overlap is based", "Recommended combination"]) {
+      expect(text, gone).not.toContain(gone);
+    }
+    // Collapsed by default, content still in the DOM.
+    for (const tid of ["pdp-research", "pdp-safety-faqs"]) {
+      const d = screen.getByTestId(tid) as HTMLDetailsElement;
+      expect(d.tagName).toBe("DETAILS");
+      expect(d.open).toBe(false);
+    }
+    expect(text).toContain(c.research);
+    expect(text).toContain("Is Bonomarlot an injectable peptide?");
+    for (const a of Array.from(container.querySelectorAll("a"))) expect(a.getAttribute("href") ?? "").toMatch(/^\//);
+    unmount();
   });
 });

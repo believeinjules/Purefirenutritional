@@ -529,6 +529,7 @@ export function rolledOutTitle(h1: string): string {
 export function rolledOutDescription(id: string, name: string): string | undefined {
   const c = FORMULA_PDP_CONTENT[id];
   if (!c) return undefined;
+  if (c.metaDescription) return c.metaDescription;
   const brandMark = c.title.startsWith(`${name}®`) ? `${name}®` : name;
   const snap = c.snapshot.replace(/^A /, "a ").replace(/^An /, "an ");
   let out = `${brandMark}: ${snap}`;

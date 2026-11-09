@@ -54,7 +54,10 @@ const compareCopy = [
 ];
 const pdpCopy = Object.values(FORMULA_PDP_CONTENT).flatMap((c) => [
   c.title, c.subline, c.snapshot, ...c.ingredients, c.biologicalFocus.heading, c.biologicalFocus.body,
-  c.about, c.manufacturerDirections.line, c.compareIntro ?? "", c.research,
+  c.about ?? "", c.manufacturerDirections.line, c.compareIntro ?? "", c.research,
+  ...(c.streamlined
+    ? [c.streamlined.ingredientsNote, c.streamlined.labeledDirections.heading, c.streamlined.labeledDirections.attribution, ...c.streamlined.safety]
+    : []),
 ]);
 const ROLLED_OUT = Object.keys(FORMULA_PDP_CONTENT);
 const directionTexts = Object.values(FORMULA_PDP_CONTENT).flatMap((c) =>
@@ -185,12 +188,15 @@ describe("formula type map", () => {
     for (const id of ROLLED_OUT) {
       const c = FORMULA_PDP_CONTENT[id];
       const name = PRODUCT_FACTS[id].name;
-      expect(c.biologicalFocus.body, id).toMatch(/This association does not establish that taking the product \w/);
       if (id === "bonomarlot") {
-        // Julia's round-2 Bonomarlot wording (verbatim).
+        // Julia's round-2/3 Bonomarlot wording (verbatim); the FDA disclaimer alone carries
+        // "not intended to diagnose, treat, cure, or prevent any disease".
+        expect(c.biologicalFocus.body, id).toMatch(/not an established clinical effect of the finished product\.$/);
         expect(c.research, id).toContain("human evidence on Bonomarlot itself is limited.");
-        expect(c.importantInformation, id).toMatch(/^Bonomarlot is not a medicine and is not intended to diagnose, treat, cure, or prevent any disease\. /);
+        expect(c.importantInformation, id).toMatch(/^Bonomarlot is not a medicine\. /);
+        expect(c.importantInformation, id).not.toMatch(/diagnose|cure|prevent/);
       } else {
+        expect(c.biologicalFocus.body, id).toMatch(/This association does not establish that taking the product \w/);
         expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
         expect(c.importantInformation, id).toMatch(new RegExp(`^${name.replace(/[-]/g, "\\-")} is not presented as a treatment for `));
       }
@@ -242,7 +248,9 @@ describe("formula type map", () => {
         expect(c.compareIntro, id).toBeUndefined();
         continue;
       }
-      for (const cp of cps) expect(c.compareIntro, `${id} → ${cp.id}`).toContain(PRODUCT_FACTS[cp.id].name);
+      // Bonomarlot (round 3): Julia's generic intro; the counterparts are named in the rows below it.
+      if (id !== "bonomarlot") for (const cp of cps) expect(c.compareIntro, `${id} → ${cp.id}`).toContain(PRODUCT_FACTS[cp.id].name);
+      else expect(c.compareIntro).toBe("Explore combination formulas with potentially related bone marrow peptide ingredients. Exact overlap should be confirmed from their ingredient lists.");
       // and the pair holds the other way
       for (const cp of cps) expect(counterpartsFor(cp.id).map((x) => x.id), `${cp.id} ← ${id}`).toContain(id);
     }
