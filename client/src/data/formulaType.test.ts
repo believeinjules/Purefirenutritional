@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { existsSync, readFileSync } from "fs";
 import { PRODUCT_FACTS } from "@shared/product-facts";
 import { HIDDEN_PRODUCT_IDS } from "@shared/hidden-products";
 import { products, getProductById } from "./products";
@@ -55,6 +56,10 @@ const pdpCopy = Object.values(FORMULA_PDP_CONTENT).flatMap((c) => [
   c.title, c.subline, c.snapshot, ...c.ingredients, c.biologicalFocus.heading, c.biologicalFocus.body,
   c.about, c.manufacturerDirections.line, c.compareIntro ?? "", c.research,
 ]);
+const ROLLED_OUT = Object.keys(FORMULA_PDP_CONTENT);
+const directionTexts = Object.values(FORMULA_PDP_CONTENT).flatMap((c) =>
+  c.manufacturerDirections.source ? [c.manufacturerDirections.source.attribution, c.manufacturerDirections.source.text] : [],
+);
 const allNewCopy = [...compareCopy, ...pdpCopy, EXPLAINER_TEXT, ...DOSAGE_COURSE_PARAGRAPHS, ...Object.values(FORMULA_PDP_CONTENT).map((c) => c.importantInformation)];
 
 describe("formula type map", () => {
@@ -150,20 +155,97 @@ describe("formula type map", () => {
     expect(cols[0].directions).toContain("(brochure, p. 7)");
   });
 
-  it("compare data: Revilab ML 02 → the Focused Formulas it contains (page not switched on)", () => {
-    expect(isFormulaPreviewPdp("revilab-ml-02")).toBe(false);
+  it("compare data: Revilab ML 02 → the Focused Formulas it contains", () => {
+    expect(isFormulaPreviewPdp("revilab-ml-02")).toBe(true);
     const cols = compareColumns("revilab-ml-02");
     expect(cols.map((c) => c.id)).toEqual(["revilab-ml-02", "bonomarlot", "svetinorm"]);
     expect(cols[0].shared).toEqual(["Bone marrow peptide complex (AA-4)", "Liver peptide complex (AA-10)"]);
     expect(cols[1].shared).toEqual(["Bone marrow peptide complex (A-20)"]);
     expect(cols[2].shared).toEqual(["Liver peptide complex A-7 (natural extract)"]);
-    expect(cols[2].directions).toBeUndefined(); // Svetinorm has no verified directions → "Not listed"
+    // Svetinorm has no verified label directions; its page quotes the brochure, so the table does too.
+    expect(cols[2].directions).toContain("(brochure, p. 50)");
   });
 
-  it("gating: only Bonomarlot gets the preview page", () => {
-    expect([...FORMULA_PREVIEW_PDP_IDS]).toEqual(["bonomarlot"]);
-    expect(Object.keys(FORMULA_PDP_CONTENT)).toEqual(["bonomarlot"]);
-    for (const p of products) expect(isFormulaPreviewPdp(p.id), p.id).toBe(p.id === "bonomarlot");
+  it("gating: only products with written copy get the new page; never Prime or hidden", () => {
+    expect([...FORMULA_PREVIEW_PDP_IDS].sort()).toEqual([...ROLLED_OUT].sort());
+    for (const p of products) expect(isFormulaPreviewPdp(p.id), p.id).toBe(ROLLED_OUT.includes(p.id));
+    for (const id of [...HIDDEN_PRODUCT_IDS, ...products.filter((p) => isPrimePeptide(p.id)).map((p) => p.id)]) {
+      expect(isFormulaPreviewPdp(id), id).toBe(false);
+      expect(FORMULA_PDP_CONTENT[id], id).toBeUndefined();
+    }
+  });
+
+  it("this batch: every Cytomax, plus Revilab ML 02 and Zinsil-T as examples", () => {
+    const cytomax = products.filter((p) => formulaLineFor(p.id) === "Cytomax").map((p) => p.id);
+    expect(cytomax).toHaveLength(21);
+    for (const id of cytomax) expect(FORMULA_PDP_CONTENT[id], id).toBeDefined();
+  });
+
+  it("every rolled-out page: tailored 'does not establish', 'remains limited', 'not presented as a treatment', title from composition", () => {
+    for (const id of ROLLED_OUT) {
+      const c = FORMULA_PDP_CONTENT[id];
+      const name = PRODUCT_FACTS[id].name;
+      expect(c.biologicalFocus.body, id).toMatch(/This association does not establish that taking the product \w/);
+      expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
+      expect(c.importantInformation, id).toMatch(new RegExp(`^${name.replace(/[-]/g, "\\-")} is not presented as a treatment for `));
+      expect(c.importantInformation, id).toContain("consult a qualified healthcare professional");
+      expect(c.title.startsWith(name), id).toBe(true);
+      expect(c.manufacturerDirections.line, id).toBe(MANUFACTURER_DIRECTIONS_LINE);
+      if (formulaTypeFor(id) === "focused") {
+        // "{Name}® — {Code} {Tissue} Peptide Complex", code taken from the composition.
+        const m = c.title.match(/^(.+)® — (A-\d+) (.+) Peptide Complex$/);
+        expect(m, c.title).not.toBeNull();
+        expect(PRODUCT_FACTS[id].composition.join(" "), id).toContain(m![2]);
+        expect(PRODUCT_FACTS[id].composition.join(" ").toLowerCase(), id).toContain(m![3].toLowerCase());
+        expect(c.subline).toBe(`Khavinson ${formulaLineFor(id)}® | Focused Formula`);
+      } else if (formulaTypeFor(id) === "combination") {
+        expect(c.subline).toBe(`${formulaLineFor(id)} | Combination Formula`);
+      } else {
+        expect(c.subline).not.toMatch(/Formula$/); // untagged: no formula type
+      }
+    }
+  });
+
+  const BROCHURE_NOTES = "/workspace/sources/khavinson-brochure-dosing-notes.md";
+  it("directions: verified label text, the Julia-confirmed Endoluten line, or a quoted brochure page; never invented", () => {
+    const brochure = (existsSync(BROCHURE_NOTES) ? readFileSync(BROCHURE_NOTES, "utf8") : "").replace(/\s+/g, " ").replace(/([a-z])- ([a-z])/g, "$1$2");
+    for (const id of ROLLED_OUT) {
+      const src = FORMULA_PDP_CONTENT[id].manufacturerDirections.source;
+      if (!src) continue;
+      if (src.kind === "manufacturer") {
+        const md = PRODUCT_FACTS[id].manufacturerDirections;
+        const ok = (md.status === "verified" && md.text === src.text) || (id === "endoluten" && PRODUCT_FACTS[id].pdp?.directions === src.text);
+        expect(ok, id).toBe(true);
+        expect(src.attribution).toBe("As listed by the manufacturer:");
+      } else {
+        expect(src.attribution, id).toMatch(/^As printed in the "Recommendations for use" section of the brochure ".+" \(p\. \d+\):$/);
+        // Every sentence is in the brochure notes (hyphen line-breaks joined; Gotratix's Cyrillic Х normalised).
+        const norm = (t: string) => t.replace(/Х/g, "X").replace(/Take1-2/g, "Take 1-2").replace(/®(\d)/g, "® $1").replace(/\s+/g, " ");
+        if (!brochure) continue; // brochure notes live on the review box, not in the repo
+        for (const sentence of src.text.split(/(?<=\.)\s+/)) expect(norm(brochure), `${id}: ${sentence}`).toContain(norm(sentence));
+      }
+    }
+    expect(FORMULA_PDP_CONTENT.endoluten.manufacturerDirections.source?.text).toBe("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.");
+  });
+
+  it("compare intros name exactly the page's valid counterparts; no intro when there is no valid pair", () => {
+    for (const id of ROLLED_OUT) {
+      const c = FORMULA_PDP_CONTENT[id];
+      const cps = counterpartsFor(id);
+      if (cps.length === 0) {
+        expect(c.compareIntro, id).toBeUndefined();
+        continue;
+      }
+      for (const cp of cps) expect(c.compareIntro, `${id} → ${cp.id}`).toContain(PRODUCT_FACTS[cp.id].name);
+      // and the pair holds the other way
+      for (const cp of cps) expect(counterpartsFor(cp.id).map((x) => x.id), `${cp.id} ← ${id}`).toContain(id);
+    }
+  });
+
+  it("no links, URLs or store names in the new copy", () => {
+    for (const t of [...allNewCopy, ...directionTexts]) {
+      expect(t, t).not.toMatch(/https?:|www\.|\.(com|ru|org|net)\b|shortpeptide|doi/i);
+    }
   });
 
   it("approved copy is verbatim", () => {
@@ -178,10 +260,10 @@ describe("formula type map", () => {
   });
 
   it("no comparative claims anywhere in the new copy (except the approved 'Neither type is better.')", () => {
-    for (const t of allNewCopy) expect(t.replace("Neither type is better.", ""), t).not.toMatch(COMPARATIVE);
+    for (const t of [...allNewCopy, ...directionTexts]) expect(t.replace("Neither type is better.", ""), t).not.toMatch(COMPARATIVE);
   });
 
-  it("no disease/treatment wording outside the Important Information disclaimer", () => {
-    for (const t of [...compareCopy, ...pdpCopy, EXPLAINER_TEXT, ...DOSAGE_COURSE_PARAGRAPHS]) expect(t, t).not.toMatch(DISEASE);
+  it("no disease/treatment wording outside the Important Information disclaimer (directions quotes included)", () => {
+    for (const t of [...compareCopy, ...pdpCopy, ...directionTexts, EXPLAINER_TEXT, ...DOSAGE_COURSE_PARAGRAPHS]) expect(t, t).not.toMatch(DISEASE);
   });
 });

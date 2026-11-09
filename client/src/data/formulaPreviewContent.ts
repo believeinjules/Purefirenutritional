@@ -1,74 +1,38 @@
 /**
- * PROPOSAL copy for the Bonomarlot preview page (Julia's template, verbatim).
- * Only product ids in FORMULA_PREVIEW_PDP_IDS render this. Nothing here is live.
+ * PROPOSAL copy for the rolled-out product pages (Julia's Bonomarlot template, written
+ * per product). Only ids in FORMULA_PDP_CONTENT render the new template; Prime Peptide
+ * and hidden products never do. Nothing here is live.
+ *
+ * Batch status (2026-11-09): Khavinson Cytomax® (all 21), plus Revilab ML 02 and
+ * Zinsil-T as examples. Remaining lines wait for Julia's review.
  */
+import { isHiddenProduct } from "@shared/hidden-products";
+import { CYTOMAX_COPY } from "./pdpCopy/cytomax";
+import { REVILAB_ML_COPY } from "./pdpCopy/revilabMl";
+import { NUTRITIONAL_COPY } from "./pdpCopy/nutritional";
+import type { FormulaPdpContent } from "./pdpCopy/shared";
 
-export interface DirectionsSource {
-  /** Plain-text attribution. No link: the brochure's distributor is a retail store. */
-  attribution: string;
-  /** Verbatim quote. */
-  text: string;
-  /** Short tag for the compare table. */
-  short: string;
-}
+export type { DirectionsSource, FormulaPdpContent } from "./pdpCopy/shared";
+export { MANUFACTURER_DIRECTIONS_LINE } from "./pdpCopy/shared";
+export { BONOMARLOT_BROCHURE_DIRECTIONS } from "./pdpCopy/cytomax";
 
-export interface FormulaPdpContent {
-  title: string;
-  subline: string;
-  snapshot: string;
-  ingredients: string[];
-  /**
-   * TODO(julia): amount per capsule. Only "Release form: 20 capsules or tablets containing
-   * 10 mg of BONOMARLOT®" (brochure p. 7) exists; not verified against our label, so nothing
-   * is rendered. Do not publish "Reportedly 10 mg per capsule".
-   */
-  amountPerCapsule?: string;
-  biologicalFocus: { heading: string; body: string };
-  about: string;
-  manufacturerDirections: { source?: DirectionsSource; line: string };
-  compareIntro?: string;
-  research: string;
-  importantInformation: string;
-}
+/** Never roll out over Prime Peptide (wording frozen) or hidden products. */
+const PRIME_IDS = /^prime-peptide-/;
 
-export const MANUFACTURER_DIRECTIONS_LINE =
-  "Follow the instructions on the current product packaging for serving size and course duration. A manufacturer-defined course describes the recommended usage schedule, not a guaranteed timeline for results.";
+const ALL: Record<string, FormulaPdpContent> = { ...CYTOMAX_COPY, ...REVILAB_ML_COPY, ...NUTRITIONAL_COPY };
 
-/** Source: /workspace/sources/khavinson-brochure-dosing-notes.md, Bonomarlot "RECOMMENDATIONS FOR USE", p. 7. */
-export const BONOMARLOT_BROCHURE_DIRECTIONS: DirectionsSource = {
-  attribution:
-    "As printed in the \"Recommendations for use\" section of the brochure \"Reports on the results of clinical studies of peptide bioregulators of the CYTOMAX AND CYTOGEN class\" (p. 7):",
-  text: "Bonomarlot® instructions: 1-2 capsules or tablets 1-2 times a day with meals. The duration of administration is 30 days. It is advisable to repeat the course in 3-6 months.",
-  short: "(brochure, p. 7)",
-};
+export const FORMULA_PDP_CONTENT: Readonly<Record<string, FormulaPdpContent>> = Object.fromEntries(
+  Object.entries(ALL).filter(([id]) => !PRIME_IDS.test(id) && !isHiddenProduct({ id })),
+);
 
-export const FORMULA_PDP_CONTENT: Record<string, FormulaPdpContent> = {
-  bonomarlot: {
-    title: "Bonomarlot® — A-20 Bone Marrow Peptide Complex",
-    subline: "Khavinson Cytomax® | Focused Formula",
-    snapshot:
-      "A tissue-derived peptide bioregulator from the original Khavinson Cytomax collection, centered on the A-20 bone marrow peptide complex.",
-    ingredients: [
-      "Primary ingredient: A-20 bone marrow-derived peptide complex.",
-      "Formulation type: Focused peptide complex.",
-    ],
-    biologicalFocus: {
-      heading: "Bone marrow & hematopoietic system",
-      body: "Bone marrow is responsible for producing red blood cells, white blood cells, and platelets, which are essential for oxygen transport, immune defense, and blood clotting. Bonomarlot's tissue association places it within the broader research context of hematopoiesis (blood cell formation) and cellular regulation. This association does not establish that taking the product increases blood cell production.",
-    },
-    about:
-      "Bonomarlot contains A-20, a naturally derived peptide complex obtained from bone marrow tissue. It belongs to the Khavinson Cytomax collection, which consists of tissue-derived peptide complexes associated with specific organs and biological systems. Unlike multi-component formulations, Bonomarlot centers on one tissue-derived peptide complex rather than combining several peptide complexes with additional active ingredients.",
-    manufacturerDirections: { source: BONOMARLOT_BROCHURE_DIRECTIONS, line: MANUFACTURER_DIRECTIONS_LINE },
-    compareIntro:
-      "Revilab ML 02 and Revilab SL 07 are related combination formulations containing bone marrow-associated peptide ingredients. Unlike Bonomarlot, these products combine multiple ingredients within a single formulation. Compare their verified ingredients, quantities, and manufacturer directions to understand the differences. A shared tissue association does not establish identical composition or effects.",
-    research:
-      "Khavinson peptide research has explored tissue-derived peptides and their potential involvement in cellular regulatory processes. Bonomarlot's research association centers on bone marrow and the hematopoietic system. However, laboratory findings and research involving related peptides do not necessarily establish clinical benefits for the finished product. Evidence establishing Bonomarlot's effectiveness and long-term safety in humans remains limited.",
-    importantInformation:
-      "Bonomarlot is not presented as a treatment for blood disorders, immune deficiencies, or other medical conditions. Review the complete product label and consult a qualified healthcare professional before use.",
-  },
-};
+/** Copy grouped by line, for the counsel review file and tests. */
+export const PDP_COPY_BATCHES: ReadonlyArray<{ line: string; ids: string[] }> = [
+  { line: "Khavinson Cytomax®", ids: Object.keys(CYTOMAX_COPY) },
+  { line: "Revilab ML (example)", ids: Object.keys(REVILAB_ML_COPY) },
+  { line: "Nutritional supplements (example)", ids: Object.keys(NUTRITIONAL_COPY) },
+];
 
-/** Shared "Dosage & Course Information" (capsule products; never Prime). Verbatim, 4 paragraphs. */
+/** Shared "Dosage & Course Information" (capsule/tablet products; never Prime). Verbatim, 4 paragraphs. */
 export const DOSAGE_COURSE_HEADING = "Dosage & Course Information";
 export const DOSAGE_COURSE_PARAGRAPHS: readonly string[] = [
   "Manufacturer directions provide general serving and usage information, not personalized recommendations. Package size does not necessarily indicate a single course length.",
@@ -80,5 +44,10 @@ export const DOSAGE_COURSE_PARAGRAPHS: readonly string[] = [
 export const FDA_DISCLAIMER =
   "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.";
 
-/** FAQ entries hidden on the preview page because the new sections duplicate them. */
-export const PREVIEW_REMOVED_FAQ: readonly string[] = ["What is Bonomarlot?", "How should I take it?"];
+/**
+ * FAQ entries hidden on rolled-out pages because the new sections cover them
+ * ("What is {Name}?" → Snapshot/About; "How should I take it?" → Manufacturer Directions).
+ */
+export function isPreviewRemovedFaq(productName: string, question: string): boolean {
+  return question === `What is ${productName}?` || question === "How should I take it?";
+}

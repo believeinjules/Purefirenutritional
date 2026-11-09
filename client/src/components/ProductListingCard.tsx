@@ -163,40 +163,17 @@ function FlipImage({ product, eager = false }: { product: ListingProduct; eager?
 }
 
 /**
- * Bottle size · cycle coverage · cost per day — each part only when the data
- * exists (variant names + client/src/data/dosing.ts). Renders nothing otherwise.
+ * Package size only ("20 or 60 Capsules"), from the variant names; falls back to the
+ * size label. No cycle/duration or cost per day anywhere (Julia, 2026-11-09).
  */
-function ProductFactsLine({
-  product,
-  className = "",
-  countOnly = false,
-}: {
-  product: ListingProduct;
-  className?: string;
-  /** Preview: capsule count only, no cycle/duration or cost per day. */
-  countOnly?: boolean;
-}) {
-  if (countOnly) {
-    const label = packageCountLabel(product);
-    return label ? (
-      <p className={`text-xs text-gray-500 leading-snug ${className}`} data-testid="product-facts">
-        {label}
-      </p>
-    ) : null;
-  }
+function ProductFactsLine({ product, className = "" }: { product: ListingProduct; className?: string }) {
   const firstVariant = product.variants?.find((v) => v.inStock !== false) ?? product.variants?.[0];
-  const facts = getProductFacts(product, undefined, firstVariant?.priceUSD ?? product.priceUSD);
-  const parts = [
-    facts.sizeLabel,
-    facts.coverageLabel,
-    typeof facts.costPerDayUSD === "number" ? `$${facts.costPerDayUSD.toFixed(2)}/day` : undefined,
-  ].filter((p): p is string => Boolean(p));
-  if (parts.length === 0) return null;
-  return (
+  const label = packageCountLabel(product) ?? getProductFacts(product, undefined, firstVariant?.priceUSD ?? product.priceUSD).sizeLabel;
+  return label ? (
     <p className={`text-xs text-gray-500 leading-snug ${className}`} data-testid="product-facts">
-      {parts.join(" · ")}
+      {label}
     </p>
-  );
+  ) : null;
 }
 
 /** Small "In stock" tag for in-stock items; nothing for 2-week or out-of-stock items. */
@@ -262,7 +239,7 @@ export function ProductGridCard({
           </p>
         )}
 
-        <ProductFactsLine product={product} className="mb-2" countOnly={formulaPreview} />
+        <ProductFactsLine product={product} className="mb-2" />
         <StockTag product={product} className="-mt-1 mb-2" />
         {/* Stars only from approved reviews; nothing when there are none. */}
         <RatingStars summary={reviewSummary} className="mb-3" />
@@ -338,7 +315,7 @@ export function ProductListRow({
             <p className="text-xs text-gray-500 line-clamp-2 mb-2">
               {product.description}
             </p>
-            <ProductFactsLine product={product} className="mb-2" countOnly={formulaPreview} />
+            <ProductFactsLine product={product} className="mb-2" />
             <StockTag product={product} className="-mt-1 mb-2" />
             {!(formulaPreview && isFormulaPreviewPdp(product.id)) && product.benefits && product.benefits.length > 0 && (
               <div className="flex flex-wrap gap-1.5">

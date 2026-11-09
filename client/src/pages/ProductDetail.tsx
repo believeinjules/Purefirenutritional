@@ -40,8 +40,8 @@ import { lazy, Suspense } from "react";
 import PreorderBadge from "@/components/PreorderBadge";
 import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
 import { FormulaPdpBody } from "@/components/shop/FormulaPdpSections";
-import { FORMULA_EXPLAINER_HREF, isFormulaPreviewPdp } from "@/data/formulaType";
-import { FORMULA_PDP_CONTENT, PREVIEW_REMOVED_FAQ } from "@/data/formulaPreviewContent";
+import { FORMULA_EXPLAINER_HREF, formulaTypeFor, isFormulaPreviewPdp, isPrimePeptide } from "@/data/formulaType";
+import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
 import { packageCountLabel } from "@/lib/productFacts";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
@@ -184,10 +184,12 @@ export default function ProductDetail() {
   // Key Benefits: soft-worded pdp.formulatedFor when written, else the catalog benefits list already shown on the page.
   const keyBenefits: string[] = pdp?.formulatedFor?.length ? pdp.formulatedFor : product.benefits ?? [];
   const ingredientList = pdp?.ingredients?.length ? pdp.ingredients : product.ingredients;
-  // Preview template (Bonomarlot only). Every other product page renders as on main.
+  // Rolled-out template (ids in FORMULA_PDP_CONTENT). Every other product page renders as on main.
   const preview = isFormulaPreviewPdp(product.id) ? FORMULA_PDP_CONTENT[product.id] : undefined;
-  const previewPackage = preview ? packageCountLabel(product, selectedSize) : undefined;
-  const isCapsuleProduct = (product.variants ?? []).some((v: { name: string }) => /capsule/i.test(v.name));
+  // Capsule count only on every page: no cycle/duration or cost per day (Julia, 2026-11-09).
+  const packageLabel = packageCountLabel(product, selectedSize);
+  // Prime Peptide pages are frozen: their own facts strip and bundle picker stay as on main.
+  const primeFrozen = isPrimePeptide(product.id);
   const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
   const variantGallery = selectedVariant?.images?.filter((src: string) => src.length > 0) ?? [];
@@ -262,9 +264,11 @@ export default function ProductDetail() {
                     {product.category}
                   </span>
                   <FormulaTypeTag productId={product.id} className="py-1" />
-                  <a href={FORMULA_EXPLAINER_HREF} className="text-xs text-orange-600 hover:underline py-1" data-testid="pdp-explainer-link">
-                    Understanding the Formulas
-                  </a>
+                  {formulaTypeFor(product.id) && (
+                    <a href={FORMULA_EXPLAINER_HREF} className="text-xs text-orange-600 hover:underline py-1" data-testid="pdp-explainer-link">
+                      Understanding the Formulas
+                    </a>
+                  )}
                 </div>
               ) : (
                 <span className={`inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border ${getCategoryAccent()}`}>
@@ -322,20 +326,22 @@ export default function ProductDetail() {
                     {FULFILLMENT_PDP_LABEL[resolveFulfillment(product.id, product.fulfillment)]}
                   </p>
                 )}
-                {preview ? (
-                  previewPackage && (
-                    <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">{previewPackage}</p>
+                {primeFrozen ? (
+                  (facts.sizeLabel || facts.coverageLabel || facts.costPerDayUSD !== undefined) && (
+                    <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">
+                      {[
+                        facts.sizeLabel,
+                        facts.coverageLabel,
+                        facts.costPerDayUSD !== undefined ? `$${facts.costPerDayUSD.toFixed(2)}/day` : undefined,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
                   )
-                ) : (facts.sizeLabel || facts.coverageLabel || facts.costPerDayUSD !== undefined) && (
-                  <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">
-                    {[
-                      facts.sizeLabel,
-                      facts.coverageLabel,
-                      facts.costPerDayUSD !== undefined ? `$${facts.costPerDayUSD.toFixed(2)}/day` : undefined,
-                    ]
-                      .filter(Boolean)
-                      .join(" · ")}
-                  </p>
+                ) : (
+                  (packageLabel ?? facts.sizeLabel) && (
+                    <p className="text-sm text-gray-500 mt-1" data-testid="product-facts">{packageLabel ?? facts.sizeLabel}</p>
+                  )
                 )}
               </div>
 
@@ -348,7 +354,7 @@ export default function ProductDetail() {
                 />
               )}
 
-              {/* Cycle bundles (2 / 3 bottles of the selected size) */}
+              {/* Bundles (2 / 3 bottles of the selected size) */}
               <BundleSelector
                 product={product}
                 singlePriceUSD={currentPrice}
@@ -356,7 +362,8 @@ export default function ProductDetail() {
                 facts={facts}
                 value={activeBundle}
                 onChange={setBundle}
-                packageLabel={previewPackage}
+                packageLabel={packageLabel}
+                legacy={primeFrozen}
               />
 
               {/* Quantity + Add to cart */}
@@ -408,7 +415,7 @@ export default function ProductDetail() {
                   productId={product.id}
                   content={preview}
                   otherIngredients={(ingredientList ?? []).filter((x: string) => /^Other ingredients:/.test(x))}
-                  isCapsuleProduct={isCapsuleProduct}
+                  showDosageCourse={preview.dosageCourse}
                 />
               ) : pdp ? (
                 <section data-testid="pdp-overview">
@@ -477,7 +484,7 @@ export default function ProductDetail() {
                 {pdp && pdp.faq.length > 0 && (
                   <PdpAccordion title="Frequently Asked Questions" testId="pdp-faq">
                     <dl className="space-y-4">
-                      {pdp.faq.filter((f) => !preview || !PREVIEW_REMOVED_FAQ.includes(f.q)).map((f, i) => (
+                      {pdp.faq.filter((f) => !preview || !isPreviewRemovedFaq(product.name, f.q)).map((f, i) => (
                         <div key={i}>
                           <dt className="font-medium text-gray-900">{f.q}</dt>
                           <dd className="mt-1 text-gray-600 leading-relaxed">{f.a}</dd>

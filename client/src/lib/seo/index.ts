@@ -7,9 +7,9 @@
  * (shared/product-prices.ts), so rich-result prices match what Stripe charges.
  */
 import { variantCartSize } from "@shared/product-prices";
-import { getPdpContent } from "@shared/product-facts";
+import { getPdpContent, getProductFacts } from "@shared/product-facts";
 import { isFormulaPreviewPdp } from "@/data/formulaType";
-import { PREVIEW_REMOVED_FAQ } from "@/data/formulaPreviewContent";
+import { isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
 import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 
@@ -496,8 +496,10 @@ export function faqPageJsonLd(items: ReadonlyArray<{ question: string; answer: s
 
 /** FAQPage structured data from the written PDP FAQs (same text the page renders). */
 export function productFaqJsonLd(id: string): Record<string, unknown>[] {
-  // Preview page (Bonomarlot) hides two FAQs; the schema must match what the page shows.
-  const faq = getPdpContent(id)?.faq?.filter((f) => !isFormulaPreviewPdp(id) || !PREVIEW_REMOVED_FAQ.includes(f.q));
+  // Rolled-out pages hide two FAQs; the schema must match what the page shows.
+  const pdp = getPdpContent(id);
+  const name = getProductFacts(id)?.name ?? "";
+  const faq = pdp?.faq?.filter((f) => !isFormulaPreviewPdp(id) || !isPreviewRemovedFaq(name, f.q));
   if (!faq?.length) return [];
   return [faqPageJsonLd(faq.map((f) => ({ question: f.q, answer: f.a })))];
 }

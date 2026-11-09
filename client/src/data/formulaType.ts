@@ -6,8 +6,8 @@
  *                          Derived from the collection tags in productTags.ts.
  *  - Combination Formula = Revilab ML 01–09, Revilab SL 01–10 and the Prime Peptide line.
  *
- * PREVIEW GATE: only /products and the Bonomarlot product page show any of this
- * (FORMULA_PREVIEW_PDP_IDS). Every other page renders exactly as on main.
+ * PREVIEW GATE: only /products and the rolled-out product pages show any of this
+ * (FORMULA_PREVIEW_PDP_IDS = ids with copy in FORMULA_PDP_CONTENT). Every other page renders as on main.
  *
  * LABEL WORDING RULE. The repo has no photographed labels or Supplement Facts
  * panels; the label-derived source we use is `composition` in
@@ -28,7 +28,7 @@
 import { isHiddenProduct } from "@shared/hidden-products";
 import { PRODUCT_FACTS } from "@shared/product-facts";
 import { tagsFor } from "./productTags";
-import { BONOMARLOT_BROCHURE_DIRECTIONS, type DirectionsSource } from "./formulaPreviewContent";
+import { FORMULA_PDP_CONTENT } from "./formulaPreviewContent";
 
 export type FormulaType = "focused" | "combination";
 
@@ -48,7 +48,7 @@ export const FORMULA_EXPLAINER_ID = "understanding-the-formulas";
 export const FORMULA_EXPLAINER_HREF = `/products#${FORMULA_EXPLAINER_ID}`;
 
 /** Product pages that show the new treatment. Everything else is unchanged. */
-export const FORMULA_PREVIEW_PDP_IDS: ReadonlySet<string> = new Set(["bonomarlot"]);
+export const FORMULA_PREVIEW_PDP_IDS: ReadonlySet<string> = new Set(Object.keys(FORMULA_PDP_CONTENT));
 export function isFormulaPreviewPdp(id: string): boolean {
   return FORMULA_PREVIEW_PDP_IDS.has(id);
 }
@@ -268,14 +268,16 @@ export interface CompareColumn {
   directions?: string;
 }
 
-/** Directions from sources other than product-facts (plain-text attribution, never a link). */
-const OTHER_DIRECTIONS: Record<string, DirectionsSource> = { bonomarlot: BONOMARLOT_BROCHURE_DIRECTIONS };
-
+/**
+ * Directions for the compare table: verified product-facts text first, else the
+ * attributed source used on that product's rolled-out page (plain text, never a link).
+ */
 export function verifiedDirectionsFor(id: string): string | undefined {
   const md = PRODUCT_FACTS[id]?.manufacturerDirections;
   if (md?.status === "verified" && md.text) return md.text;
-  const other = OTHER_DIRECTIONS[id];
-  return other ? `${other.text} ${other.short}` : undefined;
+  const src = FORMULA_PDP_CONTENT[id]?.manufacturerDirections.source;
+  if (!src) return undefined;
+  return src.short ? `${src.text} ${src.short}` : src.text;
 }
 
 function compositionOf(id: string): string[] {

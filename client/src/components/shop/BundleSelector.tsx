@@ -21,6 +21,7 @@ export default function BundleSelector({
   value,
   onChange,
   packageLabel,
+  legacy = false,
 }: {
   product: BundleOverrideFields & BundleSizingFields;
   singlePriceUSD: number | undefined;
@@ -30,10 +31,12 @@ export default function BundleSelector({
   value: BundleChoice;
   onChange: (choice: BundleChoice) => void;
   /**
-   * Preview (Bonomarlot): e.g. "20 Capsules". Options read "20 Capsules" / "2 × 20 Capsules" /
-   * "3 × 20 Capsules" and no "Covers …" / cycle notes are shown.
+   * e.g. "20 Capsules". Options read "20 Capsules" / "2 × 20 Capsules" / "3 × 20 Capsules";
+   * without it they read "1 bottle" / "N bottles".
    */
   packageLabel?: string;
+  /** Prime Peptide (frozen): main-branch titles, legend and coverage notes. */
+  legacy?: boolean;
 }) {
   if (typeof singlePriceUSD !== "number" || !Number.isFinite(singlePriceUSD)) return null;
   const offers = getBundleOffers(product, singlePriceUSD, { size });
@@ -41,14 +44,16 @@ export default function BundleSelector({
 
   const singleCents = Math.round(singlePriceUSD * 100);
 
-  /** Coverage note only when dosing data exists. */
+  // Package selection shows capsule counts and prices only (Julia, 2026-11-09): no
+  // "Covers …" / cycle notes. Prime Peptide pages are frozen and keep the main-branch UI.
   const coverage = (bottles: number): string | undefined => {
-    if (packageLabel || !facts?.daysPerBottle) return undefined;
+    if (!legacy || !facts?.daysPerBottle) return undefined;
     if (facts.bottlesPerCycle && facts.bottlesPerCycle > 1 && bottles === facts.bottlesPerCycle && facts.cycleDays) {
       return `Full ${facts.cycleDays}-day cycle`;
     }
     return `Covers ${facts.daysPerBottle * bottles} days`;
   };
+  const label = legacy ? undefined : packageLabel;
 
   const options: Array<{
     bottles: BundleChoice;
@@ -57,10 +62,10 @@ export default function BundleSelector({
     perBottle?: number;
     savings?: number;
   }> = [
-    { bottles: 1, title: packageLabel ?? "1 bottle", total: singleCents },
+    { bottles: 1, title: label ?? "1 bottle", total: singleCents },
     ...offers.map((o) => ({
       bottles: o.bottles as BundleChoice,
-      title: packageLabel ? `${o.bottles} × ${packageLabel}` : `${o.bottles} bottles`,
+      title: label ? `${o.bottles} × ${label}` : `${o.bottles} bottles`,
       total: o.bundleCents,
       perBottle: o.bottleCents,
       savings: o.savingsCents,
@@ -69,7 +74,7 @@ export default function BundleSelector({
 
   return (
     <fieldset className="space-y-2" data-testid="bundle-selector">
-      <legend className="text-sm font-medium text-gray-700 mb-2">{packageLabel ? "Bundles" : "Cycle bundles"}</legend>
+      <legend className="text-sm font-medium text-gray-700 mb-2">{legacy ? "Cycle bundles" : "Bundles"}</legend>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2" role="radiogroup">
         {options.map((opt) => {
           const selected = value === opt.bottles;

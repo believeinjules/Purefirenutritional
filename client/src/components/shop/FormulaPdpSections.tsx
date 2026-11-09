@@ -11,11 +11,11 @@ const h2 = "text-lg font-semibold text-gray-900 mb-3 pb-2 border-b";
 const body = "text-gray-600 leading-relaxed";
 
 /**
- * Shared "Dosage & Course Information" for capsule products. Never renders for Prime
- * Peptide products. (In this mock it is only mounted on the Bonomarlot page.)
+ * Shared "Dosage & Course Information" for capsule/tablet products. Never renders for
+ * Prime Peptide products. Mounted only on rolled-out pages.
  */
-export function DosageCourseInfo({ productId, isCapsuleProduct }: { productId: string; isCapsuleProduct: boolean }) {
-  if (isPrimePeptide(productId) || !isCapsuleProduct) return null;
+export function DosageCourseInfo({ productId, show }: { productId: string; show: boolean }) {
+  if (isPrimePeptide(productId) || !show) return null;
   return (
     <section data-testid="pdp-dosage-course" aria-labelledby="pdp-dosage-course-h">
       <h2 id="pdp-dosage-course-h" className={h2}>{DOSAGE_COURSE_HEADING}</h2>
@@ -33,13 +33,13 @@ export function FormulaPdpBody({
   productId,
   content,
   otherIngredients,
-  isCapsuleProduct,
+  showDosageCourse,
 }: {
   productId: string;
   content: FormulaPdpContent;
   /** Existing label line(s) such as "Other ingredients: …", kept as they are on the page today. */
   otherIngredients: string[];
-  isCapsuleProduct: boolean;
+  showDosageCourse: boolean;
 }) {
   const { manufacturerDirections: md } = content;
   return (
@@ -93,7 +93,7 @@ export function FormulaPdpBody({
         <p className="mt-3 text-xs text-gray-500" data-testid="pdp-fda">{FDA_DISCLAIMER}</p>
       </section>
 
-      <DosageCourseInfo productId={productId} isCapsuleProduct={isCapsuleProduct} />
+      <DosageCourseInfo productId={productId} show={showDosageCourse} />
     </>
   );
 }
