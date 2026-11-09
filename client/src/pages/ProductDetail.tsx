@@ -38,7 +38,7 @@ import SimilarProducts from "@/components/shop/SimilarProducts";
 import { getPublicProtocol, goalsWithData } from "@/data/protocols";
 import { lazy, Suspense } from "react";
 import PreorderBadge from "@/components/PreorderBadge";
-import { HowItCompares, ProductTypeTag } from "@/components/shop/ProductTypeParts";
+import { HowItCompares, FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
 import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
@@ -252,7 +252,7 @@ export default function ProductDetail() {
                 <span className={`inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border ${getCategoryAccent()}`}>
                   {product.category}
                 </span>
-                <ProductTypeTag productId={product.id} className="py-1" />
+                <FormulaTypeTag productId={product.id} className="py-1" />
               </div>
 
               <h1 className="text-3xl font-bold text-gray-900 leading-tight">{product.name}</h1>
@@ -275,7 +275,6 @@ export default function ProductDetail() {
                   ))}
                 </p>
               )}
-              <HowItCompares productId={product.id} />
               {pdp?.lineCode && (
                 <div className="space-y-2" data-testid="pdp-header">
                   <p className="text-base text-gray-700">{pdp.title.split(" | ")[1]}</p>
@@ -368,6 +367,8 @@ export default function ProductDetail() {
                 </Button>
               </div>
 
+              {/* "How it compares": own block below Add to Cart, away from facts/usage/condition copy */}
+              <HowItCompares productId={product.id} className="border-t border-gray-200 pt-5" />
             </div>
           </div>
 

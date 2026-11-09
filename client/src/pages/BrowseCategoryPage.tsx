@@ -8,11 +8,12 @@ import { Breadcrumbs, Intro } from "@/components/category/CategoryParts";
 import { useReviewSummaries } from "@/lib/reviewsApi";
 import { useState } from "react";
 import {
-  ProductTypeExplainer,
-  ProductTypeFilter,
-  matchesProductType,
-  type ProductTypeFilterValue,
-} from "@/components/shop/ProductTypeParts";
+  FormulaTypeExplainer,
+  FormulaTypeFilter,
+  formulaTypeCounts,
+  matchesFormulaType,
+  type FormulaTypeFilterValue,
+} from "@/components/shop/FormulaTypeParts";
 import { shortDescription, useCategoryCatalog } from "@/lib/categoryCatalog";
 import { breadcrumbJsonLd, collectionPageJsonLd, type Crumb } from "@/lib/seo/category";
 import {
@@ -44,20 +45,16 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
   const page = getBrowsePage(kind, params.slug);
   const catalog = useCategoryCatalog();
   const reviewSummaries = useReviewSummaries();
-  const [productType, setProductType] = useState<ProductTypeFilterValue>("all");
+  const [formulaType, setFormulaType] = useState<FormulaTypeFilterValue>("all");
   if (!page) return <NotFound />;
 
   const path = browsePath(page);
   const copy = copyFor(path);
   const allItems = pageProducts(page, catalog);
-  const typeCounts = {
-    all: allItems.length,
-    targeted: allItems.filter((p) => matchesProductType(p.id, "targeted")).length,
-    "broad-spectrum": allItems.filter((p) => matchesProductType(p.id, "broad-spectrum")).length,
-  };
+  const typeCounts = formulaTypeCounts(allItems.map((p) => p.id));
   // Only offer the filter when the page actually mixes both types.
-  const showTypeFilter = typeCounts.targeted > 0 && typeCounts["broad-spectrum"] > 0;
-  const items = showTypeFilter ? allItems.filter((p) => matchesProductType(p.id, productType)) : allItems;
+  const showTypeFilter = typeCounts.single > 0 && typeCounts.blend > 0;
+  const items = showTypeFilter ? allItems.filter((p) => matchesFormulaType(p.id, formulaType)) : allItems;
   const crumbs: Crumb[] = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/products" },
@@ -88,7 +85,7 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
 
         <div className="max-w-7xl mx-auto px-4 py-8">
           {showTypeFilter && (
-            <ProductTypeFilter value={productType} onChange={setProductType} counts={typeCounts} />
+            <FormulaTypeFilter value={formulaType} onChange={setFormulaType} counts={typeCounts} />
           )}
           <p className="text-sm text-gray-400 mb-5">
             {items.length} product{items.length !== 1 ? "s" : ""}
@@ -103,7 +100,7 @@ export default function BrowseCategoryPage({ kind }: { kind: BrowseKind }) {
             ))}
           </div>
 
-          {(typeCounts.targeted > 0 || typeCounts["broad-spectrum"] > 0) && <ProductTypeExplainer className="mt-12" />}
+          {(typeCounts.single > 0 || typeCounts.blend > 0) && <FormulaTypeExplainer className="mt-12" />}
 
           <section className="mt-12" aria-labelledby="related-browse">
             <h2 id="related-browse" className="text-lg font-semibold text-gray-900 mb-3">{siblings.heading}</h2>

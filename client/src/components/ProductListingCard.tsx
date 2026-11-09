@@ -6,7 +6,7 @@ import PreorderBadge from "@/components/PreorderBadge";
 import { FULFILLMENT_CARD_LABEL, resolveFulfillment } from "@shared/fulfillment";
 import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 import type { ReviewSummary } from "@shared/reviews";
-import { ProductTypeTag } from "@/components/shop/ProductTypeParts";
+import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
 
 export type ListingProduct = {
   id: string;
@@ -214,7 +214,7 @@ export function ProductGridCard({
           >
             {getCategoryShort(product.category)}
           </span>
-          <ProductTypeTag productId={product.id} />
+          <FormulaTypeTag productId={product.id} />
         </div>
         <PreorderBadge productId={product.id} className="mb-1.5 w-fit" />
         <Link href={`/products/${product.id}`} className="block py-1 mb-0.5">
@@ -292,7 +292,7 @@ export function ProductListRow({
             >
               {getCategoryShort(product.category)}
             </span>
-            <ProductTypeTag productId={product.id} className="ml-2" />
+            <FormulaTypeTag productId={product.id} className="ml-2" />
             <PreorderBadge productId={product.id} className="ml-2" />
             <Link href={`/products/${product.id}`} className="block py-1 mt-0.5">
               <h3 className="font-semibold text-sm hover:text-orange-600 transition-colors">

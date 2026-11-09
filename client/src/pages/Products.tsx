@@ -24,11 +24,12 @@ import { products as catalogProducts } from "@/data/products";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { useReviewSummaries } from "@/lib/reviewsApi";
 import {
-  ProductTypeExplainer,
-  ProductTypeFilter,
-  matchesProductType,
-  type ProductTypeFilterValue,
-} from "@/components/shop/ProductTypeParts";
+  FormulaTypeExplainer,
+  FormulaTypeFilter,
+  formulaTypeCounts,
+  matchesFormulaType,
+  type FormulaTypeFilterValue,
+} from "@/components/shop/FormulaTypeParts";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -65,7 +66,7 @@ export default function Products() {
   const [sortBy, setSortBy] = useState("name-asc");
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [productType, setProductType] = useState<ProductTypeFilterValue>("all");
+  const [formulaType, setFormulaType] = useState<FormulaTypeFilterValue>("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   // Build-time prerender (no window): list the code catalog so the static HTML
   // links every product page. In the browser this starts empty and loads as before.
@@ -115,7 +116,7 @@ export default function Products() {
       result = result.filter((p) => (system ? productInSystem(p, system) : p.category === activeCategory));
     }
 
-    if (productType !== "all") result = result.filter((p) => matchesProductType(p.id, productType));
+    if (formulaType !== "all") result = result.filter((p) => matchesFormulaType(p.id, formulaType));
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -147,16 +148,9 @@ export default function Products() {
     }
 
     return result;
-  }, [products, activeCategory, productType, searchQuery, sortBy, reviewSummaries]);
+  }, [products, activeCategory, formulaType, searchQuery, sortBy, reviewSummaries]);
 
-  const typeCounts = useMemo(
-    () => ({
-      all: products.length,
-      targeted: products.filter((p) => matchesProductType(p.id, "targeted")).length,
-      "broad-spectrum": products.filter((p) => matchesProductType(p.id, "broad-spectrum")).length,
-    }),
-    [products]
-  );
+  const typeCounts = useMemo(() => formulaTypeCounts(products.map((p) => p.id)), [products]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: products.length };
@@ -313,7 +307,7 @@ export default function Products() {
             </Link>
           </nav>
 
-          <ProductTypeFilter value={productType} onChange={setProductType} counts={typeCounts} />
+          <FormulaTypeFilter value={formulaType} onChange={setFormulaType} counts={typeCounts} />
 
           {activeSystem && <SystemIntro system={activeSystem} />}
 
@@ -333,7 +327,7 @@ export default function Products() {
               <Button
                 variant="outline"
                 className="mt-4 rounded-full"
-                onClick={() => { setSearchQuery(""); setActiveCategory("all"); setProductType("all"); }}
+                onClick={() => { setSearchQuery(""); setActiveCategory("all"); setFormulaType("all"); }}
               >
                 Clear filters
               </Button>
@@ -352,7 +346,7 @@ export default function Products() {
             </div>
           )}
 
-          <ProductTypeExplainer className="mt-12" />
+          <FormulaTypeExplainer className="mt-12" />
         </div>
       </main>
 
