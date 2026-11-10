@@ -15,7 +15,7 @@ describe("product facts (data-only)", () => {
   });
 
   it("Testoluten 20 caps: 3 bottles make the 30-day course", () => {
-    const f = getProductFacts(byId("testoluten"), "20", 59.99);
+    const f = getProductFacts(byId("testoluten"), "20", 58.99);
     expect(f.bottlesPerCycle).toBe(3);
     expect(f.coverageLabel).toBe("10 days · 3 bottles = one 30-day cycle");
   });

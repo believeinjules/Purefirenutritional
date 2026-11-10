@@ -8,10 +8,11 @@ import {
 } from "react";
 import { Product } from "@/data/products";
 import { getCartLineUnitUSD } from "@shared/product-prices";
+import { bottlesInBundle, parseCartBundle, type CartBundleKind } from "@shared/bundle-pricing";
 import { fetchProducts } from "@/lib/productsStorage";
 
-/** 2 or 3 = a cycle bundle of that many bottles; absent = single bottle. */
-export type CartBundle = 2 | 3;
+/** Storefront pack ("2x60" | "60+20") or Prime cycle bundle (2 | 3). Absent = single bottle. */
+export type CartBundle = CartBundleKind;
 
 export interface CartItem {
   product: Product;
@@ -45,7 +46,12 @@ function sameLine(item: CartItem, productId: string, size?: string, bundle?: Car
 }
 
 function normalizeBundle(value: unknown): CartBundle | undefined {
-  return value === 2 || value === 3 ? value : undefined;
+  try {
+    const parsed = parseCartBundle(value);
+    return parsed === 1 ? undefined : parsed;
+  } catch {
+    return undefined;
+  }
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -199,7 +205,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const unavailable =
           item.bundle && getCartLineUnitUSD(item.product, item.size, item.bundle) === undefined;
         const line: CartItem = unavailable
-          ? { product: item.product, size: item.size, quantity: item.quantity * (item.bundle as number) }
+          ? { product: item.product, size: item.size, quantity: item.quantity * bottlesInBundle(item.bundle) }
           : item;
         const at = unavailable
           ? next.findIndex((n) => sameLine(n, line.product.id, line.size, null))

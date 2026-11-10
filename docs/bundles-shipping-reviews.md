@@ -12,22 +12,20 @@
 | 3-bottle bundle | $8 off each bottle | approved |
 | `minDiscountedShareOfPrice` | 0.8 | a bundle is not offered if it would take more than 20% off a bottle (protects very low-priced items, e.g. $8.99 / $19.99 products) |
 
-Every bundle discount must be between **$3 and $9 per bottle** (`BUNDLE_DISCOUNT_LIMITS_USD`).
-A value outside that range is never clamped; that bundle is simply not offered.
+### Storefront packs (20/60 products, Julia 2026-11-10)
+Buy More & Save appears **only when the 60-cap size is selected**. Options:
+
+- a single 60-cap bottle
+- **2 × 60 capsules** — priced at the Cerluten ratio $279 / $298.98 (~6.7% off two 60s), rounded to the nearest whole dollar
+- **60 + 20 capsules** — the 60-cap price plus ceil((20-cap price) / 2) in whole dollars (Cerluten: $149.49 + $28 = $177.49)
+
+2 × 20, 3 × 20 and 3 × 60 packs are not offered. Single-size products (Revilab ML/SL, nutritionals, cosmetics) have no Buy More & Save control. Prime Peptide keeps its frozen 2/3-bottle card picker at $4 / $8 off each bottle.
+
+Cerluten prices: 20-cap **$55.00**, 60-cap **$149.49**, 2 × 60 **$279.00**, 60 + 20 **$177.49**.
+
+The larger-size guard in `getBundleOffer` still applies to Prime / legacy 2- and 3-bottle packs (hidden, never repriced; a hidden bundle at checkout → HTTP 400). Every legacy per-bottle discount must stay between **$3 and $9** (`BUNDLE_DISCOUNT_LIMITS_USD`).
 
 Single-bottle prices are **not** in this file and are never changed by it.
-
-### Larger-size guard (a bundle never undercuts a bigger bottle)
-`shared/bundle-pricing.ts → getBundleOffer` hides (never reprices) a bundle when its total is
-**less than or equal to** the single price of a larger size of the same product whose capsule
-count is the same or fewer than the bundle's total capsules. Example: 3 × 20 caps = 60 caps must cost
-more than one 60-cap bottle. Used by the product page, cart, and the server checkout (a hidden bundle → HTTP 400).
-A cart line holding a bundle that is no longer offered becomes the same number of single bottles.
-
-The 20-cap price on the $153.99 60-cap family was raised from $58.99 to $59.99 so the
-**3 × 20-cap bundle** ($155.97) sits above the unchanged 60-cap bottle and can be offered.
-The 60-cap price was not lowered. The guard remains as a safety net if live prices would
-again let a smaller-size bundle undercut a larger bottle.
 
 ### Per-product overrides (optional, Firestore `products/{id}` or `products.ts`)
 - `bundlesEnabled: false` → no bundles for that product
@@ -36,7 +34,7 @@ again let a smaller-size bundle undercut a larger bottle.
 Writable through `PATCH /api/admin/products` (validated in `api/_lib/admin-products.ts`).
 
 ## How checkout prices a bundle (server-side)
-The cart sends `{ productId, size, quantity, bundle: 2 | 3 }`, **never a price**.
+The cart sends `{ productId, size, quantity, bundle: "2x60" | "60+20" | 2 | 3 }`, **never a price**.
 `shared/product-prices.ts → resolveLineForProduct` takes the live single-bottle price
 (Firestore, code-catalog fallback), applies `shared/bundle-pricing.ts`:
 

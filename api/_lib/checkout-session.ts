@@ -27,11 +27,11 @@ export function merchandiseCentsFor(resolved: ResolvedCheckoutLine[]): number {
   return resolved.reduce((sum, item) => sum + item.unitAmountCents * item.quantity, 0);
 }
 
-/** "productId:size:bottles×qty" for every bundle line (session metadata, ≤500 chars). */
+/** "productId:size:kind×qty" for every bundle line (session metadata, ≤500 chars). */
 export function bundleSummary(resolved: ResolvedCheckoutLine[]): string {
   return resolved
     .filter((r) => r.bundleBottles > 1)
-    .map((r) => `${r.productId}:${r.size ?? "-"}:${r.bundleBottles}x${r.quantity}`)
+    .map((r) => `${r.productId}:${r.size ?? "-"}:${r.bundleKind ?? r.bundleBottles}x${r.quantity}`)
     .join(",");
 }
 
@@ -60,6 +60,7 @@ export function buildCheckoutSessionParams(input: CheckoutSessionInput) {
           size: item.size ?? "",
           variant_id: item.variantId ?? "",
           bundle_bottles: String(item.bundleBottles),
+          bundle_kind: item.bundleKind ?? "",
           single_bottle_cents: String(item.singleBottleCents),
           discount_per_bottle_cents: String(item.discountPerBottleCents),
         },

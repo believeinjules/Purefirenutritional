@@ -2,8 +2,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import BundleSelector, { bundleOptionLabel } from "./BundleSelector";
-import { getBundleOffer, getBundleOffers } from "@shared/bundle-pricing";
+import BundleSelector, { storefrontOptionLabel } from "./BundleSelector";
+import { getStorefrontBundleOffers } from "@shared/bundle-pricing";
 import { getProductById, type Product } from "@/data/products";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 
@@ -19,89 +19,39 @@ const product = (overrides: Partial<Product> & { priceUSD?: number; variants?: P
       { id: "60-count", name: "60 Capsules", priceUSD: 199.99, priceEUR: 0, inStock: true },
     ],
     ...overrides,
-  }) as BundleSelectorProduct;
-
-type BundleSelectorProduct = Parameters<typeof BundleSelector>[0]["product"];
+  }) as Parameters<typeof BundleSelector>[0]["product"];
 
 function optionTexts(select: HTMLElement) {
   return within(select).getAllByRole("option").map((o) => o.textContent);
 }
 
-describe("bundleOptionLabel", () => {
-  it("formats the single bottle and bundle lines Julia asked for", () => {
-    expect(bundleOptionLabel({ bottles: 1, totalCents: 7799, singleBottleCents: 7799 })).toBe("1 bottle — $77.99");
+describe("storefrontOptionLabel", () => {
+  it("formats the 60-cap single and pack lines", () => {
+    expect(storefrontOptionLabel({ title: "1 bottle (60 capsules)", totalCents: 14949 })).toBe(
+      "1 bottle (60 capsules) — $149.49",
+    );
     expect(
-      bundleOptionLabel({ bottles: 2, totalCents: 14798, savingsCents: 800, singleBottleCents: 7799 }),
-    ).toBe("2 bottles — $147.98 (save 5%)");
+      storefrontOptionLabel({ title: "2 × 60 capsules", totalCents: 27900, savingsCents: 1998, regularCents: 29898 }),
+    ).toBe("2 × 60 capsules — $279.00 (save 7%)");
     expect(
-      bundleOptionLabel({ bottles: 3, totalCents: 20997, savingsCents: 2400, singleBottleCents: 7799 }),
-    ).toBe("3 bottles — $209.97 (save 10%)");
+      storefrontOptionLabel({ title: "60 + 20 capsules", totalCents: 17749, savingsCents: 2700, regularCents: 20449 }),
+    ).toBe("60 + 20 capsules — $177.49 (save 13%)");
   });
 });
 
-describe("BundleSelector (Buy More & Save dropdown)", () => {
-  it("is a labelled native <select> whose options use bottle count, price and save %", () => {
-    const onChange = vi.fn();
-    const p = product();
-    render(
-      <BundleSelector product={p} singlePriceUSD={77.99} size="20" value={1} onChange={onChange} />,
+describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
+  it("is hidden when the 20-cap size is selected", () => {
+    const { container } = render(
+      <BundleSelector product={product()} singlePriceUSD={77.99} size="20" value={1} onChange={() => {}} />,
     );
-    const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
-    expect(select.tagName).toBe("SELECT");
-    expect(select.value).toBe("1");
-    const offers = getBundleOffers(p, 77.99, { size: "20" });
-    expect(offers.map((o) => o.bottles).sort()).toEqual([2, 3]);
-    expect(optionTexts(select)).toEqual([
-      "1 bottle — $77.99",
-      "2 bottles — $147.98 (save 5%)",
-      "3 bottles — $209.97 (save 10%)",
-    ]);
-    expect(screen.queryByText(/^Bundles$/)).toBeNull();
-    expect(screen.queryAllByRole("radio")).toHaveLength(0);
+    expect(container.innerHTML).toBe("");
+    expect(screen.queryByLabelText("Buy More & Save")).toBeNull();
   });
 
-  it("changing the dropdown passes the bundle size on", async () => {
-    const user = userEvent.setup();
-    const onChange = vi.fn();
-    render(
-      <BundleSelector product={product()} singlePriceUSD={77.99} size="20" value={1} onChange={onChange} />,
-    );
-    await user.selectOptions(screen.getByLabelText("Buy More & Save"), "2");
-    expect(onChange).toHaveBeenCalledWith(2);
-  });
-
-  it("Cerluten 20-cap: all three options are shown, and 3 bottles costs more than the 60-cap bottle", () => {
-    const cerluten = getProductById("cerluten")!;
-    const onChange = vi.fn();
-    render(
-      <BundleSelector product={cerluten} singlePriceUSD={59.99} size="20" value={1} onChange={onChange} />,
-    );
-    const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
-    expect(optionTexts(select)).toEqual([
-      "1 bottle — $59.99",
-      "2 bottles — $111.98 (save 7%)",
-      "3 bottles — $155.97 (save 13%)",
-    ]);
-    expect(getBundleOffers(cerluten, 59.99, { size: "20" }).map((o) => o.bottles)).toEqual([2, 3]);
-    expect(getCartLineUnitUSD(cerluten, "20", 3)).toBe(155.97);
-    expect(155.97).toBeGreaterThan(cerluten.variants!.find((v) => v.id === "60-count")!.priceUSD);
-  });
-
-  it("still hides a 3-bottle 20-cap option when that bundle would undercut the 60-cap price", () => {
-    // Safety net: previous $58.99 20-cap price against Cerluten's unchanged $153.99 60-cap bottle.
-    const cerluten = getProductById("cerluten")!;
-    render(
-      <BundleSelector product={cerluten} singlePriceUSD={58.99} size="20" value={1} onChange={() => {}} />,
-    );
-    const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
-    expect(optionTexts(select)).toEqual(["1 bottle — $58.99", "2 bottles — $109.98 (save 7%)"]);
-    expect(getBundleOffer(cerluten, 58.99, 3, { size: "20" })).toBeNull();
-  });
-
-  it("renders nothing when no bundle is offered", () => {
+  it("is hidden on a single-size product", () => {
     const { container } = render(
       <BundleSelector
-        product={product({ bundlesEnabled: false })}
+        product={product({ variants: [{ id: "20-count", name: "20 Capsules", priceUSD: 77.99, priceEUR: 0, inStock: true }] })}
         singlePriceUSD={77.99}
         size="20"
         value={1}
@@ -109,15 +59,54 @@ describe("BundleSelector (Buy More & Save dropdown)", () => {
       />,
     );
     expect(container.innerHTML).toBe("");
-    expect(screen.queryByLabelText("Buy More & Save")).toBeNull();
+  });
+
+  it("Cerluten 60-cap: labelled native <select> with 60, 2×60 and 60+20", () => {
+    const cerluten = getProductById("cerluten")!;
+    const onChange = vi.fn();
+    render(
+      <BundleSelector product={cerluten} singlePriceUSD={149.49} size="60" value={1} onChange={onChange} />,
+    );
+    const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
+    expect(select.tagName).toBe("SELECT");
+    expect(select.value).toBe("1");
+    expect(getStorefrontBundleOffers(cerluten).map((o) => o.kind)).toEqual(["2x60", "60+20"]);
+    expect(optionTexts(select)).toEqual([
+      "1 bottle (60 capsules) — $149.49",
+      "2 × 60 capsules — $279.00 (save 7%)",
+      "60 + 20 capsules — $177.49 (save 13%)",
+    ]);
+  });
+
+  it("changing the dropdown passes the pack kind on", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    const cerluten = getProductById("cerluten")!;
+    render(
+      <BundleSelector product={cerluten} singlePriceUSD={149.49} size="60" value={1} onChange={onChange} />,
+    );
+    await user.selectOptions(screen.getByLabelText("Buy More & Save"), "60+20");
+    expect(onChange).toHaveBeenCalledWith("60+20");
+  });
+
+  it("renders nothing when bundles are disabled", () => {
+    const { container } = render(
+      <BundleSelector
+        product={product({ bundlesEnabled: false })}
+        singlePriceUSD={199.99}
+        size="60"
+        value={1}
+        onChange={() => {}}
+      />,
+    );
+    expect(container.innerHTML).toBe("");
   });
 
   it("Prime Peptide (legacy) keeps the card picker and Cycle bundles legend", () => {
     render(
       <BundleSelector
-        product={product()}
-        singlePriceUSD={77.99}
-        size="20"
+        product={{ id: "prime-peptide-brain", name: "Prime", priceUSD: 139.99, variants: [] } as Parameters<typeof BundleSelector>[0]["product"]}
+        singlePriceUSD={139.99}
         value={1}
         onChange={() => {}}
         legacy
@@ -130,9 +119,8 @@ describe("BundleSelector (Buy More & Save dropdown)", () => {
   });
 });
 
-// ── Product page wiring: price display and Add to Cart follow the dropdown ──────────────
 const addToCart = vi.fn();
-let productId = "bonomarlot";
+let productId = "cerluten";
 vi.mock("wouter", async (orig) => ({ ...(await orig<typeof import("wouter")>()), useParams: () => ({ id: productId }) }));
 vi.mock("@/contexts/CartContext", () => ({ useCart: () => ({ addToCart, items: [] }) }));
 vi.mock("@/contexts/WishlistContext", () => ({ useWishlist: () => ({ addItem: vi.fn(), removeItem: vi.fn(), isInWishlist: () => false }) }));
@@ -158,31 +146,19 @@ async function renderPdp(id: string) {
   );
 }
 
-describe("product page Buy More & Save dropdown", () => {
-  it("Bonomarlot: choosing 2 bottles updates the Add to Cart total and payload", async () => {
+describe("product page Buy More & Save (60-cap only)", () => {
+  it("Cerluten 20-cap: no Buy More & Save; Add to Cart is a single 20", async () => {
     const user = userEvent.setup();
-    const p = getProductById("bonomarlot")!;
-    await renderPdp("bonomarlot");
-    const select = (await screen.findByLabelText("Buy More & Save")) as HTMLSelectElement;
-    expect(select.value).toBe("1");
-    expect(screen.getByRole("button", { name: /add to cart/i }).textContent).toMatch(/Add to Cart/i);
-
-    await user.selectOptions(select, "2");
-    await waitFor(() => expect(select.value).toBe("2"));
-    const total = getCartLineUnitUSD(p, "20", 2)!;
-    expect(screen.getByRole("button", { name: /add 2 bottles/i }).textContent).toBe(
-      `Add 2 bottles · $${total.toFixed(2)}`,
-    );
-
-    await user.click(screen.getByRole("button", { name: /add 2 bottles/i }));
+    await renderPdp("cerluten");
+    expect(screen.queryByLabelText("Buy More & Save")).toBeNull();
+    await user.click(screen.getByRole("button", { name: /^add to cart$/i }));
     expect(addToCart).toHaveBeenCalledTimes(1);
-    expect(addToCart.mock.calls[0][0].id).toBe("bonomarlot");
-    expect(addToCart.mock.calls[0][1]).toBe(1);
+    expect(addToCart.mock.calls[0][0].id).toBe("cerluten");
     expect(addToCart.mock.calls[0][2]).toBe("20");
-    expect(addToCart.mock.calls[0][3]).toBe(2);
+    expect(addToCart.mock.calls[0][3]).toBeUndefined();
   });
 
-  it("Cerluten 60-cap: choosing 3 bottles adds a 3-bottle bundle of the 60 size", async () => {
+  it("Cerluten 60-cap: choosing 60 + 20 updates the Add to Cart total and payload", async () => {
     const user = userEvent.setup();
     const p = getProductById("cerluten")!;
     const v60 = p.variants!.find((v) => v.id === "60-count")!;
@@ -191,32 +167,20 @@ describe("product page Buy More & Save dropdown", () => {
     await user.selectOptions(size, v60.id);
     await waitFor(() => expect(size.value).toBe(v60.id));
 
-    const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
-    expect(optionTexts(select)).toEqual([
-      "1 bottle — $153.99",
-      "2 bottles — $299.98 (save 3%)",
-      "3 bottles — $437.97 (save 5%)",
-    ]);
-    await user.selectOptions(select, "3");
-    await waitFor(() => expect(select.value).toBe("3"));
-    const total = getCartLineUnitUSD(p, "60", 3)!;
-    expect(screen.getByRole("button", { name: /add 3 bottles/i }).textContent).toBe(
-      `Add 3 bottles · $${total.toFixed(2)}`,
+    const select = (await screen.findByLabelText("Buy More & Save")) as HTMLSelectElement;
+    expect(optionTexts(select)[2]).toBe("60 + 20 capsules — $177.49 (save 13%)");
+    await user.selectOptions(select, "60+20");
+    await waitFor(() => expect(select.value).toBe("60+20"));
+    const total = getCartLineUnitUSD(p, "60", "60+20")!;
+    expect(total).toBe(177.49);
+    expect(screen.getByRole("button", { name: /add 60 \+ 20 ·/i }).textContent).toBe(
+      `Add 60 + 20 · $${total.toFixed(2)}`,
     );
 
-    await user.click(screen.getByRole("button", { name: /add 3 bottles/i }));
+    await user.click(screen.getByRole("button", { name: /add 60 \+ 20 ·/i }));
     expect(addToCart).toHaveBeenCalledTimes(1);
     expect(addToCart.mock.calls[0][0].id).toBe("cerluten");
     expect(addToCart.mock.calls[0][2]).toBe("60");
-    expect(addToCart.mock.calls[0][3]).toBe(3);
-  });
-
-  it("a single bottle still adds with no bundle argument", async () => {
-    const user = userEvent.setup();
-    await renderPdp("bonomarlot");
-    await screen.findByLabelText("Buy More & Save");
-    await user.click(screen.getByRole("button", { name: /^add to cart$/i }));
-    expect(addToCart).toHaveBeenCalledTimes(1);
-    expect(addToCart.mock.calls[0][3]).toBeUndefined();
+    expect(addToCart.mock.calls[0][3]).toBe("60+20");
   });
 });

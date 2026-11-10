@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { getCartLineUnitUSD, getUnitPriceUSD } from "@shared/product-prices";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
-import { bundleLabel, getBundleOffer } from "@shared/bundle-pricing";
+import { bundleLabel, bundleLineTitle, bottlesInBundle, resolveBundleOffer } from "@shared/bundle-pricing";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import PreorderBadge from "@/components/PreorderBadge";
@@ -60,9 +60,23 @@ export default function Cart() {
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => {
                 const single = getUnitPriceUSD(item.product, item.size);
-                const offer = item.bundle ? getBundleOffer(item.product, single, item.bundle, { size: item.size }) : null;
+                const resolved = item.bundle
+                  ? resolveBundleOffer(item.product, single, item.bundle, { size: item.size })
+                  : null;
+                const storefront = resolved && (resolved.kind === "2x60" || resolved.kind === "60+20") ? resolved.offer : null;
+                const legacy = resolved && (resolved.kind === 2 || resolved.kind === 3) ? resolved.offer : null;
                 const lineUnit = getCartLineUnitUSD(item.product, item.size, item.bundle);
                 const bundleArg = item.bundle ?? null;
+                const regularUSD = storefront
+                  ? storefront.regularCents / 100
+                  : legacy
+                    ? (legacy.singleBottleCents * legacy.bottles) / 100
+                    : undefined;
+                const savingsUSD = storefront
+                  ? storefront.savingsCents / 100
+                  : legacy
+                    ? legacy.savingsCents / 100
+                    : undefined;
                 return (
                 <Card key={`${item.product.id}-${item.size}-${item.bundle ?? 1}`}>
                   <CardContent className="p-4 flex gap-4">
@@ -74,12 +88,14 @@ export default function Cart() {
                     {/* Product Info */}
                     <div className="flex-1">
                       <Link href={`/product/${item.product.id}`}>
-                        <h3 className="font-semibold hover:text-orange-600 transition-colors">
-                          {item.product.name}
+                        <h3 className="font-semibold hover:text-orange-600 transition-colors" data-testid="cart-line-title">
+                          {item.bundle && resolved ? bundleLineTitle(item.product.name, resolved.kind) : item.product.name}
                         </h3>
                       </Link>
                       <p className="text-sm text-gray-500">{item.product.category}</p>
+                      {!item.bundle && (
                       <p className="text-sm text-gray-500">Size: {item.size} caps</p>
+                      )}
                       {isPreorderProduct(item.product.id) && (
                         <p className="text-sm text-gray-700 mt-1" data-testid="cart-preorder-note">
                           <PreorderBadge productId={item.product.id} className="mr-2" />
@@ -89,18 +105,18 @@ export default function Cart() {
                       {item.bundle && (
                         <p className="text-sm text-gray-700 mt-1" data-testid="cart-bundle-line">
                           <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-800 mr-2">
-                            {bundleLabel(item.bundle)}
+                            {bundleLabel(resolved?.kind ?? item.bundle)}
                           </span>
-                          {offer
-                            ? `${item.bundle} bottles · $${(offer.discountPerBottleCents / 100).toFixed(2)} off each · you save $${(offer.savingsCents / 100).toFixed(2)}`
+                          {resolved && savingsUSD !== undefined
+                            ? `You save ${formatCartUSD(savingsUSD)}`
                             : "This bundle is no longer available. Please remove it and add single bottles."}
                         </p>
                       )}
                       <p className="text-orange-600 font-bold mt-1">
                         {formatCartUSD(lineUnit)}
-                        {item.bundle && offer && (
+                        {item.bundle && resolved && regularUSD !== undefined && (
                           <span className="ml-2 text-xs font-normal text-gray-400 line-through">
-                            {formatCartUSD((offer.singleBottleCents * item.bundle) / 100)}
+                            {formatCartUSD(regularUSD)}
                           </span>
                         )}
                       </p>
@@ -157,7 +173,7 @@ export default function Cart() {
                   
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-gray-600">
-                      <span>Subtotal ({items.reduce((acc, item) => acc + item.quantity * (item.bundle ?? 1), 0)} bottles)</span>
+                      <span>Subtotal ({items.reduce((acc, item) => acc + item.quantity * bottlesInBundle(item.bundle ?? 1), 0)} bottles)</span>
                       <span>{formatCartUSD(getTotal())}</span>
                     </div>
                     <div className="flex justify-between text-gray-600">

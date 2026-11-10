@@ -9,8 +9,10 @@ import {
   BundleInputError,
   getBundleOffer,
   getBundleOffers,
+  getStorefrontBundleOffer,
   largerSizeFloorCents,
   parseBundleSize,
+  parseCartBundle,
   readBundleOverrides,
   unitsPerBottle,
 } from "./bundle-pricing";
@@ -146,15 +148,15 @@ describe("bundle input validation", () => {
   });
 
   it("ignores any client-sent price for bundles", async () => {
+    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
     const [line] = await resolveCheckoutLinesWith(
-      [{ productId: "vladonix", size: "20", quantity: 1, bundle: 2, price: 1 } as never],
-      async () => new Map([["vladonix", cytomax]])
+      [{ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20", price: 1 } as never],
+      async () => new Map([["cerluten", cerluten]])
     );
-    expect(line.unitAmountCents).toBe(10998);
+    expect(line.unitAmountCents).toBe(17749);
     expect(line.bundleBottles).toBe(2);
-    expect(line.discountPerBottleCents).toBe(400);
-    expect(line.singleBottleCents).toBe(5899);
-    expect(line.name).toBe("Vladonix (20 Capsules) — 2-bottle bundle");
+    expect(line.bundleKind).toBe("60+20");
+    expect(line.name).toBe("Cerluten 60 + 20 capsules");
   });
 
   it("prices from the live (Firestore) price, not the code catalog", async () => {
@@ -168,48 +170,50 @@ describe("bundle input validation", () => {
   });
 
   it("display helper matches checkout", () => {
-    expect(getCartLineUnitUSD(cytomax, "20", 2)).toBe(109.98);
-    expect(getCartLineUnitUSD(cytomax, "20", 3)).toBeUndefined(); // hidden: would undercut the 60-cap bottle
-    expect(getCartLineUnitUSD(cytomax, "20")).toBe(58.99);
-    expect(getCartLineUnitUSD(cytomax, "20", 7)).toBeUndefined();
+    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
+    expect(getCartLineUnitUSD(cerluten, "20")).toBe(55);
+    expect(getCartLineUnitUSD(cerluten, "20", "60+20")).toBeUndefined();
+    expect(getCartLineUnitUSD(cerluten, "20", 2)).toBeUndefined();
+    expect(getCartLineUnitUSD(cerluten, "60", "60+20")).toBe(177.49);
+    expect(getCartLineUnitUSD(cerluten, "60", "2x60")).toBe(279);
+    expect(getCartLineUnitUSD(cerluten, "20", 7)).toBeUndefined();
   });
 });
 
 describe("Stripe session params (server-side amounts)", () => {
   const origin = "https://example.test";
 
-  it("charges the bundle price per bundle and records bundle metadata", async () => {
+  it("charges the pack price per pack and records bundle metadata", async () => {
+    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
     const resolved = await resolveCheckoutLinesWith(
-      [{ productId: "vladonix", size: "20", quantity: 1, bundle: 2 }],
-      async () => new Map([["vladonix", cytomax]])
+      [{ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20" }],
+      async () => new Map([["cerluten", cerluten]])
     );
     const { params, merchandiseCents, shippingCents } = buildCheckoutSessionParams({ resolved, origin });
-    expect(params.line_items[0].price_data.unit_amount).toBe(10998);
+    expect(params.line_items[0].price_data.unit_amount).toBe(17749);
     expect(params.line_items[0].quantity).toBe(1);
+    expect(params.line_items[0].price_data.product_data.name).toBe("Cerluten 60 + 20 capsules");
     expect(params.line_items[0].price_data.product_data.metadata).toMatchObject({
-      product_id: "vladonix",
-      size: "20",
+      product_id: "cerluten",
+      size: "60",
       bundle_bottles: "2",
-      single_bottle_cents: "5899",
-      discount_per_bottle_cents: "400",
+      bundle_kind: "60+20",
     });
-    expect(params.metadata.bundles).toBe("vladonix:20:2x1");
-    expect(merchandiseCents).toBe(10998);
-    // $109.98 is under $150 → flat $19.95
-    expect(shippingCents).toBe(1995);
-    expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(1995);
+    expect(params.metadata.bundles).toBe("cerluten:60:60+20x1");
+    expect(merchandiseCents).toBe(17749);
+    // $177.49 is at/above $150 → free shipping
+    expect(shippingCents).toBe(0);
+    expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
   });
 
-  it("applies free shipping at/above $150 after bundle discounts", async () => {
+  it("applies free shipping at/above $150 after pack discounts", async () => {
+    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
     const resolved = await resolveCheckoutLinesWith(
-      [
-        { productId: "vladonix", size: "20", quantity: 1, bundle: 2 },
-        { productId: "vladonix", size: "20", quantity: 1 },
-      ],
-      async () => new Map([["vladonix", cytomax]])
+      [{ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20" }],
+      async () => new Map([["cerluten", cerluten]])
     );
     const { params, merchandiseCents } = buildCheckoutSessionParams({ resolved, origin });
-    expect(merchandiseCents).toBe(10998 + 5899);
+    expect(merchandiseCents).toBe(17749);
     expect(params.shipping_options).toHaveLength(1);
     expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
     expect(params.shipping_options[0].shipping_rate_data.display_name).toBe("Free shipping");
@@ -274,10 +278,19 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
     expect(getBundleOffer(p(125.99), 50, 3, { size: "20" })!.bundleCents).toBe(12600);
   });
 
-  it("charges the 3 × 20 Gotratix bundle now that it is above the 60-cap bottle", () => {
-    expect(getCartLineUnitUSD(gotratix, "20", 3)).toBe(155.97);
-    expect(resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 3 }).unitAmountCents).toBe(15597);
-    expect(resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 2 }).unitAmountCents).toBe(11198);
+  it("charges Gotratix 2 × 60 and 60 + 20; a 3 × 20 pack is not offered", () => {
+    expect(getCartLineUnitUSD(gotratix, "20", 3)).toBeUndefined();
+    expect(() => resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 3 })).toThrow(
+      CheckoutValidationError,
+    );
+    const two = getStorefrontBundleOffer(gotratix, "2x60")!;
+    const combo = getStorefrontBundleOffer(gotratix, "60+20")!;
+    expect(resolveCheckoutLine({ productId: "gotratix", size: "60", quantity: 1, bundle: "2x60" }).unitAmountCents).toBe(
+      two.bundleCents,
+    );
+    expect(resolveCheckoutLine({ productId: "gotratix", size: "60", quantity: 1, bundle: "60+20" }).unitAmountCents).toBe(
+      combo.bundleCents,
+    );
   });
 
   it("does not reprice — a bundle that still undercuts a larger size is unavailable at checkout (→ 400)", async () => {

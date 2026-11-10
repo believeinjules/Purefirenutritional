@@ -31,8 +31,8 @@ async function lookupWithTimeout(ids: string[]): Promise<Map<string, PriceablePr
 /**
  * POST /api/stripe/create-checkout-session
  * Guest checkout supported (no auth required).
- * Prices are resolved server-side — client price is ignored. Cycle bundles
- * (items[].bundle = 2 | 3) and free shipping are also computed here.
+ * Prices are resolved server-side — client price is ignored. Bundles (items[].bundle = "2x60" | "60+20" | 2 | 3) and free shipping
+ * are also computed here.
  * Source of truth: Firestore `products/{id}` (Admin SDK), falling back to the
  * code catalog (client/src/data/products.ts) when Firestore is unavailable or
  * the doc is missing / malformed.

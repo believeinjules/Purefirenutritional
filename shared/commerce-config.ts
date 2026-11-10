@@ -5,10 +5,14 @@
  * page) and the server (/api/stripe/create-checkout-session) read this file, so
  * what the shopper sees is exactly what Stripe charges.
  *
- * Current values (approved by Julia, Oct 2026):
+ * Current values:
  *   - free shipping at or above $150 merchandise subtotal
- *   - 2-bottle bundle: $4 off each bottle
- *   - 3-bottle bundle: $8 off each bottle
+ *   - 20/60 products (Julia, 2026-11-10): Buy More & Save only on the 60-cap
+ *     size, with 2 × 60 and 60 + 20 packs. 2 × 60 is priced at the Cerluten
+ *     ratio $279 / $298.98 (~6.7% off), rounded to the nearest dollar.
+ *     60 + 20 is the 60-cap price plus ceil((20-cap price) / 2) in whole dollars.
+ *   - Prime Peptide (frozen): still uses 2- and 3-bottle cycle bundles at
+ *     $4 / $8 off each bottle of that product's single size.
  *
  * Single-bottle prices are NOT set here. They come from Firestore `products`
  * (code catalog fallback) and are never changed by this file.
@@ -77,6 +81,14 @@ export function isAllowedBundleDiscount(value: unknown): value is number {
 export function toCents(usd: number): number {
   return Math.round(usd * 100);
 }
+
+
+/**
+ * Cerluten's undiscounted 2 × 60 ($149.49 × 2) and the $279 sale price Julia
+ * set. Every other 20/60 product's 2 × 60 pack is (2 × its 60-cap price) times
+ * this ratio, rounded to the nearest whole dollar.
+ */
+export const TWO_X60_REFERENCE = { regularUSD: 298.98, saleUSD: 279 } as const;
 
 export const STANDARD_SHIPPING_CENTS_CONFIG = toCents(COMMERCE_CONFIG.standardShippingUSD);
 export const FREE_SHIPPING_THRESHOLD_CENTS_CONFIG = toCents(COMMERCE_CONFIG.freeShippingThresholdUSD);

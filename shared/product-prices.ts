@@ -12,10 +12,11 @@
 import { products } from "../client/src/data/products.js";
 import {
   BundleInputError,
-  bundleLabel,
-  getBundleOffer,
-  parseBundleSize,
+  bundleLineTitle,
+  parseCartBundle,
+  resolveBundleOffer,
   type BundleOverrideFields,
+  type StorefrontBundle,
 } from "./bundle-pricing.js";
 
 /** Cart convention: "20" = 20-count, "60" = 60-count. */
@@ -45,9 +46,10 @@ export type CheckoutLineInput = {
   variantId?: string;
   quantity: number;
   /**
-   * Cycle bundle: 2 or 3 bottles of this product/size (missing or 1 = single
-   * bottle). `quantity` then counts bundles. The bundle price is computed here
-   * from the live single-bottle price + COMMERCE_CONFIG — never sent by the client.
+   * Bundle kind: "2x60" | "60+20" (20/60 products, 60-cap size), or 2 | 3
+   * (Prime Peptide cycle bundles). Missing or 1 = single bottle. `quantity`
+   * then counts packs. The pack price is computed here from live single-bottle
+   * prices — never sent by the client.
    */
   bundle?: number | string | null;
   /** Ignored for charging — kept for backwards compatibility with older clients */
@@ -67,11 +69,13 @@ export type ResolvedCheckoutLine = {
   variantId?: string;
   /** "20" | "60" when the product is sold in sizes. */
   size?: CartSize;
-  /** Bottles per unit charged: 1, or 2 / 3 for a cycle bundle. */
+  /** Bottles per pack charged: 1, or 2 for a storefront pack / Prime 2-bottle, or 3 for Prime 3-bottle. */
   bundleBottles: number;
-  /** Single-bottle price in cents (before any bundle discount). */
+  /** Storefront pack kind, or "2" / "3" for Prime cycle bundles; omitted for a single bottle. */
+  bundleKind?: StorefrontBundle | 2 | 3;
+  /** Single-bottle price in cents (the selected size, before any pack discount). */
   singleBottleCents: number;
-  /** Bundle discount per bottle in cents (0 for single bottles). */
+  /** Legacy per-bottle discount in cents (0 for storefront packs and single bottles). */
   discountPerBottleCents: number;
 };
 
@@ -208,9 +212,9 @@ export function resolveLineForProduct(
   const baseName = variant ? `${product.name} (${variant.name})` : product.name;
   const lineSize = variant ? variantCartSize(variant) : undefined;
 
-  let bundleBottles: 1 | 2 | 3;
+  let parsed;
   try {
-    bundleBottles = parseBundleSize(item.bundle);
+    parsed = parseCartBundle(item.bundle);
   } catch (err) {
     if (err instanceof BundleInputError) {
       throw new CheckoutValidationError(`Invalid bundle option for ${product.name}`);
@@ -218,7 +222,7 @@ export function resolveLineForProduct(
     throw err;
   }
 
-  if (bundleBottles === 1) {
+  if (parsed === 1) {
     return {
       productId: product.id,
       name: baseName,
@@ -235,27 +239,32 @@ export function resolveLineForProduct(
     };
   }
 
-  const offer = getBundleOffer(product, singlePriceUSD, bundleBottles, { size: lineSize ?? size });
-  if (!offer) {
+  const resolved = resolveBundleOffer(product, singlePriceUSD, parsed, { size: lineSize ?? size });
+  if (!resolved) {
     throw new CheckoutValidationError(
-      `${bundleLabel(bundleBottles)} is not available for ${product.name}`
+      `${typeof parsed === "string" ? parsed : `${parsed}-bottle bundle`} is not available for ${product.name}`
     );
   }
+  const { kind, offer, bottles } = resolved;
+  const title = bundleLineTitle(product.name, kind);
+  const descPrefix =
+    "kind" in offer && (kind === "2x60" || kind === "60+20")
+      ? `${offer.label}, you save $${(offer.savingsCents / 100).toFixed(2)}.`
+      : `${bottles} bottles, $${((offer as { discountPerBottleCents: number }).discountPerBottleCents / 100).toFixed(2)} off each.`;
   return {
     productId: product.id,
-    name: `${baseName} — ${bundleLabel(bundleBottles)}`,
-    description: `${bundleBottles} bottles, $${(offer.discountPerBottleCents / 100).toFixed(2)} off each. ${(
-      product.description || ""
-    )}`.slice(0, 500),
+    name: title,
+    description: `${descPrefix} ${(product.description || "")}`.slice(0, 500),
     image: (variant?.image || product.image) ?? undefined,
     unitPriceUSD: offer.bundleCents / 100,
     unitAmountCents: offer.bundleCents,
     quantity,
     variantId: variant?.id,
     size: lineSize,
-    bundleBottles,
+    bundleBottles: bottles,
+    bundleKind: kind,
     singleBottleCents,
-    discountPerBottleCents: offer.discountPerBottleCents,
+    discountPerBottleCents: "discountPerBottleCents" in offer ? offer.discountPerBottleCents : 0,
   };
 }
 
@@ -271,15 +280,15 @@ export function getCartLineUnitUSD(
 ): number | undefined {
   const single = getUnitPriceUSD(product, size);
   if (!isValidPrice(single)) return undefined;
-  let bottles: 1 | 2 | 3;
+  let parsed;
   try {
-    bottles = parseBundleSize(bundle);
+    parsed = parseCartBundle(bundle);
   } catch {
     return undefined;
   }
-  if (bottles === 1) return single;
-  const offer = getBundleOffer(product, single, bottles, { size });
-  return offer ? offer.bundleCents / 100 : undefined;
+  if (parsed === 1) return single;
+  const resolved = resolveBundleOffer(product, single, parsed, { size });
+  return resolved ? resolved.offer.bundleCents / 100 : undefined;
 }
 
 function assertItems(items: unknown): asserts items is CheckoutLineInput[] {

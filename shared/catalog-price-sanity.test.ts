@@ -1,80 +1,77 @@
 import { describe, expect, it } from "vitest";
 import { allProducts } from "../client/src/data/products";
 import { isHiddenProduct } from "./hidden-products";
-import { getBundleOffer, unitsPerBottle } from "./bundle-pricing";
+import {
+  addon20Cents,
+  getStorefrontBundleOffer,
+  hasSizePair,
+  sizePairCents,
+  twoX60PriceCents,
+  unitsPerBottle,
+} from "./bundle-pricing";
+import { toCents } from "./commerce-config";
 
-/**
- * Merchandising rules (Julia, 2026-11-09):
- * - The larger size must always be the best per-unit deal.
- * - A bundle of smaller bottles whose total units meet or exceed a larger size
- *   must cost more than that larger bottle (so the offer can be shown, and the
- *   larger bottle stays the better buy). Fix by raising the smaller size only;
- *   never lower a larger-size price.
- */
-describe("catalog size and bundle price sanity", () => {
-  const sized = allProducts.flatMap((p) => {
-    const variants = (p.variants ?? [])
-      .map((v) => {
-        const units = unitsPerBottle(v);
-        return units && typeof v.priceUSD === "number" ? { id: v.id, units, priceUSD: v.priceUSD } : null;
-      })
-      .filter((v): v is { id: string; units: number; priceUSD: number } => v !== null);
-    return variants.length >= 2 ? [{ product: p, hidden: isHiddenProduct(p), variants }] : [];
+describe("catalog size and storefront pack sanity", () => {
+  const pairs = allProducts
+    .filter((p) => hasSizePair(p))
+    .map((p) => ({ product: p, hidden: isHiddenProduct(p), pair: sizePairCents(p)! }));
+
+  it("finds the 20/60 products", () => {
+    expect(pairs.length).toBeGreaterThan(0);
   });
 
-  it("every multi-size product has at least one 20/60 (or other unit) pair to check", () => {
-    expect(sized.length).toBeGreaterThan(0);
-  });
-
-  it("the larger size is always the better per-unit price, and the smaller size is not more expensive in total", () => {
+  it("the 60-cap bottle is always the better per-capsule price, and costs more in total than the 20", () => {
     const failures: string[] = [];
-    for (const { product, hidden, variants } of sized) {
-      for (const a of variants) {
-        for (const b of variants) {
-          if (a.units >= b.units) continue;
-          const perA = a.priceUSD / a.units;
-          const perB = b.priceUSD / b.units;
-          const tag = `${product.id}${hidden ? " [hidden]" : ""} ${a.units}u @ $${a.priceUSD.toFixed(2)} vs ${b.units}u @ $${b.priceUSD.toFixed(2)}`;
-          if (perA < perB - 1e-9) failures.push(`${tag}: smaller is cheaper per unit ($${perA.toFixed(4)} < $${perB.toFixed(4)})`);
-          if (a.priceUSD >= b.priceUSD) failures.push(`${tag}: smaller costs as much or more in total`);
-        }
+    for (const { product, hidden, pair } of pairs) {
+      const per20 = pair.p20 / 20;
+      const per60 = pair.p60 / 60;
+      const tag = `${product.id}${hidden ? " [hidden]" : ""}`;
+      if (per20 < per60 - 1e-9) failures.push(`${tag}: 20 is cheaper per cap`);
+      if (pair.p20 >= pair.p60) failures.push(`${tag}: 20 costs as much or more than 60`);
+    }
+    expect(failures, failures.join("\n")).toEqual([]);
+  });
+
+  it("2 × 60 and 60 + 20 are offered, cheaper than buying separately, and more than a single 60", () => {
+    const failures: string[] = [];
+    for (const { product, hidden, pair } of pairs) {
+      const tag = `${product.id}${hidden ? " [hidden]" : ""}`;
+      const two = getStorefrontBundleOffer(product, "2x60");
+      const combo = getStorefrontBundleOffer(product, "60+20");
+      if (!two) failures.push(`${tag}: 2×60 not offered`);
+      else {
+        if (two.bundleCents !== twoX60PriceCents(pair.p60)) failures.push(`${tag}: 2×60 formula mismatch`);
+        if (two.bundleCents >= two.regularCents) failures.push(`${tag}: 2×60 is not a discount`);
+        if (two.bundleCents <= pair.p60) failures.push(`${tag}: 2×60 does not cost more than one 60`);
+      }
+      if (!combo) failures.push(`${tag}: 60+20 not offered`);
+      else {
+        if (combo.bundleCents !== pair.p60 + addon20Cents(pair.p20)) failures.push(`${tag}: 60+20 formula mismatch`);
+        if (combo.bundleCents >= combo.regularCents) failures.push(`${tag}: 60+20 is not a discount`);
+        if (combo.bundleCents <= pair.p60) failures.push(`${tag}: 60+20 does not cost more than one 60`);
       }
     }
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("a 3-bottle (or 2-bottle) smaller-size bundle never undercuts a larger bottle of ≤ the same units, so the offer can be shown", () => {
-    const failures: string[] = [];
-    for (const { product, hidden, variants } of sized) {
-      for (const a of variants) {
-        for (const bottles of [2, 3] as const) {
-          const totalUnits = a.units * bottles;
-          const offer = getBundleOffer(product, a.priceUSD, bottles, { size: String(a.units) });
-          const larger = variants.filter((b) => b.units > a.units && b.units <= totalUnits);
-          if (larger.length === 0) continue;
-          const floor = Math.max(...larger.map((b) => b.priceUSD));
-          const tag = `${product.id}${hidden ? " [hidden]" : ""} ${bottles}×${a.units} vs larger @ $${floor.toFixed(2)}`;
-          if (!offer) {
-            failures.push(`${tag}: bundle is hidden (would not beat the larger bottle). Raise the ${a.units}-count price.`);
-            continue;
-          }
-          if (offer.bundleCents / 100 <= floor + 1e-9) {
-            failures.push(`${tag}: offered bundle $${(offer.bundleCents / 100).toFixed(2)} ≤ larger bottle`);
-          }
-        }
-      }
-    }
-    expect(failures, failures.join("\n")).toEqual([]);
+  it("Cerluten uses the prices Julia set: $55 / $149.49 / $279 / $177.49", () => {
+    const p = allProducts.find((x) => x.id === "cerluten")!;
+    const pair = sizePairCents(p)!;
+    expect(pair.p20).toBe(5500);
+    expect(pair.p60).toBe(14949);
+    expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents).toBe(27900);
+    expect(getStorefrontBundleOffer(p, "60+20")!.bundleCents).toBe(17749);
+    expect(addon20Cents(5500)).toBe(2800);
   });
 
-  it("20-cap prices in 20/60 pairs use charm pricing ending in .99", () => {
+  it("20-cap prices end in .99 except Cerluten ($55.00)", () => {
     const failures: string[] = [];
-    for (const { product, variants } of sized) {
-      for (const v of variants) {
-        if (v.units !== 20) continue;
-        const cents = Math.round(v.priceUSD * 100);
-        if (cents % 100 !== 99) failures.push(`${product.id} 20-count is $${v.priceUSD.toFixed(2)}, not x.99`);
+    for (const { product, pair } of pairs) {
+      if (product.id === "cerluten") {
+        expect(pair.p20).toBe(5500);
+        continue;
       }
+      if (pair.p20 % 100 !== 99) failures.push(`${product.id} 20-count is ${(pair.p20 / 100).toFixed(2)}, not x.99`);
     }
     expect(failures, failures.join("\n")).toEqual([]);
   });

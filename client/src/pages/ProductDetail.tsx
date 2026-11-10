@@ -16,6 +16,7 @@ import { fetchProductById, Product } from "@/lib/productsStorage";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import VariantSelector from "@/components/VariantSelector";
 import BundleSelector, { type BundleChoice } from "@/components/shop/BundleSelector";
+import { bundleLabel } from "@shared/bundle-pricing";
 import RatingStars from "@/components/shop/RatingStars";
 import { getProductFacts } from "@/lib/productFacts";
 import { useReviewSummaries } from "@/lib/reviewsApi";
@@ -108,6 +109,11 @@ export default function ProductDetail() {
     loadProduct();
   }, [id]);
 
+  // Buy More & Save is 60-cap only; leaving that size (or the product) clears the pack choice.
+  useEffect(() => {
+    setBundle(1);
+  }, [id, selectedVariant?.id]);
+
   const loadProduct = async () => {
     if (!id) return;
     // Keep the catalog render on screen while the live product loads.
@@ -173,9 +179,9 @@ export default function ProductDetail() {
   const facts = getProductFacts(product, selectedVariant ? selectedSize : undefined, currentPrice);
   // Bundle line total (display only; checkout recomputes it server-side).
   // A bundle that is not offered for the selected size falls back to a single bottle.
-  const bundleOfferTotal = bundle > 1 ? getCartLineUnitUSD(product, selectedSize, bundle) : undefined;
-  const activeBundle: BundleChoice = bundle > 1 && bundleOfferTotal === undefined ? 1 : bundle;
-  const bundleTotal = activeBundle > 1 ? bundleOfferTotal : currentPrice;
+  const bundleOfferTotal = bundle !== 1 ? getCartLineUnitUSD(product, selectedSize, bundle) : undefined;
+  const activeBundle: BundleChoice = bundle !== 1 && bundleOfferTotal === undefined ? 1 : bundle;
+  const bundleTotal = activeBundle !== 1 ? bundleOfferTotal : currentPrice;
   // Full PDP copy (shared/product-facts.json → pdp), when written for this product.
   const pdp = getPdpContent(product.id);
   // Decision (2026-10-14): conflicting/held directions show "Follow the directions on your package.";
@@ -365,7 +371,7 @@ export default function ProductDetail() {
                 </p>
               )}
 
-              {/* Buy More & Save: native dropdown (2 / 3 bottles of the selected size) */}
+              {/* Buy More & Save: only when the 60-cap size is selected (20/60 products). */}
               <BundleSelector
                 product={product}
                 singlePriceUSD={currentPrice}
@@ -377,9 +383,10 @@ export default function ProductDetail() {
                 legacy={primeFrozen}
               />
 
-              {/* Quantity + Add to cart */}
-              <div className="flex gap-3">
-                <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+              {/* Quantity + Add to cart. On a narrow screen the ATC button goes
+                  on its own row so long pack labels ("Add 60 + 20 · $177.49") fit. */}
+              <div className="flex flex-wrap gap-3">
+                <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden shrink-0">
                   <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3 py-2 hover:bg-gray-50 transition-colors">
                     <Minus size={16} />
                   </button>
@@ -394,21 +401,21 @@ export default function ProductDetail() {
                       toast.error("This product's price is unavailable, so it can't be added.");
                       return;
                     }
-                    if (activeBundle > 1 && bundleTotal === undefined) {
+                    if (activeBundle !== 1 && bundleTotal === undefined) {
                       toast.error("This bundle is not available for this size.");
                       return;
                     }
-                    addToCart(product, quantity, selectedSize, activeBundle > 1 ? (activeBundle as 2 | 3) : undefined);
-                    toast.success(activeBundle > 1 ? `${activeBundle}-bottle bundle added to cart!` : 'Added to cart!');
+                    addToCart(product, quantity, selectedSize, activeBundle !== 1 ? activeBundle : undefined);
+                    toast.success(activeBundle !== 1 ? `${bundleLabel(activeBundle)} added to cart!` : 'Added to cart!');
                   }}
-                  className="flex-1 bg-gray-900 hover:bg-orange-600 transition-colors"
+                  className="basis-full w-full order-last sm:order-none sm:basis-0 sm:w-auto sm:flex-1 min-w-0 bg-gray-900 hover:bg-orange-600 transition-colors text-sm sm:text-base"
                 >
                   <ShoppingCart className="mr-2" size={16} />
-                  {activeBundle > 1 && typeof bundleTotal === "number"
-                    ? `Add ${activeBundle} bottles · $${(bundleTotal * quantity).toFixed(2)}`
+                  {activeBundle !== 1 && typeof bundleTotal === "number"
+                    ? `Add ${bundleLabel(activeBundle).replace(/ capsules$/, "")} · $${(bundleTotal * quantity).toFixed(2)}`
                     : "Add to Cart"}
                 </Button>
-                <Button onClick={handleWishlistToggle} variant="outline" size="icon" className="h-11 w-11" aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"} aria-pressed={inWishlist}>
+                <Button onClick={handleWishlistToggle} variant="outline" size="icon" className="h-11 w-11 shrink-0" aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"} aria-pressed={inWishlist}>
                   <Heart size={16} className={inWishlist ? "fill-red-500 text-red-500" : ""} />
                 </Button>
               </div>
