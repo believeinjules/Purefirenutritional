@@ -365,7 +365,7 @@ export default function ProductDetail() {
                 </p>
               )}
 
-              {/* Bundles (2 / 3 bottles of the selected size) */}
+              {/* Buy More & Save: native dropdown (2 / 3 bottles of the selected size) */}
               <BundleSelector
                 product={product}
                 singlePriceUSD={currentPrice}
