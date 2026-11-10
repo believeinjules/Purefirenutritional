@@ -103,7 +103,7 @@ export function FormulaPdpBody({
 }
 
 /**
- * Streamlined readability (round 3, Bonomarlot only): darker gray-800 body text, a touch
+ * Streamlined readability (round 3): darker gray-800 body text, a touch
  * larger on mobile (17px) than the 16px/gray-600 template; secondary text gray-700 at
  * 15px mobile / 14px desktop; headings without rules.
  */
@@ -123,12 +123,15 @@ export function StreamlinedPdpBody({
   content,
   otherIngredients,
   faqs,
+  recommendedCombination,
 }: {
   productId: string;
   productName: string;
   content: FormulaPdpContent;
   otherIngredients: string[];
   faqs: { q: string; a: string }[];
+  /** Unchanged "Recommended combination…" sentence(s) from product.seriesInfo, when present. */
+  recommendedCombination?: string;
 }) {
   const st = content.streamlined!;
   const questions = doctorQuestionsWithout(st.omitDoctorQuestions);
@@ -159,16 +162,24 @@ export function StreamlinedPdpBody({
               <p key={p} className={STREAMLINED_BODY}>{p}</p>
             ))}
           </div>
-          <div className="mt-4" data-testid="pdp-labeled-directions">
-            <PdpAccordion title={st.labeledDirections.heading} nested>
-              <p className={`${STREAMLINED_SMALL} mb-1`}>{st.labeledDirections.attribution}</p>
-              <p className={STREAMLINED_BODY}>{st.labeledDirections.text}</p>
-            </PdpAccordion>
-          </div>
+          {st.labeledDirections && (
+            <div className="mt-4" data-testid="pdp-labeled-directions">
+              <PdpAccordion title={st.labeledDirections.heading} nested>
+                <p className={`${STREAMLINED_SMALL} mb-1`}>{st.labeledDirections.attribution}</p>
+                <p className={STREAMLINED_BODY}>{st.labeledDirections.text}</p>
+              </PdpAccordion>
+            </div>
+          )}
         </section>
       )}
 
       <CompareRelatedFormulas productId={productId} intro={content.compareIntro} compact />
+
+      {/* "Recommended combination" line from the catalog's product-line text, kept word for
+          word (not approved for change) when the product-line section is removed. */}
+      {recommendedCombination && (
+        <p className={STREAMLINED_SMALL} data-testid="pdp-recommended-combination">{recommendedCombination}</p>
+      )}
 
       <div className="rounded-xl border border-gray-200 px-4 md:px-5" data-testid="pdp-deeper-reading">
         <PdpAccordion title="Research & Evidence" testId="pdp-research">

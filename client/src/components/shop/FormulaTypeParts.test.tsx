@@ -7,7 +7,10 @@ import { DosageCourseInfo, FormulaPdpBody, StreamlinedPdpBody } from "./FormulaP
 import { ProductGridCard } from "@/components/ProductListingCard";
 import { getProductById } from "@/data/products";
 import { COMPARE_NOT_ESTABLISHED, counterpartsFor } from "@/data/formulaType";
-import { FDA_DISCLAIMER, FORMULA_PDP_CONTENT } from "@/data/formulaPreviewContent";
+import {
+  DOSAGE_COURSE_PARAGRAPHS, FDA_DISCLAIMER, FORMULA_PDP_CONTENT, RECOMMENDED_COMBINATION_IDS, recommendedCombinationLine,
+} from "@/data/formulaPreviewContent";
+import { INGREDIENTS_NOTE } from "@/data/pdpCopy/shared";
 
 vi.mock("@/components/QuickAddToCart", () => ({ default: () => null }));
 
@@ -134,5 +137,63 @@ describe("gating and shared parts", () => {
     expect(text).toContain("Is Bonomarlot an injectable peptide?");
     for (const a of Array.from(container.querySelectorAll("a"))) expect(a.getAttribute("href") ?? "").toMatch(/^\//);
     unmount();
+  });
+});
+
+describe("round 3 on every rolled-out capsule page", () => {
+  const MISSING_DIRECTIONS = [
+    "sigumir", "suprefort", "thyreogen", "vladonix",
+    "revilab-ml-01", "revilab-ml-02", "revilab-ml-03", "revilab-ml-04", "revilab-ml-05",
+    "revilab-ml-06", "revilab-ml-07", "revilab-ml-08", "revilab-ml-09",
+  ];
+
+  it("rolled out: 21 Cytomax + 6 Cytogen + 9 Revilab ML; never Prime, Revilab SL, Zinsil-T or hidden products", () => {
+    const ids = Object.keys(FORMULA_PDP_CONTENT);
+    expect(ids).toHaveLength(36);
+    for (const id of ids) expect(id, id).not.toMatch(/^(prime-peptide-|revilab-sl-)|^(zinsil-t|calsil-t|indosine|panaxod)$/);
+    for (const id of ids) expect(FORMULA_PDP_CONTENT[id].streamlined, id).toBeDefined();
+  });
+
+  it("labeled directions only from a brochure page; the others have no expander", () => {
+    const without = Object.keys(FORMULA_PDP_CONTENT).filter((id) => !FORMULA_PDP_CONTENT[id].streamlined!.labeledDirections).sort();
+    expect(without).toEqual([...MISSING_DIRECTIONS].sort());
+    for (const [id, c] of Object.entries(FORMULA_PDP_CONTENT)) {
+      const ld = c.streamlined!.labeledDirections;
+      if (!ld) continue;
+      const src = c.manufacturerDirections.source!;
+      expect(src.kind, id).toBe("brochure");
+      expect(ld.attribution, id).toBe(`As printed in the Cytomax and Cytogen product brochure (p. ${src.page}):`);
+      expect(ld.text, id).toBe(`"${src.text}"`);
+    }
+    expect(JSON.stringify(FORMULA_PDP_CONTENT.bonomarlot)).not.toMatch(/unconfirmed|TODO/i);
+  });
+
+  it("each page renders the streamlined body: order, FDA once, no doctor-cycle questions, recommended line kept word for word", () => {
+    for (const [id, c] of Object.entries(FORMULA_PDP_CONTENT)) {
+      const p = getProductById(id)!;
+      const rec = recommendedCombinationLine(id, p.seriesInfo);
+      const { container, unmount } = render(
+        <StreamlinedPdpBody productId={id} productName={p.name} content={c} otherIngredients={[]} faqs={[]} recommendedCombination={rec} />,
+      );
+      const text = container.textContent ?? "";
+      const order = ["Ingredients", INGREDIENTS_NOTE, "Biological Focus", "Dosage & Course Information", "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER];
+      const at = order.map((h) => text.indexOf(h));
+      expect(at.every((i) => i >= 0), `${id} ${JSON.stringify(at)}`).toBe(true);
+      expect([...at].sort((a, b) => a - b), id).toEqual(at);
+      expect(text.split(FDA_DISCLAIMER), id).toHaveLength(2);
+      expect(text, id).not.toMatch(/preventively|How long should one cycle|About This Product/);
+      expect(text.includes("Manufacturer's Labeled Directions"), id).toBe(Boolean(c.streamlined!.labeledDirections));
+      for (const p4 of DOSAGE_COURSE_PARAGRAPHS) expect(text, id).toContain(p4);
+      expect(Boolean(screen.queryByTestId("compare-related-formulas")), id).toBe(counterpartsFor(id).length > 0);
+      if (RECOMMENDED_COMBINATION_IDS.has(id)) {
+        expect(rec, id).toBeDefined();
+        expect(p.seriesInfo!.includes(rec!), id).toBe(true);
+        expect(screen.getByTestId("pdp-recommended-combination").textContent, id).toBe(rec);
+      } else {
+        expect(screen.queryByTestId("pdp-recommended-combination"), id).toBeNull();
+      }
+      for (const a of Array.from(container.querySelectorAll("a"))) expect(a.getAttribute("href") ?? "", id).toMatch(/^\//);
+      unmount();
+    }
   });
 });

@@ -15,6 +15,8 @@ export interface DirectionsSource {
   text: string;
   /** Short tag for the compare table. */
   short: string;
+  /** Brochure page number (brochure sources only). */
+  page?: number;
 }
 
 export interface FormulaPdpContent {
@@ -44,8 +46,11 @@ export interface FormulaPdpContent {
 export interface StreamlinedPdp {
   /** Small line under the active complex. */
   ingredientsNote: string;
-  /** Collapsible "Manufacturer's Labeled Directions" inside Dosage & Course Information. */
-  labeledDirections: { heading: string; attribution: string; text: string };
+  /**
+   * Collapsible "Manufacturer's Labeled Directions" inside Dosage & Course Information.
+   * Omitted (no expander) when no verifiable manufacturer source exists for the product.
+   */
+  labeledDirections?: { heading: string; attribution: string; text: string };
   /** "Safety & FAQs": merged Important Information + Safety + stop-use paragraphs, no repeats. */
   safety: string[];
   /** Default doctor questions left out on this page (exact text from DOCTOR_QUESTIONS). */
@@ -64,9 +69,66 @@ export function brochure(page: number, text: string): DirectionsSource {
     attribution: `As printed in the "Recommendations for use" section of the brochure "${BROCHURE_TITLE}" (p. ${page}):`,
     text,
     short: `(brochure, p. ${page})`,
+    page,
   };
 }
 
 export function manufacturer(text: string): DirectionsSource {
   return { kind: "manufacturer", attribution: "As listed by the manufacturer:", text, short: "" };
+}
+
+// ── Streamlined layout (round 3; Julia approved 2026-11-09) ─────────────────
+
+export const INGREDIENTS_NOTE = "Full ingredient list and amounts available on the product label.";
+export const LABELED_DIRECTIONS_HEADING = "Manufacturer's Labeled Directions";
+export const STOP_USE_LINE =
+  "If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.";
+/** Default doctor questions left out on streamlined pages (exact DOCTOR_QUESTIONS text). */
+export const OMIT_DOCTOR_QUESTIONS: readonly string[] = [
+  "Should I take this preventively or restoratively?",
+  "How long should one cycle be for me?",
+];
+/** Sentence of the product-facts safety paragraph already covered by the safety lead. */
+const CONSULT_SENTENCE = "Consult a healthcare professional before use, especially if you take medications or have a medical condition.";
+
+/** Safety lead (Julia's round-2 Bonomarlot wording, with the product's own name). */
+export function safetyLead(name: string): string {
+  return `${name} is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.`;
+}
+
+/** Labeled-directions expander from a brochure source: quoted exactly, with its page number. */
+export function brochureLabeledDirections(src: DirectionsSource): StreamlinedPdp["labeledDirections"] {
+  if (src.kind !== "brochure" || !src.page) throw new Error("brochureLabeledDirections needs a brochure source");
+  return {
+    heading: LABELED_DIRECTIONS_HEADING,
+    attribution: `As printed in the Cytomax and Cytogen product brochure (p. ${src.page}):`,
+    text: `"${src.text}"`,
+  };
+}
+
+/**
+ * Round-3 layout for one product: "About This Product" dropped, Important Information,
+ * the product's own safety paragraph (shared/product-facts.json pdp.safety, minus the
+ * consult sentence the lead already says) and the stop-use line merged into
+ * "Safety & FAQs"; labeled directions only from a brochure source (else no expander).
+ */
+export function streamline(
+  name: string,
+  copy: FormulaPdpContent,
+  productSafety: string | undefined,
+): FormulaPdpContent {
+  const lead = safetyLead(name);
+  const own = (productSafety ?? "").replace(CONSULT_SENTENCE, "").replace(/\s{2,}/g, " ").trim();
+  const src = copy.manufacturerDirections.source;
+  return {
+    ...copy,
+    about: undefined,
+    importantInformation: lead,
+    streamlined: {
+      ingredientsNote: INGREDIENTS_NOTE,
+      ...(src?.kind === "brochure" ? { labeledDirections: brochureLabeledDirections(src) } : {}),
+      safety: [lead, ...(own ? [own] : []), STOP_USE_LINE],
+      omitDoctorQuestions: [...OMIT_DOCTOR_QUESTIONS],
+    },
+  };
 }

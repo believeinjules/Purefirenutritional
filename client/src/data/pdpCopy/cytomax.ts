@@ -1,12 +1,13 @@
 /**
  * Khavinson Cytomax® product page copy (PROPOSAL, local only). Written per product from
  * shared/product-facts.json (composition, pdp copy) and the brochure notes
- * (/workspace/sources/khavinson-brochure-dosing-notes.md). Bonomarlot is Julia's template, verbatim.
+ * (/workspace/sources/khavinson-brochure-dosing-notes.md). Bonomarlot (round 3) is Julia's template, verbatim;
+ * every other page gets the same streamlined layout through streamline() with its own copy.
  */
-import { brochure, manufacturer, MANUFACTURER_DIRECTIONS_LINE as LINE, type FormulaPdpContent } from "./shared";
+import { PRODUCT_FACTS } from "@shared/product-facts";
+import { brochure, MANUFACTURER_DIRECTIONS_LINE as LINE, streamline, type FormulaPdpContent } from "./shared";
 
 const SUBLINE = "Khavinson Cytomax® | Focused Formula";
-const FOCUSED = "Formulation type: Focused peptide complex.";
 const REVIEW = "Review the complete product label and consult a qualified healthcare professional before use.";
 
 export const BONOMARLOT_BROCHURE_DIRECTIONS = brochure(
@@ -14,7 +15,7 @@ export const BONOMARLOT_BROCHURE_DIRECTIONS = brochure(
   "Bonomarlot® instructions: 1-2 capsules or tablets 1-2 times a day with meals. The duration of administration is 30 days. It is advisable to repeat the course in 3-6 months.",
 );
 
-export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
+const DRAFT: Record<string, FormulaPdpContent> = {
   bonomarlot: {
     title: "Bonomarlot® — A-20 Bone Marrow Peptide Complex",
     subline: SUBLINE,
@@ -24,7 +25,6 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     metaDescription:
       "Bonomarlot®: a bone marrow-derived peptide complex from the original Khavinson Cytomax collection, associated with research into blood cell formation.",
     ingredients: ["Active complex: A-20, derived from bone marrow."],
-    // TODO(julia): brochure p. 7 prints "Release form: 20 capsules or tablets containing 10 mg of BONOMARLOT®"; not verified against our label.
     biologicalFocus: {
       heading: "Bone marrow & hematopoietic system",
       body: "Bone marrow produces red and white blood cells and platelets, which are involved in oxygen transport, immune defense, and clotting. This is the biological system associated with Bonomarlot's tissue-derived peptide complex, not an established clinical effect of the finished product.",
@@ -43,7 +43,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
       ingredientsNote: "Full ingredient list and amounts available on the product label.",
       labeledDirections: {
         heading: "Manufacturer's Labeled Directions",
-        // TODO(julia): quote is from the brochure (p. 7); unconfirmed against the package label.
+        // Brochure p. 7, quoted exactly (Julia 2026-11-09: brochure labeled directions confirmed for use).
         attribution: "As printed in the Cytomax and Cytogen product brochure (p. 7):",
         text: `"${BONOMARLOT_BROCHURE_DIRECTIONS.text}"`,
       },
@@ -62,7 +62,6 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     flags: [
       "Amount per capsule not published: brochure p. 7 prints 10 mg per capsule or tablet; not verified against our label.",
       "product-facts.json marks directions \"conflicting\"; brochure p. 7 quoted instead.",
-      "Labeled directions quote is from the brochure; unconfirmed against the package label.",
     ],
   },
 
@@ -71,7 +70,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     subline: SUBLINE,
     snapshot:
       "A Khavinson Cytomax peptide bioregulator built around one natural extract: the A-21 peptide complex from parathyroid gland tissue.",
-    ingredients: ["Primary ingredient: A-21 parathyroid gland-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-21, derived from parathyroid gland tissue (natural extract)."],
     biologicalFocus: {
       heading: "Parathyroid glands & calcium balance",
       body: "The four parathyroid glands sit behind the thyroid and release parathyroid hormone, which helps keep blood calcium steady by acting on bone, the kidneys and the gut. Steady calcium levels matter for bones, muscles and nerves. Bonothyrk's tissue association places it within the broader research context of parathyroid function and mineral balance. This association does not establish that taking the product changes parathyroid hormone, calcium levels or bone density.",
@@ -97,7 +96,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     subline: SUBLINE,
     snapshot:
       "A Khavinson Cytomax peptide bioregulator containing a single natural extract, the A-5 peptide complex obtained from brain tissue.",
-    ingredients: ["Primary ingredient: A-5 brain-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-5, derived from brain tissue (natural extract)."],
     biologicalFocus: {
       heading: "Brain & nervous system",
       body: "The brain coordinates thought, memory, mood, sleep and movement, and its nerve cells use a large share of the body's energy. Those cells are also sensitive to stress and oxidative strain. Cerluten's tissue association places it within the broader research context of nerve-cell activity and the ageing nervous system. This association does not establish that taking the product improves memory, focus or any other brain function.",
@@ -124,7 +123,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Chelohart® — A-14 Heart Muscle Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator centered on A-14, a natural peptide complex from heart muscle tissue.",
-    ingredients: ["Primary ingredient: A-14 heart muscle-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-14, derived from heart muscle."],
     biologicalFocus: {
       heading: "Heart muscle & cardiovascular system",
       body: "The heart muscle contracts roughly 100,000 times a day to move oxygen- and nutrient-rich blood around the body, and its cells depend on a constant energy supply. Chelohart's tissue association places it within the broader research context of heart muscle cell activity and energy metabolism. This association does not establish that taking the product affects heart rate, blood pressure or heart function.",
@@ -151,7 +150,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Chitomur® — A-12 Bladder Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator with one active component: the A-12 peptide complex from urinary bladder tissue.",
-    ingredients: ["Primary ingredient: A-12 bladder-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-12, derived from bladder tissue (natural extract)."],
     biologicalFocus: {
       heading: "Urinary bladder",
       body: "The bladder is a muscular organ that stores urine and releases it. Its wall stretches and contracts thousands of times a year, while its inner lining protects the tissue beneath. Chitomur's tissue association places it within the broader research context of bladder wall cells and the coordination of the urinary system. This association does not establish that taking the product changes bladder control, urinary frequency or urinary comfort.",
@@ -179,7 +178,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     subline: SUBLINE,
     snapshot:
       "A Khavinson Cytomax peptide bioregulator centered on A-8, a natural peptide complex from pineal gland (epiphysis) tissue. It does not contain melatonin.",
-    ingredients: ["Primary ingredient: A-8 pineal gland-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-8, derived from pineal gland tissue."],
     biologicalFocus: {
       heading: "Pineal gland & daily rhythms",
       body: "The pineal gland is a small gland deep in the brain that releases melatonin at night, helping to set the internal clock that times sleep, hormone release and other daily rhythms. Its activity tends to decline with age. Endoluten's tissue association places it within the broader research context of circadian rhythms and the neuroendocrine system. This association does not establish that taking the product changes melatonin levels, sleep or ageing.",
@@ -187,7 +186,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     about:
       "Endoluten contains A-8, a naturally derived peptide complex obtained from the pineal gland tissue of young animals. It belongs to the Khavinson Cytomax collection of tissue-derived complexes. Despite the similar name, it is not the same product as Pinealon, which is a Khavinson Cytogen formula with a synthetic brain peptide complex. Endoluten centers on its single pineal complex and does not contain melatonin.",
     manufacturerDirections: {
-      source: manufacturer("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months."),
+      source: brochure(98, "Take 1-2 capsules or tablets of ENDOLUTEN® 1-3 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months."),
       line: LINE,
     },
     compareIntro:
@@ -197,7 +196,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     importantInformation: `Endoluten is not presented as a treatment for insomnia, sleep disorders, hormonal disorders or other medical conditions. ${REVIEW}`,
     dosageCourse: true,
     flags: [
-      "Directions: Julia-confirmed (2026-10-14) peptid.ru label text, kept as the page shows it today. product-facts.json status is \"blocked\"; peptideproduct.com (1–2 capsules 2×/day, 1 month) and brochure p. 98 (1-2 capsules 1-3×/day, 30 days) differ.",
+      "Directions: brochure p. 98 quoted (Julia 2026-11-09: brochure directions confirmed for use). Differs from the peptid.ru text the page showed before (1 capsule every 3 days, 20 days to 2 months) and from peptideproduct.com (1–2 capsules 2×/day, 1 month).",
       "Amount per capsule not published: brochure p. 98 prints 10 mg per capsule or tablet; not verified.",
     ],
   },
@@ -206,7 +205,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Glandokort® — A-17 Adrenal Gland Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator built on A-17, a natural peptide complex from adrenal gland tissue.",
-    ingredients: ["Primary ingredient: A-17 adrenal gland-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-17, derived from adrenal gland tissue (natural extract)."],
     biologicalFocus: {
       heading: "Adrenal glands & stress response",
       body: "The two adrenal glands sit on top of the kidneys and produce hormones such as cortisol and adrenaline, which help the body respond to stress, manage energy and keep blood pressure and fluid balance steady. Glandokort's tissue association places it within the broader research context of adrenal cell activity and the body's normal stress response. This association does not establish that taking the product changes cortisol or other hormone levels, energy or stress.",
@@ -231,7 +230,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Gotratix® — A-18 Muscle Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator containing one natural extract, the A-18 peptide complex from muscle tissue.",
-    ingredients: ["Primary ingredient: A-18 muscle-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-18, derived from muscle tissue."],
     biologicalFocus: {
       heading: "Skeletal muscle",
       body: "Skeletal muscles move the body, hold posture and use much of the energy from food. Muscle tissue adapts to training and recovers after effort, while mass and strength tend to decline gradually with age. Gotratix's tissue association places it within the broader research context of muscle cell activity and recovery after physical effort. This association does not establish that taking the product increases strength, endurance or muscle mass.",
@@ -258,7 +257,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Libidon® — A-16 Prostate Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator for men, centered on A-16, a natural peptide complex from prostate tissue.",
-    ingredients: ["Primary ingredient: A-16 prostate-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-16, derived from prostate tissue (natural extract)."],
     biologicalFocus: {
       heading: "Prostate & male urogenital system",
       body: "The prostate is a small gland below the bladder that produces part of the seminal fluid and surrounds the urethra, so it is involved in both reproductive and urinary function. It changes naturally with age. Libidon's tissue association places it within the broader research context of prostate cell activity and male urogenital function. This association does not establish that taking the product changes prostate size, urinary flow or sexual function.",
@@ -285,7 +284,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Pielotax® — A-9 Kidney Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator containing A-9, a natural peptide complex obtained from kidney tissue.",
-    ingredients: ["Primary ingredient: A-9 kidney-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-9, derived from kidney tissue."],
     biologicalFocus: {
       heading: "Kidneys & fluid balance",
       body: "The kidneys filter the blood many times a day, removing waste into the urine and keeping water, salts and blood pressure in balance. They also play a part in red blood cell production and bone health. Pielotax's tissue association places it within the broader research context of kidney cell activity, filtration and fluid balance. This association does not establish that taking the product changes kidney function or any kidney test result.",
@@ -310,7 +309,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Sigumir® — A-4 Cartilage and Bone Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator centered on A-4, a natural peptide complex obtained from cartilage and bone tissue.",
-    ingredients: ["Primary ingredient: A-4 cartilage and bone-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-4, derived from cartilage and bone tissue (natural extract)."],
     biologicalFocus: {
       heading: "Cartilage, bone, joints & spine",
       body: "Cartilage cushions the joints and the spine, while bone gives the body its structure and stores minerals. Both are living tissues that renew slowly and respond to movement, load and age. Sigumir's tissue association places it within the broader research context of cartilage and bone cell activity. This association does not establish that taking the product changes joint comfort, mobility or bone density.",
@@ -331,7 +330,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Stamakort® — A-10 Stomach Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator containing A-10, a natural peptide complex obtained from the stomach lining.",
-    ingredients: ["Primary ingredient: A-10 stomach-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-10, derived from stomach tissue (natural extract)."],
     biologicalFocus: {
       heading: "Stomach lining & digestion",
       body: "The stomach breaks food down with acid and enzymes, and its inner lining protects the stomach wall from that acid while constantly renewing itself. Stamakort's tissue association places it within the broader research context of gastric cell activity and renewal of the stomach lining. This association does not establish that taking the product changes digestion, stomach acid or digestive comfort.",
@@ -356,7 +355,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Suprefort® — A-1 Pancreas Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator built on A-1, a natural peptide complex isolated from pancreas tissue.",
-    ingredients: ["Primary ingredient: A-1 pancreas-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-1, derived from pancreas tissue (natural extract)."],
     biologicalFocus: {
       heading: "Pancreas: digestion & metabolism",
       body: "The pancreas has two roles. It releases digestive enzymes into the intestine to break down fats, proteins and carbohydrates, and it produces hormones, including insulin, that help the body use energy from food. Suprefort's tissue association places it within the broader research context of pancreatic cell activity and metabolic function. This association does not establish that taking the product changes blood sugar, insulin or digestive enzyme levels.",
@@ -379,7 +378,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Svetinorm® — A-7 Liver Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator centered on A-7, a natural peptide complex obtained from liver tissue.",
-    ingredients: ["Primary ingredient: A-7 liver-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-7, derived from liver tissue (natural extract)."],
     biologicalFocus: {
       heading: "Liver & metabolism",
       body: "The liver processes nutrients from food, stores energy, makes proteins and bile, and clears substances the body no longer needs. Diet, alcohol, medication and age all place demands on it. Svetinorm's tissue association places it within the broader research context of liver cell activity and metabolic pathways. This association does not establish that taking the product protects the liver or changes liver function or liver test results.",
@@ -405,7 +404,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Taxorest® — A-19 Bronchial Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator containing A-19, a natural peptide complex obtained from bronchial tissue.",
-    ingredients: ["Primary ingredient: A-19 bronchial tissue-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-19, derived from bronchial tissue (natural extract)."],
     biologicalFocus: {
       heading: "Bronchi & airway lining",
       body: "The bronchi are the branching airways that carry air from the windpipe into the lungs. Their lining produces mucus and moves it along with tiny hair-like cells, trapping dust and particles before they reach deeper into the lungs. Taxorest's tissue association places it within the broader research context of airway lining cells and the natural clearing function of the airways. This association does not establish that taking the product changes breathing or protects the airways.",
@@ -427,7 +426,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Testoluten® — A-13 Testicular Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator for men, built on A-13, a natural peptide complex obtained from testicular tissue.",
-    ingredients: ["Primary ingredient: A-13 testicular tissue-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-13, derived from testicular tissue."],
     biologicalFocus: {
       heading: "Testes & male reproductive system",
       body: "The testes produce sperm and most of the body's testosterone, a hormone involved in energy, muscle, bone, libido and mood. Testicular activity tends to change gradually with age. Testoluten's tissue association places it within the broader research context of testicular cell activity and male reproductive function. This association does not establish that taking the product raises testosterone or changes fertility or sexual function.",
@@ -452,7 +451,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Thyreogen® — A-2 Thyroid Gland Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator centered on A-2, a natural peptide complex obtained from thyroid gland tissue.",
-    ingredients: ["Primary ingredient: A-2 thyroid gland-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-2, derived from thyroid gland tissue."],
     biologicalFocus: {
       heading: "Thyroid gland & metabolism",
       body: "The thyroid is a butterfly-shaped gland at the front of the neck. Its hormones set the pace of metabolism, influencing how quickly the body uses energy and keeps warm, as well as heart rate and mood. Thyreogen's tissue association places it within the broader research context of thyroid cell activity and metabolic regulation. This association does not establish that taking the product changes thyroid hormone levels or metabolism.",
@@ -473,7 +472,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Ventfort® — A-3 Vascular Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator containing A-3, a natural peptide complex obtained from blood-vessel wall tissue.",
-    ingredients: ["Primary ingredient: A-3 vascular tissue-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-3, derived from vascular tissue."],
     biologicalFocus: {
       heading: "Blood vessels & circulation",
       body: "Blood vessels carry blood to every organ. Their walls need to stay flexible, and their inner lining helps control blood flow and the passage of nutrients into tissues; vessel walls naturally stiffen with age. Ventfort's tissue association places it within the broader research context of vessel-wall cells and vascular tone. This association does not establish that taking the product changes blood pressure, circulation or vessel health.",
@@ -495,7 +494,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Visoluten® — A-11 Eye Tissue Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator built on A-11, a natural peptide complex obtained from eye tissue.",
-    ingredients: ["Primary ingredient: A-11 eye tissue-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-11, derived from eye tissue."],
     biologicalFocus: {
       heading: "Eyes & visual tissue",
       body: "The eyes turn light into signals the brain can read. The retina at the back of the eye is packed with light-sensitive cells that work constantly and need a steady supply of nutrients and oxygen. Visoluten's tissue association places it within the broader research context of retinal cell activity and visual function. This association does not establish that taking the product improves eyesight or protects the eyes.",
@@ -521,7 +520,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Vladonix® — A-6 Thymus Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator containing A-6, a natural peptide complex obtained from thymus tissue.",
-    ingredients: ["Primary ingredient: A-6 thymus-derived peptide complex.", FOCUSED],
+    ingredients: ["Active complex: A-6, derived from thymus tissue."],
     biologicalFocus: {
       heading: "Thymus & immune system",
       body: "The thymus is a small gland behind the breastbone where T cells, a key type of immune cell, mature. It is most active in childhood and gradually shrinks with age, one reason immune responses change over a lifetime. Vladonix's tissue association places it within the broader research context of immune-cell activity and the ageing thymus. This association does not establish that taking the product changes immune function or immune-cell counts.",
@@ -542,7 +541,7 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     title: "Zhenoluten® — A-15 Ovarian Peptide Complex",
     subline: SUBLINE,
     snapshot: "A Khavinson Cytomax peptide bioregulator for women, centered on A-15, a natural peptide complex obtained from ovarian tissue.",
-    ingredients: ["Primary ingredient: A-15 ovarian tissue-derived peptide complex (natural extract).", FOCUSED],
+    ingredients: ["Active complex: A-15, derived from ovarian tissue (natural extract)."],
     biologicalFocus: {
       heading: "Ovaries & female reproductive system",
       body: "The ovaries produce eggs and the hormones estrogen and progesterone, which shape the menstrual cycle and affect bone, skin, mood and energy. Ovarian activity changes considerably over a woman's life, especially around menopause. Zhenoluten's tissue association places it within the broader research context of ovarian cell activity and female hormonal balance. This association does not establish that taking the product changes hormone levels, fertility or the menopausal transition.",
@@ -563,3 +562,14 @@ export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = {
     ],
   },
 };
+
+/**
+ * Round-3 layout on every Cytomax page. Bonomarlot is kept exactly as Julia approved it;
+ * the others are streamlined with their own name, safety text and brochure directions.
+ */
+export const CYTOMAX_COPY: Record<string, FormulaPdpContent> = Object.fromEntries(
+  Object.entries(DRAFT).map(([id, c]) => [
+    id,
+    c.streamlined ? c : streamline(PRODUCT_FACTS[id]?.name ?? id, c, PRODUCT_FACTS[id]?.pdp?.safety),
+  ]),
+);

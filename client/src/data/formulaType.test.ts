@@ -56,7 +56,7 @@ const pdpCopy = Object.values(FORMULA_PDP_CONTENT).flatMap((c) => [
   c.title, c.subline, c.snapshot, ...c.ingredients, c.biologicalFocus.heading, c.biologicalFocus.body,
   c.about ?? "", c.manufacturerDirections.line, c.compareIntro ?? "", c.research,
   ...(c.streamlined
-    ? [c.streamlined.ingredientsNote, c.streamlined.labeledDirections.heading, c.streamlined.labeledDirections.attribution, ...c.streamlined.safety]
+    ? [c.streamlined.ingredientsNote, c.streamlined.labeledDirections?.heading ?? "", c.streamlined.labeledDirections?.attribution ?? "", c.streamlined.labeledDirections?.text ?? "", ...c.streamlined.safety]
     : []),
 ]);
 const ROLLED_OUT = Object.keys(FORMULA_PDP_CONTENT);
@@ -184,7 +184,7 @@ describe("formula type map", () => {
     for (const id of cytomax) expect(FORMULA_PDP_CONTENT[id], id).toBeDefined();
   });
 
-  it("every rolled-out page: tailored 'does not establish', 'remains limited', 'not presented as a treatment', title from composition", () => {
+  it("every rolled-out page: tailored 'does not establish', 'remains limited', 'is not a medicine' safety lead, title from composition", () => {
     for (const id of ROLLED_OUT) {
       const c = FORMULA_PDP_CONTENT[id];
       const name = PRODUCT_FACTS[id].name;
@@ -198,17 +198,20 @@ describe("formula type map", () => {
       } else {
         expect(c.biologicalFocus.body, id).toMatch(/This association does not establish that taking the product \w/);
         expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
-        expect(c.importantInformation, id).toMatch(new RegExp(`^${name.replace(/[-]/g, "\\-")} is not presented as a treatment for `));
+        // Round 3: the Safety & FAQs lead is Julia's Bonomarlot wording with the product's own name.
+        expect(c.importantInformation, id).toBe(`${name} is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.`);
+        expect(c.streamlined?.safety[0], id).toBe(c.importantInformation);
       }
       expect(c.importantInformation, id).toContain("consult a qualified healthcare professional");
       expect(c.title.startsWith(name), id).toBe(true);
       expect(c.manufacturerDirections.line, id).toBe(MANUFACTURER_DIRECTIONS_LINE);
       if (formulaTypeFor(id) === "focused") {
         // "{Name}® — {Code} {Tissue} Peptide Complex", code taken from the composition.
-        const m = c.title.match(/^(.+)® — (A-\d+) (.+) Peptide Complex$/);
+        // Cytogen codes are AC-n; Ovagen's composition names no tissue, so its title names none.
+        const m = c.title.match(/^(.+)® — (AC?-\d+) (?:(.+) )?Peptide Complex$/);
         expect(m, c.title).not.toBeNull();
         expect(PRODUCT_FACTS[id].composition.join(" "), id).toContain(m![2]);
-        expect(PRODUCT_FACTS[id].composition.join(" ").toLowerCase(), id).toContain(m![3].toLowerCase());
+        if (m![3]) expect(PRODUCT_FACTS[id].composition.join(" ").toLowerCase(), id).toContain(m![3].toLowerCase());
         expect(c.subline).toBe(`Khavinson ${formulaLineFor(id)}® | Focused Formula`);
       } else if (formulaTypeFor(id) === "combination") {
         expect(c.subline).toBe(`${formulaLineFor(id)} | Combination Formula`);
@@ -232,12 +235,14 @@ describe("formula type map", () => {
       } else {
         expect(src.attribution, id).toMatch(/^As printed in the "Recommendations for use" section of the brochure ".+" \(p\. \d+\):$/);
         // Every sentence is in the brochure notes (hyphen line-breaks joined; Gotratix's Cyrillic Х normalised).
-        const norm = (t: string) => t.replace(/Х/g, "X").replace(/Take1-2/g, "Take 1-2").replace(/®(\d)/g, "® $1").replace(/\s+/g, " ");
+        // Printed spacing artifacts normalised: "Take1-2", "®1-2", "PINEALON®is", "10- 30" (line break).
+        const norm = (t: string) => t.replace(/Х/g, "X").replace(/Take1-2/g, "Take 1-2").replace(/®(\d)/g, "® $1").replace(/®(?=[a-z])/g, "® ").replace(/(\d)- (\d)/g, "$1-$2").replace(/\s+/g, " ");
         if (!brochure) continue; // brochure notes live on the review box, not in the repo
         for (const sentence of src.text.split(/(?<=\.)\s+/)) expect(norm(brochure), `${id}: ${sentence}`).toContain(norm(sentence));
       }
     }
-    expect(FORMULA_PDP_CONTENT.endoluten.manufacturerDirections.source?.text).toBe("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.");
+    // Julia 2026-11-09: brochure directions confirmed for the labeled-directions expander (Endoluten p. 98).
+    expect(FORMULA_PDP_CONTENT.endoluten.manufacturerDirections.source?.page).toBe(98);
   });
 
   it("compare intros name exactly the page's valid counterparts; no intro when there is no valid pair", () => {

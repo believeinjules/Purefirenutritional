@@ -133,7 +133,7 @@ describe("product structured data", () => {
   });
 
   it("product head uses the canonical /products/<id> path", () => {
-    const legacyProduct = products.find((p) => p.id === "cartalax")!;
+    const legacyProduct = products.find((p) => p.id === "revilab-sl-02")!; // not rolled out
     const head = productHead(legacyProduct);
     expect(head.path).toBe(`/products/${legacyProduct.id}`);
     expect(head.title).toBe(productTitle(legacyProduct));

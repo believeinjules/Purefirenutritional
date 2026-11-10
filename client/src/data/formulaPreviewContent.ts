@@ -1,15 +1,15 @@
 /**
- * PROPOSAL copy for the rolled-out product pages (Julia's Bonomarlot template, written
+ * Copy for the rolled-out product pages (Julia's round-3 Bonomarlot template, written
  * per product). Only ids in FORMULA_PDP_CONTENT render the new template; Prime Peptide
- * and hidden products never do. Nothing here is live.
+ * and hidden products never do.
  *
- * Batch status (2026-11-09): Khavinson Cytomax® (all 21), plus Revilab ML 02 and
- * Zinsil-T as examples. Remaining lines wait for Julia's review.
+ * Status (2026-11-09, approved for the main site): Khavinson Cytomax® (21),
+ * Khavinson Cytogen® (6) and Revilab ML 01–09.
  */
 import { isHiddenProduct } from "@shared/hidden-products";
 import { CYTOMAX_COPY } from "./pdpCopy/cytomax";
 import { REVILAB_ML_COPY } from "./pdpCopy/revilabMl";
-import { NUTRITIONAL_COPY } from "./pdpCopy/nutritional";
+import { CYTOGEN_COPY } from "./pdpCopy/cytogen";
 import type { FormulaPdpContent } from "./pdpCopy/shared";
 
 export type { DirectionsSource, FormulaPdpContent } from "./pdpCopy/shared";
@@ -19,7 +19,12 @@ export { BONOMARLOT_BROCHURE_DIRECTIONS } from "./pdpCopy/cytomax";
 /** Never roll out over Prime Peptide (wording frozen) or hidden products. */
 const PRIME_IDS = /^prime-peptide-/;
 
-const ALL: Record<string, FormulaPdpContent> = { ...CYTOMAX_COPY, ...REVILAB_ML_COPY, ...NUTRITIONAL_COPY };
+/**
+ * Round 3 (Julia approved 2026-11-09): every Khavinson Cytomax, Cytogen and Revilab ML capsule
+ * page. Zinsil-T (chewable tablet, pdpCopy/nutritional.ts) is a non-capsule product and is not
+ * rolled out; Revilab SL drops and Prime Peptide never are.
+ */
+const ALL: Record<string, FormulaPdpContent> = { ...CYTOMAX_COPY, ...CYTOGEN_COPY, ...REVILAB_ML_COPY };
 
 export const FORMULA_PDP_CONTENT: Readonly<Record<string, FormulaPdpContent>> = Object.fromEntries(
   Object.entries(ALL).filter(([id]) => !PRIME_IDS.test(id) && !isHiddenProduct({ id })),
@@ -28,8 +33,8 @@ export const FORMULA_PDP_CONTENT: Readonly<Record<string, FormulaPdpContent>> = 
 /** Copy grouped by line, for the counsel review file and tests. */
 export const PDP_COPY_BATCHES: ReadonlyArray<{ line: string; ids: string[] }> = [
   { line: "Khavinson Cytomax®", ids: Object.keys(CYTOMAX_COPY) },
-  { line: "Revilab ML (example)", ids: Object.keys(REVILAB_ML_COPY) },
-  { line: "Nutritional supplements (example)", ids: Object.keys(NUTRITIONAL_COPY) },
+  { line: "Khavinson Cytogen®", ids: Object.keys(CYTOGEN_COPY) },
+  { line: "Revilab ML", ids: Object.keys(REVILAB_ML_COPY) },
 ];
 
 /** Shared "Dosage & Course Information" (capsule/tablet products; never Prime). Verbatim, 4 paragraphs. */
@@ -50,4 +55,22 @@ export const FDA_DISCLAIMER =
  */
 export function isPreviewRemovedFaq(productName: string, question: string): boolean {
   return question === `What is ${productName}?` || question === "How should I take it?";
+}
+
+/**
+ * Products whose "Recommended combination" line (in the catalog's product-line text) is not
+ * approved for change: it stays on the page word for word after "About This Product Line" is
+ * removed. Bonomarlot is excluded (its round-3 page was approved without it).
+ */
+export const RECOMMENDED_COMBINATION_IDS: ReadonlySet<string> = new Set([
+  "cartalax", "chelohart", "crystagen", "gotratix", "pielotax", "ventfort", "visoluten", "thyreogen",
+]);
+
+/** The unchanged "Recommended combination(s): …" sentence from seriesInfo, for the ids above. */
+export function recommendedCombinationLine(id: string, seriesInfo: string | undefined): string | undefined {
+  if (!RECOMMENDED_COMBINATION_IDS.has(id) || !seriesInfo) return undefined;
+  const start = seriesInfo.search(/Recommended combinations?:/);
+  if (start < 0) return undefined;
+  const end = seriesInfo.indexOf(". ", start);
+  return (end < 0 ? seriesInfo.slice(start) : seriesInfo.slice(start, end + 1)).trim();
 }

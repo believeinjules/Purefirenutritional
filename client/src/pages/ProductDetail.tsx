@@ -41,7 +41,7 @@ import PreorderBadge from "@/components/PreorderBadge";
 import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
 import { FormulaPdpBody, STREAMLINED_BODY, StreamlinedPdpBody } from "@/components/shop/FormulaPdpSections";
 import { FORMULA_EXPLAINER_HREF, formulaTypeFor, isFormulaPreviewPdp, isPrimePeptide } from "@/data/formulaType";
-import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
+import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq, recommendedCombinationLine } from "@/data/formulaPreviewContent";
 import { packageCountLabel } from "@/lib/productFacts";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
@@ -190,7 +190,7 @@ export default function ProductDetail() {
   const packageLabel = packageCountLabel(product, selectedSize);
   // Prime Peptide pages are frozen: their own facts strip and bundle picker stay as on main.
   const primeFrozen = isPrimePeptide(product.id);
-  // Streamlined page (round 3, Bonomarlot only): Snapshot after Add to Cart; FAQ, doctor
+  // Streamlined page (round 3, every rolled-out capsule page): Snapshot after Add to Cart; FAQ, doctor
   // questions and safety merged into one "Safety & FAQs" drop-down; no generic notes box,
   // orange injectable note or product-line paragraph.
   const streamlined = preview?.streamlined ? preview : undefined;
@@ -350,8 +350,8 @@ export default function ProductDetail() {
                 )}
               </div>
 
-              {/* Variant selector */}
-              {product.variants && product.variants.length > 1 && (
+              {/* Size: native dropdown (2+ sizes) or plain text (one size) */}
+              {product.variants && product.variants.length > 0 && (
                 <VariantSelector
                   variants={product.variants}
                   selectedVariant={selectedVariant}
@@ -425,6 +425,10 @@ export default function ProductDetail() {
                   content={streamlined}
                   otherIngredients={(ingredientList ?? []).filter((x: string) => /^Other ingredients:/.test(x))}
                   faqs={visibleFaqs}
+                  recommendedCombination={recommendedCombinationLine(
+                    product.id,
+                    product.seriesInfo ?? getProductById(product.id)?.seriesInfo,
+                  )}
                 />
               ) : preview ? (
                 <FormulaPdpBody

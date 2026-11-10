@@ -50,9 +50,10 @@ describe("descriptive product titles", () => {
     }
   });
 
-  it("keeps the Khavinson pattern for Cytogens and other legacy pages", () => {
-    expect(productTitle({ id: "pinealon", name: "Pinealon" })).toBe(
-      "Pinealon | Brain Peptide Bioregulator | Pure Fire Nutritional"
+  it("Cytogens are rolled out (title = H1); other pages keep the legacy pattern", () => {
+    expect(productTitle({ id: "pinealon", name: "Pinealon" })).toBe("Pinealon® — AC-5 Brain Peptide Complex");
+    expect(productTitle({ id: "revilab-sl-02", name: "Revilab SL 02" })).toBe(
+      "Revilab SL 02 | Sublingual Brain-Eye | Pure Fire Nutritional"
     );
   });
 
