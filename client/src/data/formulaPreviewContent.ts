@@ -10,6 +10,7 @@ import { isHiddenProduct } from "@shared/hidden-products";
 import { CYTOMAX_COPY } from "./pdpCopy/cytomax";
 import { REVILAB_ML_COPY } from "./pdpCopy/revilabMl";
 import { CYTOGEN_COPY } from "./pdpCopy/cytogen";
+import { TEMPLATE_COPY } from "./pdpCopy/template";
 import type { FormulaPdpContent } from "./pdpCopy/shared";
 
 export type { DirectionsSource, FormulaPdpContent } from "./pdpCopy/shared";
@@ -24,7 +25,37 @@ const PRIME_IDS = /^prime-peptide-/;
  * page. Zinsil-T (chewable tablet, pdpCopy/nutritional.ts) is a non-capsule product and is not
  * rolled out; Revilab SL drops and Prime Peptide never are.
  */
-const ALL: Record<string, FormulaPdpContent> = { ...CYTOMAX_COPY, ...CYTOGEN_COPY, ...REVILAB_ML_COPY };
+const ROUND3: Record<string, FormulaPdpContent> = { ...CYTOMAX_COPY, ...CYTOGEN_COPY, ...REVILAB_ML_COPY };
+
+/** Meta description "{Name}: {snapshot}", cut before its last " with " clause only when over 160. */
+function templateMeta(title: string, name: string, snapshot: string): string | undefined {
+  const mark = title.startsWith(`${name}®`) ? `${name}®` : name;
+  const full = `${mark}: ${snapshot.replace(/^A /, "a ")}`;
+  if (full.length <= 160) return undefined;
+  const at = full.lastIndexOf(" with ");
+  return at > 0 ? `${full.slice(0, at)}.` : undefined;
+}
+
+/**
+ * ChatGPT content template (Julia 2026-11-09): one-sentence Snapshot, two-sentence Biological
+ * Focus, "Line · Formula type" subline. Copy only; layout and styling stay as on main.
+ */
+function applyTemplate(id: string, c: FormulaPdpContent): FormulaPdpContent {
+  const t = TEMPLATE_COPY[id];
+  const name = c.title.split(/®| — /)[0];
+  const snapshot = t?.snapshot ?? c.snapshot;
+  return {
+    ...c,
+    subline: c.subline.replace(" | ", " · "),
+    snapshot,
+    biologicalFocus: { heading: c.biologicalFocus.heading, body: t?.focus ?? c.biologicalFocus.body },
+    metaDescription: t?.snapshot ? templateMeta(c.title, name, snapshot) : c.metaDescription,
+  };
+}
+
+const ALL: Record<string, FormulaPdpContent> = Object.fromEntries(
+  Object.entries(ROUND3).map(([id, c]) => [id, applyTemplate(id, c)]),
+);
 
 export const FORMULA_PDP_CONTENT: Readonly<Record<string, FormulaPdpContent>> = Object.fromEntries(
   Object.entries(ALL).filter(([id]) => !PRIME_IDS.test(id) && !isHiddenProduct({ id })),
@@ -36,6 +67,18 @@ export const PDP_COPY_BATCHES: ReadonlyArray<{ line: string; ids: string[] }> = 
   { line: "Khavinson Cytogen®", ids: Object.keys(CYTOGEN_COPY) },
   { line: "Revilab ML", ids: Object.keys(REVILAB_ML_COPY) },
 ];
+
+/** "Dosage & Course Information" visible text (ChatGPT template, Julia 2026-11-09), verbatim on every page. */
+export const DOSAGE_COURSE_SHORT =
+  "Manufacturer directions are general, not personalized. Package quantity does not necessarily represent a single course. Review the research and consult a qualified healthcare professional before considering a different serving amount or duration.";
+/** Line under the active complex (ChatGPT template). The full list closes "Safety & FAQs". */
+export const INGREDIENTS_TEMPLATE_NOTE = "Full ingredients listed below or on label.";
+export const LABEL_INFORMATION_HEADING = "Label Information";
+
+/** Per-product FAQs hidden on every product page: injectable messaging stays on the homepage only (Julia 2026-11-09). */
+export function isInjectableFaq(question: string): boolean {
+  return /inject/i.test(question);
+}
 
 /** Shared "Dosage & Course Information" (capsule/tablet products; never Prime). Verbatim, 4 paragraphs. */
 export const DOSAGE_COURSE_HEADING = "Dosage & Course Information";

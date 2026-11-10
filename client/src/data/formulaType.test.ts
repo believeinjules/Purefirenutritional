@@ -196,7 +196,10 @@ describe("formula type map", () => {
         expect(c.importantInformation, id).toMatch(/^Bonomarlot is not a medicine\. /);
         expect(c.importantInformation, id).not.toMatch(/diagnose|cure|prevent/);
       } else {
-        expect(c.biologicalFocus.body, id).toMatch(/This association does not establish that taking the product \w/);
+        // ChatGPT template: two short sentences, the second the approved Bonomarlot-style association line.
+        expect(c.biologicalFocus.body.split(/(?<=\.)\s+/), id).toHaveLength(2);
+        expect(c.biologicalFocus.body, id).toMatch(/not (an )?established effects? of the finished product\.$/);
+        expect(c.snapshot.split(/(?<=\.)\s+(?=[A-Z])/), id).toHaveLength(1);
         expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
         // Round 3: the Safety & FAQs lead is Julia's Bonomarlot wording with the product's own name.
         expect(c.importantInformation, id).toBe(`${name} is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.`);
@@ -212,9 +215,9 @@ describe("formula type map", () => {
         expect(m, c.title).not.toBeNull();
         expect(PRODUCT_FACTS[id].composition.join(" "), id).toContain(m![2]);
         if (m![3]) expect(PRODUCT_FACTS[id].composition.join(" ").toLowerCase(), id).toContain(m![3].toLowerCase());
-        expect(c.subline).toBe(`Khavinson ${formulaLineFor(id)}® | Focused Formula`);
+        expect(c.subline).toBe(`Khavinson ${formulaLineFor(id)}® · Focused Formula`);
       } else if (formulaTypeFor(id) === "combination") {
-        expect(c.subline).toBe(`${formulaLineFor(id)} | Combination Formula`);
+        expect(c.subline).toBe(`${formulaLineFor(id)} · Combination Formula`);
       } else {
         expect(c.subline).not.toMatch(/Formula$/); // untagged: no formula type
       }

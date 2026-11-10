@@ -8,7 +8,7 @@ import { ProductGridCard } from "@/components/ProductListingCard";
 import { getProductById } from "@/data/products";
 import { COMPARE_NOT_ESTABLISHED, counterpartsFor } from "@/data/formulaType";
 import {
-  DOSAGE_COURSE_PARAGRAPHS, FDA_DISCLAIMER, FORMULA_PDP_CONTENT, RECOMMENDED_COMBINATION_IDS, recommendedCombinationLine,
+  DOSAGE_COURSE_PARAGRAPHS, DOSAGE_COURSE_SHORT, FDA_DISCLAIMER, FORMULA_PDP_CONTENT, RECOMMENDED_COMBINATION_IDS, recommendedCombinationLine,
 } from "@/data/formulaPreviewContent";
 import { INGREDIENTS_NOTE } from "@/data/pdpCopy/shared";
 
@@ -113,12 +113,12 @@ describe("gating and shared parts", () => {
   it("streamlined Bonomarlot: essentials, then collapsed Research & Evidence and Safety & FAQs, FDA disclaimer once at the end", () => {
     const c = FORMULA_PDP_CONTENT.bonomarlot!;
     expect(c.streamlined).toBeDefined();
-    const faqs = [{ q: "Is Bonomarlot an injectable peptide?", a: "No." }];
+    const faqs = [{ q: "Can I take Bonomarlot with other supplements?", a: "Ask your doctor." }];
     const { container, unmount } = render(
-      <StreamlinedPdpBody productId="bonomarlot" productName="Bonomarlot" content={c} otherIngredients={["Other ingredients: x"]} faqs={faqs} />,
+      <StreamlinedPdpBody productId="bonomarlot" productName="Bonomarlot" content={c} labelLines={["Bone marrow peptide complex (A-20)", "Other ingredients: x"]} faqs={faqs} />,
     );
     const text = container.textContent ?? "";
-    const order = ["Ingredients", "Biological Focus", "Dosage & Course Information", "Manufacturer's Labeled Directions", "Compare Related Formulas", "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER];
+    const order = ["Ingredients", "Full ingredients listed below or on label.", "Biological Focus", "Dosage & Course Information", DOSAGE_COURSE_SHORT, "Manufacturer's Labeled Directions", "Compare Related Formulas", "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER, "Label Information", "Other ingredients: x"];
     const at = order.map((h) => text.indexOf(h));
     expect(at.every((i) => i >= 0), JSON.stringify(at)).toBe(true);
     expect([...at].sort((a, b) => a - b)).toEqual(at);
@@ -134,7 +134,8 @@ describe("gating and shared parts", () => {
       expect(d.open).toBe(false);
     }
     expect(text).toContain(c.research);
-    expect(text).toContain("Is Bonomarlot an injectable peptide?");
+    expect(text).toContain("Can I take Bonomarlot with other supplements?");
+    for (const p4 of DOSAGE_COURSE_PARAGRAPHS) expect(text).not.toContain(p4);
     for (const a of Array.from(container.querySelectorAll("a"))) expect(a.getAttribute("href") ?? "").toMatch(/^\//);
     unmount();
   });
@@ -185,10 +186,10 @@ describe("round 3 on every rolled-out capsule page", () => {
       const p = getProductById(id)!;
       const rec = recommendedCombinationLine(id, p.seriesInfo);
       const { container, unmount } = render(
-        <StreamlinedPdpBody productId={id} productName={p.name} content={c} otherIngredients={[]} faqs={[]} recommendedCombination={rec} />,
+        <StreamlinedPdpBody productId={id} productName={p.name} content={c} labelLines={p.ingredients ?? []} faqs={[]} recommendedCombination={rec} />,
       );
       const text = container.textContent ?? "";
-      const order = ["Ingredients", INGREDIENTS_NOTE, "Biological Focus", "Dosage & Course Information", "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER];
+      const order = ["Ingredients", "Full ingredients listed below or on label.", "Biological Focus", "Dosage & Course Information", DOSAGE_COURSE_SHORT, "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER, "Label Information", INGREDIENTS_NOTE];
       const at = order.map((h) => text.indexOf(h));
       expect(at.every((i) => i >= 0), `${id} ${JSON.stringify(at)}`).toBe(true);
       expect([...at].sort((a, b) => a - b), id).toEqual(at);
@@ -198,7 +199,8 @@ describe("round 3 on every rolled-out capsule page", () => {
       expect(text.includes("Manufacturer's Labeled Directions"), id).toBe(Boolean(ldh) && id !== "endoluten");
       if (ldh) expect(text, id).toContain(ldh.text);
       if (id === "endoluten") expect(text).not.toMatch(/brochure/i);
-      for (const p4 of DOSAGE_COURSE_PARAGRAPHS) expect(text, id).toContain(p4);
+      for (const p4 of DOSAGE_COURSE_PARAGRAPHS) expect(text, id).not.toContain(p4);
+      expect(text, id).not.toMatch(/inject/i);
       expect(Boolean(screen.queryByTestId("compare-related-formulas")), id).toBe(counterpartsFor(id).length > 0);
       if (RECOMMENDED_COMBINATION_IDS.has(id)) {
         expect(rec, id).toBeDefined();

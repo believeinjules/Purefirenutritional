@@ -39,9 +39,9 @@ import { getPublicProtocol, goalsWithData } from "@/data/protocols";
 import { lazy, Suspense } from "react";
 import PreorderBadge from "@/components/PreorderBadge";
 import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
-import { FormulaPdpBody, STREAMLINED_BODY, StreamlinedPdpBody } from "@/components/shop/FormulaPdpSections";
+import { FormulaPdpBody, StreamlinedPdpBody } from "@/components/shop/FormulaPdpSections";
 import { FORMULA_EXPLAINER_HREF, formulaTypeFor, isFormulaPreviewPdp, isPrimePeptide } from "@/data/formulaType";
-import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq, recommendedCombinationLine } from "@/data/formulaPreviewContent";
+import { FORMULA_PDP_CONTENT, isInjectableFaq, isPreviewRemovedFaq, recommendedCombinationLine } from "@/data/formulaPreviewContent";
 import { packageCountLabel } from "@/lib/productFacts";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
@@ -194,7 +194,8 @@ export default function ProductDetail() {
   // questions and safety merged into one "Safety & FAQs" drop-down; no generic notes box,
   // orange injectable note or product-line paragraph.
   const streamlined = preview?.streamlined ? preview : undefined;
-  const visibleFaqs = (pdp?.faq ?? []).filter((f) => !preview || !isPreviewRemovedFaq(product.name, f.q));
+  // Injectable messaging lives on the homepage only (Julia 2026-11-09): no per-product injectable FAQ.
+  const visibleFaqs = (pdp?.faq ?? []).filter((f) => !isInjectableFaq(f.q) && (!preview || !isPreviewRemovedFaq(product.name, f.q)));
   const hasProtocol = goalsWithData(getPublicProtocol(product.id) ?? undefined).length > 0;
   const currentImage = selectedVariant?.image || product.image;
   const variantGallery = selectedVariant?.images?.filter((src: string) => src.length > 0) ?? [];
@@ -408,7 +409,7 @@ export default function ProductDetail() {
               </div>
 
               {streamlined && (
-                <p className={STREAMLINED_BODY} data-testid="pdp-snapshot">{streamlined.snapshot}</p>
+                <p className="text-gray-600 leading-relaxed" data-testid="pdp-snapshot">{streamlined.snapshot}</p>
               )}
             </div>
           </div>
@@ -423,7 +424,7 @@ export default function ProductDetail() {
                   productId={product.id}
                   productName={product.name}
                   content={streamlined}
-                  otherIngredients={(ingredientList ?? []).filter((x: string) => /^Other ingredients:/.test(x))}
+                  labelLines={ingredientList ?? []}
                   faqs={visibleFaqs}
                   recommendedCombination={recommendedCombinationLine(
                     product.id,
@@ -502,7 +503,7 @@ export default function ProductDetail() {
                   </PdpAccordion>
                 )}
 
-                {pdp && pdp.faq.length > 0 && (
+                {pdp && visibleFaqs.length > 0 && (
                   <PdpAccordion title="Frequently Asked Questions" testId="pdp-faq">
                     <dl className="space-y-4">
                       {visibleFaqs.map((f, i) => (
@@ -547,16 +548,6 @@ export default function ProductDetail() {
                   expiryDate={product.expiryDate}
                   coaUrl={product.coaUrl}
                 />
-
-                {/* Oral bioregulator disclaimer — shown for peptide bioregulator products */}
-                {product.category === "PEPTIDE BIOREGULATORS" && !streamlined && (
-                  <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 flex items-start gap-3">
-                    <span className="text-orange-500 text-sm mt-0.5 flex-shrink-0">ⓘ</span>
-                    <p className="text-xs text-orange-800 leading-relaxed">
-                      <strong>Oral bioregulator dietary supplement.</strong> Not an injectable peptide. These are short, tissue-specific Khavinson peptide bioregulators taken orally as capsules or lingual drops — a different class from injectable research peptides or GLP-1 medications.
-                    </p>
-                  </div>
-                )}
 
                 {/* Usage callout */}
                 {!preview && usageText && (

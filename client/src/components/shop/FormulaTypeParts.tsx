@@ -16,6 +16,7 @@ import {
   EXPLAINER_TEXT,
   FORMULA_EXPLAINER_ID,
   FORMULA_TYPE_FILTERS,
+  FORMULA_TYPE_LABEL,
   compareColumns,
   counterpartsFor,
   formulaTagText,
@@ -181,28 +182,41 @@ export function CompareRelatedFormulas({
   return (
     <section
       aria-labelledby={`${tableId}-h`}
-      className={compact ? `rounded-xl border border-gray-200 p-4 md:p-5 ${className}` : className}
+      className={className}
       data-testid="compare-related-formulas"
     >
-      <h2 id={`${tableId}-h`} className={compact ? "text-lg font-semibold text-gray-900 mb-2" : "text-lg font-semibold text-gray-900 mb-3 pb-2 border-b"}>
+      <h2 id={`${tableId}-h`} className="text-lg font-semibold text-gray-900 mb-3 pb-2 border-b">
         {COMPARE_HEADING}
       </h2>
       <p
-        className={compact ? "text-[15px] md:text-sm text-gray-700 leading-relaxed mb-3" : "text-sm text-gray-600 leading-relaxed mb-3"}
+        className="text-sm text-gray-600 leading-relaxed mb-3"
         data-testid="compare-intro"
       >
         {intro}
       </p>
       <ul className="divide-y divide-gray-100 border border-gray-200 rounded-lg mb-4" data-testid="compare-related-list">
         {related.map((r) => (
-          <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
-            <div className="flex flex-col gap-1">
-              <Link href={`/products/${r.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-gray-900 hover:text-orange-600 min-h-[24px]">
-                {storefrontName(r.id)}
-                <ChevronRight size={16} aria-hidden="true" className="text-gray-400" />
+          <li key={r.id}>
+            {compact ? (
+              // Compact row (ChatGPT template): "Name · Formula type ›".
+              <Link href={`/products/${r.id}`} className="flex items-center justify-between gap-2 px-4 py-3 text-sm text-gray-900 hover:text-orange-600 min-h-[44px]">
+                <span>
+                  <span className="font-semibold">{storefrontName(r.id)}</span>
+                  {formulaTypeFor(r.id) && <span className="text-gray-600">{` · ${FORMULA_TYPE_LABEL[formulaTypeFor(r.id)!]}`}</span>}
+                </span>
+                <ChevronRight size={16} aria-hidden="true" className="text-gray-400 flex-shrink-0" />
               </Link>
-              <FormulaTypeTag productId={r.id} className="w-fit" />
-            </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+                <div className="flex flex-col gap-1">
+                  <Link href={`/products/${r.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-gray-900 hover:text-orange-600 min-h-[24px]">
+                    {storefrontName(r.id)}
+                    <ChevronRight size={16} aria-hidden="true" className="text-gray-400" />
+                  </Link>
+                  <FormulaTypeTag productId={r.id} className="w-fit" />
+                </div>
+              </div>
+            )}
           </li>
         ))}
       </ul>

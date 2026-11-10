@@ -9,7 +9,7 @@
 import { variantCartSize } from "@shared/product-prices";
 import { getPdpContent, getProductFacts } from "@shared/product-facts";
 import { isFormulaPreviewPdp } from "@/data/formulaType";
-import { FORMULA_PDP_CONTENT, isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
+import { FORMULA_PDP_CONTENT, isInjectableFaq, isPreviewRemovedFaq } from "@/data/formulaPreviewContent";
 import { tagsFor } from "@/data/productTags";
 import { COMMERCE_CONFIG } from "@shared/commerce-config";
 import { resolveFulfillment } from "@shared/fulfillment";
@@ -639,7 +639,7 @@ export function productFaqJsonLd(id: string): Record<string, unknown>[] {
   // Rolled-out pages hide two FAQs; the schema must match what the page shows.
   const pdp = getPdpContent(id);
   const name = getProductFacts(id)?.name ?? "";
-  const faq = pdp?.faq?.filter((f) => !isFormulaPreviewPdp(id) || !isPreviewRemovedFaq(name, f.q));
+  const faq = pdp?.faq?.filter((f) => !isInjectableFaq(f.q) && (!isFormulaPreviewPdp(id) || !isPreviewRemovedFaq(name, f.q)));
   if (!faq?.length) return [];
   return [faqPageJsonLd(faq.map((f) => ({ question: f.q, answer: f.a })))];
 }
