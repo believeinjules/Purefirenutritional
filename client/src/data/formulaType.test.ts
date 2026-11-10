@@ -232,6 +232,15 @@ describe("formula type map", () => {
         const ok = (md.status === "verified" && md.text === src.text) || (id === "endoluten" && PRODUCT_FACTS[id].pdp?.directions === src.text);
         expect(ok, id).toBe(true);
         expect(src.attribution).toBe("As listed by the manufacturer:");
+      } else if (src.kind === "package") {
+        // Revilab ML: the package text already on main (product-facts storefrontUsage), plain text.
+        expect(id, id).toMatch(/^revilab-ml-0\d$/);
+        expect(src.text, id).toBe(PRODUCT_FACTS[id].storefrontUsage.text);
+        expect(src.attribution).toBe("As listed on the package:");
+      } else if (src.kind === "confirmed") {
+        // Endoluten only: Julia's confirmed line, word for word from main's FAQ.
+        expect(id).toBe("endoluten");
+        expect(src.text).toBe(PRODUCT_FACTS.endoluten.pdp?.faq.find((f) => f.q === "How should I take it?")?.a);
       } else {
         expect(src.attribution, id).toMatch(/^As printed in the "Recommendations for use" section of the brochure ".+" \(p\. \d+\):$/);
         // Every sentence is in the brochure notes (hyphen line-breaks joined; Gotratix's Cyrillic Х normalised).
@@ -241,8 +250,11 @@ describe("formula type map", () => {
         for (const sentence of src.text.split(/(?<=\.)\s+/)) expect(norm(brochure), `${id}: ${sentence}`).toContain(norm(sentence));
       }
     }
-    // Julia 2026-11-09: brochure directions confirmed for the labeled-directions expander (Endoluten p. 98).
-    expect(FORMULA_PDP_CONTENT.endoluten.manufacturerDirections.source?.page).toBe(98);
+    // Julia 2026-11-09: Endoluten shows only the every-3-days line, never the brochure quote.
+    const endo = FORMULA_PDP_CONTENT.endoluten.manufacturerDirections.source;
+    expect(endo?.kind).toBe("confirmed");
+    expect(endo?.text).toBe("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.");
+    expect(JSON.stringify(FORMULA_PDP_CONTENT.endoluten)).not.toMatch(/brochure \(p\.|1-3 times a day/);
   });
 
   it("compare intros name exactly the page's valid counterparts; no intro when there is no valid pair", () => {

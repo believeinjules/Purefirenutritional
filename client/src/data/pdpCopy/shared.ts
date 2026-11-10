@@ -5,7 +5,12 @@
  * (/workspace/sources/khavinson-brochure-dosing-notes.md) or existing page copy.
  */
 
-export type DirectionsKind = "manufacturer" | "brochure";
+/**
+ * brochure  = Cytomax/Cytogen brochure quote (with page);
+ * package   = the directions printed on the package, shown as "As listed on the package:" (Revilab ML);
+ * confirmed = directions Julia confirmed for this product (Endoluten, 2026-10-14), stated plainly.
+ */
+export type DirectionsKind = "manufacturer" | "brochure" | "package" | "confirmed";
 
 export interface DirectionsSource {
   kind: DirectionsKind;
@@ -35,6 +40,8 @@ export interface FormulaPdpContent {
   importantInformation: string;
   /** Show the shared "Dosage & Course Information" block (capsule/tablet products; never Prime). */
   dosageCourse: boolean;
+  /** Page <title> when the H1-based title would exceed 60 characters (Revilab ML, Julia 2026-11-09). */
+  seoTitle?: string;
   /** Meta description when "{Name}®: {snapshot}" would exceed 160 characters (Snapshot, shortened only by cutting its last clause). */
   metaDescription?: string;
   /** Streamlined layout (Bonomarlot, round 3): essentials visible, deeper reading collapsed. */
@@ -50,7 +57,7 @@ export interface StreamlinedPdp {
    * Collapsible "Manufacturer's Labeled Directions" inside Dosage & Course Information.
    * Omitted (no expander) when no verifiable manufacturer source exists for the product.
    */
-  labeledDirections?: { heading: string; attribution: string; text: string };
+  labeledDirections?: { heading: string; attribution?: string; text: string; note?: string };
   /** "Safety & FAQs": merged Important Information + Safety + stop-use paragraphs, no repeats. */
   safety: string[];
   /** Default doctor questions left out on this page (exact text from DOCTOR_QUESTIONS). */
@@ -73,6 +80,16 @@ export function brochure(page: number, text: string): DirectionsSource {
   };
 }
 
+/** Directions printed on the package, shown as plain text (never linked, no outside source named). */
+export function onPackage(text: string): DirectionsSource {
+  return { kind: "package", attribution: PACKAGE_ATTRIBUTION, text, short: "" };
+}
+
+/** Directions confirmed by Julia for this product, stated plainly. */
+export function confirmed(text: string): DirectionsSource {
+  return { kind: "confirmed", attribution: "", text, short: "" };
+}
+
 export function manufacturer(text: string): DirectionsSource {
   return { kind: "manufacturer", attribution: "As listed by the manufacturer:", text, short: "" };
 }
@@ -81,6 +98,9 @@ export function manufacturer(text: string): DirectionsSource {
 
 export const INGREDIENTS_NOTE = "Full ingredient list and amounts available on the product label.";
 export const LABELED_DIRECTIONS_HEADING = "Manufacturer's Labeled Directions";
+export const DIRECTIONS_HEADING = "Directions";
+export const PACKAGE_ATTRIBUTION = "As listed on the package:";
+export const CONFER_DOCTOR_LINE = "Please confer with your doctor before use.";
 export const STOP_USE_LINE =
   "If you have an allergic reaction, an adverse effect, or a concern, discontinue use and seek medical care.";
 /** Default doctor questions left out on streamlined pages (exact DOCTOR_QUESTIONS text). */
@@ -94,6 +114,15 @@ const CONSULT_SENTENCE = "Consult a healthcare professional before use, especial
 /** Safety lead (Julia's round-2 Bonomarlot wording, with the product's own name). */
 export function safetyLead(name: string): string {
   return `${name} is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.`;
+}
+
+/** Directions expander for any source kind (undefined when there is no source). */
+export function labeledDirectionsFor(src: DirectionsSource | undefined): StreamlinedPdp["labeledDirections"] {
+  if (!src) return undefined;
+  if (src.kind === "brochure") return brochureLabeledDirections(src);
+  if (src.kind === "package") return { heading: LABELED_DIRECTIONS_HEADING, attribution: PACKAGE_ATTRIBUTION, text: src.text };
+  if (src.kind === "confirmed") return { heading: DIRECTIONS_HEADING, text: src.text, note: CONFER_DOCTOR_LINE };
+  return undefined;
 }
 
 /** Labeled-directions expander from a brochure source: quoted exactly, with its page number. */
@@ -110,7 +139,7 @@ export function brochureLabeledDirections(src: DirectionsSource): StreamlinedPdp
  * Round-3 layout for one product: "About This Product" dropped, Important Information,
  * the product's own safety paragraph (shared/product-facts.json pdp.safety, minus the
  * consult sentence the lead already says) and the stop-use line merged into
- * "Safety & FAQs"; labeled directions only from a brochure source (else no expander).
+ * "Safety & FAQs"; directions from the brochure, the package (Revilab ML) or Julia-confirmed text (Endoluten); else no expander.
  */
 export function streamline(
   name: string,
@@ -126,7 +155,7 @@ export function streamline(
     importantInformation: lead,
     streamlined: {
       ingredientsNote: INGREDIENTS_NOTE,
-      ...(src?.kind === "brochure" ? { labeledDirections: brochureLabeledDirections(src) } : {}),
+      ...(labeledDirectionsFor(src) ? { labeledDirections: labeledDirectionsFor(src) } : {}),
       safety: [lead, ...(own ? [own] : []), STOP_USE_LINE],
       omitDoctorQuestions: [...OMIT_DOCTOR_QUESTIONS],
     },

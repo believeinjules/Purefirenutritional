@@ -503,7 +503,7 @@ export const TITLE_MAX = 60;
  */
 export function productTitle(product: { id: string; name: string }): string {
   const rolled = FORMULA_PDP_CONTENT[product.id];
-  if (rolled) return rolledOutTitle(rolled.title);
+  if (rolled) return rolled.seoTitle ?? rolledOutTitle(rolled.title);
   const organ = BIOREGULATOR_ORGAN[product.id];
   if (organ) return `${product.name} | ${organ} Peptide Bioregulator | ${SITE_NAME}`;
   const focus = SEO_TITLE_FOCUS[product.id];

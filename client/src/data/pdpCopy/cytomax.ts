@@ -5,7 +5,7 @@
  * every other page gets the same streamlined layout through streamline() with its own copy.
  */
 import { PRODUCT_FACTS } from "@shared/product-facts";
-import { brochure, MANUFACTURER_DIRECTIONS_LINE as LINE, streamline, type FormulaPdpContent } from "./shared";
+import { brochure, confirmed, MANUFACTURER_DIRECTIONS_LINE as LINE, streamline, type FormulaPdpContent } from "./shared";
 
 const SUBLINE = "Khavinson Cytomax® | Focused Formula";
 const REVIEW = "Review the complete product label and consult a qualified healthcare professional before use.";
@@ -186,7 +186,8 @@ const DRAFT: Record<string, FormulaPdpContent> = {
     about:
       "Endoluten contains A-8, a naturally derived peptide complex obtained from the pineal gland tissue of young animals. It belongs to the Khavinson Cytomax collection of tissue-derived complexes. Despite the similar name, it is not the same product as Pinealon, which is a Khavinson Cytogen formula with a synthetic brain peptide complex. Endoluten centers on its single pineal complex and does not contain melatonin.",
     manufacturerDirections: {
-      source: brochure(98, "Take 1-2 capsules or tablets of ENDOLUTEN® 1-3 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months."),
+      // Julia-confirmed (2026-10-14), word for word from main's "How should I take it?" FAQ. No brochure quote (Julia, 2026-11-09).
+      source: confirmed("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months."),
       line: LINE,
     },
     compareIntro:
@@ -196,7 +197,7 @@ const DRAFT: Record<string, FormulaPdpContent> = {
     importantInformation: `Endoluten is not presented as a treatment for insomnia, sleep disorders, hormonal disorders or other medical conditions. ${REVIEW}`,
     dosageCourse: true,
     flags: [
-      "Directions: brochure p. 98 quoted (Julia 2026-11-09: brochure directions confirmed for use). Differs from the peptid.ru text the page showed before (1 capsule every 3 days, 20 days to 2 months) and from peptideproduct.com (1–2 capsules 2×/day, 1 month).",
+      "Directions: Julia's confirmed line only (2026-10-14; reaffirmed 2026-11-09), word for word from main's FAQ. Brochure p. 98 is not shown on Endoluten.",
       "Amount per capsule not published: brochure p. 98 prints 10 mg per capsule or tablet; not verified.",
     ],
   },

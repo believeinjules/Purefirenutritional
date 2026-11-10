@@ -62,6 +62,13 @@ describe("descriptive product titles", () => {
     for (const p of rolled) {
       const h1 = FORMULA_PDP_CONTENT[p.id]!.title;
       const t = productTitle(p);
+      if (/^revilab-ml-0\d$/.test(p.id)) {
+        // Revilab ML: short <title> (Julia 2026-11-09), under 60 characters; H1 keeps the full title.
+        expect(t, p.id).toBe(FORMULA_PDP_CONTENT[p.id]!.seoTitle);
+        expect(t.length, t).toBeLessThan(60);
+        expect(t.startsWith(`${p.name} — `), t).toBe(true);
+        continue;
+      }
       const core = t.replace(/ \| Pure Fire Nutritional$/, "");
       expect(h1.startsWith(core), `${p.id}: ${t}`).toBe(true);
       expect(t.endsWith("| Pure Fire Nutritional") ? t.length <= 60 : true, t).toBe(true);

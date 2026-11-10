@@ -141,11 +141,8 @@ describe("gating and shared parts", () => {
 });
 
 describe("round 3 on every rolled-out capsule page", () => {
-  const MISSING_DIRECTIONS = [
-    "sigumir", "suprefort", "thyreogen", "vladonix",
-    "revilab-ml-01", "revilab-ml-02", "revilab-ml-03", "revilab-ml-04", "revilab-ml-05",
-    "revilab-ml-06", "revilab-ml-07", "revilab-ml-08", "revilab-ml-09",
-  ];
+  const MISSING_DIRECTIONS = ["sigumir", "suprefort", "thyreogen", "vladonix"];
+  const ML_PACKAGE_TEXT = "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.";
 
   it("rolled out: 21 Cytomax + 6 Cytogen + 9 Revilab ML; never Prime, Revilab SL, Zinsil-T or hidden products", () => {
     const ids = Object.keys(FORMULA_PDP_CONTENT);
@@ -154,13 +151,28 @@ describe("round 3 on every rolled-out capsule page", () => {
     for (const id of ids) expect(FORMULA_PDP_CONTENT[id].streamlined, id).toBeDefined();
   });
 
-  it("labeled directions only from a brochure page; the others have no expander", () => {
+  it("directions: brochure page, package text (Revilab ML) or Endoluten's confirmed line; the others have no expander", () => {
     const without = Object.keys(FORMULA_PDP_CONTENT).filter((id) => !FORMULA_PDP_CONTENT[id].streamlined!.labeledDirections).sort();
     expect(without).toEqual([...MISSING_DIRECTIONS].sort());
     for (const [id, c] of Object.entries(FORMULA_PDP_CONTENT)) {
       const ld = c.streamlined!.labeledDirections;
       if (!ld) continue;
       const src = c.manufacturerDirections.source!;
+      if (/^revilab-ml-0\d$/.test(id)) {
+        expect(src.kind, id).toBe("package");
+        expect(ld.heading, id).toBe("Manufacturer's Labeled Directions");
+        expect(ld.attribution, id).toBe("As listed on the package:");
+        expect(ld.text, id).toBe(ML_PACKAGE_TEXT);
+        continue;
+      }
+      if (id === "endoluten") {
+        expect(src.kind).toBe("confirmed");
+        expect(ld.heading).toBe("Directions");
+        expect(ld.attribution).toBeUndefined();
+        expect(ld.text).toBe("Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.");
+        expect(ld.note).toBe("Please confer with your doctor before use.");
+        continue;
+      }
       expect(src.kind, id).toBe("brochure");
       expect(ld.attribution, id).toBe(`As printed in the Cytomax and Cytogen product brochure (p. ${src.page}):`);
       expect(ld.text, id).toBe(`"${src.text}"`);
@@ -182,7 +194,10 @@ describe("round 3 on every rolled-out capsule page", () => {
       expect([...at].sort((a, b) => a - b), id).toEqual(at);
       expect(text.split(FDA_DISCLAIMER), id).toHaveLength(2);
       expect(text, id).not.toMatch(/preventively|How long should one cycle|About This Product/);
-      expect(text.includes("Manufacturer's Labeled Directions"), id).toBe(Boolean(c.streamlined!.labeledDirections));
+      const ldh = c.streamlined!.labeledDirections;
+      expect(text.includes("Manufacturer's Labeled Directions"), id).toBe(Boolean(ldh) && id !== "endoluten");
+      if (ldh) expect(text, id).toContain(ldh.text);
+      if (id === "endoluten") expect(text).not.toMatch(/brochure/i);
       for (const p4 of DOSAGE_COURSE_PARAGRAPHS) expect(text, id).toContain(p4);
       expect(Boolean(screen.queryByTestId("compare-related-formulas")), id).toBe(counterpartsFor(id).length > 0);
       if (RECOMMENDED_COMBINATION_IDS.has(id)) {

@@ -1,16 +1,14 @@
 /**
  * Revilab ML product page copy (round 3). Written per product from the composition in
- * shared/product-facts.json. No "Manufacturer's Labeled Directions" expander: the
- * directions text in the repo traces to peptid.ru (the St. Petersburg Institute's
- * official dealer site) and resellers, not to the manufacturer (ZAO "GNC PM Pharma"),
- * so it is not quoted as manufacturer directions until Julia accepts that source.
+ * shared/product-facts.json. Directions: the package text from product-facts.json
+ * storefrontUsage (same for ML 01–09 on main), shown as "As listed on the package:" in
+ * plain text, never linked and with no outside source named (Julia, 2026-11-09).
  */
 import { PRODUCT_FACTS } from "@shared/product-facts";
-import { MANUFACTURER_DIRECTIONS_LINE as LINE, streamline, type FormulaPdpContent } from "./shared";
+import { MANUFACTURER_DIRECTIONS_LINE as LINE, onPackage, streamline, type FormulaPdpContent } from "./shared";
 
 const SUBLINE = "Revilab ML | Combination Formula";
-const NO_SOURCE =
-  "Labeled directions omitted: no manufacturer source found (repo text traces to peptid.ru, the Institute's dealer site, and resellers).";
+const NO_SOURCE = "Directions shown as \"As listed on the package:\" (Julia, 2026-11-09).";
 
 const DRAFT: Record<string, FormulaPdpContent> = {
   "revilab-ml-01": {
@@ -237,10 +235,26 @@ function snapshotMeta(name: string, snapshot: string): string | undefined {
   return cut;
 }
 
+/** Page <title>s under 60 characters (Julia, 2026-11-09); the H1 keeps the full descriptive title. */
+export const REVILAB_ML_SEO_TITLES: Record<string, string> = {
+  "revilab-ml-01": "Revilab ML 01 — Pineal, Immune & Liver Peptides | Pure Fire",
+  "revilab-ml-02": "Revilab ML 02 — Immune, Marrow & Liver Peptides | Pure Fire",
+  "revilab-ml-03": "Revilab ML 03 — Brain, Retina & Vessel Peptides | Pure Fire",
+  "revilab-ml-04": "Revilab ML 04 — Heart, Vessel & Pineal Peptides | Pure Fire",
+  "revilab-ml-05": "Revilab ML 05 — Immune, Bronchi & Lung Peptides | Pure Fire",
+  "revilab-ml-06": "Revilab ML 06 — Liver, Pancreas & Stomach Blend | Pure Fire",
+  "revilab-ml-07": "Revilab ML 07 — Men's Multi-Peptide Complex | Pure Fire",
+  "revilab-ml-08": "Revilab ML 08 — Women's Multi-Peptide Complex | Pure Fire",
+  "revilab-ml-09": "Revilab ML 09 — Cartilage & Vessel Peptides | Pure Fire",
+};
+
 export const REVILAB_ML_COPY: Record<string, FormulaPdpContent> = Object.fromEntries(
   Object.entries(DRAFT).map(([id, c]) => {
     const name = PRODUCT_FACTS[id]?.name ?? id;
     const metaDescription = snapshotMeta(name, c.snapshot);
-    return [id, streamline(name, metaDescription ? { ...c, metaDescription } : c, PRODUCT_FACTS[id]?.pdp?.safety)];
+    const usage = PRODUCT_FACTS[id]?.storefrontUsage.text;
+    if (!usage) throw new Error(`no package directions for ${id}`);
+    const withDirections: FormulaPdpContent = { ...c, seoTitle: REVILAB_ML_SEO_TITLES[id], manufacturerDirections: { ...c.manufacturerDirections, source: onPackage(usage) } };
+    return [id, streamline(name, metaDescription ? { ...withDirections, metaDescription } : withDirections, PRODUCT_FACTS[id]?.pdp?.safety)];
   }),
 );

@@ -165,8 +165,13 @@ export function StreamlinedPdpBody({
           {st.labeledDirections && (
             <div className="mt-4" data-testid="pdp-labeled-directions">
               <PdpAccordion title={st.labeledDirections.heading} nested>
-                <p className={`${STREAMLINED_SMALL} mb-1`}>{st.labeledDirections.attribution}</p>
+                {st.labeledDirections.attribution && (
+                  <p className={`${STREAMLINED_SMALL} mb-1`}>{st.labeledDirections.attribution}</p>
+                )}
                 <p className={STREAMLINED_BODY}>{st.labeledDirections.text}</p>
+                {st.labeledDirections.note && (
+                  <p className={`${STREAMLINED_SMALL} mt-2`}>{st.labeledDirections.note}</p>
+                )}
               </PdpAccordion>
             </div>
           )}
