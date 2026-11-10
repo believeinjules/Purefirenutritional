@@ -24,9 +24,10 @@ count is the same or fewer than the bundle's total capsules. Example: 3 × 20 ca
 more than one 60-cap bottle. Used by the product page, cart, and the server checkout (a hidden bundle → HTTP 400).
 A cart line holding a bundle that is no longer offered becomes the same number of single bottles.
 
-With current prices this hides the **3 × 20-cap bundle** ($152.97 vs $153.99 for one 60-cap bottle) on:
-Chelohart, Gotratix, Pielotax, Testoluten, Thyreogen, Ventfort, Visoluten, Vladonix.
-All 2-bottle bundles and all 60-cap bundles stay; Bonomarlot, Cartalax, Crystagen, Endoluten and Vesugen keep every bundle.
+The 20-cap price on the $153.99 60-cap family was raised from $58.99 to $59.99 so the
+**3 × 20-cap bundle** ($155.97) sits above the unchanged 60-cap bottle and can be offered.
+The 60-cap price was not lowered. The guard remains as a safety net if live prices would
+again let a smaller-size bundle undercut a larger bottle.
 
 ### Per-product overrides (optional, Firestore `products/{id}` or `products.ts`)
 - `bundlesEnabled: false` → no bundles for that product

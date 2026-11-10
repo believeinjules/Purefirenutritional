@@ -229,21 +229,29 @@ describe("Stripe session params (server-side amounts)", () => {
 });
 
 describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
-  // Live prices (Firestore = code catalog): Gotratix 20 caps $58.99, 60 caps $153.99.
+  // Live prices (Firestore = code catalog): Gotratix 20 caps $59.99, 60 caps $153.99.
+  // The 20-cap price was raised just enough so 3 × 20 ($155.97) is above the 60-cap
+  // bottle and can be offered; the 60-cap price was not changed.
   const gotratix = products.find((p) => p.id === "gotratix")! as PriceableProduct;
   const cartalax = products.find((p) => p.id === "cartalax")! as PriceableProduct;
 
-  it("hides Gotratix 3 × 20 caps ($152.97 ≤ one 60-cap bottle at $153.99)", () => {
+  it("offers Gotratix 3 × 20 caps ($155.97 > one 60-cap bottle at $153.99)", () => {
+    expect(getBundleOffer(gotratix, 59.99, 3, { size: "20" })!.bundleCents).toBe(15597);
+    expect(largerSizeFloorCents(gotratix, 59.99, 3, "20")).toBe(15399);
+    expect(getBundleOffers(gotratix, 59.99, { size: "20" }).map((o) => o.bottles)).toEqual([2, 3]);
+    // size inferred from the price when not passed
+    expect(getBundleOffer(gotratix, 59.99, 3)!.bundleCents).toBe(15597);
+  });
+
+  it("still hides a 3 × 20 bundle when the 20-cap price is low enough to undercut the 60", () => {
+    // Safety net: same 60-cap floor, previous $58.99 20-cap price ($152.97 ≤ $153.99).
     expect(getBundleOffer(gotratix, 58.99, 3, { size: "20" })).toBeNull();
     expect(largerSizeFloorCents(gotratix, 58.99, 3, "20")).toBe(15399);
-    expect(getBundleOffers(gotratix, 58.99, { size: "20" }).map((o) => o.bottles)).toEqual([2]);
-    // size inferred from the price when not passed
-    expect(getBundleOffer(gotratix, 58.99, 3)).toBeNull();
   });
 
   it("keeps Gotratix 2 × 20 caps (40 caps — fewer than the 60-cap bottle) and the 60-cap bundles", () => {
-    expect(getBundleOffer(gotratix, 58.99, 2, { size: "20" })!.bundleCents).toBe(10998);
-    expect(largerSizeFloorCents(gotratix, 58.99, 2, "20")).toBeNull();
+    expect(getBundleOffer(gotratix, 59.99, 2, { size: "20" })!.bundleCents).toBe(11198);
+    expect(largerSizeFloorCents(gotratix, 59.99, 2, "20")).toBeNull();
     expect(getBundleOffer(gotratix, 153.99, 3, { size: "60" })!.bundleCents).toBe(43797);
   });
 
@@ -266,12 +274,21 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
     expect(getBundleOffer(p(125.99), 50, 3, { size: "20" })!.bundleCents).toBe(12600);
   });
 
-  it("does not reprice — the hidden bundle is simply unavailable at checkout (→ 400)", () => {
-    expect(getCartLineUnitUSD(gotratix, "20", 3)).toBeUndefined();
-    expect(() =>
-      resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 3 })
-    ).toThrow(CheckoutValidationError);
-    expect(resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 2 }).unitAmountCents).toBe(10998);
+  it("charges the 3 × 20 Gotratix bundle now that it is above the 60-cap bottle", () => {
+    expect(getCartLineUnitUSD(gotratix, "20", 3)).toBe(155.97);
+    expect(resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 3 }).unitAmountCents).toBe(15597);
+    expect(resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 2 }).unitAmountCents).toBe(11198);
+  });
+
+  it("does not reprice — a bundle that still undercuts a larger size is unavailable at checkout (→ 400)", async () => {
+    // cytomax fixture still uses the previous $58.99 / $153.99 pair so the guard can be tested.
+    expect(getCartLineUnitUSD(cytomax, "20", 3)).toBeUndefined();
+    await expect(
+      resolveCheckoutLinesWith(
+        [{ productId: "vladonix", size: "20", quantity: 1, bundle: 3 }],
+        async () => new Map([["vladonix", cytomax]])
+      )
+    ).rejects.toThrow(CheckoutValidationError);
   });
 
   it("keeps the low-price guard alongside it", () => {

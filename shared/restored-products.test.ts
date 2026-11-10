@@ -18,10 +18,10 @@ describe("restored products", () => {
     expect(p!.variants?.map(v => v.id)).toEqual(["20-count", "60-count"]);
     expect(p!.image && existsSync(`client/public${p!.image}`), `${id} image`).toBe(true);
   });
-  it.each(RESTORED)("%s is priced $58.99/€40 and $153.99/€110 and in stock", id => {
+  it.each(RESTORED)("%s is priced $59.99/€40 and $153.99/€110 and in stock", id => {
     const p = products.find(x => x.id === id)!;
-    expect([p.priceUSD, p.priceEUR]).toEqual([58.99, 40]);
-    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[58.99, 40, true], [153.99, 110, true]]);
+    expect([p.priceUSD, p.priceEUR]).toEqual([59.99, 40]);
+    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[59.99, 40, true], [153.99, 110, true]]);
   });
   it("restored copy has no lifespan/mortality/cancer figures", () => {
     for (const id of RESTORED) {
