@@ -359,6 +359,11 @@ export default function ProductDetail() {
                   onVariantChange={setSelectedVariant}
                 />
               )}
+              {(!product.variants || product.variants.length === 0) && preview?.size && (
+                <p className="text-sm text-gray-700" data-testid="variant-single">
+                  <span className="font-medium">Size:</span> {preview.size}
+                </p>
+              )}
 
               {/* Bundles (2 / 3 bottles of the selected size) */}
               <BundleSelector

@@ -62,6 +62,12 @@ describe("descriptive product titles", () => {
     for (const p of rolled) {
       const h1 = FORMULA_PDP_CONTENT[p.id]!.title;
       const t = productTitle(p);
+      if (FORMULA_PDP_CONTENT[p.id]!.legacyTitle) {
+        // Phase 2: H1 is the plain product name; the existing <title> is kept unchanged.
+        expect(FORMULA_PDP_CONTENT[p.id]!.title, p.id).toBe(p.name);
+        expect(t.startsWith(`${p.name} | `), t).toBe(true);
+        continue;
+      }
       if (/^revilab-ml-0\d$/.test(p.id)) {
         // Revilab ML: short <title> (Julia 2026-11-09), under 60 characters; H1 keeps the full title.
         expect(t, p.id).toBe(FORMULA_PDP_CONTENT[p.id]!.seoTitle);

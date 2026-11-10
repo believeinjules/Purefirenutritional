@@ -48,6 +48,14 @@ export interface FormulaPdpContent {
   streamlined?: StreamlinedPdp;
   /** Review flags for counsel/Julia. Never rendered. */
   flags?: string[];
+  /** Phase 2: keep the existing page <title> (H1 is the plain product name). */
+  legacyTitle?: boolean;
+  /** Phase 2: Label Information lines (composition / catalog list); overrides pdp.ingredients. */
+  labelLines?: string[];
+  /** Phase 2: plain-text size for single-size products, only when the data lists it. */
+  size?: string;
+  /** Phase 2: product form ("cosmetic" drops the dosage framing). */
+  form?: string;
 }
 
 export interface StreamlinedPdp {
@@ -122,7 +130,7 @@ export function labeledDirectionsFor(src: DirectionsSource | undefined): Streaml
   if (src.kind === "brochure") return brochureLabeledDirections(src);
   if (src.kind === "package") return { heading: LABELED_DIRECTIONS_HEADING, attribution: PACKAGE_ATTRIBUTION, text: src.text };
   if (src.kind === "confirmed") return { heading: DIRECTIONS_HEADING, text: src.text, note: CONFER_DOCTOR_LINE };
-  return undefined;
+  return { heading: LABELED_DIRECTIONS_HEADING, attribution: src.attribution, text: src.text };
 }
 
 /** Labeled-directions expander from a brochure source: quoted exactly, with its page number. */

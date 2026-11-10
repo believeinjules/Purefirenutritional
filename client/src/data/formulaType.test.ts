@@ -202,6 +202,11 @@ describe("formula type map", () => {
         expect(c.snapshot.split(/(?<=\.)\s+(?=[A-Z])/), id).toHaveLength(1);
         expect(c.research, id).toContain(`Evidence establishing ${name}'s effectiveness and long-term safety in humans remains limited.`);
         // Round 3: the Safety & FAQs lead is Julia's Bonomarlot wording with the product's own name.
+        if (c.form === "cosmetic") {
+          expect(c.importantInformation, id).toBe(`${name} is a cosmetic, not a medicine. Review the complete product label, including all ingredients and any warnings, before use.`);
+          expect(c.streamlined?.safety[0], id).toBe(c.importantInformation);
+          continue;
+        }
         expect(c.importantInformation, id).toBe(`${name} is not a medicine. Review the complete product label, including other ingredients and any warnings, and consult a qualified healthcare professional before use, especially if you take medications or have a medical condition.`);
         expect(c.streamlined?.safety[0], id).toBe(c.importantInformation);
       }
@@ -269,6 +274,11 @@ describe("formula type map", () => {
         continue;
       }
       // Bonomarlot (round 3): Julia's generic intro; the counterparts are named in the rows below it.
+      // Phase 2 (Revilab SL): compact rows only, no intro sentence (not rendered in the template).
+      if (c.legacyTitle) {
+        for (const cp of cps) expect(counterpartsFor(cp.id).map((x) => x.id), `${cp.id} ← ${id}`).toContain(id);
+        continue;
+      }
       if (id !== "bonomarlot") for (const cp of cps) expect(c.compareIntro, `${id} → ${cp.id}`).toContain(PRODUCT_FACTS[cp.id].name);
       else expect(c.compareIntro).toBe("Explore combination formulas with potentially related bone marrow peptide ingredients. Exact overlap should be confirmed from their ingredient lists.");
       // and the pair holds the other way

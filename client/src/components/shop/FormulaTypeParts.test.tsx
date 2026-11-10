@@ -11,6 +11,8 @@ import {
   DOSAGE_COURSE_PARAGRAPHS, DOSAGE_COURSE_SHORT, FDA_DISCLAIMER, FORMULA_PDP_CONTENT, RECOMMENDED_COMBINATION_IDS, recommendedCombinationLine,
 } from "@/data/formulaPreviewContent";
 import { INGREDIENTS_NOTE } from "@/data/pdpCopy/shared";
+import { PHASE2_COPY, PHASE2_GAPS } from "@/data/pdpCopy/phase2";
+import { PRODUCT_FACTS } from "@shared/product-facts";
 
 vi.mock("@/components/QuickAddToCart", () => ({ default: () => null }));
 
@@ -142,13 +144,15 @@ describe("gating and shared parts", () => {
 });
 
 describe("round 3 on every rolled-out capsule page", () => {
-  const MISSING_DIRECTIONS = ["sigumir", "suprefort", "thyreogen", "vladonix"];
+  const MISSING_DIRECTIONS = ["sigumir", "suprefort", "thyreogen", "vladonix", ...PHASE2_GAPS.noVerifiedDirections];
+  const PHASE2 = new Set(Object.keys(PHASE2_COPY));
   const ML_PACKAGE_TEXT = "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.";
 
-  it("rolled out: 21 Cytomax + 6 Cytogen + 9 Revilab ML; never Prime, Revilab SL, Zinsil-T or hidden products", () => {
+  it("rolled out: 21 Cytomax + 6 Cytogen + 9 Revilab ML + 42 phase 2; never Prime or hidden products", () => {
     const ids = Object.keys(FORMULA_PDP_CONTENT);
-    expect(ids).toHaveLength(36);
-    for (const id of ids) expect(id, id).not.toMatch(/^(prime-peptide-|revilab-sl-)|^(zinsil-t|calsil-t|indosine|panaxod)$/);
+    expect(ids).toHaveLength(36 + 42);
+    expect(PHASE2.size).toBe(42);
+    for (const id of ids) expect(id, id).not.toMatch(/^prime-peptide-|^(calsil-t|indosine|panaxod)$/);
     for (const id of ids) expect(FORMULA_PDP_CONTENT[id].streamlined, id).toBeDefined();
   });
 
@@ -174,6 +178,15 @@ describe("round 3 on every rolled-out capsule page", () => {
         expect(ld.note).toBe("Please confer with your doctor before use.");
         continue;
       }
+      if (PHASE2.has(id)) {
+        // Phase 2: only product-facts directions marked verified (manufacturer source), quoted exactly.
+        const md = PRODUCT_FACTS[id].manufacturerDirections;
+        expect(md.status, id).toBe("verified");
+        expect(src.kind, id).toBe("manufacturer");
+        expect(ld.attribution, id).toBe("As listed by the manufacturer:");
+        expect(ld.text, id).toBe(md.text);
+        continue;
+      }
       expect(src.kind, id).toBe("brochure");
       expect(ld.attribution, id).toBe(`As printed in the Cytomax and Cytogen product brochure (p. ${src.page}):`);
       expect(ld.text, id).toBe(`"${src.text}"`);
@@ -189,7 +202,20 @@ describe("round 3 on every rolled-out capsule page", () => {
         <StreamlinedPdpBody productId={id} productName={p.name} content={c} labelLines={p.ingredients ?? []} faqs={[]} recommendedCombination={rec} />,
       );
       const text = container.textContent ?? "";
-      const order = ["Ingredients", "Full ingredients listed below or on label.", "Biological Focus", "Dosage & Course Information", DOSAGE_COURSE_SHORT, "Research & Evidence", "Safety & FAQs", FDA_DISCLAIMER, "Label Information", INGREDIENTS_NOTE];
+      const hasLabel = (c.labelLines ?? p.ingredients ?? []).some((x) => !/^See the full ingredient list/i.test(x));
+      const order = [
+        "Ingredients",
+        hasLabel ? "Full ingredients listed below or on label." : INGREDIENTS_NOTE,
+        "Biological Focus",
+        ...(c.dosageCourse ? ["Dosage & Course Information", DOSAGE_COURSE_SHORT] : []),
+        "Research & Evidence",
+        "Safety & FAQs",
+        FDA_DISCLAIMER,
+        "Label Information",
+        ...(hasLabel ? [INGREDIENTS_NOTE] : []),
+      ];
+      if (!c.dosageCourse) expect(text, id).not.toContain(DOSAGE_COURSE_SHORT);
+      if (c.form === "cosmetic") expect(text, id).not.toMatch(/capsule|serving|Questions for your doctor|Dosage/i);
       const at = order.map((h) => text.indexOf(h));
       expect(at.every((i) => i >= 0), `${id} ${JSON.stringify(at)}`).toBe(true);
       expect([...at].sort((a, b) => a - b), id).toEqual(at);

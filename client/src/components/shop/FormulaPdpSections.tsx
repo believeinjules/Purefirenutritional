@@ -139,13 +139,16 @@ export function StreamlinedPdpBody({
 }) {
   const st = content.streamlined!;
   const questions = doctorQuestionsWithout(st.omitDoctorQuestions);
-  const label = labelLines.filter((x) => !/^See the full ingredient list/i.test(x));
+  const label = (content.labelLines ?? labelLines).filter((x) => !/^See the full ingredient list/i.test(x));
+  const cosmetic = content.form === "cosmetic";
   return (
     <div className="space-y-8" data-testid="pdp-streamlined">
       <section data-testid="pdp-ingredients-section">
         <h2 className={h2}>Ingredients</h2>
-        <p className={body}>{content.ingredients[0]}</p>
-        <p className={`mt-1 ${STREAMLINED_SMALL}`} data-testid="pdp-ingredients-note">{INGREDIENTS_TEMPLATE_NOTE}</p>
+        {content.ingredients[0] && <p className={body}>{content.ingredients[0]}</p>}
+        <p className={content.ingredients[0] ? `mt-1 ${STREAMLINED_SMALL}` : body} data-testid="pdp-ingredients-note">
+          {label.length > 0 ? INGREDIENTS_TEMPLATE_NOTE : st.ingredientsNote}
+        </p>
       </section>
 
       <section data-testid="pdp-biological-focus">
@@ -192,10 +195,14 @@ export function StreamlinedPdpBody({
               <p key={p}>{p}</p>
             ))}
           </div>
-          <h3 className="font-semibold text-gray-900 pt-4 mb-2">{`Questions for your doctor about ${productName}`}</h3>
-          <ol className={`list-decimal pl-5 space-y-1 ${body}`} data-testid="pdp-doctor">
-            {questions.map((q) => <li key={q}>{q}</li>)}
-          </ol>
+          {!cosmetic && (
+            <>
+              <h3 className="font-semibold text-gray-900 pt-4 mb-2">{`Questions for your doctor about ${productName}`}</h3>
+              <ol className={`list-decimal pl-5 space-y-1 ${body}`} data-testid="pdp-doctor">
+                {questions.map((q) => <li key={q}>{q}</li>)}
+              </ol>
+            </>
+          )}
           {faqs.length > 0 && (
             <>
               <h3 className="font-semibold text-gray-900 pt-4 mb-2">Frequently Asked Questions</h3>
