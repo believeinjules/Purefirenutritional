@@ -50,6 +50,8 @@ import ArticleOralVsInjectableDelivery from "./pages/learn/OralVsInjectableDeliv
 import ArticleBioregulatorOrganPairings from "./pages/learn/BioregulatorOrganPairings";
 import ArticleCytomaxesCytogensGlossary from "./pages/learn/CytomaxesCytogensGlossary";
 import ArticleRegistrationVsCoa from "./pages/learn/RegistrationVsCoa";
+import ArticleHowToChooseRetailer from "./pages/learn/HowToChooseRetailer";
+import ArticleVesugenResearchSafety from "./pages/learn/VesugenResearchSafety";
 import Documentation from "./pages/Documentation";
 import DocumentationDetail from "./pages/DocumentationDetail";
 // Store policies (copy in content/policies.ts)
@@ -136,6 +138,8 @@ function Router() {
       <Route path="/learn/bioregulator-organ-pairings-mechanism-vs-evidence" component={ArticleBioregulatorOrganPairings} />
       <Route path="/learn/cytomaxes-cytogens-a-numbers-glossary" component={ArticleCytomaxesCytogensGlossary} />
       <Route path="/learn/registration-certificate-vs-certificate-of-analysis" component={ArticleRegistrationVsCoa} />
+      <Route path="/learn/how-to-choose-a-peptide-bioregulator-retailer" component={ArticleHowToChooseRetailer} />
+      <Route path="/learn/vesugen-research-safety" component={ArticleVesugenResearchSafety} />
       <Route path="/how-to-spot-a-fake" component={HowToSpotAFake} />
       <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsPolicy} />

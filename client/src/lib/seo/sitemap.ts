@@ -38,6 +38,8 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/learn/bioregulator-organ-pairings-mechanism-vs-evidence",
   "/learn/cytomaxes-cytogens-a-numbers-glossary",
   "/learn/registration-certificate-vs-certificate-of-analysis",
+  "/learn/how-to-choose-a-peptide-bioregulator-retailer",
+  "/learn/vesugen-research-safety",
   // /privacy, /terms, /shipping, /returns
   ...POLICY_PATHS,
   ...DRAFTABLE_ROUTES.filter((r) => r.published).map((r) => r.path),

@@ -50,7 +50,38 @@ export const WHY_BUY_PATH = "/learn/why-buy-khavinson-peptides-from-pure-fire";
 export const BUY_KHAVINSON_USA_PATH = "/learn/buy-khavinson-peptides-usa";
 
 export const LEARN_ARTICLES: LearnArticle[] = [
-  // Newest Longevity Journal batch (2026-11-05). Order here = /learn order among equal dates.
+  // Newest Longevity Journal batch (2026-11-11). Order here = /learn order among equal dates.
+  {
+    title: "How to Choose a Peptide Bioregulator Retailer",
+    navLabel: "How to Choose a Retailer",
+    hideFromNav: true,
+    href: "/learn/how-to-choose-a-peptide-bioregulator-retailer",
+    category: "buying",
+    tags: ["sourcing", "authenticity", "documentation"],
+    date: "2026-11-11",
+    description: "A checklist for choosing a peptide bioregulator retailer: sourcing, authenticity, documents, shipping, claims, and returns, with Pure Fire as an example.",
+    cover: {
+      jpg: "/images/learn/how-to-choose-a-peptide-bioregulator-retailer-hero.jpg",
+      webp: "/images/learn/how-to-choose-a-peptide-bioregulator-retailer-hero.webp",
+      alt: "Hands checking a generic supplement label and product documents",
+    },
+  },
+  {
+    title: "Vesugen (KED Peptide): What the Research Says About Safety and Effects",
+    navLabel: "Vesugen Research and Safety",
+    hideFromNav: true,
+    href: "/learn/vesugen-research-safety",
+    category: "science",
+    tags: ["khavinson", "evidence", "mechanism"],
+    date: "2026-11-11",
+    description: "Vesugen is a short synthetic peptide (Lys-Glu-Asp) studied in blood vessel cells. What the laboratory and human research shows, and what it doesn't.",
+    cover: {
+      jpg: "/images/learn/vesugen-research-safety-hero.jpg",
+      webp: "/images/learn/vesugen-research-safety-hero.webp",
+      alt: "Laboratory equipment beside a vessel tissue model, representing early-stage Vesugen research",
+    },
+  },
+  // Longevity Journal batch (2026-11-05). Order here = /learn order among equal dates.
   {
     title: "Khavinson Peptide Bioregulators: Research History vs. FDA Approval",
     navLabel: "Research vs FDA Approval",
