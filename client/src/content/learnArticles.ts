@@ -88,6 +88,10 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     tags: ["mechanism", "evidence", "oral-delivery"],
     date: "2026-11-05",
     description: "Explore Khavinson bioregulator supplements, organ pairings, proposed mechanisms, and how digestion and absorption may alter oral peptide uptake, availability.",
+    cover: {
+      jpg: "/images/learn/bioregulator-organ-pairings-mechanism-vs-evidence-hero.jpg",
+      alt: "Anatomical figure with callouts to the brain, heart, lungs, liver, stomach and kidneys, beside stacked books and two capsules",
+    },
   },
   {
     title: "Cytomaxes, Cytogens and A-Numbers: A Glossary",
@@ -99,6 +103,10 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     pinned: true,
     date: "2026-11-05",
     description: "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.",
+    cover: {
+      jpg: "/images/learn/cytomaxes-cytogens-a-numbers-glossary-hero.jpg",
+      alt: "Open illustrated glossary book of peptide bioregulator terms, beside a flask, stacked books and a dish of powder",
+    },
   },
   {
     title: "Registration Certificate vs. Certificate of Analysis: What Each Shows",

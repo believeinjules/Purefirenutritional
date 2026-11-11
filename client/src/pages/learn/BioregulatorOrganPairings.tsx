@@ -11,6 +11,8 @@ const PATH = "/learn/bioregulator-organ-pairings-mechanism-vs-evidence";
 const TITLE = "Bioregulator Organ Pairings: Mechanism vs Evidence";
 const HEADLINE = "Bioregulator Organ Pairings: Proposed Mechanism vs. Measured Evidence";
 const DESCRIPTION = "Explore Khavinson bioregulator supplements, organ pairings, proposed mechanisms, and how digestion and absorption may alter oral peptide uptake, availability.";
+const HERO_JPG = "/images/learn/bioregulator-organ-pairings-mechanism-vs-evidence-hero.jpg";
+const HERO_ALT = "Anatomical figure with callouts to the brain, heart, lungs, liver, stomach and kidneys, beside stacked books and two capsules";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -20,6 +22,7 @@ const JSON_LD = {
       "description": "Explore Khavinson bioregulator supplements, organ pairings, proposed mechanisms, and how digestion and absorption may alter oral peptide uptake, availability.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/bioregulator-organ-pairings-mechanism-vs-evidence",
       "inLanguage": "en-US",
+      "image": "https://www.purefirenutritional.com" + HERO_JPG,
       "author": {
         "@type": "Organization",
         "name": "Pure Fire Nutritional"
@@ -87,6 +90,8 @@ export default function ArticleBioregulatorOrganPairings() {
         description={DESCRIPTION}
         path={PATH}
         type="article"
+        image={HERO_JPG}
+        imageAlt={HERO_ALT}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(JSON_LD)}</script>
@@ -104,6 +109,16 @@ export default function ArticleBioregulatorOrganPairings() {
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>
+
+          <picture>
+            <img
+              src={HERO_JPG}
+              alt={HERO_ALT}
+              width={1600}
+              height={900}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
 
           <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
 

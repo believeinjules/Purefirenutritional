@@ -11,6 +11,8 @@ const PATH = "/learn/cytomaxes-cytogens-a-numbers-glossary";
 const TITLE = "Cytomaxes, Cytogens & A-Numbers: Glossary | Pure Fire";
 const HEADLINE = "Cytomaxes, Cytogens and A-Numbers: A Glossary";
 const DESCRIPTION = "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.";
+const HERO_JPG = "/images/learn/cytomaxes-cytogens-a-numbers-glossary-hero.jpg";
+const HERO_ALT = "Open illustrated glossary book of peptide bioregulator terms, beside a flask, stacked books and a dish of powder";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -20,6 +22,7 @@ const JSON_LD = {
       "description": "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/cytomaxes-cytogens-a-numbers-glossary",
       "inLanguage": "en-US",
+      "image": "https://www.purefirenutritional.com" + HERO_JPG,
       "author": {
         "@type": "Organization",
         "name": "Pure Fire Nutritional"
@@ -42,6 +45,8 @@ export default function ArticleCytomaxesCytogensGlossary() {
         description={DESCRIPTION}
         path={PATH}
         type="article"
+        image={HERO_JPG}
+        imageAlt={HERO_ALT}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(JSON_LD)}</script>
@@ -59,6 +64,16 @@ export default function ArticleCytomaxesCytogensGlossary() {
           <p className="text-gray-400 text-sm mb-8">
             <em>By Julia Shulman, co-founder, Pure Fire Nutritional</em>
           </p>
+
+          <picture>
+            <img
+              src={HERO_JPG}
+              alt={HERO_ALT}
+              width={1600}
+              height={900}
+              className="w-full h-auto rounded-lg mb-10"
+            />
+          </picture>
 
           <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
 
