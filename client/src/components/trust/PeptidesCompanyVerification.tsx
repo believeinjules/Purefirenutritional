@@ -75,10 +75,21 @@ export default function PeptidesCompanyVerification() {
       <h2 id="peptides-company-heading" className="text-[11px] uppercase tracking-[0.22em] text-stone-500">
         Our Relationship with Peptides Company
       </h2>
-      <p className="mt-4 text-base leading-relaxed text-stone-700">
-        Pure Fire Nutritional is independently operated by an Independent Consultant registered directly with Peptides
-        Company. Our registration and affiliation can be independently verified by contacting Peptides Company.
-      </p>
+      <div className="mt-4 space-y-4 text-base leading-relaxed text-stone-700" data-testid="peptides-company-text">
+        <p>
+          Pure Fire Nutritional is a U.S.-based retailer of Khavinson peptide bioregulators, operating through the
+          authorized independent consultant network of Peptides Company.
+        </p>
+        <p>
+          Pure Fire’s co-founder, Julia Shulman, is registered with Peptides Company as an Independent Consultant
+          (Registration No. 296389), through which Pure Fire sources and distributes genuine Khavinson peptide products
+          to U.S. customers.
+        </p>
+        <p>
+          This registration establishes our relationship with Peptides Company’s distribution network. Pure Fire
+          Nutritional is an independently operated business, not a subsidiary or corporate branch of Peptides Company.
+        </p>
+      </div>
 
       <div className="mt-5 border border-stone-200 bg-white px-5 py-4 text-sm" data-testid="peptides-company-box">
         <p className="font-medium text-stone-900">Peptides Company — Registered Independent Consultant</p>
