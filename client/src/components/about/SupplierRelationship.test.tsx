@@ -20,7 +20,7 @@ describe("Our Supplier Relationship section", () => {
       "Registered partner:Julia Shulman",
       "Partner number:296389",
       "Registration date:April 21, 2023",
-      "It is not itself a certification",
+      "No. 296389 is also our Authorized Khavinson Peptide Retailer number.",
     ]) expect(text).toContain(s);
     expect(text).not.toMatch(/registry/i);
     expect(text).not.toMatch(/partner network/i);

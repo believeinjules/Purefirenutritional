@@ -61,6 +61,7 @@ import ShippingPolicy from "./pages/policies/Shipping";
 import ReturnsPolicy from "./pages/policies/Returns";
 // Draft page: noindex, not in nav/sitemap until its copy is confirmed.
 import HowToSpotAFake from "./pages/HowToSpotAFake";
+import AuthorizedRetailer from "./pages/AuthorizedRetailer";
 
 function Router() {
   return (
@@ -83,6 +84,7 @@ function Router() {
       <Route path="/science" component={Science} />
       <Route path="/research" component={Science} />
       <Route path="/about" component={About} />
+      <Route path="/about/authorized-retailer" component={AuthorizedRetailer} />
       <Route path="/authenticity" component={Documentation} />
       <Route path="/authenticity/:slug" component={DocumentationDetail} />
       <Route path="/login" component={Login} />

@@ -53,7 +53,7 @@ export default function SupplierRelationship() {
           We believe transparency about sourcing is essential to helping customers make informed purchasing decisions.
         </p>
         <p className="text-lg text-gray-600 mb-8">
-          Partner registration is an account in the supplier’s partner system. It is not itself a certification, and it is separate from our authorized retailer status.
+          No. 296389 is also our Authorized Khavinson Peptide Retailer number.
         </p>
 
         <div className="space-y-2">

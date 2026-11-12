@@ -15,11 +15,14 @@ import {
   Activity,
   Leaf,
   ChevronRight,
+  ShieldCheck,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
+import RetailerNumber from "@/components/trust/RetailerNumber";
+import { AUTHORIZED_RETAILER_CREDENTIAL, AUTHORIZED_RETAILER_PATH } from "@/data/retailerAuthorization";
 
 // ─── Wellness category data ───────────────────────────────────────────────────
 
@@ -274,6 +277,27 @@ export default function Index() {
               </div>
             ))}
           </div>
+
+          {/* Authorized retailer credential (Julia, 2026-11-12): one quiet line, linked */}
+          <p style={{
+            marginTop: "28px",
+            fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+            fontWeight: 400,
+            fontSize: "10px",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "#888",
+            lineHeight: 2,
+          }} data-testid="home-retailer-credential">
+            <Link href={AUTHORIZED_RETAILER_PATH} className="hover:text-white transition-colors">
+              <ShieldCheck aria-hidden="true" style={{ display: "inline", width: "12px", height: "12px", marginRight: "6px", verticalAlign: "-2px" }} />
+              {AUTHORIZED_RETAILER_CREDENTIAL}
+              <span aria-hidden="true" style={{ margin: "0 8px", color: "#444" }}>·</span>
+              No. <RetailerNumber />
+              <span aria-hidden="true" style={{ margin: "0 8px", color: "#444" }}>·</span>
+              <span style={{ textDecoration: "underline", textUnderlineOffset: "3px" }}>View authorization</span>
+            </Link>
+          </p>
 
         </div>
       </section>

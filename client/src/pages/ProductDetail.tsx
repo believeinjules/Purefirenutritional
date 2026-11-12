@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "wouter";
-import { ArrowLeft, Star, ShoppingCart, Plus, Minus, Heart, Info } from "lucide-react";
+import { ArrowLeft, Star, ShoppingCart, Plus, Minus, Heart, Info, ShieldCheck } from "lucide-react";
+import { AUTHORIZED_RETAILER_PATH, PRODUCT_LINE_TEXT, isKhavinsonAuthorizedProduct } from "@/data/retailerAuthorization";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -419,6 +420,16 @@ export default function ProductDetail() {
                   <Heart size={16} className={inWishlist ? "fill-red-500 text-red-500" : ""} />
                 </Button>
               </div>
+
+              {/* One subtle line for Khavinson Cytomax/Cytogen products (Julia, 2026-11-12) */}
+              {isKhavinsonAuthorizedProduct(product.id) && (
+                <p className="text-xs text-gray-500" data-testid="pdp-authorized-retailer">
+                  <Link href={AUTHORIZED_RETAILER_PATH} className="inline-flex items-center gap-1.5 py-1 underline underline-offset-2 hover:text-gray-800">
+                    <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
+                    {PRODUCT_LINE_TEXT}
+                  </Link>
+                </p>
+              )}
 
               {streamlined && (
                 <p className="text-gray-600 leading-relaxed" data-testid="pdp-snapshot">{streamlined.snapshot}</p>

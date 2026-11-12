@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 import { CONTACT_EMAIL, mailto } from "@shared/contact-emails";
+import { AUTHORIZED_RETAILER_PATH, AUTHORIZED_RETAILER_TITLE } from "@/data/retailerAuthorization";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -142,6 +143,11 @@ export default function Footer() {
               <li>
                 <Link href="/authenticity" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   Authenticity
+                </Link>
+              </li>
+              <li>
+                <Link href={AUTHORIZED_RETAILER_PATH} className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
+                  {AUTHORIZED_RETAILER_TITLE}
                 </Link>
               </li>
               <li>
