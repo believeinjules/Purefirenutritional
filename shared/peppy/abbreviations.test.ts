@@ -32,7 +32,8 @@ describe("Vesugen dosage answer", () => {
       { catalog: buildCatalog(products as never) }
     );
     expect(response.summary).toContain("(Cytomax and Cytogen product brochure, p. 103; the same text as our product page.)");
-    const shown = shortAnswer(response.summary);
+    // On screen the answer is cut to 3 sentences (PeppyAnswer); the quote + citation must survive that.
+    const shown = shortAnswer(response.summary, 3);
     expect(shown).toContain("product brochure, p. 103;");
     expect(shown).toContain("not results from clinical trials of this product.");
     expect(shown).not.toMatch(/peptid\.ru/);

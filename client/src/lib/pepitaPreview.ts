@@ -2,7 +2,7 @@
  * Pure helpers behind Pepita's citation and product previews (no React, unit tested).
  */
 import { isHiddenProduct } from "@shared/hidden-products";
-import { protectAbbreviations, restoreAbbreviations } from "@shared/peppy/text";
+import { protectAbbreviations, protectQuotes, restoreAbbreviations } from "@shared/peppy/text";
 import type {
   PeppyProductSuggestion,
   PeppySourceCard,
@@ -182,7 +182,7 @@ export function shortAnswer(summary: string, max = 6): string {
     .replace(/\s+/g, " ")
     .trim()
     .replace(/^Here's what [^.]*\.\s*/i, "");
-  const sentences = protectAbbreviations(text).match(/[^.!?]+[.!?]+["”’)\]]*(?=\s|$)|[^.!?]+$/g) ?? [];
+  const sentences = protectQuotes(protectAbbreviations(text)).match(/[^.!?]+[.!?]+["”’)\]]*(?=\s|$)|[^.!?]+$/g) ?? [];
   return sentences.slice(0, max).map(s => restoreAbbreviations(s).trim()).join(" ");
 }
 

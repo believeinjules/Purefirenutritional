@@ -69,6 +69,10 @@ export function protectAbbreviations(text: string): string {
   for (const re of ABBREVIATIONS) t = t.replace(re, m => m.replace(/\./g, ABBR_DOT));
   return t;
 }
+/** Also keeps a quoted passage ("…" or “…”) in one sentence with what follows it, e.g. its citation. */
+export function protectQuotes(text: string): string {
+  return text.replace(/"[^"\n]*"|“[^”\n]*”/g, m => m.replace(/\./g, ABBR_DOT));
+}
 export function restoreAbbreviations(text: string): string {
   return text.split(ABBR_DOT).join(".");
 }
