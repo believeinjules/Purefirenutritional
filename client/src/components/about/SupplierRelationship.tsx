@@ -4,8 +4,7 @@ import { useEffect } from "react";
  * "Our Supplier Relationship" section on /about (Julia, 2026-11-12).
  *
  * - All facts render as HTML text so crawlers and the prerender see them.
- * - The supplier-linked URL is plain text, never a link (Pure Fire links to no
- *   other store). It is not an official verification registry.
+ * - No supplier website, domain or referral link appears here (Julia, 2026-11-12).
  * - Documentation image: Julia's partner-profile screenshot, cropped, at
  *   client/public/images/sourcing/partner-profile.webp (+ partner-profile.jpg),
  *   1082 × 695 (supplied 2026-11-12; right edge trimmed 3 px, metadata stripped).
@@ -23,8 +22,6 @@ export const PARTNER_DETAILS: Array<[string, string]> = [
   ["Registered partner", "Julia Shulman"],
   ["Partner number", "296389"],
   ["Registration date", "April 21, 2023"],
-  ["Supplier network", "peptid.ru"],
-  ["Supplier-linked URL", "peptid.ru/?ref=296389"],
 ];
 
 /** Scrolls to the section when the page loads with #supplier-relationship. */

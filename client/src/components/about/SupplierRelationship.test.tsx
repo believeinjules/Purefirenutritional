@@ -20,18 +20,16 @@ describe("Our Supplier Relationship section", () => {
       "Registered partner:Julia Shulman",
       "Partner number:296389",
       "Registration date:April 21, 2023",
-      "Supplier network:peptid.ru",
-      "Supplier-linked URL:peptid.ru/?ref=296389",
       "It is not itself a certification",
     ]) expect(text).toContain(s);
     expect(text).not.toMatch(/registry/i);
     expect(text).not.toMatch(/partner network/i);
   });
 
-  it("links to no other site (the supplier URL is plain text)", () => {
+  it("links to no other site and names no supplier website", () => {
     const { container } = render(<SupplierRelationship />);
     expect(container.querySelectorAll("a")).toHaveLength(0);
-    expect(container.innerHTML).not.toContain("href=\"https://peptid");
+    expect(container.innerHTML).not.toMatch(/\.ru\b|ref=|supplier network|supplier-linked/i);
   });
 
   it("keeps the documentation collapsed by default, with a lazy image", () => {
@@ -63,7 +61,7 @@ describe("About page Organization JSON-LD", () => {
     expect(org["@id"]).toBe("https://www.purefirenutritional.com/#organization");
     expect(site["@id"]).toBe("https://www.purefirenutritional.com/#website");
     expect(site.publisher).toEqual({ "@id": org["@id"] });
-    for (const k of ["hasCredential", "award", "sameAs", "peptid", "certif", "verif"]) {
+    for (const k of ["hasCredential", "award", "sameAs", ".ru", "certif", "verif"]) {
       expect(json).not.toContain(k);
     }
   });
