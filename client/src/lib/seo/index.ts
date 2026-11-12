@@ -671,3 +671,44 @@ export function websiteJsonLd(): Record<string, unknown> {
     publisher: { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` },
   };
 }
+
+/**
+ * About page: the Organization behind the site plus the WebSite node, in one
+ * @graph. Same @ids as the home page WebSite (#website) and the returns-page
+ * OnlineStore (#organization), so search engines merge them into one entity.
+ * Facts only from the site itself (name, url, logo, contact email, Brooklyn NY,
+ * co-founders on /about). No awards, certifications or third-party verification.
+ */
+export function aboutOrganizationJsonLd(contactEmail: string): Record<string, unknown> {
+  const orgId = `${SITE_URL}/#organization`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": orgId,
+        name: SITE_NAME,
+        url: `${SITE_URL}/`,
+        logo: `${SITE_URL}${DEFAULT_SHARE_IMAGE}`,
+        email: contactEmail,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Brooklyn",
+          addressRegion: "NY",
+          addressCountry: "US",
+        },
+        founder: [
+          { "@type": "Person", name: "Julia Shulman", jobTitle: "Co-Founder" },
+          { "@type": "Person", name: "Benjamin Peker", jobTitle: "Co-Founder" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: SITE_NAME,
+        url: `${SITE_URL}/`,
+        publisher: { "@id": orgId },
+      },
+    ],
+  };
+}

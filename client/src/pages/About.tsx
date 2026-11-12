@@ -7,6 +7,8 @@ import { Heart, Shield, Award, Users, Globe, Microscope, ArrowRight, Mail } from
 import { Link } from 'wouter';
 import SiteReviews from '@/components/reviews/SiteReviews';
 import { CONTACT_EMAIL, FOUNDER_EMAIL, mailto } from '@shared/contact-emails';
+import { aboutOrganizationJsonLd } from '@/lib/seo';
+import SupplierRelationship, { SUPPLIER_SECTION_ID, SUPPLIER_LINK_TEXT } from '@/components/about/SupplierRelationship';
 
 export default function About() {
   return (
@@ -16,6 +18,7 @@ export default function About() {
         description="Learn about Pure Fire Nutritional — we sell nutrition supplements we trust. Peptide bioregulators are the specialty. Evidence-backed products for cognitive vitality, resilience, and healthy aging."
         path="/about"
         type="website"
+        jsonLd={[aboutOrganizationJsonLd(CONTACT_EMAIL)]}
       />
       {/* Hero Section */}
       <section className="relative py-16 sm:py-20 md:py-24 bg-brand-gradient text-white">
@@ -118,7 +121,11 @@ export default function About() {
                   Julia is co-founder of Pure Fire Nutritional. She leads research, education, and product curation — with a focus on peptide bioregulation and making Khavinson short regulatory peptides clearer for a U.S. audience.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Her background is in psychology and behavior change. Longevity work led her to Vladimir Khavinson's research and the Eastern European tradition around short regulatory peptides. That interest became years of study, manufacturer relationships, and careful sourcing.
+                  Her background is in psychology and behavior change. Longevity work led her to Vladimir Khavinson's research and the Eastern European tradition around short regulatory peptides. That interest became years of study, manufacturer relationships, and{" "}
+                  <a href={`#${SUPPLIER_SECTION_ID}`} className="font-medium text-gray-800 underline hover:text-amber-600">
+                    careful sourcing
+                  </a>
+                  .
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   At Pure Fire, she chooses what the store carries and how the science is explained — so customers get real products and real context, not hype.
@@ -303,12 +310,20 @@ export default function About() {
                   <CardDescription>Shipping Available</CardDescription>
                 </CardHeader>
               </Card>
+              <p className="col-span-2 text-center text-sm text-gray-600">
+                <a href={`#${SUPPLIER_SECTION_ID}`} className="font-medium text-gray-800 underline hover:text-amber-600">
+                  {SUPPLIER_LINK_TEXT}
+                </a>
+              </p>
             </div>
           </div>
         </div>
       </section>
 
 
+
+      {/* Supplier relationship (linked as /about#supplier-relationship) */}
+      <SupplierRelationship />
 
       {/* Values Section */}
       <section className="py-20 bg-gradient-to-r from-orange-50 to-amber-50">

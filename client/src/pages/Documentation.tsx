@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
+import { SUPPLIER_SECTION_HREF, SUPPLIER_LINK_TEXT } from "@/components/about/SupplierRelationship";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import {
@@ -47,6 +48,13 @@ export default function Documentation() {
           </p>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-500">
             Shown here: EAEU Certificates of State Registration. A registration certificate is not a certificate of analysis, and it is not evidence of a clinical result.
+          </p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-500">
+            Our supplier relationship:{" "}
+            <Link href={SUPPLIER_SECTION_HREF} className="underline hover:text-stone-900">
+              {SUPPLIER_LINK_TEXT}
+            </Link>
+            .
           </p>
 
           <div className="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-b border-stone-200 pb-4">

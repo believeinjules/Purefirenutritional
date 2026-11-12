@@ -1,5 +1,7 @@
 import { ShieldCheck, FileText } from "lucide-react";
+import { Link } from "wouter";
 import { SITE_TRUST, isUsableUrl } from "@/data/siteConfig";
+import { SUPPLIER_SECTION_HREF, SUPPLIER_LINK_TEXT } from "@/components/about/SupplierRelationship";
 
 type Props = {
   manufacturer?: string;
@@ -60,6 +62,12 @@ export default function ProductAuthenticity({
           {badgeInner}
         </span>
       )}
+
+      <p className="text-xs">
+        <Link href={SUPPLIER_SECTION_HREF} className="text-gray-500 underline hover:text-gray-800">
+          {SUPPLIER_LINK_TEXT}
+        </Link>
+      </p>
 
       {mfr && <p className="text-sm text-gray-600">Imported directly from {mfr}, St. Petersburg</p>}
 

@@ -6,6 +6,7 @@ import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { BUY_KHAVINSON_USA_PATH, WHY_BUY_PATH } from "@/content/learnArticles";
+import { SUPPLIER_SECTION_HREF, SUPPLIER_LINK_TEXT } from "@/components/about/SupplierRelationship";
 
 // Body text: pf-blog/why-buy-from-us/article.md (approved), verbatim; HTML comments omitted.
 // TSP companion link (same-molecule-different-product) is commented out until that page is live.
@@ -102,7 +103,7 @@ export default function ArticleWhyBuyFromPureFire() {
             <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Why Pure Fire Nutritional</h2>
             <p>We built Pure Fire around a simple principle:</p>
             <p><strong>Know what you're buying. Know where it comes from.</strong></p>
-            <p>We source Khavinson peptide bioregulator products through established supplier relationships, with identifiable manufacturers and documented commercial sourcing. Every product we sell carries a lot number, an expiry date, and a certificate of analysis, so you can check what you received against its paperwork. (More on how we buy: <Link href={BUY_KHAVINSON_USA_PATH} className={a}>Buying Khavinson peptides in the USA</Link>.)</p>
+            <p>We source Khavinson peptide bioregulator products through established supplier relationships, with identifiable manufacturers and documented commercial sourcing. Every product we sell carries a lot number, an expiry date, and a certificate of analysis, so you can check what you received against its paperwork. (More on how we buy: <Link href={BUY_KHAVINSON_USA_PATH} className={a}>Buying Khavinson peptides in the USA</Link>.) (Our supplier relationship: <Link href={SUPPLIER_SECTION_HREF} className={a}>{SUPPLIER_LINK_TEXT}</Link>.)</p>
             <p>We're not claiming every less expensive peptide is counterfeit, or that only one country can produce a genuine molecule. The original manufacturers themselves produce in St. Petersburg and a few European facilities. What matters isn't the country. It's whether the manufacturer is identifiable and the source is documented. Sometimes a lower price is simply a better deal. But compare the complete offer — manufacturer, formulation, quantity, shipping, duties — not just the number on the product page.</p>
 
             <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Informed Choices, Not Blind Trust</h2>
