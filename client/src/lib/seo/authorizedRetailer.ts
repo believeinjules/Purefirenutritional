@@ -7,12 +7,14 @@
  * recognizedBy. No document on file names the issuer, a credential number or a
  * public registry, and schema.org credentials imply a verifiable third-party
  * credential. The authorization is stated in plain words (description) only.
- * The retailer number (Julia: 296389) is a plain PropertyValue identifier.
+ * No. 296389 is Julia's registration, so it sits on her Person node (founder),
+ * not on the store (Julia, 2026-11-12: "the number is associated with my name").
  */
 import { SITE_NAME, SITE_URL, DEFAULT_SHARE_IMAGE, canonicalUrl } from "./index";
 import {
   AUTHORIZED_RETAILER_PATH,
   AUTHORIZED_RETAILER_TITLE,
+  PARTNER_REGISTRATION,
   RETAILER_NUMBER,
 } from "@/data/retailerAuthorization";
 
@@ -37,10 +39,15 @@ export function authorizedRetailerJsonLd(): Record<string, unknown> {
       addressCountry: "US",
     },
   };
-  store.identifier = {
-    "@type": "PropertyValue",
-    name: "Authorized Khavinson Peptide Retailer number",
-    value: RETAILER_NUMBER,
+  store.founder = {
+    "@type": "Person",
+    name: PARTNER_REGISTRATION.name,
+    jobTitle: "Co-Founder",
+    identifier: {
+      "@type": "PropertyValue",
+      name: "Peptides Company Consultant ID",
+      value: RETAILER_NUMBER,
+    },
   };
   return {
     "@context": "https://schema.org",

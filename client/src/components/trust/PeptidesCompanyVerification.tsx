@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
-import { RETAILER_NUMBER } from "@/data/retailerAuthorization";
+import { PARTNER_REGISTRATION, RETAILER_NUMBER } from "@/data/retailerAuthorization";
 
 /** Anchor for "Our Relationship with Peptides Company" on /about/authorized-retailer. */
 export const PEPTIDES_COMPANY_SECTION_ID = "peptides-company";
 export const PEPTIDES_COMPANY_HREF = `/about/authorized-retailer#${PEPTIDES_COMPANY_SECTION_ID}`;
 /** Julia, 2026-11-12: her existing site ID (same as the retailer number). */
 export const CONSULTANT_ID = RETAILER_NUMBER;
+/** The ID is shown tied to Julia's name (Julia, 2026-11-12). */
+export const CONSULTANT_NAME = PARTNER_REGISTRATION.name;
 
 async function copyText(text: string): Promise<boolean> {
   try {
@@ -70,7 +72,7 @@ export default function PeptidesCompanyVerification() {
       aria-labelledby="peptides-company-heading"
       data-testid="peptides-company"
     >
-      <h2 id="peptides-company-heading" className="font-serif text-2xl md:text-3xl font-normal tracking-tight text-stone-900">
+      <h2 id="peptides-company-heading" className="text-[11px] uppercase tracking-[0.22em] text-stone-500">
         Our Relationship with Peptides Company
       </h2>
       <p className="mt-4 text-base leading-relaxed text-stone-700">
@@ -78,28 +80,26 @@ export default function PeptidesCompanyVerification() {
         Company. Our registration and affiliation can be independently verified by contacting Peptides Company.
       </p>
 
-      <div className="mt-6 border border-stone-200 bg-white px-6 py-6 md:px-8" data-testid="peptides-company-box">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-stone-500">
-          Peptides Company — Registered Independent Consultant
-        </p>
-        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <p className="text-stone-900">
-            <span className="text-sm text-stone-500">Consultant ID: </span>
-            <span className="font-serif text-3xl tracking-wide" data-testid="consultant-id">{CONSULTANT_ID}</span>
+      <div className="mt-5 border border-stone-200 bg-white px-5 py-4 text-sm" data-testid="peptides-company-box">
+        <p className="font-medium text-stone-900">Peptides Company — Registered Independent Consultant</p>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+          <p className="text-stone-700">
+            Consultant ID: <span className="font-semibold text-stone-900" data-testid="consultant-id">{CONSULTANT_ID}</span>
+            <span className="text-stone-500"> · {CONSULTANT_NAME}</span>
           </p>
           <button
             type="button"
             onClick={onCopy}
             aria-label={copied ? "Consultant ID copied" : `Copy Consultant ID ${CONSULTANT_ID}`}
-            className="inline-flex min-h-[36px] items-center gap-1.5 border border-stone-300 px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-stone-700 transition-colors hover:border-stone-900 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+            className="inline-flex min-h-[28px] items-center gap-1 rounded border border-stone-300 px-2 py-0.5 text-[11px] text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
             data-testid="copy-consultant-id"
           >
-            {copied ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
+            {copied ? <Check className="h-3 w-3" aria-hidden="true" /> : <Copy className="h-3 w-3" aria-hidden="true" />}
             {copied ? "Copied" : "Copy"}
           </button>
           <span className="sr-only" role="status" aria-live="polite">{copied ? "Copied" : ""}</span>
         </div>
-        <p className="mt-4 border-t border-stone-100 pt-4 text-sm text-stone-600">
+        <p className="mt-2 text-stone-600">
           <span className="font-medium text-stone-800">Verification:</span> Registration can be confirmed directly with
           Peptides Company.
         </p>

@@ -2,13 +2,11 @@ import { Link } from "wouter";
 import PageSeo from "@/components/seo/PageSeo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import RetailerNumber from "@/components/trust/RetailerNumber";
 import PeptidesCompanyVerification from "@/components/trust/PeptidesCompanyVerification";
 import { PARTNER_DOC_JPG, PARTNER_DOC_WEBP } from "@/components/about/SupplierRelationship";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 import { isUsableUrl } from "@/data/siteConfig";
 import {
-  AUTHORIZED_RETAILER_CREDENTIAL,
   AUTHORIZED_RETAILER_PATH,
   AUTHORIZED_RETAILER_TITLE,
   MANUFACTURER_VERIFICATION_URL,
@@ -57,8 +55,6 @@ export default function AuthorizedRetailer() {
             <dl className="mt-5 divide-y divide-stone-200 border-y border-stone-200 text-sm" data-testid="retailer-identity">
               {[
                 ["Retailer", "Pure Fire Nutritional"],
-                ["Status", AUTHORIZED_RETAILER_CREDENTIAL],
-                ["Retailer No.", <RetailerNumber key="n" />],
                 ["Location", "Brooklyn, NY"],
               ].map(([label, value]) => (
                 <div key={String(label)} className="flex flex-wrap justify-between gap-x-6 gap-y-1 py-3">
@@ -75,35 +71,34 @@ export default function AuthorizedRetailer() {
           {/* 2. Documentation */}
           <section className="mt-14" aria-labelledby="authorization-documentation">
             <h2 id="authorization-documentation" className={h2}>Documentation</h2>
-            <p className={p}>
-              Our authorization is held under the registration of our co-founder, {PARTNER_REGISTRATION.name},
-              No. {PARTNER_REGISTRATION.number}, registered {PARTNER_REGISTRATION.registered}. The profile record
-              is shown below with an English translation.
+            <p className={p} data-testid="registered-to">
+              Registered to {PARTNER_REGISTRATION.name}, No. {PARTNER_REGISTRATION.number}, since{" "}
+              {PARTNER_REGISTRATION.registered}. The profile record, with an English translation, is below.
             </p>
-            <figure className="mt-6" data-testid="partner-documentation-figure">
-              <picture>
-                <source srcSet={PARTNER_DOC_WEBP} type="image/webp" />
-                <img
-                  src={PARTNER_DOC_JPG}
-                  alt={`Partner profile record, in Russian: ${PARTNER_REGISTRATION.name}, partner number ${PARTNER_REGISTRATION.number}, registered ${PARTNER_REGISTRATION.registered}`}
-                  width={1082}
-                  height={695}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto border border-stone-200 bg-white"
-                />
-              </picture>
-              <figcaption className="mt-3 text-sm text-stone-600">
-                <span className="block text-xs uppercase tracking-[0.18em] text-stone-400">English translation</span>
-                <span className="mt-2 block">
-                  Partner profile · Full name: Shulman Julia · Partner number: {PARTNER_REGISTRATION.number} ·
-                  Activity threshold: Met · Registration date: {PARTNER_REGISTRATION.registered}
-                </span>
-                <span className="mt-2 block text-xs text-stone-500">
-                  Screenshot cropped to the profile panel. No account links, contact details or signatures are shown.
-                </span>
-              </figcaption>
-            </figure>
+            {/* Same collapsed dropdown pattern as the About page supplier section */}
+            <details className="mt-6" data-testid="partner-documentation">
+              <summary className="cursor-pointer text-sm font-medium text-stone-800 underline hover:text-stone-600">
+                View Partner Documentation
+              </summary>
+              <figure className="mt-4" data-testid="partner-documentation-figure">
+                <picture>
+                  <source srcSet={PARTNER_DOC_WEBP} type="image/webp" />
+                  <img
+                    src={PARTNER_DOC_JPG}
+                    alt={`Partner profile record, in Russian: ${PARTNER_REGISTRATION.name}, No. ${PARTNER_REGISTRATION.number}, registered ${PARTNER_REGISTRATION.registered}`}
+                    width={1082}
+                    height={695}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-auto rounded-lg border border-stone-200 bg-white"
+                  />
+                </picture>
+                <figcaption className="mt-2 text-sm text-stone-600">
+                  Partner profile (Russian). Translation: Full name: Shulman Julia; Partner number: {PARTNER_REGISTRATION.number};
+                  Activity threshold: Met; Registration date: {PARTNER_REGISTRATION.registered}.
+                </figcaption>
+              </figure>
+            </details>
             <p className={p}>
               Product registration documents, with English translations, are in our{" "}
               <Link href="/authenticity" className={a}>authenticity library</Link>.
