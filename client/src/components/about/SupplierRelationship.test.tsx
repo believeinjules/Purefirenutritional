@@ -15,7 +15,7 @@ describe("Our Supplier Relationship section", () => {
     const text = section!.textContent ?? "";
     expect(screen.getByRole("heading", { level: 2 }).textContent).toBe("Our Supplier Relationship");
     for (const s of [
-      "peptid.ru partner network, dating back to April 2023",
+      "sources directly from the manufacturer, with an established purchasing relationship dating back to April 2023",
       "Partner No. 296389",
       "Registered partner:Julia Shulman",
       "Partner number:296389",
@@ -25,6 +25,7 @@ describe("Our Supplier Relationship section", () => {
       "It is not itself a certification",
     ]) expect(text).toContain(s);
     expect(text).not.toMatch(/registry/i);
+    expect(text).not.toMatch(/partner network/i);
   });
 
   it("links to no other site (the supplier URL is plain text)", () => {

@@ -48,7 +48,7 @@ export default function SupplierRelationship() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">Our Supplier Relationship</h2>
         <p className="text-lg text-gray-600 mb-6">
-          Pure Fire Nutritional maintains an established sourcing relationship through the peptid.ru partner network, dating back to April 2023.
+          Pure Fire Nutritional sources directly from the manufacturer, with an established purchasing relationship dating back to April 2023.
         </p>
         <p className="text-lg text-gray-600 mb-6">
           Our co-founder, Julia Shulman, is registered under Partner No. 296389, with documented ongoing purchasing activity through the supplier’s partner system.

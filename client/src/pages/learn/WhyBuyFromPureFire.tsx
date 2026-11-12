@@ -20,7 +20,7 @@ const TSP_COMPANION_URL = "https://theshortpeptide.com/same-molecule-different-p
 
 const a = "text-orange-600 hover:underline";
 const ext = { target: "_blank", rel: "noopener noreferrer", className: a } as const;
-const extTsp = { target: "_blank", rel: "noopener noreferrer nofollow", className: a } as const;
+const extTsp = { target: "_blank", rel: "nofollow noopener noreferrer", className: a } as const;
 function Fn({ n }: { n: number }) {
   return <sup><a href={`#ref-${n}`} className={a}>[{n}]</a></sup>;
 }
@@ -89,7 +89,7 @@ export default function ArticleWhyBuyFromPureFire() {
 
             <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Where It Comes From Matters</h2>
             {/* MANUFACTURING-COUNTRIES LINE (may change): second sentence of this paragraph. */}
-            <p>Khavinson's research began in St. Petersburg, where researchers spent decades investigating peptide bioregulation, both short synthetic peptides and peptide complexes derived from biological tissues.<Fn n={1} /><Fn n={5} /> The finished products in that tradition are manufactured there and in a handful of European countries, including Latvia and Italy, and the Prime Peptide line is made in Germany.</p>
+            <p>Khavinson's research began in St. Petersburg, where researchers spent decades investigating peptide bioregulation, both short synthetic peptides and peptide complexes derived from biological tissues.<Fn n={1} /><Fn n={5} /> The finished products in that tradition are manufactured there and in a handful of European countries, including Latvia and Italy, and the Prime Peptide line is made in Germany and Italy.</p>
             <p>That distinction matters. A synthetic peptide is one defined molecule. A tissue-derived complex contains multiple peptide components, which makes its composition and manufacturing more involved.</p>
             <p>A published sequence is not a complete manufacturing specification. That's why we believe the identity of the finished-product manufacturer matters. (New to these products? Start with <Link href="/learn/what-are-khavinson-peptide-bioregulators" className={a}>What are Khavinson peptide bioregulators?</Link>)</p>
 

@@ -72,8 +72,8 @@ describe("Page copy and order", () => {
     expect(idx.every((i) => i >= 0)).toBe(true);
     expect([...idx].sort((a, b) => a - b)).toEqual(idx);
   });
-  it("Short Peptide link opens in a new tab", () => {
-    expect(page).toMatch(/href="https:\/\/theshortpeptide\.com"\s+target="_blank"\s+rel="noopener noreferrer"/);
+  it("Short Peptide link opens in a new tab and is nofollow", () => {
+    expect(page).toMatch(/href="https:\/\/theshortpeptide\.com"\s+target="_blank"\s+rel="nofollow noopener noreferrer"/);
   });
   it("no banned claim language, figures or dosing on the page", () => {
     const html = [render(createElement(TwoTypes)), render(createElement(BodySystemNav)), page.replace(/This article is for educational purposes only\.[^<]*/, "").replace("not as proven solutions", "").replace(/not intended to diagnose, treat, cure, or prevent any disease/g, "")].join(" ");

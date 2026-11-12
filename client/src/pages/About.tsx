@@ -273,7 +273,7 @@ export default function About() {
                 </Button>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <Card className="text-center">
                 <CardHeader>
                   <div className="bg-gradient-to-r from-blue-500 to-cyan-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
@@ -294,15 +294,6 @@ export default function About() {
               </Card>
               <Card className="text-center">
                 <CardHeader>
-                  <div className="bg-gradient-to-r from-purple-500 to-indigo-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Users className="h-6 w-6 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">10,000+</CardTitle>
-                  <CardDescription>Satisfied Customers</CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="text-center">
-                <CardHeader>
                   <div className="bg-gradient-to-r from-rose-500 to-pink-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
                     <Globe className="h-6 w-6 text-white" />
                   </div>
@@ -310,7 +301,7 @@ export default function About() {
                   <CardDescription>Shipping Available</CardDescription>
                 </CardHeader>
               </Card>
-              <p className="col-span-2 text-center text-sm text-gray-600">
+              <p className="col-span-full text-center text-sm text-gray-600">
                 <a href={`#${SUPPLIER_SECTION_ID}`} className="font-medium text-gray-800 underline hover:text-amber-600">
                   {SUPPLIER_LINK_TEXT}
                 </a>
