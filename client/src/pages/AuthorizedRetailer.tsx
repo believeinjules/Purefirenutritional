@@ -3,6 +3,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import RetailerNumber from "@/components/trust/RetailerNumber";
+import PeptidesCompanyVerification from "@/components/trust/PeptidesCompanyVerification";
 import { PARTNER_DOC_JPG, PARTNER_DOC_WEBP } from "@/components/about/SupplierRelationship";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 import { isUsableUrl } from "@/data/siteConfig";
@@ -67,6 +68,9 @@ export default function AuthorizedRetailer() {
               ))}
             </dl>
           </section>
+
+          {/* Our Relationship with Peptides Company + verification box (Julia, 2026-11-12) */}
+          <PeptidesCompanyVerification />
 
           {/* 2. Documentation */}
           <section className="mt-14" aria-labelledby="authorization-documentation">

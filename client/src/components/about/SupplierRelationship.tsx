@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { PEPTIDES_COMPANY_HREF } from "@/components/trust/PeptidesCompanyVerification";
 
 /**
  * "Our Supplier Relationship" section on /about (Julia, 2026-11-12).
@@ -53,7 +54,10 @@ export default function SupplierRelationship() {
           We believe transparency about sourcing is essential to helping customers make informed purchasing decisions.
         </p>
         <p className="text-lg text-gray-600 mb-8">
-          No. 296389 is also our Authorized Khavinson Peptide Retailer number.
+          No. 296389 is also our Authorized Khavinson Peptide Retailer number.{" "}
+          <a href={PEPTIDES_COMPANY_HREF} className="text-gray-800 underline underline-offset-2 hover:text-amber-600" data-testid="peptides-company-link">
+            Pure Fire Nutritional maintains a direct, independently verifiable consultant relationship with Peptides Company.
+          </a>
         </p>
 
         <div className="space-y-2">

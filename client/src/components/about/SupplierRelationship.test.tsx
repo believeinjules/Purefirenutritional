@@ -28,8 +28,10 @@ describe("Our Supplier Relationship section", () => {
 
   it("links to no other site and names no supplier website", () => {
     const { container } = render(<SupplierRelationship />);
-    expect(container.querySelectorAll("a")).toHaveLength(0);
-    expect(container.innerHTML).not.toMatch(/\.ru\b|ref=|supplier network|supplier-linked/i);
+    // One internal link only: the Peptides Company sentence (Julia, 2026-11-12).
+    const links = Array.from(container.querySelectorAll("a")).map((a) => a.getAttribute("href"));
+    expect(links).toEqual(["/about/authorized-retailer#peptides-company"]);
+    expect(container.innerHTML).not.toMatch(/\.ru\b|[?&]ref=|supplier network|supplier-linked/i);
   });
 
   it("keeps the documentation collapsed by default, with a lazy image", () => {

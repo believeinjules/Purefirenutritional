@@ -31,16 +31,32 @@ describe("retailer authorization", () => {
     for (const hidden of ["calsil-t", "indosine", "panaxod"]) expect(isKhavinsonAuthorizedProduct(hidden)).toBe(false);
   });
   it("page and JSON-LD have no supplier domain, referral URL, credential claim or 'verified' wording", () => {
-    const page = read("client/src/pages/AuthorizedRetailer.tsx");
+    const page = read("client/src/pages/AuthorizedRetailer.tsx") + read("client/src/components/trust/PeptidesCompanyVerification.tsx");
     const ld = JSON.stringify(authorizedRetailerJsonLd());
     for (const text of [page, ld]) {
       expect(text).not.toMatch(/peptid\.ru|[?&]ref=|\.ru\b/i);
-      expect(text).not.toMatch(/independently verified|officially verified|certified retailer/i);
+      // Julia's own Peptides Company sentence is the only "independently verified" wording allowed.
+      expect(text.replace(/can be independently verified by contacting Peptides\s+Company/g, "")).not.toMatch(/independently verified|officially verified|certified retailer/i);
     }
     expect(ld).not.toMatch(/hasCredential|recognizedBy/);
+    expect(ld).not.toMatch(/independently verified/i);
     expect(ld).toContain('"addressLocality":"Brooklyn"');
   });
   it("renders no manufacturer verification link until a real URL is set", () => {
     expect(MANUFACTURER_VERIFICATION_URL).toBe("");
+  });
+  it("shows the Peptides Company box once, with Consultant ID 296389 and Julia's exact wording", () => {
+    const box = read("client/src/components/trust/PeptidesCompanyVerification.tsx").replace(/\s+/g, " ");
+    for (const t of [
+      "Our Relationship with Peptides Company",
+      "Pure Fire Nutritional is independently operated by an Independent Consultant registered directly with Peptides Company. Our registration and affiliation can be independently verified by contacting Peptides Company.",
+      "Peptides Company — Registered Independent Consultant",
+      "Consultant ID: ",
+      "Registration can be confirmed directly with Peptides Company.",
+      'id={PEPTIDES_COMPANY_SECTION_ID}',
+    ]) expect(box).toContain(t);
+    const users = ["client/src/pages/AuthorizedRetailer.tsx", "client/src/pages/About.tsx", "client/src/pages/Index.tsx", "client/src/pages/ProductDetail.tsx", "client/src/components/about/SupplierRelationship.tsx"]
+      .filter((f) => read(f).includes("<PeptidesCompanyVerification"));
+    expect(users).toEqual(["client/src/pages/AuthorizedRetailer.tsx"]);
   });
 });
