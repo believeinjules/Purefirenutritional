@@ -32,7 +32,7 @@ const DRAFT: Record<string, FormulaPdpContent> = {
     importantInformation: "",
     dosageCourse: true,
     flags: [
-      "Brochure p. 107 prints \"10- 30 days\" across a line break; quoted as \"10-30 days\". Matches the peptid.ru text the page already shows (10–30 days, repeat after 4–6 months).",
+      "Brochure p. 107 prints \"10- 30 days\" across a line break; quoted as \"10-30 days\". Matches the manufacturer's Russian text the page already shows (10–30 days, repeat after 4–6 months).",
     ],
   },
 

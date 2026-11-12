@@ -68,7 +68,7 @@ describe("one product-data source: storefront and Pepita cannot drift", () => {
   it("the only storefront/Pepita direction exception is Endoluten (Pepita only, pending Julia)", () => {
     expect(PEPITA_DIRECTION_EXCEPTIONS).toEqual(["endoluten"]);
     const f = getProductFacts("endoluten")!;
-    expect(f.pepitaOverride!.source).toMatch(/peptid\.ru/);
+    expect(f.pepitaOverride!.source).toBe("Manufacturer directions (RU)");
     expect(f.pepitaOverride!.exception).toMatch(/intentional exception/i);
     const page = allProducts.find(p => p.id === "endoluten")!.usage ?? "";
     expect(page).not.toMatch(/every 3 days/);

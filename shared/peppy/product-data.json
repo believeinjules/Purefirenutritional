@@ -34,7 +34,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Bone marrow peptide complex (A-20)",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/ ; https://peptid.ru/catalog/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "verified",
@@ -84,7 +84,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом. Препарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пеп\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом. Препарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пеп\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/bonomarlot/"
       },
       "warnings": {
@@ -96,7 +96,7 @@
       "id": "cartalax",
       "name": "Cartalax",
       "sourceDocs": [
-        "https://peptid.ru/catalog/citogeny/kartalaks/",
+        "Manufacturer directions (RU)",
         "https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/",
         "https://www.purefirenutritional.com/products/cartalax",
         "/workspace/Purefirenutritional/client/src/data/products.ts"
@@ -110,7 +110,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
-            "source": "shared/product-facts.json (verified): https://peptid.ru/catalog/citogeny/kartalaks/"
+            "source": "shared/product-facts.json (verified): Manufacturer directions (RU)"
           }
         },
         {
@@ -119,7 +119,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
-            "source": "shared/product-facts.json (verified): https://peptid.ru/catalog/citogeny/kartalaks/"
+            "source": "shared/product-facts.json (verified): Manufacturer directions (RU)"
           }
         }
       ],
@@ -138,28 +138,28 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
-          "source": "shared/product-facts.json (verified): https://peptid.ru/catalog/citogeny/kartalaks/"
+          "source": "shared/product-facts.json (verified): Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Cartilage peptide complex AC-4 (Ala-Glu-Asp / AED tripeptide)",
-        "source": "shared/product-facts.json (verified): https://peptid.ru/catalog/citogeny/kartalaks/"
+        "source": "shared/product-facts.json (verified): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "verified",
         "value": "Recommended daily dose (2 or 4 capsules) contains 20 mg or 40 mg of peptide complex AC-4; capsule 0,215 g",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1–2 capsules 1–2 times a day with meals for 10–30 days. A repeat course is advisable after 4–6 months.",
-        "source": "shared/product-facts.json (verified): https://peptid.ru/catalog/citogeny/kartalaks/"
+        "source": "shared/product-facts.json (verified): Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -168,22 +168,22 @@
       "courseDuration": {
         "status": "verified",
         "value": "10–30 days; repeat course advisable after 4–6 months",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) (resolved by Julia Shulman 2026-10-13)"
       },
       "sizes": {
         "status": "verified",
         "value": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "sizeDifferences": {
         "status": "verified",
         "value": "Manufacturer: same capsule (0,215 g) and same directions for both packs; 20 or 60 capsules per pack is the only printed difference. Pure Fire page: 20 Capsules | $47.99 | 60 Capsules | $116.99. At the label dose of 2–4 capsules/day, 20 caps = 5–10 days, 60 caps = 15–30 days (arithmetic from label, not a manufacturer statement).",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "documentedProtocols": {
         "status": "verified",
         "value": "Manufacturer page states only: course 1 month, repeat after 3-6 months. No maintenance/preventive/intensive protocol found on manufacturer page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/cartalax/"
       },
       "sexSpecificNotes": {
         "status": "unverified",
@@ -196,7 +196,7 @@
       "contraindications": {
         "status": "verified",
         "value": "individual intolerance to the components; consult a doctor first if pregnant, breastfeeding or with an ongoing condition",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/kartalaks/ (resolved by Julia Shulman 2026-10-13)"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) (resolved by Julia Shulman 2026-10-13)"
       },
       "warnings": {
         "status": "unverified",
@@ -235,7 +235,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Heart muscle peptide complex (A-14)",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/ ; https://peptid.ru/catalog/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "verified",
@@ -285,7 +285,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом. Препарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом. Препарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/chelohart/"
       },
       "warnings": {
@@ -340,7 +340,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -375,7 +375,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. При беременности и лактации рекомендуется проконсультироваться с врачом.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов. При беременности и лактации рекомендуется проконсультироваться с врачом.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/crystagen/"
       },
       "warnings": {
@@ -388,7 +388,7 @@
       "name": "Endoluten",
       "sourceDocs": [
         "https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/",
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/",
+        "Manufacturer directions (RU)",
         "https://www.purefirenutritional.com/products/endoluten",
         "/workspace/Purefirenutritional/client/src/data/products.ts"
       ],
@@ -401,7 +401,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.",
-            "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+            "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): Manufacturer directions (RU)"
           }
         },
         {
@@ -410,7 +410,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.",
-            "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+            "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): Manufacturer directions (RU)"
           }
         }
       ],
@@ -429,28 +429,28 @@
           ],
           "everyNDays": 3,
           "text": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.",
-          "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+          "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Pineal gland peptide complex (A-8)",
-        "source": "shared/product-facts.json (blocked): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ ; https://peptideproduct.com/catalog/ ; https://peptid.ru/catalog/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/"
+        "source": "shared/product-facts.json (blocked): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/ ; Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/"
       },
       "quantities": {
         "status": "verified",
         "value": "Recommended daily dose (2 or 4 capsules) contains 20 mg or 40 mg of peptide complex; capsule 0,215 g",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; Manufacturer directions (RU)"
       },
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months.",
-        "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+        "source": "shared/product-facts.json pepitaOverride (Pepita-only exception; storefront unchanged): Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -459,12 +459,12 @@
       "courseDuration": {
         "status": "verified",
         "value": "about 20 days to 2 months",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) (resolved by Julia Shulman 2026-10-13)"
       },
       "sizes": {
         "status": "verified",
         "value": "60 capsules of 0,215 g. 20 capsules of 0,215 g.",
-        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/"
+        "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/endoluten/ ; Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "unverified",
@@ -487,7 +487,7 @@
       "contraindications": {
         "status": "verified",
         "value": "individual intolerance to the components, pregnancy, breastfeeding",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/endoluten/ (resolved by Julia Shulman 2026-10-13)"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) (resolved by Julia Shulman 2026-10-13)"
       },
       "warnings": {
         "status": "unverified",
@@ -526,7 +526,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Muscle peptide complex (A-18)",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/ ; https://peptid.ru/catalog/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "verified",
@@ -576,7 +576,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов состава, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/gotratix/"
       },
       "warnings": {
@@ -631,7 +631,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -666,7 +666,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/pielotax/"
       },
       "warnings": {
@@ -691,7 +691,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-brain/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -710,7 +710,7 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-brain/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
@@ -731,7 +731,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-brain/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_brain/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -788,7 +788,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-collagen/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -807,7 +807,7 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-collagen/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
@@ -828,7 +828,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-collagen/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_collagen/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -885,7 +885,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-joints/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -904,7 +904,7 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-joints/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
@@ -925,7 +925,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-joints/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_joint/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -982,7 +982,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-omega/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1001,7 +1001,7 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-omega/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
@@ -1022,7 +1022,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-omega/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_omega/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -1079,7 +1079,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-protect/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1098,7 +1098,7 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-protect/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
@@ -1119,7 +1119,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule 3 times a day with meals (3 capsules, 2190 mg, per day), swallowed whole with a little liquid.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/ ; https://peptid.ru/catalog/prime-peptide/prime-peptide-protect/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/peptide_products/prime_peptide/prime_peptide_protect/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -1176,7 +1176,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-01/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1195,13 +1195,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-01/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Epiphysis peptide complex (AA-1); B-link immune peptide complex (AA-3); Liver peptide complex (AA-10); Resveratrol; Choline bitartrate; Omega-3 polyunsaturated fatty acids; Vitamins E, A, C",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-01/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1215,7 +1215,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-01/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_01/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1274,7 +1274,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-02/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1293,13 +1293,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-02/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "T-link immune peptide complex (AA-2); B-link immune peptide complex (AA-3); Bone marrow peptide complex (AA-4); Liver peptide complex (AA-10); Omega-3 polyunsaturated fatty acids; Vitamins E, B6, B9",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-02/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1313,7 +1313,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-02/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_02/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1372,7 +1372,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-03/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1391,13 +1391,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-03/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Brain peptide complex (AA-5); Retina peptide complex (AA-6); Vascular wall peptide complex (AA-7); Astaxanthin; Choline bitartrate; Omega-3 polyunsaturated fatty acids; Vitamins B1, B2, B6; Marigold extract (lutein, zeaxanthin)",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-03/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1411,7 +1411,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-03/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_03/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1470,7 +1470,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-04/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1489,13 +1489,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-04/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Epiphysis peptide complex (AA-1); Vascular wall peptide complex (AA-7); Heart muscle peptide complex (AA-8); Resveratrol; Rutin; Omega-3 polyunsaturated fatty acids; Vitamin PP (Niacin)",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-04/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1509,7 +1509,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-04/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_04/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1568,7 +1568,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-05/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1587,13 +1587,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-05/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "T-link immune peptide complex (AA-2); Bronchi peptide complex (AA-14); Lungs and stomach wall peptide complex (AA-15); Omega-3 polyunsaturated fatty acids; Vitamins E, A; Licorice root extract",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-05/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1607,7 +1607,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-05/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_05/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1666,7 +1666,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-06/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1685,13 +1685,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-06/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Liver peptide complex (AA-10); Pancreas peptide complex (AA-11); Lungs and stomach wall peptide complex (AA-15); Omega-3 polyunsaturated fatty acids; Licorice root extract; Artichoke fruit extract; Plantain leaves extract; Strawberry leaves extract",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-06/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1705,7 +1705,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-06/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_06/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1764,7 +1764,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-07/"
+            "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1783,13 +1783,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-07/"
+          "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Epiphysis peptide complex (AA-1); Vascular wall peptide complex (AA-7); Testes peptide complex (AA-12); Bladder peptide complex (AA-13); Omega-3 polyunsaturated fatty acids; L-carnitine; Zinc citrate",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-07/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1803,7 +1803,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-07/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_07/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1863,7 +1863,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-08/"
+            "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1882,13 +1882,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-08/"
+          "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "Epiphysis peptide complex (AA-1); Vascular wall peptide complex (AA-7); Cartilage peptide complex (AA-9); Bladder peptide complex (AA-13); Omega-3 polyunsaturated fatty acids; Resveratrol; Arginine",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-08/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -1902,7 +1902,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-08/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_08/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -1962,7 +1962,7 @@
           "directions": {
             "status": "verified",
             "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-09/"
+            "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; Manufacturer directions (RU)"
           }
         }
       ],
@@ -1981,13 +1981,13 @@
           ],
           "everyNDays": 1,
           "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-09/"
+          "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; Manufacturer directions (RU)"
         }
       ],
       "ingredients": {
         "status": "verified",
         "value": "B-link immune peptide complex (AA-3); Vascular wall peptide complex (AA-7); Cartilage peptide complex (AA-9); Chondroitin sulfate; Omega-3 polyunsaturated fatty acids; Superoxide dismutase (SOD); Catalase; Carnosine",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-09/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2001,7 +2001,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; https://peptid.ru/catalog/peptidnye-preparaty-revilab/revilab-ml-09/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_ml/revilab_ml_09/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "verified",
@@ -2205,7 +2205,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Vascular wall peptide complex (AA-7); Cardiac muscle peptide complex (AA-8); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_01/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-01/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_01/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2219,7 +2219,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_01/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-01/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_01/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2275,7 +2275,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Brain peptide complex (AA-5); Retina peptide complex (AA-6); Vascular wall peptide complex (AA-7); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_02/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-02/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_02/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2289,7 +2289,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_02/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-02/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_02/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2345,7 +2345,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Pineal gland peptide complex (AA-1); T-cell immune peptide complex (AA-2); B-cell immune peptide complex (AA-3); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_03/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-03/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_03/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2359,7 +2359,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_03/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-03/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_03/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2415,7 +2415,7 @@
       "ingredients": {
         "status": "verified",
         "value": "B-cell immune peptide complex (AA-3); Cartilage peptide complex (AA-9); Muscle peptide complex (AA-17); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_04/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-04/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_04/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2429,7 +2429,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_04/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-04/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_04/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2485,7 +2485,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Liver peptide complex (AA-10); Pancreas peptide complex (AA-11); Lungs and stomach wall peptide complex (AA-15); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_05/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-05/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_05/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2499,7 +2499,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_05/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-05/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_05/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2555,7 +2555,7 @@
       "ingredients": {
         "status": "verified",
         "value": "B-cell immune peptide complex (AA-3); Bronchi peptide complex (AA-14); Lungs and stomach wall peptide complex (AA-15); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_06/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-06/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_06/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2569,7 +2569,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_06/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-06/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_06/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2625,7 +2625,7 @@
       "ingredients": {
         "status": "verified",
         "value": "B-cell immune peptide complex (AA-3); Bone marrow peptide complex (AA-4); Vascular wall peptide complex (AA-7); Folic acid (calcium L-methylfolate); Vitamin B12 (cobalamin); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_07/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-07/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_07/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2639,7 +2639,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_07/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-07/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_07/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2695,7 +2695,7 @@
       "ingredients": {
         "status": "verified",
         "value": "T-cell immune peptide complex (AA-2); Vascular wall peptide complex (AA-7); Bladder peptide complex (AA-13); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_08/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-08/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_08/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2709,7 +2709,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_08/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-08/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_08/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2765,7 +2765,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Pineal gland peptide complex (AA-1); Testes peptide complex (AA-12); Bladder peptide complex (AA-13); Prostate peptide complex (AA-16); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_09/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-09/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_09/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -2779,7 +2779,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_09/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-09/"
+        "source": "shared/product-facts.json (verified): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_09/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -2868,7 +2868,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -2904,7 +2904,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. Препарат не вызывает побочных эффектов, аллергических реакций и лекарственного привыкания. Перед применением рекомендуется проконсультироваться с врачом.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов. Препарат не вызывает побочных эффектов, аллергических реакций и лекарственного привыкания. Перед применением рекомендуется проконсультироваться с врачом.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/testoluten/"
       },
       "warnings": {
@@ -2959,7 +2959,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3005,7 +3005,7 @@
       "id": "cerluten",
       "name": "Cerluten",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/",
+        "Manufacturer directions (RU)",
         "/workspace/pepita-live/endo/peptidru.json",
         "/workspace/pepita-live/endo/organs.json"
       ],
@@ -3033,7 +3033,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Brain peptide complex A-5 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3042,12 +3042,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3060,12 +3060,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules. 20 capsules.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -3083,8 +3083,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Аллергические реакции на желатин, входящий в состав оболочки капсулы, или лактозу. Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/cerluten/"
+        "value": "Manufacturer (RU): \"Аллергические реакции на желатин, входящий в состав оболочки капсулы, или лактозу. Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "warnings": {
         "status": "unverified",
@@ -3095,7 +3095,7 @@
       "id": "chitomur",
       "name": "Chitomur",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/",
+        "Manufacturer directions (RU)",
         "/workspace/pepita-live/endo/peptidru.json",
         "/workspace/pepita-live/endo/organs.json"
       ],
@@ -3123,7 +3123,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Bladder peptide complex A-12 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3132,12 +3132,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3150,12 +3150,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules. 20 capsules.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -3173,8 +3173,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/chitomur/"
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "warnings": {
         "status": "unverified",
@@ -3185,7 +3185,7 @@
       "id": "chonluten",
       "name": "Chonluten",
       "sourceDocs": [
-        "https://peptid.ru/catalog/citogeny/honluten/"
+        "Manufacturer directions (RU)"
       ],
       "verifiedOn": "2026-10-13",
       "productVersion": null,
@@ -3194,7 +3194,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Respiratory peptide complex AC-7 (glycine, glutamic acid, aspartic acid)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/citogeny/honluten/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/chonluten/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/chonluten/"
       },
       "quantities": {
         "status": "unverified",
@@ -3203,12 +3203,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/honluten/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
+        "source": "shared/product-facts.json (conflicting: Code verified; manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
       },
       "food": {
         "status": "unverified",
@@ -3251,7 +3251,7 @@
       "id": "glandokort",
       "name": "Glandokort",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
+        "Manufacturer directions (RU)"
       ],
       "verifiedOn": "2026-10-13",
       "productVersion": null,
@@ -3260,7 +3260,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Adrenal gland peptide complex A-17 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/glandokort/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/glandokort/"
       },
       "quantities": {
         "status": "unverified",
@@ -3269,12 +3269,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/glandokort/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
+        "source": "shared/product-facts.json (conflicting: Code verified; manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
       },
       "food": {
         "status": "unverified",
@@ -3317,7 +3317,7 @@
       "id": "libidon",
       "name": "Libidon",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
+        "Manufacturer directions (RU)"
       ],
       "verifiedOn": "2026-10-13",
       "productVersion": null,
@@ -3326,7 +3326,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Prostate peptide complex A-16 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/libidon/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/libidon/"
       },
       "quantities": {
         "status": "unverified",
@@ -3335,12 +3335,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/libidon/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
+        "source": "shared/product-facts.json (conflicting: Code verified; manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
       },
       "food": {
         "status": "unverified",
@@ -3383,7 +3383,7 @@
       "id": "ovagen",
       "name": "Ovagen",
       "sourceDocs": [
-        "https://peptid.ru/catalog/citogeny/ovagen/"
+        "Manufacturer directions (RU)"
       ],
       "verifiedOn": "2026-10-13",
       "productVersion": null,
@@ -3392,7 +3392,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Peptide complex AC-3 (leucine, glutamic acid, aspartic acid)",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/ ; https://peptid.ru/catalog/citogeny/ovagen/ ; https://peptid.ru/catalog/citogeny/ovagen/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/ ; Manufacturer directions (RU) ; Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/ovagen/"
       },
       "quantities": {
         "status": "unverified",
@@ -3401,12 +3401,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/ovagen/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
+        "source": "shared/product-facts.json (conflicting: Code verified; manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
       },
       "food": {
         "status": "unverified",
@@ -3449,7 +3449,7 @@
       "id": "pinealon",
       "name": "Pinealon",
       "sourceDocs": [
-        "https://peptid.ru/catalog/citogeny/pinealon/"
+        "Manufacturer directions (RU)"
       ],
       "verifiedOn": "2026-10-13",
       "productVersion": null,
@@ -3458,7 +3458,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Brain peptide complex AC-5 (arginine, glutamic acid, aspartic acid)",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/peptide_products/cytogens/pinealon/ ; https://peptid.ru/catalog/citogeny/pinealon/ ; https://peptid.ru/catalog/citogeny/pinealon/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/peptide_products/cytogens/pinealon/ ; Manufacturer directions (RU) ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3467,12 +3467,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/citogeny/pinealon/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
+        "source": "shared/product-facts.json (conflicting: Code verified; manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
       },
       "food": {
         "status": "unverified",
@@ -3515,7 +3515,7 @@
       "id": "sigumir",
       "name": "Sigumir",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/",
+        "Manufacturer directions (RU)",
         "https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/",
         "/workspace/pepita-live/endo/p_sigumir.html",
         "/workspace/pepita-live/endo/peptidru.json",
@@ -3546,7 +3546,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Cartilage and bone peptide complex A-4 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
       },
       "quantities": {
         "status": "unverified",
@@ -3555,12 +3555,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3573,12 +3573,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules of 0,2 g. 20 capsules of 0,215 g.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs. Box photos (supplied by Julia 2026-10-13): 20 capsules of 0,215 g and 60 capsules of 0,2 g, so the capsule weight differs slightly between packs; both read \"A-4 peptides complex\" (20-capsule box: \"Dietary Supplement\").",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs. Box photos (supplied by Julia 2026-10-13): 20 capsules of 0,215 g and 60 capsules of 0,2 g, so the capsule weight differs slightly between packs; both read \"A-4 peptides complex\" (20-capsule box: \"Dietary Supplement\").",
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -3596,8 +3596,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Сигумир противопоказан при индивидуальной непереносимости компонентов.\" (Pregnancy, breastfeeding or chronic conditions: consult a doctor first. Contraindicated with individual intolerance to the components.)",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/sigumir/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
+        "value": "Manufacturer (RU): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Сигумир противопоказан при индивидуальной непереносимости компонентов.\" (Pregnancy, breastfeeding or chronic conditions: consult a doctor first. Contraindicated with individual intolerance to the components.)",
+        "source": "RD 2026-10-13: Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/sigumir/"
       },
       "warnings": {
         "status": "unverified",
@@ -3608,7 +3608,7 @@
       "id": "stamakort",
       "name": "Stamakort",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/",
+        "Manufacturer directions (RU)",
         "/workspace/pepita-live/endo/peptidru.json",
         "/workspace/pepita-live/endo/organs.json"
       ],
@@ -3636,7 +3636,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Stomach peptide complex A-10 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3645,12 +3645,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3663,12 +3663,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules. 20 capsules.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -3686,8 +3686,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/stamakort/"
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью.\\nПеред применением рекомендуется проконсультироваться с врачом.\"",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "warnings": {
         "status": "unverified",
@@ -3698,7 +3698,7 @@
       "id": "suprefort",
       "name": "Suprefort",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/",
+        "Manufacturer directions (RU)",
         "/workspace/pepita-live/endo/peptidru.json",
         "/workspace/pepita-live/endo/organs.json"
       ],
@@ -3726,7 +3726,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Pancreas peptide complex A-1 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3735,12 +3735,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3753,12 +3753,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules. 20 capsules.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -3776,8 +3776,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/suprefort/"
+        "value": "Manufacturer (RU): \"Беременность, грудное вскармливание — применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает лекарственной зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "warnings": {
         "status": "unverified",
@@ -3788,7 +3788,7 @@
       "id": "svetinorm",
       "name": "Svetinorm",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/",
+        "Manufacturer directions (RU)",
         "/workspace/pepita-live/endo/peptidru.json",
         "/workspace/pepita-live/endo/organs.json"
       ],
@@ -3816,7 +3816,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Liver peptide complex A-7 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3825,12 +3825,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3843,12 +3843,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules. 20 capsules.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -3866,8 +3866,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/svetinorm/"
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов состава. Аллергические реакции на вспомогательные компоненты. При беременности и грудном вскармливании применять после консультации с врачом.\\nПрепарат не имеет побочных эффектов и не вызывает зависимости. Применяется в качестве дополнительного источника пептидов.\"",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "warnings": {
         "status": "unverified",
@@ -3878,7 +3878,7 @@
       "id": "taxorest",
       "name": "Taxorest",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
+        "Manufacturer directions (RU)"
       ],
       "verifiedOn": "2026-10-13",
       "productVersion": null,
@@ -3887,7 +3887,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Bronchial peptide complex A-19 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/taxorest/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/taxorest/"
       },
       "quantities": {
         "status": "unverified",
@@ -3896,12 +3896,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/taksorest/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Code verified; peptid.ru 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
+        "source": "shared/product-facts.json (conflicting: Code verified; manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day, 1 month. Not picked; no usage line until Julia decides.)"
       },
       "food": {
         "status": "unverified",
@@ -3944,7 +3944,7 @@
       "id": "zhenoluten",
       "name": "Zhenoluten",
       "sourceDocs": [
-        "https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/",
+        "Manufacturer directions (RU)",
         "/workspace/pepita-live/endo/peptidru.json",
         "/workspace/pepita-live/endo/organs.json"
       ],
@@ -3972,7 +3972,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Ovarian peptide complex A-15 (natural extract)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -3981,12 +3981,12 @@
       "formulation": {
         "status": "verified",
         "value": "capsule",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -3999,12 +3999,12 @@
       "sizes": {
         "status": "verified",
         "value": "60 capsules. 20 capsules.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "sizeDifferences": {
         "status": "verified",
-        "value": "Manufacturer (peptid.ru): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+        "value": "Manufacturer (RU): one capsule instruction, same directions for both packs; capsule weight not printed in the captured page.",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "documentedProtocols": {
         "status": "unverified",
@@ -4022,8 +4022,8 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Женолутен противопоказан при индивидуальной непереносимости компонентов.\"",
-        "source": "RD 2026-10-13: https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/zhenoluten/"
+        "value": "Manufacturer (RU): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Женолутен противопоказан при индивидуальной непереносимости компонентов.\"",
+        "source": "RD 2026-10-13: Manufacturer directions (RU)"
       },
       "warnings": {
         "status": "unverified",
@@ -4077,7 +4077,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -4099,7 +4099,7 @@
       },
       "documentedProtocols": {
         "status": "verified",
-        "value": "Manufacturer page states only: course 1 month, repeat after 3-6 months. No maintenance/preventive/intensive protocol found on manufacturer page. RU (peptid.ru): \"Упаковка 60 капсул рассчитана на 30 дней приема\" (60-capsule pack is designed for 30 days).",
+        "value": "Manufacturer page states only: course 1 month, repeat after 3-6 months. No maintenance/preventive/intensive protocol found on manufacturer page. Manufacturer (RU): \"Упаковка 60 капсул рассчитана на 30 дней приема\" (60-capsule pack is designed for 30 days).",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/ventfort/"
       },
       "sexSpecificNotes": {
@@ -4112,7 +4112,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов продукта.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов продукта.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/ventfort/"
       },
       "warnings": {
@@ -4152,7 +4152,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Vascular peptide complex (AC-2)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/citogeny/vezugen/ ; https://peptideproduct.com/catalog/peptide_products/cytogens/vesugen/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytogens/vesugen/"
       },
       "quantities": {
         "status": "verified",
@@ -4203,7 +4203,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Везуген противопоказан при индивидуальной непереносимости компонентов.\"",
+        "value": "Manufacturer (RU): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Везуген противопоказан при индивидуальной непереносимости компонентов.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytogens/vesugen/"
       },
       "warnings": {
@@ -4258,7 +4258,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -4293,7 +4293,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов, беременность, кормление грудью. Перед применением рекомендуется проконсультироваться с врачом.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/visoluten/"
       },
       "warnings": {
@@ -4348,7 +4348,7 @@
       "labelDirections": {
         "status": "unverified",
         "value": null,
-        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (peptid.ru 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
+        "source": "shared/product-facts.json (conflicting: Cytomax/Cytogen frequency conflict (manufacturer RU page 1–2×/day vs peptideproduct.com 2×/day). Page text held.)"
       },
       "food": {
         "status": "unverified",
@@ -4383,7 +4383,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"Индивидуальная непереносимость компонентов. При беременности и кормлении грудью перед применением препарата рекомендуется проконсультироваться с врачом.\"",
+        "value": "Manufacturer (RU): \"Индивидуальная непереносимость компонентов. При беременности и кормлении грудью перед применением препарата рекомендуется проконсультироваться с врачом.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/vladonix/"
       },
       "warnings": {
@@ -4472,7 +4472,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Pineal gland peptide complex (AA-1); Vascular wall peptide complex (AA-7); Bladder peptide complex (AA-13); Licorice extract; Propolis extract; Mint extract; Essential oils of chamomile and clove; Dihydroquercetin",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_10/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-10/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_10/ ; Manufacturer directions (RU)"
       },
       "quantities": {
         "status": "unverified",
@@ -4486,7 +4486,7 @@
       "labelDirections": {
         "status": "verified",
         "value": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use.",
-        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_10/ ; https://peptid.ru/catalog/sublingvalnye-peptidnye-preparaty-revilab/revilab-sl-10/"
+        "source": "shared/product-facts.json (conflicting): https://peptideproduct.com/catalog/revilab_preparations/revilab_peptide_sl/revilab_sl_10/ ; Manufacturer directions (RU)"
       },
       "food": {
         "status": "unverified",
@@ -6686,7 +6686,7 @@
       "ingredients": {
         "status": "verified",
         "value": "Thyroid gland peptide complex (A-2)",
-        "source": "shared/product-facts.json (conflicting): https://peptid.ru/catalog/naturalnye-peptidnye-kompleksy-tsitomaksy/tireogen/ ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/thyreogen/"
+        "source": "shared/product-facts.json (conflicting): Manufacturer directions (RU) ; https://peptideproduct.com/catalog/peptide_products/cytomaxes/thyreogen/"
       },
       "quantities": {
         "status": "verified",
@@ -6736,7 +6736,7 @@
       },
       "contraindications": {
         "status": "verified",
-        "value": "RU (peptid.ru): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Тиреоген противопоказан при индивидуальной непереносимости компонентов.\"",
+        "value": "Manufacturer (RU): \"При хронических заболеваниях, беременности и кормлении грудью перед приемом препарата рекомендуется консультация лечащего врача. Тиреоген противопоказан при индивидуальной непереносимости компонентов.\"",
         "source": "RD 2026-10-13: https://peptideproduct.com/catalog/peptide_products/cytomaxes/thyreogen/"
       },
       "warnings": {

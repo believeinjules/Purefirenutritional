@@ -31,7 +31,7 @@ const DRAFT: Record<string, FormulaPdpContent> = {
       "The peptide complexes in Revilab ML 01 are associated with the epiphysis, the B-cell arm of the immune system and the liver, and its other ingredients are resveratrol, choline, omega-3 fatty acids and vitamins. Research on individual ingredients or on related peptides does not necessarily establish benefits for this combination. Evidence establishing Revilab ML 01's effectiveness and long-term safety in humans remains limited.",
     importantInformation: "",
     dosageCourse: true,
-    flags: [NO_SOURCE, "peptid.ru composition also lists griffonia extract and lactose; product-facts.json composition does not. Not added here."],
+    flags: [NO_SOURCE, "The manufacturer's Russian page composition also lists griffonia extract and lactose; product-facts.json composition does not. Not added here."],
   },
 
   "revilab-ml-02": {
@@ -104,7 +104,7 @@ const DRAFT: Record<string, FormulaPdpContent> = {
       "The peptide complexes in Revilab ML 04 are associated with heart muscle, vascular and pineal tissue, and its other ingredients are resveratrol, rutin, omega-3 fatty acids and niacin. Research on individual ingredients or on related peptides does not necessarily establish benefits for this combination. Evidence establishing Revilab ML 04's effectiveness and long-term safety in humans remains limited.",
     importantInformation: "",
     dosageCourse: true,
-    flags: [NO_SOURCE, "peptid.ru prints the heart muscle complex as \"AA-6\"; product-facts.json and the peptideproduct.com formulation note say AA-8. AA-8 kept."],
+    flags: [NO_SOURCE, "The manufacturer's Russian page prints the heart muscle complex as \"AA-6\"; product-facts.json and the peptideproduct.com formulation note say AA-8. AA-8 kept."],
   },
 
   "revilab-ml-05": {

@@ -72,7 +72,7 @@ describe("Pepita answer length", () => {
     expect(r.products[0].product.id).toBe("endoluten");
     expect(r.products.map(p => p.product.id)).not.toContain("pinalex-tab");
     expect(text).not.toMatch(/capsule|every 3 days|Epitalon/i);
-    expect(r.products[0].protocol).toMatch(/every 3 days/); // Pepita-only peptid.ru directions (card details, not the text)
+    expect(r.products[0].protocol).toMatch(/every 3 days/); // Pepita-only manufacturer RU directions (card details, not the text)
     expect(r.products[0].research?.length).toBeGreaterThan(0);
   });
 });

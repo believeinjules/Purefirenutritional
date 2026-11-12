@@ -403,7 +403,7 @@ export const TOPICS: Topic[] = [
     learnMore: [
       {
         heading: "How a standard course is framed",
-        body: "In the manufacturer directions (peptideproduct.com and the institute store, peptid.ru), most capsule Cytomaxes and Cytogens follow one shape: 1–2 capsules with meals for about a month, a break, then sometimes a repeat course a few months to a year later. Each product's card shows its own label directions. These are label directions, not schedules compared against each other in trials.",
+        body: "In the manufacturer directions (peptideproduct.com and the institute's own store), most capsule Cytomaxes and Cytogens follow one shape: 1–2 capsules with meals for about a month, a break, then sometimes a repeat course a few months to a year later. Each product's card shows its own label directions. These are label directions, not schedules compared against each other in trials.",
       },
       {
         heading: "What the directions say about restoring function",

@@ -176,7 +176,7 @@ export const GOLD: GoldAnswer[] = [
     id: "endoluten-dosing", level: "show", intent: "dosing",
     patterns: [/\bhow (?:do|should|can) i take endoluten\b|\bendoluten\b.*\b(dos\w*|how (?:much|many|often|to take)|directions|schedule)\b|\b(dos\w*|how (?:much|many|often))\b.*\bendoluten\b/i],
     summary: "Endoluten is a pineal gland peptide complex studied for supporting the gland's own melatonin rhythm, rather than adding melatonin. It is not taken daily.",
-    dosingFacts: { product: "Endoluten", dose: "1 capsule every 3 days", timing: "In the morning or at midday", course: "20 days to 2 months", source: "Manufacturer directions (peptid.ru); the 20- and 60-capsule packs are the same complex" },
+    dosingFacts: { product: "Endoluten", dose: "1 capsule every 3 days", timing: "In the morning or at midday", course: "20 days to 2 months", source: "Manufacturer directions; the 20- and 60-capsule packs are the same complex" },
     products: [{ id: "endoluten", relevance: "Pineal gland peptide complex" }],
     sourceIds: ["topic:sleep"],
     accordions: [

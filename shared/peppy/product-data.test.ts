@@ -41,7 +41,7 @@ describe("product data layer (single JSON file)", () => {
   it("no product shows a schedule without a per-product RD source", () => {
     for (const r of RECORDS)
       for (const s of r.schedules) {
-        expect(s.source, r.id).toMatch(/^(RD|shared\/product-facts\.json).*https?:\/\//);
+        expect(s.source, r.id).toMatch(/^(RD|shared\/product-facts\.json).*(https?:\/\/|Manufacturer directions \(RU\))/);
         expect(["label", "manufacturer-protocol", "research-regimen"]).toContain(s.protocolType);
       }
   });
@@ -51,11 +51,11 @@ describe("product data layer (single JSON file)", () => {
       for (const t of TEMPLATES) expect(label.includes(t), r.id).toBe(false);
     }
   });
-  it("Endoluten: Pepita states the peptid.ru every-3-days directions with a check-your-package note; storefront hold unchanged", () => {
+  it("Endoluten: Pepita states the manufacturer RU every-3-days directions with a check-your-package note; storefront hold unchanged", () => {
     expect(verifiedSchedules("endoluten", "label")[0]?.everyNDays).toBe(3);
     const f = getProductFacts("endoluten")!;
     expect(f.manufacturerDirections.status).toBe("blocked");
-    expect(f.manufacturerDirections.options.map(o => o.source).join(" ")).toMatch(/peptid\.ru.*peptideproduct\.com/);
+    expect(f.manufacturerDirections.options.map(o => o.source).join(" ")).toMatch(/Manufacturer directions \(RU\).*peptideproduct\.com/);
     const t = dosingAnswer("endoluten", "Endoluten").text;
     expect(t).toMatch(/1 capsule every 3 days, in the morning or at midday\. Course: 20 days to 2 months/);
     expect(t).not.toMatch(/sources differ|check (the|your) package|label versions/i);
