@@ -8,8 +8,7 @@ import { useEffect } from "react";
  *   other store). It is not an official verification registry.
  * - Documentation image: Julia's partner-profile screenshot, cropped, at
  *   client/public/images/sourcing/partner-profile.webp (+ partner-profile.jpg),
- *   1024 × 656. Until those files are added, the collapsed panel shows only the
- *   caption text below an empty image box.
+ *   1082 × 695 (supplied 2026-11-12; right edge trimmed 3 px, metadata stripped).
  */
 export const SUPPLIER_SECTION_ID = "supplier-relationship";
 export const SUPPLIER_SECTION_HREF = `/about#${SUPPLIER_SECTION_ID}`;
@@ -82,8 +81,8 @@ export default function SupplierRelationship() {
               <img
                 src={PARTNER_DOC_JPG}
                 alt={PARTNER_DOC_ALT}
-                width={1024}
-                height={656}
+                width={1082}
+                height={695}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-auto rounded-lg border border-gray-200"

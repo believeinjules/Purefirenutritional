@@ -42,8 +42,8 @@ describe("Our Supplier Relationship section", () => {
     const img = details.querySelector("img")!;
     expect(img.getAttribute("src")).toBe("/images/sourcing/partner-profile.jpg");
     expect(img.getAttribute("loading")).toBe("lazy");
-    expect(img.getAttribute("width")).toBe("1024");
-    expect(img.getAttribute("height")).toBe("656");
+    expect(img.getAttribute("width")).toBe("1082");
+    expect(img.getAttribute("height")).toBe("695");
   });
 });
 
