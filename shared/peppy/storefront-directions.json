@@ -1,0 +1,220 @@
+{
+  "alvenorm-forte": {
+    "kind": "manufacturer",
+    "text": "Adults: 1 teaspoon (5 ml), neat or in a little water, 1–2 times a day, before meals or 1 hour after."
+  },
+  "bonomarlot": {
+    "kind": "brochure",
+    "text": "Bonomarlot® instructions: 1-2 capsules or tablets 1-2 times a day with meals. The duration of administration is 30 days. It is advisable to repeat the course in 3-6 months.",
+    "page": 7
+  },
+  "bonothyrk": {
+    "kind": "brochure",
+    "text": "Bonothyrk® instructions: 1-2 capsules or tablets with meals 1-2 times a day. The duration of administration is 30 days. It is advisable to repeat the course in 3-6 months.",
+    "page": 11
+  },
+  "cartalax": {
+    "kind": "brochure",
+    "text": "Adults are advised to take 1-2 capsules 1-2 times daily with meals. The duration of admission is 10-30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 107
+  },
+  "cerluten": {
+    "kind": "brochure",
+    "text": "CERLUTEN® is recommended to be taken 10-15 minutes before meals, 1-3 tablets or capsules 2-3 times a day for 10-20 days. A second course is advised in 3 - 6 months.",
+    "page": 81
+  },
+  "chelohart": {
+    "kind": "brochure",
+    "text": "Take 1-2 capsules or tablets of CHELOHART® 1-2 times a day with meals. Duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 86
+  },
+  "chitomur": {
+    "kind": "brochure",
+    "text": "Take 1-2 capsules or tablets of CHITOMUR® 1-2 times a day with meals. Duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 91
+  },
+  "chonluten": {
+    "kind": "brochure",
+    "text": "Adults are advised to take 1-2 capsules 1-2 times daily with meals. The duration of admission is 10-30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 125
+  },
+  "complex-3r": {
+    "kind": "manufacturer",
+    "text": "Adults: 1 tablet once or twice a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "crystagen": {
+    "kind": "brochure",
+    "text": "Adults are advised to take 1-2 capsules 1-2 times daily with meals. The duration of admission is 10-30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 111
+  },
+  "endoluten": {
+    "kind": "confirmed",
+    "text": "Adults: 1 capsule every 3 days, in the morning or at midday. Course: 20 days to 2 months."
+  },
+  "ensil": {
+    "kind": "manufacturer",
+    "text": "Adults: 1 capsule 3 times a day with meals. Course duration: 1 month; the course can be repeated."
+  },
+  "glandokort": {
+    "kind": "brochure",
+    "text": "Glandokort® instructions: 1-2 capsules or tablets with meals 1-2 times a day. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 28
+  },
+  "gotratix": {
+    "kind": "brochure",
+    "text": "GOTRATIX® is recommended: 1-2 capsules or tablets 2-3 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 32
+  },
+  "libidon": {
+    "kind": "brochure",
+    "text": "It is recommended to take LIBIDON® 1-2 capsules or tablets 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 42
+  },
+  "ovagen": {
+    "kind": "brochure",
+    "text": "OVAGEN® is recommended to be taken 10-15 minutes before meals, 1-2 tablets or capsules 2-3 times a day for 15-20 days. A second course could be repeated in 3 - 6 months.",
+    "page": 115
+  },
+  "pielotax": {
+    "kind": "brochure",
+    "text": "Take 1-2 capsules or tablets of PIELOTAX® 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 46
+  },
+  "pinalex-tab": {
+    "kind": "manufacturer",
+    "text": "Adults: 1 tablet 2–3 times a day with meals. Course duration: 1 month. Repeated courses are allowed."
+  },
+  "pinealon": {
+    "kind": "brochure",
+    "text": "PINEALON® is recommended to be taken 10-15 minutes before meals, 1-3 tablets or capsules 2-3 times a day for 10-20 days. It is desirable to repeat the course in 3 - 6 months.",
+    "page": 121
+  },
+  "revifort": {
+    "kind": "manufacturer",
+    "text": "Adults: 1 capsule 2 times a day with meals for 15 days, then a break of at least 10 days, then another 15 days."
+  },
+  "revilab-anti-age": {
+    "kind": "manufacturer",
+    "text": "Take 1 capsule per day during meals. Course duration: 4-6 weeks. Can be repeated as necessary throughout the year."
+  },
+  "revilab-ml-01": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-02": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-03": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-04": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-05": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-06": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-07": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-08": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-ml-09": {
+    "kind": "package",
+    "text": "Adults: 1 capsule once a day with meals. Course duration: 4–6 weeks; the course can be repeated within a year if needed."
+  },
+  "revilab-sl-01": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-02": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-03": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-04": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-05": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-06": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-07": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-08": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-09": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "revilab-sl-10": {
+    "kind": "manufacturer",
+    "text": "Adults: 5–10 drops under the tongue 2 times a day. Duration of use: 1 month; can be repeated in courses. Shake before use."
+  },
+  "stamakort": {
+    "kind": "brochure",
+    "text": "Take 1-2 capsules or tablets of STAMAKORT® 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 58
+  },
+  "svetinorm": {
+    "kind": "brochure",
+    "text": "It is recommended to take SVETINORM® 10-15 minutes before meals, 1-2 tablets or capsules 2-3 times a day for 15-20 days. It is advisable to repeat the course in 3 - 6 months.",
+    "page": 50
+  },
+  "taxorest": {
+    "kind": "brochure",
+    "text": "Instructions for TAXOREST®: take 1-2 capsules or tablets 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 66
+  },
+  "testoluten": {
+    "kind": "brochure",
+    "text": "It is recommended to take TESTOLUTEN® 1-2 capsules or tablets 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 71
+  },
+  "ventfort": {
+    "kind": "brochure",
+    "text": "It is recommended to take 1-2 capsules of Ventfort® 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 15
+  },
+  "vesugen": {
+    "kind": "brochure",
+    "text": "Adults are recommended to take 1-2 capsules 1-2 times a day with meals. The duration of admission is 10-30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 103
+  },
+  "visoluten": {
+    "kind": "brochure",
+    "text": "VISOLUTEN® instructions: 1-2 capsules or tablets of VISOLUTEN® 1-3 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 20
+  },
+  "zhenoluten": {
+    "kind": "brochure",
+    "text": "It is recommended to take ZHENOLUTEN® 1-2 capsules or tablets 1-2 times a day with meals. The duration of admission is 30 days. It is advisable to repeat the course in 4-6 months.",
+    "page": 37
+  },
+  "zinsil-t": {
+    "kind": "manufacturer",
+    "text": "Take 1 tablet 2 times daily, chewing during meals. Duration: 1 month. May be repeated as needed."
+  }
+}

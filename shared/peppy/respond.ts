@@ -46,6 +46,8 @@ export interface PeppyDeps {
 
 export interface PeppyMeta {
   llm: "not-configured" | "skipped" | "ok" | "invalid" | "error";
+  /** Why the LLM call failed, e.g. "LLM HTTP 401" or "AbortError" (never user text). */
+  llmError?: string;
   pubmedLive: number;
   report?: ValidationReport;
 }
@@ -226,8 +228,9 @@ async function answerPeppyUnfiltered(
     meta.llm = "ok";
     meta.report = validated.report;
     return { response: ensureProductNotes(validated.response), analysis, meta };
-  } catch {
+  } catch (err) {
     meta.llm = "error";
+    meta.llmError = err instanceof Error ? (err.name === "AbortError" ? "timeout" : err.message.slice(0, 60)) : "unknown";
     return { response: ensureProductNotes(draft), analysis, meta };
   }
 }

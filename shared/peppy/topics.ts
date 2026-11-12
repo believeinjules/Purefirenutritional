@@ -688,6 +688,7 @@ export const TOPICS: Topic[] = [
     label: "Memory and focus",
     patterns: [
       /\b(brain|memory|memor\w*|focus\w*|concentrat\w*|cognit\w*|brain fog|foggy|forgetful\w*|mental clarity|mental performance)\b/i,
+      /\b(cortexin|korteksin)\b/i,
     ],
     summary:
       "Cerluten is a natural brain peptide complex, while Prime Peptide Brain builds on the IPH AGAP tetrapeptide with magnesium, choline, GABA and zinc. Researchers have investigated short brain peptides in neuron cultures, where they reduced age-related changes and oxidative stress. The difference is a tissue-specific course versus a daily peptide-plus-nutrient formula.",

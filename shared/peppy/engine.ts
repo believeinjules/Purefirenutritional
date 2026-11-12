@@ -6,7 +6,7 @@
  * 2. composeFallback() — builds a complete structured answer from curated content when no
  *    LLM is configured or the LLM fails, so the assistant never shows an error.
  */
-import { dosingAnswer, nonDailyExamples, plainAudience, verified } from "./product-data.js";
+import { dosingAnswer, nonDailyExamples, plainAudience, storefrontDirections, verified } from "./product-data.js";
 import { isHiddenProduct } from "../hidden-products.js";
 import { extractProfile, hasProfile, missingSlotQuestions, profileFromMessages, profileRecap } from "./profile.js";
 import { isPreorderProduct } from "../preorder.js";
@@ -114,7 +114,7 @@ const DOSAGE =
 const INFO =
   /\b(what (?:is|are|does|do)|what's|how (?:does|do)|explain|tell me (?:about|more)|meaning of|difference between)\b/i;
 const HEALTH_WORDS =
-  /\b(bladder|urinary|urin\w*|ketamine|urolog\w*|health\w*|supplement\w*|peptide\w*|bioregulator\w*|vitamin\w*|mineral\w*|herb\w*|extract\w*|nutrient\w*|symptom\w*|pain\w*|ache\w*|sore\w*|doctor|medic\w*|wellness|well-being|body|diet\w*|nutrition\w*|food\w*|research|study|studies|evidence|product\w*|pure fire|order|cart|price|capsule\w*|pill\w*|tablet\w*|dose\w*|dosage|safe|safety|side effects?|immun\w*|hormone\w*|gland\w*|organ\w*|aging|ageing|longevity|energy|sleep\w*|tired\w*|blood|sugar|glucose|cholesterol|pressure|weight|fat|metabol\w*|gut|digest\w*|bloat\w*|skin|hair|nails?|muscle\w*|joint\w*|bone\w*|heart|brain|memory|focus|mood|stress\w*|anxi\w*|liver|kidney\w*|eyes?|vision|thyroid|libido|testosterone|estrogen|menopaus\w*|fertility|prostate|inflamm\w*|antioxidant\w*|collagen|protein|creatine|magnesium|zinc|iron|omega|probiotic\w*|melatonin|caffeine|ashwagandha|berberine|curcumin|turmeric|nad\+?|nmn|coq10|exercise|workout|training|recovery|cold|flu|allerg\w*|pregnan\w*|breastfeed\w*)\b/i;
+  /\b(cortexin|cortagen|epithalamin|epitalon|thymalin|retinalamin|bladder|urinary|urin\w*|ketamine|urolog\w*|health\w*|supplement\w*|peptide\w*|bioregulator\w*|vitamin\w*|mineral\w*|herb\w*|extract\w*|nutrient\w*|symptom\w*|pain\w*|ache\w*|sore\w*|doctor|medic\w*|wellness|well-being|body|diet\w*|nutrition\w*|food\w*|research|study|studies|evidence|product\w*|pure fire|order|cart|price|capsule\w*|pill\w*|tablet\w*|dose\w*|dosage|safe|safety|side effects?|immun\w*|hormone\w*|gland\w*|organ\w*|aging|ageing|longevity|energy|sleep\w*|tired\w*|blood|sugar|glucose|cholesterol|pressure|weight|fat|metabol\w*|gut|digest\w*|bloat\w*|skin|hair|nails?|muscle\w*|joint\w*|bone\w*|heart|brain|memory|focus|mood|stress\w*|anxi\w*|liver|kidney\w*|eyes?|vision|thyroid|libido|testosterone|estrogen|menopaus\w*|fertility|prostate|inflamm\w*|antioxidant\w*|collagen|protein|creatine|magnesium|zinc|iron|omega|probiotic\w*|melatonin|caffeine|ashwagandha|berberine|curcumin|turmeric|nad\+?|nmn|coq10|exercise|workout|training|recovery|cold|flu|allerg\w*|pregnan\w*|breastfeed\w*)\b/i;
 const GREETING =
   /^(hi|hello|hey|hiya|howdy|good (?:morning|afternoon|evening)|yo|greetings)\b[\s!.,?]*(?:peppy)?[\s!.,?]*$/i;
 const CURE_ASK =
@@ -480,13 +480,19 @@ export function productFamily(id: string, category = ""): ProductFamily {
   return "other";
 }
 
+const end = (t: string) => (/[.!?]$/.test(t) ? t : `${t}.`);
+
 /**
  * Manufacturer protocol line, only from VERIFIED label directions in product-data.json.
  * Labelled as the manufacturer's protocol, never as a clinically validated regimen.
  */
 export function protocolLine(id: string): string | undefined {
   const label = verified(id, "labelDirections");
-  if (!label) return undefined;
+  if (!label) {
+    // Product-page directions (manufacturer-recommended) when the RD label field is still open.
+    const store = storefrontDirections(id);
+    return store ? `Manufacturer-recommended: ${end(plainAudience(store.text))}` : undefined;
+  }
   const text = plainAudience(label).replace(/^for adults/i, "Adults:");
   const t = text.charAt(0).toUpperCase() + text.slice(1);
   const body = /[.!?]$/.test(t) ? t : `${t}.`;
@@ -652,6 +658,31 @@ function safetyPart(analysis: Analysis, catalog: Map<string, PeppyProduct>) {
   }
 }
 
+/**
+ * Research preparations people ask about by name that Pure Fire doesn't sell. Each line only
+ * restates what the curated research registry says about the preparation.
+ */
+const NOT_SOLD: { re: RegExp; lead: string }[] = [
+  {
+    re: /\b(cortexin|korteksin)\b/i,
+    lead: "Cortexin is an injectable brain polypeptide preparation from Russian clinical research, and Pure Fire doesn't sell it. Here's what we carry for the same tissue. ",
+  },
+];
+/** "Cerluten — Cerluten is a … believed…" → "a … complex (A-5), extracted from …" (one clean sentence). */
+function shortDescription(p: PeppyProduct): string {
+  let t = (p.summary ?? "").trim();
+  if (!t) return "in our catalog";
+  const esc = p.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  t = t.replace(new RegExp(`^${esc}\\s*[—–-]\\s*`, "i"), "");
+  t = t.replace(new RegExp(`^${esc}\\s+is\\s+`, "i"), "");
+  const first = t.split(/(?<=\.)\s/)[0].replace(/[.…]+$/, "");
+  return first.replace(/^A /, "a ").replace(/^An /, "an ");
+}
+
+function notSoldLead(message: string): string {
+  return NOT_SOLD.find(x => x.re.test(message))?.lead ?? "";
+}
+
 export function composeFallback(
   analysis: Analysis,
   catalog: Map<string, PeppyProduct>,
@@ -801,7 +832,7 @@ export function composeFallback(
           ? topic.slotFollowUps && recap
             ? `Thanks, that helps: ${recap}. ${refinedLead(topic, products, analysis.profile)}`
             : `Thanks — that helps. ${topic.summary}`
-          : topic.summary,
+          : `${notSoldLead(analysis.message)}${topic.summary}`,
       sections: cleanSections(sections, catalog),
       learnMore: topic.learnMore ? cleanSections(topic.learnMore, catalog) : undefined,
       research: pickSources(topic.sourceIds, liveSources),
@@ -956,7 +987,7 @@ function composeProductAnswer(
       .slice(0, PEPPY_LIMITS.maxSuggestions),
     products: showCard && evidenceOk && product.inStock ? [card] : [],
     dosingFacts: dosing?.verified
-      ? { product: product.name, dose: verified(product.id, "labelDirections") ?? "", source: "Manufacturer label directions" }
+      ? { product: product.name, dose: dosing.dose ?? verified(product.id, "labelDirections") ?? "", source: dosing.source ?? "Manufacturer label directions" }
       : undefined,
     topics: topic ? [topic.id] : [],
   };
@@ -1013,9 +1044,22 @@ function patternAnswer(a: Analysis): Partial<PeppyResponse> | null {
 
   // Comparisons: "Vesugen or Ventfort?"
   if (p1 && p2 && /\b(or|vs\.?|versus|compare|difference|better)\b/.test(msg)) {
-    const desc = (p: PeppyProduct) => (lineage(p) ? `${p.name} is ${lineage(p)}` : `${p.name} is ${p.summary ?? "in our catalog"}`);
+    const desc = (p: PeppyProduct) => (lineage(p) ? `${p.name} is ${lineage(p)}` : `${p.name} is ${shortDescription(p)}`);
+    const dirs = [p1, p2]
+      .map(p => ({ p, d: storefrontDirections(p.id) }))
+      .filter((x): x is { p: PeppyProduct; d: NonNullable<ReturnType<typeof storefrontDirections>> } => !!x.d);
     return {
-      summary: `${desc(p1)}, while ${desc(p2)}. They haven't been compared head to head in published studies, so the choice usually comes down to which body system you're interested in, not which one "works better". Ask me how either one is taken and I'll give you its verified directions.`,
+      summary: `${desc(p1)}, while ${desc(p2)}. They haven't been compared head to head in published studies, so the choice usually comes down to which body system you're interested in, not which one "works better".`,
+      ...(dirs.length
+        ? {
+            sections: [
+              {
+                heading: "Past manufacturer recommendations",
+                body: dirs.map(x => `- **${x.p.name}:** ${x.d.text}`).join("\n"),
+              },
+            ],
+          }
+        : {}),
       suggestions: [`How do I take ${p1.name}?`, `How do I take ${p2.name}?`],
       products: [card(p1), card(p2)],
     };

@@ -50,7 +50,10 @@ import {
 } from "@shared/peppy/types";
 
 /** Bump the suffix if the modal wording ever changes, so everyone sees it again. */
-const DISCLAIMER_KEY = "pf-peppy-disclaimer-v1";
+const DISCLAIMER_KEY = "pf-peppy-disclaimer-v2";
+/** One-line disclaimer at the top of every Pepita chat window (Julia, 2026-11-12). */
+const PEPITA_DISCLAIMER_LINE =
+  "Not medical advice. Nothing here is meant to be taken as a treatment claim.";
 
 /** Copies the doctor questions as plain text. */
 function CopyButton({ text }: { text: string }) {
@@ -267,7 +270,9 @@ export default function AIAssistant() {
           <DialogDescription className="text-gray-700 space-y-4">
             <p>
               <strong>
-                This AI assistant is for informational purposes only.
+                This AI assistant is for informational purposes only. It is not
+                medical advice, and nothing it says is meant to be taken as a
+                treatment claim.
               </strong>
             </p>
             <p>
@@ -407,6 +412,12 @@ export default function AIAssistant() {
           {/* Chat */}
           <Card className="mb-4">
             <CardContent className="p-0">
+              <p
+                className="border-b px-4 py-2 text-center text-xs text-gray-500 sm:px-5"
+                data-testid="pepita-top-disclaimer"
+              >
+                {PEPITA_DISCLAIMER_LINE}
+              </p>
               <div
                 className="space-y-5 p-4 sm:p-5"
                 role="log"
@@ -547,8 +558,8 @@ export default function AIAssistant() {
 
           {/* Disclaimer Footer */}
           <p className="text-xs text-gray-500 text-center">
-            These statements have not been evaluated by the FDA. Always consult
-            a medical professional.{" "}
+            These statements have not been evaluated by the FDA. Always
+            consult a medical professional.{" "}
             <button
               type="button"
               onClick={() => setShowDisclaimer(true)}

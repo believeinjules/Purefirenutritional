@@ -183,6 +183,10 @@ export default function PepitaChatPanel({
           </button>
         </div>
 
+        <p className="border-b px-4 py-1.5 text-[11px] text-gray-500" data-testid="pepita-widget-top-disclaimer">
+          Not medical advice. Nothing here is meant to be taken as a treatment claim.
+        </p>
+
         {/* Conversation */}
         <div
           ref={logRef}
@@ -267,7 +271,7 @@ export default function PepitaChatPanel({
             </button>
           </form>
           <div className="mt-2 flex items-center justify-between gap-2 text-[11px] text-gray-500">
-            <span>Not medical advice. Always consult a medical professional.</span>
+            <span>Always consult a medical professional.</span>
             <Link
               href={askPeppyHref(productId)}
               className="inline-flex flex-shrink-0 items-center gap-1 font-medium text-gray-700 underline underline-offset-2 hover:text-gray-900"

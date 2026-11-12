@@ -68,3 +68,25 @@ export function normalizeForMatch(text: string): string {
     .replace(/\s+/g, " ")
     .trim();
 }
+
+/** Hosts that may appear in prose only as a plain-text name, never as a URL (Julia: TSP is named, never linked). */
+const PLAIN_NAME_HOSTS = /^(?:www\.)?(theshortpeptide\.com|appliedlongevityinsights\.com)$/i;
+/** Never mentioned at all on Pure Fire, not even as text (Julia, 2026-11-12). */
+const BANNED_MENTION = /peptid\.ru|\bref=\d|referral link/i;
+
+/**
+ * Model prose → plain text with no outbound links: markdown links keep their text, bare URLs are
+ * removed (TSP keeps its plain-text domain name), and any sentence naming the supplier's
+ * website or a referral link is dropped.
+ */
+export function withoutLinks(text: string): string {
+  if (!text) return text;
+  let t = text.replace(/\[([^\]]+)\]\((?:[^)\s]+)\)/g, "$1");
+  t = t.replace(/\b(?:https?:\/\/|www\.)[^\s)\]]+/gi, raw => {
+    const host = raw.replace(/^https?:\/\//i, "").split(/[/?#]/)[0].replace(/[.,;:]+$/, "");
+    const m = host.match(PLAIN_NAME_HOSTS);
+    return m ? m[1].toLowerCase() : "";
+  });
+  if (BANNED_MENTION.test(t)) t = splitSentences(t).filter(x => !BANNED_MENTION.test(x)).join(" ");
+  return t.replace(/\(\s*\)/g, "").replace(/[ \t]{2,}/g, " ").replace(/\s+([.,;:])/g, "$1").trim();
+}

@@ -15,7 +15,7 @@ import {
   BANNED_TERMS,
 } from "./claims.js";
 import type { Analysis } from "./engine.js";
-import { clampText, normalizeForMatch } from "./text.js";
+import { clampText, normalizeForMatch, withoutLinks } from "./text.js";
 import {
   PEPPY_LIMITS,
   type AnswerSection,
@@ -270,17 +270,21 @@ export function validateLlmAnswer(input: {
     ].slice(0, PEPPY_LIMITS.maxSuggestions);
   }
 
+  // No outbound links in model prose; TSP only as a plain-text name; never the supplier's site.
+  const plainSections = (list: AnswerSection[]) =>
+    list.map(x => ({ ...x, body: withoutLinks(x.body) })).filter(x => x.body);
+
   return {
     response: {
       mode: "llm",
-      summary: summaryText,
-      sections,
-      learnMore: learnMore.length ? learnMore : draft.learnMore,
+      summary: withoutLinks(summaryText) || draft.summary,
+      sections: plainSections(sections),
+      learnMore: learnMore.length ? plainSections(learnMore) : draft.learnMore,
       research: finalResearch,
-      evidenceNote,
+      evidenceNote: evidenceNote ? withoutLinks(evidenceNote) : evidenceNote,
       safety: draft.safety,
-      followUps,
-      suggestions,
+      followUps: followUps.map(withoutLinks).filter(Boolean),
+      suggestions: suggestions.map(withoutLinks).filter(Boolean),
       products,
       showDisclaimer: draft.showDisclaimer || products.length > 0,
       topics: draft.topics,

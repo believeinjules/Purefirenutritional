@@ -114,6 +114,7 @@ export async function handlePeppy(
       evt: "peppy",
       mode: response.mode,
       llm: meta.llm,
+      ...(meta.llmError ? { llmError: meta.llmError } : {}),
       provider: llmConfig?.provider ?? null,
       topics: response.topics,
       sources: response.research.length,

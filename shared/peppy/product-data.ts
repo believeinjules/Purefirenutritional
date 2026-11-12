@@ -13,6 +13,7 @@
  *    extrapolated between products, or adjusted by age/sex/goal.
  */
 import DATA from "./product-data.json" with { type: "json" };
+import STOREFRONT from "./storefront-directions.json" with { type: "json" };
 
 export type FieldStatus = "verified" | "unverified";
 export interface DataField {
@@ -144,12 +145,48 @@ export function verifiedSchedules(id: string, type?: ProtocolType): Schedule[] {
   return (BY_ID.get(id)?.schedules ?? []).filter(s => s.source && (!type || s.protocolType === type));
 }
 
+export interface StorefrontDirection {
+  kind: "manufacturer" | "brochure" | "package" | "confirmed";
+  text: string;
+  page?: number;
+}
+const STOREFRONT_BY_ID = STOREFRONT as unknown as Record<string, StorefrontDirection>;
+
+/**
+ * Directions exactly as the live product page shows them (manufacturer text, the Cytomax/Cytogen
+ * brochure's "Recommendations for use", the package, or Julia-confirmed). Generated from the
+ * product-page copy (client/src/data/pdpCopy/pepitaDirections.ts); a sync test keeps them equal.
+ * Used when the Research Director's label field is still unverified, so Pepita can give the
+ * manufacturer-recommended course instead of refusing (Julia, 2026-11-12).
+ */
+export function storefrontDirections(id: string): StorefrontDirection | null {
+  const d = STOREFRONT_BY_ID[id];
+  return d && d.text?.trim() ? d : null;
+}
+
+/** Plain-text attribution for a storefront direction (never a link, never a store name). */
+export function storefrontSourceLabel(d: StorefrontDirection): string {
+  if (d.kind === "brochure") return `manufacturer-recommended, from the Cytomax and Cytogen product brochure${d.page ? ` (p. ${d.page})` : ""}`;
+  if (d.kind === "package") return "manufacturer-recommended, as listed on the package";
+  if (d.kind === "confirmed") return "manufacturer directions";
+  return "manufacturer-recommended";
+}
+
+function storefrontShortSource(d: StorefrontDirection): string {
+  if (d.kind === "brochure") return `Cytomax and Cytogen product brochure${d.page ? `, p. ${d.page}` : ""}`;
+  if (d.kind === "package") return "as listed on the package";
+  return "manufacturer";
+}
+
 export function verifiedFacts(id: string): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const f of PRODUCT_DATA_FIELDS) {
     const v = verified(id, f);
     if (v) out[f] = v;
   }
+  const store = storefrontDirections(id);
+  if (store && !out.labelDirections)
+    out.manufacturerRecommendedDirections = { text: store.text, source: storefrontSourceLabel(store) };
   const sch = verifiedSchedules(id);
   if (sch.length) out.schedules = sch.map(s => ({ ...s, packDurations: packDurations(id, s) }));
   return out;
@@ -171,10 +208,24 @@ export function plainAudience(label: string): string {
 
 const end = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
-/** Short dosing answer: exact verified numbers, or a plain "not verified yet". */
-export function dosingAnswer(id: string, name: string, packUnits?: number | null): { text: string; verified: boolean } {
+/** Short dosing answer: exact verified numbers, the product page's manufacturer-recommended text, or a plain "not verified yet". */
+export function dosingAnswer(
+  id: string,
+  name: string,
+  packUnits?: number | null
+): { text: string; verified: boolean; dose?: string; source?: string } {
   const label = verified(id, "labelDirections");
   const sched = verifiedSchedules(id, "label")[0];
+  const store = label ? null : storefrontDirections(id);
+  if (store) {
+    const dose = end(plainAudience(store.text));
+    return {
+      verified: true,
+      dose,
+      source: storefrontSourceLabel(store).replace(/^./, c => c.toUpperCase()),
+      text: `Past manufacturer recommendations for ${name} have included: "${dose}" (${storefrontShortSource(store)}; the same text as our product page.) That's the manufacturer's suggested course, not results from clinical trials of this product.`,
+    };
+  }
   if (!label) {
     return {
       verified: false,
@@ -193,7 +244,7 @@ export function dosingAnswer(id: string, name: string, packUnits?: number | null
   const sex = verified(id, "sexSpecificNotes");
   if (sex) parts.push(end(sex));
   parts.push("That's manufacturer guidance, not results from clinical trials of this product.");
-  return { verified: true, text: parts.join(" ") };
+  return { verified: true, dose: plainAudience(label), source: "Manufacturer label directions", text: parts.join(" ") };
 }
 
 /** Products whose verified (or voiced) schedule is not plain daily dosing: data-driven examples. */
