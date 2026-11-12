@@ -44,7 +44,7 @@ import {
   type Topic,
   type TopicProduct,
 } from "./topics.js";
-import { normalizeForMatch, toInlinePhrase } from "./text.js";
+import { normalizeForMatch, sentenceChunks, toInlinePhrase } from "./text.js";
 import {
   PEPPY_LIMITS,
   type AnswerSection,
@@ -675,7 +675,7 @@ function shortDescription(p: PeppyProduct): string {
   const esc = p.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   t = t.replace(new RegExp(`^${esc}\\s*[—–-]\\s*`, "i"), "");
   t = t.replace(new RegExp(`^${esc}\\s+is\\s+`, "i"), "");
-  const first = t.split(/(?<=\.)\s/)[0].replace(/[.…]+$/, "");
+  const first = sentenceChunks(t)[0].replace(/[.…]+$/, "");
   return first.replace(/^A /, "a ").replace(/^An /, "an ");
 }
 
@@ -926,7 +926,7 @@ function composeProductAnswer(
   if (topic && analysis.intent !== "dosage") {
     sections.push({
       heading: "Is it worth it?",
-      body: `${topic.summary.split(/(?<=\.)\s/)[0]} A product like this is optional; if you're curious about a bioregulator, talk it over with your clinician first.`,
+      body: `${sentenceChunks(topic.summary)[0]} A product like this is optional; if you're curious about a bioregulator, talk it over with your clinician first.`,
     });
   }
 

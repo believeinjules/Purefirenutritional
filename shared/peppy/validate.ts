@@ -15,7 +15,7 @@ import {
   BANNED_TERMS,
 } from "./claims.js";
 import type { Analysis } from "./engine.js";
-import { clampText, normalizeForMatch, withoutLinks } from "./text.js";
+import { clampText, normalizeForMatch, sentenceChunks, withoutLinks } from "./text.js";
 import {
   PEPPY_LIMITS,
   type AnswerSection,
@@ -330,7 +330,7 @@ export function withoutInterventionAdvice(text: string): { text: string; removed
       para
         .split("\n")
         .map(line => {
-          const kept = line.split(/(?<=[.!?])\s+/).filter(sentence => {
+          const kept = sentenceChunks(line).filter(sentence => {
             if (INTERVENTION_ADVICE.test(sentence)) {
               removed++;
               return false;

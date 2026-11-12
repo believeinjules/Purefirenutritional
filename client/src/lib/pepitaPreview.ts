@@ -2,6 +2,7 @@
  * Pure helpers behind Pepita's citation and product previews (no React, unit tested).
  */
 import { isHiddenProduct } from "@shared/hidden-products";
+import { protectAbbreviations, restoreAbbreviations } from "@shared/peppy/text";
 import type {
   PeppyProductSuggestion,
   PeppySourceCard,
@@ -112,8 +113,8 @@ export const PLAIN_STUDY_TYPE: Record<StudyType, string> = {
 export function firstSentence(text: string | undefined, max = 220): string {
   const t = (text ?? "").replace(/\s+/g, " ").trim();
   if (!t) return "";
-  const m = t.match(/^.+?[.!?](?=\s|$)/);
-  const s = m ? m[0] : t;
+  const m = protectAbbreviations(t).match(/^.+?[.!?]["”’)\]]*(?=\s|$)/);
+  const s = m ? restoreAbbreviations(m[0]) : t;
   return s.length > max ? `${s.slice(0, max - 1).trimEnd()}…` : s;
 }
 
@@ -181,8 +182,8 @@ export function shortAnswer(summary: string, max = 6): string {
     .replace(/\s+/g, " ")
     .trim()
     .replace(/^Here's what [^.]*\.\s*/i, "");
-  const sentences = text.match(/[^.!?]+[.!?]+(?=\s|$)|[^.!?]+$/g) ?? [];
-  return sentences.slice(0, max).map(s => s.trim()).join(" ");
+  const sentences = protectAbbreviations(text).match(/[^.!?]+[.!?]+["”’)\]]*(?=\s|$)|[^.!?]+$/g) ?? [];
+  return sentences.slice(0, max).map(s => restoreAbbreviations(s).trim()).join(" ");
 }
 
 function norm(s: string): string {

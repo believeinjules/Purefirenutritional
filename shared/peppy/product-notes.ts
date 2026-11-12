@@ -5,6 +5,7 @@
  */
 import type { PeppyResponse } from "./types.js";
 import { isPreorderProduct } from "../preorder.js";
+import { sentenceChunks } from "./text.js";
 
 /**
  * The one doctor line (Julia, 2026-10-13). The UI renders it under every answer as a
@@ -76,8 +77,7 @@ export function withoutGenericDoctorLines(text: string): string {
         .map(line => {
           const bullet = line.match(/^(\s*[-•*]\s+)(.*)$/);
           const body = bullet ? bullet[2] : line;
-          const kept = body
-            .split(/(?<=[.!?])\s+/)
+          const kept = sentenceChunks(body)
             .filter(s => !GENERIC_DOCTOR_SENTENCE.test(s.trim()))
             .join(" ")
             .trim();

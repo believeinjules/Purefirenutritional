@@ -49,12 +49,43 @@ export function clampText(text: string, max: number): string {
   return `${cut.slice(0, lastSpace > max * 0.6 ? lastSpace : max).trimEnd()}…`;
 }
 
-/** Split prose into sentences (keeps the terminal punctuation). */
+/** Stand-in for a period inside an abbreviation while sentences are split. */
+const ABBR_DOT = "\u0001";
+/**
+ * Periods that don't end a sentence: citations ("p. 103", "pp. 12-14", "No. 5"),
+ * "e.g.", "i.e.", "vs.", "approx.", "et al.", titles and the like. "p.", "pp." and
+ * "No." only count before a number, so "The answer is no." still ends a sentence.
+ */
+const ABBREVIATIONS: RegExp[] = [
+  /\b(?:pp?|No|nos?|Nos|vol|Vol|fig|Fig|figs|Figs|ch|Ch)\.(?=\s*\d)/g,
+  /\b(?:e\.g|i\.e)\./gi,
+  /\bet al\./gi,
+  /\b(?:vs|approx|ca|cf|Dr|Prof|St|Mr|Mrs|Ms|Inc|Ltd|Jr|Sr)\.(?=\s)/g,
+];
+
+/** Hides abbreviation periods so a sentence split can't break on them. */
+export function protectAbbreviations(text: string): string {
+  let t = text;
+  for (const re of ABBREVIATIONS) t = t.replace(re, m => m.replace(/\./g, ABBR_DOT));
+  return t;
+}
+export function restoreAbbreviations(text: string): string {
+  return text.split(ABBR_DOT).join(".");
+}
+
+/** Sentences of one line, split on whitespace after . ! ? (abbreviations kept whole). */
+export function sentenceChunks(text: string): string[] {
+  return protectAbbreviations(text)
+    .split(/(?<=[.!?])\s+/)
+    .map(restoreAbbreviations);
+}
+
+/** Split prose into sentences (keeps the terminal punctuation; abbreviations kept whole). */
 export function splitSentences(text: string): string[] {
   return (
-    text
+    protectAbbreviations(text)
       .match(/[^.!?\n]+(?:[.!?]+|$)/g)
-      ?.map(s => s.trim())
+      ?.map(s => restoreAbbreviations(s).trim())
       .filter(Boolean) ?? []
   );
 }
