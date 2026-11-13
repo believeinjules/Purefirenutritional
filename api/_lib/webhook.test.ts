@@ -3,7 +3,13 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 // ── In-memory Firestore fake (just enough for the webhook) ──────────────────
 const store = new Map<string, Record<string, any>>();
 function docRef(path: string) {
-  return { path };
+  return {
+    path,
+    update: async (data: Record<string, any>) => {
+      const existing = store.get(path) || {};
+      store.set(path, applyIncrements(existing, data));
+    },
+  };
 }
 function snap(path: string) {
   const data = store.get(path);
@@ -261,6 +267,57 @@ describe("stripe webhook checkout.session.completed", () => {
     await handler(req(), res);
     expect(res.statusCode).toBe(200);
     expect(sendOrderConfirmation).toHaveBeenCalledTimes(1);
+  });
+
+  it("saves firebase_uid from metadata.user_id", async () => {
+    currentEvent = sessionEvent({ metadata: { user_id: "firebase-uid-1" }, client_reference_id: "firebase-uid-1" });
+    await handler(req(), mkRes());
+    expect(store.get("orders/cs_live_abc")!.firebase_uid).toBe("firebase-uid-1");
+  });
+
+  it("marks emails sent and does not resend on retry after success", async () => {
+    currentEvent = sessionEvent();
+    await handler(req(), mkRes());
+    const first = store.get("orders/cs_live_abc")!;
+    expect(first.confirmation_email_sent_at).toBeTruthy();
+    expect(first.owner_email_sent_at).toBeTruthy();
+    await handler(req(), mkRes());
+    expect(sendOrderConfirmation).toHaveBeenCalledTimes(1);
+    expect(sendOwnerOrderNotification).toHaveBeenCalledTimes(1);
+    expect(store.get("orders/cs_live_abc")!.confirmation_email_sent_at).toBe(first.confirmation_email_sent_at);
+  });
+
+  it("retries a failed confirmation email on the next webhook delivery, then stops", async () => {
+    sendOrderConfirmation.mockResolvedValueOnce(false).mockResolvedValueOnce(true);
+    currentEvent = sessionEvent();
+    await handler(req(), mkRes());
+    expect(store.get("orders/cs_live_abc")!.confirmation_email_sent_at).toBeFalsy();
+    expect(sendOrderConfirmation).toHaveBeenCalledTimes(1);
+    await handler(req(), mkRes());
+    expect(sendOrderConfirmation).toHaveBeenCalledTimes(2);
+    expect(store.get("orders/cs_live_abc")!.confirmation_email_sent_at).toBeTruthy();
+    await handler(req(), mkRes());
+    expect(sendOrderConfirmation).toHaveBeenCalledTimes(2);
+  });
+
+  it("passes sizes, totals, and shipping address to the customer email", async () => {
+    currentEvent = sessionEvent({
+      amount_total: 17000,
+      amount_subtotal: 15598,
+      total_details: { amount_tax: 902, amount_shipping: 500 },
+    });
+    await handler(req(), mkRes());
+    expect(sendOrderConfirmation).toHaveBeenCalledWith(
+      expect.objectContaining({
+        customerEmail: "buyer@example.com",
+        subtotal: 155.98,
+        shipping: 5,
+        tax: 9.02,
+        total: 170,
+        shippingName: "Jane Buyer",
+        shippingAddress: expect.objectContaining({ line1: "1 Main St" }),
+      })
+    );
   });
 });
 

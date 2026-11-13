@@ -72,6 +72,7 @@ export const PRIVATE_ROUTES: Record<string, RouteHead> = {
   "/login": { title: `Sign In | ${SITE_NAME}`, noindex: true },
   "/signup": { title: `Create Account | ${SITE_NAME}`, noindex: true },
   "/dashboard": { title: `My Account | ${SITE_NAME}`, noindex: true },
+  "/orders": { title: `My Orders | ${SITE_NAME}`, noindex: true },
   "/auth/action": { title: `Account | ${SITE_NAME}`, noindex: true },
   "/admin": { title: `Admin | ${SITE_NAME}`, noindex: true },
   "/admin/products": { title: `Manage Products | ${SITE_NAME}`, noindex: true },

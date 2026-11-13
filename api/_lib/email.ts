@@ -1,16 +1,32 @@
 import nodemailer from "nodemailer";
 import { FOUNDER_EMAIL, SUPPORT_EMAIL } from "../../shared/contact-emails.js";
 
+const SITE_ORIGIN = "https://www.purefirenutritional.com";
+const LOGO_URL = `${SITE_ORIGIN}/logo.jpeg`;
+
+export type OrderEmailItem = {
+  name: string;
+  size?: string | null;
+  quantity: number;
+  price: number;
+};
+
 interface OrderDetails {
   orderId: string;
   customerName: string;
   customerEmail: string;
-  items: Array<{ name: string; quantity: number; price: number }>;
+  items: OrderEmailItem[];
   total: number;
   /** Dollars off from a promotion code (omitted when none). */
   discount?: number;
   discountCode?: string | null;
   orderDate: string;
+  subtotal?: number;
+  shipping?: number;
+  tax?: number;
+  currency?: string;
+  shippingName?: string | null;
+  shippingAddress?: OwnerOrderAddress | null;
 }
 
 /** "Discount (FIRE10-K7Q2MX): -$12.34", or "" when there is no discount. */
@@ -103,20 +119,16 @@ export async function sendOrderConfirmation(
   const transporter = createTransporter();
   if (!transporter) return false;
 
-  const itemsText = order.items
-    .map((i) => `${i.name} x${i.quantity} - $${i.price.toFixed(2)}`)
-    .join("\n");
-
-  const disc = discountLine(order.discount, order.discountCode);
+  const { subject, text, html } = buildCustomerOrderEmail(order);
 
   try {
     const info = await transporter.sendMail({
       from: fromHeader(),
       to: order.customerEmail,
       replyTo: SUPPORT_EMAIL,
-      subject: `Order Confirmation #${order.orderId} - Pure Fire Nutritional`,
-      text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\n${disc ? `${disc}\n` : ""}Total: $${order.total.toFixed(2)}\n\nQuestions about your order? Email ${SUPPORT_EMAIL} with your order number.`,
-      html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p>${disc ? `<p>${escapeHtml(disc)}</p>` : ""}<p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p><p>Questions about your order? Email <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> with your order number.</p>`,
+      subject,
+      text,
+      html,
     });
     console.log(`[email] order confirmation sent for ${order.orderId}: messageId=${info.messageId ?? "?"}`);
     return true;
@@ -216,6 +228,107 @@ function addressLines(name: string | null, a: OwnerOrderAddress | null): string[
   return [name, a.line1, a.line2, cityLine, a.country].filter(
     (l): l is string => !!l && l.trim() !== ""
   );
+}
+
+/** Builds the branded customer confirmation (pure; exported for tests). */
+export function buildCustomerOrderEmail(order: OrderDetails) {
+  const orderNumber = order.orderId;
+  const name = order.customerName || "Customer";
+  const itemLine = (i: OrderEmailItem) =>
+    `${i.name}${i.size ? ` (size ${i.size})` : ""} × ${i.quantity} — ${money(i.price)}`;
+  const addr = addressLines(order.shippingName || name, order.shippingAddress || null);
+  const cur = order.currency && order.currency !== "USD" ? ` ${order.currency}` : "";
+  const hasBreakdown =
+    typeof order.subtotal === "number" ||
+    typeof order.shipping === "number" ||
+    typeof order.tax === "number";
+
+  const totalsText = [
+    hasBreakdown && typeof order.subtotal === "number" ? `Subtotal: ${money(order.subtotal)}` : null,
+    hasBreakdown && typeof order.shipping === "number" ? `Shipping: ${money(order.shipping)}` : null,
+    hasBreakdown && typeof order.tax === "number" ? `Tax: ${money(order.tax)}` : null,
+    discountLine(order.discount, order.discountCode) || null,
+    `Total: ${money(order.total)}${cur}`,
+  ].filter((l): l is string => !!l);
+
+  const text = [
+    `Hi ${name},`,
+    "",
+    "Thank you for your order from Pure Fire Nutritional.",
+    "",
+    `Order number: ${orderNumber}`,
+    "",
+    "Items:",
+    ...order.items.map((i) => `- ${itemLine(i)}`),
+    "",
+    ...totalsText,
+    "",
+    "Ship to:",
+    ...(addr.length ? addr : ["(no shipping address)"]),
+    "",
+    `Questions about your order? Email ${SUPPORT_EMAIL} and include your order number.`,
+    "",
+    "Pure Fire Nutritional",
+    "Brooklyn, NY",
+    SITE_ORIGIN,
+  ].join("\n");
+
+  const e = escapeHtml;
+  const rows = order.items
+    .map(
+      (i) =>
+        `<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${e(i.name)}</td>` +
+        `<td style="padding:8px 0;border-bottom:1px solid #eee">${e(i.size || "")}</td>` +
+        `<td style="padding:8px 0;border-bottom:1px solid #eee;text-align:center">${i.quantity}</td>` +
+        `<td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right">${money(i.price)}</td></tr>`
+    )
+    .join("");
+  const totalsHtml = totalsText
+    .map((l, i) =>
+      i === totalsText.length - 1
+        ? `<p style="margin:16px 0 0;font-size:16px"><strong>${e(l)}</strong></p>`
+        : `<p style="margin:4px 0">${e(l)}</p>`
+    )
+    .join("");
+  const html = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f7f7f7;font-family:Georgia,Times,serif;color:#1a1a1a">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f7f7f7;padding:24px 0">
+<tr><td align="center">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:8px;overflow:hidden">
+<tr><td style="background:linear-gradient(135deg,#E8793A,#E06050,#CC4472,#B83870);padding:20px 28px;text-align:center">
+<img src="${LOGO_URL}" alt="Pure Fire Nutritional" width="48" height="48" style="display:inline-block;border-radius:8px"/>
+<p style="margin:8px 0 0;color:#ffffff;font-size:18px;letter-spacing:0.02em">Pure Fire Nutritional</p>
+</td></tr>
+<tr><td style="padding:28px">
+<p style="margin:0 0 12px">Hi ${e(name)},</p>
+<p style="margin:0 0 16px">Thank you for your order from Pure Fire Nutritional.</p>
+<p style="margin:0 0 20px">Order number: <strong>#${e(orderNumber)}</strong></p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px">
+<tr>
+<th align="left" style="padding:8px 0;border-bottom:2px solid #eee">Item</th>
+<th align="left" style="padding:8px 0;border-bottom:2px solid #eee">Size</th>
+<th style="padding:8px 0;border-bottom:2px solid #eee">Qty</th>
+<th align="right" style="padding:8px 0;border-bottom:2px solid #eee">Price</th>
+</tr>
+${rows}
+</table>
+${totalsHtml}
+<p style="margin:20px 0 0"><strong>Ship to:</strong><br>${(addr.length ? addr : ["(no shipping address)"]).map(e).join("<br>")}</p>
+<p style="margin:24px 0 0;font-size:14px;color:#444">Questions about your order? Email <a href="mailto:${SUPPORT_EMAIL}" style="color:#E06050">${SUPPORT_EMAIL}</a> and include your order number.</p>
+</td></tr>
+<tr><td style="padding:16px 28px;background:#fafafa;color:#666;font-size:12px;text-align:center">
+Pure Fire Nutritional · Brooklyn, NY<br>
+<a href="${SITE_ORIGIN}" style="color:#E06050">${SITE_ORIGIN.replace("https://", "")}</a>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body></html>`;
+
+  return {
+    subject: `Order Confirmation #${orderNumber} - Pure Fire Nutritional`,
+    text,
+    html,
+  };
 }
 
 /** Builds the owner email (pure; exported for tests). */

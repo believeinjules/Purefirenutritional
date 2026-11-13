@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { CheckCircle, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { formatVerificationSendFailureMessage } from "@/lib/emailVerification";
+import { toast } from "sonner";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 import { removeAppliedCode } from "@/lib/dailyFire";
+
+const MIN_PASSWORD = 6;
 
 export default function CheckoutSuccess() {
   const [, setLocation] = useLocation();
   const { clearCart } = useCart();
+  const { user, signUp } = useAuth();
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [orderDetails, setOrderDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [creatingAccount, setCreatingAccount] = useState(false);
 
   useEffect(() => {
-    // Get session ID from URL
     const params = new URLSearchParams(window.location.search);
     const id = params.get("session_id");
-    
+
     if (id) {
       setSessionId(id);
       fetchOrderDetails(id);
@@ -28,7 +39,6 @@ export default function CheckoutSuccess() {
       setLoading(false);
     }
 
-    // Clear the cart after a successful payment redirect (Stripe appends session_id)
     if (id) clearCart();
     // A Daily Fire code is single use: stop pre-applying it after a paid order.
     if (id) removeAppliedCode();
@@ -49,13 +59,54 @@ export default function CheckoutSuccess() {
     }
   };
 
+  const checkoutEmail: string = orderDetails?.customer_email || "";
+
+  const handleCreateAccount = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!checkoutEmail) {
+      toast.error("We couldn't find the email from this order.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    if (password.length < MIN_PASSWORD) {
+      toast.error(`Password must be at least ${MIN_PASSWORD} characters`);
+      return;
+    }
+    if (!fullName.trim()) {
+      toast.error("Please enter your name");
+      return;
+    }
+
+    setCreatingAccount(true);
+    const { error, verificationEmailSent, verificationEmailError } = await signUp(
+      checkoutEmail,
+      password,
+      fullName.trim()
+    );
+    setCreatingAccount(false);
+
+    if (error) {
+      toast.error(error.message || "Failed to create account");
+      return;
+    }
+    if (verificationEmailSent) {
+      toast.success(
+        "Account created. Check your inbox (and spam) for a verification link."
+      );
+    } else {
+      toast.error(formatVerificationSendFailureMessage(verificationEmailError));
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
       <main className="flex-1 bg-gradient-to-b from-green-50 to-gray-50 py-12">
         <div className="max-w-2xl mx-auto px-4">
-          {/* Success Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
               <CheckCircle className="w-8 h-8 text-green-600" />
@@ -66,7 +117,6 @@ export default function CheckoutSuccess() {
             </p>
           </div>
 
-          {/* Order Details */}
           {loading ? (
             <Card>
               <CardContent className="py-8">
@@ -81,11 +131,11 @@ export default function CheckoutSuccess() {
                   <CardDescription>Order #{sessionId?.slice(0, 8)}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {orderDetails.customer_email && (
+                  {checkoutEmail && (
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">Email Address</p>
-                        <p className="font-medium">{orderDetails.customer_email}</p>
+                        <p className="font-medium">{checkoutEmail}</p>
                       </div>
                       {orderDetails.customer_details?.name && (
                         <div>
@@ -113,23 +163,105 @@ export default function CheckoutSuccess() {
                 </CardContent>
               </Card>
 
-              {/* Next Steps */}
-              <Card className="border-blue-200 bg-blue-50">
+              <Card className="border-blue-200 bg-blue-50 mb-6">
                 <CardHeader>
                   <CardTitle className="text-blue-900">What's Next?</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
+                  {checkoutEmail && (
+                    <p className="text-sm text-blue-800">
+                      If a confirmation email doesn't arrive at{" "}
+                      <strong>{checkoutEmail}</strong>, check your spam folder or write to{" "}
+                      <a href={mailto(SUPPORT_EMAIL)} className="underline">
+                        {SUPPORT_EMAIL}
+                      </a>{" "}
+                      with this page still open.
+                    </p>
+                  )}
                   <p className="text-sm text-blue-800">
-                    📧 A confirmation email has been sent to <strong>{orderDetails.customer_email}</strong>
-                  </p>
-                  <p className="text-sm text-blue-800">
-                    🎁 Your order will be carefully packed and shipped soon
-                  </p>
-                  <p className="text-sm text-blue-800">
-                    📦 You'll receive a tracking number via email when your order ships
+                    Your order will be packed and shipped soon. You'll get a tracking number by email when it ships.
                   </p>
                 </CardContent>
               </Card>
+
+              {!user && checkoutEmail && (
+                <Card className="mb-6">
+                  <CardHeader>
+                    <CardTitle>Create an account</CardTitle>
+                    <CardDescription>
+                      Optional. Save this order to your account so you can look it up later.
+                      Guest checkout is complete — you don't have to do this now.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleCreateAccount} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="account-email">Email</Label>
+                        <Input
+                          id="account-email"
+                          type="email"
+                          value={checkoutEmail}
+                          readOnly
+                          autoComplete="email"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="account-name">Full name</Label>
+                        <Input
+                          id="account-name"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          required
+                          autoComplete="name"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="account-password">Password</Label>
+                        <Input
+                          id="account-password"
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          minLength={MIN_PASSWORD}
+                          autoComplete="new-password"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="account-password-confirm">Confirm password</Label>
+                        <Input
+                          id="account-password-confirm"
+                          type="password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                          minLength={MIN_PASSWORD}
+                          autoComplete="new-password"
+                        />
+                      </div>
+                      <Button
+                        type="submit"
+                        className="w-full bg-brand-gradient"
+                        disabled={creatingAccount}
+                      >
+                        {creatingAccount ? "Creating account…" : "Create an account"}
+                      </Button>
+                      <p className="text-sm text-gray-600">
+                        After you create an account, verify your email to see past orders.
+                      </p>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+
+              {user && !user.emailVerified && (
+                <Card className="mb-6 border-orange-200 bg-orange-50">
+                  <CardContent className="py-4 text-orange-950 text-sm">
+                    Verify your email to see past orders. Check the inbox for{" "}
+                    <strong>{user.email}</strong>, then open My Orders.
+                  </CardContent>
+                </Card>
+              )}
             </>
           ) : (
             <Card>
@@ -139,7 +271,6 @@ export default function CheckoutSuccess() {
             </Card>
           )}
 
-          {/* Action Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               variant="outline"
@@ -148,15 +279,24 @@ export default function CheckoutSuccess() {
             >
               Continue Shopping
             </Button>
-            <Button
-              onClick={() => setLocation("/dashboard")}
-              className="bg-brand-gradient sm:w-auto"
-            >
-              View Orders
-            </Button>
+            {user ? (
+              <Button
+                onClick={() => setLocation("/dashboard")}
+                className="bg-brand-gradient sm:w-auto"
+              >
+                View Orders
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                onClick={() => setLocation("/login?next=/dashboard")}
+                className="sm:w-auto"
+              >
+                Sign in to view orders
+              </Button>
+            )}
           </div>
 
-          {/* Help Text */}
           <div className="text-center mt-8">
             <p className="text-sm text-gray-600">
               Need help? Contact our support team at{" "}
@@ -164,6 +304,14 @@ export default function CheckoutSuccess() {
                 {SUPPORT_EMAIL}
               </a>
             </p>
+            {!user && (
+              <p className="text-sm text-gray-600 mt-2">
+                Already have an account?{" "}
+                <Link href="/login?next=/dashboard" className="text-orange-600 font-medium">
+                  Sign in
+                </Link>
+              </p>
+            )}
           </div>
         </div>
       </main>

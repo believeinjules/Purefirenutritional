@@ -1,5 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { handleCustomerOrders } from "../../_lib/customer-orders.handler.js";
 import { getStripe } from "../../_lib/stripe.js";
+
+/** Served here (plus a /api/orders rewrite) so we stay within the Vercel Hobby function limit. */
+const MY_ORDERS_ID = "my-orders";
 
 /** Stripe Checkout Session ids look like cs_live_… / cs_test_… */
 const SESSION_ID_RE = /^cs_(live|test)_[A-Za-z0-9]{10,255}$/;
@@ -30,6 +34,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const sessionId = Array.isArray(id) ? id[0] : id;
   if (!sessionId || typeof sessionId !== "string") {
     return res.status(400).json({ error: "Missing session id" });
+  }
+  if (sessionId === MY_ORDERS_ID) {
+    return handleCustomerOrders(req, res);
   }
   if (!SESSION_ID_RE.test(sessionId)) {
     return res.status(404).json({ error: "Checkout session not found" });

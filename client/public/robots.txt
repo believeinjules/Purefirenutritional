@@ -6,6 +6,7 @@ Disallow: /cart
 Disallow: /checkout
 Disallow: /wishlist
 Disallow: /dashboard
+Disallow: /orders
 Disallow: /auth/
 
 Sitemap: https://www.purefirenutritional.com/sitemap.xml

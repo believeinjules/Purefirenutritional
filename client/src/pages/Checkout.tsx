@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, CreditCard, Lock, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import { bundleLabel } from "@shared/bundle-pricing";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
@@ -23,17 +24,26 @@ function formatCheckoutUSD(amount: number | undefined | null): string {
 
 export default function Checkout() {
   const { items, getTotal } = useCart();
+  const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: "",
   });
-  // Prefill an empty email with the one given to the Daily Fire popup (editable;
-  // any email can still be used with the code: codes aren't tied to an email in Stripe).
+  // Prefill an empty email: the signed-in account's email first, else the one
+  // given to the Daily Fire popup (codes aren't tied to an email in Stripe, so
+  // either is fine). Never overwrites what the shopper typed; an auto-filled
+  // popup email is replaced once the account email loads.
+  const autoFilled = useRef<string | null>(null);
   useEffect(() => {
-    const saved = dailyFireEmail();
-    if (saved) setFormData((f) => (f.email ? f : { ...f, email: saved }));
-  }, []);
+    const preferred = user?.email || dailyFireEmail();
+    if (!preferred) return;
+    setFormData((prev) => {
+      if (prev.email && prev.email !== autoFilled.current) return prev;
+      autoFilled.current = preferred;
+      return { ...prev, email: preferred };
+    });
+  }, [user]);
   const subtotal = getTotal();
   const shippingCents = shippingCentsForMerchandiseUSD(subtotal);
   const shippingLabel = shippingCents === 0 ? "Free" : formatCheckoutUSD(shippingCents / 100);
@@ -69,6 +79,7 @@ export default function Checkout() {
           customerEmail: formData.email,
           // Validated against Stripe on the server; never trusted for the amount.
           ...(applied ? { promoCode: applied.code } : {}),
+          userId: user?.uid || undefined,
         }),
       });
 
@@ -167,6 +178,20 @@ export default function Checkout() {
                   <p className="text-sm text-gray-500">
                     Stripe collects the ship-to name and address on the next page.
                   </p>
+                  {user ? (
+                    <p className="text-sm text-gray-600">
+                      Signed in as {user.email}. This order will be saved to your account
+                      {user.emailVerified ? "." : " after you verify your email."}
+                    </p>
+                  ) : (
+                    <p className="text-sm text-gray-600">
+                      Guest checkout — no account needed.{" "}
+                      <Link href="/login?next=/checkout" className="text-orange-600 hover:underline">
+                        Sign in
+                      </Link>{" "}
+                      if you already have one, or create an account after you place the order to look it up later.
+                    </p>
+                  )}
                 </CardContent>
               </Card>
 

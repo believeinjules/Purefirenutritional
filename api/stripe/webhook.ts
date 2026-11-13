@@ -115,8 +115,15 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   const currency = session.currency?.toUpperCase() || "USD";
   const shippingName = shippingDetails?.name || null;
   const shippingAddress = shippingDetails?.address || null;
+  const firebaseUid = (
+    session.metadata?.user_id ||
+    (typeof session.client_reference_id === "string" ? session.client_reference_id : "") ||
+    ""
+  ).trim() || null;
   let orderNumber = generateOrderNumber();
   let isNewOrder = true;
+  let confirmationEmailSent = false;
+  let ownerEmailSent = false;
 
   const adminDb = getAdminDb();
   if (!adminDb) {
@@ -137,6 +144,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
       if (existingOrder.exists) {
         isNewOrder = false;
         orderNumber = (existingOrder.get("order_number") as string) || orderNumber;
+        confirmationEmailSent = !!existingOrder.get("confirmation_email_sent_at");
+        ownerEmailSent = !!existingOrder.get("owner_email_sent_at");
         return;
       }
 
@@ -144,6 +153,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
         order_number: orderNumber,
         customer_email: customerEmail || null,
         customer_name: customerName || null,
+        firebase_uid: firebaseUid,
         stripe_session_id: session.id,
         stripe_payment_intent:
           typeof session.payment_intent === "string"
@@ -169,6 +179,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
         shipping_address: shippingAddress,
         billing_address: session.customer_details?.address || null,
         created_at: nowIso,
+        confirmation_email_sent_at: null,
+        owner_email_sent_at: null,
       });
 
       if (customerRef && existingCustomer) {
@@ -207,30 +219,16 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
     );
   }
 
-  if (isNewOrder && customerEmail) {
-    const sent = await sendOrderConfirmation({
-      orderId: orderNumber,
-      customerName: customerName || "Customer",
-      customerEmail,
-      items,
-      total,
-      ...(discount.amount > 0 ? { discount: discount.amount, discountCode: discount.code } : {}),
-      orderDate: new Date().toISOString(),
-    });
-    if (!sent) {
-      console.warn(`[webhook] confirmation email not sent for ${orderNumber}`);
-    }
-  }
-
-  // Store-owner notification. Same isNewOrder guard as the customer email, so
-  // Stripe retries of an already-saved order don't re-notify. Isolated so a
-  // failure here never affects the saved order, customer email, or 200.
-  if (isNewOrder) {
-    try {
-      const sentOwner = await sendOwnerOrderNotification({
-        orderNumber,
-        customerName: customerName || null,
-        customerEmail: customerEmail || null,
+  // Emails are idempotent via *_sent_at flags on the order doc. Stripe retries
+  // of a saved order do not resend a successful email, but will retry a failed
+  // send (flag still empty). Isolated so a failure never affects the 200.
+  if (adminDb && (isNewOrder || !confirmationEmailSent || !ownerEmailSent)) {
+    const orderRef = adminDb.collection("orders").doc(session.id);
+    if (customerEmail && !confirmationEmailSent) {
+      const sent = await sendOrderConfirmation({
+        orderId: orderNumber,
+        customerName: customerName || "Customer",
+        customerEmail,
         items,
         subtotal,
         shipping,
@@ -240,16 +238,63 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
         currency,
         shippingName,
         shippingAddress,
+        orderDate: new Date().toISOString(),
       });
-      if (!sentOwner) {
-        console.warn(`[webhook] owner notification not sent for ${orderNumber}`);
+      if (sent) {
+        confirmationEmailSent = true;
+        try {
+          await orderRef.update({ confirmation_email_sent_at: new Date().toISOString() });
+        } catch (err) {
+          console.error(
+            `[webhook] failed to record confirmation_email_sent_at for ${orderNumber}:`,
+            err instanceof Error ? err.message : String(err)
+          );
+        }
+      } else {
+        console.warn(`[webhook] confirmation email not sent for ${orderNumber}`);
       }
-    } catch (err) {
-      console.error(
-        `[webhook] owner notification failed for ${orderNumber}:`,
-        err instanceof Error ? err.message : String(err)
-      );
     }
+
+    if (!ownerEmailSent) {
+      try {
+        const sentOwner = await sendOwnerOrderNotification({
+          orderNumber,
+          customerName: customerName || null,
+          customerEmail: customerEmail || null,
+          items,
+          subtotal,
+          shipping,
+          tax,
+          ...(discount.amount > 0 ? { discount: discount.amount, discountCode: discount.code } : {}),
+          total,
+          currency,
+          shippingName,
+          shippingAddress,
+        });
+        if (sentOwner) {
+          ownerEmailSent = true;
+          try {
+            await orderRef.update({ owner_email_sent_at: new Date().toISOString() });
+          } catch (err) {
+            console.error(
+              `[webhook] failed to record owner_email_sent_at for ${orderNumber}:`,
+              err instanceof Error ? err.message : String(err)
+            );
+          }
+        } else {
+          console.warn(`[webhook] owner notification not sent for ${orderNumber}`);
+        }
+      } catch (err) {
+        console.error(
+          `[webhook] owner notification failed for ${orderNumber}:`,
+          err instanceof Error ? err.message : String(err)
+        );
+      }
+    }
+  } else if (!adminDb) {
+    // Without Firestore we cannot mark a send as complete, so skip rather than
+    // risk duplicate emails on Stripe retries.
+    console.warn(`[webhook] emails skipped for ${session.id} — Firebase Admin not configured`);
   }
 }
 

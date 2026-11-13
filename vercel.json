@@ -174,5 +174,11 @@
       "destination": "/review",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/orders",
+      "destination": "/api/stripe/session/my-orders"
+    }
   ]
 }

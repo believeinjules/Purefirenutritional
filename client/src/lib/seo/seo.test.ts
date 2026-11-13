@@ -219,7 +219,7 @@ describe("routes, robots and sitemap", () => {
 
   it("robots.txt disallows private paths and points to the sitemap", () => {
     const robots = fs.readFileSync(path.join(root, "client/public/robots.txt"), "utf8");
-    for (const p of ["/admin", "/api/", "/cart", "/checkout", "/wishlist", "/dashboard", "/auth/"]) {
+    for (const p of ["/admin", "/api/", "/cart", "/checkout", "/wishlist", "/dashboard", "/orders", "/auth/"]) {
       expect(robots).toContain(`Disallow: ${p}\n`);
     }
     expect(robots).not.toMatch(/Disallow: \/products/);
@@ -260,7 +260,12 @@ describe("vercel.json redirects", () => {
       destination: "/products/:id",
       statusCode: 301,
     });
-    expect(vercel.rewrites ?? []).toEqual([]);
+    // Exact API rewrite only — no SPA catch-all, so unknown URLs still 404.
+    const rewrites = vercel.rewrites ?? [];
+    expect(rewrites).toEqual([
+      { source: "/api/orders", destination: "/api/stripe/session/my-orders" },
+    ]);
+    expect(rewrites.some((r: { source: string }) => r.source === "/:path*" || r.source === "/(.*)")).toBe(false);
   });
 });
 

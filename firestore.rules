@@ -68,12 +68,18 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // ── Orders: written by the Stripe webhook (Admin SDK). Customers read
-    //    their own (verified email must match), admins read all. ───────────
+    // ── Orders: written by the Stripe webhook (Admin SDK). The storefront
+    //    "My orders" page reads via GET /api/orders (verified ID token).
+    //    Browser reads stay denied unless the email is verified and matches,
+    //    or firebase_uid matches the signed-in user. Never attach/read on
+    //    an unverified email. ─────────────────────────────────────────────
     match /orders/{orderId} {
       allow read: if isAdmin()
         || (verifiedEmail()
-            && resource.data.customer_email == request.auth.token.email.lower());
+            && (
+              resource.data.customer_email == request.auth.token.email.lower()
+              || resource.data.firebase_uid == request.auth.uid
+            ));
       allow write: if false;
     }
 

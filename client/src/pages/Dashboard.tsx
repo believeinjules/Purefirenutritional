@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
-import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { fetchMyOrders, EMAIL_NOT_VERIFIED_MESSAGE, type CustomerOrder } from "@/lib/ordersApi";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,21 +12,12 @@ import { toast } from "sonner";
 import EmailVerificationBanner from "@/components/EmailVerificationBanner";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 
-interface Order {
-  id: string;
-  created_at: string;
-  total: number;
-  status: string;
-  items: any[];
-  customer_email: string;
-  order_number: string;
-}
-
 export default function Dashboard() {
   const { user, signOut, loading } = useAuth();
   const [, setLocation] = useLocation();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<CustomerOrder[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
+  const [needsVerification, setNeedsVerification] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -44,14 +34,25 @@ export default function Dashboard() {
   const fetchOrders = async () => {
     if (!user) return;
 
+    if (!user.emailVerified) {
+      setNeedsVerification(true);
+      setOrders([]);
+      setLoadingOrders(false);
+      return;
+    }
+
     try {
-      const q = query(
-        collection(db, "orders"),
-        where("customer_email", "==", user.email),
-        orderBy("created_at", "desc")
-      );
-      const snapshot = await getDocs(q);
-      setOrders(snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Order)));
+      const result = await fetchMyOrders(await user.getIdToken());
+      if (result.ok) {
+        setNeedsVerification(false);
+        setOrders(result.orders);
+      } else if (result.needsVerification) {
+        setNeedsVerification(true);
+        setOrders([]);
+      } else {
+        setNeedsVerification(false);
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error("Error fetching orders:", error);
       toast.error("Failed to load orders");
@@ -104,7 +105,7 @@ export default function Dashboard() {
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h1 className="text-3xl font-bold">My Dashboard</h1>
+              <h1 className="text-3xl font-bold">My Orders</h1>
               <p className="text-gray-600 mt-1">Welcome back, {user.displayName || user.email}!</p>
             </div>
             <Button onClick={handleSignOut} variant="outline">
@@ -156,6 +157,13 @@ export default function Dashboard() {
               <CardContent>
                 {loadingOrders ? (
                   <p className="text-gray-600">Loading orders...</p>
+                ) : needsVerification ? (
+                  <div className="rounded-lg border border-orange-200 bg-orange-50 px-4 py-4 text-orange-950">
+                    <p className="font-medium">{EMAIL_NOT_VERIFIED_MESSAGE}</p>
+                    <p className="text-sm text-orange-900/80 mt-1">
+                      Confirm {user.email} with the verification link, then refresh this page.
+                    </p>
+                  </div>
                 ) : orders.length === 0 ? (
                   <div className="text-center py-8">
                     <Package className="w-12 h-12 text-gray-400 mx-auto mb-3" />
@@ -170,9 +178,9 @@ export default function Dashboard() {
                       <div key={order.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                         <div className="flex justify-between items-start mb-2">
                           <div>
-                            <p className="font-medium">Order #{order.id.slice(0, 8)}</p>
+                            <p className="font-medium">Order #{order.order_number || order.id.slice(0, 8)}</p>
                             <p className="text-sm text-gray-600">
-                              {new Date(order.created_at).toLocaleDateString()}
+                              {order.created_at ? new Date(order.created_at).toLocaleDateString() : ""}
                             </p>
                           </div>
                           <Badge className={getStatusColor(order.status)}>

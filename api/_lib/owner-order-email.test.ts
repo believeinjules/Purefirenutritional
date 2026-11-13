@@ -7,6 +7,7 @@ vi.mock("nodemailer", () => ({
 
 import {
   buildOwnerOrderEmail,
+  buildCustomerOrderEmail,
   sendOwnerOrderNotification,
   sendOrderConfirmation,
   orderNotifyAddress,
@@ -118,5 +119,74 @@ describe("owner order notification", () => {
     const { text } = buildOwnerOrderEmail(order({ customerName: null, customerEmail: null, shippingName: null, shippingAddress: null }));
     expect(text).toContain("Customer: (no name)");
     expect(text).toContain("(no shipping address)");
+  });
+});
+
+describe("customer order confirmation", () => {
+  const details = {
+    orderId: "ORD-1700000000000-ABC123XYZ",
+    customerName: "Jane Buyer",
+    customerEmail: "jane@example.com",
+    items: [
+      { name: "Bonomarlot (20 Capsules)", size: "20", quantity: 2, price: 155.98 },
+      { name: "Vladonix", size: null, quantity: 1, price: 58.99 },
+    ],
+    subtotal: 214.97,
+    shipping: 5,
+    tax: 9.02,
+    total: 228.99,
+    currency: "USD",
+    shippingName: "Jane Buyer",
+    shippingAddress: { line1: "1 Main St", line2: "Apt 2", city: "New York", state: "NY", postal_code: "10001", country: "US" },
+    orderDate: "2026-11-12T00:00:00.000Z",
+  };
+
+  beforeEach(() => {
+    sendMail.mockReset();
+    sendMail.mockImplementation(async () => ({}));
+    process.env.EMAIL_USER = "store@example.com";
+    process.env.EMAIL_PASS = "x";
+  });
+
+  it("includes order number, items, sizes, quantities, totals, address, and support email", async () => {
+    const { subject, text, html } = buildCustomerOrderEmail(details);
+    expect(subject).toBe("Order Confirmation #ORD-1700000000000-ABC123XYZ - Pure Fire Nutritional");
+    for (const s of [
+      "ORD-1700000000000-ABC123XYZ",
+      "Jane Buyer",
+      "- Bonomarlot (20 Capsules) (size 20) × 2 — $155.98",
+      "- Vladonix × 1 — $58.99",
+      "Subtotal: $214.97",
+      "Shipping: $5.00",
+      "Tax: $9.02",
+      "Total: $228.99",
+      "1 Main St",
+      "Apt 2",
+      "New York, NY 10001",
+      "support@purefirenutritional.com",
+      "Brooklyn, NY",
+    ]) expect(text).toContain(s);
+    expect(html).toContain("Bonomarlot (20 Capsules)");
+    expect(html).toContain(">20<");
+    expect(html).toContain("support@purefirenutritional.com");
+    expect(html.toLowerCase()).not.toMatch(/treat|cure|diagnos|therap|disease|medical claim/);
+    expect(await sendOrderConfirmation(details)).toBe(true);
+    const m = sendMail.mock.calls[0][0];
+    expect(m.to).toBe("jane@example.com");
+    expect(m.replyTo).toBe("support@purefirenutritional.com");
+    expect(m.subject).toBe(subject);
+  });
+
+  it("HTML-escapes customer-provided values", () => {
+    const { html } = buildCustomerOrderEmail({
+      ...details,
+      customerName: `<script>alert("x")</script>`,
+      items: [{ name: `<b>Evil</b>`, size: `"20"`, quantity: 1, price: 1 }],
+      shippingName: "O'Brien <img>",
+      shippingAddress: { line1: "<i>1 Main</i>", city: "A&B" },
+    });
+    expect(html).not.toMatch(/<script>|<b>Evil|<img>|<i>1 Main/);
+    expect(html).toContain("&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;");
+    expect(html).toContain("&lt;b&gt;Evil&lt;/b&gt;");
   });
 });
