@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -16,15 +17,14 @@ const COA_WEBP = "/images/learn/buy-khavinson-peptides-usa-coa.webp";
 const COA_ALT = "A hand holds a supplement bottle beside a printed Certificate of Analysis, with a fingertip on the lot number. Caption: Match the lot to the COA.";
 const PORCH_WEBP = "/images/learn/buy-khavinson-peptides-usa-porch.webp";
 const PORCH_ALT = "A man on his front porch opens a shipping box and reads the documentation inside, with the text: Khavinson Peptides in the United States: What you need to know before you buy.";
-const DESCRIPTION =
-  "Why authentic Khavinson bioregulators are hard to find in the U.S., oral bioregulators vs. injectable peptides, how to check any seller (lot-matched COA, clear labels), and how Pure Fire sources them.";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/buy-khavinson-peptides-usa");
 
 export default function ArticleBuyKhavinsonUSA() {
   useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide | Pure Fire Nutritional"
+        title={TITLE}
         description={DESCRIPTION}
         path="/learn/buy-khavinson-peptides-usa"
         type="article"

@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,10 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 // Body text: Editorial final draft (final-nov11/vesugen-research-safety.md), 2026-11-11.
 // PubMed IDs verified against NCBI esummary + efetch on 2026-11-11: 25051766, 22808515, 36611900, 26390612.
 const PATH = "/learn/vesugen-research-safety";
-const TITLE = "Vesugen Research and Safety: What the Evidence Shows";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/vesugen-research-safety");
 const HEADLINE = "Vesugen (KED Peptide): What the Research Says About Safety and Effects";
-const DESCRIPTION =
-  "Vesugen is a short synthetic peptide (Lys-Glu-Asp) studied in blood vessel cells. What the laboratory and human research shows, and what it doesn't.";
 const HERO_JPG = "/images/learn/vesugen-research-safety-hero.jpg";
 const HERO_WEBP = "/images/learn/vesugen-research-safety-hero.webp";
 const HERO_ALT = "Laboratory equipment beside a vessel tissue model, representing early-stage Vesugen research";

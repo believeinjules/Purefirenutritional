@@ -21,9 +21,9 @@ import {
   canonicalUrl,
 } from "./index";
 import { AUTHORIZED_RETAILER_PATH, AUTHORIZED_RETAILER_TITLE } from "@/data/retailerAuthorization";
+import { requirePageHead } from "./publicHeads";
 
-export const AUTHORIZED_RETAILER_DESCRIPTION =
-  "Pure Fire Nutritional is an authorized U.S. retailer of Khavinson peptide bioregulators, based in Brooklyn, NY. Our retailer details, documentation and how to check them.";
+export const AUTHORIZED_RETAILER_DESCRIPTION = requirePageHead("/about/authorized-retailer").description;
 
 export function authorizedRetailerJsonLd(): Record<string, unknown> {
   const url = canonicalUrl(AUTHORIZED_RETAILER_PATH);

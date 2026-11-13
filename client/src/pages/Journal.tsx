@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useSearch } from "wouter";
 import { ChevronDown } from "lucide-react";
 import PageSeo from "@/components/seo/PageSeo";
+import { JOURNAL_TITLE, JOURNAL_DESCRIPTION } from "@/lib/seo/publicHeads";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import {
@@ -22,9 +23,7 @@ import {
   startHereArticles,
 } from "@/content/journalListing";
 
-export const JOURNAL_TITLE = "Longevity Journal | Pure Fire Nutritional";
-export const JOURNAL_DESCRIPTION =
-  "Longevity Journal from Pure Fire Nutritional: what Khavinson peptide bioregulators are, Cytomaxes vs Cytogens, U.S. sourcing, and a systems view of peptides.";
+export { JOURNAL_TITLE, JOURNAL_DESCRIPTION };
 
 const formatDate = (d: string) =>
   new Date(`${d}T12:00:00Z`).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });

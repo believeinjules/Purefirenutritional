@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import {
   Search,
   SlidersHorizontal,
@@ -179,8 +180,8 @@ export default function Products() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <PageSeo
-        title="Shop Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional"
-        description="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Authorized U.S. retailer."
+        title={requirePageHead("/products").title}
+        description={requirePageHead("/products").description}
         path="/products"
         type="website"
       />

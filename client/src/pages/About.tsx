@@ -1,5 +1,6 @@
 import React from 'react';
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -14,8 +15,8 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       <PageSeo
-        title="About Pure Fire Nutritional | Nutrition Supplements & Peptide Bioregulators"
-        description="Learn about Pure Fire Nutritional — we sell nutrition supplements we trust. Peptide bioregulators are the specialty. Evidence-backed products for cognitive vitality, resilience, and healthy aging."
+        title={requirePageHead("/about").title}
+        description={requirePageHead("/about").description}
         path="/about"
         type="website"
         jsonLd={[aboutOrganizationJsonLd()]}

@@ -1,4 +1,5 @@
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { homeJsonLd } from "@/lib/seo";
 import { Link } from "wouter";
 import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
@@ -117,8 +118,8 @@ export default function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"
-        description="Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized U.S. retailer of oral capsule supplements for healthy aging."
+        title={requirePageHead("/").title}
+        description={requirePageHead("/").description}
         path="/"
         type="website"
         jsonLd={[homeJsonLd()]}

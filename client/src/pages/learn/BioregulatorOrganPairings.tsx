@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,9 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-journal/bioregulator-organ-pairings-mechanism-vs-evidence.html (Julia-approved, 2026-11-05), verbatim.
 const PATH = "/learn/bioregulator-organ-pairings-mechanism-vs-evidence";
-const TITLE = "Bioregulator Organ Pairings: Mechanism vs Evidence";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/bioregulator-organ-pairings-mechanism-vs-evidence");
 const HEADLINE = "Bioregulator Organ Pairings: Proposed Mechanism vs. Measured Evidence";
-const DESCRIPTION = "Explore Khavinson bioregulator supplements, organ pairings, proposed mechanisms, and how digestion and absorption may alter oral peptide uptake, availability.";
 const HERO_JPG = "/images/learn/bioregulator-organ-pairings-mechanism-vs-evidence-hero.jpg";
 const HERO_ALT = "Anatomical figure with callouts to the brain, heart, lungs, liver, stomach and kidneys, beside stacked books and two capsules";
 const JSON_LD = {

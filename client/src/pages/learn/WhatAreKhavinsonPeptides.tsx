@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -17,8 +18,7 @@ const BANNER_WEBP = "/images/learn/what-are-khavinson-peptide-bioregulators-bann
 const BANNER_ALT = "A sunlit lab bench with a microscope, flask and a book labeled Peptide Bioregulators, with the title: Khavinson Peptides Explained: Benefits, Research & How They Work";
 const TYPES_WEBP = "/images/learn/what-are-khavinson-peptide-bioregulators-cytogens-cytomaxes.webp";
 const TYPES_ALT = "Conceptual illustration comparing Cytogens (short, defined peptide chains made in a lab) with Cytomaxes (tissue-derived peptide complexes). Both: oral capsules, dietary supplements, check the lot against the COA.";
-const DESCRIPTION =
-  "Khavinson peptide bioregulators are short peptides and peptide complexes studied for how they may influence cell activity and tissue function. Learn the two types, Cytogens and Cytomaxes, and what the research does and doesn't show.";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/what-are-khavinson-peptide-bioregulators");
 
 export default function ArticleKhavinsonPeptides() {
   useKineticReveal("main h2");
@@ -34,7 +34,7 @@ export default function ArticleKhavinsonPeptides() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Khavinson Peptides Explained: Benefits, Research & How They Work | Pure Fire Nutritional"
+        title={TITLE}
         description={DESCRIPTION}
         path="/learn/what-are-khavinson-peptide-bioregulators"
         type="article"

@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -14,13 +15,15 @@ const COVER_ALT = "A woman with short hair in a rust sweater reads printed resea
 const EVIDENCE_WEBP = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-evidence-types-limits.webp";
 const EVIDENCE_ALT = "Evidence Types and Limits infographic with four panels: Older adults (6–8 years; linked to better health indices); Animal research (aged monkeys: glucose, insulin, melatonin effects); Perimenopause (small observations; support, not care replacement); Trial gap (no large trials show symptom relief).";
 
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/khavinson-bioregulators-perimenopause-oral-evidence");
+
 export default function ArticlePerimenopauseOralEvidence() {
   useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Oral Khavinson Bioregulators in Perimenopause | Pure Fire Nutritional"
-        description="What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality."
+        title={TITLE}
+        description={DESCRIPTION}
         path="/learn/khavinson-bioregulators-perimenopause-oral-evidence"
         type="article"
         image={COVER_JPG}
@@ -31,7 +34,7 @@ export default function ArticlePerimenopauseOralEvidence() {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show",
-          "description": "What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality.",
+          "description": DESCRIPTION,
           "image": "https://www.purefirenutritional.com/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg",
           "author": JULIA_PERSON_REF,
           "datePublished": "2026-10-14",

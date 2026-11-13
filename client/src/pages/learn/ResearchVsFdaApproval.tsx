@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,9 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-journal/khavinson-peptide-bioregulators-research-vs-fda-approval.html (Julia-approved, 2026-11-05), verbatim.
 const PATH = "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval";
-const TITLE = "Khavinson Peptide Bioregulators: Research vs FDA Approval";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/khavinson-peptide-bioregulators-research-vs-fda-approval");
 const HEADLINE = "Khavinson Peptide Bioregulators: Research History vs. FDA Approval";
-const DESCRIPTION = "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and U.S. legal status—and learn why research history alone is not FDA approval.";
 const HERO_JPG = "/images/learn/khavinson-peptide-bioregulators-research-vs-fda-approval-hero.jpg";
 const HERO_ALT = "Capsules beside a document stamped Not FDA approved, with a peptide chain and a St. Petersburg cathedral";
 const INLINE_JPG = "/images/learn/khavinson-peptide-bioregulators-uses-safety-legality-inline.jpg";

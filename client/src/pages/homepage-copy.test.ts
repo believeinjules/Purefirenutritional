@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { PUBLIC_PAGE_HEADS } from "@/lib/seo/publicHeads";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -7,10 +8,14 @@ const index = read("./Index.tsx");
 
 describe("homepage SEO head", () => {
   it("title and meta description are the approved wording", () => {
-    expect(index).toContain('title="Pure Fire Nutritional | Khavinson Peptide Bioregulators & Longevity Supplements"');
-    const desc = "Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized U.S. retailer of oral capsule supplements for healthy aging.";
-    expect(index).toContain(`description="${desc}"`);
-    expect(desc.length).toBeLessThanOrEqual(160);
+    const { title, description } = PUBLIC_PAGE_HEADS["/"];
+    expect(index).toContain('title={requirePageHead("/").title}');
+    expect(index).toContain('description={requirePageHead("/").description}');
+    expect(title).toBe("Authorized U.S. Khavinson Retailer | Pure Fire Nutritional");
+    expect(description).toMatch(/U\.S\.-based authorized retailer of Khavinson peptide bioregulators/);
+    expect(description).toMatch(/cellular health, healthy aging, and longevity/);
+    expect(title.length).toBeLessThanOrEqual(60);
+    expect(description.length).toBeLessThanOrEqual(160);
   });
 });
 
@@ -56,5 +61,13 @@ describe("claims removed from other pages", () => {
       expect(s, rel).not.toMatch(/pharmaceutical[- ]grade/i);
       expect(s, rel).not.toMatch(/20[–-]40\s*%/);
     }
+  });
+});
+
+describe("shared footer (Julia, 2026-11-12)", () => {
+  it("uses U.S. in the authorized-retailer line", () => {
+    const footer = read("../components/Footer.tsx");
+    expect(footer).toContain("Authorized U.S. retailer of Khavinson peptide bioregulators.");
+    expect(footer).not.toContain("Authorized US retailer of Khavinson peptide bioregulators.");
   });
 });

@@ -1,6 +1,7 @@
 import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import { Link, useSearch } from "wouter";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import {
   useState,
   useRef,
@@ -251,8 +252,8 @@ export default function AIAssistant() {
   return (
     <div className="min-h-screen flex flex-col">
       <PageSeo
-        title="Pepita — Peptide Research Sidekick | Pure Fire Nutritional"
-        description="Ask Pepita, Pure Fire's research assistant, about peptide bioregulators, supplements and wellness goals: direct answers with linked PubMed studies, their limitations, and related products."
+        title={requirePageHead("/ai-assistant").title}
+        description={requirePageHead("/ai-assistant").description}
         path="/ai-assistant"
         type="website"
       />

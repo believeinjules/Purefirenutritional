@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -15,8 +16,7 @@ const COVER_JPG = "/images/learn/why-buy-khavinson-peptides-from-pure-fire-cover
 const COVER_WEBP = "/images/learn/why-buy-khavinson-peptides-from-pure-fire-cover.webp";
 const COVER_ALT = "Two plain product boxes and folded paperwork on a dark lab bench under glowing molecule models, with the title: Same Name. Same Peptides. So Why Buy From Us? The sequence may be reproducible. The source should be verifiable.";
 const HEADLINE = "Same Name. Same Peptides. So Why Buy From Us?";
-const DESCRIPTION =
-  "Same peptide name, very different prices. What a sequence can't tell you, why the manufacturer and paperwork matter, and what to ask before you buy.";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/why-buy-khavinson-peptides-from-pure-fire");
 const TSP_COMPANION_URL = "https://theshortpeptide.com/same-molecule-different-product";
 
 const a = "text-orange-600 hover:underline";
@@ -31,7 +31,7 @@ export default function ArticleWhyBuyFromPureFire() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Same Name, Same Peptides — So Why Buy From Pure Fire? | Pure Fire Nutritional"
+        title={TITLE}
         description={DESCRIPTION}
         path={WHY_BUY_PATH}
         type="article"

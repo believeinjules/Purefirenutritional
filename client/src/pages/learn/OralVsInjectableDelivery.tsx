@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,9 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-journal/oral-vs-injectable-peptide-bioregulators-digestion-delivery.html (Julia-approved, 2026-11-05), verbatim.
 const PATH = "/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery";
-const TITLE = "Oral vs Injectable Bioregulators: Digestion and Delivery";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery");
 const HEADLINE = "Oral vs. Injectable Peptide Bioregulators: Digestion and Delivery";
-const DESCRIPTION = "Explore oral peptide bioregulators, their proposed role, digestion and delivery, and Khavinson's research on tissue specificity and its evidence limits.";
 const HERO_JPG = "/images/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery-hero.jpg";
 const HERO_ALT = "Two capsules and a sublingual tablet on linen, with a syringe out of focus in the background";
 const JSON_LD = {

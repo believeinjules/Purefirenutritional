@@ -1,5 +1,6 @@
 import { FlaskConical, FileText, ExternalLink, Award, BookOpen, Microscope, Dna, ArrowRight } from "lucide-react";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -131,8 +132,8 @@ export default function Science() {
   return (
     <div className="min-h-screen flex flex-col">
       <PageSeo
-        title="The Science Behind Khavinson Peptides & Bioregulators | Pure Fire Nutritional"
-        description="Explore the peer-reviewed research behind Khavinson peptide bioregulators, cellular aging, neuroplasticity, and longevity science. 40+ years of clinical studies."
+        title={requirePageHead("/science").title}
+        description={requirePageHead("/science").description}
         path="/science"
         type="website"
       />

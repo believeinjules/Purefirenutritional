@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import { SUPPLIER_SECTION_HREF, SUPPLIER_LINK_TEXT } from "@/components/about/SupplierRelationship";
 import Navigation from "@/components/Navigation";
@@ -31,8 +32,8 @@ export default function Documentation() {
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f3ee] text-stone-900">
       <PageSeo
-        title="Authenticity | Pure Fire Nutritional"
-        description="Original EAEU Certificates of State Registration for Pure Fire Nutritional products, shown with English translations. Not FDA approval."
+        title={requirePageHead("/authenticity").title}
+        description={requirePageHead("/authenticity").description}
         path="/authenticity"
         type="website"
       />

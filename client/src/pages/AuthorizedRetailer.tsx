@@ -13,6 +13,7 @@ import {
   PARTNER_REGISTRATION,
 } from "@/data/retailerAuthorization";
 import { AUTHORIZED_RETAILER_DESCRIPTION, authorizedRetailerJsonLd } from "@/lib/seo/authorizedRetailer";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 
 /**
  * /about/authorized-retailer (Julia, 2026-11-12). Styling follows /authenticity
@@ -27,7 +28,7 @@ export default function AuthorizedRetailer() {
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f3ee] text-stone-900">
       <PageSeo
-        title="Authorized Khavinson Peptide Retailer | Pure Fire Nutritional"
+        title={requirePageHead("/about/authorized-retailer").title}
         description={AUTHORIZED_RETAILER_DESCRIPTION}
         path={AUTHORIZED_RETAILER_PATH}
         type="website"

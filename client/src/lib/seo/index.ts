@@ -16,6 +16,7 @@ import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 import { RETAILER_NUMBER } from "@/data/retailerAuthorization";
 import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
+import { PUBLIC_PAGE_HEADS } from "./publicHeads";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
 export const SITE_NAME = "Pure Fire Nutritional";
@@ -80,12 +81,7 @@ export const PRIVATE_ROUTES: Record<string, RouteHead> = {
 
 /** Public pages that have no page-level head tags of their own. */
 export const PUBLIC_ROUTE_DEFAULTS: Record<string, RouteHead> = {
-  "/peptalk": {
-    title: `Peptalk Podcast | ${SITE_NAME}`,
-    // Reuses the copy shown on the Peptalk page.
-    description:
-      "Peptalk Podcast from Pure Fire Nutritional: engaging conversations about health, longevity, peptides, and wellness with leading experts in the field.",
-  },
+  "/peptalk": PUBLIC_PAGE_HEADS["/peptalk"]!,
 };
 
 export function routeHead(path: string): RouteHead | undefined {

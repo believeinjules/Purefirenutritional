@@ -1,6 +1,6 @@
 # Pure Fire Nutritional
 
-> Pure Fire Nutritional is a US-based retailer of oral Khavinson peptide bioregulators (Cytomax, Cytogen, Revilab, and Prime Peptide lines) and longevity-focused dietary supplements. The site also offers Pepita AI, a research assistant for exploring published peptide bioregulator literature.
+> Pure Fire Nutritional is a U.S.-based authorized retailer of oral Khavinson peptide bioregulators (Cytomax, Cytogen, Revilab, and Prime Peptide lines) and longevity-focused dietary supplements. The site also offers Pepita AI, a research assistant for exploring published peptide bioregulator literature.
 
 Peptide bioregulators are short-chain peptides that researchers have investigated for their potential role in supporting the normal function of specific tissues. They are believed to act as signaling molecules; research is ongoing and findings are preliminary.
 

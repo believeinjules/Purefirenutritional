@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { faqPageJsonLd } from "@/lib/seo";
 import { ChevronDown, Phone, Mail, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -191,8 +192,8 @@ export default function FAQ() {
   return (
     <div className="min-h-screen flex flex-col">
       <PageSeo
-        title="Frequently Asked Questions | Pure Fire Nutritional"
-        description="Get answers to common questions about Khavinson peptide bioregulators, ordering, shipping, and how our products support longevity and wellness."
+        title={requirePageHead("/faq").title}
+        description={requirePageHead("/faq").description}
         path="/faq"
         type="website"
         jsonLd={[faqPageJsonLd(faqs)]}

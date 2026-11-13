@@ -102,7 +102,7 @@ export default function Footer() {
               Mind · Body · Resilience · Longevity
             </p>
             <p className="text-gray-400 text-sm">
-              Nutrition supplements and oral peptide bioregulators for cognitive vitality, recovery, healthy aging, and resilience. Authorized US retailer of Khavinson peptide bioregulators.
+              Nutrition supplements and oral peptide bioregulators for cognitive vitality, recovery, healthy aging, and resilience. Authorized U.S. retailer of Khavinson peptide bioregulators.
             </p>
             {/* Social Links */}
             <div className="flex gap-5 mt-4">

@@ -21,6 +21,7 @@ import {
 import { SPOT_A_FAKE } from "@/content/spotAFake";
 import { LEARN_ARTICLES } from "@/content/learnArticles";
 import { buildSitemapXml, PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES } from "./sitemap";
+import { JOURNAL_TITLE, JOURNAL_DESCRIPTION } from "./publicHeads";
 
 const root = path.resolve(__dirname, "../../../..");
 
@@ -278,11 +279,10 @@ describe("/learn index", () => {
 
   it("sets its own title, meta description and canonical", () => {
     expect(page).toMatch(/<PageSeo title=\{JOURNAL_TITLE\} description=\{JOURNAL_DESCRIPTION\} path="\/learn" \/>/);
-    expect(page).toContain('"Longevity Journal | Pure Fire Nutritional"');
     expect(page).toContain('text="Longevity Journal" />');
-    const desc = page.match(/JOURNAL_DESCRIPTION =\s*"([^"]+)"/)![1];
-    expect(desc).toContain("Longevity Journal");
-    expect(desc.length).toBeLessThanOrEqual(160);
+    expect(JOURNAL_TITLE).toBe("Longevity Journal | Pure Fire Nutritional");
+    expect(JOURNAL_DESCRIPTION).toContain("Longevity Journal");
+    expect(JOURNAL_DESCRIPTION.length).toBeLessThanOrEqual(160);
     expect(canonicalUrl("/learn")).toBe("https://www.purefirenutritional.com/learn");
   });
 

@@ -93,6 +93,69 @@ function withAggregateRating(page, summary) {
   );
 }
 
+
+function attr(tag, name) {
+  const m = tag.match(new RegExp(`\\b${name}="([^"]*)"`));
+  if (!m) return null;
+  return m[1]
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+/** Fail the build if two indexable prerendered pages share a title or meta description. */
+function assertUniqueIndexableHeads() {
+  const pages = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (entry.name === "assets") continue;
+        walk(full);
+        continue;
+      }
+      if (entry.name !== "index.html") continue;
+      const rel = path.relative(distDir, path.dirname(full));
+      const route = rel === "" ? "/" : `/${rel.split(path.sep).join("/")}`;
+      const html = fs.readFileSync(full, "utf8");
+      const titleM = html.match(/<title[^>]*>([^<]*)<\/title>/);
+      const title = titleM
+        ? titleM[1].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+        : null;
+      let description = null;
+      let robots = "";
+      for (const m of html.matchAll(/<meta\b[^>]*>/g)) {
+        const tag = m[0];
+        const name = attr(tag, "name");
+        const content = attr(tag, "content");
+        if (name === "description") description = content;
+        else if (name === "robots") robots = content ?? "";
+      }
+      if (/noindex/i.test(robots)) continue;
+      pages.push({ route, title, description });
+    }
+  };
+  walk(distDir);
+  const titleMap = new Map();
+  const descMap = new Map();
+  const missing = [];
+  for (const p of pages) {
+    if (!p.title || !p.description) missing.push(`${p.route} (title=${!!p.title}, description=${!!p.description})`);
+    if (p.title) titleMap.set(p.title, [...(titleMap.get(p.title) ?? []), p.route]);
+    if (p.description) descMap.set(p.description, [...(descMap.get(p.description) ?? []), p.route]);
+  }
+  const titleDups = [...titleMap.entries()].filter(([, routes]) => routes.length > 1);
+  const descDups = [...descMap.entries()].filter(([, routes]) => routes.length > 1);
+  const problems = [];
+  if (missing.length) problems.push(`missing title or description:\n  ${missing.join("\n  ")}`);
+  if (titleDups.length) problems.push(`duplicate titles:\n  ${titleDups.map(([t, r]) => `${JSON.stringify(t)} → ${r.join(", ")}`).join("\n  ")}`);
+  if (descDups.length) problems.push(`duplicate descriptions:\n  ${descDups.map(([d, r]) => `${JSON.stringify(d)} → ${r.join(", ")}`).join("\n  ")}`);
+  if (problems.length) throw new Error(`Indexable prerendered pages must have unique titles and meta descriptions.\n${problems.join("\n")}`);
+  console.log(`SEO uniqueness: ${pages.length} indexable pages, all titles and descriptions unique`);
+}
+
 async function prerender() {
   const ssr = await import(path.join(distDir, "server/entry-server.js"));
   const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
@@ -217,6 +280,8 @@ async function prerender() {
   ];
   fs.writeFileSync(path.join(distDir, "sitemap.xml"), ssr.buildSitemapXml(sitemapEntries));
   console.log(`Wrote sitemap.xml (${sitemapEntries.length} URLs)`);
+
+  assertUniqueIndexableHeads();
 }
 
 prerender().catch((err) => {

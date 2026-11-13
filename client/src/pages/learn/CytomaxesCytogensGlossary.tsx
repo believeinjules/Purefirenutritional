@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,9 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-journal/cytomaxes-cytogens-a-numbers-glossary.html (Julia-approved, 2026-11-05), verbatim.
 const PATH = "/learn/cytomaxes-cytogens-a-numbers-glossary";
-const TITLE = "Cytomaxes, Cytogens & A-Numbers: Glossary | Pure Fire";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/cytomaxes-cytogens-a-numbers-glossary");
 const HEADLINE = "Cytomaxes, Cytogens and A-Numbers: A Glossary";
-const DESCRIPTION = "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and U.S. status.";
 const HERO_JPG = "/images/learn/cytomaxes-cytogens-a-numbers-glossary-hero.jpg";
 const HERO_ALT = "Open illustrated glossary book of peptide bioregulator terms, beside a flask, stacked books and a dish of powder";
 const JSON_LD = {

@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,9 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-journal/registration-certificate-vs-certificate-of-analysis.html (Julia-approved, 2026-11-05), verbatim.
 const PATH = "/learn/registration-certificate-vs-certificate-of-analysis";
-const TITLE = "Registration Certificate vs Certificate of Analysis (COA)";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/registration-certificate-vs-certificate-of-analysis");
 const HEADLINE = "Registration Certificate vs. Certificate of Analysis: What Each Shows";
-const DESCRIPTION = "What an EAEU registration certificate shows, how to read a certificate of analysis for a supplement lot, and what neither document tells you about results.";
 const HERO_JPG = "/images/learn/registration-certificate-vs-certificate-of-analysis-hero.jpg";
 const HERO_ALT = "Unbranded box with a holographic QR label and a magnifying glass over a hologram seal";
 const JSON_LD = {

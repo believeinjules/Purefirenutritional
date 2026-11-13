@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -12,13 +13,15 @@ const COVER_JPG = "/images/learn/peptides-in-context-systems-view-cover.jpg";
 const COVER_WEBP = "/images/learn/peptides-in-context-systems-view-cover.webp";
 const COVER_ALT = "Peptides in Context: A Systems View of How the Body Regulates Itself";
 
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/peptides-in-context-systems-view");
+
 export default function ArticlePeptidesInContext() {
   useKineticReveal("main h2");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PageSeo
-        title="Peptides in Context: A Systems View | Pure Fire Nutritional"
-        description="Why we think about peptides as signals inside connected systems — from oxytocin to GLP-1 drugs — and where Khavinson's model is still a hypothesis."
+        title={TITLE}
+        description={DESCRIPTION}
         path="/learn/peptides-in-context-systems-view"
         type="article"
         image={COVER_JPG}
@@ -29,7 +32,7 @@ export default function ArticlePeptidesInContext() {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "Peptides in Context: A Systems View of How the Body Regulates Itself",
-          "description": "Why we think about peptides as signals inside connected systems — from oxytocin to GLP-1 drugs — and where Khavinson's model is still a hypothesis.",
+          "description": DESCRIPTION,
           "image": "https://www.purefirenutritional.com/images/learn/peptides-in-context-systems-view-cover.jpg",
           "author": JULIA_PERSON_REF,
           "datePublished": "2026-10-13",

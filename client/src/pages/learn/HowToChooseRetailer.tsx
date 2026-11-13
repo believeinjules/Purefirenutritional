@@ -2,6 +2,7 @@ import KineticHeading from "@/components/kinetic/KineticHeading";
 import { useKineticReveal } from "@/components/kinetic/useKineticReveal";
 import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
+import { requirePageHead } from "@/lib/seo/publicHeads";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,10 +10,8 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: Editorial final draft (final-nov11/how-to-choose-a-peptide-bioregulator-retailer.md), 2026-11-11.
 const PATH = "/learn/how-to-choose-a-peptide-bioregulator-retailer";
-const TITLE = "How to Choose a Peptide Bioregulator Retailer (2026)";
+const { title: TITLE, description: DESCRIPTION } = requirePageHead("/learn/how-to-choose-a-peptide-bioregulator-retailer");
 const HEADLINE = "How to Choose a Peptide Bioregulator Retailer";
-const DESCRIPTION =
-  "A checklist for choosing a peptide bioregulator retailer: sourcing, authenticity, documents, shipping, claims, and returns, with Pure Fire as an example.";
 const HERO_JPG = "/images/learn/how-to-choose-a-peptide-bioregulator-retailer-hero.jpg";
 const HERO_WEBP = "/images/learn/how-to-choose-a-peptide-bioregulator-retailer-hero.webp";
 const HERO_ALT = "Hands checking a generic supplement label and product documents";
