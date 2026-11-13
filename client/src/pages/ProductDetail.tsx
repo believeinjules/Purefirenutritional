@@ -385,7 +385,7 @@ export default function ProductDetail() {
               />
 
               {/* Quantity + Add to cart. On a narrow screen the ATC button goes
-                  on its own row so long pack labels ("Add 60 + 20 · $177.49") fit. */}
+                  on its own row so long pack labels ("Add 60 + 20 · $182.99") fit. */}
               <div className="flex flex-wrap gap-3">
                 <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden shrink-0">
                   <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3 py-2 hover:bg-gray-50 transition-colors">

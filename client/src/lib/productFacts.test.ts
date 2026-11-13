@@ -7,11 +7,11 @@ const byId = (id: string) => products.find((p) => p.id === id)!;
 
 describe("product facts (data-only)", () => {
   it("Bonomarlot 20 caps: one 10-day cycle and cost per day", () => {
-    const f = getProductFacts(byId("bonomarlot"), "20", 77.99);
+    const f = getProductFacts(byId("bonomarlot"), "20", 70.77);
     expect(f.sizeLabel).toBe("20 caps");
     expect(f.daysPerBottle).toBe(10);
     expect(f.coverageLabel).toBe("One 10-day cycle");
-    expect(f.costPerDayUSD).toBe(7.8);
+    expect(f.costPerDayUSD).toBe(7.08);
   });
 
   it("Testoluten 20 caps: 3 bottles make the 30-day course", () => {
@@ -21,11 +21,11 @@ describe("product facts (data-only)", () => {
   });
 
   it("listing card without a size shows both sizes", () => {
-    expect(getProductFacts(byId("cartalax"), undefined, 47.99).sizeLabel).toBe("20 or 60 caps");
+    expect(getProductFacts(byId("cartalax"), undefined, 55.77).sizeLabel).toBe("20 or 60 caps");
   });
 
   it("renders nothing about days or cost when dosing is ambiguous", () => {
-    const f = getProductFacts(byId("cartalax"), "20", 47.99);
+    const f = getProductFacts(byId("cartalax"), "20", 55.77);
     expect(f.daysPerBottle).toBeUndefined();
     expect(f.coverageLabel).toBeUndefined();
     expect(f.costPerDayUSD).toBeUndefined();

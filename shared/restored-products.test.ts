@@ -23,10 +23,10 @@ describe("restored products", () => {
     expect([p.priceUSD, p.priceEUR]).toEqual([58.99, 40]);
     expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[58.99, 40, true], [153.99, 110, true]]);
   });
-  it("Cerluten is priced $55.00 / $149.49 (Julia, 2026-11-10)", () => {
+  it("Cerluten is priced $55.77 / $154.99 (Julia, 2026-11-12)", () => {
     const p = products.find(x => x.id === "cerluten")!;
-    expect([p.priceUSD, p.priceEUR]).toEqual([55, 40]);
-    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[55, 40, true], [149.49, 110, true]]);
+    expect([p.priceUSD, p.priceEUR]).toEqual([55.77, 40]);
+    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[55.77, 40, true], [154.99, 110, true]]);
   });
   it("restored copy has no lifespan/mortality/cancer figures", () => {
     for (const id of RESTORED) {

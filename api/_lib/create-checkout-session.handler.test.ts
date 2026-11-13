@@ -34,19 +34,19 @@ describe("POST /api/stripe/create-checkout-session — storefront packs", () => 
     firestoreProducts.clear();
   });
 
-  it("charges Cerluten 60 + 20 at $177.49 and names the line clearly", async () => {
+  it("charges Cerluten 60 + 20 at $182.99 and names the line clearly", async () => {
     const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20" }] });
     expect(res.statusCode).toBe(200);
     const line = (create.mock.calls[0] as any)[0].line_items[0];
-    expect(line.price_data.unit_amount).toBe(17749);
+    expect(line.price_data.unit_amount).toBe(18299);
     expect(line.price_data.product_data.name).toBe("Cerluten 60 + 20 capsules");
     expect(line.price_data.product_data.metadata.bundle_kind).toBe("60+20");
   });
 
-  it("charges Cerluten 2 × 60 at $279.00", async () => {
+  it("charges Cerluten 2 × 60 at $289.00", async () => {
     const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "2x60" }] });
     expect(res.statusCode).toBe(200);
-    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(27900);
+    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(28900);
   });
 
   it("rejects a 3 × 20 pack on a 20/60 product with 400", async () => {

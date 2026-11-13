@@ -84,9 +84,10 @@ export function toCents(usd: number): number {
 
 
 /**
- * Cerluten's undiscounted 2 × 60 ($149.49 × 2) and the $279 sale price Julia
- * set. Every other 20/60 product's 2 × 60 pack is (2 × its 60-cap price) times
- * this ratio, rounded to the nearest whole dollar.
+ * Frozen 2026-11-10 reference: Cerluten's then-undiscounted 2 × 60 ($149.49 × 2)
+ * and the $279 sale price Julia set. The ratio stays fixed even though Cerluten's
+ * bottle prices later changed. Every 20/60 product's 2 × 60 pack is (2 × its 60-cap
+ * price) times this ratio, rounded to the nearest whole dollar.
  */
 export const TWO_X60_REFERENCE = { regularUSD: 298.98, saleUSD: 279 } as const;
 

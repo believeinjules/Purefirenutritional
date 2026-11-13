@@ -17,11 +17,11 @@ Buy More & Save appears **only when the 60-cap size is selected**. Options:
 
 - a single 60-cap bottle
 - **2 × 60 capsules** — priced at the Cerluten ratio $279 / $298.98 (~6.7% off two 60s), rounded to the nearest whole dollar
-- **60 + 20 capsules** — the 60-cap price plus ceil((20-cap price) / 2) in whole dollars (Cerluten: $149.49 + $28 = $177.49)
+- **60 + 20 capsules** — the 60-cap price plus ceil((20-cap price) / 2) in whole dollars (Cerluten: $154.99 + $28 = $182.99)
 
 2 × 20, 3 × 20 and 3 × 60 packs are not offered. Single-size products (Revilab ML/SL, nutritionals, cosmetics) have no Buy More & Save control. Prime Peptide keeps its frozen 2/3-bottle card picker at $4 / $8 off each bottle.
 
-Cerluten prices: 20-cap **$55.00**, 60-cap **$149.49**, 2 × 60 **$279.00**, 60 + 20 **$177.49**.
+Cerluten prices: 20-cap **$55.77**, 60-cap **$154.99**, 2 × 60 **$289.00**, 60 + 20 **$182.99**.
 
 The larger-size guard in `getBundleOffer` still applies to Prime / legacy 2- and 3-bottle packs (hidden, never repriced; a hidden bundle at checkout → HTTP 400). Every legacy per-bottle discount must stay between **$3 and $9** (`BUNDLE_DISCOUNT_LIMITS_USD`).
 

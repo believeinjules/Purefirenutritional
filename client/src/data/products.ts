@@ -53,7 +53,7 @@ const catalogProducts: Product[] = [
     name: "Bonomarlot",
     description: "Bonomarlot® (A-20) is the Bone Marrow Peptide Bioregulator — a natural Cytomax extract containing the bone marrow peptide complex from young calves. Bone marrow produces all red blood cells, platelets, and most white blood cells. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, Bonomarlot has been studied for its role in supporting healthy blood cell formation. Available in 20-capsule, 60-capsule, and sublingual lingual formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 77.99,
+    priceUSD: 70.77,
     priceEUR: 52,
     rating: 4.8,
     sizes: 2,
@@ -64,7 +64,7 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 77.99,
+        priceUSD: 70.77,
         priceEUR: 52,
         inStock: true
       },
@@ -84,7 +84,7 @@ const catalogProducts: Product[] = [
     name: "Cartalax",
     description: "Cartalax® is a synthesized cytogen tripeptide (Ala-Glu-Asp, AED peptide T-31) developed by Prof. Khavinson — the cartilage peptide complex AC-4. Fully synthesized, non-animal-derived, suitable for vegetarian/vegan protocols. Contains the most significant short peptide of the cartilage bioregulation system. Supports healthy cartilage and connective tissue metabolism. Studied for its role in supporting cartilage and connective tissue health. Studied for its role in supporting healthy cartilage cell function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 55.77,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
@@ -95,14 +95,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 47.99,
+        priceUSD: 55.77,
         priceEUR: 32,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 116.99,
+        priceUSD: 154.99,
         priceEUR: 86,
         inStock: true
       }
@@ -146,7 +146,7 @@ const catalogProducts: Product[] = [
     name: "Crystagen",
     description: "Crystagen® is a synthesized cytogen (AC-6, thymus) — copies of natural peptide fractions studied for their role in normal immune system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function during periods of psychoemotional stress. Crystagen is believed to support normal immune function, and researchers have investigated short peptides for their role in immune balance. The active tripeptide stimulates T-cells, B-cells, macrophages, NK cells, and exhibits antioxidant and stress-protective effects. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 55.77,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
@@ -157,14 +157,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 47.99,
+        priceUSD: 55.77,
         priceEUR: 32,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 116.99,
+        priceUSD: 154.99,
         priceEUR: 86,
         inStock: true
       }
@@ -687,7 +687,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Cerluten brain peptide bioregulator",
     description: "Cerluten® is a Khavinson Cytomax: a natural brain peptide complex (A-5), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Cerluten is believed to support normal brain and nervous-system function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 55.00,
+    priceUSD: 55.77,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -697,14 +697,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 55.00,
+        priceUSD: 55.77,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 149.49,
+        priceUSD: 154.99,
         priceEUR: 110,
         inStock: true
       }
@@ -1123,7 +1123,7 @@ const catalogProducts: Product[] = [
     name: "Vesugen",
     description: "Vesugen® is a synthesized cytogen for the vascular system. Studied for its role in the health of circulatory and lymphatic vessels. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting healthy blood vessels and microcirculation. Used by the Russian Olympic rhythmic gymnastics team for vascular health maintenance. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 55.77,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
@@ -1134,14 +1134,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 47.99,
+        priceUSD: 55.77,
         priceEUR: 32,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 116.99,
+        priceUSD: 154.99,
         priceEUR: 86,
         inStock: true
       }

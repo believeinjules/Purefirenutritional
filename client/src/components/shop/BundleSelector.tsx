@@ -22,7 +22,7 @@ function savePct(savingsCents: number, regularCents: number): number {
   return Math.round((savingsCents / regularCents) * 100);
 }
 
-/** e.g. "1 bottle (60 capsules) — $149.49" or "60 + 20 capsules — $177.49 (save 13%)". */
+/** e.g. "1 bottle (60 capsules) — $154.99" or "60 + 20 capsules — $182.99 (save 13%)". */
 export function storefrontOptionLabel(opt: { title: string; totalCents: number; savingsCents?: number; regularCents?: number }): string {
   const price = usd(opt.totalCents);
   if (!opt.savingsCents || !opt.regularCents) return `${opt.title} — ${price}`;
