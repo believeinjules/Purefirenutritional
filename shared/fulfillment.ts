@@ -19,6 +19,8 @@ export const DEFAULT_FULFILLMENT: Fulfillment = "ships_2_weeks";
 export const IN_STOCK_PRODUCT_IDS: ReadonlySet<string> = new Set([
   "cerluten",
   "sigumir",
+  // Both sizes in stock (Julia, 2026-11-12).
+  "vesugen",
   // Revilab capsules (ML series + Preparation capsules). NOT the SL sublingual drops.
   "revilab-ml-01", "revilab-ml-02", "revilab-ml-03", "revilab-ml-04", "revilab-ml-05",
   "revilab-ml-06", "revilab-ml-07", "revilab-ml-08", "revilab-ml-09",

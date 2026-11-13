@@ -57,7 +57,7 @@ describe("authorized retailer badge", () => {
 
 describe("About page Organization JSON-LD", () => {
   it("uses the shared @ids and no credentials or sameAs", () => {
-    const ld = aboutOrganizationJsonLd("contact@purefirenutritional.com");
+    const ld = aboutOrganizationJsonLd();
     const json = JSON.stringify(ld);
     const [org, site] = (ld["@graph"] as Array<Record<string, unknown>>);
     expect(org["@id"]).toBe("https://www.purefirenutritional.com/#organization");

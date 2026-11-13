@@ -14,6 +14,8 @@ import { tagsFor } from "@/data/productTags";
 import { COMMERCE_CONFIG } from "@shared/commerce-config";
 import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
+import { RETAILER_NUMBER } from "@/data/retailerAuthorization";
+import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
 export const SITE_NAME = "Pure Fire Nutritional";
@@ -362,7 +364,7 @@ export function productJsonLd(product: SeoProduct): Record<string, unknown> {
   const fulfillment = resolveFulfillment(product.id, product.fulfillment);
   const sellable = fulfillment === "in_stock" ? IN_STOCK : BACK_ORDER;
   const avail = (inStock: boolean) => (inStock ? sellable : OUT_OF_STOCK);
-  const seller = { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` };
+  const seller = ORGANIZATION_REF;
   const images = productImageUrls(product);
   const brandName = productBrand(product.id);
   const rolled = FORMULA_PDP_CONTENT[product.id];
@@ -659,56 +661,131 @@ export function productHead(product: SeoProduct) {
   };
 }
 
-// ─── Site-wide structured data (home page) ────────────────────────────────────
+// ─── Site-wide structured data: one business entity ──────────────────────────
 
-export function websiteJsonLd(): Record<string, unknown> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${SITE_URL}/#website`,
+/**
+ * ONE business entity for the whole site: an OnlineStore (Julia, 2026-11-12:
+ * "it's an online store") with this @id on every page (home, /about,
+ * /about/authorized-retailer, returns). Product sellers and article
+ * publishers point to it by @id, so search engines see a single store.
+ */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const JULIA_PERSON_ID = `${SITE_URL}/#julia-shulman`;
+export const BENJAMIN_PERSON_ID = `${SITE_URL}/#benjamin-peker`;
+
+/** Reference to the store from other nodes (Offer.seller, Article.publisher/author). */
+export const ORGANIZATION_REF: Record<string, unknown> = {
+  "@type": "OnlineStore",
+  "@id": ORGANIZATION_ID,
+  name: SITE_NAME,
+  url: `${SITE_URL}/`,
+};
+
+/** Reference to Julia from other nodes (Article.author). Full node: PEOPLE.julia. */
+export const JULIA_PERSON_REF: Record<string, unknown> = {
+  "@type": "Person",
+  "@id": JULIA_PERSON_ID,
+  name: "Julia Shulman",
+};
+
+/**
+ * The people behind the store, each with a stable @id. No. 296389 is Julia's
+ * Peptides Company registration, so it sits on her Person node.
+ */
+export const PEOPLE = {
+  julia: {
+    "@type": "Person",
+    "@id": JULIA_PERSON_ID,
+    name: "Julia Shulman",
+    jobTitle: "Co-Founder",
+    worksFor: { "@id": ORGANIZATION_ID },
+    identifier: {
+      "@type": "PropertyValue",
+      name: "Peptides Company Consultant ID",
+      value: RETAILER_NUMBER,
+    },
+  },
+  benjamin: {
+    "@type": "Person",
+    "@id": BENJAMIN_PERSON_ID,
+    name: "Benjamin Peker",
+    jobTitle: "Co-Founder",
+    worksFor: { "@id": ORGANIZATION_ID },
+  },
+} as const satisfies Record<string, Record<string, unknown>>;
+export type PersonKey = keyof typeof PEOPLE;
+
+/**
+ * Which founders each page lists. Kept as it was before the entity merge
+ * (2026-11-12); change a page's list here. Pages not listed carry no founder.
+ */
+export const FOUNDERS_BY_PAGE: Record<"home" | "about" | "authorizedRetailer", readonly PersonKey[]> = {
+  home: [],
+  about: ["julia", "benjamin"],
+  authorizedRetailer: ["julia"],
+};
+
+/**
+ * The full store node. Facts only from the site itself: name, url, logo,
+ * contact@ (general) and support@ (customer support) emails, the phone shown
+ * in the footer and FAQ, Brooklyn NY (no street). No awards, certifications,
+ * sameAs or third-party verification.
+ */
+export function organizationNode(founders: readonly PersonKey[] = []): Record<string, unknown> {
+  const node: Record<string, unknown> = {
+    "@type": "OnlineStore",
+    "@id": ORGANIZATION_ID,
     name: SITE_NAME,
     url: `${SITE_URL}/`,
-    publisher: { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` },
+    logo: `${SITE_URL}${DEFAULT_SHARE_IMAGE}`,
+    description:
+      "Authorized U.S. retailer of Khavinson peptide bioregulators (Cytomax and Cytogen). Sources directly from the manufacturer.",
+    email: CONTACT_EMAIL,
+    telephone: "+1-315-567-7931",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: SUPPORT_EMAIL,
+        telephone: "+1-315-567-7931",
+        availableLanguage: "English",
+      },
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Brooklyn",
+      addressRegion: "NY",
+      addressCountry: "US",
+    },
+  };
+  if (founders.length) node.founder = founders.map((k) => PEOPLE[k]);
+  return node;
+}
+
+/** The WebSite node; its publisher is the store. */
+export function websiteNode(): Record<string, unknown> {
+  return {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    name: SITE_NAME,
+    url: `${SITE_URL}/`,
+    publisher: { "@id": ORGANIZATION_ID },
   };
 }
 
-/**
- * About page: the Organization behind the site plus the WebSite node, in one
- * @graph. Same @ids as the home page WebSite (#website) and the returns-page
- * OnlineStore (#organization), so search engines merge them into one entity.
- * Facts only from the site itself (name, url, logo, contact email, Brooklyn NY,
- * co-founders on /about). No awards, certifications or third-party verification.
- */
-export function aboutOrganizationJsonLd(contactEmail: string): Record<string, unknown> {
-  const orgId = `${SITE_URL}/#organization`;
+/** Home page: the store and the WebSite in one @graph. */
+export function homeJsonLd(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": orgId,
-        name: SITE_NAME,
-        url: `${SITE_URL}/`,
-        logo: `${SITE_URL}${DEFAULT_SHARE_IMAGE}`,
-        email: contactEmail,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Brooklyn",
-          addressRegion: "NY",
-          addressCountry: "US",
-        },
-        founder: [
-          { "@type": "Person", name: "Julia Shulman", jobTitle: "Co-Founder" },
-          { "@type": "Person", name: "Benjamin Peker", jobTitle: "Co-Founder" },
-        ],
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
-        name: SITE_NAME,
-        url: `${SITE_URL}/`,
-        publisher: { "@id": orgId },
-      },
-    ],
+    "@graph": [organizationNode(FOUNDERS_BY_PAGE.home), websiteNode()],
+  };
+}
+
+/** About page: the store (with its co-founders) and the WebSite in one @graph. */
+export function aboutOrganizationJsonLd(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [organizationNode(FOUNDERS_BY_PAGE.about), websiteNode()],
   };
 }

@@ -18,7 +18,7 @@ export default function About() {
         description="Learn about Pure Fire Nutritional — we sell nutrition supplements we trust. Peptide bioregulators are the specialty. Evidence-backed products for cognitive vitality, resilience, and healthy aging."
         path="/about"
         type="website"
-        jsonLd={[aboutOrganizationJsonLd(CONTACT_EMAIL)]}
+        jsonLd={[aboutOrganizationJsonLd()]}
       />
       {/* Hero Section */}
       <section className="relative py-16 sm:py-20 md:py-24 bg-brand-gradient text-white">

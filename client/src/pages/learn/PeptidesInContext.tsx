@@ -5,6 +5,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: the-short-peptide/whole-body-problem-pure-fire-adaptation.md ("Article body"), verbatim.
 const COVER_JPG = "/images/learn/peptides-in-context-systems-view-cover.jpg";
@@ -30,9 +31,9 @@ export default function ArticlePeptidesInContext() {
           "headline": "Peptides in Context: A Systems View of How the Body Regulates Itself",
           "description": "Why we think about peptides as signals inside connected systems — from oxytocin to GLP-1 drugs — and where Khavinson's model is still a hypothesis.",
           "image": "https://www.purefirenutritional.com/images/learn/peptides-in-context-systems-view-cover.jpg",
-          "author": { "@type": "Person", "name": "Julia Shulman" },
+          "author": JULIA_PERSON_REF,
           "datePublished": "2026-10-13",
-          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "publisher": ORGANIZATION_REF,
           "url": "https://www.purefirenutritional.com/learn/peptides-in-context-systems-view"
         })}</script>
       </Helmet>

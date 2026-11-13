@@ -5,6 +5,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: Editorial final draft (final-nov11/how-to-choose-a-peptide-bioregulator-retailer.md), 2026-11-11.
 const PATH = "/learn/how-to-choose-a-peptide-bioregulator-retailer";
@@ -51,12 +52,8 @@ const JSON_LD = {
       mainEntityOfPage: "https://www.purefirenutritional.com" + PATH,
       inLanguage: "en-US",
       image: "https://www.purefirenutritional.com" + HERO_JPG,
-      author: { "@type": "Organization", name: "Pure Fire Nutritional" },
-      publisher: {
-        "@type": "Organization",
-        name: "Pure Fire Nutritional",
-        url: "https://www.purefirenutritional.com/",
-      },
+      author: JULIA_PERSON_REF,
+      publisher: ORGANIZATION_REF,
     },
     {
       "@type": "FAQPage",

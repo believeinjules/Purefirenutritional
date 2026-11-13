@@ -5,6 +5,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-journal/bioregulator-organ-pairings-mechanism-vs-evidence.html (Julia-approved, 2026-11-05), verbatim.
 const PATH = "/learn/bioregulator-organ-pairings-mechanism-vs-evidence";
@@ -23,15 +24,8 @@ const JSON_LD = {
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/bioregulator-organ-pairings-mechanism-vs-evidence",
       "inLanguage": "en-US",
       "image": "https://www.purefirenutritional.com" + HERO_JPG,
-      "author": {
-        "@type": "Organization",
-        "name": "Pure Fire Nutritional"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Pure Fire Nutritional",
-        "url": "https://www.purefirenutritional.com/"
-      }
+      "author": JULIA_PERSON_REF,
+      "publisher": ORGANIZATION_REF
     },
     {
       "@type": "FAQPage",

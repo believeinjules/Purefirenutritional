@@ -7,48 +7,26 @@
  * recognizedBy. No document on file names the issuer, a credential number or a
  * public registry, and schema.org credentials imply a verifiable third-party
  * credential. The authorization is stated in plain words (description) only.
- * No. 296389 is Julia's registration, so it sits on her Person node (founder),
- * not on the store (Julia, 2026-11-12: "the number is associated with my name").
+ * The store node is the shared organizationNode(); founders come from
+ * FOUNDERS_BY_PAGE.authorizedRetailer. No. 296389 is Julia's registration, so it
+ * sits on her Person node (PEOPLE.julia, @id #julia-shulman), not on the store
+ * (Julia, 2026-11-12: "the number is associated with my name").
  */
-import { SITE_NAME, SITE_URL, DEFAULT_SHARE_IMAGE, canonicalUrl } from "./index";
 import {
-  AUTHORIZED_RETAILER_PATH,
-  AUTHORIZED_RETAILER_TITLE,
-  PARTNER_REGISTRATION,
-  RETAILER_NUMBER,
-} from "@/data/retailerAuthorization";
+  SITE_URL,
+  ORGANIZATION_ID,
+  WEBSITE_ID,
+  FOUNDERS_BY_PAGE,
+  organizationNode,
+  canonicalUrl,
+} from "./index";
+import { AUTHORIZED_RETAILER_PATH, AUTHORIZED_RETAILER_TITLE } from "@/data/retailerAuthorization";
 
 export const AUTHORIZED_RETAILER_DESCRIPTION =
   "Pure Fire Nutritional is an authorized U.S. retailer of Khavinson peptide bioregulators, based in Brooklyn, NY. Our retailer details, documentation and how to check them.";
 
 export function authorizedRetailerJsonLd(): Record<string, unknown> {
   const url = canonicalUrl(AUTHORIZED_RETAILER_PATH);
-  const orgId = `${SITE_URL}/#organization`;
-  const store: Record<string, unknown> = {
-    "@type": "OnlineStore",
-    "@id": orgId,
-    name: SITE_NAME,
-    url: `${SITE_URL}/`,
-    logo: `${SITE_URL}${DEFAULT_SHARE_IMAGE}`,
-    description:
-      "Authorized U.S. retailer of Khavinson peptide bioregulators (Cytomax and Cytogen). Sources directly from the manufacturer.",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Brooklyn",
-      addressRegion: "NY",
-      addressCountry: "US",
-    },
-  };
-  store.founder = {
-    "@type": "Person",
-    name: PARTNER_REGISTRATION.name,
-    jobTitle: "Co-Founder",
-    identifier: {
-      "@type": "PropertyValue",
-      name: "Peptides Company Consultant ID",
-      value: RETAILER_NUMBER,
-    },
-  };
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -58,11 +36,11 @@ export function authorizedRetailerJsonLd(): Record<string, unknown> {
         url,
         name: AUTHORIZED_RETAILER_TITLE,
         description: AUTHORIZED_RETAILER_DESCRIPTION,
-        isPartOf: { "@id": `${SITE_URL}/#website` },
-        about: { "@id": orgId },
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": ORGANIZATION_ID },
         breadcrumb: { "@id": `${url}#breadcrumb` },
       },
-      store,
+      organizationNode(FOUNDERS_BY_PAGE.authorizedRetailer),
       {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,

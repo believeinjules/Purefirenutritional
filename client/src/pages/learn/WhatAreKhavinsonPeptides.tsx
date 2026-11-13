@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import BodySystemNav from "@/components/learn/BodySystemNav";
 import AskPepitaDock from "@/components/learn/AskPepitaDock";
 import "@/components/learn/learn.css";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: the-short-peptide/pf-what-are-khavinson-rewrite.md (Julia-approved, 2026-10-14), verbatim; HTML comments omitted.
 const BANNER_JPG = "/images/learn/what-are-khavinson-peptide-bioregulators-banner.jpg";
@@ -47,10 +48,10 @@ export default function ArticleKhavinsonPeptides() {
           "headline": "Khavinson Peptides Explained: Benefits, Research & How They Work",
           "description": DESCRIPTION,
           "image": "https://www.purefirenutritional.com" + BANNER_JPG,
-          "author": { "@type": "Person", "name": "Julia Shulman" },
+          "author": JULIA_PERSON_REF,
           "datePublished": "2026-05-14",
           "dateModified": "2026-10-14",
-          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "publisher": ORGANIZATION_REF,
           "url": "https://www.purefirenutritional.com/learn/what-are-khavinson-peptide-bioregulators"
         })}</script>
       </Helmet>

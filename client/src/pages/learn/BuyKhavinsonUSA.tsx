@@ -6,6 +6,7 @@ import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { WHY_BUY_PATH } from "@/content/learnArticles";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: the-short-peptide/pf-buy-khavinson-usa-rewrite.md (Julia-approved, 2026-10-14), verbatim; HTML comments omitted.
 const BANNER_JPG = "/images/learn/buy-khavinson-peptides-usa-banner.jpg";
@@ -37,10 +38,10 @@ export default function ArticleBuyKhavinsonUSA() {
           "headline": "Where to Buy Authentic Khavinson Peptides in the USA: A Complete Guide",
           "description": DESCRIPTION,
           "image": "https://www.purefirenutritional.com" + BANNER_JPG,
-          "author": { "@type": "Person", "name": "Julia Shulman" },
+          "author": JULIA_PERSON_REF,
           "datePublished": "2026-05-14",
           "dateModified": "2026-10-14",
-          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "publisher": ORGANIZATION_REF,
           "url": "https://www.purefirenutritional.com/learn/buy-khavinson-peptides-usa"
         })}</script>
       </Helmet>

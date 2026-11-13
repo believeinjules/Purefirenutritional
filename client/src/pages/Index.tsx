@@ -1,6 +1,5 @@
-import { Helmet } from "react-helmet-async";
 import PageSeo from "@/components/seo/PageSeo";
-import { websiteJsonLd } from "@/lib/seo";
+import { homeJsonLd } from "@/lib/seo";
 import { Link } from "wouter";
 import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
 import SubscribeStrip from "@/components/home/SubscribeStrip";
@@ -20,7 +19,6 @@ import {
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
-import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
 import RetailerNumber from "@/components/trust/RetailerNumber";
 import { AUTHORIZED_RETAILER_CREDENTIAL, AUTHORIZED_RETAILER_PATH } from "@/data/retailerAuthorization";
 
@@ -123,34 +121,8 @@ export default function Index() {
         description="Shop authentic Khavinson peptide bioregulators at Pure Fire Nutritional, an authorized US retailer of oral capsule supplements for healthy aging."
         path="/"
         type="website"
-        jsonLd={[websiteJsonLd()]}
+        jsonLd={[homeJsonLd()]}
       />
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Pure Fire Nutritional",
-          "url": "https://www.purefirenutritional.com",
-          "logo": "https://www.purefirenutritional.com/logo-flame.jpeg",
-          "telephone": "(315) 567-7931",
-          "email": CONTACT_EMAIL,
-          "contactPoint": [
-            {
-              "@type": "ContactPoint",
-              "contactType": "customer support",
-              "email": SUPPORT_EMAIL,
-              "telephone": "+1-315-567-7931",
-              "availableLanguage": "English"
-            }
-          ],
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Brooklyn",
-            "addressRegion": "NY",
-            "addressCountry": "US"
-          }
-        })}</script>
-      </Helmet>
       <Navigation />
       <FreeShippingBanner />
 

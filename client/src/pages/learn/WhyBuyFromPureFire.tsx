@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { BUY_KHAVINSON_USA_PATH, WHY_BUY_PATH } from "@/content/learnArticles";
 import { SUPPLIER_SECTION_HREF, SUPPLIER_LINK_TEXT } from "@/components/about/SupplierRelationship";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: pf-blog/why-buy-from-us/article.md (approved), verbatim; HTML comments omitted.
 // TSP companion link (same-molecule-different-product) is commented out until that page is live.
@@ -44,9 +45,9 @@ export default function ArticleWhyBuyFromPureFire() {
           "headline": HEADLINE,
           "description": DESCRIPTION,
           "image": "https://www.purefirenutritional.com" + COVER_JPG,
-          "author": { "@type": "Person", "name": "Julia Shulman" },
+          "author": JULIA_PERSON_REF,
           "datePublished": "2026-10-23",
-          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "publisher": ORGANIZATION_REF,
           "url": "https://www.purefirenutritional.com" + WHY_BUY_PATH
         })}</script>
       </Helmet>

@@ -5,6 +5,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 
 // Body text: the-short-peptide/pf-perimenopause-khavinson-article.md, verbatim (HTML comments omitted).
 const COVER_JPG = "/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg";
@@ -32,9 +33,9 @@ export default function ArticlePerimenopauseOralEvidence() {
           "headline": "Oral Khavinson Bioregulators in Perimenopause: What the Research Does (and Doesn't) Show",
           "description": "What the research on oral Khavinson bioregulators does and doesn't show for perimenopause: mostly injected forms in older adults, no verified perimenopause trials, and how to check quality.",
           "image": "https://www.purefirenutritional.com/images/learn/khavinson-bioregulators-perimenopause-oral-evidence-cover.jpg",
-          "author": { "@type": "Person", "name": "Julia Shulman" },
+          "author": JULIA_PERSON_REF,
           "datePublished": "2026-10-14",
-          "publisher": { "@type": "Organization", "name": "Pure Fire Nutritional", "url": "https://www.purefirenutritional.com" },
+          "publisher": ORGANIZATION_REF,
           "url": "https://www.purefirenutritional.com/learn/khavinson-bioregulators-perimenopause-oral-evidence"
         })}</script>
       </Helmet>
