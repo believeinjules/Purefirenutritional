@@ -34,8 +34,58 @@ function createTransporter() {
     host: emailHost,
     port: emailPort,
     secure: emailPort === 465,
+    // Port 587 (e.g. iCloud smtp.mail.me.com) must upgrade with STARTTLS before auth.
+    ...(emailPort === 587 ? { requireTLS: true } : {}),
     auth: { user: emailUser, pass: emailPass },
   });
+}
+
+/**
+ * From header for every store email: EMAIL_FROM (e.g.
+ * `Pure Fire Nutritional <orders@purefirenutritional.com>`) when set, else the
+ * SMTP sign-in address with the store display name.
+ */
+export function fromHeader(env: NodeJS.ProcessEnv = process.env): string {
+  return env.EMAIL_FROM?.trim() || `"Pure Fire Nutritional" <${env.EMAIL_USER}>`;
+}
+
+/** Only recipient the owner email test may ever send to. */
+export const EMAIL_TEST_RECIPIENT = "purefiren@gmail.com";
+
+export type EmailTestResult =
+  | { ok: true; messageId: string | null; accepted: string[]; rejected: string[]; response: string | null; from: string }
+  | { ok: false; error: string; from: string | null };
+
+/** Sends "Pure Fire email test" to EMAIL_TEST_RECIPIENT only. Never includes secrets in the result. */
+export async function sendEmailTest(): Promise<EmailTestResult> {
+  const transporter = createTransporter();
+  if (!transporter) return { ok: false, error: "email credentials not configured", from: null };
+  const from = fromHeader();
+  const sentAt = new Date().toISOString();
+  try {
+    const info = await transporter.sendMail({
+      from,
+      to: EMAIL_TEST_RECIPIENT,
+      replyTo: SUPPORT_EMAIL,
+      subject: "Pure Fire email test",
+      text: `This is a test of the Pure Fire Nutritional order email settings.\n\nSent ${sentAt}.`,
+      html: `<p>This is a test of the Pure Fire Nutritional order email settings.</p><p>Sent ${escapeHtml(sentAt)}.</p>`,
+    });
+    const list = (v: unknown) => (Array.isArray(v) ? v.map((x) => String(typeof x === "object" && x && "address" in x ? (x as { address: string }).address : x)) : []);
+    console.log(`[email] test sent: messageId=${info.messageId ?? "?"} response=${info.response ?? "?"}`);
+    return {
+      ok: true,
+      messageId: info.messageId ?? null,
+      accepted: list(info.accepted),
+      rejected: list(info.rejected),
+      response: typeof info.response === "string" ? info.response : null,
+      from,
+    };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] sendEmailTest failed:", message);
+    return { ok: false, error: message, from };
+  }
 }
 
 export async function sendOrderConfirmation(
@@ -49,14 +99,15 @@ export async function sendOrderConfirmation(
     .join("\n");
 
   try {
-    await transporter.sendMail({
-      from: `"Pure Fire Nutritional" <${process.env.EMAIL_USER}>`,
+    const info = await transporter.sendMail({
+      from: fromHeader(),
       to: order.customerEmail,
       replyTo: SUPPORT_EMAIL,
       subject: `Order Confirmation #${order.orderId} - Pure Fire Nutritional`,
       text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\nTotal: $${order.total.toFixed(2)}\n\nQuestions about your order? Email ${SUPPORT_EMAIL} with your order number.`,
       html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p><p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p><p>Questions about your order? Email <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> with your order number.</p>`,
     });
+    console.log(`[email] order confirmation sent for ${order.orderId}: messageId=${info.messageId ?? "?"}`);
     return true;
   } catch (err) {
     console.error("[email] sendOrderConfirmation failed:", err);
@@ -97,7 +148,7 @@ export async function sendReviewNotification(n: ReviewNotification): Promise<boo
   ];
   try {
     await transporter.sendMail({
-      from: `"Pure Fire Nutritional" <${process.env.EMAIL_USER}>`,
+      from: fromHeader(),
       to: reviewNotifyAddress(),
       ...(n.email ? { replyTo: n.email } : {}),
       subject: `New review: ${n.productName}${n.rating ? ` (${n.rating}★)` : ""} from ${n.displayName}`,
@@ -207,7 +258,7 @@ export async function sendOwnerOrderNotification(o: OwnerOrderNotification): Pro
   const { subject, text, html } = buildOwnerOrderEmail(o);
   try {
     await transporter.sendMail({
-      from: `"Pure Fire Nutritional" <${process.env.EMAIL_USER}>`,
+      from: fromHeader(),
       to: orderNotifyAddress(),
       ...(o.customerEmail ? { replyTo: o.customerEmail } : {}),
       subject,
