@@ -7,7 +7,7 @@ import {
   normalizeOrder,
   parsePageParams,
 } from "../_lib/admin-list.js";
-import { handleEmailTest, handleResendConfirmation } from "../_lib/admin-email.js";
+import { handleEmailTest } from "../_lib/admin-email.js";
 
 /**
  * GET /api/admin/orders?limit=100&after=<cursor>
@@ -33,9 +33,8 @@ type CollectionName = keyof typeof COLLECTIONS;
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const raw = req.query.collection;
   const name = (Array.isArray(raw) ? raw[0] : raw) ?? "";
-  // Owner email tools share this function (Hobby 12-function limit); see api/_lib/admin-email.ts.
+  // Owner email test shares this function (Hobby 12-function limit); see api/_lib/admin-email.ts.
   if (name === "email-test") return handleEmailTest(req, res);
-  if (name === "resend-confirmation") return handleResendConfirmation(req, res);
   if (!Object.prototype.hasOwnProperty.call(COLLECTIONS, name)) {
     return res.status(404).json({ error: "Not found" });
   }
