@@ -11,7 +11,7 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 const PATH = "/learn/cytomaxes-cytogens-a-numbers-glossary";
 const TITLE = "Cytomaxes, Cytogens & A-Numbers: Glossary | Pure Fire";
 const HEADLINE = "Cytomaxes, Cytogens and A-Numbers: A Glossary";
-const DESCRIPTION = "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.";
+const DESCRIPTION = "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and U.S. status.";
 const HERO_JPG = "/images/learn/cytomaxes-cytogens-a-numbers-glossary-hero.jpg";
 const HERO_ALT = "Open illustrated glossary book of peptide bioregulator terms, beside a flask, stacked books and a dish of powder";
 const JSON_LD = {
@@ -20,7 +20,7 @@ const JSON_LD = {
     {
       "@type": "Article",
       "headline": "Cytomaxes, Cytogens and A-Numbers: A Glossary",
-      "description": "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.",
+      "description": "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and U.S. status.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/cytomaxes-cytogens-a-numbers-glossary",
       "inLanguage": "en-US",
       "image": "https://www.purefirenutritional.com" + HERO_JPG,
@@ -87,7 +87,7 @@ export default function ArticleCytomaxesCytogensGlossary() {
 
             <h2 id="regulatory-terms" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Regulatory and documentation terms</h2>
 
-            <dl><dt className="font-semibold text-gray-900 mt-4">Dietary supplement</dt><dd className="ml-0 mt-1 mb-3">The US category these products are sold under. Supplements are not approved by the FDA before sale (<a href="https://www.fda.gov/food/dietary-supplements" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA’s dietary supplements page</a>).</dd><dt className="font-semibold text-gray-900 mt-4">FDA-approved</dt><dd className="ml-0 mt-1 mb-3">A status for drugs that have gone through FDA review for a specific use. No peptide bioregulator is FDA-approved.</dd><dt className="font-semibold text-gray-900 mt-4">EAEU registration certificate</dt><dd className="ml-0 mt-1 mb-3">A state registration document issued in the Eurasian Economic Union. It is not a test result or evidence of effect.</dd><dt className="font-semibold text-gray-900 mt-4">Certificate of analysis (COA)</dt><dd className="ml-0 mt-1 mb-3">A lab report on a specific production lot. See <Link href="/learn/registration-certificate-vs-certificate-of-analysis" className="text-orange-600 hover:underline">our explainer</Link>.</dd></dl>
+            <dl><dt className="font-semibold text-gray-900 mt-4">Dietary supplement</dt><dd className="ml-0 mt-1 mb-3">The U.S. category these products are sold under. Supplements are not approved by the FDA before sale (<a href="https://www.fda.gov/food/dietary-supplements" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA’s dietary supplements page</a>).</dd><dt className="font-semibold text-gray-900 mt-4">FDA-approved</dt><dd className="ml-0 mt-1 mb-3">A status for drugs that have gone through FDA review for a specific use. No peptide bioregulator is FDA-approved.</dd><dt className="font-semibold text-gray-900 mt-4">EAEU registration certificate</dt><dd className="ml-0 mt-1 mb-3">A state registration document issued in the Eurasian Economic Union. It is not a test result or evidence of effect.</dd><dt className="font-semibold text-gray-900 mt-4">Certificate of analysis (COA)</dt><dd className="ml-0 mt-1 mb-3">A lab report on a specific production lot. See <Link href="/learn/registration-certificate-vs-certificate-of-analysis" className="text-orange-600 hover:underline">our explainer</Link>.</dd></dl>
 
             <p>Further reading: <Link href="/learn/khavinson-peptide-bioregulators-research-vs-fda-approval" className="text-orange-600 hover:underline">Research history vs. FDA approval</Link> · <Link href="/learn/oral-vs-injectable-peptide-bioregulators-digestion-delivery" className="text-orange-600 hover:underline">Oral vs. injectable delivery</Link> · <Link href="/learn/bioregulator-organ-pairings-mechanism-vs-evidence" className="text-orange-600 hover:underline">Organ pairings: mechanism vs. evidence</Link>.</p>
 

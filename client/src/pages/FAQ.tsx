@@ -78,7 +78,7 @@ export const faqs: FAQItem[] = [
   {
     category: "General",
     question: "How do I know a product is genuine?",
-    answer: `Every genuine package carries a lot number and expiry date, and ours are listed on each product page so you can match them. Pure Fire Nutritional is an authorized US retailer of Khavinson peptide bioregulators. If you have a question about a product you already bought, email ${SUPPORT_EMAIL} with the lot number and we'll help you check it.`,
+    answer: `Every genuine package carries a lot number and expiry date, and ours are listed on each product page so you can match them. Pure Fire Nutritional is an authorized U.S. retailer of Khavinson peptide bioregulators. If you have a question about a product you already bought, email ${SUPPORT_EMAIL} with the lot number and we'll help you check it.`,
     links: [{ href: "/authenticity", label: "Authenticity" }],
   },
   // Products

@@ -11,7 +11,7 @@ import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
 const PATH = "/learn/khavinson-peptide-bioregulators-research-vs-fda-approval";
 const TITLE = "Khavinson Peptide Bioregulators: Research vs FDA Approval";
 const HEADLINE = "Khavinson Peptide Bioregulators: Research History vs. FDA Approval";
-const DESCRIPTION = "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.";
+const DESCRIPTION = "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and U.S. legal status—and learn why research history alone is not FDA approval.";
 const HERO_JPG = "/images/learn/khavinson-peptide-bioregulators-research-vs-fda-approval-hero.jpg";
 const HERO_ALT = "Capsules beside a document stamped Not FDA approved, with a peptide chain and a St. Petersburg cathedral";
 const INLINE_JPG = "/images/learn/khavinson-peptide-bioregulators-uses-safety-legality-inline.jpg";
@@ -22,7 +22,7 @@ const JSON_LD = {
     {
       "@type": "Article",
       "headline": "Khavinson Peptide Bioregulators: Research History vs. FDA Approval",
-      "description": "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.",
+      "description": "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and U.S. legal status—and learn why research history alone is not FDA approval.",
       "mainEntityOfPage": "https://www.purefirenutritional.com/learn/khavinson-peptide-bioregulators-research-vs-fda-approval",
       "inLanguage": "en-US",
       "image": "https://www.purefirenutritional.com" + HERO_JPG,
@@ -122,15 +122,15 @@ export default function ArticleResearchVsFdaApproval() {
 
             <p>Products marketed as Khavinson peptide bioregulators are sold in the United States as dietary supplements, and formulations vary. No peptide bioregulator is FDA-approved for any use in the United States, and the published clinical evidence does not currently support recommending them for clinical use.</p>
 
-            <p>Interest in Khavinson peptide bioregulators is understandable: they are discussed in connection with tissue-specific signaling and decades of work associated with Vladimir Khavinson. But what does that history establish, and where does it stop? A proposed biological mechanism, use in another country and evidence from well-designed clinical studies are three different things. This guide explains what peptide bioregulators are, how the two Khavinson research approaches differ, and what the evidence does and doesn’t establish, including US regulatory status.</p>
+            <p>Interest in Khavinson peptide bioregulators is understandable: they are discussed in connection with tissue-specific signaling and decades of work associated with Vladimir Khavinson. But what does that history establish, and where does it stop? A proposed biological mechanism, use in another country and evidence from well-designed clinical studies are three different things. This guide explains what peptide bioregulators are, how the two Khavinson research approaches differ, and what the evidence does and doesn’t establish, including U.S. regulatory status.</p>
 
             <h2 id="key-takeaways" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Key takeaways</h2>
 
-            <ul className="list-disc pl-6 space-y-2"><li>A supplement’s regulatory category is not a drug approval. Use in Russia does not establish US approval.</li><li>Judge research by study design, outcomes and independent replication, not by publication counts.</li><li>Organ-derived peptide complexes (Cytomaxes) and synthetic short peptides (cytogens) are different research subjects.</li><li>A described use is a proposed biological role, not proof that a product produces a benefit.</li></ul>
+            <ul className="list-disc pl-6 space-y-2"><li>A supplement’s regulatory category is not a drug approval. Use in Russia does not establish U.S. approval.</li><li>Judge research by study design, outcomes and independent replication, not by publication counts.</li><li>Organ-derived peptide complexes (Cytomaxes) and synthetic short peptides (cytogens) are different research subjects.</li><li>A described use is a proposed biological role, not proof that a product produces a benefit.</li></ul>
 
             <h2 id="table-of-contents" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Contents</h2>
 
-            <ol className="list-decimal pl-6 space-y-2"><li><a href="#what-are-peptide-bioregulators" className="text-orange-600 hover:underline">What are peptide bioregulators?</a></li><li><a href="#cytamins-vs-cytogens" className="text-orange-600 hover:underline">Two approaches: Cytomaxes vs. Cytogens</a></li><li><a href="#named-preparations" className="text-orange-600 hover:underline">Named preparations and how they are described</a></li><li><a href="#us-regulatory-status" className="text-orange-600 hover:underline">Research history vs. FDA approval: US regulatory status</a></li><li><a href="#evidence" className="text-orange-600 hover:underline">What the evidence does and doesn’t show</a></li><li><a href="#pure-fire" className="text-orange-600 hover:underline">Pure Fire Nutritional’s bioregulator range</a></li><li><a href="#faq" className="text-orange-600 hover:underline">Frequently asked questions</a></li></ol>
+            <ol className="list-decimal pl-6 space-y-2"><li><a href="#what-are-peptide-bioregulators" className="text-orange-600 hover:underline">What are peptide bioregulators?</a></li><li><a href="#cytamins-vs-cytogens" className="text-orange-600 hover:underline">Two approaches: Cytomaxes vs. Cytogens</a></li><li><a href="#named-preparations" className="text-orange-600 hover:underline">Named preparations and how they are described</a></li><li><a href="#us-regulatory-status" className="text-orange-600 hover:underline">Research history vs. FDA approval: U.S. regulatory status</a></li><li><a href="#evidence" className="text-orange-600 hover:underline">What the evidence does and doesn’t show</a></li><li><a href="#pure-fire" className="text-orange-600 hover:underline">Pure Fire Nutritional’s bioregulator range</a></li><li><a href="#faq" className="text-orange-600 hover:underline">Frequently asked questions</a></li></ol>
 
             <h2 id="what-are-peptide-bioregulators" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">What are peptide bioregulators?</h2>
 
@@ -152,7 +152,7 @@ export default function ArticleResearchVsFdaApproval() {
 
             <p>According to the group’s own accounts, the experimental work began in the 1970s and the synthetic approach followed in the late 1990s. The two are distinct research subjects, not interchangeable formulas, and each named preparation should be assessed on its own evidence.</p>
 
-            <p>The group has also reported introducing peptide-based pharmaceuticals and food supplements into use in Russia, and holding a large patent portfolio. Those figures come from the originating group. Patents document inventions, not effectiveness, and use in Russia does not establish US approval or equivalent evidence for every formulation.</p>
+            <p>The group has also reported introducing peptide-based pharmaceuticals and food supplements into use in Russia, and holding a large patent portfolio. Those figures come from the originating group. Patents document inventions, not effectiveness, and use in Russia does not establish U.S. approval or equivalent evidence for every formulation.</p>
 
             <p><em>Related reading: <Link href="/learn/bioregulator-organ-pairings-mechanism-vs-evidence" className="text-orange-600 hover:underline">Bioregulator organ pairings: proposed mechanism vs. measured evidence</Link> looks at how organ pairings are assigned and what would count as evidence for them.</em></p>
 
@@ -164,7 +164,7 @@ export default function ArticleResearchVsFdaApproval() {
 
             <p>Thymalin, Epithalamin, Cortexin and Retinalamin are injectable drugs in Russia, and much of the human research on them used injected preparations. Not all of the human work was injected, though. The group also studied oral forms, including Cytomax-type (cytamin) and Cytogen capsules and sublingual preparations. For example, an oral synthetic tetrapeptide (Pancragen) was studied on metabolic markers in a small group of older adults (<a href="https://pubmed.ncbi.nlm.nih.gov/22448364/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Korkushko et al., 2011</a>). Because the route changes what reaches the body, oral and injected results should be read separately, not pooled.</p>
 
-            <h2 id="us-regulatory-status" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Research history vs. FDA approval: US regulatory status</h2>
+            <h2 id="us-regulatory-status" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Research history vs. FDA approval: U.S. regulatory status</h2>
             <img
               src={INLINE_JPG}
               alt={INLINE_ALT}
@@ -174,7 +174,7 @@ export default function ArticleResearchVsFdaApproval() {
               className="w-full h-auto rounded-lg"
             />
 
-            <p>Peptide bioregulators are not FDA-approved drugs in the United States, and none is an established bulk drug substance for 503A pharmacy compounding. Availability as a dietary supplement is not approval as a drug or authorization for medical treatment. Under US rules, dietary supplements are not reviewed by the FDA for safety or effectiveness before they are marketed (<a href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/dietary-supplements-guidance-documents-regulatory-information" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA: dietary supplements</a>).</p>
+            <p>Peptide bioregulators are not FDA-approved drugs in the United States, and none is an established bulk drug substance for 503A pharmacy compounding. Availability as a dietary supplement is not approval as a drug or authorization for medical treatment. Under U.S. rules, dietary supplements are not reviewed by the FDA for safety or effectiveness before they are marketed (<a href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/dietary-supplements-guidance-documents-regulatory-information" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA: dietary supplements</a>).</p>
 
             <p>The FDA has separately been reviewing certain peptide bulk drug substances for compounding. Some peptides, reportedly including Epitalon, were placed in Category 2 of its interim 503A bulks list and later moved into review. In July 2026 an FDA advisory committee discussed several peptides (<a href="https://publichealth.jhu.edu/2026/how-the-fda-regulates-peptides" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">Johns Hopkins Bloomberg School of Public Health, 2026</a>). These are procedural steps about compounding. They are not drug approval and do not establish safety or efficacy.</p>
 

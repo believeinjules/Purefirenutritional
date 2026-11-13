@@ -61,6 +61,9 @@ const ABBREVIATIONS: RegExp[] = [
   /\b(?:e\.g|i\.e)\./gi,
   /\bet al\./gi,
   /\b(?:vs|approx|ca|cf|Dr|Prof|St|Mr|Mrs|Ms|Inc|Ltd|Jr|Sr)\.(?=\s)/g,
+  // "U.S.": the inner dot always; the final dot unless it ends the sentence.
+  /\bU\.(?=S\.)/g,
+  /(?<=\bU\u0001S)\.(?=[,;:)]|\s+[a-z0-9(])/g,
 ];
 
 /** Hides abbreviation periods so a sentence split can't break on them. */

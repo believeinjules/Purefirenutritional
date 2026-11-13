@@ -183,7 +183,7 @@ export default function Checkout() {
                   <CardTitle className="text-blue-900">📦 Shipping Information</CardTitle>
                 </CardHeader>
                 <CardContent className="text-blue-800 space-y-2">
-                  <p>Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia.</p>
+                  <p>Orders ship from the U.S. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia.</p>
                   <p className="text-sm">{SHIPPING_RULE_SENTENCE}</p>
                 </CardContent>
               </Card>

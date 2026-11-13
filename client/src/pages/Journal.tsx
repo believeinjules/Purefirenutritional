@@ -24,7 +24,7 @@ import {
 
 export const JOURNAL_TITLE = "Longevity Journal | Pure Fire Nutritional";
 export const JOURNAL_DESCRIPTION =
-  "Longevity Journal from Pure Fire Nutritional: what Khavinson peptide bioregulators are, Cytomaxes vs Cytogens, US sourcing, and a systems view of peptides.";
+  "Longevity Journal from Pure Fire Nutritional: what Khavinson peptide bioregulators are, Cytomaxes vs Cytogens, U.S. sourcing, and a systems view of peptides.";
 
 const formatDate = (d: string) =>
   new Date(`${d}T12:00:00Z`).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });

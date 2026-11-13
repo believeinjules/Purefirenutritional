@@ -193,7 +193,7 @@ export default function Cart() {
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
                     <p className="font-semibold mb-1">Shipping</p>
-                    <p>Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia. {SHIPPING_RULE_SENTENCE}</p>
+                    <p>Orders ship from the U.S. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia. {SHIPPING_RULE_SENTENCE}</p>
                   </div>
 
                   <Link href="/checkout">

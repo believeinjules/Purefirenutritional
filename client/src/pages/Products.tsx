@@ -180,7 +180,7 @@ export default function Products() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <PageSeo
         title="Shop Peptide Bioregulators & Longevity Supplements | Pure Fire Nutritional"
-        description="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Authorized US retailer."
+        description="Browse our full catalog of Khavinson peptide bioregulators, Cytomaxes, Cytogens, Revilab series, and longevity supplements. Authorized U.S. retailer."
         path="/products"
         type="website"
       />

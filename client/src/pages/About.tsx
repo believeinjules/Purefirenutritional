@@ -289,7 +289,7 @@ export default function About() {
                     <Shield className="h-6 w-6 text-white" />
                   </div>
                   <CardTitle className="text-xl">Authorized</CardTitle>
-                  <CardDescription>US Khavinson Retailer</CardDescription>
+                  <CardDescription>U.S. Khavinson Retailer</CardDescription>
                 </CardHeader>
               </Card>
               <Card className="text-center">

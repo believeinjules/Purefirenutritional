@@ -31,7 +31,7 @@ export type JournalCategory = (typeof JOURNAL_CATEGORIES)[number]["id"];
 
 export const JOURNAL_TAGS = {
   "khavinson": "Khavinson",
-  "regulation": "US regulation",
+  "regulation": "U.S. regulation",
   "glossary": "Glossary",
   "oral-delivery": "Oral delivery",
   "mechanism": "Mechanism",
@@ -90,7 +90,7 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     category: "basics",
     tags: ["khavinson", "regulation", "evidence"],
     date: "2026-11-05",
-    description: "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and US legal status—and learn why research history alone is not FDA approval.",
+    description: "Explore Khavinson peptide bioregulators, their proposed uses, safety, evidence, and U.S. legal status—and learn why research history alone is not FDA approval.",
     cover: {
       jpg: "/images/learn/khavinson-peptide-bioregulators-research-vs-fda-approval-hero.jpg",
       alt: "Capsules beside a document stamped Not FDA approved, with a peptide chain and a St. Petersburg cathedral",
@@ -133,7 +133,7 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     tags: ["glossary", "khavinson", "regulation"],
     pinned: true,
     date: "2026-11-05",
-    description: "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and US status.",
+    description: "Plain definitions of peptide bioregulator terms: cytamins, cytomedins, cytogens, Pure Fire's Cytomaxes and Cytogens collections, A-numbers and U.S. status.",
     cover: {
       jpg: "/images/learn/cytomaxes-cytogens-a-numbers-glossary-hero.jpg",
       alt: "Open illustrated glossary book of peptide bioregulator terms, beside a flask, stacked books and a dish of powder",
@@ -177,7 +177,7 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     tags: ["sourcing", "authenticity", "regulation"],
     startHere: true,
     date: "2026-05-14",
-    description: "Why authentic Khavinson bioregulators are hard to find in the US, how to check any seller, and how we source them.",
+    description: "Why authentic Khavinson bioregulators are hard to find in the U.S., how to check any seller, and how we source them.",
     cover: {
       jpg: "/images/learn/buy-khavinson-peptides-usa-banner.jpg",
       webp: "/images/learn/buy-khavinson-peptides-usa-banner.webp",

@@ -7,7 +7,7 @@
  *     policy-pages.test.ts fails if the two lists drift apart
  *   - data collected: Firebase Auth + `profiles` (Signup), Stripe Checkout + `orders` /
  *     `customers` (webhook), `mailing_list`, `customer_wishlist`, `reviews`, Google Analytics
- *   - "Orders ship from the US … Germany, Italy, or Latvia": the approved cart/checkout/FAQ copy
+ *   - "Orders ship from the U.S. … Germany, Italy, or Latvia": the approved cart/checkout/FAQ copy
  *   - 30-day unopened returns: the existing FAQ answer
  *
  * Policy decisions that were NOT in the repo (processing time, carriers, damage-report
@@ -354,7 +354,7 @@ const shipping: Policy = {
   summary: [
     `${STANDARD_SHIPPING_LABEL} flat-rate shipping.`,
     `Free shipping on orders of ${FREE_SHIPPING_THRESHOLD_LABEL} or more.`,
-    "Orders ship from the US.",
+    "Orders ship from the U.S.",
     "Tracking number by email when your order ships.",
   ],
   sections: [
@@ -369,7 +369,7 @@ const shipping: Policy = {
       heading: "Processing time",
       body: [
         "We aim to ship in-stock orders within 1 to 3 business days (Monday to Friday, excluding U.S. federal holidays).",
-        "Orders ship from the US. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia. If an item will take longer than that, we will email you and you can choose to wait or cancel that item for a refund.",
+        "Orders ship from the U.S. If an item is not in stock, please allow about two extra weeks, since some products are made in Germany, Italy, or Latvia. If an item will take longer than that, we will email you and you can choose to wait or cancel that item for a refund.",
       ],
     },
     {

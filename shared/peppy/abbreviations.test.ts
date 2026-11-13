@@ -39,3 +39,11 @@ describe("Vesugen dosage answer", () => {
     expect(shown).not.toMatch(/peptid\.ru/);
   });
 });
+
+describe("U.S. is not a sentence end", () => {
+  it("keeps 'U.S.' inside a sentence", () => {
+    const t = "Call or text 988 in the U.S., or 911 if needed. Bioregulators sold in the U.S. are dietary supplements.";
+    expect(splitSentences(t)).toHaveLength(2);
+    expect(firstSentence("Products sold in the U.S. are dietary supplements. Next.")).toBe("Products sold in the U.S. are dietary supplements.");
+  });
+});

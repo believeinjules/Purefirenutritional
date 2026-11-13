@@ -139,7 +139,7 @@ export function hasClaimLanguage(text: string): boolean {
   return CLAIM_PATTERN.test(text) || PERCENT_PATTERN.test(text);
 }
 
-const ABBREVIATIONS = ["St.", "Prof.", "Dr.", "No.", "e.g.", "i.e.", "vs.", "approx.", "Inc.", "Ltd."];
+const ABBREVIATIONS = ["U.S.", "St.", "Prof.", "Dr.", "No.", "e.g.", "i.e.", "vs.", "approx.", "Inc.", "Ltd."];
 
 /** Split product copy into sentences without breaking on "St. Petersburg" etc. */
 export function splitSentences(text: string): string[] {

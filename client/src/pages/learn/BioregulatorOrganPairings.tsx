@@ -118,7 +118,7 @@ export default function ArticleBioregulatorOrganPairings() {
 
             <p><em>An organ name on a label describes a product’s intended focus, not a demonstrated effect.</em></p>
 
-            <p>A peptide’s proposed destination isn’t the same as its route through the body. Khavinson bioregulators are named and grouped by the organ or tissue they were derived from or designed around, and many carry an A-number that identifies a specific complex. Their proposed role is cellular signaling. This article explains what those pairings mean, which parts rest on established biology and which are hypotheses, what has actually been measured, and why an oral product’s route matters before any organ is reached. Products sold in the US are dietary supplements, not FDA-approved drugs.</p>
+            <p>A peptide’s proposed destination isn’t the same as its route through the body. Khavinson bioregulators are named and grouped by the organ or tissue they were derived from or designed around, and many carry an A-number that identifies a specific complex. Their proposed role is cellular signaling. This article explains what those pairings mean, which parts rest on established biology and which are hypotheses, what has actually been measured, and why an oral product’s route matters before any organ is reached. Products sold in the U.S. are dietary supplements, not FDA-approved drugs.</p>
 
             <h2 id="key-takeaways" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Key takeaways</h2>
 

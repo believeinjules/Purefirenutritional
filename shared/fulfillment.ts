@@ -1,7 +1,7 @@
 /**
  * Shopper-facing stock line (Julia, 2026-10-23).
  *
- *  - "in_stock":      on the shelf in the US, ships now → "In stock, ships from the US"
+ *  - "in_stock":      on the shelf in the U.S., ships now → "In stock, ships from the U.S."
  *  - "ships_2_weeks": ordered for the customer, still purchasable → "Usually ships in about 2 weeks"
  *
  * Where the value comes from (first match wins):
@@ -42,7 +42,7 @@ export function resolveFulfillment(id: string, explicit?: unknown): Fulfillment 
 }
 
 export const FULFILLMENT_PDP_LABEL: Record<Fulfillment, string> = {
-  in_stock: "In stock, ships from the US",
+  in_stock: "In stock, ships from the U.S.",
   ships_2_weeks: "Usually ships in about 2 weeks",
 };
 
@@ -53,6 +53,6 @@ export const FULFILLMENT_CARD_LABEL: Record<Fulfillment, string | null> = {
 };
 
 export const FULFILLMENT_ADMIN_LABEL: Record<Fulfillment, string> = {
-  in_stock: "In stock (ships from the US now)",
+  in_stock: "In stock (ships from the U.S. now)",
   ships_2_weeks: "Ships in about 2 weeks",
 };

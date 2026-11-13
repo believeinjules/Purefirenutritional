@@ -21,7 +21,7 @@ export function formatExpiry(value: string): string {
 }
 
 /**
- * "Authorized US Retailer" badge + sourcing line + lot / expiry / COA.
+ * "Authorized U.S. Retailer" badge + sourcing line + lot / expiry / COA.
  * Each line renders only when its data is filled. The badge links to the
  * authorization document only once that URL is configured.
  */
@@ -41,7 +41,7 @@ export default function ProductAuthenticity({
   const badgeInner = (
     <>
       <ShieldCheck className="w-3.5 h-3.5" aria-hidden />
-      Authorized US Retailer
+      Authorized U.S. Retailer
     </>
   );
 

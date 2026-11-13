@@ -33,11 +33,11 @@ export function urgentResponse(kind: RedFlagKind): SafetyPart {
     return {
       ...base,
       summary:
-        "I'm really sorry you're going through this. You deserve support right now. In the US, call or text **988** (Suicide & Crisis Lifeline) — it's free, confidential and open 24/7. If you're in immediate danger, call **911** or go to the nearest emergency room. Outside the US, contact your local emergency number.",
+        "I'm really sorry you're going through this. You deserve support right now. In the U.S., call or text **988** (Suicide & Crisis Lifeline) — it's free, confidential and open 24/7. If you're in immediate danger, call **911** or go to the nearest emergency room. Outside the U.S., contact your local emergency number.",
       safety: {
         level: "urgent",
         title: "Please reach out now",
-        body: "Call or text 988 in the US, or 911 if you might act on these thoughts. You don't have to handle this alone.",
+        body: "Call or text 988 in the U.S., or 911 if you might act on these thoughts. You don't have to handle this alone.",
       },
     };
   }
@@ -45,7 +45,7 @@ export function urgentResponse(kind: RedFlagKind): SafetyPart {
     return {
       ...base,
       summary:
-        "If someone has taken too much of any supplement or medicine, call **Poison Control at 1-800-222-1222** (US, 24/7) now, or **911** if they're drowsy, confused, having trouble breathing or have collapsed. Keep the bottle with you so you can read the label to them.",
+        "If someone has taken too much of any supplement or medicine, call **Poison Control at 1-800-222-1222** (U.S., 24/7) now, or **911** if they're drowsy, confused, having trouble breathing or have collapsed. Keep the bottle with you so you can read the label to them.",
       safety: {
         level: "urgent",
         title: "Act now",

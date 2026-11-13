@@ -51,7 +51,7 @@ const JSON_LD = {
           "name": "How are bioregulators different from vitamins?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A vitamin supplies a named nutrient with an established role. Bioregulators are proposed signaling molecules; their role is a hypothesis. In the US, both are sold under dietary supplement rules (FDA’s dietary supplements page), which is not FDA approval."
+            "text": "A vitamin supplies a named nutrient with an established role. Bioregulators are proposed signaling molecules; their role is a hypothesis. In the U.S., both are sold under dietary supplement rules (FDA’s dietary supplements page), which is not FDA approval."
           }
         },
         {
@@ -192,7 +192,7 @@ export default function ArticleOralVsInjectableDelivery() {
 
             <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-2">How are bioregulators different from vitamins?</h3>
 
-            <p>A vitamin supplies a named nutrient with an established role. Bioregulators are proposed signaling molecules; their role is a hypothesis. In the US, both are sold under dietary supplement rules (<a href="https://www.fda.gov/food/dietary-supplements" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA’s dietary supplements page</a>), which is not FDA approval.</p>
+            <p>A vitamin supplies a named nutrient with an established role. Bioregulators are proposed signaling molecules; their role is a hypothesis. In the U.S., both are sold under dietary supplement rules (<a href="https://www.fda.gov/food/dietary-supplements" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">FDA’s dietary supplements page</a>), which is not FDA approval.</p>
 
             <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-2">How small are they?</h3>
 
