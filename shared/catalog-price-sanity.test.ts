@@ -54,32 +54,19 @@ describe("catalog size and storefront pack sanity", () => {
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("Cerluten uses the prices Julia set: $55.77 / $154.99 / $289 / $182.99", () => {
+  it("Cerluten uses the prices Julia set: $78.99 / $216.99 / $405 / $256.99", () => {
     const p = allProducts.find((x) => x.id === "cerluten")!;
     const pair = sizePairCents(p)!;
-    expect(pair.p20).toBe(5577);
-    expect(pair.p60).toBe(15499);
-    expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents).toBe(28900);
-    expect(getStorefrontBundleOffer(p, "60+20")!.bundleCents).toBe(18299);
-    expect(addon20Cents(5577)).toBe(2800);
+    expect(pair.p20).toBe(7899);
+    expect(pair.p60).toBe(21699);
+    expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents).toBe(40500);
+    expect(getStorefrontBundleOffer(p, "60+20")!.bundleCents).toBe(25699);
+    expect(addon20Cents(7899)).toBe(4000);
   });
 
-  it("20-cap prices end in .99 except Julia's $55.77 / $70.77 prices", () => {
-    const special: Record<string, number> = {
-      cerluten: 5577,
-      cartalax: 5577,
-      crystagen: 5577,
-      vesugen: 5577,
-      bonomarlot: 7077,
-    };
+  it("20-cap prices end in .99", () => {
     const failures: string[] = [];
     for (const { product, pair } of pairs) {
-      if (product.id in special) {
-        if (pair.p20 !== special[product.id]) {
-          failures.push(`${product.id} 20-count is ${(pair.p20 / 100).toFixed(2)}, expected ${(special[product.id] / 100).toFixed(2)}`);
-        }
-        continue;
-      }
       if (pair.p20 % 100 !== 99) failures.push(`${product.id} 20-count is ${(pair.p20 / 100).toFixed(2)}, not x.99`);
     }
     expect(failures, failures.join("\n")).toEqual([]);

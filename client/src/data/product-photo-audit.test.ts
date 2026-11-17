@@ -9,7 +9,7 @@ describe("verified product photo mapping", () => {
     const p = getProductById("revifort")!;
     expect(p.image).toBe("/products/revifort-main.webp");
     expect(p.imageAlt).toBe("Revifort bottle and box");
-    expect(p.priceUSD).toBe(131.99);
+    expect(p.priceUSD).toBe(184.99);
     expect(responsiveImage(p.image, "100vw").src).toBe("/opt/products/revifort-main-500.webp");
   });
 
@@ -17,7 +17,7 @@ describe("verified product photo mapping", () => {
     const p = getProductById("reviform-cocktail")!;
     expect(p.image).toBe("/products/reviform-cocktail-main.webp");
     expect(p.imageAlt).toBe("Reviform Cocktail pouch");
-    expect(p.priceUSD).toBe(36.99);
+    expect(p.priceUSD).toBe(51.99);
     expect(responsiveImage(p.image, "100vw").src).toBe("/opt/products/reviform-cocktail-main-500.webp");
   });
 
@@ -31,7 +31,7 @@ describe("verified product photo mapping", () => {
       "/products/mamiton-box-manufacturer.webp",
     ]);
     expect(p.images?.join(" ")).not.toMatch(/felicita|mamiton-main\.webp|bottle-front-a|reference/);
-    expect(p.priceUSD).toBe(40.99);
+    expect(p.priceUSD).toBe(57.99);
     expect(p.description).toMatch(/^Natural formula designed specifically for the female reproductive system/);
     expect(responsiveImage(p.image, "100vw").src).toBe("/opt/products/mamiton-main-native-407.webp");
   });
@@ -46,7 +46,7 @@ describe("verified product photo mapping", () => {
     ]) {
       expect(html, src).toContain(src);
     }
-    expect(html).toContain("$40.99");
+    expect(html).toContain("$57.99");
     expect(html).not.toMatch(/felicita|bottle-front-a|mamiton-main-1000|reference_only/i);
     const ld = helmet.script.toString();
     expect(ld).toContain("mamiton-main-native");
@@ -57,7 +57,7 @@ describe("verified product photo mapping", () => {
     const p = getProductById("reviplant")!;
     expect(p.image).toBe("/products/reviplant-main.webp");
     expect(p.imageAlt).toBe("Reviplant bottle and box");
-    expect(p.priceUSD).toBe(79.99);
+    expect(p.priceUSD).toBe(111.99);
     expect(responsiveImage(p.image, "100vw").src).toBe("/opt/products/reviplant-main-500.webp");
   });
 
@@ -81,7 +81,7 @@ describe("verified product photo mapping", () => {
 
   it("leaves Rinolax and Felicita image mapping unchanged", () => {
     expect(getProductById("rinolax")!.image).toBe("/products/Alvenorm.jpg");
-    expect(getProductById("rinolax")!.priceUSD).toBe(55.99);
+    expect(getProductById("rinolax")!.priceUSD).toBe(78.99);
     expect(getProductById("felicita")!.image).toBe("/products/felicita.jpg");
     expect(getProductById("alvenorm-forte")!.image).toBe("/products/Alvenorm.jpg");
   });

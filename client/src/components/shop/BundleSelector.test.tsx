@@ -65,16 +65,16 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     const cerluten = getProductById("cerluten")!;
     const onChange = vi.fn();
     render(
-      <BundleSelector product={cerluten} singlePriceUSD={154.99} size="60" value={1} onChange={onChange} />,
+      <BundleSelector product={cerluten} singlePriceUSD={216.99} size="60" value={1} onChange={onChange} />,
     );
     const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
     expect(select.tagName).toBe("SELECT");
     expect(select.value).toBe("1");
     expect(getStorefrontBundleOffers(cerluten).map((o) => o.kind)).toEqual(["2x60", "60+20"]);
     expect(optionTexts(select)).toEqual([
-      "1 bottle (60 capsules) — $154.99",
-      "2 × 60 capsules — $289.00 (save 7%)",
-      "60 + 20 capsules — $182.99 (save 13%)",
+      "1 bottle (60 capsules) — $216.99",
+      "2 × 60 capsules — $405.00 (save 7%)",
+      "60 + 20 capsules — $256.99 (save 13%)",
     ]);
   });
 
@@ -83,7 +83,7 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     const onChange = vi.fn();
     const cerluten = getProductById("cerluten")!;
     render(
-      <BundleSelector product={cerluten} singlePriceUSD={154.99} size="60" value={1} onChange={onChange} />,
+      <BundleSelector product={cerluten} singlePriceUSD={216.99} size="60" value={1} onChange={onChange} />,
     );
     await user.selectOptions(screen.getByLabelText("Buy More & Save"), "60+20");
     expect(onChange).toHaveBeenCalledWith("60+20");
@@ -105,8 +105,8 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
   it("Prime Peptide (legacy) keeps the card picker and Cycle bundles legend", () => {
     render(
       <BundleSelector
-        product={{ id: "prime-peptide-brain", name: "Prime", priceUSD: 139.99, variants: [] } as Parameters<typeof BundleSelector>[0]["product"]}
-        singlePriceUSD={139.99}
+        product={{ id: "prime-peptide-brain", name: "Prime", priceUSD: 195.99, variants: [] } as Parameters<typeof BundleSelector>[0]["product"]}
+        singlePriceUSD={195.99}
         value={1}
         onChange={() => {}}
         legacy
@@ -168,11 +168,11 @@ describe("product page Buy More & Save (60-cap only)", () => {
     await waitFor(() => expect(size.value).toBe(v60.id));
 
     const select = (await screen.findByLabelText("Buy More & Save")) as HTMLSelectElement;
-    expect(optionTexts(select)[2]).toBe("60 + 20 capsules — $182.99 (save 13%)");
+    expect(optionTexts(select)[2]).toBe("60 + 20 capsules — $256.99 (save 13%)");
     await user.selectOptions(select, "60+20");
     await waitFor(() => expect(select.value).toBe("60+20"));
     const total = getCartLineUnitUSD(p, "60", "60+20")!;
-    expect(total).toBe(182.99);
+    expect(total).toBe(256.99);
     expect(screen.getByRole("button", { name: /add 60 \+ 20 ·/i }).textContent).toBe(
       `Add 60 + 20 · $${total.toFixed(2)}`,
     );
