@@ -41,6 +41,36 @@ export function orderItemFromLineItem(item: Stripe.LineItem) {
   };
 }
 
+/**
+ * Discount on the session (Daily Fire pre-applied code, or a code the shopper
+ * typed on Stripe's page). Code text comes from our metadata when we applied
+ * it; otherwise from the promotion code on session.discounts (best effort).
+ */
+export async function sessionDiscount(
+  session: Stripe.Checkout.Session,
+  retrievePromo?: (id: string) => Promise<{ code?: string | null } | null>
+): Promise<{ amount: number; code: string | null; percentOff: number | null }> {
+  const amount = (session.total_details?.amount_discount || 0) / 100;
+  let code = session.metadata?.promo_code?.trim() || null;
+  const pct = Number(session.metadata?.promo_percent_off);
+  let percentOff = Number.isFinite(pct) && pct > 0 ? pct : null;
+  if (!code && amount > 0) {
+    const d = session.discounts?.[0];
+    const promo = d?.promotion_code;
+    if (promo && typeof promo === "object") code = promo.code || null;
+    else if (typeof promo === "string" && retrievePromo) {
+      try {
+        code = (await retrievePromo(promo))?.code || null;
+      } catch {
+        code = null;
+      }
+    }
+    const coupon = d?.coupon;
+    if (percentOff === null && coupon && typeof coupon === "object") percentOff = coupon.percent_off ?? null;
+  }
+  return { amount, code, percentOff };
+}
+
 function generateOrderNumber(): string {
   return `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 11).toUpperCase()}`;
 }
@@ -81,6 +111,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   const subtotal = (session.amount_subtotal || 0) / 100;
   const tax = (session.total_details?.amount_tax || 0) / 100;
   const shipping = (session.total_details?.amount_shipping || 0) / 100;
+  const discount = await sessionDiscount(session, (id) => stripe.promotionCodes.retrieve(id));
   const currency = session.currency?.toUpperCase() || "USD";
   const shippingName = shippingDetails?.name || null;
   const shippingAddress = shippingDetails?.address || null;
@@ -127,6 +158,9 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
         subtotal,
         tax,
         shipping,
+        discount: discount.amount,
+        discount_code: discount.code,
+        discount_percent: discount.percentOff,
         total,
         currency,
         status: "processing",
@@ -180,6 +214,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
       customerEmail,
       items,
       total,
+      ...(discount.amount > 0 ? { discount: discount.amount, discountCode: discount.code } : {}),
       orderDate: new Date().toISOString(),
     });
     if (!sent) {
@@ -200,6 +235,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
         subtotal,
         shipping,
         tax,
+        ...(discount.amount > 0 ? { discount: discount.amount, discountCode: discount.code } : {}),
         total,
         currency,
         shippingName,

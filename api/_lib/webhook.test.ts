@@ -263,3 +263,74 @@ describe("stripe webhook checkout.session.completed", () => {
     expect(sendOrderConfirmation).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("stripe webhook: discounts (Daily Fire / typed codes)", () => {
+  beforeEach(() => {
+    store.clear();
+    currentLineItems = defaultLineItems;
+    sendOrderConfirmation.mockClear();
+    sendOwnerOrderNotification.mockReset();
+    sendOwnerOrderNotification.mockImplementation(async () => true);
+    process.env.STRIPE_SECRET_KEY = "sk_test_x";
+    process.env.STRIPE_WEBHOOK_SECRET = "whsec_x";
+  });
+
+  it("records the pre-applied code, percent and amount, and emails the discounted total", async () => {
+    currentEvent = sessionEvent({
+      metadata: { promo_code: "FIRE10-K7Q2MX", promo_percent_off: "10" },
+      amount_subtotal: 15598,
+      amount_total: 14038,
+      total_details: { amount_tax: 0, amount_shipping: 0, amount_discount: 1560 },
+      discounts: [{ coupon: "pf-daily-fire-10", promotion_code: "promo_1" }],
+    });
+    await handler(req(), mkRes());
+    const order = store.get("orders/cs_live_abc")!;
+    expect(order.subtotal).toBeCloseTo(155.98);
+    expect(order.discount).toBeCloseTo(15.6);
+    expect(order.discount_code).toBe("FIRE10-K7Q2MX");
+    expect(order.discount_percent).toBe(10);
+    expect(order.total).toBeCloseTo(140.38);
+    expect(sendOrderConfirmation).toHaveBeenCalledWith(
+      expect.objectContaining({ total: 140.38, discount: 15.6, discountCode: "FIRE10-K7Q2MX" })
+    );
+    expect(sendOwnerOrderNotification).toHaveBeenCalledWith(
+      expect.objectContaining({ subtotal: 155.98, discount: 15.6, discountCode: "FIRE10-K7Q2MX", total: 140.38 })
+    );
+  });
+
+  it("no discount: fields are zero/null and emails get no discount line", async () => {
+    currentEvent = sessionEvent();
+    await handler(req(), mkRes());
+    const order = store.get("orders/cs_live_abc")!;
+    expect(order.discount).toBe(0);
+    expect(order.discount_code).toBeNull();
+    expect(order.discount_percent).toBeNull();
+    expect((sendOrderConfirmation.mock.calls[0] as any)[0].discount).toBeUndefined();
+  });
+});
+
+describe("sessionDiscount", () => {
+  it("resolves a code typed on Stripe's page from session.discounts", async () => {
+    const { sessionDiscount } = await import("../stripe/webhook");
+    const r = await sessionDiscount(
+      {
+        metadata: {},
+        total_details: { amount_discount: 500 },
+        discounts: [{ coupon: { percent_off: 5 }, promotion_code: "promo_x" }],
+      } as any,
+      async (id) => ({ code: id === "promo_x" ? "FIRE5-ABCDEF" : null })
+    );
+    expect(r).toEqual({ amount: 5, code: "FIRE5-ABCDEF", percentOff: 5 });
+  });
+
+  it("survives a failed promotion-code lookup", async () => {
+    const { sessionDiscount } = await import("../stripe/webhook");
+    const r = await sessionDiscount(
+      { metadata: {}, total_details: { amount_discount: 500 }, discounts: [{ coupon: "c", promotion_code: "promo_x" }] } as any,
+      async () => {
+        throw new Error("boom");
+      }
+    );
+    expect(r).toEqual({ amount: 5, code: null, percentOff: null });
+  });
+});

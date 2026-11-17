@@ -37,6 +37,7 @@ import { lazy, Suspense } from "react";
 // DEV-only mock moderation preview (dropped from production builds).
 const DevReviewsAdminPreview = import.meta.env.DEV ? lazy(() => import("./pages/review/DevReviewsAdminPreview")) : null;
 import SiteSeo from "./components/seo/SiteSeo";
+import DailyFirePopup from "./components/promo/DailyFirePopup";
 
 // Learn articles
 import Journal from "./pages/Journal";
@@ -164,6 +165,8 @@ function App() {
                 <Toaster />
                 <SiteSeo />
                 <Router />
+                {/* Overlay only; renders nothing until mounted in the browser. */}
+                <DailyFirePopup />
               </TooltipProvider>
             </WishlistProvider>
           </CartProvider>

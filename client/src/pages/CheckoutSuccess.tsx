@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
+import { removeAppliedCode } from "@/lib/dailyFire";
 
 export default function CheckoutSuccess() {
   const [, setLocation] = useLocation();
@@ -29,6 +30,8 @@ export default function CheckoutSuccess() {
 
     // Clear the cart after a successful payment redirect (Stripe appends session_id)
     if (id) clearCart();
+    // A Daily Fire code is single use: stop pre-applying it after a paid order.
+    if (id) removeAppliedCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

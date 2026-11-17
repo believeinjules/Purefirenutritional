@@ -12,6 +12,7 @@ import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import PreorderBadge from "@/components/PreorderBadge";
 import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
+import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
 function formatCartUSD(amount: number | undefined | null): string {
@@ -24,7 +25,8 @@ export default function Cart() {
   const subtotal = getTotal();
   const shippingCents = shippingCentsForMerchandiseUSD(subtotal);
   const shippingLabel = shippingCents === 0 ? "Free" : formatCartUSD(shippingCents / 100);
-  const orderTotal = subtotal + shippingCents / 100;
+  const { applied, discountUSD } = useAppliedDiscount(subtotal);
+  const orderTotal = subtotal - discountUSD + shippingCents / 100;
 
   if (!items || items.length === 0) {
     return (
@@ -176,11 +178,19 @@ export default function Cart() {
                       <span>Subtotal ({items.reduce((acc, item) => acc + item.quantity * bottlesInBundle(item.bundle ?? 1), 0)} bottles)</span>
                       <span>{formatCartUSD(getTotal())}</span>
                     </div>
+                    {applied && discountUSD > 0 && (
+                      <div className="flex justify-between text-green-700">
+                        <span>Discount ({applied.percentOff}%)</span>
+                        <span>-{formatCartUSD(discountUSD)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-gray-600">
                       <span>Shipping</span>
                       <span>{shippingLabel}</span>
                     </div>
                   </div>
+
+                  <AppliedCodeNotice className="mb-4" />
 
                   <FreeShippingBanner variant="card" subtotalUSD={subtotal} className="mb-4" />
 

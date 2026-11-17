@@ -299,3 +299,11 @@
 .pepita-panel { animation: pepita-pop-in 180ms ease-out; }
 @media (max-width: 639px) { .pepita-panel { animation: pepita-sheet-in 240ms cubic-bezier(.2,.8,.2,1); } }
 @media (prefers-reduced-motion: reduce) { .pepita-panel { animation: none; } }
+
+/* Dialogs (incl. the Daily Fire popup): no open/close animation for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="dialog-overlay"],
+  [data-slot="dialog-content"] {
+    animation: none !important;
+  }
+}

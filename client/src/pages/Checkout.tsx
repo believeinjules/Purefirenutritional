@@ -13,6 +13,8 @@ import { bundleLabel } from "@shared/bundle-pricing";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
+import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
+import { removeAppliedCode } from "@/lib/dailyFire";
 
 function formatCheckoutUSD(amount: number | undefined | null): string {
   if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
@@ -29,7 +31,9 @@ export default function Checkout() {
   const subtotal = getTotal();
   const shippingCents = shippingCentsForMerchandiseUSD(subtotal);
   const shippingLabel = shippingCents === 0 ? "Free" : formatCheckoutUSD(shippingCents / 100);
-  const orderTotal = subtotal + shippingCents / 100;
+  // Shipping (and free shipping) uses the subtotal before any code, as Stripe charges it.
+  const { applied, discountUSD } = useAppliedDiscount(subtotal);
+  const orderTotal = subtotal - discountUSD + shippingCents / 100;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,13 +61,22 @@ export default function Checkout() {
             // price intentionally omitted as sole source — server looks up catalog
           })),
           customerEmail: formData.email,
+          // Validated against Stripe on the server; never trusted for the amount.
+          ...(applied ? { promoCode: applied.code } : {}),
         }),
       });
 
       const body = (await response.json().catch(() => ({}))) as {
         url?: string;
         error?: string;
+        promoError?: string;
       };
+
+      if (response.status === 400 && body.promoError) {
+        // Expired / used / unknown code: drop it so the next click checks out without it.
+        removeAppliedCode();
+        throw new Error(body.error || "That discount code is no longer valid, so it was removed.");
+      }
 
       if (!response.ok || !body.url) {
         // 400s carry a shopper-readable reason (e.g. a size that is no longer sold)
@@ -221,6 +234,12 @@ export default function Checkout() {
                       <span>Subtotal</span>
                       <span>{formatCheckoutUSD(getTotal())}</span>
                     </div>
+                    {applied && discountUSD > 0 && (
+                      <div className="flex justify-between text-green-700">
+                        <span>Discount ({applied.percentOff}%)</span>
+                        <span>-{formatCheckoutUSD(discountUSD)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-gray-600">
                       <span>Shipping</span>
                       <span>{shippingLabel}</span>
@@ -230,6 +249,8 @@ export default function Checkout() {
                       <span>Calculated at checkout</span>
                     </div>
                   </div>
+
+                  <AppliedCodeNotice className="mt-4" />
 
                   <div className="border-t mt-4 pt-4">
                     <div className="flex justify-between text-xl font-bold">

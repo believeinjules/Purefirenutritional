@@ -21,6 +21,13 @@ export type CheckoutSessionInput = {
   customerName?: string;
   userId?: string | number | null;
   postalCode?: string;
+  /**
+   * A promotion code already validated server-side (api/_lib/discount.ts).
+   * Stripe rejects a session that sets both `discounts` and
+   * `allow_promotion_codes`, so a pre-applied code turns off the manual
+   * code box; without one, shoppers can still type a code on Stripe's page.
+   */
+  promotion?: { id: string; code: string; percentOff?: number | null } | null;
 };
 
 export function merchandiseCentsFor(resolved: ResolvedCheckoutLine[]): number {
@@ -88,13 +95,22 @@ export function buildCheckoutSessionParams(input: CheckoutSessionInput) {
       ship_to_zip: meta(input.postalCode || ""),
       merchandise_subtotal: (merchandiseCents / 100).toFixed(2),
       shipping_quote: (shippingCents / 100).toFixed(2),
+      promo_code: meta(input.promotion?.code || ""),
+      promo_percent_off:
+        typeof input.promotion?.percentOff === "number" ? String(input.promotion.percentOff) : "",
     },
-    allow_promotion_codes: true,
+    // Exactly one of these two (Stripe: "You may only specify one of these parameters").
+    ...(input.promotion
+      ? { discounts: [{ promotion_code: input.promotion.id }] }
+      : { allow_promotion_codes: true as const }),
     shipping_address_collection: {
       allowed_countries: ["US", "CA", "GB", "AU", "NZ", "IE"] as Array<
         "US" | "CA" | "GB" | "AU" | "NZ" | "IE"
       >,
     },
+    // Free shipping uses the merchandise subtotal BEFORE any promotion code,
+    // the same as before codes were pre-applied (Stripe discounts only reduce
+    // line items, never this fixed shipping rate).
     shipping_options: flatStripeShippingOption(merchandiseCents),
   };
 

@@ -7,7 +7,16 @@ interface OrderDetails {
   customerEmail: string;
   items: Array<{ name: string; quantity: number; price: number }>;
   total: number;
+  /** Dollars off from a promotion code (omitted when none). */
+  discount?: number;
+  discountCode?: string | null;
   orderDate: string;
+}
+
+/** "Discount (FIRE10-K7Q2MX): -$12.34", or "" when there is no discount. */
+export function discountLine(discount?: number, code?: string | null): string {
+  if (typeof discount !== "number" || !(discount > 0)) return "";
+  return `Discount${code ? ` (${code})` : ""}: -$${discount.toFixed(2)}`;
 }
 
 function escapeHtml(value: string): string {
@@ -98,14 +107,16 @@ export async function sendOrderConfirmation(
     .map((i) => `${i.name} x${i.quantity} - $${i.price.toFixed(2)}`)
     .join("\n");
 
+  const disc = discountLine(order.discount, order.discountCode);
+
   try {
     const info = await transporter.sendMail({
       from: fromHeader(),
       to: order.customerEmail,
       replyTo: SUPPORT_EMAIL,
       subject: `Order Confirmation #${order.orderId} - Pure Fire Nutritional`,
-      text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\nTotal: $${order.total.toFixed(2)}\n\nQuestions about your order? Email ${SUPPORT_EMAIL} with your order number.`,
-      html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p><p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p><p>Questions about your order? Email <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> with your order number.</p>`,
+      text: `Thank you for your order, ${order.customerName}!\n\nOrder #${order.orderId}\n${itemsText}\n\n${disc ? `${disc}\n` : ""}Total: $${order.total.toFixed(2)}\n\nQuestions about your order? Email ${SUPPORT_EMAIL} with your order number.`,
+      html: `<p>Hi ${escapeHtml(order.customerName)},</p><p>We've received order <strong>#${escapeHtml(order.orderId)}</strong>.</p>${disc ? `<p>${escapeHtml(disc)}</p>` : ""}<p>Total: <strong>$${order.total.toFixed(2)}</strong></p><p>Thank you for choosing Pure Fire Nutritional.</p><p>Questions about your order? Email <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> with your order number.</p>`,
     });
     console.log(`[email] order confirmation sent for ${order.orderId}: messageId=${info.messageId ?? "?"}`);
     return true;
@@ -187,6 +198,8 @@ export type OwnerOrderNotification = {
   subtotal: number;
   shipping: number;
   tax: number;
+  discount?: number;
+  discountCode?: string | null;
   total: number;
   currency?: string;
   shippingName: string | null;
@@ -227,6 +240,7 @@ export function buildOwnerOrderEmail(o: OwnerOrderNotification) {
     `Subtotal: ${money(o.subtotal)}`,
     `Shipping: ${money(o.shipping)}`,
     `Tax: ${money(o.tax)}`,
+    ...(discountLine(o.discount, o.discountCode) ? [discountLine(o.discount, o.discountCode)] : []),
     `Total: ${money(o.total)}${cur}`,
     "",
     "Ship to:",
@@ -245,7 +259,7 @@ export function buildOwnerOrderEmail(o: OwnerOrderNotification) {
       )
       .join("") +
     `</table>` +
-    `<p>Subtotal: ${money(o.subtotal)}<br>Shipping: ${money(o.shipping)}<br>Tax: ${money(o.tax)}<br><strong>Total: ${money(o.total)}${e(cur)}</strong></p>` +
+    `<p>Subtotal: ${money(o.subtotal)}<br>Shipping: ${money(o.shipping)}<br>Tax: ${money(o.tax)}<br>${discountLine(o.discount, o.discountCode) ? `${e(discountLine(o.discount, o.discountCode))}<br>` : ""}<strong>Total: ${money(o.total)}${e(cur)}</strong></p>` +
     `<p><strong>Ship to:</strong><br>${(addr.length ? addr : ["(no shipping address)"]).map(e).join("<br>")}</p>`;
 
   return { subject, text, html };
