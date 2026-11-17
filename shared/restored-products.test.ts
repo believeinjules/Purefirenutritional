@@ -18,15 +18,15 @@ describe("restored products", () => {
     expect(p!.variants?.map(v => v.id)).toEqual(["20-count", "60-count"]);
     expect(p!.image && existsSync(`client/public${p!.image}`), `${id} image`).toBe(true);
   });
-  it.each(RESTORED.filter(id => id !== "cerluten"))("%s is priced $79.99/€40 and $207.99/€110 and in stock", id => {
+  it.each(RESTORED.filter(id => id !== "cerluten"))("%s is priced $67.99/€40 and $177.99/€110 and in stock", id => {
     const p = products.find(x => x.id === id)!;
-    expect([p.priceUSD, p.priceEUR]).toEqual([79.99, 40]);
-    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[79.99, 40, true], [207.99, 110, true]]);
+    expect([p.priceUSD, p.priceEUR]).toEqual([67.99, 40]);
+    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[67.99, 40, true], [177.99, 110, true]]);
   });
-  it("Cerluten is priced $75.99 / $209.99 (Julia, 2026-11-17)", () => {
+  it("Cerluten is priced $64.99 / $178.99 (Julia, 2026-11-17)", () => {
     const p = products.find(x => x.id === "cerluten")!;
-    expect([p.priceUSD, p.priceEUR]).toEqual([75.99, 40]);
-    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[75.99, 40, true], [209.99, 110, true]]);
+    expect([p.priceUSD, p.priceEUR]).toEqual([64.99, 40]);
+    expect(p.variants!.map(v => [v.priceUSD, v.priceEUR, v.inStock])).toEqual([[64.99, 40, true], [178.99, 110, true]]);
   });
   it("restored copy has no lifespan/mortality/cancer figures", () => {
     for (const id of RESTORED) {

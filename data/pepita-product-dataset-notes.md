@@ -116,7 +116,7 @@ The visible set was taken from the live sitemap (72 /products/ URLs). It matches
 ### Bonomarlot (bonomarlot)
 - Directions: Pure Fire "1–2 capsules 1–2 times daily with meals. Maintenance: 20-capsule vial (10 days). Intensive: N60 format (2 caps twice daily for 30 days)." vs manufacturer "adults by 1 or 2 capsules 2 times a day during meals; 1 month; repeat after 3-6 months" (frequency 1–2×/day vs 2×/day).
 - Pure Fire maintenance/intensive (20-cap = maintenance, N60 = intensive) protocol not found on the manufacturer page.
-- Prices updated 2026-11-17: Bonomarlot 20 Capsules | $95.99 | 60 Capsules | $269.99 (35% increase from original, rounded up to .99).
+- Prices updated 2026-11-17: Bonomarlot 20 Capsules | $81.99 | 60 Capsules | $229.99 (15% increase from original, rounded up to .99).
 ### Calsil-T (calsil-t)
 - No manufacturer page named "Calsil-T" was found. The closest is "Calcium Complex" (peptideproduct.com/.../calcium_complex/: 1 tablet three times a day with meals, 4–6 weeks). The identity is unconfirmed, so it is not used.
 ### Cartalax (cartalax)
