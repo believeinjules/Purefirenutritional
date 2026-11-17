@@ -54,14 +54,14 @@ describe("catalog size and storefront pack sanity", () => {
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("Cerluten uses the prices Julia set: $78.99 / $216.99 / $405 / $256.99", () => {
+  it("Cerluten uses the prices Julia set: $75.99 / $209.99 / $392 / $247.99", () => {
     const p = allProducts.find((x) => x.id === "cerluten")!;
     const pair = sizePairCents(p)!;
-    expect(pair.p20).toBe(7899);
-    expect(pair.p60).toBe(21699);
-    expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents).toBe(40500);
-    expect(getStorefrontBundleOffer(p, "60+20")!.bundleCents).toBe(25699);
-    expect(addon20Cents(7899)).toBe(4000);
+    expect(pair.p20).toBe(7599);
+    expect(pair.p60).toBe(20999);
+    expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents).toBe(39200);
+    expect(getStorefrontBundleOffer(p, "60+20")!.bundleCents).toBe(24799);
+    expect(addon20Cents(7599)).toBe(3800);
   });
 
   it("20-cap prices end in .99", () => {
