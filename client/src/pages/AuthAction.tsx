@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
 import { isEmailVerificationConfirmed } from "@/lib/emailVerification";
+import { hostedAuthActionUrl } from "@/lib/passwordReset";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
@@ -78,6 +79,19 @@ export default function AuthAction() {
         }
         showVerifiedSuccess();
         return;
+      }
+
+      // Password reset / email recovery use Firebase's hosted page. If a link
+      // lands here anyway, hand it to that page unchanged.
+      if (mode === "resetPassword" || mode === "recoverEmail") {
+        const hosted = hostedAuthActionUrl(
+          import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+          window.location.search
+        );
+        if (hosted && !cancelled) {
+          window.location.replace(hosted);
+          return;
+        }
       }
 
       if (mode && mode !== "verifyEmail") {

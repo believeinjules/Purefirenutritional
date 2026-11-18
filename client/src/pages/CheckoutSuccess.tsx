@@ -19,7 +19,8 @@ const MIN_PASSWORD = 6;
 export default function CheckoutSuccess() {
   const [, setLocation] = useLocation();
   const { clearCart } = useCart();
-  const { user, signUp } = useAuth();
+  const { user, signUp, resendVerificationEmail } = useAuth();
+  const [resending, setResending] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [orderDetails, setOrderDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -89,7 +90,11 @@ export default function CheckoutSuccess() {
     setCreatingAccount(false);
 
     if (error) {
-      toast.error(error.message || "Failed to create account");
+      toast.error(
+        error.code === "auth/email-already-in-use"
+          ? "You already have an account with this email. Sign in to see your orders, or use Forgot password? on the sign-in page."
+          : error.message || "Failed to create account"
+      );
       return;
     }
     if (verificationEmailSent) {
@@ -99,6 +104,18 @@ export default function CheckoutSuccess() {
     } else {
       toast.error(formatVerificationSendFailureMessage(verificationEmailError));
     }
+  };
+
+  const handleResendVerification = async () => {
+    setResending(true);
+    const { error, sent } = await resendVerificationEmail();
+    setResending(false);
+    if (error) {
+      toast.error(error.message || "Couldn't send the verification email. Try again in a moment.");
+      return;
+    }
+    if (sent) toast.success("Verification email sent. Check your inbox (and spam folder).");
+    else toast.message("Your email is already verified.");
   };
 
   return (
@@ -135,7 +152,7 @@ export default function CheckoutSuccess() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">Email Address</p>
-                        <p className="font-medium">{checkoutEmail}</p>
+                        <p className="font-medium break-all">{checkoutEmail}</p>
                       </div>
                       {orderDetails.customer_details?.name && (
                         <div>
@@ -256,9 +273,20 @@ export default function CheckoutSuccess() {
 
               {user && !user.emailVerified && (
                 <Card className="mb-6 border-orange-200 bg-orange-50">
-                  <CardContent className="py-4 text-orange-950 text-sm">
-                    Verify your email to see past orders. Check the inbox for{" "}
-                    <strong>{user.email}</strong>, then open My Orders.
+                  <CardContent className="py-4 text-orange-950 text-sm space-y-3">
+                    <p>
+                      Verify your email to see past orders. Check the inbox for{" "}
+                      <strong>{user.email}</strong>, then open My Orders.
+                    </p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="border-orange-300 bg-white text-orange-800 hover:bg-orange-100"
+                      disabled={resending}
+                      onClick={handleResendVerification}
+                    >
+                      {resending ? "Sending…" : "Resend verification email"}
+                    </Button>
                   </CardContent>
                 </Card>
               )}

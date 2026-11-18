@@ -14,6 +14,7 @@ import {
   updateProfile,
   sendEmailVerification,
   applyActionCode,
+  sendPasswordResetEmail,
   User,
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
@@ -22,6 +23,10 @@ import {
   getEmailVerificationActionCodeSettings,
   isEmailVerificationConfirmed,
 } from "@/lib/emailVerification";
+import {
+  getPasswordResetActionCodeSettings,
+  isContinueUrlError,
+} from "@/lib/passwordReset";
 
 export type SignUpResult = {
   error: any;
@@ -50,6 +55,8 @@ interface AuthContextType {
   ) => Promise<{ error: any; verified: boolean }>;
   /** Reload Firebase user so emailVerified reflects server state. */
   refreshUser: () => Promise<User | null>;
+  /** Firebase password reset email (hosted reset page, continue URL = sign-in). */
+  sendPasswordReset: (email: string) => Promise<{ error: any }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -205,6 +212,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [refreshUser]
   );
 
+  const sendPasswordReset = useCallback(
+    async (email: string): Promise<{ error: any }> => {
+      if (!auth) return { error: new Error("Sign-in is not available right now.") };
+      try {
+        await sendPasswordResetEmail(auth, email, getPasswordResetActionCodeSettings());
+        return { error: null };
+      } catch (err: any) {
+        // A host missing from Authorized domains (e.g. a preview) rejects the
+        // continue URL; still send the reset link, just without "Continue".
+        if (isContinueUrlError(err?.code)) {
+          try {
+            await sendPasswordResetEmail(auth, email);
+            return { error: null };
+          } catch (retryErr: any) {
+            return { error: retryErr };
+          }
+        }
+        return { error: err };
+      }
+    },
+    []
+  );
+
   return (
     <AuthContext.Provider
       value={{
@@ -216,6 +246,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         resendVerificationEmail,
         completeEmailVerification,
         refreshUser,
+        sendPasswordReset,
       }}
     >
       {children}

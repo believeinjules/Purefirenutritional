@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 
 /** Allow only same-origin relative paths (no protocol-relative //evil). */
 function safeNextPath(raw: string | null): string {
@@ -29,6 +30,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [resending, setResending] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
   const { signIn, user, resendVerificationEmail, refreshUser } = useAuth();
   const [, setLocation] = useLocation();
 
@@ -87,12 +89,17 @@ export default function Login() {
       <main className="flex-1 flex items-center justify-center bg-gray-50 py-12 px-4">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-2xl">Sign In</CardTitle>
+            <CardTitle className="text-2xl">{showForgot ? "Reset your password" : "Sign In"}</CardTitle>
             <CardDescription>
-              Enter your email and password to access your account
+              {showForgot
+                ? "Enter the email you use to sign in and we'll email you a link to choose a new password."
+                : "Enter your email and password to access your account"}
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {showForgot ? (
+              <ForgotPasswordForm initialEmail={email} onBack={() => setShowForgot(false)} />
+            ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -104,6 +111,7 @@ export default function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={isLoading}
+                  autoComplete="email"
                 />
               </div>
 
@@ -117,7 +125,17 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   disabled={isLoading}
+                  autoComplete="current-password"
                 />
+                <div className="text-right">
+                  <button
+                    type="button"
+                    className="text-sm text-orange-600 hover:underline"
+                    onClick={() => setShowForgot(true)}
+                  >
+                    Forgot password?
+                  </button>
+                </div>
               </div>
 
               <Button type="submit" className="w-full" disabled={isLoading}>
@@ -148,6 +166,7 @@ export default function Login() {
                 </Link>
               </div>
             </form>
+            )}
           </CardContent>
         </Card>
       </main>

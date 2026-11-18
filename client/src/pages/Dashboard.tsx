@@ -13,7 +13,9 @@ import EmailVerificationBanner from "@/components/EmailVerificationBanner";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 
 export default function Dashboard() {
-  const { user, signOut, loading } = useAuth();
+  const { user, signOut, loading, refreshUser, resendVerificationEmail } = useAuth();
+  const [resending, setResending] = useState(false);
+  const [rechecking, setRechecking] = useState(false);
   const [, setLocation] = useLocation();
   const [orders, setOrders] = useState<CustomerOrder[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
@@ -34,7 +36,18 @@ export default function Dashboard() {
   const fetchOrders = async () => {
     if (!user) return;
 
-    if (!user.emailVerified) {
+    // The cached user can be stale right after the verification link was
+    // opened in another tab, so reload before deciding.
+    let current = user;
+    if (!current.emailVerified) {
+      try {
+        current = (await refreshUser()) || current;
+      } catch {
+        // keep the cached user; the server check below is the source of truth
+      }
+    }
+
+    if (!current.emailVerified) {
       setNeedsVerification(true);
       setOrders([]);
       setLoadingOrders(false);
@@ -42,7 +55,9 @@ export default function Dashboard() {
     }
 
     try {
-      const result = await fetchMyOrders(await user.getIdToken());
+      // Force a fresh token when the account just became verified, so the
+      // server sees email_verified: true.
+      const result = await fetchMyOrders(await current.getIdToken(!user.emailVerified));
       if (result.ok) {
         setNeedsVerification(false);
         setOrders(result.orders);
@@ -55,9 +70,46 @@ export default function Dashboard() {
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
-      toast.error("Failed to load orders");
+      toast.error("We couldn't load your orders. Please refresh to try again.");
     } finally {
       setLoadingOrders(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    setResending(true);
+    const { error, sent } = await resendVerificationEmail();
+    setResending(false);
+    if (error) {
+      toast.error(error.message || "Couldn't send the verification email. Try again in a moment.");
+      return;
+    }
+    if (sent) toast.success("Verification email sent. Check your inbox (and spam folder).");
+    else toast.message("Your email is already verified.");
+  };
+
+  const handleRecheck = async () => {
+    setRechecking(true);
+    try {
+      const refreshed = await refreshUser();
+      if (refreshed?.emailVerified) {
+        setLoadingOrders(true);
+        const result = await fetchMyOrders(await refreshed.getIdToken(true));
+        if (result.ok) {
+          setNeedsVerification(false);
+          setOrders(result.orders);
+        } else if (!result.needsVerification) {
+          toast.error(result.error);
+        }
+        setLoadingOrders(false);
+      } else {
+        toast.message("Your email isn't verified yet. Open the link in the email we sent, then try again.");
+      }
+    } catch {
+      setLoadingOrders(false);
+      toast.error("We couldn't check right now. Please refresh the page.");
+    } finally {
+      setRechecking(false);
     }
   };
 
@@ -161,8 +213,28 @@ export default function Dashboard() {
                   <div className="rounded-lg border border-orange-200 bg-orange-50 px-4 py-4 text-orange-950">
                     <p className="font-medium">{EMAIL_NOT_VERIFIED_MESSAGE}</p>
                     <p className="text-sm text-orange-900/80 mt-1">
-                      Confirm {user.email} with the verification link, then refresh this page.
+                      Confirm {user.email} with the verification link, then come back here.
                     </p>
+                    <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="border-orange-300 bg-white text-orange-800 hover:bg-orange-100"
+                        disabled={resending}
+                        onClick={handleResendVerification}
+                      >
+                        {resending ? "Sending…" : "Resend verification email"}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="border-orange-300 bg-white text-orange-800 hover:bg-orange-100"
+                        disabled={rechecking}
+                        onClick={handleRecheck}
+                      >
+                        {rechecking ? "Checking…" : "I've verified, show my orders"}
+                      </Button>
+                    </div>
                   </div>
                 ) : orders.length === 0 ? (
                   <div className="text-center py-8">
