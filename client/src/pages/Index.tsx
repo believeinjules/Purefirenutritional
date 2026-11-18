@@ -445,7 +445,7 @@ export default function Index() {
               {[
                 { stat: "10×", text: "Peptide levels in a 55-year-old are 10 times lower than in a 20-year-old" },
                 { stat: "40+", text: "Years of clinical research behind Khavinson peptide bioregulators" },
-                { stat: "20–40%", text: "Potential increase in mean lifespan observed in long-term animal studies" },
+                { stat: "4", text: "Amino acids in Epitalon (Ala-Glu-Asp-Gly)" },
                 { stat: "4–6 mo", text: "Duration of effect per course — supporting sustained cellular health" },
               ].map(({ stat, text }) => (
                 <div key={stat} className="flex items-start gap-4 p-4 bg-orange-50 rounded-xl">

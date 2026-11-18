@@ -53,6 +53,16 @@ describe("homepage copy (approved items only)", () => {
   });
 });
 
+
+describe("homepage science stat cards", () => {
+  it("replaces the lifespan card with Epitalon amino acids (Julia, 2026-11-18)", () => {
+    expect(index).toContain('stat: "4"');
+    expect(index).toContain("Amino acids in Epitalon (Ala-Glu-Asp-Gly)");
+    expect(index).not.toContain("20–40%");
+    expect(index).not.toMatch(/Potential increase in mean lifespan/);
+  });
+});
+
 describe("claims removed from other pages", () => {
   it("no 15M+, pharmaceutical-grade or 20–40% lifespan claims outside the homepage", () => {
     for (const rel of ["./Science.tsx", "./About.tsx", "./FAQ.tsx", "./learn/WhatAreKhavinsonPeptides.tsx", "../data/products.ts"]) {
