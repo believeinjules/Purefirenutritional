@@ -40,7 +40,7 @@ export interface Product {
   expiryDate?: string;
   /** Certificate of analysis link (https:// or /path) */
   coaUrl?: string;
-  /** Stock line (shared/fulfillment.ts). Resolved for every product; default ships_2_weeks. */
+  /** Stock line (shared/fulfillment.ts). Resolved for every product; default in_stock. */
   fulfillment?: Fulfillment;
 }
 

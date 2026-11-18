@@ -1,44 +1,28 @@
 /**
- * Shopper-facing stock line (Julia, 2026-10-23).
+ * Shopper-facing stock line (Julia, 2026-10-23; all variants in stock, 2026-11-18).
  *
  *  - "in_stock":      on the shelf in the U.S., ships now → "In stock, ships from the U.S."
  *  - "ships_2_weeks": ordered for the customer, still purchasable → "Usually ships in about 2 weeks"
  *
  * Where the value comes from (first match wins):
  *  1. Firestore products/{id}.fulfillment (editable in Admin → Products → "Fulfillment").
- *  2. The code default below (IN_STOCK_PRODUCT_IDS), also written by "Import catalog from code".
- *  3. "ships_2_weeks".
+ *  2. The code default below (in_stock as of 2026-11-18: Julia confirmed every
+ *     variant is in stock and ships now). Also written by "Import catalog from code".
  * Out of stock (product `in_stock: false` or the chosen size `inStock: false`) always wins:
  * no stock line is shown and existing out-of-stock behaviour is unchanged.
  */
 export const FULFILLMENT_VALUES = ["in_stock", "ships_2_weeks"] as const;
 export type Fulfillment = (typeof FULFILLMENT_VALUES)[number];
-export const DEFAULT_FULFILLMENT: Fulfillment = "ships_2_weeks";
-
-/** Code default for products physically stocked in the US. */
-export const IN_STOCK_PRODUCT_IDS: ReadonlySet<string> = new Set([
-  "cerluten",
-  "sigumir",
-  // Both sizes in stock (Julia, 2026-11-12).
-  "vesugen",
-  // Revilab capsules (ML series + Preparation capsules). NOT the SL sublingual drops.
-  "revilab-ml-01", "revilab-ml-02", "revilab-ml-03", "revilab-ml-04", "revilab-ml-05",
-  "revilab-ml-06", "revilab-ml-07", "revilab-ml-08", "revilab-ml-09",
-  "revilab-anti-age",
-  "revilab-pro-elements",
-  // Prime Peptide line
-  "prime-peptide-brain", "prime-peptide-collagen", "prime-peptide-joints",
-  "prime-peptide-omega", "prime-peptide-protect",
-]);
+export const DEFAULT_FULFILLMENT: Fulfillment = "in_stock";
 
 export function isFulfillment(v: unknown): v is Fulfillment {
   return typeof v === "string" && (FULFILLMENT_VALUES as readonly string[]).includes(v);
 }
 
-/** Resolve a product's fulfillment: explicit value → code default → ships_2_weeks. */
-export function resolveFulfillment(id: string, explicit?: unknown): Fulfillment {
+/** Resolve a product's fulfillment: explicit value → code default (in_stock). */
+export function resolveFulfillment(_id: string, explicit?: unknown): Fulfillment {
   if (isFulfillment(explicit)) return explicit;
-  return IN_STOCK_PRODUCT_IDS.has(id) ? "in_stock" : DEFAULT_FULFILLMENT;
+  return DEFAULT_FULFILLMENT;
 }
 
 export const FULFILLMENT_PDP_LABEL: Record<Fulfillment, string> = {

@@ -75,7 +75,7 @@ Successful response shape: `{ "written": 79, "failed": 0 }` (plus `errors` only 
 
 `name`, `description`, `category`, `priceUSD`, `priceEUR`, `rating`, `sizes`,
 `image`, `imageAlt`, `benefits`, `ingredients`, `usage`, `seriesInfo`,
-`variants`, `in_stock` (defaults to `true` for catalog seed).
+`variants`, `in_stock` (defaults to `true` for catalog seed), `fulfillment` (code default: `in_stock` as of 2026-11-18).
 
 ## If the button fails
 

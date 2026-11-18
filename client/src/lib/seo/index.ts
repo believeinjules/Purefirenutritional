@@ -240,7 +240,7 @@ export type SeoProduct = {
   images?: string[] | null;
   imageAlt?: string | null;
   in_stock?: boolean;
-  /** Stock line (shared/fulfillment.ts); unset → code default → ships_2_weeks. */
+  /** Stock line (shared/fulfillment.ts); unset → code default (in_stock). */
   fulfillment?: string | null;
   variants?: SeoVariant[] | null;
 };

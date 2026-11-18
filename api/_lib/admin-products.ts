@@ -43,7 +43,7 @@ export type ProductDoc = {
   seriesInfo: string | null;
   variants: ProductVariantDoc[];
   in_stock: boolean;
-  /** Stock line (shared/fulfillment.ts); unset = code default / ships_2_weeks. */
+  /** Stock line (shared/fulfillment.ts); unset = code default (in_stock). */
   fulfillment?: Fulfillment | null;
   /** Optional authenticity fields — each renders on the product page only when filled. */
   manufacturer?: string | null;

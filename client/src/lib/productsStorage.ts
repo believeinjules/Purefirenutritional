@@ -52,7 +52,7 @@ export interface Product {
   lotNumber?: string;
   expiryDate?: string;
   coaUrl?: string;
-  /** Stock line; unset in Firestore → code default → ships_2_weeks. */
+  /** Stock line; unset in Firestore → code default (in_stock). */
   fulfillment?: Fulfillment;
 }
 

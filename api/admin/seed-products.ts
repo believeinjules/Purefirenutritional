@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAdminDb } from "../_lib/firebase.js";
 import { assertAdmin } from "../_lib/admin-auth.js";
 import { products } from "../../client/src/data/products.js";
+import { resolveFulfillment } from "../../shared/fulfillment.js";
 
 type SeedError = { id: string; message: string };
 
@@ -36,6 +37,7 @@ function productToFirestoreDoc(product: (typeof products)[number]) {
       inStock: v.inStock !== false,
     })),
     in_stock: true,
+    fulfillment: resolveFulfillment(product.id, product.fulfillment),
   };
 }
 
