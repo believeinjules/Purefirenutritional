@@ -9,6 +9,7 @@ import { AppliedCodeNotice } from "./AppliedDiscount";
 import {
   DAILY_FIRE_STORAGE_KEY,
   activeCode,
+  dailyFireEmail,
   isPopupEligible,
   markClaimed,
   readDailyFire,
@@ -29,6 +30,8 @@ function renderAt(path: string, delayMs = 50) {
 beforeEach(() => {
   localStorage.clear();
   vi.spyOn(Math, "random").mockReturnValue(0); // first question: "goal-focus"
+  // Radix Checkbox measures itself; jsdom has no ResizeObserver.
+  (globalThis as any).ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {} };
   window.matchMedia = ((q: string) => ({ matches: false, media: q, addEventListener() {}, removeEventListener() {} })) as any;
 });
 afterEach(() => {
@@ -90,27 +93,120 @@ describe("DailyFirePopup", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
   });
 
-  it("any answer reveals the server's code via keyboard, and saves it for checkout", async () => {
-    const user = userEvent.setup();
-    const fetchMock = vi.fn(async () =>
-      new Response(JSON.stringify({ code: "FIRE10-K7Q2MX", percentOff: 10, expiresAt: Math.floor(Date.now() / 1000) + 7 * 86400 }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      })
+  const okResponse = (over: Record<string, unknown> = {}) =>
+    new Response(
+      JSON.stringify({ code: "FIRE10-K7Q2MX", percentOff: 10, expiresAt: Math.floor(Date.now() / 1000) + 7 * 86400, ...over }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
+
+  it("answering shows the email step (no code, no request yet)", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn(async () => okResponse());
+    vi.stubGlobal("fetch", fetchMock);
+    renderAt("/");
+    await screen.findByRole("dialog", {}, { timeout: 2000 });
+    await user.click(screen.getByRole("button", { name: "Sleep and recovery" }));
+    expect(screen.getByRole("heading", { name: "Where should we send your code?" })).toBeTruthy();
+    const email = screen.getByLabelText("Email") as HTMLInputElement;
+    expect(email.type).toBe("email");
+    expect(email.required).toBe(true);
+    expect(email.getAttribute("autocomplete")).toBe("email");
+    const consent = screen.getByRole("checkbox", { name: "Email me Pure Fire news and offers. Unsubscribe anytime." });
+    expect(consent.getAttribute("aria-checked")).toBe("false");
+    expect(screen.getByRole("link", { name: "Privacy Policy" }).getAttribute("href")).toBe("/privacy");
+    expect(screen.getByRole("button", { name: "Reveal my code" })).toBeTruthy();
+    expect(screen.queryByTestId("daily-fire-code")).toBeNull();
+    await waitFor(() => expect(document.activeElement).toBe(email));
+    expect(fetchMock).not.toHaveBeenCalled();
+    vi.unstubAllGlobals();
+  });
+
+  it("validates email and consent on the client before calling the server", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn(async () => okResponse());
+    vi.stubGlobal("fetch", fetchMock);
+    renderAt("/");
+    await screen.findByRole("dialog", {}, { timeout: 2000 });
+    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
+    const email = screen.getByLabelText("Email");
+    expect(screen.getByText("Enter your email address to reveal your code.")).toBeTruthy();
+    expect(screen.getByText("Check the box to join our email list and reveal your code.")).toBeTruthy();
+    expect(email.getAttribute("aria-invalid")).toBe("true");
+    expect(email.getAttribute("aria-describedby")).toBe("daily-fire-email-error");
+    await user.type(email, "nope@");
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
+    expect(screen.getByText("Enter a valid email address, like name@example.com.")).toBeTruthy();
+    await user.clear(email);
+    await user.type(email, "shopper@example.com");
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
+    expect(screen.queryByText(/valid email/)).toBeNull();
+    expect(screen.getByText("Check the box to join our email list and reveal your code.")).toBeTruthy();
+    expect(fetchMock).not.toHaveBeenCalled();
+    vi.unstubAllGlobals();
+  });
+
+  it("answer + email + consent reveals the server's code via keyboard, and saves it for checkout", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn(async () => okResponse());
     vi.stubGlobal("fetch", fetchMock);
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
     const option = screen.getByRole("button", { name: "Sleep and recovery" });
     option.focus();
     await user.keyboard("{Enter}");
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByLabelText("Email")));
+    await user.keyboard(" Shopper@Example.com ");
+    await user.tab();
+    expect(document.activeElement).toBe(screen.getByRole("checkbox"));
+    await user.keyboard(" ");
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
     expect((await screen.findByTestId("daily-fire-code")).textContent).toContain("FIRE10-K7Q2MX");
     expect(screen.getByRole("heading", { name: /You unlocked 10% off/ })).toBeTruthy();
     expect(fetchMock).toHaveBeenCalledWith(DAILY_FIRE_SPIN_URL, expect.objectContaining({ method: "POST" }));
-    expect(JSON.parse((fetchMock.mock.calls[0] as any)[1].body)).toEqual({ questionId: "goal-focus", answerId: "b" });
+    expect(JSON.parse((fetchMock.mock.calls[0] as any)[1].body)).toEqual({
+      questionId: "goal-focus",
+      answerId: "b",
+      email: "Shopper@Example.com",
+      consent: true,
+    });
     const saved = readDailyFire();
     expect(saved?.status).toBe("claimed");
     expect(saved?.code).toBe("FIRE10-K7Q2MX");
+    expect(saved?.email).toBe("shopper@example.com");
+    expect(dailyFireEmail()).toBe("shopper@example.com");
+    vi.unstubAllGlobals();
+  });
+
+  it("says so when the email already has an active code", async () => {
+    const user = userEvent.setup();
+    vi.stubGlobal("fetch", vi.fn(async () => okResponse({ existing: true, percentOff: 15, code: "FIRE15-ABCDEF" })));
+    renderAt("/");
+    await screen.findByRole("dialog", {}, { timeout: 2000 });
+    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await user.type(screen.getByLabelText("Email"), "a@example.com");
+    await user.click(screen.getByRole("checkbox"));
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
+    expect((await screen.findByTestId("daily-fire-code")).textContent).toContain("FIRE15-ABCDEF");
+    expect(screen.getByRole("heading", { name: "Your 15% off code" })).toBeTruthy();
+    expect(screen.getByText(/already has an active Daily Fire code/)).toBeTruthy();
+    vi.unstubAllGlobals();
+  });
+
+  it("shows the server's field error on a 400", async () => {
+    const user = userEvent.setup();
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(JSON.stringify({ error: "Enter a valid email address, like name@example.com.", field: "email" }), { status: 400 }))
+    );
+    renderAt("/");
+    await screen.findByRole("dialog", {}, { timeout: 2000 });
+    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await user.type(screen.getByLabelText("Email"), "a@example.com");
+    await user.click(screen.getByRole("checkbox"));
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
+    expect((await screen.findByRole("alert")).textContent).toContain("valid email");
+    expect(readDailyFire()).toBeNull();
     vi.unstubAllGlobals();
   });
 
@@ -120,8 +216,11 @@ describe("DailyFirePopup", () => {
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
     await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await user.type(screen.getByLabelText("Email"), "a@example.com");
+    await user.click(screen.getByRole("checkbox"));
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
     expect((await screen.findByRole("alert")).textContent).toContain("not available right now");
-    expect((screen.getByRole("button", { name: "Energy and focus" }) as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByRole("button", { name: "Reveal my code" }) as HTMLButtonElement).disabled).toBe(false);
     expect(readDailyFire()).toBeNull();
     vi.unstubAllGlobals();
   });

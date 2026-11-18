@@ -8,6 +8,38 @@ import {
   parsePageParams,
 } from "../_lib/admin-list.js";
 import { handleEmailTest } from "../_lib/admin-email.js";
+import { MAILING_LIST_COLLECTION, subscribersToCsv } from "../_lib/daily-fire-subscriber.js";
+
+/** Hard cap for one export (Firestore read cost / function memory). */
+export const SUBSCRIBER_EXPORT_MAX = 10000;
+
+/**
+ * GET /api/admin/subscribers-export → CSV of Firestore `mailing_list` (footer form +
+ * Daily Fire popup). Same admin auth as the lists below; shares this function
+ * because of the Vercel 12-function limit.
+ */
+async function handleSubscribersCsv(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "GET") {
+    res.setHeader("Allow", "GET");
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+  const admin = await requireAdmin(req, res);
+  if (!admin) return;
+  const db = getAdminDb();
+  if (!db) return res.status(503).json({ error: "Firebase Admin is not configured" });
+  try {
+    const snap = await db.collection(MAILING_LIST_COLLECTION).limit(SUBSCRIBER_EXPORT_MAX).get();
+    const csv = subscribersToCsv(snap.docs.map((d) => ({ id: d.id, data: d.data() as Record<string, unknown> })));
+    const day = new Date().toISOString().slice(0, 10);
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="pure-fire-mailing-list-${day}.csv"`);
+    res.setHeader("Cache-Control", "no-store");
+    return res.status(200).send(csv);
+  } catch (err) {
+    console.error("[admin/subscribers]", err);
+    return res.status(500).json({ error: "Failed to export subscribers" });
+  }
+}
 
 /**
  * GET /api/admin/orders?limit=100&after=<cursor>
@@ -35,6 +67,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const name = (Array.isArray(raw) ? raw[0] : raw) ?? "";
   // Owner email test shares this function (Hobby 12-function limit); see api/_lib/admin-email.ts.
   if (name === "email-test") return handleEmailTest(req, res);
+  if (name === "subscribers-export") return handleSubscribersCsv(req, res);
   if (!Object.prototype.hasOwnProperty.call(COLLECTIONS, name)) {
     return res.status(404).json({ error: "Not found" });
   }

@@ -257,3 +257,11 @@ export function isDailyFireExcludedPath(path: string): boolean {
     "/__dev",
   ].some((prefix) => p === prefix || p.startsWith(`${prefix}/`));
 }
+
+/**
+ * Mailing-list consent shown on the email step (exact wording; the server
+ * stores THIS constant as `consentText`, never text sent by the browser).
+ * Bump DAILY_FIRE_CONSENT_VERSION whenever the wording changes.
+ */
+export const DAILY_FIRE_CONSENT_TEXT = "Email me Pure Fire news and offers. Unsubscribe anytime.";
+export const DAILY_FIRE_CONSENT_VERSION = "2026-11-18";

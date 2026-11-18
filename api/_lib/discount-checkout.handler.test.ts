@@ -5,12 +5,17 @@ const NOW_S = Math.floor(Date.now() / 1000);
 const create = vi.fn(async () => ({ id: "cs_test_1", url: "https://checkout.example/cs_test_1" }));
 const promoList = vi.fn();
 const promoCreate = vi.fn();
+const promoRetrieve = vi.fn();
 let fakeDb: any = null;
 
 vi.mock("./stripe.js", () => ({
   getStripe: () => ({
     checkout: { sessions: { create } },
-    promotionCodes: { list: (p: any) => promoList(p), create: (p: any) => promoCreate(p) },
+    promotionCodes: {
+      list: (p: any) => promoList(p),
+      create: (p: any) => promoCreate(p),
+      retrieve: (id: string) => promoRetrieve(id),
+    },
   }),
   getSiteOrigin: () => "https://example.test",
 }));
@@ -55,6 +60,7 @@ beforeEach(() => {
   create.mockClear();
   promoList.mockReset();
   promoCreate.mockReset();
+  promoRetrieve.mockReset();
   fakeDb = null;
 });
 
@@ -136,43 +142,172 @@ describe("POST /api/stripe/create-checkout-session with a promo code", () => {
   });
 });
 
+/** In-memory Firestore: collection(name).doc(id).get/set(merge) + runTransaction. */
+function memoryDb(opts: { failWrite?: boolean } = {}) {
+  const data = new Map<string, Record<string, any>>();
+  const ref = (col: string, id: string) => {
+    const key = `${col}/${id}`;
+    return {
+      key,
+      get: async () => ({ exists: data.has(key), data: () => data.get(key), get: (f: string) => data.get(key)?.[f] }),
+      set: async (v: Record<string, any>, o?: { merge?: boolean }) => {
+        if (opts.failWrite && col === "mailing_list") throw new Error("write failed");
+        data.set(key, o?.merge ? { ...(data.get(key) || {}), ...v } : v);
+      },
+    };
+  };
+  return {
+    data,
+    collection: (col: string) => ({ doc: (id: string) => ref(col, id) }),
+    runTransaction: async (fn: any) =>
+      fn({ get: (r: any) => r.get(), set: (r: any, v: any) => void data.set(r.key, v) }),
+  };
+}
+
+const okBody = { questionId: "body-largest-organ", answerId: "c", email: " Shopper@Example.com ", consent: true };
+
 describe("POST ?op=discount-spin", () => {
-  it("returns a server-picked code and never creates a checkout session", async () => {
+  beforeEach(() => {
+    fakeDb = memoryDb();
     promoCreate.mockImplementation(async (p: any) => ({ id: "promo_new", code: p.code }));
-    const res = await call({ questionId: "body-skin", answerId: "c", percentOff: 25 }, { op: "discount-spin" });
+  });
+
+  it("requires a valid email and consent=true (400, nothing saved or minted)", async () => {
+    const cases: Array<[any, string]> = [
+      [{ questionId: "body-largest-organ", answerId: "c", consent: true }, "email"],
+      [{ ...okBody, email: "not-an-email" }, "email"],
+      [{ ...okBody, email: "a/b@example.com" }, "email"],
+      [{ ...okBody, consent: false }, "consent"],
+      [{ ...okBody, consent: "true" }, "consent"],
+      [{ ...okBody, consent: undefined }, "consent"],
+      [{}, "email"],
+    ];
+    for (const [body, field] of cases) {
+      const res = await call(body, { op: "discount-spin" });
+      expect(res.statusCode, JSON.stringify(body)).toBe(400);
+      expect(res.body.field).toBe(field);
+      expect(typeof res.body.error).toBe("string");
+    }
+    expect(promoCreate).not.toHaveBeenCalled();
+    expect(fakeDb.data.size).toBe(0); // invalid requests don't even use a rate-limit slot
+  });
+
+  it("saves the subscriber, returns a server-picked code and never creates a checkout session", async () => {
+    const res = await call({ ...okBody, percentOff: 25 }, { op: "discount-spin" });
     expect(res.statusCode).toBe(200);
     expect(res.body.code).toMatch(/^FIRE(5|10|15|20|25)-[23456789A-HJKMNP-Z]{6}$/);
     expect([5, 10, 15, 20, 25]).toContain(res.body.percentOff);
     expect(res.body.code.startsWith(`FIRE${res.body.percentOff}-`)).toBe(true);
     expect(res.body.expiresAt).toBeGreaterThan(NOW_S);
     expect(res.body.promotionCodeId).toBeUndefined();
+    expect(res.body.existing).toBeUndefined();
     expect(res.headers["Cache-Control"]).toBe("no-store");
     expect(create).not.toHaveBeenCalled();
     const p = promoCreate.mock.calls[0][0];
     expect(p.max_redemptions).toBe(1);
     expect(p.promotion.coupon).toBe(`pf-daily-fire-${res.body.percentOff}`);
+    expect(p.restrictions).toBeUndefined(); // guest checkout may use any email
+
+    const doc = fakeDb.data.get("mailing_list/shopper@example.com");
+    expect(doc).toMatchObject({
+      email: "shopper@example.com",
+      consent: true,
+      consentText: "Email me Pure Fire news and offers. Unsubscribe anytime.",
+      source: "daily-fire",
+      sources: ["daily-fire"],
+      subscribed: true,
+      dailyFireQuestionId: "body-largest-organ",
+      dailyFirePercentOff: res.body.percentOff,
+      dailyFirePromoCodeId: "promo_new",
+      dailyFireCode: res.body.code,
+      dailyFireExpiresAt: res.body.expiresAt,
+    });
+    expect(typeof doc.createdAt).toBe("string");
+    expect(typeof doc.lastRevealAt).toBe("string");
+  });
+
+  it("stores the server's consent wording, not text sent by the browser", async () => {
+    await call({ ...okBody, consentText: "I agree to nothing" }, { op: "discount-spin" });
+    expect(fakeDb.data.get("mailing_list/shopper@example.com").consentText).toBe(
+      "Email me Pure Fire news and offers. Unsubscribe anytime."
+    );
+  });
+
+  it("one code per email: returns the same unexpired, unredeemed code instead of minting", async () => {
+    const first = await call(okBody, { op: "discount-spin" });
+    expect(promoCreate).toHaveBeenCalledTimes(1);
+    promoRetrieve.mockResolvedValue({
+      id: "promo_new",
+      code: first.body.code,
+      active: true,
+      expires_at: first.body.expiresAt,
+      max_redemptions: 1,
+      times_redeemed: 0,
+      metadata: {},
+    });
+    const again = await call({ ...okBody, email: "SHOPPER@example.com" }, { op: "discount-spin" });
+    expect(again.statusCode).toBe(200);
+    expect(again.body).toMatchObject({ code: first.body.code, percentOff: first.body.percentOff, existing: true });
+    expect(promoRetrieve).toHaveBeenCalledWith("promo_new");
+    expect(promoCreate).toHaveBeenCalledTimes(1);
+  });
+
+  it("mints a new code when the email's old code was redeemed, deactivated or expired", async () => {
+    const first = await call(okBody, { op: "discount-spin" });
+    const base = { id: "promo_new", code: first.body.code, active: true, expires_at: first.body.expiresAt, max_redemptions: 1, times_redeemed: 0, metadata: {} };
+    for (const over of [{ times_redeemed: 1 }, { active: false }, { expires_at: NOW_S - 10 }]) {
+      promoRetrieve.mockResolvedValueOnce({ ...base, ...over });
+      fakeDb.data.delete([...fakeDb.data.keys()].find((k: string) => k.startsWith("discount_spin_limits/")));
+      const res = await call(okBody, { op: "discount-spin" });
+      expect(res.statusCode).toBe(200);
+      expect(res.body.existing).toBeUndefined();
+    }
+    expect(promoCreate).toHaveBeenCalledTimes(4);
+  });
+
+  it("keeps a footer subscriber's original source/createdAt and adds daily-fire; re-subscribes an unsubscribed email", async () => {
+    fakeDb.data.set("mailing_list/shopper@example.com", {
+      email: "shopper@example.com",
+      source: "website",
+      subscribed: false,
+      subscribedAt: "2026-01-01T00:00:00.000Z",
+      unsubscribedAt: "2026-02-01T00:00:00.000Z",
+    });
+    const res = await call(okBody, { op: "discount-spin" });
+    expect(res.statusCode).toBe(200);
+    const doc = fakeDb.data.get("mailing_list/shopper@example.com");
+    expect(doc).toMatchObject({ source: "website", sources: ["website", "daily-fire"], subscribed: true, unsubscribedAt: null, createdAt: "2026-01-01T00:00:00.000Z", consent: true });
+    expect(doc.subscribedAt).not.toBe("2026-01-01T00:00:00.000Z");
+  });
+
+  it("no code if the email can't be saved (500) or Firestore isn't configured (503)", async () => {
+    fakeDb = memoryDb({ failWrite: true });
+    let res = await call(okBody, { op: "discount-spin" });
+    expect(res.statusCode).toBe(500);
+    expect(promoCreate).not.toHaveBeenCalled();
+    fakeDb = null;
+    res = await call(okBody, { op: "discount-spin" });
+    expect(res.statusCode).toBe(503);
+    expect(promoCreate).not.toHaveBeenCalled();
   });
 
   it("503 when the tier coupons are not set up", async () => {
     promoCreate.mockRejectedValue(Object.assign(new Error("No such coupon"), { code: "resource_missing" }));
-    const res = await call({}, { op: "discount-spin" });
+    const res = await call(okBody, { op: "discount-spin" });
     expect(res.statusCode).toBe(503);
   });
 
   it("503 when Stripe is not configured", async () => {
     delete process.env.STRIPE_SECRET_KEY;
-    const res = await call({}, { op: "discount-spin" });
+    const res = await call(okBody, { op: "discount-spin" });
     expect(res.statusCode).toBe(503);
   });
 
-  it("429 once an IP is over the daily limit", async () => {
-    const hits = [Date.now() - 1000, Date.now() - 2000, Date.now() - 3000];
-    fakeDb = {
-      collection: () => ({ doc: () => ({}) }),
-      runTransaction: async (fn: any) => fn({ get: async () => ({ exists: true, get: () => hits }), set: () => {} }),
-    };
-    const res = await call({}, { op: "discount-spin" });
+  it("429 once an IP is over the daily limit (also for repeat emails)", async () => {
+    for (let i = 0; i < 3; i++) expect((await call({ ...okBody, email: `s${i}@example.com` }, { op: "discount-spin" })).statusCode).toBe(200);
+    const res = await call({ ...okBody, email: "s9@example.com" }, { op: "discount-spin" });
     expect(res.statusCode).toBe(429);
-    expect(promoCreate).not.toHaveBeenCalled();
+    expect(promoCreate).toHaveBeenCalledTimes(3);
+    expect(fakeDb.data.has("mailing_list/s9@example.com")).toBe(false);
   });
 });

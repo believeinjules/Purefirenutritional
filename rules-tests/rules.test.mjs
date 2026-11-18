@@ -91,6 +91,15 @@ test("default deny: customers, mailing_list, product_reviews", async () => {
   await assertFails(getDocs(collection(as("a", ADMIN), "customers")));
 });
 
+test("mailing_list + discount_spin_limits: server-only, even for admins", async () => {
+  await assertFails(getDoc(doc(anon(), "mailing_list/a@b.co")));
+  await assertFails(getDoc(doc(as("a", ADMIN), "mailing_list/a@b.co")));
+  await assertFails(getDocs(collection(as("a", ADMIN), "mailing_list")));
+  await assertFails(setDoc(doc(as("u1", JANE), "mailing_list/jane@example.com"), { email: "jane@example.com", consent: true }));
+  await assertFails(getDoc(doc(anon(), "discount_spin_limits/x")));
+  await assertFails(setDoc(doc(anon(), "discount_spin_limits/x"), { hits: [] }));
+});
+
 test("storage: public read products/, admin image upload only", async () => {
   const img = new Uint8Array([137, 80, 78, 71]);
   const adminSt = env.authenticatedContext("a", ADMIN).storage();

@@ -8,14 +8,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Check, Copy, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import {
   DAILY_FIRE_CODE_TTL_DAYS,
+  DAILY_FIRE_CONSENT_TEXT,
   DAILY_FIRE_NAME,
   isDailyFireExcludedPath,
   pickQuestion,
   type QuizQuestion,
 } from "@shared/daily-fire";
+import { isValidEmail } from "@shared/email-address";
 import { isPopupEligible, markClaimed, markDismissed, readDailyFire } from "@/lib/dailyFire";
 
 export const DAILY_FIRE_SPIN_URL = "/api/stripe/create-checkout-session?op=discount-spin";
@@ -24,7 +29,14 @@ export const DAILY_FIRE_SPIN_URL = "/api/stripe/create-checkout-session?op=disco
 export const DAILY_FIRE_DELAY_MS = 12_000;
 const MIN_ENGAGED_MS = 4_000;
 
-type Revealed = { code: string; percentOff: number; expiresAt: number };
+type Revealed = { code: string; percentOff: number; expiresAt: number; existing?: boolean };
+
+/** Client-side copy of the server's 400 messages (api/_lib/daily-fire-subscriber.ts). */
+export const EMAIL_STEP_ERRORS = {
+  emailMissing: "Enter your email address to reveal your code.",
+  emailInvalid: "Enter a valid email address, like name@example.com.",
+  consent: "Check the box to join our email list and reveal your code.",
+} as const;
 
 function useOpenTrigger(enabled: boolean, onTrigger: () => void, delayMs: number) {
   useEffect(() => {
@@ -68,6 +80,11 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [revealed, setRevealed] = useState<Revealed | null>(null);
+  const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [consentError, setConsentError] = useState<string | null>(null);
+  const focusEmail = () => document.getElementById("daily-fire-email")?.focus();
   const [copied, setCopied] = useState(false);
   const shownThisVisit = useRef(false);
 
@@ -105,27 +122,66 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
     setOpen(next);
   };
 
-  const answer = async (optionId: string) => {
+  // Step 1: any answer moves on to the email step (nothing is revealed yet).
+  const answer = (optionId: string) => {
     if (!question || loading || revealed) return;
     setAnswerId(optionId);
-    setLoading(true);
     setError(null);
+    window.setTimeout(focusEmail, 0);
+  };
+
+  // Step 2: email + consent → server saves the subscriber and returns the code.
+  const reveal = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!question || !answerId || loading || revealed) return;
+    const trimmed = email.trim();
+    const eErr = !trimmed
+      ? EMAIL_STEP_ERRORS.emailMissing
+      : !isValidEmail(trimmed)
+        ? EMAIL_STEP_ERRORS.emailInvalid
+        : null;
+    const cErr = consent ? null : EMAIL_STEP_ERRORS.consent;
+    setEmailError(eErr);
+    setConsentError(cErr);
+    setError(null);
+    if (eErr || cErr) {
+      if (eErr) focusEmail();
+      else document.getElementById("daily-fire-consent")?.focus();
+      return;
+    }
+    setLoading(true);
     try {
       const res = await fetch(DAILY_FIRE_SPIN_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ questionId: question.id, answerId: optionId }),
+        body: JSON.stringify({ questionId: question.id, answerId, email: trimmed, consent: true }),
       });
-      const body = (await res.json().catch(() => ({}))) as Partial<Revealed> & { error?: string };
+      const body = (await res.json().catch(() => ({}))) as Partial<Revealed> & {
+        error?: string;
+        field?: "email" | "consent";
+      };
+      if (res.status === 400 && body.field === "email") {
+        setEmailError(body.error || EMAIL_STEP_ERRORS.emailInvalid);
+        focusEmail();
+        return;
+      }
+      if (res.status === 400 && body.field === "consent") {
+        setConsentError(body.error || EMAIL_STEP_ERRORS.consent);
+        return;
+      }
       if (!res.ok || typeof body.code !== "string" || typeof body.percentOff !== "number") {
         throw new Error(body.error || "Could not reveal a code right now. Please try again.");
       }
-      const r = { code: body.code, percentOff: body.percentOff, expiresAt: Number(body.expiresAt) || 0 };
-      markClaimed(r.code, r.percentOff, r.expiresAt);
+      const r = {
+        code: body.code,
+        percentOff: body.percentOff,
+        expiresAt: Number(body.expiresAt) || 0,
+        existing: body.existing === true,
+      };
+      markClaimed(r.code, r.percentOff, r.expiresAt, Date.now(), trimmed.toLowerCase());
       setRevealed(r);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not reveal a code right now. Please try again.");
-      setAnswerId(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not reveal a code right now. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -171,7 +227,7 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
           <span className="gradient-text">{DAILY_FIRE_NAME}</span>
         </div>
 
-        {!revealed ? (
+        {!revealed && !answerId ? (
           <>
             <DialogTitle className="text-2xl leading-snug">{question.prompt}</DialogTitle>
             <DialogDescription>
@@ -184,30 +240,104 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
                   type="button"
                   variant="outline"
                   className="h-auto min-h-11 justify-start whitespace-normal py-3 text-left font-normal hover:border-orange-400 hover:bg-orange-50"
-                  disabled={loading}
-                  aria-pressed={answerId === o.id}
+                  aria-pressed={false}
                   onClick={() => answer(o.id)}
                 >
                   {o.label}
                 </Button>
               ))}
             </div>
-            {loading ? (
-              <p className="text-sm text-gray-600" role="status">Revealing your code…</p>
-            ) : null}
-            {error ? (
-              <p className="text-sm text-red-600" role="alert">{error}</p>
-            ) : null}
             <p className="text-xs text-gray-500">
               Just for fun and general education, not medical advice. One code per visitor.
+            </p>
+          </>
+        ) : !revealed ? (
+          <>
+            <DialogTitle className="text-2xl leading-snug">Where should we send your code?</DialogTitle>
+            <DialogDescription>
+              Thanks for answering! Enter your email and join our list to reveal your 5% to 25% off code.
+            </DialogDescription>
+            <form className="grid gap-4" onSubmit={reveal} noValidate aria-busy={loading}>
+              <div className="grid gap-1.5">
+                <Label htmlFor="daily-fire-email">Email</Label>
+                <Input
+                  id="daily-fire-email"
+                  name="email"
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  placeholder="your@email.com"
+                  className="h-11"
+                  value={email}
+                  required
+                  aria-required="true"
+                  aria-invalid={emailError ? true : undefined}
+                  aria-describedby={emailError ? "daily-fire-email-error" : undefined}
+                  disabled={loading}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) setEmailError(null);
+                  }}
+                />
+                {emailError ? (
+                  <p id="daily-fire-email-error" className="text-sm text-red-600" role="alert">
+                    {emailError}
+                  </p>
+                ) : null}
+              </div>
+              <div className="grid gap-1.5">
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="daily-fire-consent"
+                    className="mt-0.5"
+                    checked={consent}
+                    aria-required="true"
+                    aria-invalid={consentError ? true : undefined}
+                    aria-describedby={consentError ? "daily-fire-consent-error" : undefined}
+                    disabled={loading}
+                    onCheckedChange={(v) => {
+                      setConsent(v === true);
+                      if (v === true) setConsentError(null);
+                    }}
+                  />
+                  <Label htmlFor="daily-fire-consent" className="text-sm font-normal leading-snug text-gray-700">
+                    {DAILY_FIRE_CONSENT_TEXT}
+                  </Label>
+                </div>
+                <p className="pl-7 text-xs text-gray-500">
+                  See our{" "}
+                  <Link href="/privacy" className="underline hover:text-gray-700" onClick={() => setOpen(false)}>
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
+                {consentError ? (
+                  <p id="daily-fire-consent-error" className="text-sm text-red-600" role="alert">
+                    {consentError}
+                  </p>
+                ) : null}
+              </div>
+              <Button type="submit" className="h-11 w-full bg-brand-gradient text-white" disabled={loading}>
+                {loading ? "Revealing your code…" : "Reveal my code"}
+              </Button>
+              {loading ? (
+                <p className="sr-only" role="status">Revealing your code…</p>
+              ) : null}
+              {error ? (
+                <p className="text-sm text-red-600" role="alert">{error}</p>
+              ) : null}
+            </form>
+            <p className="text-xs text-gray-500">
+              Just for fun and general education, not medical advice. One code per email.
             </p>
           </>
         ) : (
           <>
             <DialogTitle className="text-2xl leading-snug">
-              You unlocked {revealed.percentOff}% off
+              {revealed.existing ? `Your ${revealed.percentOff}% off code` : `You unlocked ${revealed.percentOff}% off`}
             </DialogTitle>
             <DialogDescription>
+              {revealed.existing ? "This email already has an active Daily Fire code, so here it is again. " : null}
               {isTrivia
                 ? correct
                   ? "Correct! "

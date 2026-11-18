@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import InventoryManagement from '@/components/InventoryManagement';
 import { useLocation } from 'wouter';
 import { isFirebaseConfigured } from "@/lib/firebase";
-import { adminFetch } from "@/lib/adminApi";
+import { adminDownload, adminFetch } from "@/lib/adminApi";
 import {
   BarChart3,
   ShoppingCart,
@@ -105,6 +105,21 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [ordersError, setOrdersError] = useState<string | null>(null);
   const [customersError, setCustomersError] = useState<string | null>(null);
+  const [exportingList, setExportingList] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
+
+  // Mailing list (footer form + Daily Fire popup) as CSV, via the admin API.
+  const exportMailingList = async () => {
+    setExportingList(true);
+    setExportError(null);
+    try {
+      await adminDownload('/api/admin/subscribers-export', 'pure-fire-mailing-list.csv');
+    } catch (error: any) {
+      setExportError(error?.message ?? 'Export failed');
+    } finally {
+      setExportingList(false);
+    }
+  };
 
   useEffect(() => {
     loadData();
@@ -427,6 +442,14 @@ export default function Admin() {
                   <CardDescription>
                     View all customers and their purchase history
                   </CardDescription>
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <Button variant="outline" size="sm" onClick={exportMailingList} disabled={exportingList}>
+                      {exportingList ? 'Exporting…' : 'Export mailing list (CSV)'}
+                    </Button>
+                    {exportError ? (
+                      <span className="text-sm text-red-600" role="alert">Could not export: {exportError}</span>
+                    ) : null}
+                  </div>
                 </CardHeader>
                 <CardContent>
                   {loading ? (

@@ -16,6 +16,14 @@ import {
   validatePromotionCode,
 } from "../_lib/discount.js";
 import { getAdminDb } from "../_lib/firebase.js";
+import {
+  codeFields,
+  findReusableCode,
+  parseRevealRequest,
+  readSubscriber,
+  subscriberFields,
+  writeSubscriber,
+} from "../_lib/daily-fire-subscriber.js";
 
 const FIRESTORE_LOOKUP_TIMEOUT_MS = 5000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,26 +47,65 @@ async function lookupWithTimeout(ids: string[]): Promise<Map<string, PriceablePr
 
 /**
  * POST /api/stripe/create-checkout-session?op=discount-spin
- * Daily Fire popup: picks the discount tier server-side and returns a unique
+ * Body: { questionId, answerId, email, consent: true }
+ * Daily Fire popup: requires a valid email + mailing-list consent (400
+ * otherwise), saves the subscriber to Firestore `mailing_list`, then returns
+ * the email's still-valid code or picks a tier server-side and mints a unique
  * single-use code. Lives in this function only because of the 12-function cap.
  */
 async function handleDiscountSpin(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Cache-Control", "no-store");
-  if (!process.env.STRIPE_SECRET_KEY) {
-    return res.status(503).json({ error: "Discount codes are not available right now." });
+  const parsed = parseRevealRequest(req.body);
+  if (!parsed.ok) {
+    return res.status(400).json({ error: parsed.error, field: parsed.field });
   }
+  const unavailable = () => res.status(503).json({ error: "Discount codes are not available right now." });
+  if (!process.env.STRIPE_SECRET_KEY) return unavailable();
+  // The mailing-list sign-up is the price of a code, so no database → no code.
   const db = getAdminDb();
-  if (db && !(await takeSpinSlot(db, spinClientKey(req.headers)))) {
+  if (!db) return unavailable();
+  if (!(await takeSpinSlot(db, spinClientKey(req.headers)))) {
     return res.status(429).json({ error: "You've already revealed today's codes. Please check back tomorrow." });
   }
-  const { questionId, answerId } = (req.body || {}) as { questionId?: unknown; answerId?: unknown };
+
+  const { email, questionId, answerId } = parsed.value;
+  const stripe = getStripe();
+  let existing: Awaited<ReturnType<typeof readSubscriber>>;
   try {
-    const r = await mintDailyFireCode({ stripe: getStripe(), questionId, answerId });
+    existing = await readSubscriber(db, email);
+  } catch (err) {
+    console.error("[daily-fire] mailing_list read failed:", err);
+    return res.status(500).json({ error: "Could not save your email. Please try again." });
+  }
+
+  // One live code per email: hand back the same one instead of minting more.
+  const reuse = await findReusableCode(stripe, existing);
+  try {
+    await writeSubscriber(db, email, {
+      ...subscriberFields(parsed.value, existing),
+      ...(reuse ? codeFields(reuse) : {}),
+    });
+  } catch (err) {
+    console.error("[daily-fire] mailing_list write failed:", err);
+    return res.status(500).json({ error: "Could not save your email. Please try again." });
+  }
+  if (reuse) {
+    return res
+      .status(200)
+      .json({ code: reuse.code, percentOff: reuse.percentOff, expiresAt: reuse.expiresAt, existing: true });
+  }
+
+  try {
+    const r = await mintDailyFireCode({ stripe, questionId, answerId });
+    try {
+      await writeSubscriber(db, email, codeFields(r));
+    } catch (err) {
+      // The code is valid either way; only the one-code-per-email check misses it.
+      console.error("[daily-fire] could not record code on subscriber:", err);
+    }
     return res.status(200).json({ code: r.code, percentOff: r.percentOff, expiresAt: r.expiresAt });
   } catch (err) {
-    if (err instanceof DiscountUnavailableError) {
-      return res.status(503).json({ error: "Discount codes are not available right now." });
-    }
+    if (err instanceof DiscountUnavailableError) return unavailable();
     console.error("[daily-fire] spin failed:", err);
     return res.status(500).json({ error: "Could not create a code. Please try again." });
   }

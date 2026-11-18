@@ -110,6 +110,19 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // ── Mailing list (footer form + Daily Fire popup): emails and consent
+    //    records. Written/read ONLY by server code (Admin SDK):
+    //    api/mailing-list/subscribe.ts, the Daily Fire reveal and the admin
+    //    CSV export. No browser access, not even for admins. ─────────────
+    match /mailing_list/{email} {
+      allow read, write: if false;
+    }
+
+    // ── Daily Fire per-IP reveal counter (hashed IP): server-only. ───────
+    match /discount_spin_limits/{key} {
+      allow read, write: if false;
+    }
+
     // ── Default deny: customers, mailing_list, product_inventory,
     //    inventory_history, product_reviews (legacy), anything new. ────────
     match /{document=**} {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, CreditCard, Lock, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
-import { removeAppliedCode } from "@/lib/dailyFire";
+import { dailyFireEmail, removeAppliedCode } from "@/lib/dailyFire";
 
 function formatCheckoutUSD(amount: number | undefined | null): string {
   if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
@@ -28,6 +28,12 @@ export default function Checkout() {
   const [formData, setFormData] = useState({
     email: "",
   });
+  // Prefill an empty email with the one given to the Daily Fire popup (editable;
+  // any email can still be used with the code: codes aren't tied to an email in Stripe).
+  useEffect(() => {
+    const saved = dailyFireEmail();
+    if (saved) setFormData((f) => (f.email ? f : { ...f, email: saved }));
+  }, []);
   const subtotal = getTotal();
   const shippingCents = shippingCentsForMerchandiseUSD(subtotal);
   const shippingLabel = shippingCents === 0 ? "Free" : formatCheckoutUSD(shippingCents / 100);

@@ -21,6 +21,8 @@ export type DailyFireState = {
   expiresAt?: number;
   /** Shopper removed the code from the cart, or it was used / rejected. */
   removed?: boolean;
+  /** Email entered on the popup's email step (prefills the checkout email). */
+  email?: string;
 };
 
 function storage(): Storage | null {
@@ -77,8 +79,20 @@ export function markDismissed(now = Date.now()) {
   write({ status: "dismissed", at: now });
 }
 
-export function markClaimed(code: string, percentOff: number, expiresAtSec: number, now = Date.now()) {
-  write({ status: "claimed", at: now, code, percentOff, expiresAt: expiresAtSec * 1000 });
+export function markClaimed(
+  code: string,
+  percentOff: number,
+  expiresAtSec: number,
+  now = Date.now(),
+  email?: string
+) {
+  write({ status: "claimed", at: now, code, percentOff, expiresAt: expiresAtSec * 1000, ...(email ? { email } : {}) });
+}
+
+/** Email the shopper gave the popup, if any (used to prefill an empty checkout email). */
+export function dailyFireEmail(): string | null {
+  const e = readDailyFire()?.email;
+  return typeof e === "string" && e ? e : null;
 }
 
 /** Remove the code from the cart (popup still won't come back). */
