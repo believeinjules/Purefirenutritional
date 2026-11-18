@@ -24,7 +24,7 @@ consent, no code (Julia, 2026-11-18).
 ## Popup steps
 
 1. **Question.** Any answer moves on (no request yet).
-2. **Email step.** "Where should we send your code?" with a required Email field
+2. **Email step.** "One last step to unlock your code" with a required Email field
    (client-validated with `shared/email-address.ts`, the same rule the footer
    form's server uses) and a required checkbox: *"Email me Pure Fire news and
    offers. Unsubscribe anytime."* plus a link to `/privacy`. Button: **Reveal my

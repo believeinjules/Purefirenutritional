@@ -253,7 +253,7 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
           </>
         ) : !revealed ? (
           <>
-            <DialogTitle className="text-2xl leading-snug">Where should we send your code?</DialogTitle>
+            <DialogTitle className="text-2xl leading-snug">One last step to unlock your code</DialogTitle>
             <DialogDescription>
               Thanks for answering! Enter your email and join our list to reveal your 5% to 25% off code.
             </DialogDescription>

@@ -106,7 +106,7 @@ describe("DailyFirePopup", () => {
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
     await user.click(screen.getByRole("button", { name: "Sleep and recovery" }));
-    expect(screen.getByRole("heading", { name: "Where should we send your code?" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "One last step to unlock your code" })).toBeTruthy();
     const email = screen.getByLabelText("Email") as HTMLInputElement;
     expect(email.type).toBe("email");
     expect(email.required).toBe(true);
