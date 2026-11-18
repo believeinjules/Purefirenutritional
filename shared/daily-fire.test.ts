@@ -73,10 +73,10 @@ describe("Daily Fire question pool", () => {
     }
   });
 
-  it("every question has 2–4 unique options (5 when allowOther); trivia has a valid answer and a fact", () => {
+  it("every question has 2–5 unique options; trivia has a valid answer and a fact", () => {
     for (const q of QUIZ_QUESTIONS) {
       expect(q.options.length).toBeGreaterThanOrEqual(2);
-      expect(q.options.length).toBeLessThanOrEqual(q.allowOther ? 5 : 4);
+      expect(q.options.length).toBeLessThanOrEqual(5);
       expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
       if (q.allowOther) {
         expect(q.options.some((o) => o.id === "e" && o.label === "Other")).toBe(true);
@@ -88,24 +88,23 @@ describe("Daily Fire question pool", () => {
     }
   });
 
-  it("goal-time allows Other (answer e); retired ids are gone; Khavinson copy updated", () => {
+  it("goal-time has no Other; Price added; city question removed; Khavinson copy updated", () => {
     const q = questionById("goal-time");
-    expect(q?.allowOther).toBe(true);
+    expect(q?.allowOther).toBeFalsy();
     expect(q?.prompt).toBe("What do you wish you had more time for?");
-    expect(q?.options.map((o) => o.id)).toEqual(["a", "b", "c", "d", "e"]);
-    expect(q?.options.find((o) => o.id === "e")?.label).toBe("Other");
+    expect(q?.options.map((o) => o.label)).toEqual(["Exercise", "Rest and sleep", "Family and friends", "Hobbies and creativity"]);
     expect(questionById("goal-morning")).toBeUndefined();
     expect(questionById("goal-habit")).toBeUndefined();
     expect(questionById("goal-aging")).toBeUndefined();
-    expect(questionById("goal-supplement")?.prompt).toBe("What matters most to you when choosing a supplement?");
+    expect(questionById("pep-khavinson")).toBeUndefined();
+    const sup = questionById("goal-supplement");
+    expect(sup?.prompt).toBe("What matters most to you when choosing a supplement?");
+    expect(sup?.options.map((o) => o.label).at(-1)).toBe("Price");
     expect(questionById("goal-next-year")?.prompt).toBe("What's one wellness goal for the year ahead?");
-    const kh = questionById("pep-khavinson");
-    expect(kh?.prompt).toBe("Professor Vladimir Khavinson's peptide research is centered in which city?");
-    expect(kh?.answerId).toBe("a");
-    expect(kh?.options[0].label).toBe("St. Petersburg");
     const cy = questionById("pep-cytogen-length");
-    expect(cy?.prompt).toBe("Khavinson peptides are usually how many amino acids long?");
+    expect(cy?.prompt).toBe("How many amino acids long are Khavinson peptides?");
     expect(cy?.options.find((o) => o.id === cy.answerId)?.label).toBe("2 to 4");
+    expect(QUIZ_QUESTIONS.length).toBe(18);
   });
 
   it("uses structure/function wording only: no disease, treatment, cure or medical-advice language", () => {

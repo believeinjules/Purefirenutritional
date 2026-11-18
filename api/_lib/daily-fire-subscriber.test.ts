@@ -17,19 +17,19 @@ describe("parseRevealRequest", () => {
     expect(r).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-focus", answerId: "" } });
     const r2 = parseRevealRequest({ email: "a@b.co", consent: true, questionId: "nope", answerId: "a" });
     expect(r2).toEqual({ ok: true, value: { email: "a@b.co", questionId: "", answerId: "" } });
-    const r3 = parseRevealRequest({ email: "a@b.co", consent: true, questionId: "goal-time", answerId: "e" });
-    expect(r3).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-time", answerId: "e" } });
+    const r3 = parseRevealRequest({ email: "a@b.co", consent: true, questionId: "goal-supplement", answerId: "e" });
+    expect(r3).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-supplement", answerId: "e" } });
     const r4 = parseRevealRequest({
       email: "a@b.co",
       consent: true,
-      questionId: "goal-time",
+      questionId: "goal-supplement",
       answerId: "e",
       otherText: "Learning to paint landscapes",
     });
-    expect(r4).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-time", answerId: "e" } });
+    expect(r4).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-supplement", answerId: "e" } });
     expect("otherText" in (r4 as { value: object }).value).toBe(false);
-    const r5 = parseRevealRequest({ email: "a@b.co", consent: true, questionId: "goal-time", answerId: "z" });
-    expect(r5).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-time", answerId: "" } });
+    const r5 = parseRevealRequest({ email: "a@b.co", consent: true, questionId: "goal-supplement", answerId: "z" });
+    expect(r5).toEqual({ ok: true, value: { email: "a@b.co", questionId: "goal-supplement", answerId: "" } });
   });
   it("rejects missing/invalid email and anything but consent === true", () => {
     expect(parseRevealRequest(null)).toMatchObject({ ok: false, field: "email" });

@@ -241,46 +241,6 @@ describe("DailyFirePopup", () => {
     expect(readDailyFire()).toBeNull();
     vi.unstubAllGlobals();
   });
-
-  it("Other shows an optional text field and Continue; the free text is never sent", async () => {
-    const goalTimeIndex = QUIZ_QUESTIONS.findIndex((q) => q.id === "goal-time");
-    expect(goalTimeIndex).toBeGreaterThanOrEqual(0);
-    vi.spyOn(Math, "random").mockReturnValue((goalTimeIndex + 0.5) / QUIZ_QUESTIONS.length);
-    const user = userEvent.setup();
-    const fetchMock = vi.fn(async () => okResponse());
-    vi.stubGlobal("fetch", fetchMock);
-    renderAt("/");
-    await screen.findByRole("dialog", {}, { timeout: 2000 });
-    expect(screen.getByRole("heading", { name: "What do you wish you had more time for?" })).toBeTruthy();
-    expect(screen.queryByLabelText("Tell us (optional)")).toBeNull();
-    expect(screen.queryByRole("button", { name: "Continue" })).toBeNull();
-    await user.click(screen.getByRole("radio", { name: "Other" }));
-    expect(screen.getByRole("radio", { name: "Other" }).getAttribute("aria-checked")).toBe("true");
-    await new Promise((r) => setTimeout(r, 400)); // Other never auto-advances
-    expect(screen.queryByRole("heading", { name: "Subscribe for more discounts" })).toBeNull();
-    const other = screen.getByLabelText("Tell us (optional)") as HTMLInputElement;
-    expect(other.maxLength).toBe(100);
-    expect(screen.getByRole("button", { name: "Continue" })).toBeTruthy();
-    expect(screen.queryByRole("heading", { name: "Subscribe for more discounts" })).toBeNull();
-    await user.type(other, "Learning to paint landscapes");
-    await user.click(screen.getByRole("button", { name: "Continue" }));
-    expect(screen.getByRole("heading", { name: "Subscribe for more discounts" })).toBeTruthy();
-    expect(fetchMock).not.toHaveBeenCalled();
-    await user.type(screen.getByLabelText("Email"), "a@example.com");
-    await user.click(screen.getByRole("checkbox"));
-    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
-    expect((await screen.findByTestId("daily-fire-code")).textContent).toContain("FIRE10-K7Q2MX");
-    const body = JSON.parse((fetchMock.mock.calls[0] as any)[1].body);
-    expect(body).toEqual({
-      questionId: "goal-time",
-      answerId: "e",
-      email: "a@example.com",
-      consent: true,
-    });
-    expect(JSON.stringify(body)).not.toMatch(/paint|landscapes|Learning/i);
-    expect(Object.keys(body).sort()).toEqual(["answerId", "consent", "email", "questionId"]);
-    vi.unstubAllGlobals();
-  });
 });
 
 describe("dailyFire storage rules", () => {
