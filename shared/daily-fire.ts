@@ -75,6 +75,12 @@ export type QuizQuestion = {
   answerId?: string;
   /** Shown after answering. Educational, structure/function only. */
   fact?: string;
+  /**
+   * When true, one option is labelled "Other". Selecting it shows an optional
+   * text field and a Continue button; the free text is never sent to the server
+   * (only the option id is).
+   */
+  allowOther?: boolean;
 };
 
 const opts = (...labels: string[]): QuizOption[] =>
@@ -88,22 +94,23 @@ export const QUIZ_QUESTIONS: readonly QuizQuestion[] = [
     options: opts("Energy and focus", "Sleep and recovery", "Skin, hair, and nails", "Joints and mobility"),
   },
   {
-    id: "goal-morning",
+    id: "goal-time",
     kind: "goals",
-    prompt: "What does your ideal morning feel like?",
-    options: opts("Clear and focused", "Rested and calm", "Strong and ready to move", "Glowing and refreshed"),
+    prompt: "What do you wish you had more time for?",
+    options: opts("Exercise", "Rest and sleep", "Family and friends", "Hobbies and creativity", "Other"),
+    allowOther: true,
   },
   {
-    id: "goal-habit",
+    id: "goal-supplement",
     kind: "goals",
-    prompt: "Which daily habit are you building right now?",
-    options: opts("A steady sleep schedule", "Moving every day", "Eating more whole foods", "Drinking more water"),
+    prompt: "What matters most to you when choosing a supplement?",
+    options: opts("Quality and purity", "The research behind it", "Where it's made", "Keeping my routine simple"),
   },
   {
-    id: "goal-aging",
+    id: "goal-next-year",
     kind: "goals",
-    prompt: "How do you like to support healthy aging?",
-    options: opts("Nutrition first", "Movement and strength", "Rest and stress balance", "Targeted supplements"),
+    prompt: "What's one wellness goal for the year ahead?",
+    options: opts("More energy", "Better sleep", "Feeling stronger", "A calmer mind"),
   },
   {
     id: "goal-unwind",
@@ -139,18 +146,18 @@ export const QUIZ_QUESTIONS: readonly QuizQuestion[] = [
   {
     id: "pep-khavinson",
     kind: "peptides",
-    prompt: "Who is known for decades of research on peptide bioregulators?",
-    options: opts("Professor Vladimir Khavinson", "Louis Pasteur", "Marie Curie", "Alexander Fleming"),
+    prompt: "Professor Vladimir Khavinson's peptide research is centered in which city?",
+    options: opts("St. Petersburg", "Paris", "Boston", "Tokyo"),
     answerId: "a",
-    fact: "Professor Vladimir Khavinson and his colleagues in St. Petersburg have studied short peptides for more than 40 years.",
+    fact: "Professor Khavinson founded the St. Petersburg Institute of Bioregulation and Gerontology, where short peptides have been studied for more than 40 years.",
   },
   {
     id: "pep-cytogen-length",
     kind: "peptides",
-    prompt: "Synthesized \"cytogen\" bioregulators are usually how many amino acids long?",
+    prompt: "Khavinson peptides are usually how many amino acids long?",
     options: opts("2 to 4", "50 to 100", "About 500", "Over 1,000"),
     answerId: "a",
-    fact: "Cytogens are synthesized di-, tri-, and tetrapeptides: just 2 to 4 amino acids.",
+    fact: "Khavinson's synthesized peptides (cytogens) are just 2 to 4 amino acids long. The natural extracts (cytomaxes) are complexes of short peptides.",
   },
   {
     id: "body-amino-acids",

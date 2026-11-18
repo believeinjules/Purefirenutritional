@@ -73,16 +73,39 @@ describe("Daily Fire question pool", () => {
     }
   });
 
-  it("every question has 2–4 unique options; trivia has a valid answer and a fact", () => {
+  it("every question has 2–4 unique options (5 when allowOther); trivia has a valid answer and a fact", () => {
     for (const q of QUIZ_QUESTIONS) {
       expect(q.options.length).toBeGreaterThanOrEqual(2);
-      expect(q.options.length).toBeLessThanOrEqual(4);
+      expect(q.options.length).toBeLessThanOrEqual(q.allowOther ? 5 : 4);
       expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+      if (q.allowOther) {
+        expect(q.options.some((o) => o.id === "e" && o.label === "Other")).toBe(true);
+      }
       if (q.answerId) {
         expect(q.options.some((o) => o.id === q.answerId)).toBe(true);
         expect(q.fact).toBeTruthy();
       }
     }
+  });
+
+  it("goal-time allows Other (answer e); retired ids are gone; Khavinson copy updated", () => {
+    const q = questionById("goal-time");
+    expect(q?.allowOther).toBe(true);
+    expect(q?.prompt).toBe("What do you wish you had more time for?");
+    expect(q?.options.map((o) => o.id)).toEqual(["a", "b", "c", "d", "e"]);
+    expect(q?.options.find((o) => o.id === "e")?.label).toBe("Other");
+    expect(questionById("goal-morning")).toBeUndefined();
+    expect(questionById("goal-habit")).toBeUndefined();
+    expect(questionById("goal-aging")).toBeUndefined();
+    expect(questionById("goal-supplement")?.prompt).toBe("What matters most to you when choosing a supplement?");
+    expect(questionById("goal-next-year")?.prompt).toBe("What's one wellness goal for the year ahead?");
+    const kh = questionById("pep-khavinson");
+    expect(kh?.prompt).toBe("Professor Vladimir Khavinson's peptide research is centered in which city?");
+    expect(kh?.answerId).toBe("a");
+    expect(kh?.options[0].label).toBe("St. Petersburg");
+    const cy = questionById("pep-cytogen-length");
+    expect(cy?.prompt).toBe("Khavinson peptides are usually how many amino acids long?");
+    expect(cy?.options.find((o) => o.id === cy.answerId)?.label).toBe("2 to 4");
   });
 
   it("uses structure/function wording only: no disease, treatment, cure or medical-advice language", () => {

@@ -77,6 +77,8 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState<QuizQuestion | null>(null);
   const [answerId, setAnswerId] = useState<string | null>(null);
+  const [pendingOther, setPendingOther] = useState(false);
+  const [otherText, setOtherText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [revealed, setRevealed] = useState<Revealed | null>(null);
@@ -118,16 +120,34 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
     if (!next) {
       if (!revealed) markDismissed();
       setEligible(false);
+      setPendingOther(false);
+      setOtherText("");
     }
     setOpen(next);
   };
 
   // Step 1: any answer moves on to the email step (nothing is revealed yet).
+  // "Other" (when question.allowOther) first shows an optional text field;
+  // Continue then advances. The free text is never sent or stored.
   const answer = (optionId: string) => {
     if (!question || loading || revealed) return;
+    setPendingOther(false);
+    setOtherText("");
     setAnswerId(optionId);
     setError(null);
     window.setTimeout(focusEmail, 0);
+  };
+
+  const selectOption = (optionId: string) => {
+    const otherId = question?.allowOther
+      ? question.options.find((o) => o.label === "Other")?.id
+      : undefined;
+    if (otherId && optionId === otherId) {
+      setPendingOther(true);
+      window.setTimeout(() => document.getElementById("daily-fire-other")?.focus(), 0);
+      return;
+    }
+    answer(optionId);
   };
 
   // Step 2: email + consent → server saves the subscriber and returns the code.
@@ -234,19 +254,52 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
               Answer one quick question to reveal your code: 5% to 25% off your order.
             </DialogDescription>
             <div role="group" aria-label="Answer options" className="grid gap-2">
-              {question.options.map((o) => (
-                <Button
-                  key={o.id}
-                  type="button"
-                  variant="outline"
-                  className="h-auto min-h-11 justify-start whitespace-normal py-3 text-left font-normal hover:border-orange-400 hover:bg-orange-50"
-                  aria-pressed={false}
-                  onClick={() => answer(o.id)}
-                >
-                  {o.label}
-                </Button>
-              ))}
+              {question.options.map((o) => {
+                const otherSelected = pendingOther && o.label === "Other" && Boolean(question.allowOther);
+                return (
+                  <Button
+                    key={o.id}
+                    type="button"
+                    variant="outline"
+                    className={`h-auto min-h-11 justify-start whitespace-normal py-3 text-left font-normal hover:border-orange-400 hover:bg-orange-50${otherSelected ? " border-orange-400 bg-orange-50" : ""}`}
+                    aria-pressed={otherSelected}
+                    onClick={() => selectOption(o.id)}
+                  >
+                    {o.label}
+                  </Button>
+                );
+              })}
             </div>
+            {pendingOther && question.allowOther ? (
+              <form
+                className="grid gap-3"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const otherId = question.options.find((o) => o.label === "Other")?.id;
+                  if (otherId) answer(otherId);
+                }}
+              >
+                <div className="grid gap-1.5">
+                  <Label htmlFor="daily-fire-other">Tell us (optional)</Label>
+                  <Input
+                    id="daily-fire-other"
+                    type="text"
+                    maxLength={100}
+                    autoComplete="off"
+                    className="h-11"
+                    value={otherText}
+                    aria-describedby="daily-fire-other-hint"
+                    onChange={(e) => setOtherText(e.target.value.slice(0, 100))}
+                  />
+                  <p id="daily-fire-other-hint" className="sr-only">
+                    Optional. This note is not sent or stored.
+                  </p>
+                </div>
+                <Button type="submit" className="h-11 w-full bg-brand-gradient text-white">
+                  Continue
+                </Button>
+              </form>
+            ) : null}
             <p className="text-xs text-gray-500">
               Just for fun and general education, not medical advice. One code per visitor.
             </p>
