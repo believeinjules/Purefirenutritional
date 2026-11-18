@@ -253,9 +253,9 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
           </>
         ) : !revealed ? (
           <>
-            <DialogTitle className="text-2xl leading-snug">One last step to unlock your code</DialogTitle>
+            <DialogTitle className="text-2xl leading-snug">Subscribe for more discounts</DialogTitle>
             <DialogDescription>
-              Thanks for answering! Enter your email and join our list to reveal your 5% to 25% off code.
+              We dislike inboxes full of spam as much as you do, so we&apos;ll only email the occasional special offer or important update. Enter your email below, and your Daily Fire discount will be revealed!
             </DialogDescription>
             <form className="grid gap-4" onSubmit={reveal} noValidate aria-busy={loading}>
               <div className="grid gap-1.5">
