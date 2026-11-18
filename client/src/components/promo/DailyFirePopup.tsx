@@ -4,7 +4,7 @@
  * HTML/SEO is untouched. Radix Dialog gives the focus trap, Esc, aria-modal
  * and labelling; animations are off for prefers-reduced-motion (index.css).
  */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Link, useLocation } from "wouter";
 import { Check, Copy, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,8 @@ export const DAILY_FIRE_SPIN_URL = "/api/stripe/create-checkout-session?op=disco
 
 /** Popup opens after this delay, at 50% scroll depth, or on desktop exit intent (whichever is first). */
 export const DAILY_FIRE_DELAY_MS = 12_000;
+/** Pause after tapping a standard answer so the check mark registers before the email step. */
+export const DAILY_FIRE_AUTO_ADVANCE_MS = 280;
 const MIN_ENGAGED_MS = 4_000;
 
 type Revealed = { code: string; percentOff: number; expiresAt: number; existing?: boolean };
@@ -77,7 +79,8 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState<QuizQuestion | null>(null);
   const [answerId, setAnswerId] = useState<string | null>(null);
-  const [pendingOther, setPendingOther] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const advanceTimer = useRef<number | null>(null);
   const [otherText, setOtherText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -89,6 +92,11 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const focusEmail = () => document.getElementById("daily-fire-email")?.focus();
   const [copied, setCopied] = useState(false);
   const shownThisVisit = useRef(false);
+  const clearAdvance = () => {
+    if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
+    advanceTimer.current = null;
+  };
+  useEffect(() => clearAdvance, []);
 
   // Client-only: never renders during prerender/SSR.
   useEffect(() => {
@@ -120,18 +128,25 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
     if (!next) {
       if (!revealed) markDismissed();
       setEligible(false);
-      setPendingOther(false);
+      clearAdvance();
+      setSelectedId(null);
       setOtherText("");
     }
     setOpen(next);
   };
 
   // Step 1: any answer moves on to the email step (nothing is revealed yet).
-  // "Other" (when question.allowOther) first shows an optional text field;
-  // Continue then advances. The free text is never sent or stored.
+  // A standard option auto-advances after a short pause; "Other" (when
+  // question.allowOther) shows an optional one-line note plus Continue.
+  // The free text is never sent or stored.
+  const otherId = question?.allowOther
+    ? question.options.find((o) => o.label === "Other")?.id
+    : undefined;
+  const otherSelected = Boolean(otherId) && selectedId === otherId;
+
   const answer = (optionId: string) => {
     if (!question || loading || revealed) return;
-    setPendingOther(false);
+    clearAdvance();
     setOtherText("");
     setAnswerId(optionId);
     setError(null);
@@ -139,15 +154,38 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   };
 
   const selectOption = (optionId: string) => {
-    const otherId = question?.allowOther
-      ? question.options.find((o) => o.label === "Other")?.id
-      : undefined;
+    if (!question || loading || revealed || advanceTimer.current !== null) return;
+    setSelectedId(optionId);
     if (otherId && optionId === otherId) {
-      setPendingOther(true);
       window.setTimeout(() => document.getElementById("daily-fire-other")?.focus(), 0);
       return;
     }
-    answer(optionId);
+    advanceTimer.current = window.setTimeout(() => {
+      advanceTimer.current = null;
+      answer(optionId);
+    }, DAILY_FIRE_AUTO_ADVANCE_MS);
+  };
+
+  // Radio-group keyboard pattern: arrows/Home/End move focus and the check
+  // (without advancing); Space/Enter (native button click) confirms.
+  const onOptionKeyDown = (e: ReactKeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (!question || advanceTimer.current !== null) return;
+    const n = question.options.length;
+    const next =
+      e.key === "ArrowDown" || e.key === "ArrowRight"
+        ? (index + 1) % n
+        : e.key === "ArrowUp" || e.key === "ArrowLeft"
+          ? (index - 1 + n) % n
+          : e.key === "Home"
+            ? 0
+            : e.key === "End"
+              ? n - 1
+              : null;
+    if (next === null) return;
+    e.preventDefault();
+    const id = question.options[next].id;
+    setSelectedId(id);
+    document.getElementById(`daily-fire-opt-${id}`)?.focus();
   };
 
   // Step 2: email + consent → server saves the subscriber and returns the code.
@@ -227,10 +265,12 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
     ? new Date(revealed.expiresAt * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" })
     : null;
 
+  const rovingId = selectedId ?? question.options[0]?.id;
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto focus:outline-none motion-reduce:animate-none"
+        className="grid-cols-[minmax(0,1fr)] max-w-[calc(100%-2.5rem)] gap-3 rounded-2xl p-5 sm:max-w-[26rem] sm:p-6 max-h-[calc(100dvh-2rem)] overflow-y-auto focus:outline-none motion-reduce:animate-none"
         data-testid="daily-fire-popup"
         aria-modal="true"
         // Focus the dialog itself (not the first answer) so no option looks pre-selected;
@@ -240,87 +280,94 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
           (e.currentTarget as HTMLElement | null)?.focus();
         }}
       >
-        <div className="flex items-center gap-2 text-sm font-medium uppercase tracking-wide">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-gradient text-white" aria-hidden="true">
-            <Flame className="h-4 w-4" />
-          </span>
+        <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em]">
+          <Flame className="h-3.5 w-3.5 text-[#E06050]" aria-hidden="true" />
           <span className="gradient-text">{DAILY_FIRE_NAME}</span>
         </div>
 
         {!revealed && !answerId ? (
           <>
-            <DialogTitle className="text-2xl leading-snug">{question.prompt}</DialogTitle>
-            <DialogDescription>
-              Answer one quick question to reveal your code: 5% to 25% off your order.
-            </DialogDescription>
-            <div role="group" aria-label="Answer options" className="grid gap-2">
-              {question.options.map((o) => {
-                const otherSelected = pendingOther && o.label === "Other" && Boolean(question.allowOther);
+            <div className="grid gap-1 pr-6">
+              <DialogTitle className="text-xl leading-tight">{question.prompt}</DialogTitle>
+              <DialogDescription className="text-[13px] text-gray-500">
+                Answer one question to unlock 5–25% off.
+              </DialogDescription>
+            </div>
+            <div role="radiogroup" aria-label="Answer options" className="-mx-1.5 grid gap-0.5">
+              {question.options.map((o, i) => {
+                const checked = selectedId === o.id;
                 return (
-                  <Button
+                  <button
                     key={o.id}
+                    id={`daily-fire-opt-${o.id}`}
                     type="button"
-                    variant="outline"
-                    className={`h-auto min-h-11 justify-start whitespace-normal py-3 text-left font-normal hover:border-orange-400 hover:bg-orange-50${otherSelected ? " border-orange-400 bg-orange-50" : ""}`}
-                    aria-pressed={otherSelected}
+                    role="radio"
+                    aria-checked={checked}
+                    tabIndex={o.id === rovingId ? 0 : -1}
                     onClick={() => selectOption(o.id)}
+                    onKeyDown={(e) => onOptionKeyDown(e, i)}
+                    className={`group flex min-h-10 w-full items-center gap-3 rounded-lg px-1.5 py-2 text-left text-sm transition-colors hover:bg-orange-50/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/70 ${checked ? "bg-orange-50/70 font-medium text-gray-900" : "text-gray-700"}`}
                   >
-                    {o.label}
-                  </Button>
+                    <span
+                      aria-hidden="true"
+                      className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border transition-colors ${checked ? "border-transparent bg-brand-gradient" : "border-gray-300 bg-white group-hover:border-orange-400"}`}
+                    >
+                      {checked ? <Check className="h-3 w-3 text-white" strokeWidth={3} /> : null}
+                    </span>
+                    <span>{o.label}</span>
+                  </button>
                 );
               })}
             </div>
-            {pendingOther && question.allowOther ? (
+            {otherSelected && otherId ? (
               <form
-                className="grid gap-3"
+                className="-mt-1 flex items-end gap-2 pl-[30px]"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  const otherId = question.options.find((o) => o.label === "Other")?.id;
-                  if (otherId) answer(otherId);
+                  answer(otherId);
                 }}
               >
-                <div className="grid gap-1.5">
-                  <Label htmlFor="daily-fire-other">Tell us (optional)</Label>
-                  <Input
-                    id="daily-fire-other"
-                    type="text"
-                    maxLength={100}
-                    autoComplete="off"
-                    className="h-11"
-                    value={otherText}
-                    aria-describedby="daily-fire-other-hint"
-                    onChange={(e) => setOtherText(e.target.value.slice(0, 100))}
-                  />
-                  <p id="daily-fire-other-hint" className="sr-only">
-                    Optional. This note is not sent or stored.
-                  </p>
-                </div>
-                <Button type="submit" className="h-11 w-full bg-brand-gradient text-white">
+                <label htmlFor="daily-fire-other" className="sr-only">Tell us (optional)</label>
+                <input
+                  id="daily-fire-other"
+                  type="text"
+                  maxLength={100}
+                  autoComplete="off"
+                  placeholder="Tell us (optional)"
+                  className="h-8 w-0 min-w-0 flex-1 rounded-none border-0 border-b border-gray-300 bg-transparent px-0 text-base text-gray-900 placeholder:text-gray-500 focus:border-orange-400 focus:outline-none focus:ring-0 sm:text-sm"
+                  value={otherText}
+                  aria-describedby="daily-fire-other-hint"
+                  onChange={(e) => setOtherText(e.target.value.slice(0, 100))}
+                />
+                <p id="daily-fire-other-hint" className="sr-only">
+                  Optional. This note is not sent or stored.
+                </p>
+                <Button type="submit" size="sm" className="h-8 shrink-0 rounded-full bg-brand-gradient px-4 text-xs text-white">
                   Continue
                 </Button>
               </form>
             ) : null}
-            <p className="text-xs text-gray-500">
-              Just for fun and general education, not medical advice. One code per visitor.
-            </p>
+            <p className="text-[11px] text-gray-500">For fun and education, not medical advice.</p>
           </>
         ) : !revealed ? (
           <>
-            <DialogTitle className="text-2xl leading-snug">Subscribe for more discounts</DialogTitle>
-            <DialogDescription>
-              We dislike inboxes full of spam as much as you do, so we&apos;ll only email the occasional special offer or important update. Enter your email below, and your Daily Fire discount will be revealed!
-            </DialogDescription>
-            <form className="grid gap-4" onSubmit={reveal} noValidate aria-busy={loading}>
-              <div className="grid gap-1.5">
-                <Label htmlFor="daily-fire-email">Email</Label>
+            <div className="grid gap-1.5 pr-6">
+              <DialogTitle className="text-xl leading-tight">Subscribe for more discounts</DialogTitle>
+              <DialogDescription className="text-[13px] leading-relaxed text-gray-500">
+                We dislike inboxes full of spam as much as you do, so we&apos;ll only email the occasional special offer or important update. Enter your email below, and your Daily Fire discount will be revealed!
+              </DialogDescription>
+            </div>
+            <form className="grid gap-3" onSubmit={reveal} noValidate aria-busy={loading}>
+              <div className="grid gap-1">
+                <Label htmlFor="daily-fire-email" className="sr-only">Email</Label>
                 <Input
                   id="daily-fire-email"
                   name="email"
                   type="email"
                   inputMode="email"
                   autoComplete="email"
-                  placeholder="your@email.com"
-                  className="h-11"
+                  placeholder="Your email"
+                  className="h-10 focus-visible:border-orange-400 focus-visible:ring-orange-200"
                   value={email}
                   required
                   aria-required="true"
@@ -333,16 +380,16 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
                   }}
                 />
                 {emailError ? (
-                  <p id="daily-fire-email-error" className="text-sm text-red-600" role="alert">
+                  <p id="daily-fire-email-error" className="text-xs text-red-600" role="alert">
                     {emailError}
                   </p>
                 ) : null}
               </div>
-              <div className="grid gap-1.5">
-                <div className="flex items-start gap-3">
+              <div className="grid gap-1">
+                <div className="flex items-start gap-2.5">
                   <Checkbox
                     id="daily-fire-consent"
-                    className="mt-0.5"
+                    className="mt-px data-[state=checked]:border-transparent data-[state=checked]:bg-[#E06050]"
                     checked={consent}
                     aria-required="true"
                     aria-invalid={consentError ? true : undefined}
@@ -353,68 +400,64 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
                       if (v === true) setConsentError(null);
                     }}
                   />
-                  <Label htmlFor="daily-fire-consent" className="text-sm font-normal leading-snug text-gray-700">
-                    {DAILY_FIRE_CONSENT_TEXT}
-                  </Label>
+                  <p className="text-xs leading-snug text-gray-600">
+                    <Label htmlFor="daily-fire-consent" className="inline text-xs font-normal leading-snug text-gray-600">
+                      {DAILY_FIRE_CONSENT_TEXT}
+                    </Label>{" "}
+                    <Link href="/privacy" className="whitespace-nowrap text-gray-500 underline hover:text-gray-600" onClick={() => setOpen(false)}>
+                      Privacy Policy
+                    </Link>
+                  </p>
                 </div>
-                <p className="pl-7 text-xs text-gray-500">
-                  See our{" "}
-                  <Link href="/privacy" className="underline hover:text-gray-700" onClick={() => setOpen(false)}>
-                    Privacy Policy
-                  </Link>
-                  .
-                </p>
                 {consentError ? (
-                  <p id="daily-fire-consent-error" className="text-sm text-red-600" role="alert">
+                  <p id="daily-fire-consent-error" className="text-xs text-red-600" role="alert">
                     {consentError}
                   </p>
                 ) : null}
               </div>
-              <Button type="submit" className="h-11 w-full bg-brand-gradient text-white" disabled={loading}>
+              <Button type="submit" className="h-10 w-full rounded-full bg-brand-gradient text-white" disabled={loading}>
                 {loading ? "Revealing your code…" : "Reveal my code"}
               </Button>
               {loading ? (
                 <p className="sr-only" role="status">Revealing your code…</p>
               ) : null}
               {error ? (
-                <p className="text-sm text-red-600" role="alert">{error}</p>
+                <p className="text-xs text-red-600" role="alert">{error}</p>
               ) : null}
             </form>
-            <p className="text-xs text-gray-500">
-              Just for fun and general education, not medical advice. One code per email.
-            </p>
           </>
         ) : (
           <>
-            <DialogTitle className="text-2xl leading-snug">
-              {revealed.existing ? `Your ${revealed.percentOff}% off code` : `You unlocked ${revealed.percentOff}% off`}
-            </DialogTitle>
-            <DialogDescription>
-              {revealed.existing ? "This email already has an active Daily Fire code, so here it is again. " : null}
-              {isTrivia
-                ? correct
-                  ? "Correct! "
-                  : `Good guess. The answer is ${correctLabel}. `
-                : "Thanks for sharing. "}
-              {question.fact ?? ""}
-            </DialogDescription>
-            <div className="rounded-lg border border-dashed border-orange-400 bg-orange-50 p-4 text-center">
-              <p className="text-xs uppercase tracking-wide text-gray-600">Your code</p>
-              <p className="mt-1 select-all font-mono text-2xl font-semibold tracking-wider" data-testid="daily-fire-code">
+            <div className="grid gap-1.5 pr-6">
+              <DialogTitle className="text-xl leading-tight">
+                {revealed.existing ? `Your ${revealed.percentOff}% off code` : `You unlocked ${revealed.percentOff}% off`}
+              </DialogTitle>
+              <DialogDescription className="text-[13px] leading-relaxed text-gray-500">
+                {revealed.existing ? "This email already has an active Daily Fire code, so here it is again. " : null}
+                {isTrivia
+                  ? correct
+                    ? "Correct! "
+                    : `Good guess. The answer is ${correctLabel}. `
+                  : "Thanks for sharing. "}
+                {question.fact ?? ""}
+              </DialogDescription>
+            </div>
+            <div className="flex items-center justify-between gap-2 rounded-xl border border-dashed border-orange-300 bg-orange-50/70 py-2 pl-4 pr-2">
+              <p className="select-all font-mono text-lg font-semibold tracking-wider text-gray-900" data-testid="daily-fire-code">
                 {revealed.code}
               </p>
-              <Button type="button" variant="ghost" size="sm" className="mt-2" onClick={copy}>
-                {copied ? <Check className="mr-1 h-4 w-4" aria-hidden="true" /> : <Copy className="mr-1 h-4 w-4" aria-hidden="true" />}
-                {copied ? "Copied" : "Copy code"}
+              <Button type="button" variant="ghost" size="sm" className="h-8 shrink-0 px-2 text-xs text-gray-600 hover:bg-orange-100" onClick={copy}>
+                {copied ? <Check className="mr-1 h-3.5 w-3.5" aria-hidden="true" /> : <Copy className="mr-1 h-3.5 w-3.5" aria-hidden="true" />}
+                {copied ? "Copied" : "Copy"}
               </Button>
               <span className="sr-only" aria-live="polite">{copied ? "Code copied" : ""}</span>
             </div>
-            <p className="text-sm text-gray-600">
-              It's saved to your cart and applied automatically at checkout. Single use, expires
-              {expiresLabel ? ` ${expiresLabel}` : ` in ${DAILY_FIRE_CODE_TTL_DAYS} days`}. Can't be combined with other codes.
+            <p className="text-[11px] leading-snug text-gray-500">
+              Saved to your cart and applied at checkout. Single use, expires
+              {expiresLabel ? ` ${expiresLabel}` : ` in ${DAILY_FIRE_CODE_TTL_DAYS} days`}. Can&apos;t be combined with other codes.
             </p>
             <Link href="/products" onClick={() => setOpen(false)}>
-              <Button className="w-full bg-brand-gradient text-white">Shop now</Button>
+              <Button className="h-10 w-full rounded-full bg-brand-gradient text-white">Shop now</Button>
             </Link>
           </>
         )}

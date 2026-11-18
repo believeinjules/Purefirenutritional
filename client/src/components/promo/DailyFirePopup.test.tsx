@@ -27,6 +27,12 @@ function renderAt(path: string, delayMs = 50) {
   );
 }
 
+/** Tap a standard answer; it auto-advances to the email step after a short pause. */
+async function pick(user: ReturnType<typeof userEvent.setup>, name: string) {
+  await user.click(screen.getByRole("radio", { name }));
+  await screen.findByRole("heading", { name: "Subscribe for more discounts" });
+}
+
 beforeEach(() => {
   localStorage.clear();
   vi.spyOn(Math, "random").mockReturnValue(0); // first question: "goal-focus"
@@ -50,8 +56,12 @@ describe("DailyFirePopup", () => {
     const title = document.getElementById(dialog.getAttribute("aria-labelledby")!);
     expect(title?.textContent).toBe(QUIZ_QUESTIONS[0].prompt);
     expect(dialog.getAttribute("aria-describedby")).toBeTruthy();
-    expect(screen.getByRole("group", { name: "Answer options" })).toBeTruthy();
-    expect(screen.getAllByRole("button", { name: /Energy and focus|Sleep and recovery|Skin, hair, and nails|Joints and mobility/ })).toHaveLength(4);
+    expect(screen.getByRole("radiogroup", { name: "Answer options" })).toBeTruthy();
+    const radios = screen.getAllByRole("radio");
+    expect(radios.map((r) => r.textContent)).toEqual(["Energy and focus", "Sleep and recovery", "Skin, hair, and nails", "Joints and mobility"]);
+    expect(radios.every((r) => r.getAttribute("aria-checked") === "false")).toBe(true);
+    expect(screen.getByText("Answer one question to unlock 5–25% off.")).toBeTruthy();
+    expect(screen.getByText("For fun and education, not medical advice.")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Close" })).toBeTruthy();
     // Focus is moved inside the dialog (focus trap)
     await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
@@ -105,7 +115,7 @@ describe("DailyFirePopup", () => {
     vi.stubGlobal("fetch", fetchMock);
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
-    await user.click(screen.getByRole("button", { name: "Sleep and recovery" }));
+    await pick(user, "Sleep and recovery");
     expect(screen.getByRole("heading", { name: "Subscribe for more discounts" })).toBeTruthy();
     const email = screen.getByLabelText("Email") as HTMLInputElement;
     expect(email.type).toBe("email");
@@ -127,7 +137,7 @@ describe("DailyFirePopup", () => {
     vi.stubGlobal("fetch", fetchMock);
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
-    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await pick(user, "Energy and focus");
     await user.click(screen.getByRole("button", { name: "Reveal my code" }));
     const email = screen.getByLabelText("Email");
     expect(screen.getByText("Enter your email address to reveal your code.")).toBeTruthy();
@@ -152,8 +162,15 @@ describe("DailyFirePopup", () => {
     vi.stubGlobal("fetch", fetchMock);
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
-    const option = screen.getByRole("button", { name: "Sleep and recovery" });
-    option.focus();
+    const first = screen.getByRole("radio", { name: "Energy and focus" });
+    first.focus();
+    // Arrow moves the check without advancing; Enter confirms.
+    await user.keyboard("{ArrowDown}");
+    const option = screen.getByRole("radio", { name: "Sleep and recovery" });
+    expect(document.activeElement).toBe(option);
+    expect(option.getAttribute("aria-checked")).toBe("true");
+    expect(first.getAttribute("tabindex")).toBe("-1");
+    expect(screen.queryByRole("heading", { name: "Subscribe for more discounts" })).toBeNull();
     await user.keyboard("{Enter}");
     await waitFor(() => expect(document.activeElement).toBe(screen.getByLabelText("Email")));
     await user.keyboard(" Shopper@Example.com ");
@@ -183,7 +200,7 @@ describe("DailyFirePopup", () => {
     vi.stubGlobal("fetch", vi.fn(async () => okResponse({ existing: true, percentOff: 15, code: "FIRE15-ABCDEF" })));
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
-    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await pick(user, "Energy and focus");
     await user.type(screen.getByLabelText("Email"), "a@example.com");
     await user.click(screen.getByRole("checkbox"));
     await user.click(screen.getByRole("button", { name: "Reveal my code" }));
@@ -201,7 +218,7 @@ describe("DailyFirePopup", () => {
     );
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
-    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await pick(user, "Energy and focus");
     await user.type(screen.getByLabelText("Email"), "a@example.com");
     await user.click(screen.getByRole("checkbox"));
     await user.click(screen.getByRole("button", { name: "Reveal my code" }));
@@ -215,7 +232,7 @@ describe("DailyFirePopup", () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ error: "Discount codes are not available right now." }), { status: 503 })));
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
-    await user.click(screen.getByRole("button", { name: "Energy and focus" }));
+    await pick(user, "Energy and focus");
     await user.type(screen.getByLabelText("Email"), "a@example.com");
     await user.click(screen.getByRole("checkbox"));
     await user.click(screen.getByRole("button", { name: "Reveal my code" }));
@@ -237,7 +254,10 @@ describe("DailyFirePopup", () => {
     expect(screen.getByRole("heading", { name: "What do you wish you had more time for?" })).toBeTruthy();
     expect(screen.queryByLabelText("Tell us (optional)")).toBeNull();
     expect(screen.queryByRole("button", { name: "Continue" })).toBeNull();
-    await user.click(screen.getByRole("button", { name: "Other" }));
+    await user.click(screen.getByRole("radio", { name: "Other" }));
+    expect(screen.getByRole("radio", { name: "Other" }).getAttribute("aria-checked")).toBe("true");
+    await new Promise((r) => setTimeout(r, 400)); // Other never auto-advances
+    expect(screen.queryByRole("heading", { name: "Subscribe for more discounts" })).toBeNull();
     const other = screen.getByLabelText("Tell us (optional)") as HTMLInputElement;
     expect(other.maxLength).toBe(100);
     expect(screen.getByRole("button", { name: "Continue" })).toBeTruthy();
