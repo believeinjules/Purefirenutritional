@@ -28,6 +28,7 @@ describe("one business entity across pages", () => {
       return core;
     });
     for (const c of cores) expect(c).toEqual(cores[0]);
+    expect(cores[0].legalName).toBe("Pure Fire Nutritional LLC");
     expect(cores[0].email).toBe("contact@purefirenutritional.com");
     expect(cores[0].contactPoint[0].email).toBe("support@purefirenutritional.com");
     expect(cores[0].address).toEqual({ "@type": "PostalAddress", addressLocality: "Brooklyn", addressRegion: "NY", addressCountry: "US" });

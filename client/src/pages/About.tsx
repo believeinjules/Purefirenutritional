@@ -174,7 +174,7 @@ export default function About() {
                   <p className="text-sm font-semibold text-gray-800">Professional Experience:</p>
                   <ul className="text-sm text-gray-600 space-y-1 ml-4">
                     <li>• General Manager at Retro Fitness</li>
-                    <li>• Founder of Pure Fire Nutritional Supplements LLC</li>
+                    <li>• Founder of Pure Fire Nutritional LLC</li>
                     <li>• Founder of Lapis AI Consults</li>
                     <li>• IT Support & Network Administration</li>
                   </ul>

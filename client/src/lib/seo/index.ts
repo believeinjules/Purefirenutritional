@@ -734,6 +734,7 @@ export function organizationNode(founders: readonly PersonKey[] = []): Record<st
     "@type": "OnlineStore",
     "@id": ORGANIZATION_ID,
     name: SITE_NAME,
+    legalName: "Pure Fire Nutritional LLC",
     url: `${SITE_URL}/`,
     logo: `${SITE_URL}${DEFAULT_SHARE_IMAGE}`,
     description:
