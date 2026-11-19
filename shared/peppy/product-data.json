@@ -5539,6 +5539,69 @@
       }
     },
     {
+      "id": "mesotel-ultra",
+      "name": "Mesotel Ultra",
+      "sourceDocs": [],
+      "verifiedOn": null,
+      "productVersion": null,
+      "formats": [],
+      "schedules": [],
+      "ingredients": {
+        "status": "verified",
+        "value": "Water; Fructose; Concentrated grapefruit juice; Choline bitartrate; Glycerin (carrier); Dry extract of gotu kola (Centella asiatica); Dry extract of goji berry fruit (Lycium barbarum); Alpha-lipoic acid; Dry extract of grape skin (Vitis vinifera); Potassium sorbate (preservative); Sodium benzoate (preservative); Peptide complex AA-5 (Glu-Asp-Arg); Peptide complex AA-7 (Lys-Glu-Asp)",
+        "source": "shared/product-facts.json (verified): label:mesotel-ultra-120ml-batch-001-box-back-en"
+      },
+      "quantities": {
+        "status": "unverified",
+        "value": null
+      },
+      "formulation": {
+        "status": "unverified",
+        "value": null
+      },
+      "labelDirections": {
+        "status": "verified",
+        "value": "Take 1 teaspoon (5 ml) twice daily with meals, dissolved in a small amount of room-temperature water or undiluted. Natural sediment may occur. Shake well.",
+        "source": "shared/product-facts.json (verified): label:mesotel-ultra-120ml-batch-001-box-back-en"
+      },
+      "food": {
+        "status": "unverified",
+        "value": null
+      },
+      "courseDuration": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizes": {
+        "status": "unverified",
+        "value": null
+      },
+      "sizeDifferences": {
+        "status": "unverified",
+        "value": null
+      },
+      "documentedProtocols": {
+        "status": "unverified",
+        "value": null
+      },
+      "sexSpecificNotes": {
+        "status": "unverified",
+        "value": null
+      },
+      "humanStudyDoses": {
+        "status": "unverified",
+        "value": null
+      },
+      "contraindications": {
+        "status": "unverified",
+        "value": null
+      },
+      "warnings": {
+        "status": "unverified",
+        "value": null
+      }
+    },
+    {
       "id": "pinalex-tab",
       "name": "Pinalex Tab",
       "sourceDocs": [

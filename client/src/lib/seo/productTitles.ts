@@ -37,6 +37,7 @@ export const SEO_TITLE_FOCUS: Record<string, string> = {
   mesotel: "Choline Formula",
   "mesotel-neo": "Choline Liquid Formula",
   "mesotel-beauty": "Choline Skin Blend",
+  "mesotel-ultra": "Choline & Peptides",
   "anti-wrinkle-serum-7": "Face Serum",
   "alvenorm-forte": "Lung Herbal Liquid",
   volustom: "Dietary Fiber Complex",

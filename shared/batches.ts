@@ -168,8 +168,7 @@ export const BATCHES: readonly Batch[] = [
   },
   {
     // Size per the printed English box label (the bottle front read as 4.06 in the
-    // video was motion-blurred). Drafted in the catalog but hidden until Julia OKs it; the batch page
-    // links to /products/mesotel-ultra automatically once it is un-hidden.
+    // video was motion-blurred). Links to /products/mesotel-ultra while it is visible.
     productSlug: "mesotel-ultra",
     catalogProductId: "mesotel-ultra",
     productName: "Mesotel Ultra",

@@ -16,8 +16,6 @@ export const HIDDEN_PRODUCT_IDS: ReadonlySet<string> = new Set([
   // On hold (Julia, 2026-10-19): Calsil-T identity unconfirmed; Indosine formulation version unknown.
   "calsil-t",
   "indosine",
-  // Draft (Julia, 2026-11-19): price set ($37.99); goes in the shop once she supplies a photo.
-  "mesotel-ultra",
 ]);
 
 export function isHiddenProduct(p: { id?: unknown; hidden?: unknown; active?: unknown } | null | undefined): boolean {

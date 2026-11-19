@@ -55,7 +55,7 @@
       "statusCode": 301
     },
     {
-      "source": "/products/:id(femalin|temero-genero|trezvon|olecap|panaxod|previn|regenart|gelmigon|calsil-t|indosine|mesotel-ultra)",
+      "source": "/products/:id(femalin|temero-genero|trezvon|olecap|panaxod|previn|regenart|gelmigon|calsil-t|indosine)",
       "destination": "/products",
       "permanent": false
     },

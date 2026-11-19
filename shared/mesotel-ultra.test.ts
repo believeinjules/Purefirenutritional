@@ -3,16 +3,13 @@ import { existsSync } from "node:fs";
 import { allProducts, getProductById } from "../client/src/data/products";
 import { HIDDEN_PRODUCT_IDS, isHiddenProduct } from "./hidden-products";
 import { firestoreDocToPriceable } from "../api/_lib/catalog";
+import { getBatchByKey } from "./batches";
 
-/**
- * Mesotel Ultra is drafted in the code catalog (Julia, 2026-11-19) but stays
- * hidden until she supplies a photo. These checks make it impossible to
- * publish it by accident without a real price and image.
- */
-describe("Mesotel Ultra draft", () => {
+/** Mesotel Ultra: published 2026-11-19 with Julia's price and photos. */
+describe("Mesotel Ultra", () => {
   const p = allProducts.find((x) => x.id === "mesotel-ultra");
 
-  it("exists in the full catalog in the Mesotel line and category", () => {
+  it("is in the catalog in the Mesotel line and category at $37.99", () => {
     expect(p).toBeDefined();
     expect(p!.name).toBe("Mesotel Ultra");
     expect(p!.category).toBe("ANTI AGING-LONGEVITY");
@@ -26,25 +23,18 @@ describe("Mesotel Ultra draft", () => {
     for (const src of p!.images!) expect(existsSync(`client/public${src}`), src).toBe(true);
   });
 
-  it("is hidden: not in the shop, not on a product page, not chargeable", () => {
-    expect(HIDDEN_PRODUCT_IDS.has("mesotel-ultra")).toBe(true);
-    expect(getProductById("mesotel-ultra")).toBeUndefined();
-    // Even if a Firestore doc says hidden:false, the id list wins.
-    expect(isHiddenProduct({ id: "mesotel-ultra", hidden: false, active: true })).toBe(true);
-    expect(firestoreDocToPriceable("mesotel-ultra", { ...p, hidden: false } as never)).toBeNull();
+  it("is published: in the shop, priceable, and linked from its Batch Passport page", () => {
+    expect(HIDDEN_PRODUCT_IDS.has("mesotel-ultra")).toBe(false);
+    expect(getProductById("mesotel-ultra")).toBeDefined();
+    expect(firestoreDocToPriceable("mesotel-ultra", p as never)?.priceUSD).toBe(37.99);
+    expect(getBatchByKey("mesotel-ultra-001")?.catalogProductId).toBe("mesotel-ultra");
   });
 
-  it("can only be un-hidden with a real price and an existing photo", () => {
-    if (isHiddenProduct(p)) return;
-    expect(p!.priceUSD).toBeGreaterThan(0);
-    expect(p!.image, "Mesotel Ultra needs a photo before it is published").toBeTruthy();
-    expect(existsSync(`client/public${p!.image}`)).toBe(true);
-  });
-
-  it("no visible product is ever priced at 0", () => {
+  it("a visible product always has a real price and an existing photo", () => {
     for (const x of allProducts.filter((y) => !isHiddenProduct(y))) {
       const prices = x.variants?.length ? x.variants.map((v) => v.priceUSD) : [x.priceUSD];
       for (const price of prices) expect(price, x.id).toBeGreaterThan(0);
     }
+    expect(p!.image && existsSync(`client/public${p!.image}`)).toBe(true);
   });
 });

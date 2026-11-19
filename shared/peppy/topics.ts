@@ -738,6 +738,12 @@ export const TOPICS: Topic[] = [
           "Choline is an essential nutrient; Mesotel as a finished formula hasn't been tested in published trials.",
       },
       {
+        id: "mesotel-ultra",
+        why: "Choline-based liquid with alpha-lipoic acid and the brain (AA-5) and vascular wall (AA-7) peptide complexes; choline contributes to normal nervous-system function.",
+        evidenceNote:
+          "Choline is an essential nutrient; Mesotel Ultra as a finished formula hasn't been tested in published trials.",
+      },
+      {
         id: "pinealon",
         why: "A Khavinson Cytogen: a synthesized brain peptide complex (AC-5) for the brain and nervous system, studied for neuroprotection and oxidative stress.",
         evidenceNote:

@@ -1449,10 +1449,10 @@ const catalogProducts: Product[] = [
     benefits: ["Antioxidant protection", "Skin beauty support", "Immune enhancement", "Studied for its role in cellular renewal"]
   },
   {
-    // DRAFT (2026-11-19): hidden in shared/hidden-products.ts until Julia OKs publishing.
+    // Published 2026-11-19 (Julia: "Push all new changes to main live site").
     // Copy matches the printed English box label (Julia's photos, 2026-11-19). Price $37.99
     // for the 120 ml bottle set by Julia. priceEUR is not used at checkout and is not set (0).
-    // shared/mesotel-ultra-draft.test.ts fails if this product is un-hidden without a real image file.
+    // shared/mesotel-ultra.test.ts checks its price, photos and visibility.
     id: "mesotel-ultra",
     // Main: manufacturer's official bottle + box render on white (Julia OK'd, 2026-11-19), same
     // 1500px white square framing as mes.jpg / mesbeauty.jpg. Second: box-front cutout from Julia's photo.

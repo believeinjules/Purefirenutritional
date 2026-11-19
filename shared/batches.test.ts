@@ -65,8 +65,8 @@ describe("Batch Passport data", () => {
       const visible = products.some((x) => x.id === b.catalogProductId);
       expect(visible).toBe(!isHiddenProduct(p));
     }
-    // Mesotel Ultra is drafted but hidden until Julia sends a photo: no link yet.
-    expect(products.some((x) => x.id === "mesotel-ultra")).toBe(false);
+    // Mesotel Ultra is published (2026-11-19), so its batch page links to the product.
+    expect(products.some((x) => x.id === "mesotel-ultra")).toBe(true);
   });
 
   it("no two lots of the same product collide once hyphens and spaces are ignored", () => {
