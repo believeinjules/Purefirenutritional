@@ -20,6 +20,7 @@ export const FILE_ROUTES = {
   "client/src/pages/KhavinsonPeptidesList.tsx": ["/khavinson-peptides-list"],
   "client/src/pages/AIAssistant.tsx": ["/ai-assistant"],
   "client/src/pages/FAQ.tsx": ["/faq"],
+  "client/src/pages/Contact.tsx": ["/contact"],
   "client/src/pages/Science.tsx": ["/science"],
   "client/src/pages/About.tsx": ["/about"],
   "client/src/pages/AuthorizedRetailer.tsx": ["/about/authorized-retailer"],

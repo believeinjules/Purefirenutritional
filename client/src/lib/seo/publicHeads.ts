@@ -45,6 +45,11 @@ export const PUBLIC_PAGE_HEADS: Record<string, PageHead> = {
     description:
       "Get answers to common questions about Khavinson peptide bioregulators, ordering, shipping, and how our products support longevity and wellness.",
   },
+  "/contact": {
+    title: "Contact | Pure Fire Nutritional",
+    description:
+      "Email support@purefirenutritional.com with questions about orders or products, or browse the FAQ. Pure Fire Nutritional is based in Brooklyn, NY.",
+  },
   "/ai-assistant": {
     title: "Pepita — Peptide Research Sidekick | Pure Fire Nutritional",
     description:

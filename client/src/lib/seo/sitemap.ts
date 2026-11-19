@@ -25,6 +25,7 @@ export const PUBLIC_STATIC_ROUTES: string[] = [
   "/about",
   "/about/authorized-retailer",
   "/faq",
+  "/contact",
   "/ai-assistant",
   "/peptalk",
   "/authenticity",

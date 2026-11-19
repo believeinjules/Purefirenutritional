@@ -204,6 +204,11 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-3">
+              <li>
+                <Link href="/contact" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
+                  Contact
+                </Link>
+              </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <Mail className="w-5 h-5 text-orange-500" />
                 <a href={mailto(CONTACT_EMAIL)} className="inline-block py-1.5 hover:text-orange-500 transition-colors">
