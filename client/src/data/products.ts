@@ -1452,13 +1452,16 @@ const catalogProducts: Product[] = [
     // DRAFT (2026-11-19): hidden in shared/hidden-products.ts until Julia OKs publishing.
     // Copy matches the printed English box label (Julia's photos, 2026-11-19). Price $37.99
     // for the 120 ml bottle set by Julia. priceEUR is not used at checkout and is not set (0).
-    // Box-front cutout in place; bottle-front photo still to come. shared/mesotel-ultra-draft.test.ts
-    // fails if this product is un-hidden without a real image file.
+    // shared/mesotel-ultra-draft.test.ts fails if this product is un-hidden without a real image file.
     id: "mesotel-ultra",
-    // TEMPORARY main image: box-front cutout. When the bottle-front cutout arrives it becomes
-    // `image`, and the box moves to the second slot of `images`.
-    image: "/products/mesotel-ultra-box-front.webp",
-    imageAlt: "Mesotel Ultra box, 120 ml",
+    // Main: manufacturer's official bottle + box render on white (Julia OK'd, 2026-11-19), same
+    // 1500px white square framing as mes.jpg / mesbeauty.jpg. Second: box-front cutout from Julia's photo.
+    image: "/products/mesotel-ultra-main.jpg",
+    imageAlt: "Mesotel Ultra bottle and box, 120 ml",
+    images: [
+      "/products/mesotel-ultra-main.jpg",
+      "/products/mesotel-ultra-box-front.webp",
+    ],
     name: "Mesotel Ultra",
     description: "Mesotel Ultra is a choline-based liquid from the Mesotel line, made by KorolyovPharm LLC (Russia). It is an additional source of choline and alpha-lipoic acid, with a brain peptide complex (AA-5) and a vascular wall peptide complex (AA-7), plus dry extracts of gotu kola, goji berry fruit and grape skin. A 10 ml daily serving provides 150 mg of choline and 12.0 mg of alpha-lipoic acid. Choline contributes to normal brain and nervous-system function and to healthy cell membranes. 120 ml (4.05 fl. oz.) bottle.",
     category: "ANTI AGING-LONGEVITY",

@@ -19,6 +19,13 @@ describe("Mesotel Ultra draft", () => {
     expect(p!.priceUSD).toBe(37.99);
   });
 
+  it("uses the manufacturer bottle-and-box render as the main image and the box cutout second", () => {
+    expect(p!.image).toBe("/products/mesotel-ultra-main.jpg");
+    expect(p!.imageAlt).toBe("Mesotel Ultra bottle and box, 120 ml");
+    expect(p!.images).toEqual(["/products/mesotel-ultra-main.jpg", "/products/mesotel-ultra-box-front.webp"]);
+    for (const src of p!.images!) expect(existsSync(`client/public${src}`), src).toBe(true);
+  });
+
   it("is hidden: not in the shop, not on a product page, not chargeable", () => {
     expect(HIDDEN_PRODUCT_IDS.has("mesotel-ultra")).toBe(true);
     expect(getProductById("mesotel-ultra")).toBeUndefined();
