@@ -120,7 +120,8 @@ function FlipImage({ product, eager = false }: { product: ListingProduct; eager?
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3 pointer-events-none">
             <span className="text-white text-xs font-medium tracking-wide" aria-hidden="true">
-              Hover for details
+              <span className="product-flip-hint-hover">Hover for details</span>
+              <span className="product-flip-hint-tap">Tap for details</span>
             </span>
           </div>
         </div>

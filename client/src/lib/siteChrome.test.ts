@@ -22,4 +22,13 @@ describe("site chrome", () => {
     expect(footer).not.toMatch(/© 2024 Pure Fire Nutritional/);
     expect(footer).toContain('href="/contact"');
   });
+
+  it("switches shop-card hints with hover media queries, not a user-agent string", () => {
+    const css = fs.readFileSync(path.join(root, "src/index.css"), "utf8");
+    const card = fs.readFileSync(path.join(root, "src/components/ProductListingCard.tsx"), "utf8");
+    expect(card).toContain("Hover for details");
+    expect(card).toContain("Tap for details");
+    expect(css).toContain("@media (hover: none)");
+    expect(card + css).not.toMatch(/userAgent|navigator\.platform/);
+  });
 });

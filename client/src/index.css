@@ -448,3 +448,10 @@ article p, article li, article td, article th, article dd, article blockquote {
     bottom: max(88px, env(safe-area-inset-bottom));
   }
 }
+
+/* Shop card flip hint: hover vs tap, by capability, not user-agent. */
+.product-flip-hint-tap { display: none; }
+@media (hover: none) {
+  .product-flip-hint-hover { display: none; }
+  .product-flip-hint-tap { display: inline; }
+}
