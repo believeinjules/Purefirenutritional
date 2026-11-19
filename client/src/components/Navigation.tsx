@@ -52,7 +52,7 @@ const SHOP_SECTIONS: { id: string; label: string; items: ShopItem[] }[] = [
   { id: "goals", label: "Shop by Goal", items: GOALS.map((p) => ({ label: p.name, href: browsePath(p) })) },
 ];
 const SHOP_ALL_LINK = { label: "Shop All", href: "/products" };
-const ASK_PEPITA_LINK = { before: "Not sure where to start?", label: "Ask Pepita AI Concierge", href: "/ai-assistant" };
+const ASK_PEPITA_LINK = { before: "Not sure where to start?", label: "Ask Pepita AI", href: "/ai-assistant" };
 /** Small highlighted CTA under Shop by Goal; the site's existing accent gradient (cart/wishlist badges). */
 const CTA_GRADIENT = "linear-gradient(135deg, #E8793A, #B83870)";
 function AskPepitaCta({ onClick, className = "" }: { onClick?: () => void; className?: string }) {
@@ -167,7 +167,7 @@ export default function Navigation() {
     { label: "Authenticity", href: "/authenticity" },
     { label: "About", href: "/about" },
     { label: "FAQ", href: "/faq" },
-    { label: "Pepita AI Concierge", href: "/ai-assistant" },
+    { label: "Pepita AI", href: "/ai-assistant" },
   ];
 
   return (
