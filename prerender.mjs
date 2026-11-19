@@ -210,6 +210,19 @@ async function prerender() {
     console.log(`Prerendered (unlisted): ${route}`);
   }
 
+  // ── Batch Passport pages (/batch-passport/<product>-<lot>): QR targets ────
+  // Thin pages: each carries noindex,follow (set by the page) and stays out of
+  // the sitemap. The /batch-passport lookup itself is a public static route.
+  const batchProblems = [];
+  for (const route of ssr.BATCH_ROUTES) {
+    const page = renderRoute(route);
+    if (!/<meta[^>]*name="robots"[^>]*noindex/.test(page)) batchProblems.push(`${route}: missing noindex`);
+    if (!page.includes('data-testid="batch-card"')) batchProblems.push(`${route}: batch details not rendered`);
+    writeFile(outPathFor(route), page);
+  }
+  if (batchProblems.length) throw new Error(`Batch Passport pages:\n${batchProblems.join("\n")}`);
+  console.log(`Prerendered (noindex, not in sitemap): ${ssr.BATCH_ROUTES.length} Batch Passport pages`);
+
   // ── Khavinson Peptides List + body-system pages (/products/system/<slug>) ─
   // Rendered from client/src/data/bodySystems.ts. While CATEGORY_PAGES_LIVE is
   // false each page carries noindex and stays out of the sitemap.

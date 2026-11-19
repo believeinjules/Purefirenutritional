@@ -177,7 +177,8 @@ describe("routes, robots and sitemap", () => {
     // Dynamic routes prerendered from data in prerender.mjs (catalog products, published certificates).
     // /review/:slug: one noindex shell per catalog product. /__dev/*: DEV-only routes.
     // /products/{system,collection,goal}/:slug: one page per browse page (CATEGORY_ROUTES).
-    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug", "/products/system/:slug", "/products/collection/:slug", "/products/goal/:slug"]);
+    // /batch-passport/:key: one noindex page per batch (BATCH_ROUTES, shared/batches.ts).
+    const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug", "/products/system/:slug", "/products/collection/:slug", "/products/goal/:slug", "/batch-passport/:key"]);
     const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES), ...CATEGORY_ROUTES]);
     const unserved = Array.from(appRoutes).filter(
       (r) => r !== "/404" && !r.startsWith("/__dev/") && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)

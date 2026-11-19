@@ -50,6 +50,11 @@ export const PUBLIC_PAGE_HEADS: Record<string, PageHead> = {
     description:
       "Email support@purefirenutritional.com with questions about orders or products, or browse the FAQ. Pure Fire Nutritional is based in Brooklyn, NY.",
   },
+  "/batch-passport": {
+    title: "Batch Passport: Look Up Your Lot | Pure Fire Nutritional",
+    description:
+      "Enter the lot number from your box to see its manufacture and expiry dates as printed on the package. Sourced directly from the manufacturer.",
+  },
   "/ai-assistant": {
     title: "Pepita AI Concierge | Pure Fire Nutritional",
     description:

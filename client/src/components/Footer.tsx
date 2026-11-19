@@ -146,6 +146,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/batch-passport" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
+                  Batch Passport
+                </Link>
+              </li>
+              <li>
                 <Link href={AUTHORIZED_RETAILER_PATH} className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
                   {AUTHORIZED_RETAILER_TITLE}
                 </Link>

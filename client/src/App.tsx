@@ -64,6 +64,7 @@ import ReturnsPolicy from "./pages/policies/Returns";
 import HowToSpotAFake from "./pages/HowToSpotAFake";
 import AuthorizedRetailer from "./pages/AuthorizedRetailer";
 import Contact from "./pages/Contact";
+import { BatchPassportLookup, BatchPassportDetail } from "./pages/BatchPassport";
 
 function Router() {
   return (
@@ -84,6 +85,8 @@ function Router() {
       <Route path="/ai-assistant" component={AIAssistant} />
       <Route path="/faq" component={FAQ} />
       <Route path="/contact" component={Contact} />
+      <Route path="/batch-passport" component={BatchPassportLookup} />
+      <Route path="/batch-passport/:key" component={BatchPassportDetail} />
       <Route path="/science" component={Science} />
       <Route path="/research" component={Science} />
       <Route path="/about" component={About} />
