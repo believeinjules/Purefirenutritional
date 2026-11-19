@@ -17,19 +17,28 @@ import {
   DAILY_FIRE_CONSENT_TEXT,
   DAILY_FIRE_NAME,
   isDailyFireExcludedPath,
-  pickQuestion,
   type QuizQuestion,
 } from "@shared/daily-fire";
 import { isValidEmail } from "@shared/email-address";
-import { isPopupEligible, markClaimed, markDismissed, readDailyFire } from "@/lib/dailyFire";
+import {
+  isClaimedInWindow,
+  isPillVisible,
+  isPopupEligible,
+  markClaimed,
+  markDismissed,
+  markShownToday,
+  readDailyFire,
+  readShownOn,
+  resumeOrPickQuestion,
+} from "@/lib/dailyFire";
 
 export const DAILY_FIRE_SPIN_URL = "/api/stripe/create-checkout-session?op=discount-spin";
 
-/** Popup opens after this delay, at 50% scroll depth, or on desktop exit intent (whichever is first). */
-export const DAILY_FIRE_DELAY_MS = 12_000;
+/** Popup opens after this delay, or at ~40% scroll depth, whichever is first. Never on first paint. */
+export const DAILY_FIRE_DELAY_MS = 9_000;
+export const DAILY_FIRE_SCROLL_RATIO = 0.4;
 /** Pause after tapping a standard answer so the check mark registers before the email step. */
 export const DAILY_FIRE_AUTO_ADVANCE_MS = 280;
-const MIN_ENGAGED_MS = 4_000;
 
 type Revealed = { code: string; percentOff: number; expiresAt: number; existing?: boolean };
 
@@ -43,7 +52,6 @@ export const EMAIL_STEP_ERRORS = {
 function useOpenTrigger(enabled: boolean, onTrigger: () => void, delayMs: number) {
   useEffect(() => {
     if (!enabled) return;
-    const start = Date.now();
     let fired = false;
     const fire = () => {
       if (fired) return;
@@ -52,22 +60,14 @@ function useOpenTrigger(enabled: boolean, onTrigger: () => void, delayMs: number
     };
     const timer = window.setTimeout(fire, delayMs);
     const onScroll = () => {
-      if (Date.now() - start < MIN_ENGAGED_MS) return;
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
-      if (max > 0 && window.scrollY / max >= 0.5) fire();
-    };
-    const finePointer = window.matchMedia?.("(pointer: fine)").matches ?? false;
-    const onMouseOut = (e: MouseEvent) => {
-      if (!finePointer || Date.now() - start < MIN_ENGAGED_MS) return;
-      if (!e.relatedTarget && e.clientY <= 0) fire();
+      if (max > 0 && window.scrollY / max >= DAILY_FIRE_SCROLL_RATIO) fire();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    document.addEventListener("mouseout", onMouseOut);
     return () => {
       window.clearTimeout(timer);
       window.removeEventListener("scroll", onScroll);
-      document.removeEventListener("mouseout", onMouseOut);
     };
   }, [enabled, onTrigger, delayMs]);
 }
@@ -76,6 +76,7 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const [location] = useLocation();
   const [mounted, setMounted] = useState(false);
   const [eligible, setEligible] = useState(false);
+  const [pillVisible, setPillVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState<QuizQuestion | null>(null);
   const [answerId, setAnswerId] = useState<string | null>(null);
@@ -101,11 +102,18 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   // Client-only: never renders during prerender/SSR.
   useEffect(() => {
     setMounted(true);
-    setEligible(isPopupEligible(readDailyFire(), Date.now()));
-    // ?daily-fire=1 opens it at once (for review/screenshots); still one claim per browser.
-    if (new URLSearchParams(window.location.search).get("daily-fire") === "1") {
-      setQuestion(pickQuestion());
+    const now = Date.now();
+    const state = readDailyFire();
+    const shownOn = readShownOn();
+    setEligible(isPopupEligible(state, now, shownOn));
+    setPillVisible(isPillVisible(state, now, shownOn));
+    if (!isClaimedInWindow(state, now)) setQuestion(resumeOrPickQuestion(now));
+    // ?daily-fire=1 opens it at once (for review/screenshots); still one claim per window.
+    if (new URLSearchParams(window.location.search).get("daily-fire") === "1" && !isClaimedInWindow(state, now)) {
+      markShownToday(now);
+      setQuestion((q) => q ?? resumeOrPickQuestion(now));
       setOpen(true);
+      setPillVisible(true);
       shownThisVisit.current = true;
     }
   }, []);
@@ -114,8 +122,11 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const onTrigger = useCallback(() => {
     if (shownThisVisit.current) return;
     shownThisVisit.current = true;
-    setQuestion(pickQuestion());
+    const now = Date.now();
+    markShownToday(now);
+    setQuestion((q) => q ?? resumeOrPickQuestion(now));
     setOpen(true);
+    setPillVisible(true);
   }, []);
   useOpenTrigger(mounted && eligible && !excluded && !shownThisVisit.current, onTrigger, delayMs);
 
@@ -127,12 +138,20 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   const handleOpenChange = (next: boolean) => {
     if (!next) {
       if (!revealed) markDismissed();
+      markShownToday();
       setEligible(false);
+      const state = readDailyFire();
+      setPillVisible(!isClaimedInWindow(state, Date.now()));
       clearAdvance();
       setSelectedId(null);
       setOtherText("");
     }
     setOpen(next);
+  };
+
+  const openFromPill = () => {
+    setQuestion((q) => q ?? resumeOrPickQuestion());
+    setOpen(true);
   };
 
   // Step 1: any answer moves on to the email step (nothing is revealed yet).
@@ -237,6 +256,7 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
         existing: body.existing === true,
       };
       markClaimed(r.code, r.percentOff, r.expiresAt, Date.now(), trimmed.toLowerCase());
+      setPillVisible(false);
       setRevealed(r);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not reveal a code right now. Please try again.");
@@ -256,18 +276,34 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
     }
   };
 
-  if (!mounted || !question) return null;
+  if (!mounted) return null;
+  if (excluded && !open) return null;
+  if (!question && !pillVisible) return null;
 
-  const isTrivia = Boolean(question.answerId);
-  const correct = isTrivia && answerId === question.answerId;
-  const correctLabel = question.options.find((o) => o.id === question.answerId)?.label;
+  const isTrivia = Boolean(question?.answerId);
+  const correct = Boolean(question) && isTrivia && answerId === question.answerId;
+  const correctLabel = question?.options.find((o) => o.id === question.answerId)?.label;
   const expiresLabel = revealed?.expiresAt
     ? new Date(revealed.expiresAt * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" })
     : null;
 
-  const rovingId = selectedId ?? question.options[0]?.id;
+  const rovingId = selectedId ?? question?.options[0]?.id;
 
   return (
+    <>
+      {pillVisible && !open && !excluded ? (
+        <button
+          type="button"
+          className="daily-fire-pill print:hidden"
+          aria-label="Open today's Daily Fire question"
+          data-testid="daily-fire-pill"
+          onClick={openFromPill}
+        >
+          <Flame className="h-3.5 w-3.5" aria-hidden="true" strokeWidth={2} />
+          Daily Fire
+        </button>
+      ) : null}
+      {question ? (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent
         className="grid-cols-[minmax(0,1fr)] max-w-[calc(100%-2.5rem)] gap-3 rounded-2xl p-5 sm:max-w-[26rem] sm:p-6 max-h-[calc(100dvh-2rem)] overflow-y-auto focus:outline-none motion-reduce:animate-none"
@@ -463,5 +499,7 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
         )}
       </DialogContent>
     </Dialog>
+      ) : null}
+    </>
   );
 }

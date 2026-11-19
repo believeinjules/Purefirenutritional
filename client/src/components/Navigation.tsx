@@ -208,7 +208,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-7">
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map(({ label, href }) =>
               href === "/products" ? (
                 <div
@@ -311,7 +311,7 @@ export default function Navigation() {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 min-w-0 shrink-0">
             {/* Peptalk */}
             <Link href="/peptalk" aria-label="Peptalk Podcast" className="nav-scale inline-block">
                 <img
@@ -350,7 +350,7 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="nav-scale md:hidden p-2 -m-2 text-white/80 hover:text-white transition-colors"
+              className="nav-scale lg:hidden p-2 -m-2 text-white/80 hover:text-white transition-colors"
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
             >
@@ -361,7 +361,7 @@ export default function Navigation() {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden pb-5 pt-3 space-y-1 border-t border-white/10">
+          <div className="lg:hidden pb-5 pt-3 space-y-1 border-t border-white/10">
             {navLinks.map(({ label, href }) => (
               <div key={href}>
                 <Link

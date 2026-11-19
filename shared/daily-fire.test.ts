@@ -143,11 +143,11 @@ describe("helpers", () => {
     expect(estimateDiscountCents(10000, 0)).toBe(0);
   });
 
-  it("excludes checkout, success, admin and account pages", () => {
-    for (const p of ["/checkout", "/checkout/success?session_id=x", "/admin", "/admin/products", "/login", "/signup", "/auth/action", "/review/x", "/dashboard"]) {
+  it("excludes checkout, cart, account, and admin pages", () => {
+    for (const p of ["/checkout", "/checkout/success?session_id=x", "/cart", "/account", "/account/settings", "/admin", "/admin/products", "/login", "/signup", "/auth/action", "/review/x", "/dashboard", "/orders"]) {
       expect(isDailyFireExcludedPath(p)).toBe(true);
     }
-    for (const p of ["/", "/products", "/products/cerluten", "/cart", "/learn", "/reviews-page"]) {
+    for (const p of ["/", "/products", "/products/cerluten", "/learn", "/reviews-page"]) {
       expect(isDailyFireExcludedPath(p)).toBe(false);
     }
   });

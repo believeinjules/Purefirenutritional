@@ -43,7 +43,7 @@ export default function SupplierRelationship() {
   return (
     <section id={SUPPLIER_SECTION_ID} className="py-20 scroll-mt-24" data-testid="supplier-relationship">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">Our Supplier Relationship</h2>
+        <h2 className="text-5xl font-bold text-gray-800 mb-6">Our Supplier Relationship</h2>
         <p className="text-lg text-gray-600 mb-6">
           Pure Fire Nutritional sources directly from the manufacturer, with an established purchasing relationship dating back to April 2023.
         </p>

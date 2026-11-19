@@ -36,13 +36,13 @@ export default function AuthorizedRetailer() {
       />
       <Navigation />
       <main className="flex-1">
-        <div className="max-w-2xl mx-auto px-5 py-16 md:py-24" data-testid="authorized-retailer-page">
+        <div className="max-w-2xl mx-auto px-5 py-24" data-testid="authorized-retailer-page">
           <nav aria-label="Breadcrumb" className="text-[11px] uppercase tracking-[0.28em] text-stone-500">
             <Link href="/about" className="hover:text-stone-900">About</Link>
             <span aria-hidden="true"> / </span>
             <span>Retailer Authorization</span>
           </nav>
-          <h1 className="mt-4 font-serif text-4xl md:text-5xl font-normal tracking-tight text-stone-900">
+          <h1 className="mt-4 font-serif text-5xl font-normal tracking-tight text-stone-900">
             {AUTHORIZED_RETAILER_TITLE}
           </h1>
           <p className="mt-6 text-base md:text-lg leading-relaxed text-stone-600">

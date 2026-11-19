@@ -128,7 +128,7 @@ export default function Index() {
       <FreeShippingBanner />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#0d0d0d", padding: "72px 24px" }}>
+      <section style={{ backgroundColor: "#0d0d0d", padding: "var(--hero-pad-y) 24px" }}>
         <div style={{ maxWidth: "680px", margin: "0 auto", textAlign: "center" }}>
 
           {/* Badge */}
@@ -208,28 +208,26 @@ export default function Index() {
           </div>
 
           {/* Stats row */}
-          <div style={{
-            marginTop: "60px",
-            borderTop: "0.5px solid #222",
-            paddingTop: "36px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "stretch",
-          }}>
+          <div
+            className="hero-stat-row"
+            style={{
+              marginTop: "60px",
+              borderTop: "0.5px solid #222",
+              paddingTop: "36px",
+            }}
+          >
             {[
               { value: "Authorized", label: "US Retailer" },
               { value: "40+", label: "Years of Khavinson Research" },
               { value: "Evidence", label: "Backed" },
-            ].map((stat, i) => (
-              <div key={stat.label} style={{ display: "flex", alignItems: "stretch" }}>
-                {i > 0 && (
-                  <div style={{ width: "0.5px", backgroundColor: "#2a2a2a", margin: "0 40px" }} />
-                )}
-                <div style={{ textAlign: "center" }}>
+            ].flatMap((stat, i) => [
+              i > 0 ? <div key={`${stat.label}-rule`} className="hero-stat-divider" /> : null,
+              <div key={stat.label} className="hero-stat-item">
+                <div style={{ textAlign: "center", minWidth: 0 }}>
                   <div style={{
                     fontFamily: "'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif",
                     fontWeight: 600,
-                    fontSize: "28px",
+                    fontSize: "var(--hero-stat-value)",
                     color: "white",
                     lineHeight: 1,
                     marginBottom: "8px",
@@ -247,8 +245,8 @@ export default function Index() {
                     {stat.label}
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>,
+            ])}
           </div>
 
           {/* Authorized retailer credential (Julia, 2026-11-12): one quiet line, linked */}
@@ -348,7 +346,7 @@ export default function Index() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="section-label mb-4">Our Approach</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-snug">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-snug">
             Wellness begins with understanding.
           </h2>
           <div className="space-y-5 text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
@@ -380,7 +378,7 @@ export default function Index() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <p className="section-label mb-3">Our Products</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Guided by System. Grounded in Science.
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">

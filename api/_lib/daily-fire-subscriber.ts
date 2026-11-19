@@ -4,9 +4,10 @@
  * The popup only reveals a code after the shopper (1) answers the question and
  * (2) enters a valid email AND ticks the consent box. This module validates the
  * request, records the subscriber in Firestore `mailing_list` (Admin SDK only;
- * firestore.rules deny all browser access) and enforces ONE live code per email:
- * if the address already holds an unexpired, unredeemed Daily Fire promotion
- * code, the same code is returned instead of minting another.
+ * firestore.rules deny all browser access) and enforces ONE code per email per
+ * rolling 30 days. If they still have a valid unused code, that code is returned;
+ * otherwise they wait until the window ends. Minting is reserved inside a
+ * Firestore transaction so two requests cannot issue two codes.
  *
  * Doc id = normalized email (trimmed, lower-cased), the same key the existing
  * footer form (api/mailing-list/subscribe.ts) already uses, so one person is one
@@ -19,6 +20,8 @@ import {
   DAILY_FIRE_CONSENT_TEXT,
   DAILY_FIRE_CONSENT_VERSION,
   questionById,
+  DAILY_FIRE_CODE_TTL_DAYS,
+  DAILY_FIRE_CODE_WINDOW_DAYS,
 } from "../../shared/daily-fire.js";
 import type { SpinResult } from "./discount.js";
 
@@ -155,6 +158,200 @@ export function codeFields(r: SpinResult): Record<string, unknown> {
 export async function writeSubscriber(db: Firestore, email: string, fields: Record<string, unknown>): Promise<void> {
   await db.collection(MAILING_LIST_COLLECTION).doc(email).set(fields, { merge: true });
 }
+
+
+export const DAILY_FIRE_CODE_WINDOW_MS = DAILY_FIRE_CODE_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+
+export type DailyFireCodeRecord = {
+  code: string;
+  percentOff: number;
+  promoCodeId: string;
+  expiresAt: number;
+  issuedAt: string;
+};
+
+export function parseIssuedAt(value: unknown): number | null {
+  if (typeof value === "string") {
+    const t = Date.parse(value);
+    return Number.isFinite(t) ? t : null;
+  }
+  if (typeof value === "number" && Number.isFinite(value)) return value > 1e12 ? value : value * 1000;
+  return null;
+}
+
+/** Last code's issued time: lastCodeIssuedAt, else lastRevealAt / history / expiry minus TTL. */
+export function resolveLastCodeIssuedAt(doc: SubscriberDoc): number | null {
+  if (!doc) return null;
+  const explicit = parseIssuedAt(doc.lastCodeIssuedAt);
+  if (explicit != null) return explicit;
+  const codes = Array.isArray(doc.dailyFireCodes) ? (doc.dailyFireCodes as unknown[]) : [];
+  for (let i = codes.length - 1; i >= 0; i--) {
+    const t = parseIssuedAt((codes[i] as { issuedAt?: unknown } | null)?.issuedAt);
+    if (t != null) return t;
+  }
+  const hasCode =
+    (typeof doc.dailyFirePromoCodeId === "string" && doc.dailyFirePromoCodeId) ||
+    (typeof doc.dailyFireCode === "string" && doc.dailyFireCode);
+  if (!hasCode) return null;
+  const fromReveal = parseIssuedAt(doc.lastRevealAt);
+  if (fromReveal != null) return fromReveal;
+  const exp = Number(doc.dailyFireExpiresAt);
+  if (Number.isFinite(exp) && exp > 0) {
+    const expMs = exp > 1e12 ? exp : exp * 1000;
+    return expMs - DAILY_FIRE_CODE_TTL_DAYS * 24 * 60 * 60 * 1000;
+  }
+  return null;
+}
+
+export function formatNextCodeAvailableOn(issuedAt: number): { iso: string; message: string } {
+  const at = new Date(issuedAt + DAILY_FIRE_CODE_WINDOW_MS);
+  const iso = at.toISOString();
+  const label = at.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+  return { iso, message: `Your next Daily Fire code is available on ${label}.` };
+}
+
+export function existingCodeHistory(doc: SubscriberDoc): DailyFireCodeRecord[] {
+  const out: DailyFireCodeRecord[] = [];
+  const seen = new Set<string>();
+  const push = (r: DailyFireCodeRecord) => {
+    const k = r.promoCodeId || r.code;
+    if (!k || seen.has(k)) return;
+    seen.add(k);
+    out.push(r);
+  };
+  if (Array.isArray(doc?.dailyFireCodes)) {
+    for (const c of doc!.dailyFireCodes as unknown[]) {
+      if (!c || typeof c !== "object") continue;
+      const rec = c as Record<string, unknown>;
+      if (typeof rec.code !== "string" || !rec.code) continue;
+      push({
+        code: rec.code,
+        percentOff: Number(rec.percentOff) || 0,
+        promoCodeId: typeof rec.promoCodeId === "string" ? rec.promoCodeId : "",
+        expiresAt: Number(rec.expiresAt) || 0,
+        issuedAt: typeof rec.issuedAt === "string" ? rec.issuedAt : "",
+      });
+    }
+  }
+  if (doc && typeof doc.dailyFireCode === "string" && doc.dailyFireCode) {
+    const issued = resolveLastCodeIssuedAt({ ...doc, dailyFireCodes: undefined }) ?? 0;
+    push({
+      code: doc.dailyFireCode as string,
+      percentOff: Number(doc.dailyFirePercentOff) || 0,
+      promoCodeId: typeof doc.dailyFirePromoCodeId === "string" ? doc.dailyFirePromoCodeId : "",
+      expiresAt: Number(doc.dailyFireExpiresAt) || 0,
+      issuedAt: issued ? new Date(issued).toISOString() : "",
+    });
+  }
+  return out;
+}
+
+export type RevealOutcome =
+  | { ok: true; reuse?: true; result: SpinResult }
+  | { ok: false; status: 409; error: string; nextAvailableAt: string }
+  | { ok: false; status: 500; error: string };
+
+const SAVE_ERROR = "Could not save your email. Please try again.";
+const MINT_ERROR = "Could not create a code. Please try again.";
+
+/**
+ * Consent + one-code-per-email-per-30-days, under a Firestore transaction so
+ * concurrent reveals cannot mint two codes. Stripe mint happens only after the
+ * slot is reserved; a failed mint rolls the reservation back.
+ */
+export async function runDailyFireReveal(opts: {
+  db: Firestore;
+  stripe: PromoReader;
+  req: RevealRequest;
+  mint: () => Promise<SpinResult>;
+  now?: number;
+}): Promise<RevealOutcome> {
+  const { db, stripe, req, mint } = opts;
+  const now = opts.now ?? Date.now();
+  const ref = db.collection(MAILING_LIST_COLLECTION).doc(req.email);
+
+  type Phase1 =
+    | { action: "reuse"; reuse: SpinResult; issuedAt: number }
+    | { action: "wait"; issuedAt: number }
+    | { action: "mint"; reservationAt: number };
+
+  let phase1: Phase1;
+  try {
+    phase1 = await db.runTransaction(async (tx) => {
+      const snap = await tx.get(ref);
+      const existing = snap.exists ? (snap.data() as Record<string, unknown>) : undefined;
+      const issuedAt = resolveLastCodeIssuedAt(existing);
+      const base = subscriberFields(req, existing, now);
+      if (issuedAt != null && now < issuedAt + DAILY_FIRE_CODE_WINDOW_MS) {
+        const backfill = { lastCodeIssuedAt: new Date(issuedAt).toISOString() };
+        const reuse = await findReusableCode(stripe, existing, now);
+        tx.set(ref, { ...base, ...backfill, ...(reuse ? codeFields(reuse) : {}) }, { merge: true });
+        return reuse ? ({ action: "reuse", reuse, issuedAt } as const) : ({ action: "wait", issuedAt } as const);
+      }
+      const reservationAt = now;
+      tx.set(ref, { ...base, lastCodeIssuedAt: new Date(reservationAt).toISOString() }, { merge: true });
+      return { action: "mint", reservationAt } as const;
+    });
+  } catch (err) {
+    console.error("[daily-fire] mailing_list transaction failed:", err);
+    return { ok: false, status: 500, error: SAVE_ERROR };
+  }
+
+  if (phase1.action === "reuse") return { ok: true, reuse: true, result: phase1.reuse };
+  if (phase1.action === "wait") {
+    const { iso, message } = formatNextCodeAvailableOn(phase1.issuedAt);
+    return { ok: false, status: 409, error: message, nextAvailableAt: iso };
+  }
+
+  let minted: SpinResult;
+  try {
+    minted = await mint();
+  } catch (err) {
+    try {
+      await db.runTransaction(async (tx) => {
+        const snap = await tx.get(ref);
+        const existing = snap.exists ? (snap.data() as Record<string, unknown>) : undefined;
+        if (parseIssuedAt(existing?.lastCodeIssuedAt) === phase1.reservationAt) {
+          tx.set(ref, { lastCodeIssuedAt: null }, { merge: true });
+        }
+      });
+    } catch (rollbackErr) {
+      console.error("[daily-fire] could not roll back mint reservation:", rollbackErr);
+    }
+    throw err;
+  }
+
+  try {
+    await db.runTransaction(async (tx) => {
+      const snap = await tx.get(ref);
+      const existing = snap.exists ? (snap.data() as Record<string, unknown>) : undefined;
+      const issuedIso = new Date(phase1.reservationAt).toISOString();
+      const history = existingCodeHistory(existing);
+      const entry: DailyFireCodeRecord = {
+        code: minted.code,
+        percentOff: minted.percentOff,
+        promoCodeId: minted.promotionCodeId,
+        expiresAt: minted.expiresAt,
+        issuedAt: issuedIso,
+      };
+      const already = history.some((c) => (c.promoCodeId && c.promoCodeId === entry.promoCodeId) || c.code === entry.code);
+      tx.set(
+        ref,
+        {
+          ...codeFields(minted),
+          lastCodeIssuedAt: issuedIso,
+          lastRevealAt: issuedIso,
+          dailyFireCodes: already ? history : [...history, entry],
+        },
+        { merge: true }
+      );
+    });
+  } catch (err) {
+    console.error("[daily-fire] could not record code on subscriber:", err);
+  }
+  return { ok: true, result: minted };
+}
+
 
 // --- Admin CSV export ------------------------------------------------------
 

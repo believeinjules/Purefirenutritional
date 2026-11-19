@@ -1,10 +1,15 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import {
+  existingCodeHistory,
   findReusableCode,
+  formatNextCodeAvailableOn,
   parseRevealRequest,
+  resolveLastCodeIssuedAt,
+  runDailyFireReveal,
   subscriberFields,
   subscribersToCsv,
   SUBSCRIBER_CSV_COLUMNS,
+  DAILY_FIRE_CODE_WINDOW_MS,
 } from "./daily-fire-subscriber";
 import { DAILY_FIRE_CONSENT_TEXT } from "../../shared/daily-fire";
 
@@ -112,5 +117,179 @@ describe("subscribersToCsv", () => {
     expect(lines[1].startsWith("new@b.co,true,,website|daily-fire,,\"Hi, there\"")).toBe(true);
     expect(lines[2].startsWith("'=HYPERLINK(1),")).toBe(true);
     expect(lines[3].startsWith("old@b.co,true,website")).toBe(true);
+  });
+});
+
+describe("30-day code window helpers", () => {
+  it("prefers lastCodeIssuedAt, then history, then lastRevealAt, then expiresAt minus 7 days", () => {
+    expect(resolveLastCodeIssuedAt(undefined)).toBeNull();
+    expect(resolveLastCodeIssuedAt({ lastCodeIssuedAt: "2026-10-01T12:00:00.000Z" })).toBe(Date.parse("2026-10-01T12:00:00.000Z"));
+    expect(
+      resolveLastCodeIssuedAt({
+        dailyFireCodes: [{ issuedAt: "2026-09-01T00:00:00.000Z" }, { issuedAt: "2026-10-15T00:00:00.000Z" }],
+      })
+    ).toBe(Date.parse("2026-10-15T00:00:00.000Z"));
+    expect(
+      resolveLastCodeIssuedAt({
+        dailyFireCode: "FIRE10-ABCDEF",
+        lastRevealAt: "2026-11-01T00:00:00.000Z",
+      })
+    ).toBe(Date.parse("2026-11-01T00:00:00.000Z"));
+    const exp = NOW_S + 7 * 86400;
+    expect(resolveLastCodeIssuedAt({ dailyFirePromoCodeId: "promo_1", dailyFireExpiresAt: exp })).toBe(exp * 1000 - 7 * 86_400_000);
+  });
+
+  it("formats a friendly next-available date 30 days after issue", () => {
+    const issued = Date.UTC(2026, 10, 18, 12);
+    const { iso, message } = formatNextCodeAvailableOn(issued);
+    expect(iso).toBe(new Date(issued + DAILY_FIRE_CODE_WINDOW_MS).toISOString());
+    expect(message).toBe("Your next Daily Fire code is available on December 18, 2026.");
+  });
+
+  it("keeps existing history and backfills the current singular code without duplicating it", () => {
+    const hist = existingCodeHistory({
+      dailyFireCode: "FIRE10-ABCDEF",
+      dailyFirePercentOff: 10,
+      dailyFirePromoCodeId: "promo_1",
+      dailyFireExpiresAt: NOW_S + 3600,
+      lastCodeIssuedAt: "2026-11-01T00:00:00.000Z",
+      dailyFireCodes: [
+        { code: "FIRE10-ABCDEF", percentOff: 10, promoCodeId: "promo_1", expiresAt: NOW_S + 3600, issuedAt: "2026-11-01T00:00:00.000Z" },
+      ],
+    });
+    expect(hist).toHaveLength(1);
+    expect(hist[0].promoCodeId).toBe("promo_1");
+  });
+});
+
+function memoryDb() {
+  const data = new Map<string, Record<string, any>>();
+  const versions = new Map<string, number>();
+  let gate = Promise.resolve();
+  const withLock = async <T>(fn: () => T | Promise<T>) => {
+    const prev = gate;
+    let release!: () => void;
+    gate = new Promise<void>((r) => {
+      release = r;
+    });
+    await prev;
+    try {
+      return await fn();
+    } finally {
+      release();
+    }
+  };
+  const ref = (id: string) => {
+    const key = `mailing_list/${id}`;
+    return {
+      key,
+      get: async () => ({ exists: data.has(key), data: () => data.get(key) }),
+      set: async (v: Record<string, any>, o?: { merge?: boolean }) => {
+        data.set(key, o?.merge ? { ...(data.get(key) || {}), ...v } : v);
+        versions.set(key, (versions.get(key) ?? 0) + 1);
+      },
+    };
+  };
+  return {
+    data,
+    collection: () => ({ doc: (id: string) => ref(id) }),
+    runTransaction: async (fn: any) => {
+      for (let attempt = 0; attempt < 8; attempt++) {
+        const reads = new Map<string, number>();
+        const writes: Array<{ key: string; v: Record<string, any>; merge?: boolean }> = [];
+        const result = await fn({
+          get: async (r: any) => {
+            reads.set(r.key, versions.get(r.key) ?? 0);
+            return r.get();
+          },
+          set: (r: any, v: Record<string, any>, o?: { merge?: boolean }) => {
+            writes.push({ key: r.key, v, merge: o?.merge });
+          },
+        });
+        const committed = await withLock(() => {
+          for (const [key, ver] of reads) {
+            if ((versions.get(key) ?? 0) !== ver) return false;
+          }
+          for (const w of writes) {
+            data.set(w.key, w.merge ? { ...(data.get(w.key) || {}), ...w.v } : w.v);
+            versions.set(w.key, (versions.get(w.key) ?? 0) + 1);
+          }
+          return true;
+        });
+        if (committed) return result;
+      }
+      throw new Error("transaction contention");
+    },
+  };
+}
+
+describe("runDailyFireReveal", () => {
+  const req = { email: "a@b.co", questionId: "goal-focus", answerId: "b" };
+  const minted = { code: "FIRE10-ABCDEF", percentOff: 10, promotionCodeId: "promo_1", expiresAt: NOW_S + 7 * 86400 };
+
+  it("mints once, then reuses a still-valid code within 30 days", async () => {
+    const db = memoryDb();
+    const mint = vi.fn(async () => minted);
+    const stripe = { promotionCodes: { retrieve: vi.fn(async () => ({ id: "promo_1", code: minted.code, active: true, expires_at: minted.expiresAt, max_redemptions: 1, times_redeemed: 0 })) } } as any;
+    const first = await runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW });
+    expect(first).toMatchObject({ ok: true, result: minted });
+    expect(mint).toHaveBeenCalledTimes(1);
+    const again = await runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW + 3 * 86_400_000 });
+    expect(again).toMatchObject({ ok: true, reuse: true, result: { code: minted.code, percentOff: 10 } });
+    expect(mint).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns a wait message when the 30-day window still applies and no code is reusable", async () => {
+    const db = memoryDb();
+    const mint = vi.fn(async () => minted);
+    const stripe = { promotionCodes: { retrieve: vi.fn(async () => ({ id: "promo_1", code: minted.code, active: false, expires_at: NOW_S - 10, max_redemptions: 1, times_redeemed: 1 })) } } as any;
+    await runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW });
+    const wait = await runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW + 10 * 86_400_000 });
+    expect(wait.ok).toBe(false);
+    if (!wait.ok) {
+      expect(wait.status).toBe(409);
+      expect(wait.error).toBe("Your next Daily Fire code is available on December 18, 2026.");
+      expect(wait.nextAvailableAt).toBe(new Date(NOW + DAILY_FIRE_CODE_WINDOW_MS).toISOString());
+    }
+    expect(mint).toHaveBeenCalledTimes(1);
+  });
+
+  it("mints again once the rolling 30-day window has elapsed", async () => {
+    const db = memoryDb();
+    const mint = vi.fn(async () => minted);
+    const stripe = { promotionCodes: { retrieve: vi.fn(async () => ({ active: false, times_redeemed: 1, expires_at: NOW_S })) } } as any;
+    await runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW });
+    mint.mockImplementation(async () => ({ ...minted, code: "FIRE15-NEWNEW", percentOff: 15, promotionCodeId: "promo_2" }));
+    const later = await runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW + DAILY_FIRE_CODE_WINDOW_MS });
+    expect(later).toMatchObject({ ok: true, result: { code: "FIRE15-NEWNEW" } });
+    expect(mint).toHaveBeenCalledTimes(2);
+    expect(db.data.get("mailing_list/a@b.co").dailyFireCodes).toHaveLength(2);
+  });
+
+  it("lets only one of two concurrent requests mint a code", async () => {
+    const db = memoryDb();
+    let release!: () => void;
+    const hold = new Promise<void>((r) => {
+      release = r;
+    });
+    let mints = 0;
+    const mint = vi.fn(async () => {
+      mints += 1;
+      await hold;
+      return { ...minted, code: `FIRE10-MINT${mints}`, promotionCodeId: `promo_${mints}` };
+    });
+    const stripe = { promotionCodes: { retrieve: vi.fn(async () => null) } } as any;
+    const a = runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW });
+    const b = runDailyFireReveal({ db: db as any, stripe, req, mint, now: NOW });
+    await vi.waitFor(() => expect(db.data.get("mailing_list/a@b.co")?.lastCodeIssuedAt).toBeTruthy());
+    release();
+    const [r1, r2] = await Promise.all([a, b]);
+    const ok = [r1, r2].filter((r) => r.ok);
+    const wait = [r1, r2].filter((r) => !r.ok);
+    expect(ok).toHaveLength(1);
+    expect(wait).toHaveLength(1);
+    expect(wait[0]).toMatchObject({ status: 409 });
+    expect(mints).toBe(1);
+    expect(db.data.get("mailing_list/a@b.co").dailyFireCodes).toHaveLength(1);
   });
 });

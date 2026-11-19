@@ -39,9 +39,9 @@ export default function Documentation() {
       />
       <Navigation />
       <main className="flex-1">
-        <div className="max-w-6xl mx-auto px-5 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-5 py-24">
           <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Authenticity</p>
-          <h1 className="mt-4 font-serif text-4xl md:text-5xl font-normal tracking-tight text-stone-900 max-w-3xl">
+          <h1 className="mt-4 font-serif text-5xl font-normal tracking-tight text-stone-900 max-w-3xl">
             Know what you’re buying. Know where it came from.
           </h1>
           <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-stone-600">

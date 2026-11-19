@@ -1,13 +1,15 @@
 /**
  * Browser-side state for the Daily Fire popup (localStorage only).
- * One reveal per browser: once a code is claimed the popup never shows again
- * while that code is valid, and a dismissal snoozes it for DAILY_FIRE_SNOOZE_DAYS.
+ * Auto-popup is once per local calendar day. A claimed code hides the popup
+ * and corner pill for DAILY_FIRE_CODE_WINDOW_DAYS, then both can return.
  * The discount itself is decided and enforced server-side + by Stripe.
  */
 import { useEffect, useState } from "react";
-import { DAILY_FIRE_SNOOZE_DAYS } from "@shared/daily-fire";
+import { DAILY_FIRE_CODE_WINDOW_DAYS, pickQuestion, questionById, type QuizQuestion } from "@shared/daily-fire";
 
 export const DAILY_FIRE_STORAGE_KEY = "pf_daily_fire_v1";
+export const DAILY_FIRE_SHOWN_KEY = "pf_daily_fire_shown_on";
+export const DAILY_FIRE_QUESTION_KEY = "pf_daily_fire_question";
 const CHANGE_EVENT = "pf-daily-fire-change";
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -56,14 +58,77 @@ function write(state: DailyFireState | null) {
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 
-/** Pure rule: should the popup be eligible for this visitor at `now`? */
-export function isPopupEligible(state: DailyFireState | null, now: number): boolean {
-  if (!state) return true;
-  const snoozeUntil = state.at + DAILY_FIRE_SNOOZE_DAYS * DAY_MS;
-  if (state.status === "claimed") {
-    return now >= Math.max(snoozeUntil, state.expiresAt ?? 0);
+export function localCalendarDay(now: number): string {
+  const d = new Date(now);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+/** A claimed code hides the popup and pill until 30 days after the claim. */
+export function isClaimedInWindow(state: DailyFireState | null, now: number): boolean {
+  if (!state || state.status !== "claimed") return false;
+  return now < state.at + DAILY_FIRE_CODE_WINDOW_DAYS * DAY_MS;
+}
+
+function dismissedToday(state: DailyFireState | null, now: number): boolean {
+  return Boolean(state && state.status === "dismissed" && localCalendarDay(state.at) === localCalendarDay(now));
+}
+
+/** Auto-popup: not claimed in the last 30 days, and not already shown/dismissed today. */
+export function isPopupEligible(state: DailyFireState | null, now: number, shownOn?: string | null): boolean {
+  if (isClaimedInWindow(state, now)) return false;
+  if (shownOn && shownOn === localCalendarDay(now)) return false;
+  if (dismissedToday(state, now)) return false;
+  return true;
+}
+
+/** Corner pill after the popup was shown or dismissed today, hidden while a claim is in the 30-day window. */
+export function isPillVisible(state: DailyFireState | null, now: number, shownOn?: string | null): boolean {
+  if (isClaimedInWindow(state, now)) return false;
+  if (shownOn && shownOn === localCalendarDay(now)) return true;
+  if (dismissedToday(state, now)) return true;
+  return false;
+}
+
+export function readShownOn(): string | null {
+  try {
+    return storage()?.getItem(DAILY_FIRE_SHOWN_KEY) ?? null;
+  } catch {
+    return null;
   }
-  return now >= snoozeUntil;
+}
+
+export function markShownToday(now = Date.now()) {
+  try {
+    storage()?.setItem(DAILY_FIRE_SHOWN_KEY, localCalendarDay(now));
+  } catch {
+    /* ignore */
+  }
+}
+
+export function resumeOrPickQuestion(now = Date.now()): QuizQuestion {
+  const today = localCalendarDay(now);
+  try {
+    const raw = storage()?.getItem(DAILY_FIRE_QUESTION_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as { id?: string; day?: string };
+      if (parsed?.day === today && typeof parsed.id === "string") {
+        const q = questionById(parsed.id);
+        if (q) return q;
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  const q = pickQuestion();
+  try {
+    storage()?.setItem(DAILY_FIRE_QUESTION_KEY, JSON.stringify({ id: q.id, day: today }));
+  } catch {
+    /* ignore */
+  }
+  return q;
 }
 
 /** The code to pre-apply at checkout, if one is claimed, unexpired and not removed. */
@@ -95,7 +160,7 @@ export function dailyFireEmail(): string | null {
   return typeof e === "string" && e ? e : null;
 }
 
-/** Remove the code from the cart (popup still won't come back). */
+/** Remove the code from the cart (popup stays hidden for the 30-day claim window). */
 export function removeAppliedCode() {
   const cur = readDailyFire();
   if (cur?.status === "claimed") write({ ...cur, removed: true });

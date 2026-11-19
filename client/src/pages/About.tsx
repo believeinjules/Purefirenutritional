@@ -22,7 +22,7 @@ export default function About() {
         jsonLd={[aboutOrganizationJsonLd()]}
       />
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-24 bg-brand-gradient text-white">
+      <section className="relative py-24 bg-brand-gradient text-white">
         <div className="absolute inset-0 bg-white/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <div className="flex items-center justify-center mb-6">
@@ -38,7 +38,7 @@ export default function About() {
             </Badge>
           </div>
           
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-6xl md:text-6xl font-bold mb-6 leading-tight">
             Where Mind Meets Body
           </h1>
           
@@ -76,7 +76,7 @@ export default function About() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">
               Meet Our Founders
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
@@ -247,7 +247,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+              <h2 className="text-5xl font-bold text-gray-800 mb-6">
                 Our Mission
               </h2>
               <p className="text-lg text-gray-600 mb-6">
@@ -321,7 +321,7 @@ export default function About() {
       <section className="py-20 bg-gradient-to-r from-orange-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">
               Our Core Values
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -393,7 +393,7 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-20 bg-brand-gradient text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-5xl font-bold mb-6">
             Begin with Understanding
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">

@@ -7,9 +7,11 @@ import { memoryLocation } from "wouter/memory-location";
 import DailyFirePopup, { DAILY_FIRE_SPIN_URL } from "./DailyFirePopup";
 import { AppliedCodeNotice } from "./AppliedDiscount";
 import {
+  DAILY_FIRE_SHOWN_KEY,
   DAILY_FIRE_STORAGE_KEY,
   activeCode,
   dailyFireEmail,
+  isPillVisible,
   isPopupEligible,
   markClaimed,
   readDailyFire,
@@ -78,29 +80,59 @@ describe("DailyFirePopup", () => {
     }
   });
 
-  it("Esc closes it and snoozes it for 30 days", async () => {
+  it("Esc closes it and shows the Daily Fire pill instead", async () => {
     const user = userEvent.setup();
     renderAt("/");
     await screen.findByRole("dialog", {}, { timeout: 2000 });
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
     expect(readDailyFire()?.status).toBe("dismissed");
+    const pill = await screen.findByRole("button", { name: "Open today's Daily Fire question" });
+    expect(pill).toBeTruthy();
+    await user.click(pill);
+    const dialog = await screen.findByRole("dialog", {}, { timeout: 2000 });
+    const title = document.getElementById(dialog.getAttribute("aria-labelledby")!);
+    expect(title?.textContent).toBe(QUIZ_QUESTIONS[0].prompt);
   });
 
-  it("never shows on checkout, success, or admin pages", async () => {
-    for (const p of ["/checkout", "/checkout/success", "/admin"]) {
+  it("never shows the popup or pill on checkout, cart, account, or admin pages", async () => {
+    for (const p of ["/checkout", "/checkout/success", "/cart", "/account", "/admin"]) {
       const { unmount } = renderAt(p, 10);
       await act(() => new Promise((r) => setTimeout(r, 80)));
       expect(screen.queryByRole("dialog")).toBeNull();
+      expect(screen.queryByTestId("daily-fire-pill")).toBeNull();
       unmount();
     }
   });
 
-  it("does not show again after a dismissal", async () => {
+  it("does not auto-open again after a dismissal, but the pill reopens the same question", async () => {
     localStorage.setItem(DAILY_FIRE_STORAGE_KEY, JSON.stringify({ status: "dismissed", at: Date.now() }));
+    const user = userEvent.setup();
     renderAt("/", 10);
     await act(() => new Promise((r) => setTimeout(r, 80)));
     expect(screen.queryByRole("dialog")).toBeNull();
+    const pill = await screen.findByRole("button", { name: "Open today's Daily Fire question" });
+    await user.click(pill);
+    const dialog = await screen.findByRole("dialog");
+    const title = document.getElementById(dialog.getAttribute("aria-labelledby")!);
+    expect(title?.textContent).toBe(QUIZ_QUESTIONS[0].prompt);
+  });
+
+  it("hides the pill after a code is claimed, then both return after 30 days", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn(async () => okResponse());
+    vi.stubGlobal("fetch", fetchMock);
+    renderAt("/");
+    await screen.findByRole("dialog", {}, { timeout: 2000 });
+    await pick(user, "Sleep and recovery");
+    await user.type(screen.getByLabelText("Email"), "shopper@example.com");
+    await user.click(screen.getByRole("checkbox"));
+    await user.click(screen.getByRole("button", { name: "Reveal my code" }));
+    await screen.findByTestId("daily-fire-code");
+    await user.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(screen.queryByTestId("daily-fire-pill")).toBeNull();
+    vi.unstubAllGlobals();
   });
 
   const okResponse = (over: Record<string, unknown> = {}) =>
@@ -244,15 +276,27 @@ describe("DailyFirePopup", () => {
 });
 
 describe("dailyFire storage rules", () => {
-  const now = Date.UTC(2026, 10, 17);
-  it("dismissed → hidden for 30 days", () => {
+  const now = new Date(2026, 10, 17).getTime(); // local midnight so calendar-day checks stay stable
+  it("dismissed → auto-popup stays closed for the rest of that calendar day, then returns", () => {
     expect(isPopupEligible(null, now)).toBe(true);
-    expect(isPopupEligible({ status: "dismissed", at: now }, now + 29 * DAY)).toBe(false);
-    expect(isPopupEligible({ status: "dismissed", at: now }, now + 31 * DAY)).toBe(true);
+    expect(isPopupEligible({ status: "dismissed", at: now + 8 * 3600_000 }, now + 10 * 3600_000)).toBe(false);
+    expect(isPillVisible({ status: "dismissed", at: now + 8 * 3600_000 }, now + 10 * 3600_000)).toBe(true);
+    const nextDay = new Date(2026, 10, 18).getTime();
+    expect(isPopupEligible({ status: "dismissed", at: now + 8 * 3600_000 }, nextDay)).toBe(true);
+    expect(isPillVisible({ status: "dismissed", at: now + 8 * 3600_000 }, nextDay)).toBe(false);
   });
-  it("claimed → hidden while the code is valid and for 30 days", () => {
+  it("shown today (without a dismiss record) hides the auto-popup and shows the pill", () => {
+    const today = "2026-11-17";
+    expect(isPopupEligible(null, now, today)).toBe(false);
+    expect(isPillVisible(null, now, today)).toBe(true);
+  });
+  it("claimed → hidden for 30 days even after the 7-day code expires, then popup and pill can return", () => {
     const s = { status: "claimed" as const, at: now, code: "FIRE5-ABCDEF", percentOff: 5, expiresAt: now + 7 * DAY };
     expect(isPopupEligible(s, now + 10 * DAY)).toBe(false);
+    expect(isPillVisible(s, now + 10 * DAY, "2026-11-27")).toBe(false);
+    expect(isPopupEligible(s, now + 30 * DAY - 1)).toBe(false);
+    expect(isPopupEligible(s, now + 30 * DAY)).toBe(true);
+    expect(isPillVisible(s, now + 30 * DAY)).toBe(false); // pill only after that day's show/dismiss
     expect(activeCode(s, now + DAY)?.code).toBe("FIRE5-ABCDEF");
     expect(activeCode(s, now + 8 * DAY)).toBeNull();
     expect(activeCode({ ...s, removed: true }, now)).toBeNull();

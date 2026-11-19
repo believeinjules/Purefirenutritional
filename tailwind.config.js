@@ -46,6 +46,13 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      // Fluid 3xl–6xl: equal to the previous rem size at 1280px and wider.
+      fontSize: {
+        "3xl": ["var(--text-3xl)", { lineHeight: "2.25rem" }],
+        "4xl": ["var(--text-4xl)", { lineHeight: "2.5rem" }],
+        "5xl": ["var(--text-5xl)", { lineHeight: "1" }],
+        "6xl": ["var(--text-6xl)", { lineHeight: "1" }],
+      },
     },
   },
   plugins: [],

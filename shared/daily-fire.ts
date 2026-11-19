@@ -44,7 +44,9 @@ export function tierForRoll(roll: number): DiscountTier {
 
 /** Single-use code lifetime. */
 export const DAILY_FIRE_CODE_TTL_DAYS = 7;
-/** A dismissed popup stays away this long. A claimed one never returns while the code is valid, and not for this long either. */
+/** Rolling window: one Daily Fire code per email, then they can get another. */
+export const DAILY_FIRE_CODE_WINDOW_DAYS = 30;
+/** @deprecated Auto-popup uses a once-a-day rule; claimed codes use DAILY_FIRE_CODE_WINDOW_DAYS. */
 export const DAILY_FIRE_SNOOZE_DAYS = 30;
 
 /** Stripe coupon id per tier (create once per Stripe mode; see docs/daily-fire-discounts.md). */
@@ -246,12 +248,15 @@ export function isDailyFireExcludedPath(path: string): boolean {
   const p = (path || "/").split(/[?#]/)[0].toLowerCase();
   return [
     "/checkout",
+    "/cart",
+    "/account",
     "/admin",
     "/login",
     "/signup",
     "/auth",
     "/review",
     "/dashboard",
+    "/orders",
     "/__dev",
   ].some((prefix) => p === prefix || p.startsWith(`${prefix}/`));
 }
