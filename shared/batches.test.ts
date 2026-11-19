@@ -11,6 +11,7 @@ import {
   formatPrintedDate,
   getBatchByKey,
   madeLabel,
+  lotMatchKey,
   normalizeLot,
   NOT_PRINTED,
 } from "./batches";
@@ -56,17 +57,24 @@ describe("Batch Passport data", () => {
     expect(BATCH_ROUTES).toContain("/batch-passport/prime-peptide-omega-29423-01");
   });
 
-  it("links only to visible storefront product pages", () => {
+  it("maps every batch to a catalog product; only visible ones get a product-page link", () => {
     for (const b of BATCHES) {
-      if (b.catalogProductId === null) {
-        // A slug for a product with no page must not collide with a real product id.
-        expect(allProducts.some((p) => p.id === b.productSlug), b.productSlug).toBe(false);
-        continue;
-      }
-      expect(b.catalogProductId).toBe(b.productSlug);
-      const p = products.find((x) => x.id === b.catalogProductId);
-      expect(p, b.catalogProductId).toBeDefined();
-      expect(isHiddenProduct(p)).toBe(false);
+      expect(b.catalogProductId, b.productSlug).toBe(b.productSlug);
+      const p = allProducts.find((x) => x.id === b.catalogProductId);
+      expect(p, b.productSlug).toBeDefined();
+      const visible = products.some((x) => x.id === b.catalogProductId);
+      expect(visible).toBe(!isHiddenProduct(p));
+    }
+    // Mesotel Ultra is drafted but hidden until Julia sends a photo: no link yet.
+    expect(products.some((x) => x.id === "mesotel-ultra")).toBe(false);
+  });
+
+  it("no two lots of the same product collide once hyphens and spaces are ignored", () => {
+    const seen = new Set<string>();
+    for (const b of BATCHES) {
+      const k = `${b.productSlug}|${lotMatchKey(b.lot)}`;
+      expect(seen.has(k), k).toBe(false);
+      seen.add(k);
     }
   });
 
@@ -105,6 +113,16 @@ describe("Batch Passport lookup", () => {
     expect(r.map(batchPath)).toEqual(["/batch-passport/cerluten-20126"]);
     expect(madeLabel(r[0]).display).toBe("Jan 7, 2026");
     expect(expiryLabel(r[0]).display).toBe("Jan 6, 2029");
+  });
+
+  it("matches with or without the printed hyphen", () => {
+    for (const typed of ["2942301", "29423-01", " 29423 01 ", "29423\u201301"]) {
+      expect(findBatches(typed).map(batchPath), typed).toEqual(["/batch-passport/prime-peptide-omega-29423-01"]);
+    }
+    expect(findBatches("2942102", "prime-peptide-brain").map((b) => b.lot)).toEqual(["29421-02"]);
+    // Hyphen-free typing never crosses products: Omega's lot is not Brain's.
+    expect(findBatches("2942301", "prime-peptide-brain")).toEqual([]);
+    expect(lotMatchKey("29423-01")).toBe("2942301");
   });
 
   it("without a product, returns every product that shares the lot", () => {

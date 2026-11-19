@@ -8,9 +8,10 @@
  * printed on more than one product (e.g. 20126 on Chelohart, Cerluten,
  * Pinealon and Ventfort).
  *
- * `catalogProductId` is the storefront product id (/products/<id>) or null
- * when the product has no product page (we never link to a page that does
- * not exist). `productSlug` names the batch page /batch-passport/<slug>-<lot>.
+ * `catalogProductId` is the catalog product id, or null when the product is not
+ * in the catalog. The batch card links to /products/<id> only while that
+ * product is visible (not hidden), so we never link to a page that does not
+ * exist. `productSlug` names the batch page /batch-passport/<slug>-<lot>.
  *
  * Moving this to Firestore later: keep this shape as a `batches` collection
  * (doc id = batchKey), read it in prerender.mjs with the Admin SDK the same
@@ -22,7 +23,7 @@
 export type Batch = {
   /** Storefront product id, or a stable slug when the product is not in the catalog. */
   productSlug: string;
-  /** /products/<id> exists and is visible; null = no product page to link. */
+  /** Catalog product id (may be hidden); null = not in the catalog. */
   catalogProductId: string | null;
   /** Name shown to customers. */
   productName: string;
@@ -166,9 +167,10 @@ export const BATCHES: readonly Batch[] = [
     lotLocation: "bottom of the bottle",
   },
   {
-    // Not in the storefront catalog yet (no /products page), so no PDP link.
+    // Drafted in the catalog but hidden until Julia sends a photo; the batch page
+    // links to /products/mesotel-ultra automatically once it is un-hidden.
     productSlug: "mesotel-ultra",
-    catalogProductId: null,
+    catalogProductId: "mesotel-ultra",
     productName: "Mesotel Ultra",
     packageCode: "",
     size: "120 ml / 4.06 fl. oz.",
@@ -181,9 +183,19 @@ export const BATCHES: readonly Batch[] = [
 
 export const BATCH_PASSPORT_PATH = "/batch-passport";
 
-/** Lot as typed by a customer → comparable form: trimmed, no spaces, upper case. */
+/** Lot as typed by a customer → display form: trimmed, no spaces, upper case. */
 export function normalizeLot(input: string): string {
   return input.trim().replace(/\s+/g, "").toUpperCase();
+}
+
+/**
+ * Matching form of a lot: normalizeLot without hyphens/dashes, so "2942301"
+ * matches the printed "29423-01". Within one product no two lots may share a
+ * matching form (enforced by shared/batches.test.ts); across products a shared
+ * form is resolved by asking the customer which product they have.
+ */
+export function lotMatchKey(input: string): string {
+  return normalizeLot(input).replace(/[-\u2010-\u2015\u2212]/g, "");
 }
 
 /** URL-safe lot: lower case, anything other than letters/digits/hyphen dropped. */
@@ -197,6 +209,11 @@ export function batchKey(b: Pick<Batch, "productSlug" | "lot">): string {
 
 export function batchPath(b: Pick<Batch, "productSlug" | "lot">): string {
   return `${BATCH_PASSPORT_PATH}/${batchKey(b)}`;
+}
+
+/** /batch-passport with a product preselected (used by "Check your batch" on product pages). */
+export function batchLookupHref(productId: string): string {
+  return `${BATCH_PASSPORT_PATH}?product=${encodeURIComponent(productId)}`;
 }
 
 export const BATCH_ROUTES: string[] = BATCHES.map(batchPath);
@@ -221,10 +238,10 @@ export function batchProducts(): Array<{ productSlug: string; productName: strin
  * pick the product when more than one matches).
  */
 export function findBatches(lotInput: string, productSlug?: string | null): Batch[] {
-  const lot = normalizeLot(lotInput);
+  const lot = lotMatchKey(lotInput);
   if (!lot) return [];
   return BATCHES.filter(
-    (b) => normalizeLot(b.lot) === lot && (!productSlug || b.productSlug === productSlug)
+    (b) => lotMatchKey(b.lot) === lot && (!productSlug || b.productSlug === productSlug)
   );
 }
 
