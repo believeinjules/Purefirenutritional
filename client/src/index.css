@@ -455,3 +455,44 @@ article p, article li, article td, article th, article dd, article blockquote {
   .product-flip-hint-hover { display: none; }
   .product-flip-hint-tap { display: inline; }
 }
+
+/* ── Batch Passport: passport-stamp card (CSS only, no images or web fonts) ── */
+.bp-card {
+  position: relative;
+  background-color: #fbf7ec;
+  background-image:
+    radial-gradient(ellipse at 18% 8%, rgba(255, 255, 255, 0.7), transparent 55%),
+    radial-gradient(ellipse at 88% 92%, rgba(168, 136, 80, 0.09), transparent 50%),
+    repeating-linear-gradient(0deg, rgba(110, 90, 50, 0.035) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(110, 90, 50, 0.02) 0 1px, transparent 1px 5px);
+  border: 3px double #8b7a5a;
+  box-shadow: 0 1px 2px rgba(60, 45, 20, 0.08), inset 0 0 0 4px #fbf7ec, inset 0 0 0 5px rgba(139, 122, 90, 0.35);
+}
+.bp-mono {
+  font-family: "Courier New", Courier, "Nimbus Mono PS", "Liberation Mono", ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+.bp-stamp {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 5.25rem;
+  height: 5.25rem;
+  color: #b83870;
+  opacity: 0.82;
+  transform: rotate(-12deg);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+@media (min-width: 640px) {
+  .bp-stamp { width: 6.5rem; height: 6.5rem; top: 0.9rem; right: 0.9rem; }
+}
+.bp-stamp--press { animation: bp-press 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes bp-press {
+  0% { transform: rotate(-12deg) scale(1.7); opacity: 0; }
+  55% { transform: rotate(-12deg) scale(0.93); opacity: 0.95; }
+  100% { transform: rotate(-12deg) scale(1); opacity: 0.82; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-stamp--press { animation: none; }
+}

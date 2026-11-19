@@ -25,6 +25,7 @@ import { getCartLineUnitUSD } from "@shared/product-prices";
 import FrequentlyBoughtTogether from "@/components/FrequentlyBoughtTogether";
 import { getProductById } from "@/data/products";
 import { isHiddenProduct } from "@shared/hidden-products";
+import { batchLookupHref } from "@shared/batches";
 import ProductReviews from "@/components/reviews/ProductReviews";
 import { getRecommendations } from "@/data/productRecommendations";
 import { variantToCartSize, type CartSize } from "@/lib/productSize";
@@ -369,6 +370,13 @@ export default function ProductDetail() {
               {(!product.variants || product.variants.length === 0) && preview?.size && (
                 <p className="text-sm text-gray-700" data-testid="variant-single">
                   <span className="font-medium">Size:</span> {preview.size}
+                </p>
+              )}
+              {!isHiddenProduct(product) && (
+                <p className="text-sm text-gray-500" data-testid="check-your-batch">
+                  <Link href={batchLookupHref(product.id)} className="underline underline-offset-2 hover:text-gray-800">
+                    Check your batch
+                  </Link>
                 </p>
               )}
 

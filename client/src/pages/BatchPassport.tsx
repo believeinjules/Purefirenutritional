@@ -1,5 +1,6 @@
 import { useId, useState, type FormEvent } from "react";
-import { Link, useParams } from "wouter";
+import { Link, useParams, useSearch } from "wouter";
+import { getProductById } from "@/data/products";
 import PageSeo from "@/components/seo/PageSeo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -27,51 +28,97 @@ const STANDARD_LINE = "Part of our Show Your Work standard.";
 
 function PrintedNote({ printed }: { printed: string | null }) {
   if (!printed) return null;
-  return <span className="block text-xs text-stone-500">Printed as {printed}</span>;
+  return <span className="mt-0.5 block text-xs text-stone-600">Printed as <span className="bp-mono">{printed}</span></span>;
+}
+
+/** Decorative round ink stamp ("Pure Fire · Verified Batch"), brand color, CSS/SVG only. */
+function InkStamp({ press }: { press: boolean }) {
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
+  const ring = `bp-ring-${uid}`;
+  const ink = `bp-ink-${uid}`;
+  return (
+    <svg
+      viewBox="0 0 120 120"
+      className={`bp-stamp${press ? " bp-stamp--press" : ""}`}
+      aria-hidden="true"
+      focusable="false"
+      data-testid="batch-stamp"
+    >
+      <defs>
+        <path id={ring} d="M60,60 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0" />
+        <filter id={ink} x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" result="rough" />
+          <feComponentTransfer in="noise" result="speckle">
+            <feFuncA type="discrete" tableValues="1 1 1 0.55 1 1 1 0.7" />
+          </feComponentTransfer>
+          <feComposite in="rough" in2="speckle" operator="in" />
+        </filter>
+      </defs>
+      <g filter={`url(#${ink})`} fill="none" stroke="currentColor">
+        <circle cx="60" cy="60" r="56" strokeWidth="3" />
+        <circle cx="60" cy="60" r="50.5" strokeWidth="1.2" />
+        <circle cx="60" cy="60" r="31" strokeWidth="1.2" />
+        <text fill="currentColor" stroke="none" fontFamily="'Courier New', Courier, monospace" fontWeight="700" fontSize="11.5" letterSpacing="1.6">
+          <textPath href={`#${ring}`} startOffset="0" textLength="252" lengthAdjust="spacing">PURE FIRE · VERIFIED BATCH ·</textPath>
+        </text>
+        <path
+          d="M60 44c3 6 10 10 10 19a10 10 0 0 1-20 0c0-4 2-7 4-9 0 3 1 5 3 6-1-6 1-11 3-16z"
+          fill="currentColor"
+          stroke="none"
+        />
+      </g>
+    </svg>
+  );
 }
 
 /** One batch's details, as printed on the package. Shared by the lookup result and the batch page. */
-export function BatchCard({ batch, headingLevel = "h2" }: { batch: Batch; headingLevel?: "h2" | "h3" }) {
+export function BatchCard({ batch, headingLevel = "h2", press = true }: { batch: Batch; headingLevel?: "h2" | "h3"; press?: boolean }) {
   const made = madeLabel(batch);
   const expiry = expiryLabel(batch);
   const Heading = headingLevel;
+  // Link only to a product page that exists (hidden/draft products have none).
+  const pdp = batch.catalogProductId ? getProductById(batch.catalogProductId) : undefined;
+  const label = "text-[11px] uppercase tracking-[0.22em] text-stone-600";
   return (
-    <article className="rounded-sm border border-stone-300 bg-white/70 p-5 sm:p-6" data-testid="batch-card">
-      <Heading className="font-serif text-2xl font-normal text-stone-900 break-words">
+    <article className="bp-card rounded-sm p-5 sm:p-7" data-testid="batch-card">
+      <InkStamp press={press} />
+      <p className={`${label} pr-24 sm:pr-28`}>Batch Passport</p>
+      <Heading className="mt-2 pr-24 sm:pr-28 font-serif text-2xl font-normal text-stone-900 break-words">
         {batchDisplayName(batch)}
       </Heading>
-      <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 text-base text-stone-700 sm:grid-cols-2">
+      <dl className="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 border-t border-dashed border-stone-400 pt-5 text-base text-stone-800 sm:grid-cols-2">
         <div>
-          <dt className={h2}>Size</dt>
+          <dt className={label}>Size</dt>
           <dd className="mt-1 break-words">{batch.size}</dd>
         </div>
         <div>
-          <dt className={h2}>Lot</dt>
-          <dd className="mt-1 font-mono break-all" data-testid="batch-lot">{batch.lot}</dd>
+          <dt className={label}>Lot</dt>
+          <dd className="bp-mono mt-1 text-lg font-bold break-all text-stone-900" data-testid="batch-lot">{batch.lot}</dd>
         </div>
         <div>
-          <dt className={h2}>Made</dt>
-          <dd className="mt-1" data-testid="batch-made">
+          <dt className={label}>Made</dt>
+          <dd className="bp-mono mt-1" data-testid="batch-made">
             {made.display}
             <PrintedNote printed={made.printed} />
           </dd>
         </div>
         <div>
-          <dt className={h2}>Expires</dt>
-          <dd className="mt-1" data-testid="batch-expiry">
+          <dt className={label}>Expires</dt>
+          <dd className="bp-mono mt-1" data-testid="batch-expiry">
             {expiry.display}
             <PrintedNote printed={expiry.printed} />
             {!batch.expiryPrinted && batch.shelfLife && (
-              <span className="block text-xs text-stone-500">No dated best-before is printed on this package.</span>
+              <span className="mt-0.5 block font-sans text-xs text-stone-600">No dated best-before is printed on this package.</span>
             )}
           </dd>
         </div>
       </dl>
-      <p className="mt-5 border-t border-stone-200 pt-4 text-sm text-stone-700">{SOURCED}.</p>
-      {batch.catalogProductId && (
-        <p className="mt-3 text-sm text-stone-700">
-          <Link href={productPath(batch.catalogProductId)} className={a} data-testid="batch-pdp-link">
-            View {batch.productName}
+      <p className="mt-6 border-t border-dashed border-stone-400 pt-4 text-sm text-stone-800">{SOURCED}.</p>
+      {pdp && (
+        <p className="mt-3 text-sm text-stone-800">
+          <Link href={productPath(pdp.id)} className={a} data-testid="batch-pdp-link">
+            View {pdp.name}
           </Link>
         </p>
       )}
@@ -100,11 +147,20 @@ type Result =
 
 export function BatchPassportLookup() {
   const head = requirePageHead(BATCH_PASSPORT_PATH);
-  const options = batchProducts();
+  const search = useSearch();
+  const preselect = new URLSearchParams(search).get("product") ?? "";
+  const batchOptions = batchProducts();
+  // A visible product with no batches yet can still be preselected from its product page.
+  const extra =
+    preselect && !batchOptions.some((o) => o.productSlug === preselect) ? getProductById(preselect) : undefined;
+  const options = extra
+    ? [...batchOptions, { productSlug: extra.id, productName: extra.name }].sort((x, y) => x.productName.localeCompare(y.productName))
+    : batchOptions;
   const productId = useId();
   const lotId = useId();
   const lotHintId = useId();
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState(() => (options.some((o) => o.productSlug === preselect) ? preselect : ""));
+  const [matchCount, setMatchCount] = useState(0);
   const [lot, setLot] = useState("");
   const [result, setResult] = useState<Result>({ kind: "idle" });
   const [lotError, setLotError] = useState(false);
@@ -118,7 +174,10 @@ export function BatchPassportLookup() {
     }
     setLotError(false);
     const matches = findBatches(normalized, productSlug || null);
-    if (matches.length === 1) setResult({ kind: "match", batch: matches[0] });
+    if (matches.length === 1) {
+      setMatchCount((n) => n + 1);
+      setResult({ kind: "match", batch: matches[0] });
+    }
     else if (matches.length > 1) setResult({ kind: "choose", lot: normalized, batches: matches });
     else
       setResult({
@@ -199,7 +258,7 @@ export function BatchPassportLookup() {
           </form>
 
           <div className="mt-10" aria-live="polite" aria-atomic="true" data-testid="batch-result">
-            {result.kind === "match" && <BatchCard batch={result.batch} />}
+            {result.kind === "match" && <BatchCard key={matchCount} batch={result.batch} />}
             {result.kind === "choose" && (
               <div className="rounded-sm border border-stone-300 bg-white/70 p-5 sm:p-6">
                 <p className="text-base text-stone-700">
