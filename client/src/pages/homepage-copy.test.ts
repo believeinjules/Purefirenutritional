@@ -55,9 +55,12 @@ describe("homepage copy (approved items only)", () => {
 
 
 describe("homepage science stat cards", () => {
-  it("replaces the lifespan card with Epitalon amino acids (Julia, 2026-11-18)", () => {
-    expect(index).toContain('stat: "4"');
-    expect(index).toContain("Amino acids in Epitalon (Ala-Glu-Asp-Gly)");
+  it("removes the science stat card block (Julia, 2026-11-18)", () => {
+    expect(index).not.toContain("Peptide levels in a 55-year-old");
+    expect(index).not.toContain("Amino acids in Epitalon (Ala-Glu-Asp-Gly)");
+    expect(index).not.toContain("Duration of effect per course");
+    expect(index).not.toContain("10×");
+    expect(index).not.toContain("4–6 mo");
     expect(index).not.toContain("20–40%");
     expect(index).not.toMatch(/Potential increase in mean lifespan/);
   });
