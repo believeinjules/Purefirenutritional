@@ -15,4 +15,11 @@ describe("site chrome", () => {
       expect(fs.existsSync(path.join(root, "public", f)), f).toBe(true);
     }
   });
+
+  it("uses a dynamic footer year", () => {
+    const footer = fs.readFileSync(path.join(root, "src/components/Footer.tsx"), "utf8");
+    expect(footer).toContain("new Date().getFullYear()");
+    expect(footer).not.toMatch(/© 2024 Pure Fire Nutritional/);
+    expect(footer).toContain('href="/contact"');
+  });
 });
