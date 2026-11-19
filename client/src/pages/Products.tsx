@@ -35,6 +35,7 @@ import {
   type FormulaTypeFilterValue,
 } from "@/components/shop/FormulaTypeParts";
 import { FORMULA_EXPLAINER_ID } from "@/data/formulaType";
+import { SHOP_SORT_FEATURED, sortProducts } from "@/lib/shopSort";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -68,7 +69,7 @@ function GridSkeleton() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Products() {
-  const [sortBy, setSortBy] = useState("name-asc");
+  const [sortBy, setSortBy] = useState(SHOP_SORT_FEATURED);
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [formulaType, setFormulaType] = useState<FormulaTypeFilterValue>("all");
@@ -147,26 +148,7 @@ export default function Products() {
       );
     }
 
-    switch (sortBy) {
-      case "name-asc":   result.sort((a, b) => a.name.localeCompare(b.name)); break;
-      case "name-desc":  result.sort((a, b) => b.name.localeCompare(a.name)); break;
-      case "price-asc":  result.sort((a, b) => a.priceUSD - b.priceUSD); break;
-      case "price-desc": result.sort((a, b) => b.priceUSD - a.priceUSD); break;
-      case "rating-desc":
-        // Real approved-review averages (then count); unreviewed products keep A–Z order.
-        result.sort((a, b) => {
-          const ra = reviewSummaries[a.id];
-          const rb = reviewSummaries[b.id];
-          return (
-            (rb?.average ?? 0) - (ra?.average ?? 0) ||
-            (rb?.count ?? 0) - (ra?.count ?? 0) ||
-            a.name.localeCompare(b.name)
-          );
-        });
-        break;
-    }
-
-    return result;
+    return sortProducts(result, sortBy, reviewSummaries);
   }, [products, activeCategory, formulaType, searchQuery, sortBy, reviewSummaries]);
 
   const typeCounts = useMemo(() => formulaTypeCounts(products.map((p) => p.id)), [products]);
@@ -220,6 +202,7 @@ export default function Products() {
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="featured">Featured</SelectItem>
                   <SelectItem value="name-asc">Name (A–Z)</SelectItem>
                   <SelectItem value="name-desc">Name (Z–A)</SelectItem>
                   <SelectItem value="price-asc">Price: Low to High</SelectItem>
