@@ -96,15 +96,6 @@ const pillars = [
   },
 ];
 
-// ─── Trust points ──────────────────────────────────────────────────────────
-
-const trustPoints: { stat: string; label: string }[] = [
-  { stat: "Evidence backed", label: "Grounded in decades of published research." },
-  { stat: "Oral", label: "Capsules. No needles." },
-  { stat: "Short cycles", label: "Taken in short cycles, then paused" },
-  { stat: "Tissue-specific", label: "Each formula is matched to one organ or system" },
-];
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Index() {
@@ -430,20 +421,6 @@ export default function Index() {
                 Explore the Research →
               </a>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Trust / Credibility ────────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-50 border-t border-gray-100" data-testid="home-trust-points">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {trustPoints.map(({ stat, label }) => (
-              <div key={stat}>
-                <div className="text-xl font-bold text-orange-600 mb-2 leading-snug">{stat}</div>
-                <div className="text-gray-500 text-xs leading-relaxed">{label}</div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

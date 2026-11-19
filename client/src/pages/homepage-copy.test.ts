@@ -20,18 +20,14 @@ describe("homepage SEO head", () => {
 });
 
 describe("homepage copy (approved items only)", () => {
-  it("shows four trust points in a 2×2 / four-column grid, without the eyebrow or the 40+ / Authorized cards", () => {
+  it("removes the homepage trust-points section (Julia, 2026-11-19)", () => {
     expect(index).not.toContain("Why we carry these");
-    expect(index).toContain('data-testid="home-trust-points"');
-    expect(index).toContain("grid grid-cols-2 md:grid-cols-4");
-    const block = index.slice(index.indexOf("const trustPoints"), index.indexOf("export default function Index"));
-    expect(block).toContain("Grounded in decades of published research.");
-    expect(block).not.toContain("40+ years");
-    expect(block).not.toContain("Authorized US Retailer");
-    expect(block).not.toContain("Sourced directly from the manufacturer");
-    expect(block).not.toMatch(/\d/);
-    const stats = [...block.matchAll(/stat: "([^"]+)"/g)].map((m) => m[1]);
-    expect(stats).toEqual(["Evidence backed", "Oral", "Short cycles", "Tissue-specific"]);
+    expect(index).not.toContain('data-testid="home-trust-points"');
+    expect(index).not.toContain("const trustPoints");
+    expect(index).not.toContain("Grounded in decades of published research.");
+    expect(index).not.toContain("Capsules. No needles.");
+    expect(index).not.toContain("Taken in short cycles, then paused");
+    expect(index).not.toContain("Each formula is matched to one organ or system");
   });
 
   it("replaces Pharmaceutical Grade and the courses line", () => {
