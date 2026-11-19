@@ -95,6 +95,7 @@ export const PRODUCT_TAGS: Record<string, { tags: string[]; code?: string }> = {
   mesotel: { tags: ["system:brain-nervous-system", "goal:healthy-aging"] },
   "mesotel-neo": { tags: ["system:brain-nervous-system", "system:heart-circulation"] },
   "mesotel-beauty": { tags: ["goal:skin-hair-beauty"] },
+  "mesotel-ultra": { tags: ["system:brain-nervous-system", "system:heart-circulation"] },
   ensil: { tags: ["system:brain-nervous-system", "goal:energy-vitality"] },
   "complex-3r": { tags: ["system:heart-circulation"] },
   "complex-3d": { tags: ["list:general"] },

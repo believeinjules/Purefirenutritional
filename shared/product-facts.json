@@ -6729,6 +6729,55 @@
     "metaDescription": "Mesotel Beauty: choline formula with gotu kola, goji and zinc, formulated to support healthy-looking skin and antioxidant defences. From Pure Fire Nutritional."
    }
   },
+  "mesotel-ultra": {
+   "id": "mesotel-ultra",
+   "name": "Mesotel Ultra",
+   "composition": [
+    "Water",
+    "Fructose",
+    "Concentrated red grapefruit juice",
+    "Choline bitartrate",
+    "Glycerol",
+    "Gotu kola extract (Centella asiatica)",
+    "Wolfberry extract (Lycium barbarum)",
+    "Alpha-lipoic acid",
+    "Eucalyptus leaf extract",
+    "Grape skin extract (Vitis vinifera)",
+    "Sodium benzoate (E211)",
+    "Potassium sorbate (E202)",
+    "Peptide complex AA-5 (Glu-Asp-Arg)",
+    "Peptide complex AA-7 (Lys-Glu-Asp)"
+   ],
+   "biologicalTarget": "general (choline-based, with brain and vascular-wall peptide complexes)",
+   "manufacturerDirections": {
+    "text": null,
+    "status": "unverified",
+    "options": [],
+    "note": "Manufacturer page (2026-11-19) lists a regimen; not yet checked against the label on the bottle we sell, so not shown. TODO: confirm with a photo of Julia's bottle label."
+   },
+   "storefrontUsage": {
+    "text": null,
+    "basis": "none"
+   },
+   "alternativeProtocols": [],
+   "context": null,
+   "evidence": null,
+   "limitations": null,
+   "researchNote": null,
+   "contraindications": null,
+   "sources": [
+    {
+     "url": "https://peptides1.ru/products/health/mesotel_internal/mesotel_ultra/",
+     "type": "catalog",
+     "formulation": "120 ml",
+     "quote": "Вода, фруктоза, сок красного грейпфрута концентрированный, холина битартрат, глицерол, экстракт Готу Кола (Centella asiatica), экстракт Дерезы (Lycium barbarum), альфа-липоевая кислота, экстракт листьев эвкалипта (Eucalyptus leaf extract), экстракт кожицы винограда (Vitis vinifera (Grape) Extract), бензоат натрия (Е211), сорбат калия (Е202), пептидный комплекс АА-5 (Glu-Asp-Arg), пептидный комплекс АА-7 (Lys-Glu-Asp).",
+     "translation": "Water; Fructose; Concentrated red grapefruit juice; Choline bitartrate; Glycerol; Gotu kola extract (Centella asiatica); Wolfberry extract (Lycium barbarum); Alpha-lipoic acid; Eucalyptus leaf extract; Grape skin extract (Vitis vinifera); Sodium benzoate (E211); Potassium sorbate (E202); Peptide complex AA-5 (Glu-Asp-Arg); Peptide complex AA-7 (Lys-Glu-Asp)."
+    }
+   ],
+   "verificationStatus": "unaudited",
+   "hold": null,
+   "auditRows": []
+  },
   "olecap": {
    "id": "olecap",
    "name": "Olecap",
