@@ -6735,48 +6735,87 @@
    "composition": [
     "Water",
     "Fructose",
-    "Concentrated red grapefruit juice",
+    "Concentrated grapefruit juice",
     "Choline bitartrate",
-    "Glycerol",
-    "Gotu kola extract (Centella asiatica)",
-    "Wolfberry extract (Lycium barbarum)",
+    "Glycerin (carrier)",
+    "Dry extract of gotu kola (Centella asiatica)",
+    "Dry extract of goji berry fruit (Lycium barbarum)",
     "Alpha-lipoic acid",
-    "Eucalyptus leaf extract",
-    "Grape skin extract (Vitis vinifera)",
-    "Sodium benzoate (E211)",
-    "Potassium sorbate (E202)",
+    "Dry extract of grape skin (Vitis vinifera)",
+    "Potassium sorbate (preservative)",
+    "Sodium benzoate (preservative)",
     "Peptide complex AA-5 (Glu-Asp-Arg)",
     "Peptide complex AA-7 (Lys-Glu-Asp)"
    ],
-   "biologicalTarget": "general (choline-based, with brain and vascular-wall peptide complexes)",
+   "biologicalTarget": "general (choline-based, with brain AA-5 and vascular wall AA-7 peptide complexes)",
    "manufacturerDirections": {
-    "text": null,
-    "status": "unverified",
+    "text": "Take 1 teaspoon (5 ml) twice daily with meals, dissolved in a small amount of room-temperature water or undiluted. Natural sediment may occur. Shake well.",
+    "status": "verified",
     "options": [],
-    "note": "Manufacturer page (2026-11-19) lists a regimen; not yet checked against the label on the bottle we sell, so not shown. TODO: confirm with a photo of Julia's bottle label."
+    "note": "Printed English box label, Mesotel Ultra 120 ml, batch 001 (Julia's photos, 2026-11-19)."
    },
    "storefrontUsage": {
-    "text": null,
-    "basis": "none"
+    "text": "Take 1 teaspoon (5 ml) twice daily with meals, dissolved in a small amount of room-temperature water or undiluted. Natural sediment may occur. Shake well.",
+    "basis": "manufacturer-label"
    },
    "alternativeProtocols": [],
    "context": null,
    "evidence": null,
    "limitations": null,
    "researchNote": null,
-   "contraindications": null,
+   "contraindications": "Label (EN): individual intolerance to the components, pregnancy, breastfeeding. Consult a physician before use.",
    "sources": [
     {
-     "url": "https://peptides1.ru/products/health/mesotel_internal/mesotel_ultra/",
-     "type": "catalog",
-     "formulation": "120 ml",
-     "quote": "Вода, фруктоза, сок красного грейпфрута концентрированный, холина битартрат, глицерол, экстракт Готу Кола (Centella asiatica), экстракт Дерезы (Lycium barbarum), альфа-липоевая кислота, экстракт листьев эвкалипта (Eucalyptus leaf extract), экстракт кожицы винограда (Vitis vinifera (Grape) Extract), бензоат натрия (Е211), сорбат калия (Е202), пептидный комплекс АА-5 (Glu-Asp-Arg), пептидный комплекс АА-7 (Lys-Glu-Asp).",
-     "translation": "Water; Fructose; Concentrated red grapefruit juice; Choline bitartrate; Glycerol; Gotu kola extract (Centella asiatica); Wolfberry extract (Lycium barbarum); Alpha-lipoic acid; Eucalyptus leaf extract; Grape skin extract (Vitis vinifera); Sodium benzoate (E211); Potassium sorbate (E202); Peptide complex AA-5 (Glu-Asp-Arg); Peptide complex AA-7 (Lys-Glu-Asp)."
+     "url": "label:mesotel-ultra-120ml-batch-001-box-back-en",
+     "type": "label",
+     "formulation": "120 ml / 4.05 fl. oz.; per 10 ml daily serving: choline 150 mg (30% AI), alpha-lipoic acid 12.0 mg (40% AI); per 100 g: 306 kJ / 72 kcal, carbohydrates 18 g; storage 0–25 °C away from direct sunlight, refrigerate after opening and use within one month; shelf life 2 years from manufacture; manufacturer KorolyovPharm LLC, Russia",
+     "quote": null,
+     "translation": null
     }
    ],
-   "verificationStatus": "unaudited",
+   "verificationStatus": "verified",
    "hold": null,
-   "auditRows": []
+   "auditRows": [],
+   "pdp": {
+    "template": "formula",
+    "title": "Mesotel Ultra",
+    "overview": [
+     "Mesotel Ultra is a choline-based liquid from the Mesotel line, made by KorolyovPharm LLC (Russia). It is an additional source of choline and alpha-lipoic acid, with a brain peptide complex (AA-5) and a vascular wall peptide complex (AA-7).",
+     "Choline is a nutrient the body uses to build cell membranes and the messenger acetylcholine. A 10 ml daily serving provides 150 mg of choline and 12.0 mg of alpha-lipoic acid."
+    ],
+    "formulatedFor": [
+     "Normal brain and nervous-system function",
+     "Healthy cell membranes",
+     "An additional source of choline and alpha-lipoic acid"
+    ],
+    "differences": [
+     "Mesotel, Mesotel Beauty and Mesotel Neo are also choline-based liquids from the Mesotel line; their ingredient lists differ."
+    ],
+    "ingredients": [
+     "Water, fructose, concentrated grapefruit juice, choline bitartrate, glycerin (carrier), dry extract of gotu kola (Centella asiatica), dry extract of goji berry fruit (Lycium barbarum), alpha-lipoic acid, dry extract of grape skin (Vitis vinifera), potassium sorbate (preservative), sodium benzoate (preservative), peptide complex AA-5 (Glu-Asp-Arg), peptide complex AA-7 (Lys-Glu-Asp).",
+     "Per 10 ml daily serving: choline 150 mg; alpha-lipoic acid 12.0 mg.",
+     "Per 100 g: energy 306 kJ / 72 kcal; carbohydrates 18 g."
+    ],
+    "directions": "Take 1 teaspoon (5 ml) twice daily with meals, dissolved in a small amount of room-temperature water or undiluted. Natural sediment may occur. Shake well.",
+    "directionsBasis": "verified: printed English box label (batch 001)",
+    "faq": [
+     {
+      "q": "What is Mesotel Ultra?",
+      "a": "A choline-based liquid from the Mesotel line and an additional source of choline and alpha-lipoic acid, with the AA-5 and AA-7 peptide complexes."
+     },
+     {
+      "q": "How should I take it?",
+      "a": "The label says 1 teaspoon (5 ml) twice daily with meals, dissolved in a small amount of room-temperature water or undiluted. Shake well; natural sediment may occur."
+     },
+     {
+      "q": "How should I store it?",
+      "a": "Store at 0–25 °C away from direct sunlight. After opening, keep it refrigerated and use it within one month. Shelf life is 2 years from the date of manufacture."
+     }
+    ],
+    "safety": "Contraindications printed on the label: individual intolerance to the components (do not use if you are allergic or sensitive to any ingredient), pregnancy and breastfeeding. Consult a physician or other healthcare professional before use.",
+    "disclaimer": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "metaDescription": "Mesotel Ultra: choline-based liquid with AA-5 and AA-7 peptide complexes and alpha-lipoic acid, 120 ml. An additional source of choline and lipoic acid."
+   }
   },
   "olecap": {
    "id": "olecap",

@@ -167,13 +167,14 @@ export const BATCHES: readonly Batch[] = [
     lotLocation: "bottom of the bottle",
   },
   {
-    // Drafted in the catalog but hidden until Julia sends a photo; the batch page
+    // Size per the printed English box label (the bottle front read as 4.06 in the
+    // video was motion-blurred). Drafted in the catalog but hidden until Julia OKs it; the batch page
     // links to /products/mesotel-ultra automatically once it is un-hidden.
     productSlug: "mesotel-ultra",
     catalogProductId: "mesotel-ultra",
     productName: "Mesotel Ultra",
     packageCode: "",
-    size: "120 ml / 4.06 fl. oz.",
+    size: "120 ml / 4.05 fl. oz.",
     lot: "001",
     madePrinted: "07.04.2026",
     expiryPrinted: "06.04.2028",

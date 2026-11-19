@@ -1449,24 +1449,24 @@ const catalogProducts: Product[] = [
     benefits: ["Antioxidant protection", "Skin beauty support", "Immune enhancement", "Studied for its role in cellular renewal"]
   },
   {
-    // DRAFT (2026-11-19): hidden in shared/hidden-products.ts until Julia supplies a photo.
-    // Price $37.99 for the 120 ml bottle set by Julia (2026-11-19). priceEUR is not used at
-    // checkout and has not been set (0). shared/mesotel-ultra-draft.test.ts fails if this
+    // DRAFT (2026-11-19): hidden in shared/hidden-products.ts until Julia OKs publishing.
+    // Copy matches the printed English box label (Julia's photos, 2026-11-19). Price $37.99
+    // for the 120 ml bottle set by Julia. priceEUR is not used at checkout and is not set (0).
+    // Product photos (cutouts) still to come; shared/mesotel-ultra-draft.test.ts fails if this
     // product is un-hidden without a real image file.
-    // Copy source: manufacturer page https://peptides1.ru/products/health/mesotel_internal/mesotel_ultra/
     id: "mesotel-ultra",
     name: "Mesotel Ultra",
-    description: "Mesotel Ultra is a choline-based liquid formula from the Peptides company's Mesotel range. It adds two peptide complexes, AA-5 and AA-7, which the manufacturer describes as brain and vascular-wall peptide complexes, to alpha-lipoic acid and extracts of gotu kola, wolfberry (goji), eucalyptus leaf and grape skin. Formulated to support normal brain and nervous-system function and healthy circulation as part of healthy aging. 120 ml (4.06 fl. oz.) bottle.",
+    description: "Mesotel Ultra is a choline-based liquid from the Mesotel line, made by KorolyovPharm LLC (Russia). It is an additional source of choline and alpha-lipoic acid, with a brain peptide complex (AA-5) and a vascular wall peptide complex (AA-7), plus dry extracts of gotu kola, goji berry fruit and grape skin. A 10 ml daily serving provides 150 mg of choline and 12.0 mg of alpha-lipoic acid. Choline contributes to normal brain and nervous-system function and to healthy cell membranes. 120 ml (4.05 fl. oz.) bottle.",
     category: "ANTI AGING-LONGEVITY",
     priceUSD: 37.99, // Julia, 2026-11-19 (120 ml)
     priceEUR: 0, // not set; EUR is informational only
     rating: 4.8,
     sizes: 1,
     benefits: [
-      "Choline-based liquid formula",
-      "Contains the AA-5 and AA-7 peptide complexes",
-      "Formulated to support normal brain and nervous-system function",
-      "Antioxidant ingredients: alpha-lipoic acid and grape skin extract"
+      "Additional source of choline and alpha-lipoic acid",
+      "150 mg choline and 12.0 mg alpha-lipoic acid per 10 ml daily serving",
+      "Brain (AA-5) and vascular wall (AA-7) peptide complexes",
+      "Choline contributes to normal brain and nervous-system function"
     ]
   },
   {
