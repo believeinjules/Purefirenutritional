@@ -20,8 +20,11 @@ describe("Pepita and pre-order (liquid) products", () => {
     expect(PEPPY_SYSTEM_PROMPT).toContain(PREORDER_LINE);
   });
 
-  it("server adds the pre-order line when a liquid product is suggested without it", () => {
-    const out = ensureProductNotes({ ...base, products: [sugg("revilab-sl-06")] } as never);
+  it("server adds the pre-order line only when a liquid is not in stock", () => {
+    const inStock = ensureProductNotes({ ...base, products: [sugg("revilab-sl-06")] } as never);
+    expect(text(inStock)).not.toContain(PREORDER_LINE);
+    const delayed = { ...sugg("revilab-sl-06"), product: { ...sugg("revilab-sl-06").product, fulfillment: "ships_2_weeks" } };
+    const out = ensureProductNotes({ ...base, products: [delayed] } as never);
     expect(text(out)).toContain(PREORDER_LINE);
   });
 
@@ -45,14 +48,15 @@ describe("Pepita and pre-order (liquid) products", () => {
     const candidates = llmCandidates(analysis, catalog, draft);
     const ctx = buildLlmContext({ analysis, sources: [], candidates, draft, history: [] });
     const compact = ctx.user.replace(/\s+/g, "");
-    expect(compact).toMatch(/"id":"revilab-sl-06"[^}]*"preorder":true/);
+    expect(compact).toMatch(/"id":"revilab-sl-06"[^}]*"preorder":false/);
     expect(compact).toMatch(/"id":"revilab-ml-05"[^}]*"preorder":false/);
     expect(isPreorderProduct(candidates[0].product.id)).toBe(false);
   });
 
   it("fallback answers that include a liquid product mention pre-order", async () => {
     const { response } = await answerPeppy({ message: "Anything for my lungs?" }, { catalog });
-    if (response.products.some(p => isPreorderProduct(p.product.id))) expect(text(response)).toMatch(/pre-order/i);
+    if (response.products.some(p => p.product.fulfillment === "ships_2_weeks")) expect(text(response)).toMatch(/pre-order/i);
+    expect(text(response)).not.toContain(PREORDER_LINE);
     expect(isPreorderProduct(response.products[0]!.product.id)).toBe(false);
   });
 
@@ -69,6 +73,6 @@ describe("Pepita and pre-order (liquid) products", () => {
     );
     const { response } = await answerPeppy({ message: "Anything for my lungs?" }, { catalog, callLlm });
     expect(response.products.map(p => p.product.id)).toContain("revilab-sl-06");
-    expect(text(response)).toContain(PREORDER_LINE);
+    expect(text(response)).not.toContain(PREORDER_LINE);
   });
 });

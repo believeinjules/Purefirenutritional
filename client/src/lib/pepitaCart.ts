@@ -1,5 +1,5 @@
 import { isHiddenProduct } from "@shared/hidden-products";
-import { isPreorderProduct } from "@shared/preorder";
+import { showsPreorderBadge } from "@shared/preorder";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import type { Product } from "@/data/products";
 import { type CartSize, type SizeOption } from "@/lib/productSize";
@@ -36,7 +36,7 @@ export function purchaseState(product: Product | null | undefined): PurchaseStat
   const options = cardSizeOptions(product);
   if (options.length === 0) return "out-of-stock";
   if (options.every(o => getCartLineUnitUSD(product, o.size) === undefined)) return "unavailable";
-  return isPreorderProduct(product) ? "preorder" : "available";
+  return showsPreorderBadge(product) ? "preorder" : "available";
 }
 
 /** Card price for the chosen size: exactly what the cart line will cost (single bottle). */

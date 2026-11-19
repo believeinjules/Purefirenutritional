@@ -4,7 +4,7 @@
  * appends whatever is missing (ensureProductNotes), so they cannot be dropped.
  */
 import type { PeppyResponse } from "./types.js";
-import { isPreorderProduct } from "../preorder.js";
+import { showsPreorderBadge } from "../preorder.js";
 import { sentenceChunks } from "./text.js";
 
 /**
@@ -48,7 +48,7 @@ export function ensureProductNotes<T extends PeppyResponse>(response: T): T {
   const missing = [DOCTOR_CONSULT_LINE, DOSING_NOTE].filter(
     line => !text.includes(norm(line))
   );
-  const hasPreorder = response.products.some(p => isPreorderProduct(p.product.id));
+  const hasPreorder = response.products.some(p => showsPreorderBadge(p.product));
   if (hasPreorder && !/pre-?order/.test(text)) missing.unshift(PREORDER_LINE);
   if (missing.length === 0) return response;
   return {

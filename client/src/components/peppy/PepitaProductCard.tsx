@@ -142,7 +142,7 @@ export default function PepitaProductCard({
           <span className="min-w-0 flex-1">
             <span className="flex items-center gap-2">
               <span className="text-base font-bold text-gray-900">{name}</span>
-              <PreorderBadge productId={p.id} />
+              <PreorderBadge productId={p.id} fulfillment={p.fulfillment} />
             </span>
             <span className="block text-sm leading-snug text-gray-500" data-testid="pepita-card-why">{firstSentence(why, 80)}</span>
             {buyable && (
@@ -173,7 +173,7 @@ export default function PepitaProductCard({
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-2">
             <span className="truncate text-sm font-semibold text-gray-900">{name}</span>
-            <PreorderBadge productId={p.id} />
+            <PreorderBadge productId={p.id} fulfillment={p.fulfillment} />
             {variant === "card" && priceTag}
           </span>
           <span className={`block text-xs leading-snug text-gray-600 ${variant === "row" ? "line-clamp-2" : "truncate"}`} data-testid="pepita-card-why">

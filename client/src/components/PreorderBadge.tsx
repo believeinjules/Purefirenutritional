@@ -1,14 +1,16 @@
-import { isPreorderProduct, PREORDER_BADGE } from "@shared/preorder";
+import { showsPreorderBadge, PREORDER_BADGE } from "@shared/preorder";
 
-/** "Pre-order" pill for liquid/drop products. Renders nothing for other products. */
+/** "Pre-order" pill for items that are both on the pre-order list and not in stock. */
 export default function PreorderBadge({
   productId,
+  fulfillment,
   className = "",
 }: {
   productId: string;
+  fulfillment?: unknown;
   className?: string;
 }) {
-  if (!isPreorderProduct(productId)) return null;
+  if (!showsPreorderBadge({ id: productId, fulfillment })) return null;
   return (
     <span
       data-testid="preorder-badge"

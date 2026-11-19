@@ -1,3 +1,4 @@
+import { resolveFulfillment } from "./fulfillment.js";
 /**
  * Liquid / drop products sold by pre-order (Julia, 2026-10-13).
  * Most stock is capsules/tablets; liquid forms are ordered per customer and ship once they
@@ -22,7 +23,7 @@ export const PREORDER_BADGE = "Pre-order";
 export const PREORDER_NOTE =
   "Available by pre-order. Most of our stock is capsules, which keep fresh longer and make each dose easy to measure. Liquid forms are ordered for you and ship once they arrive, usually within about two extra weeks.";
 
-export function isPreorderProduct(p: { id?: unknown; preorder?: unknown } | string | null | undefined): boolean {
+export function isPreorderProduct(p: { id?: unknown; preorder?: unknown; fulfillment?: unknown } | string | null | undefined): boolean {
   if (!p) return false;
   if (typeof p === "string") return PREORDER_PRODUCT_IDS.has(p);
   if (p.preorder === true) return true;
@@ -31,3 +32,17 @@ export function isPreorderProduct(p: { id?: unknown; preorder?: unknown } | stri
 
 /** Neutral cart / product-page line for pre-order items (no promised dates). */
 export const PREORDER_CART_NOTE = "Pre-order: ships when restocked";
+
+/**
+ * Show the Pre-order badge only when the item is on the pre-order list (or
+ * flagged) AND fulfillment is not in stock. In-stock liquids must not show
+ * both "PRE-ORDER" and "In stock".
+ */
+export function showsPreorderBadge(
+  p: { id?: unknown; preorder?: unknown; fulfillment?: unknown } | string | null | undefined,
+): boolean {
+  if (!isPreorderProduct(p)) return false;
+  const id = typeof p === "string" ? p : typeof p?.id === "string" ? p.id : "";
+  const explicit = typeof p === "string" || !p ? undefined : p.fulfillment;
+  return resolveFulfillment(id, explicit) !== "in_stock";
+}

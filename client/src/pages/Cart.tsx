@@ -11,7 +11,7 @@ import { bundleLabel, bundleLineTitle, bottlesInBundle, resolveBundleOffer } fro
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import PreorderBadge from "@/components/PreorderBadge";
-import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
+import { showsPreorderBadge, PREORDER_CART_NOTE } from "@shared/preorder";
 import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
@@ -98,9 +98,9 @@ export default function Cart() {
                       {!item.bundle && (
                       <p className="text-sm text-gray-500">Size: {item.size} caps</p>
                       )}
-                      {isPreorderProduct(item.product.id) && (
+                      {showsPreorderBadge(item.product) && (
                         <p className="text-sm text-gray-700 mt-1" data-testid="cart-preorder-note">
-                          <PreorderBadge productId={item.product.id} className="mr-2" />
+                          <PreorderBadge productId={item.product.id} fulfillment={item.product.fulfillment} className="mr-2" />
                           {PREORDER_CART_NOTE}
                         </p>
                       )}

@@ -47,7 +47,7 @@ import { FORMULA_PDP_CONTENT, isInjectableFaq, isPreviewRemovedFaq, recommendedC
 import { packageCountLabel } from "@/lib/productFacts";
 import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
-import { isPreorderProduct, PREORDER_CART_NOTE } from "@shared/preorder";
+import { showsPreorderBadge, PREORDER_CART_NOTE } from "@shared/preorder";
 import { FULFILLMENT_PDP_LABEL, resolveFulfillment } from "@shared/fulfillment";
 const PepitaLauncher = lazy(() => import("@/components/peppy/PepitaLauncher"));
 
@@ -296,9 +296,9 @@ export default function ProductDetail() {
                   {!streamlined && <p className="text-sm text-gray-600 leading-relaxed">{preview.snapshot}</p>}
                 </div>
               )}
-              {isPreorderProduct(product.id) && (
+              {showsPreorderBadge(product) && (
                 <p className="flex flex-wrap items-center gap-2 text-sm text-gray-700" data-testid="pdp-preorder">
-                  <PreorderBadge productId={product.id} />
+                  <PreorderBadge productId={product.id} fulfillment={product.fulfillment} />
                   <span>{PREORDER_CART_NOTE}</span>
                 </p>
               )}

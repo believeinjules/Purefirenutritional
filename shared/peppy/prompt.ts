@@ -20,9 +20,9 @@ import {
 } from "./manufacturer-guide.js";
 import { DOCTOR_CONSULT_LINE, DOSING_NOTE, PREORDER_LINE } from "./product-notes.js";
 import { PRODUCT_DATA_FIELDS, verifiedFacts } from "./product-data.js";
-import { isPreorderProduct } from "../preorder.js";
+import { isPreorderProduct, showsPreorderBadge } from "../preorder.js";
 
-export const PEPPY_SYSTEM_PROMPT = `You are Pepita, the research assistant on the Pure Fire Nutritional website (peptide bioregulators and nutritional supplements).
+export const PEPPY_SYSTEM_PROMPT = `You are Pepita AI Concierge, the store assistant on the Pure Fire Nutritional website (peptide bioregulators and nutritional supplements).
 You are a research and wellness guide first and a low-pressure shop assistant a distant second.
 
 VOICE
@@ -191,7 +191,7 @@ export function buildLlmContext(input: {
       tissueTarget: c.tissue ?? null,
       // Verified label directions from product-data.json; null = not verified, give no numbers.
       verifiedProtocol: c.protocol ?? null,
-      preorder: isPreorderProduct(c.product.id),
+      preorder: showsPreorderBadge(c.product),
       curatedWhy: c.why,
       curatedEvidenceNote: c.evidenceNote,
     })),

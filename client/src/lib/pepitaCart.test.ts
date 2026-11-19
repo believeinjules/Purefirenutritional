@@ -45,8 +45,9 @@ describe("Pepita card cart add", () => {
     expect(purchaseState(null)).toBe("unavailable");
   });
 
-  it("liquids keep the shop's pre-order labelling; capsules are plain Add to Cart", () => {
-    expect(purchaseState(byId("revilab-sl-01"))).toBe("preorder");
+  it("in-stock liquids use Add to Cart; delayed-fulfillment liquids stay pre-order", () => {
+    expect(purchaseState(byId("revilab-sl-01"))).toBe("available");
+    expect(purchaseState({ ...byId("revilab-sl-01"), fulfillment: "ships_2_weeks" })).toBe("preorder");
     expect(purchaseState(byId("endoluten"))).toBe("available");
   });
 });

@@ -53,7 +53,7 @@ export default function ProductSuggestionCard({
           >
             {product.name}
           </Link>
-          <PreorderBadge productId={product.id} />
+          <PreorderBadge productId={product.id} fulfillment={product.fulfillment} />
           <span className="text-sm font-bold text-orange-600">
             ${price.toFixed(2)}
           </span>

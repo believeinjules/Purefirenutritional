@@ -228,7 +228,7 @@ export function ProductGridCard({
             {getCategoryShort(product.category)}
           </span>
         )}
-        <PreorderBadge productId={product.id} className="mb-1.5 w-fit" />
+        <PreorderBadge productId={product.id} fulfillment={product.fulfillment} className="mb-1.5 w-fit" />
         <Link href={`/products/${product.id}`} className="block py-1 mb-0.5">
           <h3 className="font-semibold text-sm leading-snug hover:text-orange-600 transition-colors line-clamp-2">
             {product.name}
@@ -307,7 +307,7 @@ export function ProductListRow({
               {getCategoryShort(product.category)}
             </span>
             {formulaPreview && <FormulaTypeTag productId={product.id} className="ml-2" />}
-            <PreorderBadge productId={product.id} className="ml-2" />
+            <PreorderBadge productId={product.id} fulfillment={product.fulfillment} className="ml-2" />
             <Link href={`/products/${product.id}`} className="block py-1 mt-0.5">
               <h3 className="font-semibold text-sm hover:text-orange-600 transition-colors">
                 {product.name}
