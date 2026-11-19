@@ -30,7 +30,7 @@ describe("shop by system", () => {
     );
     expect(
       `${SYSTEM_HELP_LINE.before} ${SYSTEM_HELP_LINE.askPeppy}${SYSTEM_HELP_LINE.middle} ${SYSTEM_HELP_LINE.doctorQuestions} ${SYSTEM_HELP_LINE.after}`
-    ).toBe("Not sure which one fits? Ask Pepita, or bring the doctor questions to your next appointment.");
+    ).toBe("Not sure which one fits? Ask Pepita AI Concierge, or bring the doctor questions to your next appointment.");
   });
 
   it("only lists product ids that exist in the catalog", () => {

@@ -27,7 +27,7 @@ export default function PepitaLauncher({ productId, productName }: { productId: 
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls="pepita-widget"
-        aria-label={open ? "Close Pepita chat" : `Ask Pepita about ${productName}`}
+        aria-label={open ? "Close Pepita AI Concierge" : `Ask Pepita AI Concierge about ${productName}`}
         onClick={() => {
           setLoaded(true);
           setOpen((v) => !v);

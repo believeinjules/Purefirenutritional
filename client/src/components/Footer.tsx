@@ -162,7 +162,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/ai-assistant" className="inline-block py-1.5 text-gray-400 hover:text-orange-500 transition-colors">
-                  Pepita AI
+                  Pepita AI Concierge
                 </Link>
               </li>
             </ul>

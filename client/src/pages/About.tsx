@@ -397,7 +397,7 @@ export default function About() {
             Begin with Understanding
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Explore our evidence-backed nutrition supplements and peptide bioregulators — or let our AI Assistant help you find what aligns with your goals.
+            Explore our evidence-backed nutrition supplements and peptide bioregulators — or let Pepita AI Concierge help you find what aligns with your goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/products">
@@ -415,7 +415,7 @@ export default function About() {
                 size="lg"
                 className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg rounded-full backdrop-blur-sm"
               >
-                Talk to the AI Assistant
+                Talk to Pepita AI Concierge
                 <Users className="ml-2 h-5 w-5" />
               </Button>
             </Link>

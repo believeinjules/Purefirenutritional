@@ -43,7 +43,7 @@ export default function AskPepitaDock() {
     <div ref={ref} className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2 print:hidden" data-testid="ask-pepita-dock" data-topic={topic}>
       {open ? (
         <div id="pepita-dock-menu" className="w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-gray-200 bg-white p-3 shadow-lg">
-          <p className="mb-2 px-1 text-xs text-gray-500">Ask Pepita</p>
+          <p className="mb-2 px-1 text-xs text-gray-500">Ask Pepita AI Concierge</p>
           <ul className="space-y-1">
             {PEPITA_SUGGESTIONS[topic].map((q) => (
               <li key={q}>
@@ -62,7 +62,7 @@ export default function AskPepitaDock() {
         type="button"
         aria-expanded={open}
         aria-controls="pepita-dock-menu"
-        aria-label={open ? "Close Ask Pepita" : "Ask Pepita"}
+        aria-label={open ? "Close Pepita AI Concierge" : "Ask Pepita AI Concierge"}
         onClick={() => setOpen((v) => !v)}
         className="h-12 w-12 overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E06050] focus-visible:ring-offset-2"
       >

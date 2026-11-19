@@ -97,8 +97,8 @@ export const faqs: FAQItem[] = [
   {
     category: "Products",
     question: "Which one should I start with?",
-    answer: "There's no single right starting point; it depends on what you're interested in. Our guide explains how Cytomaxes and Cytogens differ, and Pepita, our AI assistant, can help you think through the options.",
-    links: [{ href: CYTOMAXES_VS_CYTOGENS_HREF, label: "Cytomaxes vs Cytogens" }, { href: "/ai-assistant?q=" + encodeURIComponent("Which bioregulator should I start with?"), label: "Ask Pepita" }],
+    answer: "There's no single right starting point; it depends on what you're interested in. Our guide explains how Cytomaxes and Cytogens differ, and Pepita AI Concierge can help you think through the options.",
+    links: [{ href: CYTOMAXES_VS_CYTOGENS_HREF, label: "Cytomaxes vs Cytogens" }, { href: "/ai-assistant?q=" + encodeURIComponent("Which bioregulator should I start with?"), label: "Ask Pepita AI Concierge" }],
   },
   {
     category: "Products",
@@ -253,7 +253,7 @@ export default function FAQ() {
                       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                         {[...(faq.link ? [faq.link] : []), ...(faq.links ?? [])].map((l) => (
                           <a key={l.href} href={l.href} className="inline-flex items-center gap-1.5 text-sm text-orange-600 hover:underline">
-                            {l.label === "Ask Pepita" ? <PepitaAvatar size={18} /> : null}
+                            {l.label === "Ask Pepita AI Concierge" ? <PepitaAvatar size={18} /> : null}
                             {l.label} →
                           </a>
                         ))}
@@ -288,7 +288,7 @@ export default function FAQ() {
                 </a>
                 <Link href="/ai-assistant" className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
                   <MessageCircle className="w-5 h-5" />
-                  AI Assistant
+                  Pepita AI Concierge
                 </Link>
               </div>
             </CardContent>

@@ -168,9 +168,9 @@ export default function PepitaChatPanel({
           <PepitaAvatar size={36} decorative />
           <div className="min-w-0 flex-1">
             <h2 id={`${baseId}-title`} tabIndex={-1} className="text-sm font-semibold text-gray-900 outline-none">
-              Ask Pepita
+              Pepita AI Concierge
             </h2>
-            <p className="truncate text-xs text-gray-500">AI research assistant · about {productName}</p>
+            <p className="truncate text-xs text-gray-500">Pure Fire's store assistant · about {productName}</p>
           </div>
           <button
             type="button"
@@ -198,7 +198,7 @@ export default function PepitaChatPanel({
         >
           {messages.length === 0 && (
             <div className="text-sm text-gray-700">
-              <p>Hi, I'm Pepita! What would you like to know about {productName}?</p>
+              <p>Hi, I'm Pepita AI Concierge! What would you like to know about {productName}?</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {starters.map((q) => (
                   <button
@@ -248,7 +248,7 @@ export default function PepitaChatPanel({
         <div className="border-t p-3">
           <form onSubmit={onSubmit} className="flex gap-2">
             <label htmlFor={`${baseId}-input`} className="sr-only">
-              Ask Pepita a question
+              Ask Pepita AI Concierge a question
             </label>
             <input
               id={`${baseId}-input`}

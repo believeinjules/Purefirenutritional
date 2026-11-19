@@ -496,18 +496,18 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ── AI Assistant Callout ───────────────────────────────────────────── */}
+      {/* ── Pepita AI Concierge callout ───────────────────────────────────── */}
       <section className="py-16 px-4 bg-brand-gradient text-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="section-label mb-3">Personalized Guidance</p>
           <h2 className="text-3xl font-bold mb-4">Not sure where to start?</h2>
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-            Our AI Wellness Assistant can help you understand which products align with your health goals, lifestyle, and areas of focus — with no pressure, no upsell.
+            Pepita AI Concierge can help you understand which products align with your health goals, lifestyle, and areas of focus — with no pressure, no upsell.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/ai-assistant">
               <a className="btn-primary">
-                <span className="inline-flex items-center gap-2"><Sparkles className="w-4 h-4" /> Talk to the AI Assistant</span>
+                <span className="inline-flex items-center gap-2"><Sparkles className="w-4 h-4" /> Talk to Pepita AI Concierge</span>
               </a>
             </Link>
             <Link href="/products">

@@ -94,7 +94,7 @@ const privacy: Policy = {
             "Wishlist: the products you save, and whether you would like to hear about sales or restocks of those products.",
             "Reviews: if you send us a review and give us permission to publish it, we keep your first name, last initial, star rating, review text and whether you bought the product from us.",
             "Messages: anything you send us by email, such as a question about an order.",
-            "AI Assistant: the questions you type into our AI Assistant, which it uses to suggest products. Please do not enter personal health details you would not want stored.",
+            "Pepita AI Concierge: the questions you type into Pepita AI Concierge, which it uses to suggest products. Please do not enter personal health details you would not want stored.",
           ],
         },
       ],
@@ -233,14 +233,14 @@ const terms: Policy = {
       body: [
         "The products we sell are dietary supplements.",
         { callout: FDA_DISCLAIMER },
-        "Information on this site, including product pages, the Science and Learn pages, the FAQ and the AI Assistant, is for general education only. It is not medical advice and is not a substitute for advice from a qualified healthcare professional. References to published research describe that research. They are not a promise of any particular result for you.",
+        "Information on this site, including product pages, the Science and Learn pages, the FAQ and Pepita AI Concierge, is for general education only. It is not medical advice and is not a substitute for advice from a qualified healthcare professional. References to published research describe that research. They are not a promise of any particular result for you.",
         "Talk to your healthcare provider before using any supplement, especially if you are pregnant or nursing, have a medical condition, or take medication. Follow the directions on the label. Stop using a product and seek medical care if you have an adverse reaction. Keep all supplements out of reach of children.",
       ],
     },
     {
-      heading: "AI Assistant",
+      heading: "Pepita AI Concierge",
       body: [
-        "The AI Assistant is an automated tool that suggests products based on what you type. Its answers can be incomplete or wrong, and they are not medical advice. Do not rely on it to make health decisions.",
+        "Pepita AI Concierge is an automated tool that suggests products based on what you type. Its answers can be incomplete or wrong, and they are not medical advice. Do not rely on it to make health decisions.",
       ],
     },
     {

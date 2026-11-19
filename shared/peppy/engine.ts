@@ -742,7 +742,7 @@ export function composeFallback(
     return {
       ...base(analysis),
       summary:
-        "Hi, I'm Pepita — Pure Fire's research assistant. Ask me about a symptom or goal, a peptide or supplement, or one of our products, and I'll tell you what the research does and doesn't show, with links to the studies.",
+        "Hi, I'm Pepita AI Concierge, Pure Fire's store assistant. Ask me about a symptom or goal, a peptide or supplement, or one of our products, and I'll tell you what the research does and doesn't show, with links to the studies.",
       sections: [],
       suggestions: suggestionFor(undefined, used),
       showDisclaimer: false,
@@ -753,7 +753,7 @@ export function composeFallback(
     return {
       ...base(analysis),
       summary:
-        "I'm Pepita, Pure Fire's research assistant. I can help with questions about peptides, supplements, wellness research and our products — but that one's outside what I can help with.",
+        "I'm Pepita AI Concierge, Pure Fire's store assistant. I can help with questions about peptides, supplements, wellness research and our products — but that one's outside what I can help with.",
       sections: [],
       suggestions: suggestionFor(undefined, used),
       showDisclaimer: false,

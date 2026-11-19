@@ -51,9 +51,9 @@ export const PUBLIC_PAGE_HEADS: Record<string, PageHead> = {
       "Email support@purefirenutritional.com with questions about orders or products, or browse the FAQ. Pure Fire Nutritional is based in Brooklyn, NY.",
   },
   "/ai-assistant": {
-    title: "Pepita — Peptide Research Sidekick | Pure Fire Nutritional",
+    title: "Pepita AI Concierge | Pure Fire Nutritional",
     description:
-      "Ask Pepita, Pure Fire's research assistant, about peptide bioregulators: direct answers with linked PubMed studies, their limits, and related products.",
+      "Ask Pepita AI Concierge, Pure Fire's store assistant, about peptide bioregulators: answers with linked PubMed studies, their limits, and related products.",
   },
   "/peptalk": {
     title: "Peptalk Podcast | Pure Fire Nutritional",

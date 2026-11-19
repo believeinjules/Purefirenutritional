@@ -271,13 +271,13 @@ export default function AIAssistant() {
           <DialogDescription className="text-gray-700 space-y-4">
             <p>
               <strong>
-                This AI assistant is for informational purposes only. It is not
+                Pepita AI Concierge is for informational purposes only. It is not
                 medical advice, and nothing it says is meant to be taken as a
                 treatment claim.
               </strong>
             </p>
             <p>
-              The information provided by this AI assistant is not intended to
+              The information provided by Pepita AI Concierge is not intended to
               be a substitute for professional medical advice, diagnosis, or
               treatment. Always seek the advice of your physician or other
               qualified health provider with any questions you may have
@@ -311,14 +311,13 @@ export default function AIAssistant() {
           <div className="text-center mb-4 sm:mb-8">
             <div className="inline-flex items-center gap-2 bg-brand-gradient text-white pl-1.5 pr-6 py-1.5 rounded-full mb-4">
               <PepitaAvatar size={56} className="ring-2 ring-white/70" />
-              <span className="font-semibold">Pepita</span>
-              <span className="text-xs font-medium text-white/85" data-testid="pepita-ai-label">AI assistant</span>
+              <span className="font-semibold" data-testid="pepita-ai-label">Pepita AI Concierge</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">
-              Your Peptide Research Sidekick.
+              Pepita AI Concierge
             </h1>
             <p className="text-gray-600">
-              Curious about peptides, longevity, or how your body works? Ask Pepita. She’ll help you explore the science, understand your options, and find what’s relevant to you.
+              Curious about peptides, longevity, or how your body works? Ask Pepita AI Concierge. She’ll help you explore the science, understand your options, and find what’s relevant to you.
             </p>
           </div>
 
@@ -431,7 +430,7 @@ export default function AIAssistant() {
                   <div className="text-center text-gray-500 py-1">
                     <PepitaAvatar size={48} className="mx-auto mb-2 block" />
                     <p className="text-gray-700">
-                      Hi, I'm Pepita! What would you like to explore today?
+                      Hi, I'm Pepita AI Concierge! What would you like to explore today?
                     </p>
                     <div className="mt-3 flex flex-wrap justify-center gap-2">
                       {QUICK_QUESTIONS.map(q => (
@@ -525,7 +524,7 @@ export default function AIAssistant() {
               <div className="sticky bottom-0 z-10 rounded-b-xl border-t bg-white/95 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] backdrop-blur sm:p-4" data-testid="pepita-composer">
                 <form onSubmit={onSubmit} className="flex gap-2">
                   <label htmlFor={`${baseId}-input`} className="sr-only">
-                    Ask Pepita a question
+                    Ask Pepita AI Concierge a question
                   </label>
                   <Input
                     id={`${baseId}-input`}
