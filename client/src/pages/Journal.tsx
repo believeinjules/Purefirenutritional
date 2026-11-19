@@ -39,7 +39,7 @@ function Cover({ a, eager }: { a: LearnArticle; eager?: boolean }) {
       {a.cover.webp && <source srcSet={a.cover.webp} type="image/webp" />}
       <img
         src={a.cover.jpg}
-        alt=""
+        alt={`Cover image for “${a.title}”`}
         width={1280}
         height={720}
         loading={eager ? "eager" : "lazy"}
@@ -81,7 +81,7 @@ function TagChips({ tags, activeTag }: { tags: JournalTag[]; activeTag?: string 
 function ArticleCard({ a, activeTag, eager }: { a: LearnArticle; activeTag?: string; eager?: boolean }) {
   return (
     <article className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-md transition max-md:flex-row max-md:items-center max-md:gap-3 max-md:p-2.5">
-      <Link href={a.href} tabIndex={-1} aria-hidden="true" className="max-md:w-[104px] max-md:shrink-0 max-md:self-start max-md:overflow-hidden max-md:rounded-md">
+      <Link href={a.href} aria-label={`Read “${a.title}”`} className="max-md:w-[104px] max-md:shrink-0 max-md:self-start max-md:overflow-hidden max-md:rounded-md">
         <Cover a={a} eager={eager} />
       </Link>
       <div className="flex min-w-0 flex-1 flex-col p-5 max-md:p-0">
@@ -105,7 +105,7 @@ function SidebarList({ title, note, items, mobileHidden, mobileLead }: { title: 
   const item = (a: LearnArticle, cls: string) => (
     <li key={a.href} className={`py-3 ${cls} max-md:w-52 max-md:shrink-0 max-md:snap-start max-md:rounded-lg max-md:!border max-md:!border-gray-200 max-md:px-3 max-md:py-2`}>
       <span className="block text-[11px] uppercase tracking-wider text-gray-500">{categoryLabel(a.category)}</span>
-      <Link href={a.href} className={`text-sm font-medium text-gray-900 hover:text-orange-600 max-md:line-clamp-2 max-md:min-h-[44px] ${focusRing}`}>
+      <Link href={a.href} aria-label={`Read “${a.title}”`} className={`text-sm font-medium text-gray-900 hover:text-orange-600 max-md:line-clamp-2 max-md:min-h-[44px] ${focusRing}`}>
         {a.navLabel ?? a.title}
       </Link>
     </li>
