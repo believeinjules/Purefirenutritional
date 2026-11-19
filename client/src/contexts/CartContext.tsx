@@ -10,6 +10,7 @@ import { Product } from "@/data/products";
 import { getCartLineUnitUSD } from "@shared/product-prices";
 import { bottlesInBundle, parseCartBundle, type CartBundleKind } from "@shared/bundle-pricing";
 import { fetchProducts } from "@/lib/productsStorage";
+import { notifyAddedToCart } from "@/lib/dailyFire";
 
 /** Storefront pack ("2x60" | "60+20") or Prime cycle bundle (2 | 3). Absent = single bottle. */
 export type CartBundle = CartBundleKind;
@@ -155,6 +156,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
         return [...currentItems, b ? { product, quantity, size, bundle: b } : { product, quantity, size }];
       });
+      notifyAddedToCart();
     },
     []
   );

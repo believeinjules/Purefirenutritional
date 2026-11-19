@@ -433,3 +433,18 @@ article p, article li, article td, article th, article dd, article blockquote {
     bottom: max(20px, env(safe-area-inset-bottom));
   }
 }
+
+@media (max-width: 1023px) {
+  .daily-fire-pill--pdp {
+    /* Default PDP offset: stay above a typical Add to Cart / sticky buy bar. */
+    bottom: max(96px, calc(env(safe-area-inset-bottom) + 76px));
+  }
+}
+.daily-fire-pill--clear-cart {
+  bottom: max(168px, calc(env(safe-area-inset-bottom) + 148px));
+}
+@media (min-width: 1024px) {
+  .daily-fire-pill--clear-cart {
+    bottom: max(88px, env(safe-area-inset-bottom));
+  }
+}

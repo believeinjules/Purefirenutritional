@@ -11,6 +11,8 @@ export const DAILY_FIRE_STORAGE_KEY = "pf_daily_fire_v1";
 export const DAILY_FIRE_SHOWN_KEY = "pf_daily_fire_shown_on";
 export const DAILY_FIRE_QUESTION_KEY = "pf_daily_fire_question";
 const CHANGE_EVENT = "pf-daily-fire-change";
+export const ADDED_TO_CART_EVENT = "pf-added-to-cart";
+export const DAILY_FIRE_AFTER_CART_MS = 45_000;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export type DailyFireState = {
@@ -187,4 +189,13 @@ export function useDailyFireCode() {
   }, []);
   const now = Date.now();
   return { state, applied: activeCode(state, now) };
+}
+
+/** Tell Daily Fire a shopper just added something, so the auto-popup stays out of the way. */
+export function notifyAddedToCart() {
+  try {
+    window.dispatchEvent(new Event(ADDED_TO_CART_EVENT));
+  } catch {
+    /* prerender / non-browser */
+  }
 }

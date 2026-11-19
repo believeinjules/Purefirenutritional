@@ -17,6 +17,7 @@ import {
   readDailyFire,
 } from "@/lib/dailyFire";
 import { QUIZ_QUESTIONS } from "@shared/daily-fire";
+import { ADDED_TO_CART_EVENT } from "@/lib/dailyFire";
 
 const DAY = 86_400_000;
 
@@ -103,6 +104,29 @@ describe("DailyFirePopup", () => {
       expect(screen.queryByTestId("daily-fire-pill")).toBeNull();
       unmount();
     }
+  });
+
+  it("does not auto-open on a product detail page", async () => {
+    renderAt("/products/cerluten", 10);
+    await act(() => new Promise((r) => setTimeout(r, 80)));
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(screen.queryByTestId("daily-fire-pill")).toBeNull();
+  });
+
+  it("still shows the Daily Fire pill on a product detail page after dismissal", async () => {
+    localStorage.setItem(DAILY_FIRE_STORAGE_KEY, JSON.stringify({ status: "dismissed", at: Date.now() }));
+    renderAt("/products/cerluten", 10);
+    await act(() => new Promise((r) => setTimeout(r, 80)));
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(await screen.findByTestId("daily-fire-pill")).toBeTruthy();
+  });
+
+  it("does not auto-open right after Add to Cart", async () => {
+    renderAt("/", 40);
+    await act(() => new Promise((r) => setTimeout(r, 10)));
+    window.dispatchEvent(new Event(ADDED_TO_CART_EVENT));
+    await act(() => new Promise((r) => setTimeout(r, 80)));
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 
   it("does not auto-open again after a dismissal, but the pill reopens the same question", async () => {

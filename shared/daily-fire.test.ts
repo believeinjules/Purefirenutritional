@@ -10,6 +10,7 @@ import {
   couponIdForPercent,
   estimateDiscountCents,
   isDailyFireExcludedPath,
+  isDailyFireProductDetailPath,
   normalizePromoCode,
   pickQuestion,
   questionById,
@@ -149,6 +150,15 @@ describe("helpers", () => {
     }
     for (const p of ["/", "/products", "/products/cerluten", "/learn", "/reviews-page"]) {
       expect(isDailyFireExcludedPath(p)).toBe(false);
+    }
+  });
+
+  it("treats only product detail URLs as PDPs (auto-popup off, pill still allowed)", () => {
+    for (const p of ["/products/cerluten", "/products/endoluten?size=60", "/product/cerluten"]) {
+      expect(isDailyFireProductDetailPath(p)).toBe(true);
+    }
+    for (const p of ["/", "/products", "/products/", "/products/system", "/products/system/brain-nervous-system", "/products/collection/khavinson-cytomaxes", "/products/goal/sleep-daily-rhythms", "/cart"]) {
+      expect(isDailyFireProductDetailPath(p)).toBe(false);
     }
   });
 });

@@ -109,6 +109,7 @@ export default function QuickAddToCart({
         <button
           type="button"
           onClick={handleTriggerClick}
+          data-add-to-cart
           className={triggerClass}
           aria-label={
             needsChooser
@@ -123,6 +124,7 @@ export default function QuickAddToCart({
         <Button
           type="button"
           onClick={handleTriggerClick}
+          data-add-to-cart
           className={triggerClass}
           aria-label={
             needsChooser
@@ -193,6 +195,7 @@ export default function QuickAddToCart({
             <Button
               type="button"
               onClick={() => commit(selectedSize)}
+              data-add-to-cart
               size="lg"
               className="bg-green-600 hover:bg-green-700"
             >

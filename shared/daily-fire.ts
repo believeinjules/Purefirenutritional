@@ -243,7 +243,21 @@ export function estimateDiscountCents(merchandiseCents: number, percentOff: numb
   return Math.round((merchandiseCents * Math.min(percentOff, 100)) / 100);
 }
 
-/** Paths where the popup never appears. */
+const BROWSE_PRODUCT_PREFIXES = new Set(["system", "collection", "goal"]);
+
+/**
+ * A product detail page (/products/:id or /product/:id), not the shop
+ * listing or a system/collection/goal browse page.
+ */
+export function isDailyFireProductDetailPath(path: string): boolean {
+  const p = (path || "/").split(/[?#]/)[0].toLowerCase().replace(/\/+$/, "") || "/";
+  const product = p.match(/^\/product\/([^/]+)$/);
+  if (product) return true;
+  const shop = p.match(/^\/products\/([^/]+)$/);
+  return Boolean(shop && !BROWSE_PRODUCT_PREFIXES.has(shop[1]));
+}
+
+/** Paths where the popup never appears (pill is also hidden). */
 export function isDailyFireExcludedPath(path: string): boolean {
   const p = (path || "/").split(/[?#]/)[0].toLowerCase();
   return [

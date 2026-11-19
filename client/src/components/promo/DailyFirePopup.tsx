@@ -17,10 +17,13 @@ import {
   DAILY_FIRE_CONSENT_TEXT,
   DAILY_FIRE_NAME,
   isDailyFireExcludedPath,
+  isDailyFireProductDetailPath,
   type QuizQuestion,
 } from "@shared/daily-fire";
 import { isValidEmail } from "@shared/email-address";
 import {
+  ADDED_TO_CART_EVENT,
+  DAILY_FIRE_AFTER_CART_MS,
   isClaimedInWindow,
   isPillVisible,
   isPopupEligible,
@@ -119,21 +122,84 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
   }, []);
 
   const excluded = isDailyFireExcludedPath(location);
+  const productPage = isDailyFireProductDetailPath(location);
+  const [recentCartAdd, setRecentCartAdd] = useState(false);
+  const [pillClearsCart, setPillClearsCart] = useState(false);
   const onTrigger = useCallback(() => {
-    if (shownThisVisit.current) return;
+    if (shownThisVisit.current || recentCartAdd) return;
     shownThisVisit.current = true;
     const now = Date.now();
     markShownToday(now);
     setQuestion((q) => q ?? resumeOrPickQuestion(now));
     setOpen(true);
     setPillVisible(true);
-  }, []);
-  useOpenTrigger(mounted && eligible && !excluded && !shownThisVisit.current, onTrigger, delayMs);
+  }, [recentCartAdd]);
+  useOpenTrigger(mounted && eligible && !excluded && !productPage && !recentCartAdd && !shownThisVisit.current, onTrigger, delayMs);
 
-  // Navigating to checkout/admin while open closes it without counting as a dismissal.
+  const openRef = useRef(open);
+  const revealedRef = useRef(revealed);
+  openRef.current = open;
+  revealedRef.current = revealed;
+  useEffect(() => {
+    let t: number | undefined;
+    const onAdd = () => {
+      setRecentCartAdd(true);
+      if (openRef.current && !revealedRef.current) setOpen(false);
+      if (t !== undefined) window.clearTimeout(t);
+      t = window.setTimeout(() => setRecentCartAdd(false), DAILY_FIRE_AFTER_CART_MS);
+    };
+    window.addEventListener(ADDED_TO_CART_EVENT, onAdd);
+    return () => {
+      window.removeEventListener(ADDED_TO_CART_EVENT, onAdd);
+      if (t !== undefined) window.clearTimeout(t);
+    };
+  }, []);
+
+  // Close on checkout-like pages, and never leave the auto-popup sitting over a PDP Add to Cart.
   useEffect(() => {
     if (excluded && open && !revealed) setOpen(false);
-  }, [excluded, open, revealed]);
+    else if (productPage && open && !revealed) {
+      const forced = new URLSearchParams(window.location.search).get("daily-fire") === "1";
+      if (!forced) setOpen(false);
+    }
+  }, [excluded, productPage, open, revealed]);
+
+  // On PDPs, lift the corner pill if it would cover Add to Cart or a sticky buy bar.
+  useEffect(() => {
+    if (!pillVisible || excluded || open) {
+      setPillClearsCart(false);
+      return;
+    }
+    const check = () => {
+      const buttons = document.querySelectorAll("[data-add-to-cart]");
+      if (!buttons.length) {
+        setPillClearsCart(false);
+        return;
+      }
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const defaultBottom = vw < 1024 ? (productPage ? 96 : 72) : 20;
+      const zone = { left: 0, right: 180, top: vh - defaultBottom - 56, bottom: vh };
+      let hit = false;
+      buttons.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) return;
+        if (!(r.right < zone.left || r.left > zone.right || r.bottom < zone.top || r.top > zone.bottom)) {
+          hit = true;
+        }
+      });
+      setPillClearsCart(hit);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    const iv = window.setInterval(check, 500);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+      window.clearInterval(iv);
+    };
+  }, [pillVisible, excluded, open, productPage, location]);
 
   const handleOpenChange = (next: boolean) => {
     if (!next) {
@@ -294,7 +360,7 @@ export default function DailyFirePopup({ delayMs = DAILY_FIRE_DELAY_MS }: { dela
       {pillVisible && !open && !excluded ? (
         <button
           type="button"
-          className="daily-fire-pill print:hidden"
+          className={`daily-fire-pill print:hidden${productPage ? " daily-fire-pill--pdp" : ""}${pillClearsCart ? " daily-fire-pill--clear-cart" : ""}`}
           aria-label="Open today's Daily Fire question"
           data-testid="daily-fire-pill"
           onClick={openFromPill}

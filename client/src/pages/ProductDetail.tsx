@@ -397,6 +397,7 @@ export default function ProductDetail() {
                   </button>
                 </div>
                 <Button
+                  data-add-to-cart
                   onClick={() => {
                     if (currentPrice === undefined) {
                       toast.error("This product's price is unavailable, so it can't be added.");
