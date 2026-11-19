@@ -20,21 +20,18 @@ describe("homepage SEO head", () => {
 });
 
 describe("homepage copy (approved items only)", () => {
-  it("has the five 'Why we carry these' items", () => {
-    expect(index).toContain("Why we carry these");
-    for (const s of [
-      '"40+ years"',
-      "Research line from the St. Petersburg Institute of Bioregulation and Gerontology",
-      '"Oral"',
-      "Capsules. No needles.",
-      '"Short cycles"',
-      "Taken in short cycles, then paused",
-      '"Tissue-specific"',
-      "Each formula is matched to one organ or system",
-      '"Authorized US Retailer"',
-      "Sourced directly from the manufacturer",
-    ])
-      expect(index).toContain(s);
+  it("shows four trust points in a 2×2 / four-column grid, without the eyebrow or the 40+ / Authorized cards", () => {
+    expect(index).not.toContain("Why we carry these");
+    expect(index).toContain('data-testid="home-trust-points"');
+    expect(index).toContain("grid grid-cols-2 md:grid-cols-4");
+    const block = index.slice(index.indexOf("const trustPoints"), index.indexOf("export default function Index"));
+    expect(block).toContain("Grounded in decades of published research.");
+    expect(block).not.toContain("40+ years");
+    expect(block).not.toContain("Authorized US Retailer");
+    expect(block).not.toContain("Sourced directly from the manufacturer");
+    expect(block).not.toMatch(/\d/);
+    const stats = [...block.matchAll(/stat: "([^"]+)"/g)].map((m) => m[1]);
+    expect(stats).toEqual(["Evidence backed", "Oral", "Short cycles", "Tissue-specific"]);
   });
 
   it("replaces Pharmaceutical Grade and the courses line", () => {

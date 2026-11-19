@@ -4,7 +4,6 @@ import { homeJsonLd } from "@/lib/seo";
 import { Link } from "wouter";
 import HomeReviewStrip from "@/components/reviews/HomeReviewStrip";
 import SubscribeStrip from "@/components/home/SubscribeStrip";
-import { SITE_TRUST, isUsableUrl } from "@/data/siteConfig";
 import {
   ArrowRight,
   Brain,
@@ -97,19 +96,13 @@ const pillars = [
   },
 ];
 
-// ─── Why we carry these ───────────────────────────────────────────────────────
+// ─── Trust points ──────────────────────────────────────────────────────────
 
-const whyWeCarry: { stat: string; label: string; href?: string }[] = [
-  { stat: "40+ years", label: "Research line from the St. Petersburg Institute of Bioregulation and Gerontology" },
+const trustPoints: { stat: string; label: string }[] = [
+  { stat: "Evidence backed", label: "Grounded in decades of published research." },
   { stat: "Oral", label: "Capsules. No needles." },
   { stat: "Short cycles", label: "Taken in short cycles, then paused" },
   { stat: "Tissue-specific", label: "Each formula is matched to one organ or system" },
-  {
-    stat: "Authorized US Retailer",
-    label: "Sourced directly from the manufacturer",
-    // Links to the authorization document only once its URL is set in siteConfig.
-    href: isUsableUrl(SITE_TRUST.authorizationDocUrl) ? SITE_TRUST.authorizationDocUrl : undefined,
-  },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -442,22 +435,13 @@ export default function Index() {
       </section>
 
       {/* ── Trust / Credibility ────────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
+      <section className="py-16 px-4 bg-gray-50 border-t border-gray-100" data-testid="home-trust-points">
         <div className="max-w-5xl mx-auto">
-          <p className="section-label mb-8 text-center">Why we carry these</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
-            {whyWeCarry.map(({ stat, label, href }) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {trustPoints.map(({ stat, label }) => (
               <div key={stat}>
                 <div className="text-xl font-bold text-orange-600 mb-2 leading-snug">{stat}</div>
-                <div className="text-gray-500 text-xs leading-relaxed">
-                  {href ? (
-                    <a href={href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      {label}
-                    </a>
-                  ) : (
-                    label
-                  )}
-                </div>
+                <div className="text-gray-500 text-xs leading-relaxed">{label}</div>
               </div>
             ))}
           </div>
