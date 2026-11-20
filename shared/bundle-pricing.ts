@@ -4,15 +4,13 @@
  * bundle kind, and the server recomputes the price from live single-bottle
  * prices (Firestore, code-catalog fallback).
  *
- * Storefront (20/60 products, price update 2026-11-20):
- *   Buy More & Save appears only when the 60-cap size is selected.
- *   Offers (COMMERCE_CONFIG.bundles.sizePairPacks):
- *     - "2x60" — two 60-cap bottles at 4.4% off, rounded down to a whole dollar ($180 → $344).
- *     - "3x60" — three 60-cap bottles at 8% off, rounded down to a whole dollar ($180 → $496).
- *   "60+20" (retired) still parses so old carts load, but is never offered:
- *   the cart turns it back into single bottles and checkout rejects it.
+ * Storefront (Khavinson 20/60 products, Julia 2026-11-20): NO multi-bottle deals.
+ *   "2x60", "3x60" and "60+20" are retired: they still parse so old saved carts
+ *   load, but are never offered; the cart turns them back into single bottles
+ *   and checkout rejects them. The PDP shows only the 20 / 60 capsule choice.
  *
- * Prime Peptide: 2- or 3-bottle cycle bundles of that product's single size,
+ * Multi-bottle deals are Prime Peptide only (product ids "prime-peptide-*"):
+ * 2- or 3-bottle cycle bundles of that product's single size,
  * at 4.4% / 8% off, rounded down to a whole dollar (COMMERCE_CONFIG.bundles.tiers),
  * still subject to the low-price and larger-size guards. A per-product
  * `bundleDiscountsUSD` override (dollars off each bottle) replaces the percent.
@@ -61,13 +59,16 @@ export type BundleOffer = {
   savingsCents: number;
 };
 
-/** Storefront packs offered when a 20/60 product is on the 60-cap size. */
-export const STOREFRONT_BUNDLES = ["2x60", "3x60"] as const;
-/** Retired pack kinds: still parsed (old saved carts) but never offered or charged. */
-export const RETIRED_STOREFRONT_BUNDLES = ["60+20"] as const;
-export type StorefrontBundle =
-  | (typeof STOREFRONT_BUNDLES)[number]
-  | (typeof RETIRED_STOREFRONT_BUNDLES)[number];
+/** Retired Khavinson pack kinds: still parsed (old saved carts) but never offered or charged. */
+export const RETIRED_STOREFRONT_BUNDLES = ["2x60", "3x60", "60+20"] as const;
+export type StorefrontBundle = (typeof RETIRED_STOREFRONT_BUNDLES)[number];
+/** Storefront packs currently offered on 20/60 products: none (Julia, 2026-11-20). */
+export const STOREFRONT_BUNDLES: readonly StorefrontBundle[] = [];
+
+/** Multi-bottle deals are offered only on Prime Peptide products. */
+export function isMultiBottleDealProduct(product: { id?: string | null }): boolean {
+  return typeof product.id === "string" && /^prime-peptide-/.test(product.id);
+}
 
 /** Anything the cart / checkout may send: a storefront pack, a Prime 2/3-bottle, or 1 (single). */
 export type CartBundleKind = StorefrontBundle | BundleSize;
@@ -233,6 +234,7 @@ export function getStorefrontBundleOffer(
 ): StorefrontBundleOffer | null {
   if (!config.bundles.enabled) return null;
   if (product.bundlesEnabled === false) return null;
+  if (!(STOREFRONT_BUNDLES as readonly string[]).includes(kind)) return null;
   const pair = sizePairCents(product);
   if (!pair) return null;
   const pack = config.bundles.sizePairPacks.find((p) => p.kind === kind);
@@ -255,19 +257,19 @@ export function getStorefrontBundleOffers(
   product: BundleOverrideFields & BundleSizingFields,
   config: CommerceConfig = COMMERCE_CONFIG
 ): StorefrontBundleOffer[] {
-  return STOREFRONT_BUNDLES.map((kind) => getStorefrontBundleOffer(product, kind as StorefrontBundle, config)).filter(
+  return STOREFRONT_BUNDLES.map((kind) => getStorefrontBundleOffer(product, kind, config)).filter(
     (o): o is StorefrontBundleOffer => o !== null
   );
 }
 
 /**
  * Resolve a cart bundle against a product and selected size.
- * - 20/60 products: only "2x60" and "3x60", and only when the selected size is 60.
- *   A legacy numeric `2` with size 60 is treated as "2x60" (old carts).
- * - Single-size products (Prime Peptide): legacy 2- or 3-bottle cycle bundles.
+ * - 20/60 (Khavinson) products: no packs are offered, so every pack kind (and a
+ *   legacy numeric `2` with size 60, treated as "2x60") resolves to null.
+ * - Prime Peptide only: 2- or 3-bottle cycle bundles of its single size.
  */
 export function resolveBundleOffer(
-  product: BundleOverrideFields & BundleSizingFields,
+  product: BundleOverrideFields & BundleSizingFields & { id?: string | null },
   singleBottlePriceUSD: number,
   bundle: unknown,
   options: BundleOfferOptions = {}
@@ -293,7 +295,7 @@ export function resolveBundleOffer(
     return offer ? { kind, offer, bottles: offer.bottles } : null;
   }
 
-  if ((parsed === 2 || parsed === 3) && !pair) {
+  if ((parsed === 2 || parsed === 3) && !pair && isMultiBottleDealProduct(product)) {
     const offer = getBundleOffer(product, singleBottlePriceUSD, parsed, options);
     return offer ? { kind: parsed, offer, bottles: parsed } : null;
   }

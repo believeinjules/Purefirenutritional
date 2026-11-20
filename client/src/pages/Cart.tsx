@@ -14,6 +14,19 @@ import PreorderBadge from "@/components/PreorderBadge";
 import { showsPreorderBadge, PREORDER_CART_NOTE } from "@shared/preorder";
 import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
 import { formatUSD, savingsPercentLabel } from "@shared/format-price";
+import { getProductById } from "@/data/products";
+import { responsiveImage } from "@/lib/responsiveImage";
+
+/**
+ * Photo for a cart line: the chosen size's image, else the product image, else the
+ * code-catalog image for the same id (older saved carts / live docs without an image).
+ */
+function cartLineImage(product: { id: string; image?: string | null; variants?: Array<{ id: string; name: string; image?: string | null }> | null }, size?: string): string | undefined {
+  const catalog = getProductById(product.id);
+  const pick = (p: typeof product | undefined) =>
+    p?.variants?.find((v) => size && (v.id === `${size}-count` || v.name.startsWith(`${size} `)))?.image || p?.image || undefined;
+  return pick(product) || pick(catalog as typeof product | undefined);
+}
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
 function formatCartUSD(amount: number | undefined | null): string {
@@ -83,9 +96,26 @@ export default function Cart() {
                 <Card key={`${item.product.id}-${item.size}-${item.bundle ?? 1}`}>
                   <CardContent className="p-4 flex gap-4">
                     {/* Product Image */}
-                    <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded flex items-center justify-center flex-shrink-0">
-                      <span className="text-gray-400 text-xs text-center px-1">{item.product.name}</span>
-                    </div>
+                    {(() => {
+                      const img = cartLineImage(item.product, item.size);
+                      return (
+                        <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          {img ? (
+                            <img
+                              {...responsiveImage(img, "96px", 320)}
+                              alt={item.product.name}
+                              width={96}
+                              height={96}
+                              className="w-full h-full object-contain p-1"
+                              decoding="async"
+                              data-testid="cart-line-image"
+                            />
+                          ) : (
+                            <span className="text-gray-400 text-xs text-center px-1">{item.product.name}</span>
+                          )}
+                        </div>
+                      );
+                    })()}
 
                     {/* Product Info */}
                     <div className="flex-1">

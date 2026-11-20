@@ -8,22 +8,27 @@
 |---|---|---|
 | `standardShippingUSD` | 11.98 | flat rate |
 | `freeShippingThresholdUSD` | 155 | free when merchandise subtotal (after bundle discounts) is **at or above** this |
-| 2-bottle deal (all products with deals) | 4.4% off, rounded down to a whole dollar | Julia 2026-11-20 |
-| 3-bottle deal (all products with deals) | 8% off, rounded down to a whole dollar | Julia 2026-11-20 |
+| 2-bottle deal (Prime Peptide only) | 4.4% off, rounded down to a whole dollar | Julia 2026-11-20 |
+| 3-bottle deal (Prime Peptide only) | 8% off, rounded down to a whole dollar | Julia 2026-11-20 |
 | `minDiscountedShareOfPrice` | 0.8 | a bundle is not offered if it would take more than 20% off a bottle (protects very low-priced items, e.g. $8.99 / $19.99 products) |
 
-### Storefront packs (20/60 products, price update 2026-11-20)
-Buy More & Save appears **only when the 60-cap size is selected**. Options (`COMMERCE_CONFIG.bundles.sizePairPacks`):
+### Multi-bottle deals: Prime Peptide only (Julia, 2026-11-20)
+Khavinson 20/60 products (including Endoluten and Bonomarlot) have **no** multi-bottle deals:
+the product page shows only the size choice (20 / 60 capsules). `COMMERCE_CONFIG.bundles.sizePairPacks`
+is empty and `STOREFRONT_BUNDLES` offers nothing. The "2x60", "3x60" and retired "60+20" kinds still
+parse so old saved carts load, but the cart quietly turns them into the same number of single bottles
+and checkout rejects them (HTTP 400). Numeric 2 / 3 bundles resolve only for `prime-peptide-*` ids
+(`isMultiBottleDealProduct`), so other single-size products (Revilab ML/SL, nutritionals, cosmetics)
+are rejected too. Live main (b38ebee) offered Khavinson "2 × 60" and "60 + 20" packs; this removes them.
 
-- a single 60-cap bottle
-- **2 × 60 capsules** — 4.4% off two 60s, rounded down to a whole dollar
-- **3 × 60 capsules** — 8% off three 60s, rounded down to a whole dollar
+Prime Peptide keeps its 2/3-bottle card picker: 4.4% / 8% off, rounded down to a whole dollar, so the
+saving is never below 4.4% / 8%. Labels show only the percent saved, floored to 0.1
+(`shared/format-price.ts → savingsPercentLabel`), e.g. "2 bottles / $309 / save 4.6%". Prices show no
+cents when they are whole dollars (`formatUSD`); prices with cents keep them (Bonomarlot $81.99 / $229.99,
+excluded from the 2026-11-20 update).
 
-Rounding down means the saving is never below 4.4% / 8%. Labels show only the percent saved, floored to 0.1 (`shared/format-price.ts → savingsPercentLabel`), e.g. "2 × 60 capsules — $344 (save 4.4%)". Prices show no cents when they are whole dollars (`formatUSD`).
-
-The old **60 + 20** pack is retired: it still parses (old saved carts), but is never offered; the cart turns it back into single bottles and checkout rejects it. 2 × 20 and 3 × 20 packs are not offered. Single-size products (Revilab ML/SL, nutritionals, cosmetics) have no Buy More & Save control. Prime Peptide keeps its 2/3-bottle card picker at the same 4.4% / 8%.
-
-Deal prices: standard Khavinson ($180) **$344 / $496**; Bonomarlot ($234) $447 / $645; Endoluten ($288) $550 / $794; Prime $144 → $275 / $397, $162 → $309 / $447, $189 → $361 / $521.
+Prime deal prices: Collagen / Omega ($144) **$275 / $397**; Brain ($162) $309 / $447; Joints / Protect ($189) $361 / $521.
+Mixed Prime bundles (draft, not built) keep their listed prices, e.g. Collagen + Omega $279.
 
 The larger-size guard in `getBundleOffer` still applies to Prime / legacy 2- and 3-bottle packs (hidden, never repriced; a hidden bundle at checkout → HTTP 400). Every per-product dollar override must stay between **$3 and $9** (`BUNDLE_DISCOUNT_LIMITS_USD`).
 
@@ -36,7 +41,7 @@ Single-bottle prices are **not** in this file and are never changed by it.
 Writable through `PATCH /api/admin/products` (validated in `api/_lib/admin-products.ts`).
 
 ## How checkout prices a bundle (server-side)
-The cart sends `{ productId, size, quantity, bundle: "2x60" | "3x60" | 2 | 3 }`, **never a price**.
+The cart sends `{ productId, size, quantity, bundle: 2 | 3 }` (Prime Peptide only), **never a price**.
 `shared/product-prices.ts → resolveLineForProduct` takes the live single-bottle price
 (Firestore, code-catalog fallback), applies `shared/bundle-pricing.ts`:
 

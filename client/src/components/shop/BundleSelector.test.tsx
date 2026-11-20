@@ -61,32 +61,17 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     expect(container.innerHTML).toBe("");
   });
 
-  it("Cerluten 60-cap: labelled native <select> with 60, 2×60 and 3×60", () => {
-    const cerluten = getProductById("cerluten")!;
-    const onChange = vi.fn();
-    render(
-      <BundleSelector product={cerluten} singlePriceUSD={180} size="60" value={1} onChange={onChange} />,
-    );
-    const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
-    expect(select.tagName).toBe("SELECT");
-    expect(select.value).toBe("1");
-    expect(getStorefrontBundleOffers(cerluten).map((o) => o.kind)).toEqual(["2x60", "3x60"]);
-    expect(optionTexts(select)).toEqual([
-      "1 bottle (60 capsules) — $180",
-      "2 × 60 capsules — $344 (save 4.4%)",
-      "3 × 60 capsules — $496 (save 8.1%)",
-    ]);
-  });
-
-  it("changing the dropdown passes the pack kind on", async () => {
-    const user = userEvent.setup();
-    const onChange = vi.fn();
-    const cerluten = getProductById("cerluten")!;
-    render(
-      <BundleSelector product={cerluten} singlePriceUSD={180} size="60" value={1} onChange={onChange} />,
-    );
-    await user.selectOptions(screen.getByLabelText("Buy More & Save"), "3x60");
-    expect(onChange).toHaveBeenCalledWith("3x60");
+  it("Khavinson 60-cap (Cerluten, Endoluten, Bonomarlot): no Buy More & Save at all", () => {
+    for (const id of ["cerluten", "endoluten", "bonomarlot", "gotratix"]) {
+      const p = getProductById(id)!;
+      const v60 = p.variants!.find((v) => v.id === "60-count")!;
+      expect(getStorefrontBundleOffers(p), id).toEqual([]);
+      const { container, unmount } = render(
+        <BundleSelector product={p} singlePriceUSD={v60.priceUSD} size="60" value={1} onChange={() => {}} />,
+      );
+      expect(container.innerHTML, id).toBe("");
+      unmount();
+    }
   });
 
   it("renders nothing when bundles are disabled", () => {
@@ -160,7 +145,7 @@ describe("product page Buy More & Save (60-cap only)", () => {
     expect(addToCart.mock.calls[0][3]).toBeUndefined();
   });
 
-  it("Cerluten 60-cap: choosing 3 × 60 updates the Add to Cart total and payload", async () => {
+  it("Cerluten 60-cap: only the size choice; Add to Cart is a single 60", async () => {
     const user = userEvent.setup();
     const p = getProductById("cerluten")!;
     const v60 = p.variants!.find((v) => v.id === "60-count")!;
@@ -168,21 +153,12 @@ describe("product page Buy More & Save (60-cap only)", () => {
     const size = (await screen.findByLabelText("Size")) as HTMLSelectElement;
     await user.selectOptions(size, v60.id);
     await waitFor(() => expect(size.value).toBe(v60.id));
-
-    const select = (await screen.findByLabelText("Buy More & Save")) as HTMLSelectElement;
-    expect(optionTexts(select)[2]).toBe("3 × 60 capsules — $496 (save 8.1%)");
-    await user.selectOptions(select, "3x60");
-    await waitFor(() => expect(select.value).toBe("3x60"));
-    const total = getCartLineUnitUSD(p, "60", "3x60")!;
-    expect(total).toBe(496);
-    expect(screen.getByRole("button", { name: /add 3 × 60 ·/i }).textContent).toBe(
-      `Add 3 × 60 · $${total}`,
-    );
-
-    await user.click(screen.getByRole("button", { name: /add 3 × 60 ·/i }));
+    expect(screen.queryByLabelText("Buy More & Save")).toBeNull();
+    expect(screen.queryByText(/× 60 capsules/)).toBeNull();
+    await user.click(screen.getByRole("button", { name: /^add to cart$/i }));
     expect(addToCart).toHaveBeenCalledTimes(1);
     expect(addToCart.mock.calls[0][0].id).toBe("cerluten");
     expect(addToCart.mock.calls[0][2]).toBe("60");
-    expect(addToCart.mock.calls[0][3]).toBe("3x60");
+    expect(addToCart.mock.calls[0][3]).toBeUndefined();
   });
 });

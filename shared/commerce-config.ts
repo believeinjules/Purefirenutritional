@@ -7,12 +7,12 @@
  *
  * Current values (2026-11-20 price update):
  *   - flat $11.98 shipping, free at or above $155 merchandise subtotal
- *   - Every product with deals (Julia, 2026-11-20): 2 bottles at 4.4% off and
- *     3 bottles at 8% off the same bottles bought separately, rounded DOWN to a
- *     whole dollar, so the shown (floored) percent is never below 4.4% / 8%.
- *     20/60 products: 2 × 60 and 3 × 60, 60-cap size only ($180 → $344 / $496).
- *     Prime Peptide: 2 or 3 bottles of its single size ($144 → $275 / $397).
- *     The old 60 + 20 pack is retired.
+ *   - Multi-bottle deals are Prime Peptide only (Julia, 2026-11-20): 2 bottles
+ *     at 4.4% off and 3 bottles at 8% off the same bottles bought separately,
+ *     rounded DOWN to a whole dollar, so the shown (floored) percent is never
+ *     below 4.4% / 8% ($144 → $275 / $397).
+ *   - Khavinson (20/60 products) has no multi-bottle deals: 2 × 60, 3 × 60 and
+ *     60 + 20 packs are all retired (sizePairPacks is empty).
  *
  * Single-bottle prices are NOT set here. They come from Firestore `products`
  * (code catalog fallback) and are never changed by this file.
@@ -73,10 +73,8 @@ export const COMMERCE_CONFIG: CommerceConfig = {
       { bottles: 2, percentOff: 4.4 },
       { bottles: 3, percentOff: 8 },
     ],
-    sizePairPacks: [
-      { kind: "2x60", bottles: 2, percentOff: 4.4 },
-      { kind: "3x60", bottles: 3, percentOff: 8 },
-    ],
+    // Khavinson 20/60 packs are not offered (Julia, 2026-11-20). Kept as a config slot only.
+    sizePairPacks: [],
     minDiscountedShareOfPrice: 0.8,
   },
 };

@@ -5,10 +5,12 @@ import {
   getStorefrontBundleOffer,
   hasSizePair,
   sizePairCents,
-  sizePairPackCents,
+  resolveBundleOffer,
   unitsPerBottle,
 } from "./bundle-pricing";
 import { toCents } from "./commerce-config";
+
+const pair = (p: Parameters<typeof sizePairCents>[0]) => sizePairCents(p)!;
 
 describe("catalog size and storefront pack sanity", () => {
   const pairs = allProducts
@@ -31,49 +33,37 @@ describe("catalog size and storefront pack sanity", () => {
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("2 × 60 and 3 × 60 are offered at 4.4% / 8% off (rounded down to a dollar), cheaper than separately, more than fewer 60s", () => {
+  it("no Khavinson 20/60 product offers any multi-bottle pack (deals are Prime Peptide only)", () => {
     const failures: string[] = [];
-    for (const { product, hidden, pair } of pairs) {
+    for (const { product, hidden } of pairs) {
       const tag = `${product.id}${hidden ? " [hidden]" : ""}`;
-      const two = getStorefrontBundleOffer(product, "2x60");
-      const three = getStorefrontBundleOffer(product, "3x60");
-      if (!two) failures.push(`${tag}: 2×60 not offered`);
-      else {
-        if (two.bundleCents !== sizePairPackCents(pair.p60, 2, 4.4)) failures.push(`${tag}: 2×60 formula mismatch`);
-        if (two.bundleCents >= two.regularCents) failures.push(`${tag}: 2×60 is not a discount`);
-        if (two.bundleCents <= pair.p60) failures.push(`${tag}: 2×60 does not cost more than one 60`);
-        if (two.bundleCents % 100 !== 0) failures.push(`${tag}: 2×60 is not whole dollars`);
-      }
-      if (!three) failures.push(`${tag}: 3×60 not offered`);
-      else {
-        if (three.bundleCents !== sizePairPackCents(pair.p60, 3, 8)) failures.push(`${tag}: 3×60 formula mismatch`);
-        if (three.bundleCents >= three.regularCents) failures.push(`${tag}: 3×60 is not a discount`);
-        if (two && three.bundleCents <= two.bundleCents) failures.push(`${tag}: 3×60 does not cost more than 2×60`);
-        if (three.bundleCents % 100 !== 0) failures.push(`${tag}: 3×60 is not whole dollars`);
-      }
-      if (getStorefrontBundleOffer(product, "60+20")) failures.push(`${tag}: retired 60+20 is still offered`);
+      for (const kind of ["2x60", "3x60", "60+20"] as const)
+        if (getStorefrontBundleOffer(product, kind)) failures.push(`${tag}: ${kind} is offered`);
+      for (const bottles of [2, 3])
+        for (const size of ["20", "60"])
+          if (resolveBundleOffer(product, size === "20" ? pair(product).p20 / 100 : pair(product).p60 / 100, bottles, { size }))
+            failures.push(`${tag}: ${bottles} × ${size} resolves`);
     }
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("2026-11-20 prices: standard Khavinson $72 / $180 / $344 / $496; Bonomarlot and Endoluten", () => {
-    const check = (id: string, p20: number, p60: number, two: number, three: number) => {
+  it("2026-11-20 prices: standard Khavinson $72 / $180, Endoluten $128 / $288; Bonomarlot unchanged at $81.99 / $229.99", () => {
+    const check = (id: string, p20: number, p60: number) => {
       const p = allProducts.find((x) => x.id === id)!;
-      const pair = sizePairCents(p)!;
-      expect([pair.p20, pair.p60], id).toEqual([p20, p60]);
-      expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents, id).toBe(two);
-      expect(getStorefrontBundleOffer(p, "3x60")!.bundleCents, id).toBe(three);
+      expect([pair(p).p20, pair(p).p60], id).toEqual([p20, p60]);
     };
-    check("gotratix", 7200, 18000, 34400, 49600);
-    check("cerluten", 7200, 18000, 34400, 49600);
-    check("bonomarlot", 9000, 23400, 44700, 64500);
-    check("endoluten", 12800, 28800, 55000, 79400);
+    check("gotratix", 7200, 18000);
+    check("cerluten", 7200, 18000);
+    check("endoluten", 12800, 28800);
+    check("bonomarlot", 8199, 22999);
+    expect(allProducts.find((x) => x.id === "bonomarlot")!.priceUSD).toBe(81.99);
   });
 
-  it("20/60 prices are whole dollars", () => {
+  it("20/60 prices are whole dollars (Bonomarlot is excluded from the update and keeps its cents)", () => {
     const failures: string[] = [];
-    for (const { product, pair } of pairs) {
-      if (pair.p20 % 100 !== 0 || pair.p60 % 100 !== 0) failures.push(`${product.id} is not whole dollars`);
+    for (const { product, pair: pr } of pairs) {
+      if (product.id === "bonomarlot") continue;
+      if (pr.p20 % 100 !== 0 || pr.p60 % 100 !== 0) failures.push(`${product.id} is not whole dollars`);
     }
     expect(failures, failures.join("\n")).toEqual([]);
   });

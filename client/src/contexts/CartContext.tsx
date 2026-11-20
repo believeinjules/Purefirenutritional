@@ -209,9 +209,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const line: CartItem = unavailable
           ? { product: item.product, size: item.size, quantity: item.quantity * bottlesInBundle(item.bundle) }
           : item;
-        const at = unavailable
-          ? next.findIndex((n) => sameLine(n, line.product.id, line.size, null))
-          : -1;
+        // Merge with a single-bottle line of the same product + size (either order).
+        const at = !line.bundle ? next.findIndex((n) => sameLine(n, line.product.id, line.size, null)) : -1;
         if (at >= 0) next[at] = { ...next[at], quantity: next[at].quantity + line.quantity };
         else next.push(line);
       }

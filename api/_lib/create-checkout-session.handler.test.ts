@@ -34,19 +34,18 @@ describe("POST /api/stripe/create-checkout-session — storefront packs", () => 
     firestoreProducts.clear();
   });
 
-  it("charges Cerluten 3 × 60 at $496 and names the line clearly", async () => {
-    const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "3x60" }] });
-    expect(res.statusCode).toBe(200);
-    const line = (create.mock.calls[0] as any)[0].line_items[0];
-    expect(line.price_data.unit_amount).toBe(49600);
-    expect(line.price_data.product_data.name).toBe("Cerluten — 3 × 60 capsules");
-    expect(line.price_data.product_data.metadata.bundle_kind).toBe("3x60");
+  it("rejects Khavinson 3 × 60 and 2 × 60 packs with 400 (deals are Prime Peptide only)", async () => {
+    for (const bundle of ["3x60", "2x60"]) {
+      const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle }] });
+      expect(res.statusCode).toBe(400);
+    }
+    expect(create).not.toHaveBeenCalled();
   });
 
-  it("charges Cerluten 2 × 60 at $344", async () => {
-    const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "2x60" }] });
+  it("still charges a Khavinson 60-cap single bottle at $180", async () => {
+    const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1 }] });
     expect(res.statusCode).toBe(200);
-    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(34400);
+    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(18000);
   });
 
   it("rejects the retired 60 + 20 pack with 400", async () => {

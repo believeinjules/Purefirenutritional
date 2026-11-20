@@ -53,7 +53,7 @@ const catalogProducts: Product[] = [
     name: "Bonomarlot",
     description: "Bonomarlot® (A-20) is the Bone Marrow Peptide Bioregulator — a natural Cytomax extract containing the bone marrow peptide complex from young calves. Bone marrow produces all red blood cells, platelets, and most white blood cells. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, Bonomarlot has been studied for its role in supporting healthy blood cell formation. Available in 20-capsule, 60-capsule, and sublingual lingual formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 90,
+    priceUSD: 81.99,
     priceEUR: 52,
     rating: 4.8,
     sizes: 2,
@@ -64,14 +64,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 90,
+        priceUSD: 81.99,
         priceEUR: 52,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 234,
+        priceUSD: 229.99,
         priceEUR: 145,
         inStock: true
       }

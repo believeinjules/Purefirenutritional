@@ -48,11 +48,10 @@ describe("commerce config", () => {
     expect(BUNDLE_DISCOUNT_LIMITS_USD).toEqual({ min: 3, max: 9 });
   });
 
-  it("prices 20/60 packs at 4.4% (2 × 60) and 8% (3 × 60) off", () => {
-    expect(COMMERCE_CONFIG.bundles.sizePairPacks).toEqual([
-      { kind: "2x60", bottles: 2, percentOff: 4.4 },
-      { kind: "3x60", bottles: 3, percentOff: 8 },
-    ]);
+  it("offers no Khavinson 20/60 packs (multi-bottle deals are Prime Peptide only)", () => {
+    expect(COMMERCE_CONFIG.bundles.sizePairPacks).toEqual([]);
+    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
+    for (const kind of ["2x60", "3x60", "60+20"] as const) expect(getStorefrontBundleOffer(cerluten, kind)).toBeNull();
   });
 
   it("rounds every deal DOWN to a whole dollar so the saving is at least the percent", () => {
@@ -180,28 +179,41 @@ describe("bundle input validation", () => {
   });
 
   it("ignores any client-sent price for bundles", async () => {
-    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
+    const brain = products.find((p) => p.id === "prime-peptide-brain")! as PriceableProduct;
     const [line] = await resolveCheckoutLinesWith(
-      [{ productId: "cerluten", size: "60", quantity: 1, bundle: "3x60", price: 1 } as never],
-      async () => new Map([["cerluten", cerluten]])
+      [{ productId: "prime-peptide-brain", quantity: 1, bundle: 3, price: 1 } as never],
+      async () => new Map([["prime-peptide-brain", brain]])
     );
-    expect(line.unitAmountCents).toBe(49600);
+    expect(line.unitAmountCents).toBe(44700);
     expect(line.bundleBottles).toBe(3);
-    expect(line.bundleKind).toBe("3x60");
-    expect(line.name).toBe("Cerluten — 3 × 60 capsules");
+    expect(line.bundleKind).toBe(3);
   });
 
-  it("rejects the retired 60 + 20 pack at checkout", () => {
-    expect(() => resolveCheckoutLine({ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20" })).toThrow(
-      /not available/
-    );
+  it("rejects every Khavinson pack at checkout (2 × 60, 3 × 60, retired 60 + 20, numeric 2 / 3)", () => {
+    for (const productId of ["cerluten", "gotratix", "bonomarlot", "endoluten"]) {
+      for (const bundle of ["2x60", "3x60", "60+20", 2, 3] as const) {
+        expect(() => resolveCheckoutLine({ productId, size: "60", quantity: 1, bundle })).toThrow(/not available/);
+      }
+      expect(() => resolveCheckoutLine({ productId, size: "20", quantity: 1, bundle: 2 })).toThrow(/not available/);
+    }
+  });
+
+  it("offers multi-bottle deals only on Prime Peptide (other single-size products are rejected)", async () => {
+    await expect(
+      resolveCheckoutLinesWith(
+        [{ productId: "single-size", quantity: 1, bundle: 2 }],
+        async () => new Map([["single-size", singleSize]])
+      )
+    ).rejects.toThrow(/not available/);
+    expect(getCartLineUnitUSD(singleSize, undefined, 2)).toBeUndefined();
   });
 
   it("prices from the live (Firestore) price, not the code catalog", async () => {
-    const live: PriceableProduct = { ...cytomax, variants: [{ id: "20-count", name: "20 Capsules", priceUSD: 60 }] };
+    const brain = products.find((p) => p.id === "prime-peptide-brain")! as PriceableProduct;
+    const live: PriceableProduct = { ...brain, priceUSD: 60, variants: null };
     const [line] = await resolveCheckoutLinesWith(
-      [{ productId: "vladonix", size: "20", quantity: 2, bundle: 3 }],
-      async () => new Map([["vladonix", live]])
+      [{ productId: "prime-peptide-brain", quantity: 2, bundle: 3 }],
+      async () => new Map([["prime-peptide-brain", live]])
     );
     expect(line.unitAmountCents).toBe(16500); // $180 × 0.92 = $165.60 → $165
     expect(line.quantity).toBe(2);
@@ -214,8 +226,11 @@ describe("bundle input validation", () => {
     expect(getCartLineUnitUSD(cerluten, "20", "3x60")).toBeUndefined();
     expect(getCartLineUnitUSD(cerluten, "20", 2)).toBeUndefined();
     expect(getCartLineUnitUSD(cerluten, "60", "60+20")).toBeUndefined();
-    expect(getCartLineUnitUSD(cerluten, "60", "2x60")).toBe(344);
-    expect(getCartLineUnitUSD(cerluten, "60", "3x60")).toBe(496);
+    expect(getCartLineUnitUSD(cerluten, "60", "2x60")).toBeUndefined();
+    expect(getCartLineUnitUSD(cerluten, "60", "3x60")).toBeUndefined();
+    const brain = products.find((p) => p.id === "prime-peptide-brain")! as PriceableProduct;
+    expect(getCartLineUnitUSD(brain, undefined, 2)).toBe(309);
+    expect(getCartLineUnitUSD(brain, undefined, 3)).toBe(447);
     expect(getCartLineUnitUSD(cerluten, "20", 7)).toBeUndefined();
   });
 });
@@ -224,24 +239,21 @@ describe("Stripe session params (server-side amounts)", () => {
   const origin = "https://example.test";
 
   it("charges the pack price per pack and records bundle metadata", async () => {
-    const cerluten = products.find((p) => p.id === "cerluten")! as PriceableProduct;
+    const brain = products.find((p) => p.id === "prime-peptide-brain")! as PriceableProduct;
     const resolved = await resolveCheckoutLinesWith(
-      [{ productId: "cerluten", size: "60", quantity: 1, bundle: "2x60" }],
-      async () => new Map([["cerluten", cerluten]])
+      [{ productId: "prime-peptide-brain", quantity: 1, bundle: 2 }],
+      async () => new Map([["prime-peptide-brain", brain]])
     );
     const { params, merchandiseCents, shippingCents } = buildCheckoutSessionParams({ resolved, origin });
-    expect(params.line_items[0].price_data.unit_amount).toBe(34400);
+    expect(params.line_items[0].price_data.unit_amount).toBe(30900);
     expect(params.line_items[0].quantity).toBe(1);
-    expect(params.line_items[0].price_data.product_data.name).toBe("Cerluten — 2 × 60 capsules");
+    expect(params.line_items[0].price_data.product_data.name).toMatch(/2-bottle bundle$/);
     expect(params.line_items[0].price_data.product_data.metadata).toMatchObject({
-      product_id: "cerluten",
-      size: "60",
+      product_id: "prime-peptide-brain",
       bundle_bottles: "2",
-      bundle_kind: "2x60",
     });
-    expect(params.metadata.bundles).toBe("cerluten:60:2x60x1");
-    expect(merchandiseCents).toBe(34400);
-    // $344 is at/above $155 → free shipping
+    expect(merchandiseCents).toBe(30900);
+    // $309 is at/above $155 → free shipping
     expect(shippingCents).toBe(0);
     expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
   });
@@ -325,20 +337,17 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
     expect(getBundleOffer(p(137.99), 50, 3, { size: "20" })!.bundleCents).toBe(13800);
   });
 
-  it("charges Gotratix 2 × 60 and 3 × 60; a 3 × 20 pack is not offered", () => {
+  it("Gotratix has no multi-bottle packs at checkout (20 or 60 caps)", () => {
     expect(getCartLineUnitUSD(gotratix, "20", 3)).toBeUndefined();
     expect(() => resolveCheckoutLine({ productId: "gotratix", size: "20", quantity: 1, bundle: 3 })).toThrow(
       CheckoutValidationError,
     );
-    const two = getStorefrontBundleOffer(gotratix, "2x60")!;
-    const three = getStorefrontBundleOffer(gotratix, "3x60")!;
-    expect([two.bundleCents, three.bundleCents]).toEqual([34400, 49600]);
-    expect(resolveCheckoutLine({ productId: "gotratix", size: "60", quantity: 1, bundle: "2x60" }).unitAmountCents).toBe(
-      two.bundleCents,
-    );
-    expect(resolveCheckoutLine({ productId: "gotratix", size: "60", quantity: 1, bundle: "3x60" }).unitAmountCents).toBe(
-      three.bundleCents,
-    );
+    expect(getStorefrontBundleOffer(gotratix, "2x60")).toBeNull();
+    expect(getStorefrontBundleOffer(gotratix, "3x60")).toBeNull();
+    for (const bundle of ["2x60", "3x60"] as const)
+      expect(() => resolveCheckoutLine({ productId: "gotratix", size: "60", quantity: 1, bundle })).toThrow(
+        CheckoutValidationError,
+      );
   });
 
   it("does not reprice — a bundle that still undercuts a larger size is unavailable at checkout (→ 400)", async () => {
