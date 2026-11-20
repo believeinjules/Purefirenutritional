@@ -16,6 +16,7 @@ import {
   BUNDLE_NOT_STUDIED_NOTE,
   PRIME_PRODUCT_NAMES,
   boughtSeparatelyCents,
+  bottleAlt,
   bundlePath,
   bundleSubtitle,
   getMixedBundle,
@@ -63,6 +64,11 @@ function useSinglePrices(ids: string[]): Record<string, number | undefined> {
   return prices;
 }
 
+/** Page title and OG title. */
+export function bundleTitle(bundle: MixedBundle): string {
+  return `${bundle.name} | Pure Fire Nutritional`;
+}
+
 export default function BundleDetail() {
   const params = useParams<{ slug: string }>();
   const bundle = getMixedBundle(params.slug);
@@ -83,7 +89,8 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
   return (
     <div className="min-h-screen flex flex-col bg-white" data-testid="bundle-page">
       <PageSeo
-        title={`${bundle.name} | Pure Fire Nutritional`}
+        title={bundleTitle(bundle)}
+        description={bundle.metaDescription}
         path={bundle.live ? bundlePath(bundle.slug) : undefined}
         noindex={!bundle.live}
       />
@@ -108,7 +115,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
                           src={img.src}
                           srcSet={img.srcSet}
                           sizes={img.sizes}
-                          alt={b.name}
+                          alt={bottleAlt(b.id)}
                           className="w-full h-full object-contain p-3"
                         />
                       )}
@@ -117,6 +124,8 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
                 })}
               </div>
               <div
+                role="img"
+                aria-label="Lifestyle image coming"
                 className="w-full aspect-[16/9] rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center"
                 data-testid="bundle-lifestyle-placeholder"
               >
@@ -142,6 +151,9 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
                 <p className="text-sm text-gray-500 mt-1">One bottle of each product (90 capsules per bottle).</p>
               </div>
 
+              {/* Go-live: remove "Coming soon" and wire add-to-cart (checkout already accepts
+                  { mixedBundle: slug } for live bundles); re-check "Bought separately" against
+                  live single prices that day; lifestyle images need Regulatory review first. */}
               <div className="flex flex-wrap gap-3">
                 <Button
                   disabled

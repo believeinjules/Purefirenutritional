@@ -26,8 +26,16 @@ export type MixedBundle = {
   intro: string;
   /** Short description: bullet lines. */
   bullets: string[];
+  /** Meta + OG description, verbatim as approved by Regulatory (2026-11-20). */
+  metaDescription: string;
   /** Optional closing line under the bullets. */
   outro?: string;
+  /**
+   * Go-live checklist (needs Julia's direct go-ahead):
+   *   - remove the disabled "Coming soon" button on BundleDetail and wire add-to-cart;
+   *   - re-check "Bought separately" against the live single prices that day;
+   *   - lifestyle images (and any new alt / OG text) need Regulatory review first.
+   */
   live: boolean;
 };
 
@@ -48,6 +56,8 @@ export const BUNDLE_NOT_STUDIED_NOTE =
 export const MIXED_BUNDLES: MixedBundle[] = [
   {
     slug: "mobility-pair",
+    metaDescription:
+      "Mobility Pair: one bottle each of Prime Peptide Joints and Prime Peptide Protect, formulated to support the joints and cartilage and antioxidant defences. Shop Pure Fire Nutritional.",
     name: "Mobility Pair",
     productIds: ["prime-peptide-joints", "prime-peptide-protect"],
     priceUSD: 369,
@@ -61,6 +71,8 @@ export const MIXED_BUNDLES: MixedBundle[] = [
   },
   {
     slug: "skin-and-bones-duo",
+    metaDescription:
+      "Skin & Bones Duo: one bottle each of Prime Peptide Collagen and Prime Peptide Joints, formulated to support skin, hair, nails, connective tissue, joints and cartilage. Shop Pure Fire Nutritional.",
     name: "Skin & Bones Duo",
     productIds: ["prime-peptide-collagen", "prime-peptide-joints"],
     priceUSD: 324,
@@ -74,6 +86,8 @@ export const MIXED_BUNDLES: MixedBundle[] = [
   },
   {
     slug: "focus-pair",
+    metaDescription:
+      "Focus Pair: one bottle each of Prime Peptide Brain and Prime Peptide Omega, formulated to support the brain and cognitive function and the immune system. Shop Pure Fire Nutritional.",
     name: "Focus Pair",
     productIds: ["prime-peptide-brain", "prime-peptide-omega"],
     priceUSD: 297,
@@ -87,6 +101,8 @@ export const MIXED_BUNDLES: MixedBundle[] = [
   },
   {
     slug: "day-and-night-duo",
+    metaDescription:
+      "Day & Night Duo: one bottle each of Prime Peptide Brain and Prime Peptide Protect, formulated to support the brain and cognitive function and antioxidant defences. Shop Pure Fire Nutritional.",
     name: "Day & Night Duo",
     productIds: ["prime-peptide-brain", "prime-peptide-protect"],
     priceUSD: 342,
@@ -100,6 +116,8 @@ export const MIXED_BUNDLES: MixedBundle[] = [
   },
   {
     slug: "beauty-duo",
+    metaDescription:
+      "Beauty Duo: one bottle each of Prime Peptide Collagen and Prime Peptide Omega, formulated to support skin, hair, nails and connective tissue, and the immune system. Shop Pure Fire Nutritional.",
     name: "Beauty Duo",
     productIds: ["prime-peptide-collagen", "prime-peptide-omega"],
     priceUSD: 279,
@@ -113,6 +131,8 @@ export const MIXED_BUNDLES: MixedBundle[] = [
   },
   {
     slug: "glow-up-trio",
+    metaDescription:
+      "Glow-Up Trio: one bottle each of Prime Peptide Brain, Collagen and Omega, formulated to support cognitive function, skin and connective tissue, and the immune system. Shop Pure Fire Nutritional.",
     name: "Glow-Up Trio",
     productIds: ["prime-peptide-brain", "prime-peptide-collagen", "prime-peptide-omega"],
     priceUSD: 423,
@@ -126,6 +146,8 @@ export const MIXED_BUNDLES: MixedBundle[] = [
   },
   {
     slug: "foundation-trio",
+    metaDescription:
+      "Foundation Trio: one bottle each of Prime Peptide Collagen, Joints and Protect, formulated to support skin and connective tissue, joints and cartilage, and antioxidant defences. Shop Pure Fire Nutritional.",
     name: "Foundation Trio",
     productIds: ["prime-peptide-collagen", "prime-peptide-joints", "prime-peptide-protect"],
     priceUSD: 495,
@@ -158,6 +180,18 @@ export function bundleProductList(bundle: MixedBundle): string {
 /** "Day & Night Duo: Prime Peptide Brain + Protect" */
 export function bundleSubtitle(bundle: MixedBundle): string {
   return `${bundle.name}: ${bundleProductList(bundle)}`;
+}
+
+/** Alt text for the bottle photos: product names only, no benefit words. */
+export function bottleAlt(productId: string): string {
+  return `${PRIME_PRODUCT_NAMES[productId] ?? productId} bottle`;
+}
+
+/** Alt text for a group image of all bottles, e.g. "Prime Peptide Brain and Prime Peptide Protect bottles". */
+export function groupBottlesAlt(bundle: MixedBundle): string {
+  const names = bundle.productIds.map((id) => PRIME_PRODUCT_NAMES[id] ?? id);
+  const list = names.length <= 2 ? names.join(" and ") : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+  return `${list} bottles`;
 }
 
 /** Bundles a shopper may see / buy (live only). */
