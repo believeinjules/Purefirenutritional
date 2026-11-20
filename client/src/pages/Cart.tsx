@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { getCartLineUnitUSD, getUnitPriceUSD } from "@shared/product-prices";
 import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
-import { bundleLabel, bundleLineTitle, bottlesInBundle, resolveBundleOffer } from "@shared/bundle-pricing";
+import { bundleLabel, bundleLineTitle, bottlesInBundle, isStorefrontBundle, resolveBundleOffer, type StorefrontBundleOffer } from "@shared/bundle-pricing";
 import FreeShippingBanner from "@/components/shop/FreeShippingBanner";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import PreorderBadge from "@/components/PreorderBadge";
@@ -65,7 +65,7 @@ export default function Cart() {
                 const resolved = item.bundle
                   ? resolveBundleOffer(item.product, single, item.bundle, { size: item.size })
                   : null;
-                const storefront = resolved && (resolved.kind === "2x60" || resolved.kind === "60+20") ? resolved.offer : null;
+                const storefront = resolved && isStorefrontBundle(resolved.kind) ? (resolved.offer as StorefrontBundleOffer) : null;
                 const legacy = resolved && (resolved.kind === 2 || resolved.kind === 3) ? resolved.offer : null;
                 const lineUnit = getCartLineUnitUSD(item.product, item.size, item.bundle);
                 const bundleArg = item.bundle ?? null;

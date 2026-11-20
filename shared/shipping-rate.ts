@@ -199,8 +199,8 @@ export function stripeShippingOption(quote: ShippingQuote, postalCode: string) {
 
 /**
  * Customer shipping is a flat rate (COMMERCE_CONFIG.standardShippingUSD,
- * $19.95), free when the merchandise subtotal is AT OR ABOVE
- * COMMERCE_CONFIG.freeShippingThresholdUSD ($150).
+ * $11.98), free when the merchandise subtotal is AT OR ABOVE
+ * COMMERCE_CONFIG.freeShippingThresholdUSD ($155).
  * The subtotal is what Stripe charges for merchandise (after bundle discounts).
  * This does not call FedEx and does not use any other rate.
  */

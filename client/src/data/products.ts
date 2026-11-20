@@ -53,7 +53,7 @@ const catalogProducts: Product[] = [
     name: "Bonomarlot",
     description: "Bonomarlot® (A-20) is the Bone Marrow Peptide Bioregulator — a natural Cytomax extract containing the bone marrow peptide complex from young calves. Bone marrow produces all red blood cells, platelets, and most white blood cells. Developed by the St. Petersburg Institute of Bioregulation and Gerontology, Bonomarlot has been studied for its role in supporting healthy blood cell formation. Available in 20-capsule, 60-capsule, and sublingual lingual formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 81.99,
+    priceUSD: 90,
     priceEUR: 52,
     rating: 4.8,
     sizes: 2,
@@ -64,14 +64,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 81.99,
+        priceUSD: 90,
         priceEUR: 52,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 229.99,
+        priceUSD: 234,
         priceEUR: 145,
         inStock: true
       }
@@ -84,7 +84,7 @@ const catalogProducts: Product[] = [
     name: "Cartalax",
     description: "Cartalax® is a synthesized cytogen tripeptide (Ala-Glu-Asp, AED peptide T-31) developed by Prof. Khavinson — the cartilage peptide complex AC-4. Fully synthesized, non-animal-derived, suitable for vegetarian/vegan protocols. Contains the most significant short peptide of the cartilage bioregulation system. Supports healthy cartilage and connective tissue metabolism. Studied for its role in supporting cartilage and connective tissue health. Studied for its role in supporting healthy cartilage cell function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 64.99,
+    priceUSD: 72,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
@@ -95,14 +95,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 64.99,
+        priceUSD: 72,
         priceEUR: 32,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 178.99,
+        priceUSD: 180,
         priceEUR: 86,
         inStock: true
       }
@@ -115,7 +115,7 @@ const catalogProducts: Product[] = [
     name: "Chelohart",
     description: "Chelohart® (A-14) is the Heart Peptide Bioregulator containing the peptide complex of the cardiac muscle from young calves. Acts selectively on myocardial cells and supports healthy metabolic processes within heart muscle cells. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting heart muscle health. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -126,14 +126,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -146,7 +146,7 @@ const catalogProducts: Product[] = [
     name: "Crystagen",
     description: "Crystagen® is a synthesized cytogen (AC-6, thymus) — copies of natural peptide fractions studied for their role in normal immune system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function during periods of psychoemotional stress. Crystagen is believed to support normal immune function, and researchers have investigated short peptides for their role in immune balance. The active tripeptide stimulates T-cells, B-cells, macrophages, NK cells, and exhibits antioxidant and stress-protective effects. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 64.99,
+    priceUSD: 72,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
@@ -157,14 +157,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 64.99,
+        priceUSD: 72,
         priceEUR: 32,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 178.99,
+        priceUSD: 180,
         priceEUR: 86,
         inStock: true
       }
@@ -177,7 +177,7 @@ const catalogProducts: Product[] = [
     name: "Endoluten",
     description: "Endoluten® (A-8) is the Pineal Peptide Bioregulator — the most foundational peptide in the Khavinson longevity protocol. Contains the epiphyseal peptide complex that regulates hormonal metabolism, acts on neuroendocrine system cells, and is studied for its role in pineal cell metabolism and melatonin secretion. Analog of pharmaceutical Epithalamin. Researchers have investigated pineal peptides in the context of healthy aging, and the early findings are encouraging, though larger human studies would help. Early laboratory research on pineal peptides has explored effects on telomeres, a marker scientists study in cellular aging. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 149.99,
+    priceUSD: 128,
     priceEUR: 85,
     rating: 4.8,
     sizes: 2,
@@ -188,14 +188,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 149.99,
+        priceUSD: 128,
         priceEUR: 85,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 274,
+        priceUSD: 288,
         priceEUR: 235,
         inStock: true
       }
@@ -208,7 +208,7 @@ const catalogProducts: Product[] = [
     name: "Gotratix",
     description: "Gotratix® (A-18) is the Muscle Peptide Bioregulator containing muscle peptide complex from triceps of young animals. Studied in athletes for its role in supporting muscle strength, endurance, and recovery from physical activity. Part of the physical activity protocol. Not classified as doping — provides non-hormonal muscle mass support. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -219,14 +219,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -239,7 +239,7 @@ const catalogProducts: Product[] = [
     name: "Pielotax",
     description: "Pielotax® (A-9) is the Kidney Peptide Bioregulator containing kidney peptide complex from kidney parenchyma. Acts with targeted selectivity on kidney cells, and is studied for its role in kidney cell metabolism and urinary system function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting kidney health. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -250,14 +250,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -270,7 +270,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Prime Peptide Brain - IPH AGAP peptide complex for cognitive support and brain health",
     description: "Built around IPH AGAP tetrapeptide — penetrates the blood-brain barrier, regulates neurometabolic processes, activates neuronal repair, and enhances cognitive functions. Enriched with magnesium N-acetyltaurate, choline bitartrate, GABA, nervonic acid, vitamin C, zinc, and biotin. Stimulates neurotransmitter synthesis, increases serotonin levels, and activates neuroplasticity genes in the hippocampus. Formulated with ingredients studied to support memory, concentration, and mental clarity during high cognitive demand.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 160.99,
+    priceUSD: 162,
     priceEUR: 90,
     rating: 4.8,
     sizes: 1,
@@ -282,7 +282,7 @@ const catalogProducts: Product[] = [
     image: "/products/pp-collagen.png",
     description: "Built around IPH AEN peptide. Formulated to support normal collagen and hyaluronic acid synthesis and cellular repair, drawing on peptide research the manufacturer has reported on. Enriched with 800mg marine collagen, calcium bisglycinate, vitamin C, copper gluconate, and biotin. Premium formula utilizing IPH technology for comprehensive skin, hair, nail, and connective tissue support with ingredients studied for their role in cellular renewal. Formulated to support normal aging of skin and connective tissue, drawing on peptide research the manufacturer has reported on.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 143.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -294,7 +294,7 @@ const catalogProducts: Product[] = [
     image: "/products/pp-joints.png",
     description: "Built around IPH AEN (formulated to support normal hyaluronic acid synthesis and cartilage regeneration, drawing on peptide research the manufacturer has reported on; activates COL2A1 gene) and IPH ESM (supports joint comfort, mobility, and eases everyday stiffness). Enriched with liposomal glucosamine, MSM with SNL technology, PEA, and ascorbyl palmitate. Advanced joint support utilizing IPH technology for deep cartilage penetration and targeted cellular repair.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 195.99,
+    priceUSD: 189,
     priceEUR: 110,
     rating: 4.8,
     sizes: 1,
@@ -306,7 +306,7 @@ const catalogProducts: Product[] = [
     image: "/products/pp-omega.png",
     description: "Built around the manufacturer's IPH T peptide, a thymus-focused bioregulator ingredient, and enriched with Omega 3-6-9 fatty acids. Its plant-based omega complex provides omega-3 (ALA), omega-6 (linoleic acid) and omega-9 (oleic acid) fatty acids. Vitamins C, D3 and zinc contribute to normal immune function, and vitamin E helps protect cells from oxidative stress, as part of a balanced diet and healthy lifestyle.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 143.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -318,7 +318,7 @@ const catalogProducts: Product[] = [
     image: "/products/pp-protect.png",
     description: "Built around IPH REG and IPH EP. Formulated to support normal antioxidant enzyme activity, melatonin levels, and calm mood, drawing on peptide research the manufacturer has reported on. Enriched with broccoli/I3C, bioactive mushroom peptides, PEA, choline, zinc, selenium, and vitamin K2. Provides powerful antioxidant protection and ingredients studied for their role in tissue renewal.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 195.99,
+    priceUSD: 189,
     priceEUR: 110,
     rating: 4.8,
     sizes: 1,
@@ -331,7 +331,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 01",
     description: "Multifunctional peptide complex combining epiphysis, immune B-cell, and liver peptides with resveratrol, choline, omega-3 fatty acids, and vitamins E, A, and C. Designed to support antioxidant protection, cerebral circulation, central nervous system function, immune system balance, and cardiovascular health. The peptide complexes send targeted signals to support the pineal gland's timing functions, the immune system's antibody production, and the liver's filtering capacity. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -345,7 +345,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 02",
     description: "Peptide-based formula designed to support the hematopoietic (blood-forming) system, immune function, and metabolic balance. Combines T-cell immune peptides, B-cell immune peptides, bone marrow peptides, and liver peptides with omega-3 fatty acids and vitamins E, B6, and B9. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -359,7 +359,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 03",
     description: "Formulation combining brain, retina, and vascular wall peptides with astaxanthin, choline, omega-3 fatty acids, B vitamins, and marigold extract. Supports nervous system and eye health, including maintenance of visual function. Astaxanthin and marigold extract (rich in lutein and zeaxanthin) provide antioxidant protection for sensitive neural and retinal tissues. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -373,7 +373,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 04",
     description: "Cardiovascular support formula combining epiphysis, vascular wall, and heart muscle peptides with resveratrol, rutin, omega-3 fatty acids, and Vitamin PP (Niacin). Supports vascular integrity, heart muscle function, and healthy circulation. Resveratrol and rutin provide antioxidant and vascular support, while omega-3s and niacin contribute to cardiovascular function and healthy cholesterol metabolism. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -387,7 +387,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 05",
     description: "Respiratory system support formula featuring T-cell immune peptides, bronchi peptides, and lung/stomach wall peptides combined with omega-3 fatty acids, vitamins E and A, and licorice root extract. Supports respiratory function and immune defense in the lungs and bronchi. Vitamins and omega-3s provide antioxidant and anti-inflammatory support, while licorice root extract helps maintain respiratory tract comfort. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -401,7 +401,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 06",
     description: "Gastrointestinal and liver support formula combining liver, pancreas, and stomach wall peptides with omega-3 fatty acids, licorice root extract, artichoke fruit extract, plantain leaves extract, and strawberry leaves extract. Supports digestive health and metabolic balance. Botanical extracts provide soothing and antioxidant effects, while omega-3s support overall tissue health. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -415,7 +415,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 07",
     description: "Male reproductive and urinary system support formula combining epiphysis, vascular wall, testes, and bladder peptides with omega-3 fatty acids, L-carnitine, and zinc citrate. Supports hormonal balance, sperm function, and urinary health. L-carnitine supports energy metabolism in sperm cells, while zinc is essential for reproductive health and hormone regulation. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -429,7 +429,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 08",
     description: "Female reproductive, neuroendocrine, urinary, and skeletal system support formula combining epiphysis, vascular wall, cartilage, and bladder peptides with omega-3 fatty acids, resveratrol, and arginine. Supports hormonal balance, fertility, bone health, and urinary function. Resveratrol provides antioxidant support and hormonal balance, while arginine helps maintain healthy circulation and tissue repair. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -443,7 +443,7 @@ const catalogProducts: Product[] = [
     name: "Revilab ML 09",
     description: "Musculoskeletal support formula combining B-cell immune, vascular wall, and cartilage peptides with chondroitin sulfate, omega-3 fatty acids, superoxide dismutase (SOD), catalase, and carnosine. Chondroitin sulfate and omega-3s help maintain joint mobility and reduce inflammation, while antioxidant enzymes SOD and catalase protect tissues from oxidative stress. Carnosine supports antioxidant protection and tissue repair. Adults take 1 capsule once a day with meals.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 131.99,
+    priceUSD: 144,
     priceEUR: 80,
     rating: 4.8,
     sizes: 1,
@@ -455,7 +455,7 @@ const catalogProducts: Product[] = [
     name: "Revilab Pro Elements",
     description: "New-generation biologically active complex developed to support key body systems at the cellular level. Contains balanced combination of micro- and macroelements, vitamins, and bioactive compounds including glycine, calcium citrate, magnesium citrate, zinc citrate, vitamins A, E, D3, B6, and chromium picolinate. Strengthens immune resilience, protects against stress, supports healthy aging, and promotes cellular vitality.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 112.99,
+    priceUSD: 108,
     priceEUR: 70,
     rating: 4.8,
     sizes: 1,
@@ -476,7 +476,7 @@ const catalogProducts: Product[] = [
     name: "Mesotel Neo",
     description: "Advanced anti-aging liquid formula based on choline, enriched with gotu kola and wolfberry extracts, zinc, vitamins and resveratrol. Powerful antioxidant. Promotes detoxification, strengthens immunity, improves cardiovascular and nervous system function, and includes ingredients studied for their role in cellular renewal for youthful skin.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 39.99,
+    priceUSD: 36,
     priceEUR: 23,
     rating: 4.8,
     sizes: 1,
@@ -498,7 +498,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 01",
     description: "Sublingual cardiovascular support complex delivering peptides directly into the bloodstream through the mucous membrane for rapid absorption. Combines vascular wall and cardiac muscle peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides signal heart and vascular cells to maintain their natural function. Dihydroquercetin supports blood vessel integrity and elasticity. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -512,7 +512,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 02",
     description: "Sublingual complex for nervous system and eye health. Combines brain, retina, and vascular wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Brain and retina peptides support neural and visual cells, while vascular peptides help maintain the blood vessels that nourish these tissues. Supports cerebral circulation, retinal function, and visual comfort. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -526,7 +526,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 03",
     description: "Sublingual complex for immune system regulation and neuroendocrine balance. Combines pineal gland, T-cell immune, and B-cell immune peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Pineal peptides support biological rhythm regulation and immune signaling. T- and B-cell peptides help maintain immune balance and antibody production. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -540,7 +540,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 04",
     description: "Sublingual complex for joint, muscle, and bone health. Combines B-cell immune, cartilage, and muscle peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides act as signals to cartilage, muscle, and immune cells to support their natural maintenance. Plant extracts and antioxidants help protect tissues and support metabolic balance. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -554,7 +554,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 05",
     description: "Sublingual complex for liver, pancreas, stomach, and gallbladder health. Combines liver, pancreas, and stomach wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support the natural function of digestive and detoxification organs. Plant extracts and antioxidants provide additional support to maintain healthy metabolic processes. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -568,7 +568,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 06",
     description: "Sublingual complex for respiratory system health and immune response in the lungs and bronchi. Combines B-cell immune, bronchi, and lung/stomach wall peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides help maintain immune and tissue health in the respiratory tract. Plant extracts and antioxidants support respiratory comfort and tissue resilience. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -582,7 +582,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 07",
     description: "Sublingual complex for healthy blood formation and immune function. Combines B-cell immune, bone marrow, and vascular wall peptides with folic acid and vitamin B12 (cobalamin), licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Bone marrow peptides support blood cell production, B vitamins aid energy and nerve function, and vascular peptides support circulatory health. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -596,7 +596,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 08",
     description: "Sublingual complex for urinary tract health and function. Combines T-cell immune, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support immune and vascular health related to the urinary system. Plant extracts and antioxidants help maintain tissue comfort and function. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -610,7 +610,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 09",
     description: "Sublingual complex for male reproductive system function and prostate health. Combines pineal gland, testes, bladder, and prostate peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides signal the reproductive organs and neuroendocrine system to support natural function. Plant extracts and antioxidants help maintain tissue health and hormonal balance. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -624,7 +624,7 @@ const catalogProducts: Product[] = [
     name: "Testoluten",
     description: "Testicular peptide bioregulator (A-13) developed by the St. Petersburg Institute of Bioregulation and Gerontology. Supports male reproductive system cells by increasing functional activity and enhancing sperm motility. Helps maintain metabolic balance and functional activity in the testes, supporting natural reproductive processes and testosterone production. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -635,14 +635,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -656,7 +656,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Bonothyrk A-21 parathyroid peptide complex",
     description: "Bonothyrk® is a Khavinson Cytomax: a natural parathyroid gland peptide complex (A-21), developed at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Bonothyrk is believed to support normal parathyroid gland function, which helps the body keep calcium balance in bones and tissues. Available in 20-capsule and 60-capsule formats (0.215 g capsules).",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -666,14 +666,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -687,7 +687,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Cerluten brain peptide bioregulator",
     description: "Cerluten® is a Khavinson Cytomax: a natural brain peptide complex (A-5), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Cerluten is believed to support normal brain and nervous-system function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 64.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -697,14 +697,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 64.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 178.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -718,7 +718,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Chitomur bladder peptide bioregulator",
     description: "Chitomur® is a Khavinson Cytomax: a natural bladder peptide complex (A-12), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Chitomur is believed to support normal bladder and urinary function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -728,14 +728,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -749,7 +749,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Chonluten respiratory peptide bioregulator",
     description: "Chonluten® is a Khavinson Cytogen: a synthesized bronchopulmonary peptide complex (AC-7; glycine, glutamic acid, aspartic acid) for the respiratory system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Chonluten is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -759,14 +759,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -780,7 +780,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Glandokort adrenal gland peptide bioregulator",
     description: "Glandokort® is a Khavinson Cytomax: a natural adrenal gland peptide complex (A-17). Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Glandokort is believed to support normal adrenal function and the body's everyday stress response. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -790,14 +790,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -811,7 +811,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Libidon prostate peptide bioregulator",
     description: "Libidon® is a Khavinson Cytomax: a natural prostate peptide complex (A-16), extracted from the prostate tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Libidon is believed to support normal prostate and male reproductive function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -821,14 +821,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -842,7 +842,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Ovagen liver and digestive peptide bioregulator",
     description: "Ovagen® is a Khavinson Cytogen: a synthesized liver peptide complex (AC-3; leucine, glutamic acid, aspartic acid) for the liver and digestive tract. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Ovagen is believed to support normal liver function and the normal work of the digestive tract. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -852,14 +852,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -873,7 +873,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Pinealon brain peptide bioregulator",
     description: "Pinealon® is a Khavinson Cytogen: a synthesized brain peptide complex (AC-5; arginine, glutamic acid, aspartic acid), formulated for the brain and central nervous system. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Pinealon is believed to support normal brain function and everyday cognition. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -883,14 +883,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -904,7 +904,7 @@ const catalogProducts: Product[] = [
     name: "Sigumir",
     description: "Sigumir® is a Khavinson Cytomax: a natural peptide complex (A-4) extracted from the cartilage and bone tissue of young animals, developed at the St. Petersburg Institute of Bioregulation and Gerontology. Researchers have investigated how organ-derived short peptides act selectively on the cells of their source tissue, and Sigumir's cartilage and bone peptides are believed to support normal joint and spine function. It is the natural-extract counterpart to Cartalax, the lab-made AED cartilage peptide. Dietary supplement; the box reads 'A-4 peptides complex'. Available in 20-capsule (0.215 g) and 60-capsule (0.2 g) formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -916,7 +916,7 @@ const catalogProducts: Product[] = [
         name: "20 Capsules",
         image: "/products/sigumir-20.jpg",
         imageAlt: "Sigumir A-4 peptides complex, 20 capsules (0.215 g)",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
@@ -925,7 +925,7 @@ const catalogProducts: Product[] = [
         name: "60 Capsules",
         image: "/products/sigumir-60.webp",
         imageAlt: "Sigumir A-4 peptides complex, 60 capsules (0.2 g)",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -939,7 +939,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Stamakort stomach peptide bioregulator",
     description: "Stamakort® is a Khavinson Cytomax: a natural stomach peptide complex, extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Stamakort is believed to support normal stomach function and digestion. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -949,14 +949,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -970,7 +970,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Suprefort pancreas peptide bioregulator",
     description: "Suprefort® is a Khavinson Cytomax: a natural pancreas peptide complex (A-1), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Suprefort is believed to support normal pancreatic function and digestion. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -980,14 +980,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1001,7 +1001,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Svetinorm liver peptide bioregulator",
     description: "Svetinorm® is a Khavinson Cytomax: a natural liver peptide complex (A-7), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Svetinorm is believed to support normal liver function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1011,14 +1011,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1032,7 +1032,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Taxorest respiratory peptide bioregulator",
     description: "Taxorest® is a Khavinson Cytomax: a natural bronchial peptide complex (A-19), extracted from the bronchial tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Taxorest is believed to support normal bronchial and lung function. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1042,14 +1042,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1063,7 +1063,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Zhenoluten ovarian peptide bioregulator",
     description: "Zhenoluten® is a Khavinson Cytomax: a natural ovarian peptide complex (A-15), extracted from the tissue of young animals. Researchers have investigated how organ-specific short peptides act selectively on the cells of their source tissue, and Zhenoluten is believed to support normal ovarian function and female reproductive health. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1073,14 +1073,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1092,7 +1092,7 @@ const catalogProducts: Product[] = [
     image: "/products/ventfort.png",
     description: "Ventfort® (A-3) is the Blood Vessel Peptide Bioregulator. Frequently included in multi-peptide routines. Studied for its role in vascular wall cell metabolism and vascular function. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting cardiovascular and blood vessel health. Ventfort is believed to support healthy circulation and everyday stamina, and some studies have reported encouraging results with vascular peptides. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1103,14 +1103,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1123,7 +1123,7 @@ const catalogProducts: Product[] = [
     name: "Vesugen",
     description: "Vesugen® is a synthesized cytogen for the vascular system. Studied for its role in the health of circulatory and lymphatic vessels. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting healthy blood vessels and microcirculation. Used by the Russian Olympic rhythmic gymnastics team for vascular health maintenance. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 64.99,
+    priceUSD: 72,
     priceEUR: 32,
     rating: 4.8,
     sizes: 2,
@@ -1134,14 +1134,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 64.99,
+        priceUSD: 72,
         priceEUR: 32,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 178.99,
+        priceUSD: 180,
         priceEUR: 86,
         inStock: true
       }
@@ -1153,7 +1153,7 @@ const catalogProducts: Product[] = [
     image: "/products/visoluten.png",
     description: "Visoluten® (A-11) is the Retina Peptide Bioregulator with targeted effect on retina, ciliary muscles, and conjunctiva. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting retinal and overall eye health. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1164,14 +1164,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1183,7 +1183,7 @@ const catalogProducts: Product[] = [
     image: "/products/vladonix.png",
     description: "Vladonix® (A-6) is one of the two most important Khavinson peptides alongside Endoluten. Contains thymus peptide complex — based on the same thymus peptide research as Thymalin. Developed by the St. Petersburg Institute of Bioregulation and Gerontology. Studied for its role in supporting immune system function. Vladonix and Endoluten are commonly paired in healthy-aging protocols. Core component of virtually every Khavinson combination protocol. Available in 20-capsule and 60-capsule formats.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1194,14 +1194,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1212,7 +1212,7 @@ const catalogProducts: Product[] = [
     name: "Anti-Wrinkle Serum №7",
     description: "Professional peptide serum with fast visible lifting effect. Contains Matrixyl® synthe'6™, Progeline™, and Liftessense™ for deep wrinkle reduction.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 134.99,
+    priceUSD: 144,
     priceEUR: 106.36,
     rating: 4.9,
     sizes: 1,
@@ -1233,7 +1233,7 @@ const catalogProducts: Product[] = [
     name: "Revilab SL 10",
     description: "Sublingual complex for female neuroendocrine and reproductive system health, including cyclic regulation and support during the menopausal transition. Combines pineal gland, vascular wall, and bladder peptides with licorice extract, propolis extract, mint extract, essential oils of chamomile and clove, and dihydroquercetin. Peptides support neuroendocrine signaling and reproductive tissue maintenance. Plant extracts and antioxidants provide supportive effects for overall female health and comfort. Adults place 5–10 drops under the tongue 2 times a day.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 30,
     rating: 4.8,
     sizes: 1,
@@ -1245,7 +1245,7 @@ const catalogProducts: Product[] = [
     name: "Revilab Anti-A.G.E.",
     description: "Powerful anti-glycation supplement with deglycating and antioxidant effects. Contains carnosine, astaxanthin, and alpha-lipoic acid to prevent protein degradation.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 186.99,
+    priceUSD: 198,
     priceEUR: 115,
     rating: 4.9,
     sizes: 1,
@@ -1266,7 +1266,7 @@ const catalogProducts: Product[] = [
     name: "Alvenorm Forte",
     description: "Alvenorm Forte is a herbal liquid from Peptides, formulated as part of a wellness and preventative nutrition line for the lungs and bronchi. It combines Iceland moss decoction, liquorice root, thyme, nettle, broadleaf plantain, cowberry leaf, eucalyptus and calendula extracts in a red grape juice base, plants traditionally used to support the airways and normal breathing.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 57.99,
+    priceUSD: 54,
     priceEUR: 33,
     rating: 4.8,
     sizes: 1,
@@ -1279,7 +1279,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Volustom gastrointestinal health supplement",
     description: "Adsorbent dietary fiber complex for detoxification and weight management. Comprehensive gastrointestinal support formula that supports normal digestive function and the gastric mucosa, promotes healthy gut microbiome balance, and facilitates the body's natural detox pathways through fiber-based adsorption.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
@@ -1291,7 +1291,7 @@ const catalogProducts: Product[] = [
     name: "Getrufline",
     description: "Europe's first herbal truffle-form complex, developed in conjunction with leading experts at the Institute of Innovative Biomedical Technology. 100% natural composition, EU-certified, GMO-free, and low in fat. The truffle form is uniquely effective — chewing creates a 'lump' that coats the intestinal mucosa along its entire length, while the bitterness activates non-specific immunity and triggers bile secretion. Also supports a healthy gut microbiome.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 22,
     rating: 4.8,
     sizes: 1,
@@ -1315,7 +1315,7 @@ const catalogProducts: Product[] = [
     name: "Digemax",
     description: "Digestive enzyme and support complex for optimal gastrointestinal function. Supports normal digestion and nutrient absorption, and reduces digestive discomfort. Beneficial for those with irregular digestive function.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 27.99,
+    priceUSD: 27,
     priceEUR: 16,
     rating: 4.8,
     sizes: 1,
@@ -1327,7 +1327,7 @@ const catalogProducts: Product[] = [
     name: "Imusil",
     description: "Immune and skin support complex with immunomodulatory and adaptogenic properties. Strengthens natural defense mechanisms, supports cellular immunity, promotes healthy skin barrier function, and helps the body adapt to physical and environmental stress. Beneficial for those with weakened immunity or skin health concerns.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 25.99,
+    priceUSD: 27,
     priceEUR: 16,
     rating: 4.8,
     sizes: 1,
@@ -1363,7 +1363,7 @@ const catalogProducts: Product[] = [
     name: "Complex 3D",
     description: "Advanced cellular detoxification complex based on powerful detoxifiers and antioxidants, designed to accelerate the second phase of detoxification. Reduces oxidative stress at the cellular level, prevents intoxication caused by glycation, reduces chronic inflammation in connective tissue and the vascular wall, and provides immunoprotective and hepatoprotective effects. Contains ascorbyl palmitate (Vitamin C), selenium yeast, L-cysteine (glutathione precursor), dihydroquercetin, catalase, Vitamin E, barley sprout extract (superoxide dismutase, cytochrome oxidase), retinol palmitate (Vitamin A), and glutathione. Especially beneficial when the body's natural detox capacity is reduced by lack of sleep, stress, or nutritional deficiencies.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 73.99,
+    priceUSD: 72,
     priceEUR: 43,
     rating: 4.8,
     sizes: 1,
@@ -1375,7 +1375,7 @@ const catalogProducts: Product[] = [
     name: "Complex 3R",
     description: "Multi-component antioxidant bioregulator combining three of the most powerful antioxidants: dihydroquercetin, resveratrol, and Coenzyme Q10. Dihydroquercetin impedes lipid peroxidation in cell membranes, protects vascular endothelium, enhances vascular elasticity, and prevents early cellular aging. Resveratrol binds and removes free radicals, exhibits anti-inflammatory properties, regulates blood lipid levels and cholesterol, and reduces blood viscosity for unobstructed blood flow. Coenzyme Q10 is a natural immunomodulator studied for its role in immune function, maintains energy metabolism in the heart muscle, and possesses geroprotective properties.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
@@ -1387,7 +1387,7 @@ const catalogProducts: Product[] = [
     name: "Levain",
     description: "Modern adaptogenic complex combining nine powerful plant-based adaptogens. Activates the body's internal immune defenses while improving lymphatic circulation to reduce inflammation and stagnation. Has immunoregulatory and sedative effects. Increases the performance of tired skeletal muscles, improves lipid metabolism, is studied for its role in healthy circulation, and boosts immunity. Designed for periods of intense stress and fatigue.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
@@ -1399,7 +1399,7 @@ const catalogProducts: Product[] = [
     name: "Likam",
     description: "Comprehensive liver and bile duct support complex. Strengthens hepatic function, supports bile flow optimization, includes ingredients studied for their role in liver cell renewal, and supports normal metabolic processes for sustained energy and vitality. Beneficial for those seeking preventive liver care.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
@@ -1418,7 +1418,7 @@ const catalogProducts: Product[] = [
     name: "Mamiton",
     description: "Natural formula designed specifically for the female reproductive system, combining the best of herbal tradition and modern science. Fights oxidative stress and helps balance estrogen levels. Reduces risks linked to hormonal imbalances and aging. Active ingredients include resveratrol (antioxidant), motherwort and mint (sedative and antispasmodic), rosehip, nettle and knotweed (anti-inflammatory; studied for their role in tissue renewal), hops and laminaria (hormonal homeostasis and thyroid support), vitamins A and E (antioxidant and immune modulation), field horsetail (vascular and connective tissue strength), and Juglans regia pericarp (immunostimulatory). Recommended for women over 35, during perimenopause and the menopausal transition, and for monthly-cycle comfort.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 47.99,
+    priceUSD: 54,
     priceEUR: 27,
     rating: 4.8,
     sizes: 1,
@@ -1430,7 +1430,7 @@ const catalogProducts: Product[] = [
     name: "Mesotel",
     description: "Foundational choline-based revitalization formula for brain, liver, and cardiovascular health. Supports cellular membrane integrity, promotes healthy neurotransmitter function, and provides antioxidant protection for deep systemic renewal.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 30.99,
+    priceUSD: 36,
     priceEUR: 19,
     rating: 4.8,
     sizes: 1,
@@ -1442,7 +1442,7 @@ const catalogProducts: Product[] = [
     name: "Mesotel Beauty",
     description: "Choline-based antioxidant and neurotransmitter complex enriched with gotu kola extract, wolfberry (goji), zinc, and vitamins. Provides pronounced antioxidant effects. Enhances immunity, supports skin beauty, and includes ingredients studied for their role in cellular renewal.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 35.99,
+    priceUSD: 36,
     priceEUR: 21,
     rating: 4.8,
     sizes: 1,
@@ -1465,7 +1465,7 @@ const catalogProducts: Product[] = [
     name: "Mesotel Ultra",
     description: "Mesotel Ultra is a choline-based liquid from the Mesotel line, made by KorolyovPharm LLC (Russia). It is an additional source of choline and alpha-lipoic acid, with a brain peptide complex (AA-5) and a vascular wall peptide complex (AA-7), plus dry extracts of gotu kola, goji berry fruit and grape skin. A 10 ml daily serving provides 150 mg of choline and 12.0 mg of alpha-lipoic acid. Choline contributes to normal brain and nervous-system function and to healthy cell membranes. 120 ml (4.05 fl. oz.) bottle.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 37.99, // Julia, 2026-11-19 (120 ml)
+    priceUSD: 36, // Julia, 2026-11-19 (120 ml)
     priceEUR: 0, // not set; EUR is informational only
     rating: 4.8,
     sizes: 1,
@@ -1506,7 +1506,7 @@ const catalogProducts: Product[] = [
     name: "Pinalex Tab",
     description: "Pinalex Tab is an eye-focused peptide bioregulator in tablet form formulated as part of the Peptides wellness and preventative nutrition line. It combines lutein (marigold extract), astaxanthin (Haematococcus microalgae), blueberry juice powder, grape peel extract, taurine, vitamin E, beta-carotene and B vitamins with the AA-6 peptide complex (lysine and glutamic acid). It is formulated to support normal visual function, help the eyes cope with intensive visual work and support eye tissues during age-related changes.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 64.99,
+    priceUSD: 72,
     priceEUR: 34,
     rating: 4.8,
     sizes: 1,
@@ -1518,7 +1518,7 @@ const catalogProducts: Product[] = [
     name: "Pangluin",
     description: "Pancreatic and metabolic support complex for healthy glucose metabolism and insulin sensitivity. Supports normal pancreatic function, promotes balanced blood sugar levels throughout the day, and helps maintain insulin receptor sensitivity. Beneficial for those seeking optimal pancreatic health.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 25.99,
+    priceUSD: 27,
     priceEUR: 16,
     rating: 4.8,
     sizes: 1,
@@ -1542,7 +1542,7 @@ const catalogProducts: Product[] = [
     name: "Revimite",
     description: "Innovative nutraceutical for those who want to preserve natural energy, strong vitality, and active longevity. Its formula combines natural extracts, B vitamins, and iron to support nutrient balance and support the hematopoietic system. Contains pomegranate, green tea, echinacea, oats, grape seeds, ginger, soy, iron, B vitamins, and soy lecithin. These ingredients saturate the body with antioxidants, increase stress resistance, strengthen blood vessels, and help cells generate energy. Iron and B vitamins support blood formation and metabolism, while soy lecithin contributes to healthy brain and nervous system function. Recommended for weight loss, physical or emotional strain, reduced productivity, and recovery after exertion.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 28.99,
+    priceUSD: 27,
     priceEUR: 17,
     rating: 4.8,
     sizes: 1,
@@ -1555,7 +1555,7 @@ const catalogProducts: Product[] = [
     name: "Reviplant",
     description: "Premium phytonutrient complex for liver and immune system support. Combines powerful botanical extracts with extracts studied for their role in cellular renewal, enhance hepatic detoxification pathways, support immune function, and provide broad-spectrum antioxidant and anti-inflammatory protection for systemic wellness.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 91.99,
+    priceUSD: 90,
     priceEUR: 53,
     rating: 4.8,
     sizes: 1,
@@ -1568,7 +1568,7 @@ const catalogProducts: Product[] = [
     imageAlt: "Reviform Cocktail pouch",
     description: "Anti-aging nutritional shake combining high-quality protein, essential vitamins, and minerals for comprehensive body composition support and metabolic optimization. Supports healthy weight management, promotes lean muscle maintenance, and provides essential nutrients for active lifestyle, physical performance, and cellular renewal.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
@@ -1581,7 +1581,7 @@ const catalogProducts: Product[] = [
     name: "Revifort",
     description: "Broad-spectrum formula combining four medicinal mushrooms — Shiitake, Reishi, Maitake, and Cordyceps — for the first time in a single formula. Contains glucans that stimulate the immune system. Promotes liver and cellular recovery after damage, stimulates the immune system, supports hematopoiesis, and provides natural detoxification support. Part of the immunity and energy activation trio alongside Ensil and Pinalex Tab.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 151.99,
+    priceUSD: 162,
     priceEUR: 88,
     rating: 4.8,
     sizes: 1,
@@ -1605,7 +1605,7 @@ const catalogProducts: Product[] = [
     name: "Renefort",
     description: "Nephroprotective complex for kidney health and renal function support. Helps maintain healthy kidney filtration, is studied for its role in kidney tissue renewal, protects against oxidative stress in renal tissue, and promotes balanced urinary system function. Beneficial for those seeking preventive renal care.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 25.99,
+    priceUSD: 27,
     priceEUR: 16,
     rating: 4.8,
     sizes: 1,
@@ -1617,7 +1617,7 @@ const catalogProducts: Product[] = [
     name: "Retisil",
     description: "Advanced eye health formula with lutein, zeaxanthin, and complementary nutrients for comprehensive visual protection. Supports retinal health, protects against blue light and oxidative damage, maintains macular integrity, and promotes visual acuity. Beneficial for those with high screen exposure, age-related vision changes, or seeking preventive eye care.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 25.99,
+    priceUSD: 27,
     priceEUR: 16,
     rating: 4.8,
     sizes: 1,
@@ -1629,7 +1629,7 @@ const catalogProducts: Product[] = [
     name: "Rinolax",
     description: "Natural upper respiratory and ENT health complex for sinus, nasal, and throat support. Supports comfortable nasal breathing, reduces inflammation in the respiratory mucosa, supports healthy sinus function, and strengthens immune defense of the upper airways.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 64.99,
+    priceUSD: 72,
     priceEUR: 37,
     rating: 4.8,
     sizes: 1,
@@ -1665,7 +1665,7 @@ const catalogProducts: Product[] = [
     name: "Felicita",
     description: "Mood, serotonin, and dopamine support complex with adaptogenic and anxiolytic properties. Promotes healthy neurotransmitter balance for positive mood, supports stress resilience, and helps maintain emotional stability. Formulated to enhance serotonin and dopamine pathways for sustained wellbeing and mental clarity.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 42.99,
+    priceUSD: 45,
     priceEUR: 25,
     rating: 4.8,
     sizes: 1,
@@ -1689,7 +1689,7 @@ const catalogProducts: Product[] = [
     name: "Zinsil-T",
     description: "Comprehensive zinc, glycine, and pyridoxine (Vitamin B6) complex for prolonging active longevity. Studied for its role in healthy aging, normal enzyme and hormone activity, and immune and antioxidant status. Glycine (500mg) reduces psycho-emotional stress, aggressiveness, and conflict; enhances mood; supports normal sleep; increases mental performance; and significantly improves zinc absorption. Zinc (8.6mg) is required for healthy functioning of all body cells, stimulates leukocyte production, supports T-lymphocytes and natural killer cells, corrects blood sugar levels, helps the pancreas produce insulin, improves skin conditions, and supports protein synthesis. Vitamin B6 ensures substance exchange, participates in neurotransmitter metabolism (serotonin, dopamine), supports red blood cell production, and is essential for protein, fat, and carbohydrate metabolism.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 22.99,
+    priceUSD: 18,
     priceEUR: 14,
     rating: 4.8,
     sizes: 1,
@@ -1701,7 +1701,7 @@ const catalogProducts: Product[] = [
     name: "Ensil",
     description: "Powerful formula of the latest generation, developed over more than six years of research. Markedly enhances tissue respiration processes and is studied for its role in tissue renewal. Contains Coenzyme Q10 (cellular energizer, antioxidant, immunomodulatory, hepatoprotective), nicotinamide (vital for NAD/NADPH coenzymes, tissue respiration, fat/protein/amino acid metabolism), folic acid (DNA replication, hematopoiesis, immune system development), echinacea (immune system fortification, anti-inflammatory), amber acid/succinic acid (strengthens immunity, stimulates insulin production, studied for its role in nervous system function, counteracts stress, neutralizes toxins), L-carnitine (fatty acid transport, cardiac muscle and immune support), B vitamins B1/B5/B6 (energy metabolism, immune and nervous system function), and Vitamins C and E (antioxidants, studied for their role in tissue renewal). Part of the immunity and energy activation trio.",
     category: "NUTRITIONAL SUPPLEMENTS",
-    priceUSD: 56.99,
+    priceUSD: 54,
     priceEUR: 33,
     rating: 4.8,
     sizes: 1,
@@ -1713,7 +1713,7 @@ const catalogProducts: Product[] = [
     name: "Anti-Age Complex NB Activity",
     description: "Energy concentrate and collagen activator from the Anti-Age Complex NB line. Stimulates collagen production, boosts cellular energy metabolism, and provides comprehensive anti-aging support for skin, connective tissue, and overall vitality.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 124.99,
+    priceUSD: 126,
     priceEUR: 70,
     rating: 4.9,
     sizes: 1,
@@ -1725,7 +1725,7 @@ const catalogProducts: Product[] = [
     name: "Anti-Age Complex NB Health",
     description: "AGE protector from the Anti-Age Complex NB line. Provides advanced protection against advanced glycation end-products (AGEs), the primary drivers of accelerated aging. Supports protein structure integrity, reduces oxidative damage, and promotes deep cellular rejuvenation.",
     category: "ANTI AGING-LONGEVITY",
-    priceUSD: 229.99,
+    priceUSD: 234,
     priceEUR: 130,
     rating: 4.9,
     sizes: 1,
@@ -1738,7 +1738,7 @@ const catalogProducts: Product[] = [
     category: "PEPTIDE BIOREGULATORS",
     image: "/products/Thyreogen.jpg",
     imageAlt: "Thyreogen thyroid peptide bioregulator",
-    priceUSD: 67.99,
+    priceUSD: 72,
     priceEUR: 40,
     rating: 4.8,
     sizes: 2,
@@ -1748,14 +1748,14 @@ const catalogProducts: Product[] = [
       {
         id: "20-count",
         name: "20 Capsules",
-        priceUSD: 67.99,
+        priceUSD: 72,
         priceEUR: 40,
         inStock: true
       },
       {
         id: "60-count",
         name: "60 Capsules",
-        priceUSD: 177.99,
+        priceUSD: 180,
         priceEUR: 110,
         inStock: true
       }
@@ -1767,7 +1767,7 @@ const catalogProducts: Product[] = [
     name: "GPL Femme",
     description: "Comprehensive female health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Thyroid + Ovarian peptides + Alpha-lipoic acid. Formulated to support optimal function of the female reproductive, endocrine, cardiovascular, and nervous systems. Provides broad-spectrum support for hormonal balance, immune resilience, and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 483.99,
+    priceUSD: 486,
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,
@@ -1780,7 +1780,7 @@ const catalogProducts: Product[] = [
     name: "GPL Man",
     description: "Comprehensive male health protocol containing 65mg peptides per capsule: Epiphysis + Cerebrum + Vascular + Liver + Pancreatic + Testicular peptides + Alpha-lipoic acid. Supports systemic recovery and vitality during periods of intense physical stress or fatigue, and supports normal functioning of the cardiovascular, nervous, endocrine, and reproductive systems. Provides broad-spectrum support for male vitality and active longevity.",
     category: "PEPTIDE BIOREGULATORS",
-    priceUSD: 483.99,
+    priceUSD: 486,
     priceEUR: 280,
     rating: 4.9,
     sizes: 1,

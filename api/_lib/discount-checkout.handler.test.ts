@@ -87,13 +87,13 @@ describe("POST /api/stripe/create-checkout-session with a promo code", () => {
     expect(res.body.promo).toEqual({ code: "FIRE10-K7Q2MX", percentOff: 10 });
   });
 
-  it("free shipping uses the subtotal BEFORE the code (Cerluten 60 $178.99 − 25% still ships free)", async () => {
+  it("free shipping uses the subtotal BEFORE the code (Cerluten 60 $180 − 25% still ships free)", async () => {
     promoList.mockResolvedValue({
       data: [activePromo({ code: "FIRE25-ABCDEF", promotion: { type: "coupon", coupon: { id: "pf-daily-fire-25", percent_off: 25, valid: true } } })],
     });
     const res = await call({ items: cart, promoCode: "FIRE25-ABCDEF" });
     const params = (create.mock.calls[0] as any)[0];
-    expect(params.metadata.merchandise_subtotal).toBe("178.99");
+    expect(params.metadata.merchandise_subtotal).toBe("180.00");
     expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
     expect(res.body.shipping.free).toBe(true);
   });
@@ -138,7 +138,7 @@ describe("POST /api/stripe/create-checkout-session with a promo code", () => {
     const params = (create.mock.calls[0] as any)[0];
     expect(res.statusCode).toBe(200);
     expect(params.discounts).toBeUndefined();
-    expect(params.line_items[0].price_data.unit_amount).toBe(17899);
+    expect(params.line_items[0].price_data.unit_amount).toBe(18000);
   });
 });
 

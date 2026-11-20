@@ -7,6 +7,7 @@ import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { ORGANIZATION_REF, JULIA_PERSON_REF } from "@/lib/seo";
+import { FREE_SHIPPING_THRESHOLD_LABEL } from "@/lib/shippingCopy";
 
 // Body text: Editorial final draft (final-nov11/how-to-choose-a-peptide-bioregulator-retailer.md), 2026-11-11.
 const PATH = "/learn/how-to-choose-a-peptide-bioregulator-retailer";
@@ -170,7 +171,7 @@ export default function ArticleHowToChooseRetailer() {
 
             <p>Check how the store says it stores and ships supplements, where it ships, how long delivery usually takes, and any conditions that appear at checkout. If a product is made abroad, ask how that affects stock and timing. Don't assume an offer covers every order or destination.</p>
 
-            <p>At Pure Fire, free shipping applies to orders of $150 or more. Smaller orders pay a flat shipping rate, shown on our <Link href="/shipping" className="text-orange-600 hover:underline">shipping page</Link>. Items that aren't in stock can take about two extra weeks to arrive, because some products are made in Europe. Each product page shows its expected timing.</p>
+            <p>At Pure Fire, free shipping applies to orders of {FREE_SHIPPING_THRESHOLD_LABEL} or more. Smaller orders pay a flat shipping rate, shown on our <Link href="/shipping" className="text-orange-600 hover:underline">shipping page</Link>. Items that aren't in stock can take about two extra weeks to arrive, because some products are made in Europe. Each product page shows its expected timing.</p>
 
             <h2 id="claims-language" className="text-2xl font-semibold text-gray-900 mt-10 mb-3 scroll-mt-24">Claims language</h2>
 

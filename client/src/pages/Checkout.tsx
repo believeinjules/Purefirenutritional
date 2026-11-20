@@ -72,7 +72,7 @@ export default function Checkout() {
             name: item.product.name,
             quantity: item.quantity,
             size: item.size,
-            // Bundle kind only ("2x60" | "60+20" | 2 | 3). The server computes the pack price.
+            // Bundle kind only ("2x60" | "3x60" | 2 | 3). The server computes the pack price.
             ...(item.bundle ? { bundle: item.bundle } : {}),
             // price intentionally omitted as sole source — server looks up catalog
           })),

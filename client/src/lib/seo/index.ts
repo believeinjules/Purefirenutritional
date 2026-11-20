@@ -317,7 +317,7 @@ export const SHIP_TO_COUNTRIES = ["US", "CA", "GB", "AU", "NZ", "IE"] as const;
 
 /**
  * Offer shipping from the Shipping policy (shared/commerce-config.ts): flat
- * $19.95, free at a $150+ merchandise subtotal, same charge for every country.
+ * $11.98, free at a $155+ merchandise subtotal, same charge for every country.
  * Delivery times only for in-stock items (ship in 1–3 business days; US transit
  * 3–7, international 7–21 business days); "ships in about 2 weeks" items get no
  * delivery time rather than a guessed one.

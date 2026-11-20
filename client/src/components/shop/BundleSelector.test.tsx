@@ -31,11 +31,11 @@ describe("storefrontOptionLabel", () => {
       "1 bottle (60 capsules) — $149.49",
     );
     expect(
-      storefrontOptionLabel({ title: "2 × 60 capsules", totalCents: 27900, savingsCents: 1998, regularCents: 29898 }),
-    ).toBe("2 × 60 capsules — $279.00 (save 7%)");
+      storefrontOptionLabel({ title: "2 × 60 capsules", totalCents: 35100, savingsCents: 900, regularCents: 36000 }),
+    ).toBe("2 × 60 capsules — $351.00 (save $9.00)");
     expect(
-      storefrontOptionLabel({ title: "60 + 20 capsules", totalCents: 17749, savingsCents: 2700, regularCents: 20449 }),
-    ).toBe("60 + 20 capsules — $177.49 (save 13%)");
+      storefrontOptionLabel({ title: "3 × 60 capsules", totalCents: 51300, savingsCents: 2700, regularCents: 54000 }),
+    ).toBe("3 × 60 capsules — $513.00 (save $27.00)");
   });
 });
 
@@ -61,20 +61,20 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     expect(container.innerHTML).toBe("");
   });
 
-  it("Cerluten 60-cap: labelled native <select> with 60, 2×60 and 60+20", () => {
+  it("Cerluten 60-cap: labelled native <select> with 60, 2×60 and 3×60", () => {
     const cerluten = getProductById("cerluten")!;
     const onChange = vi.fn();
     render(
-      <BundleSelector product={cerluten} singlePriceUSD={178.99} size="60" value={1} onChange={onChange} />,
+      <BundleSelector product={cerluten} singlePriceUSD={180} size="60" value={1} onChange={onChange} />,
     );
     const select = screen.getByLabelText("Buy More & Save") as HTMLSelectElement;
     expect(select.tagName).toBe("SELECT");
     expect(select.value).toBe("1");
-    expect(getStorefrontBundleOffers(cerluten).map((o) => o.kind)).toEqual(["2x60", "60+20"]);
+    expect(getStorefrontBundleOffers(cerluten).map((o) => o.kind)).toEqual(["2x60", "3x60"]);
     expect(optionTexts(select)).toEqual([
-      "1 bottle (60 capsules) — $178.99",
-      "2 × 60 capsules — $334.00 (save 7%)",
-      "60 + 20 capsules — $211.99 (save 13%)",
+      "1 bottle (60 capsules) — $180.00",
+      "2 × 60 capsules — $351.00 (save $9.00)",
+      "3 × 60 capsules — $513.00 (save $27.00)",
     ]);
   });
 
@@ -83,10 +83,10 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     const onChange = vi.fn();
     const cerluten = getProductById("cerluten")!;
     render(
-      <BundleSelector product={cerluten} singlePriceUSD={178.99} size="60" value={1} onChange={onChange} />,
+      <BundleSelector product={cerluten} singlePriceUSD={180} size="60" value={1} onChange={onChange} />,
     );
-    await user.selectOptions(screen.getByLabelText("Buy More & Save"), "60+20");
-    expect(onChange).toHaveBeenCalledWith("60+20");
+    await user.selectOptions(screen.getByLabelText("Buy More & Save"), "3x60");
+    expect(onChange).toHaveBeenCalledWith("3x60");
   });
 
   it("renders nothing when bundles are disabled", () => {
@@ -158,7 +158,7 @@ describe("product page Buy More & Save (60-cap only)", () => {
     expect(addToCart.mock.calls[0][3]).toBeUndefined();
   });
 
-  it("Cerluten 60-cap: choosing 60 + 20 updates the Add to Cart total and payload", async () => {
+  it("Cerluten 60-cap: choosing 3 × 60 updates the Add to Cart total and payload", async () => {
     const user = userEvent.setup();
     const p = getProductById("cerluten")!;
     const v60 = p.variants!.find((v) => v.id === "60-count")!;
@@ -168,19 +168,19 @@ describe("product page Buy More & Save (60-cap only)", () => {
     await waitFor(() => expect(size.value).toBe(v60.id));
 
     const select = (await screen.findByLabelText("Buy More & Save")) as HTMLSelectElement;
-    expect(optionTexts(select)[2]).toBe("60 + 20 capsules — $211.99 (save 13%)");
-    await user.selectOptions(select, "60+20");
-    await waitFor(() => expect(select.value).toBe("60+20"));
-    const total = getCartLineUnitUSD(p, "60", "60+20")!;
-    expect(total).toBe(211.99);
-    expect(screen.getByRole("button", { name: /add 60 \+ 20 ·/i }).textContent).toBe(
-      `Add 60 + 20 · $${total.toFixed(2)}`,
+    expect(optionTexts(select)[2]).toBe("3 × 60 capsules — $513.00 (save $27.00)");
+    await user.selectOptions(select, "3x60");
+    await waitFor(() => expect(select.value).toBe("3x60"));
+    const total = getCartLineUnitUSD(p, "60", "3x60")!;
+    expect(total).toBe(513);
+    expect(screen.getByRole("button", { name: /add 3 × 60 ·/i }).textContent).toBe(
+      `Add 3 × 60 · $${total.toFixed(2)}`,
     );
 
-    await user.click(screen.getByRole("button", { name: /add 60 \+ 20 ·/i }));
+    await user.click(screen.getByRole("button", { name: /add 3 × 60 ·/i }));
     expect(addToCart).toHaveBeenCalledTimes(1);
     expect(addToCart.mock.calls[0][0].id).toBe("cerluten");
     expect(addToCart.mock.calls[0][2]).toBe("60");
-    expect(addToCart.mock.calls[0][3]).toBe("60+20");
+    expect(addToCart.mock.calls[0][3]).toBe("3x60");
   });
 });

@@ -9,11 +9,11 @@ import { getBatchByKey } from "./batches";
 describe("Mesotel Ultra", () => {
   const p = allProducts.find((x) => x.id === "mesotel-ultra");
 
-  it("is in the catalog in the Mesotel line and category at $37.99", () => {
+  it("is in the catalog in the Mesotel line and category at $36", () => {
     expect(p).toBeDefined();
     expect(p!.name).toBe("Mesotel Ultra");
     expect(p!.category).toBe("ANTI AGING-LONGEVITY");
-    expect(p!.priceUSD).toBe(37.99);
+    expect(p!.priceUSD).toBe(36);
   });
 
   it("uses the manufacturer bottle-and-box render as the main image and the box cutout second", () => {
@@ -26,7 +26,7 @@ describe("Mesotel Ultra", () => {
   it("is published: in the shop, priceable, and linked from its Batch Passport page", () => {
     expect(HIDDEN_PRODUCT_IDS.has("mesotel-ultra")).toBe(false);
     expect(getProductById("mesotel-ultra")).toBeDefined();
-    expect(firestoreDocToPriceable("mesotel-ultra", p as never)?.priceUSD).toBe(37.99);
+    expect(firestoreDocToPriceable("mesotel-ultra", p as never)?.priceUSD).toBe(36);
     expect(getBatchByKey("mesotel-ultra-001")?.catalogProductId).toBe("mesotel-ultra");
   });
 

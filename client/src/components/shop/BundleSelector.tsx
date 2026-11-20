@@ -17,24 +17,18 @@ function usd(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`;
 }
 
-function savePct(savingsCents: number, regularCents: number): number {
-  if (regularCents <= 0) return 0;
-  return Math.round((savingsCents / regularCents) * 100);
-}
-
-/** e.g. "1 bottle (60 capsules) — $178.99" or "60 + 20 capsules — $211.99 (save 13%)". */
+/** e.g. "1 bottle (60 capsules) — $180.00" or "3 × 60 capsules — $513.00 (save $27.00)". */
 export function storefrontOptionLabel(opt: { title: string; totalCents: number; savingsCents?: number; regularCents?: number }): string {
   const price = usd(opt.totalCents);
-  if (!opt.savingsCents || !opt.regularCents) return `${opt.title} — ${price}`;
-  const pct = savePct(opt.savingsCents, opt.regularCents);
-  return pct > 0 ? `${opt.title} — ${price} (save ${pct}%)` : `${opt.title} — ${price}`;
+  if (!opt.savingsCents || opt.savingsCents <= 0) return `${opt.title} — ${price}`;
+  return `${opt.title} — ${price} (save ${usd(opt.savingsCents)})`;
 }
 
 /**
  * Buy More & Save.
  *
- * 20/60 products (Julia, 2026-11-10): a native <select> only when the 60-cap
- * size is selected. Options are a single 60, 2 × 60, and 60 + 20. Hidden when
+ * 20/60 products (2026-11-20): a native <select> only when the 60-cap
+ * size is selected. Options are a single 60, 2 × 60, and 3 × 60. Hidden when
  * the 20-cap size is selected, and on single-size products.
  *
  * Prime Peptide pages are frozen and keep the main-branch card picker
@@ -158,7 +152,7 @@ export default function BundleSelector({
         onChange={(e) => {
           const v = e.target.value;
           if (v === "1") onChange(1);
-          else if (v === "2x60" || v === "60+20") onChange(v);
+          else if (v === "2x60" || v === "3x60") onChange(v);
         }}
         className="block w-full h-12 rounded-lg border-2 border-gray-200 bg-white px-3 text-base font-medium text-gray-900 hover:border-gray-300 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200"
       >

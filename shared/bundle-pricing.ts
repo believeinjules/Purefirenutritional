@@ -4,23 +4,21 @@
  * bundle kind, and the server recomputes the price from live single-bottle
  * prices (Firestore, code-catalog fallback).
  *
- * Storefront (20/60 products, Julia 2026-11-10):
+ * Storefront (20/60 products, price update 2026-11-20):
  *   Buy More & Save appears only when the 60-cap size is selected.
- *   Offers:
- *     - "2x60"  — two 60-cap bottles at the Cerluten ratio $279 / $298.98
- *                 (~6.7% off), rounded to the nearest whole dollar.
- *     - "60+20" — one 60 + one 20 at (60-cap price) + ceil((20-cap price) / 2)
- *                 in whole dollars (e.g. $55 / 2 → $28; $58.99 / 2 → $30).
- *   2 × 20, 3 × 20 and 3 × 60 packs are not offered.
+ *   Offers (COMMERCE_CONFIG.bundles.sizePairPacks):
+ *     - "2x60" — two 60-cap bottles at 2.5% off, nearest whole dollar ($180 → $351).
+ *     - "3x60" — three 60-cap bottles at 5% off, nearest whole dollar ($180 → $513).
+ *   "60+20" (retired) still parses so old carts load, but is never offered:
+ *   the cart turns it back into single bottles and checkout rejects it.
  *
- * Prime Peptide (frozen): 2- or 3-bottle cycle bundles of that product's
- * single size, at $4 / $8 off each bottle (COMMERCE_CONFIG.bundles.tiers),
- * still subject to the low-price and larger-size guards.
+ * Prime Peptide: 2- or 3-bottle cycle bundles of that product's single size,
+ * at $4.50 / $9 off each bottle (COMMERCE_CONFIG.bundles.tiers), still subject
+ * to the low-price and larger-size guards.
  */
 import {
   BUNDLE_SIZES,
   COMMERCE_CONFIG,
-  TWO_X60_REFERENCE,
   isAllowedBundleDiscount,
   toCents,
   type BundleSize,
@@ -62,8 +60,12 @@ export type BundleOffer = {
 };
 
 /** Storefront packs offered when a 20/60 product is on the 60-cap size. */
-export const STOREFRONT_BUNDLES = ["2x60", "60+20"] as const;
-export type StorefrontBundle = (typeof STOREFRONT_BUNDLES)[number];
+export const STOREFRONT_BUNDLES = ["2x60", "3x60"] as const;
+/** Retired pack kinds: still parsed (old saved carts) but never offered or charged. */
+export const RETIRED_STOREFRONT_BUNDLES = ["60+20"] as const;
+export type StorefrontBundle =
+  | (typeof STOREFRONT_BUNDLES)[number]
+  | (typeof RETIRED_STOREFRONT_BUNDLES)[number];
 
 /** Anything the cart / checkout may send: a storefront pack, a Prime 2/3-bottle, or 1 (single). */
 export type CartBundleKind = StorefrontBundle | BundleSize;
@@ -76,8 +78,8 @@ export type StorefrontBundleOffer = {
   /** Regular price of the same bottles bought separately, whole cents. */
   regularCents: number;
   savingsCents: number;
-  /** Always 2 bottles in these packs. */
-  bottles: 2;
+  /** Bottles in the pack. */
+  bottles: 2 | 3;
   /** Shopper-facing pack name, e.g. "60 + 20 capsules". */
   label: string;
 };
@@ -90,13 +92,13 @@ export class BundleInputError extends Error {
   }
 }
 
-function isStorefrontBundle(value: unknown): value is StorefrontBundle {
-  return value === "2x60" || value === "60+20";
+export function isStorefrontBundle(value: unknown): value is StorefrontBundle {
+  return value === "2x60" || value === "3x60" || value === "60+20";
 }
 
 /**
  * Normalize the client's `bundle` field. Missing / 1 → 1 (single bottle).
- * Accepts storefront packs ("2x60" | "60+20") and Prime/legacy 2 or 3.
+ * Accepts storefront packs ("2x60" | "3x60", retired "60+20") and Prime/legacy 2 or 3.
  */
 export function parseCartBundle(raw: unknown): ParsedBundle {
   if (raw === undefined || raw === null || raw === "" || raw === 1 || raw === "1") return 1;
@@ -129,6 +131,7 @@ export function parseBundleSize(raw: unknown): 1 | BundleSize {
 export function bottlesInBundle(bundle: ParsedBundle | null | undefined): number {
   if (!bundle || bundle === 1) return 1;
   if (bundle === "2x60" || bundle === "60+20") return 2;
+  if (bundle === "3x60") return 3;
   return bundle;
 }
 
@@ -212,16 +215,10 @@ export function largerSizeFloorCents(
   return Math.max(...larger.map((v) => v.cents));
 }
 
-/** 2 × 60 pack price: Cerluten ratio $279 / $298.98, nearest whole dollar, in cents. */
-export function twoX60PriceCents(p60Cents: number): number {
-  const regularCents = p60Cents * 2;
-  const saleDollars = (regularCents * TWO_X60_REFERENCE.saleUSD) / toCents(TWO_X60_REFERENCE.regularUSD);
-  return Math.round(saleDollars) * 100;
-}
-
-/** Extra 20 in a 60 + 20 pack: ceil((20-cap price) / 2) as whole dollars, in cents. */
-export function addon20Cents(p20Cents: number): number {
-  return Math.ceil(p20Cents / 200) * 100;
+/** N × 60 pack price: percent off N × the 60-cap price, nearest whole dollar, in cents. */
+export function sizePairPackCents(p60Cents: number, bottles: number, percentOff: number): number {
+  const regularCents = p60Cents * bottles;
+  return Math.round((regularCents * (100 - percentOff)) / 100 / 100) * 100;
 }
 
 /** One storefront pack for a 20/60 product, or null if that pack is not offered. */
@@ -234,30 +231,18 @@ export function getStorefrontBundleOffer(
   if (product.bundlesEnabled === false) return null;
   const pair = sizePairCents(product);
   if (!pair) return null;
-  if (kind === "2x60") {
-    const regularCents = pair.p60 * 2;
-    const bundleCents = twoX60PriceCents(pair.p60);
-    if (bundleCents <= 0 || bundleCents >= regularCents) return null;
-    return {
-      kind,
-      bundleCents,
-      regularCents,
-      savingsCents: regularCents - bundleCents,
-      bottles: 2,
-      label: "2 × 60 capsules",
-    };
-  }
-  const addon = addon20Cents(pair.p20);
-  const regularCents = pair.p60 + pair.p20;
-  const bundleCents = pair.p60 + addon;
-  if (addon <= 0 || bundleCents <= pair.p60 || bundleCents >= regularCents) return null;
+  const pack = config.bundles.sizePairPacks.find((p) => p.kind === kind);
+  if (!pack) return null;
+  const regularCents = pair.p60 * pack.bottles;
+  const bundleCents = sizePairPackCents(pair.p60, pack.bottles, pack.percentOff);
+  if (bundleCents <= 0 || bundleCents >= regularCents) return null;
   return {
     kind,
     bundleCents,
     regularCents,
     savingsCents: regularCents - bundleCents,
-    bottles: 2,
-    label: "60 + 20 capsules",
+    bottles: pack.bottles,
+    label: `${pack.bottles} × 60 capsules`,
   };
 }
 
@@ -266,14 +251,14 @@ export function getStorefrontBundleOffers(
   product: BundleOverrideFields & BundleSizingFields,
   config: CommerceConfig = COMMERCE_CONFIG
 ): StorefrontBundleOffer[] {
-  return STOREFRONT_BUNDLES.map((kind) => getStorefrontBundleOffer(product, kind, config)).filter(
+  return STOREFRONT_BUNDLES.map((kind) => getStorefrontBundleOffer(product, kind as StorefrontBundle, config)).filter(
     (o): o is StorefrontBundleOffer => o !== null
   );
 }
 
 /**
  * Resolve a cart bundle against a product and selected size.
- * - 20/60 products: only "2x60" and "60+20", and only when the selected size is 60.
+ * - 20/60 products: only "2x60" and "3x60", and only when the selected size is 60.
  *   A legacy numeric `2` with size 60 is treated as "2x60" (old carts).
  * - Single-size products (Prime Peptide): legacy 2- or 3-bottle cycle bundles.
  */
@@ -283,7 +268,7 @@ export function resolveBundleOffer(
   bundle: unknown,
   options: BundleOfferOptions = {}
 ):
-  | { kind: StorefrontBundle; offer: StorefrontBundleOffer; bottles: 2 }
+  | { kind: StorefrontBundle; offer: StorefrontBundleOffer; bottles: 2 | 3 }
   | { kind: BundleSize; offer: BundleOffer; bottles: BundleSize }
   | null {
   let parsed: ParsedBundle;
@@ -301,7 +286,7 @@ export function resolveBundleOffer(
     const kind: StorefrontBundle = parsed === 2 ? "2x60" : parsed;
     if (pair && size && size !== "60") return null;
     const offer = getStorefrontBundleOffer(product, kind, options.config ?? COMMERCE_CONFIG);
-    return offer ? { kind, offer, bottles: 2 } : null;
+    return offer ? { kind, offer, bottles: offer.bottles } : null;
   }
 
   if ((parsed === 2 || parsed === 3) && !pair) {
@@ -311,18 +296,20 @@ export function resolveBundleOffer(
   return null;
 }
 
-/** Shopper-facing label for a pack, e.g. "60 + 20 capsules" or "3-bottle bundle". */
+/** Shopper-facing label for a pack, e.g. "3 × 60 capsules" or "3-bottle bundle". */
 export function bundleLabel(bundle: ParsedBundle | number | string): string {
   if (bundle === "2x60") return "2 × 60 capsules";
+  if (bundle === "3x60") return "3 × 60 capsules";
   if (bundle === "60+20") return "60 + 20 capsules";
   if (bundle === 2 || bundle === 3 || bundle === "2" || bundle === "3") return `${bundle}-bottle bundle`;
   return "Bundle";
 }
 
-/** Cart / checkout line title, e.g. "Cerluten 60 + 20 capsules". */
+/** Cart / checkout line title, e.g. "Cerluten — 3 × 60 capsules". */
 export function bundleLineTitle(productName: string, bundle: ParsedBundle | number | string): string {
   if (bundle === "60+20") return `${productName} 60 + 20 capsules`;
   if (bundle === "2x60") return `${productName} — 2 × 60 capsules`;
+  if (bundle === "3x60") return `${productName} — 3 × 60 capsules`;
   if (bundle === 2 || bundle === 3 || bundle === "2" || bundle === "3") {
     return `${productName} — ${bundleLabel(bundle)}`;
   }

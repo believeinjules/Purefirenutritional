@@ -34,19 +34,25 @@ describe("POST /api/stripe/create-checkout-session — storefront packs", () => 
     firestoreProducts.clear();
   });
 
-  it("charges Cerluten 60 + 20 at $211.99 and names the line clearly", async () => {
-    const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20" }] });
+  it("charges Cerluten 3 × 60 at $513.00 and names the line clearly", async () => {
+    const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "3x60" }] });
     expect(res.statusCode).toBe(200);
     const line = (create.mock.calls[0] as any)[0].line_items[0];
-    expect(line.price_data.unit_amount).toBe(21199);
-    expect(line.price_data.product_data.name).toBe("Cerluten 60 + 20 capsules");
-    expect(line.price_data.product_data.metadata.bundle_kind).toBe("60+20");
+    expect(line.price_data.unit_amount).toBe(51300);
+    expect(line.price_data.product_data.name).toBe("Cerluten — 3 × 60 capsules");
+    expect(line.price_data.product_data.metadata.bundle_kind).toBe("3x60");
   });
 
-  it("charges Cerluten 2 × 60 at $334.00", async () => {
+  it("charges Cerluten 2 × 60 at $351.00", async () => {
     const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "2x60" }] });
     expect(res.statusCode).toBe(200);
-    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(33400);
+    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(35100);
+  });
+
+  it("rejects the retired 60 + 20 pack with 400", async () => {
+    const res = await call({ items: [{ productId: "cerluten", size: "60", quantity: 1, bundle: "60+20" }] });
+    expect(res.statusCode).toBe(400);
+    expect(create).not.toHaveBeenCalled();
   });
 
   it("rejects a 3 × 20 pack on a 20/60 product with 400", async () => {
@@ -55,8 +61,8 @@ describe("POST /api/stripe/create-checkout-session — storefront packs", () => 
     expect(create).not.toHaveBeenCalled();
   });
 
-  it("rejects 60 + 20 when the selected size is 20", async () => {
-    const res = await call({ items: [{ productId: "cerluten", size: "20", quantity: 1, bundle: "60+20" }] });
+  it("rejects 3 × 60 when the selected size is 20", async () => {
+    const res = await call({ items: [{ productId: "cerluten", size: "20", quantity: 1, bundle: "3x60" }] });
     expect(res.statusCode).toBe(400);
     expect(create).not.toHaveBeenCalled();
   });
@@ -64,7 +70,7 @@ describe("POST /api/stripe/create-checkout-session — storefront packs", () => 
   it("still accepts a Prime Peptide 2-bottle cycle bundle (legacy)", async () => {
     const res = await call({ items: [{ productId: "prime-peptide-brain", quantity: 1, bundle: 2 }] });
     expect(res.statusCode).toBe(200);
-    // $160.99 − $4, times 2
-    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(2 * (16099 - 400));
+    // $162 − $4.50, times 2 = $315
+    expect((create.mock.calls[0] as any)[0].line_items[0].price_data.unit_amount).toBe(31500);
   });
 });

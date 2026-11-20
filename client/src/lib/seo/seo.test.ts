@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { products } from "@/data/products";
 import { getUnitPriceUSD } from "@shared/product-prices";
+import { COMMERCE_CONFIG } from "@shared/commerce-config";
 import {
   absoluteUrl,
   canonicalUrl,
@@ -68,7 +69,9 @@ describe("product structured data", () => {
       expect(o.price).toBe(price.toFixed(2));
       expect(o.itemCondition).toBe("https://schema.org/NewCondition");
       expect(o.seller.name).toBe("Pure Fire Nutritional");
-      expect(o.shippingDetails[0].shippingRate.value).toBe(price >= 150 ? "0.00" : "19.95");
+      expect(o.shippingDetails[0].shippingRate.value).toBe(
+        price >= COMMERCE_CONFIG.freeShippingThresholdUSD ? "0.00" : COMMERCE_CONFIG.standardShippingUSD.toFixed(2)
+      );
     };
     if (sized) {
       expect(ld["@type"]).toBe("ProductGroup");

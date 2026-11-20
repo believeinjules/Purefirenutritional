@@ -12,7 +12,7 @@ import { bottlesInBundle, parseCartBundle, type CartBundleKind } from "@shared/b
 import { fetchProducts } from "@/lib/productsStorage";
 import { notifyAddedToCart } from "@/lib/dailyFire";
 
-/** Storefront pack ("2x60" | "60+20") or Prime cycle bundle (2 | 3). Absent = single bottle. */
+/** Storefront pack ("2x60" | "3x60") or Prime cycle bundle (2 | 3). Absent = single bottle. */
 export type CartBundle = CartBundleKind;
 
 export interface CartItem {

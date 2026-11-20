@@ -5,14 +5,13 @@
  * page) and the server (/api/stripe/create-checkout-session) read this file, so
  * what the shopper sees is exactly what Stripe charges.
  *
- * Current values:
- *   - free shipping at or above $150 merchandise subtotal
- *   - 20/60 products (Julia, 2026-11-10): Buy More & Save only on the 60-cap
- *     size, with 2 × 60 and 60 + 20 packs. 2 × 60 is priced at the Cerluten
- *     ratio $279 / $298.98 (~6.7% off), rounded to the nearest dollar.
- *     60 + 20 is the 60-cap price plus ceil((20-cap price) / 2) in whole dollars.
- *   - Prime Peptide (frozen): still uses 2- and 3-bottle cycle bundles at
- *     $4 / $8 off each bottle of that product's single size.
+ * Current values (2026-11-20 price update):
+ *   - flat $11.98 shipping, free at or above $155 merchandise subtotal
+ *   - 20/60 products: Buy More & Save only on the 60-cap size, with 2 × 60 and
+ *     3 × 60 packs at 2.5% / 5% off, rounded to the nearest whole dollar
+ *     ($180 → $351 / $513). The old 60 + 20 pack is retired.
+ *   - Prime Peptide: 2- and 3-bottle cycle bundles at $4.50 / $9 off each
+ *     bottle of that product's single size ($144 → $279 / $405).
  *
  * Single-bottle prices are NOT set here. They come from Firestore `products`
  * (code catalog fallback) and are never changed by this file.
@@ -30,6 +29,13 @@ export type BundleTierConfig = {
   discountPerBottleUSD: number;
 };
 
+export type SizePairPackConfig = {
+  kind: "2x60" | "3x60";
+  bottles: 2 | 3;
+  /** Percent off the regular price of the same 60-cap bottles bought separately. */
+  percentOff: number;
+};
+
 export type CommerceConfig = {
   /** Flat customer shipping when the order does not qualify for free shipping. */
   standardShippingUSD: number;
@@ -38,6 +44,8 @@ export type CommerceConfig = {
   bundles: {
     enabled: boolean;
     tiers: BundleTierConfig[];
+    /** 20/60 products, 60-cap size only: percent off N × 60-cap price, nearest whole dollar. */
+    sizePairPacks: SizePairPackConfig[];
     /**
      * Guard for very low-priced items: a bundle is only offered when the
      * discounted bottle price stays at or above this share of the single
@@ -55,13 +63,17 @@ export const BUNDLE_SIZES = [2, 3] as const;
 export type BundleSize = (typeof BUNDLE_SIZES)[number];
 
 export const COMMERCE_CONFIG: CommerceConfig = {
-  standardShippingUSD: 19.95,
-  freeShippingThresholdUSD: 150,
+  standardShippingUSD: 11.98,
+  freeShippingThresholdUSD: 155,
   bundles: {
     enabled: true,
     tiers: [
-      { bottles: 2, discountPerBottleUSD: 4 },
-      { bottles: 3, discountPerBottleUSD: 8 },
+      { bottles: 2, discountPerBottleUSD: 4.5 },
+      { bottles: 3, discountPerBottleUSD: 9 },
+    ],
+    sizePairPacks: [
+      { kind: "2x60", bottles: 2, percentOff: 2.5 },
+      { kind: "3x60", bottles: 3, percentOff: 5 },
     ],
     minDiscountedShareOfPrice: 0.8,
   },
@@ -77,19 +89,11 @@ export function isAllowedBundleDiscount(value: unknown): value is number {
   );
 }
 
-/** Whole cents, avoiding float drift (19.95 → 1995). */
+/** Whole cents, avoiding float drift (11.98 → 1198). */
 export function toCents(usd: number): number {
   return Math.round(usd * 100);
 }
 
-
-/**
- * Frozen 2026-11-10 reference: Cerluten's then-undiscounted 2 × 60 ($149.49 × 2)
- * and the $279 sale price Julia set. The ratio stays fixed even though Cerluten's
- * bottle prices later changed. Every 20/60 product's 2 × 60 pack is (2 × its 60-cap
- * price) times this ratio, rounded to the nearest whole dollar.
- */
-export const TWO_X60_REFERENCE = { regularUSD: 298.98, saleUSD: 279 } as const;
 
 export const STANDARD_SHIPPING_CENTS_CONFIG = toCents(COMMERCE_CONFIG.standardShippingUSD);
 export const FREE_SHIPPING_THRESHOLD_CENTS_CONFIG = toCents(COMMERCE_CONFIG.freeShippingThresholdUSD);

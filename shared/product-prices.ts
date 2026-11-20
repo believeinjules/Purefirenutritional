@@ -14,6 +14,7 @@ import {
   BundleInputError,
   bundleLineTitle,
   parseCartBundle,
+  isStorefrontBundle,
   resolveBundleOffer,
   type BundleOverrideFields,
   type StorefrontBundle,
@@ -46,7 +47,7 @@ export type CheckoutLineInput = {
   variantId?: string;
   quantity: number;
   /**
-   * Bundle kind: "2x60" | "60+20" (20/60 products, 60-cap size), or 2 | 3
+   * Bundle kind: "2x60" | "3x60" (20/60 products, 60-cap size), or 2 | 3
    * (Prime Peptide cycle bundles). Missing or 1 = single bottle. `quantity`
    * then counts packs. The pack price is computed here from live single-bottle
    * prices — never sent by the client.
@@ -248,7 +249,7 @@ export function resolveLineForProduct(
   const { kind, offer, bottles } = resolved;
   const title = bundleLineTitle(product.name, kind);
   const descPrefix =
-    "kind" in offer && (kind === "2x60" || kind === "60+20")
+    "kind" in offer && (isStorefrontBundle(kind))
       ? `${offer.label}, you save $${(offer.savingsCents / 100).toFixed(2)}.`
       : `${bottles} bottles, $${((offer as { discountPerBottleCents: number }).discountPerBottleCents / 100).toFixed(2)} off each.`;
   return {
