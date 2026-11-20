@@ -7,32 +7,34 @@
  *
  * Current values (2026-11-20 price update):
  *   - flat $11.98 shipping, free at or above $155 merchandise subtotal
- *   - 20/60 products: Buy More & Save only on the 60-cap size, with 2 × 60 and
- *     3 × 60 packs at 2.5% / 5% off, rounded to the nearest whole dollar
- *     ($180 → $351 / $513). The old 60 + 20 pack is retired.
- *   - Prime Peptide: 2- and 3-bottle cycle bundles at $4.50 / $9 off each
- *     bottle of that product's single size ($144 → $279 / $405).
+ *   - Every product with deals (Julia, 2026-11-20): 2 bottles at 4.4% off and
+ *     3 bottles at 8% off the same bottles bought separately, rounded DOWN to a
+ *     whole dollar, so the shown (floored) percent is never below 4.4% / 8%.
+ *     20/60 products: 2 × 60 and 3 × 60, 60-cap size only ($180 → $344 / $496).
+ *     Prime Peptide: 2 or 3 bottles of its single size ($144 → $275 / $397).
+ *     The old 60 + 20 pack is retired.
  *
  * Single-bottle prices are NOT set here. They come from Firestore `products`
  * (code catalog fallback) and are never changed by this file.
  *
  * Per-product overrides (Firestore-compatible, optional, on `products/{id}`):
  *   bundlesEnabled: false              → no bundles for that product
- *   bundleDiscountsUSD: { "2": 5, "3": 9 } → per-bottle discount for that product
- * Overrides must also stay inside BUNDLE_DISCOUNT_LIMITS_USD.
+ *   bundleDiscountsUSD: { "2": 5, "3": 9 } → per-bottle dollar discount for that
+ *     product's 2/3-bottle bundle instead of the percent (none set in Firestore
+ *     as of 2026-11-20). Overrides must also stay inside BUNDLE_DISCOUNT_LIMITS_USD.
  */
 
 export type BundleTierConfig = {
   /** Bottles in the bundle (2 or 3). */
   bottles: 2 | 3;
-  /** Dollars off EACH bottle vs that product's current single-bottle price. */
-  discountPerBottleUSD: number;
+  /** Percent off the bottles bought separately; the deal is rounded DOWN to a whole dollar. */
+  percentOff: number;
 };
 
 export type SizePairPackConfig = {
   kind: "2x60" | "3x60";
   bottles: 2 | 3;
-  /** Percent off the regular price of the same 60-cap bottles bought separately. */
+  /** Percent off the same 60-cap bottles bought separately; rounded DOWN to a whole dollar. */
   percentOff: number;
 };
 
@@ -44,7 +46,7 @@ export type CommerceConfig = {
   bundles: {
     enabled: boolean;
     tiers: BundleTierConfig[];
-    /** 20/60 products, 60-cap size only: percent off N × 60-cap price, nearest whole dollar. */
+    /** 20/60 products, 60-cap size only: percent off N × 60-cap price, rounded down to a whole dollar. */
     sizePairPacks: SizePairPackConfig[];
     /**
      * Guard for very low-priced items: a bundle is only offered when the
@@ -68,12 +70,12 @@ export const COMMERCE_CONFIG: CommerceConfig = {
   bundles: {
     enabled: true,
     tiers: [
-      { bottles: 2, discountPerBottleUSD: 4.5 },
-      { bottles: 3, discountPerBottleUSD: 9 },
+      { bottles: 2, percentOff: 4.4 },
+      { bottles: 3, percentOff: 8 },
     ],
     sizePairPacks: [
-      { kind: "2x60", bottles: 2, percentOff: 2.5 },
-      { kind: "3x60", bottles: 3, percentOff: 5 },
+      { kind: "2x60", bottles: 2, percentOff: 4.4 },
+      { kind: "3x60", bottles: 3, percentOff: 8 },
     ],
     minDiscountedShareOfPrice: 0.8,
   },
@@ -94,6 +96,16 @@ export function toCents(usd: number): number {
   return Math.round(usd * 100);
 }
 
+
+/**
+ * Deal price for bottles whose separate total is `regularCents`: `percentOff`
+ * off, rounded DOWN to a whole dollar (integer math, percent in tenths), so the
+ * saving is always at least `percentOff`. $360 at 4.4% → $344; $540 at 8% → $496.
+ */
+export function dealPriceCents(regularCents: number, percentOff: number): number {
+  const keepTenthsOfPercent = 1000 - Math.round(percentOff * 10);
+  return Math.floor((Math.round(regularCents) * keepTenthsOfPercent) / 100000) * 100;
+}
 
 export const STANDARD_SHIPPING_CENTS_CONFIG = toCents(COMMERCE_CONFIG.standardShippingUSD);
 export const FREE_SHIPPING_THRESHOLD_CENTS_CONFIG = toCents(COMMERCE_CONFIG.freeShippingThresholdUSD);

@@ -31,7 +31,7 @@ describe("catalog size and storefront pack sanity", () => {
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("2 × 60 and 3 × 60 are offered at 2.5% / 5% off (nearest dollar), cheaper than separately, more than fewer 60s", () => {
+  it("2 × 60 and 3 × 60 are offered at 4.4% / 8% off (rounded down to a dollar), cheaper than separately, more than fewer 60s", () => {
     const failures: string[] = [];
     for (const { product, hidden, pair } of pairs) {
       const tag = `${product.id}${hidden ? " [hidden]" : ""}`;
@@ -39,14 +39,14 @@ describe("catalog size and storefront pack sanity", () => {
       const three = getStorefrontBundleOffer(product, "3x60");
       if (!two) failures.push(`${tag}: 2×60 not offered`);
       else {
-        if (two.bundleCents !== sizePairPackCents(pair.p60, 2, 2.5)) failures.push(`${tag}: 2×60 formula mismatch`);
+        if (two.bundleCents !== sizePairPackCents(pair.p60, 2, 4.4)) failures.push(`${tag}: 2×60 formula mismatch`);
         if (two.bundleCents >= two.regularCents) failures.push(`${tag}: 2×60 is not a discount`);
         if (two.bundleCents <= pair.p60) failures.push(`${tag}: 2×60 does not cost more than one 60`);
         if (two.bundleCents % 100 !== 0) failures.push(`${tag}: 2×60 is not whole dollars`);
       }
       if (!three) failures.push(`${tag}: 3×60 not offered`);
       else {
-        if (three.bundleCents !== sizePairPackCents(pair.p60, 3, 5)) failures.push(`${tag}: 3×60 formula mismatch`);
+        if (three.bundleCents !== sizePairPackCents(pair.p60, 3, 8)) failures.push(`${tag}: 3×60 formula mismatch`);
         if (three.bundleCents >= three.regularCents) failures.push(`${tag}: 3×60 is not a discount`);
         if (two && three.bundleCents <= two.bundleCents) failures.push(`${tag}: 3×60 does not cost more than 2×60`);
         if (three.bundleCents % 100 !== 0) failures.push(`${tag}: 3×60 is not whole dollars`);
@@ -56,7 +56,7 @@ describe("catalog size and storefront pack sanity", () => {
     expect(failures, failures.join("\n")).toEqual([]);
   });
 
-  it("2026-11-20 prices: standard Khavinson $72 / $180 / $351 / $513; Bonomarlot and Endoluten", () => {
+  it("2026-11-20 prices: standard Khavinson $72 / $180 / $344 / $496; Bonomarlot and Endoluten", () => {
     const check = (id: string, p20: number, p60: number, two: number, three: number) => {
       const p = allProducts.find((x) => x.id === id)!;
       const pair = sizePairCents(p)!;
@@ -64,10 +64,10 @@ describe("catalog size and storefront pack sanity", () => {
       expect(getStorefrontBundleOffer(p, "2x60")!.bundleCents, id).toBe(two);
       expect(getStorefrontBundleOffer(p, "3x60")!.bundleCents, id).toBe(three);
     };
-    check("gotratix", 7200, 18000, 35100, 51300);
-    check("cerluten", 7200, 18000, 35100, 51300);
-    check("bonomarlot", 9000, 23400, 45600, 66700);
-    check("endoluten", 12800, 28800, 56200, 82100);
+    check("gotratix", 7200, 18000, 34400, 49600);
+    check("cerluten", 7200, 18000, 34400, 49600);
+    check("bonomarlot", 9000, 23400, 44700, 64500);
+    check("endoluten", 12800, 28800, 55000, 79400);
   });
 
   it("20/60 prices are whole dollars", () => {

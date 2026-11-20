@@ -12,6 +12,7 @@ import { getProductById, type Product } from "@/data/products";
 import { fetchProductById } from "@/lib/productsStorage";
 import { getDefaultCartSize } from "@/lib/productSize";
 import { productPath } from "@/lib/seo";
+import { formatUSD } from "@shared/format-price";
 
 const storeCache = new Map<string, Promise<Product | null>>();
 
@@ -100,7 +101,7 @@ function ZoomCard({
       <div className="flex items-baseline justify-between gap-2">
         <p className="font-semibold leading-snug text-gray-900">{name}</p>
         {typeof price === "number" && (
-          <p className="text-sm font-bold text-orange-600">${price.toFixed(2)}</p>
+          <p className="text-sm font-bold text-orange-600">{formatUSD(price)}</p>
         )}
       </div>
       {line && <p className="text-xs leading-snug text-gray-600">{line}</p>}
@@ -186,7 +187,7 @@ function ProductThumb({ product }: { product: PeppyProduct }) {
         {store?.name ?? product.name}
       </p>
       {typeof price === "number" && (
-        <p className="text-xs font-bold text-orange-600">${price.toFixed(2)}</p>
+        <p className="text-xs font-bold text-orange-600">{formatUSD(price)}</p>
       )}
     </Link>
   );

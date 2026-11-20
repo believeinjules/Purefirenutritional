@@ -13,11 +13,12 @@ import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import PreorderBadge from "@/components/PreorderBadge";
 import { showsPreorderBadge, PREORDER_CART_NOTE } from "@shared/preorder";
 import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
+import { formatUSD, savingsPercentLabel } from "@shared/format-price";
 
 /** Missing catalog prices are undefined. Never call toFixed on them. */
 function formatCartUSD(amount: number | undefined | null): string {
   if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
-  return `$${amount.toFixed(2)}`;
+  return formatUSD(amount);
 }
 
 export default function Cart() {
@@ -74,11 +75,10 @@ export default function Cart() {
                   : legacy
                     ? (legacy.singleBottleCents * legacy.bottles) / 100
                     : undefined;
-                const savingsUSD = storefront
-                  ? storefront.savingsCents / 100
-                  : legacy
-                    ? legacy.savingsCents / 100
-                    : undefined;
+                const savePct =
+                  regularUSD !== undefined && lineUnit !== undefined
+                    ? savingsPercentLabel(Math.round(regularUSD * 100), Math.round(lineUnit * 100))
+                    : null;
                 return (
                 <Card key={`${item.product.id}-${item.size}-${item.bundle ?? 1}`}>
                   <CardContent className="p-4 flex gap-4">
@@ -109,18 +109,15 @@ export default function Cart() {
                           <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-800 mr-2">
                             {bundleLabel(resolved?.kind ?? item.bundle)}
                           </span>
-                          {resolved && savingsUSD !== undefined
-                            ? `You save ${formatCartUSD(savingsUSD)}`
-                            : "This bundle is no longer available. Please remove it and add single bottles."}
+                          {resolved && savePct
+                            ? `Save ${savePct}`
+                            : resolved
+                              ? null
+                              : "This bundle is no longer available. Please remove it and add single bottles."}
                         </p>
                       )}
                       <p className="text-orange-600 font-bold mt-1">
                         {formatCartUSD(lineUnit)}
-                        {item.bundle && resolved && regularUSD !== undefined && (
-                          <span className="ml-2 text-xs font-normal text-gray-400 line-through">
-                            {formatCartUSD(regularUSD)}
-                          </span>
-                        )}
                       </p>
                     </div>
 

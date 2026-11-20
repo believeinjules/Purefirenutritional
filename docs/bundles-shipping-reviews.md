@@ -6,46 +6,48 @@
 
 | Setting | Value | Notes |
 |---|---|---|
-| `standardShippingUSD` | 19.95 | flat rate |
-| `freeShippingThresholdUSD` | 150 | free when merchandise subtotal (after bundle discounts) is **at or above** this |
-| 2-bottle bundle | $4 off each bottle | approved |
-| 3-bottle bundle | $8 off each bottle | approved |
+| `standardShippingUSD` | 11.98 | flat rate |
+| `freeShippingThresholdUSD` | 155 | free when merchandise subtotal (after bundle discounts) is **at or above** this |
+| 2-bottle deal (all products with deals) | 4.4% off, rounded down to a whole dollar | Julia 2026-11-20 |
+| 3-bottle deal (all products with deals) | 8% off, rounded down to a whole dollar | Julia 2026-11-20 |
 | `minDiscountedShareOfPrice` | 0.8 | a bundle is not offered if it would take more than 20% off a bottle (protects very low-priced items, e.g. $8.99 / $19.99 products) |
 
-### Storefront packs (20/60 products, Julia 2026-11-10)
-Buy More & Save appears **only when the 60-cap size is selected**. Options:
+### Storefront packs (20/60 products, price update 2026-11-20)
+Buy More & Save appears **only when the 60-cap size is selected**. Options (`COMMERCE_CONFIG.bundles.sizePairPacks`):
 
 - a single 60-cap bottle
-- **2 × 60 capsules** — priced at the Cerluten ratio $279 / $298.98 (~6.7% off two 60s), rounded to the nearest whole dollar
-- **60 + 20 capsules** — the 60-cap price plus ceil((20-cap price) / 2) in whole dollars (Cerluten: $178.99 + $33 = $211.99)
+- **2 × 60 capsules** — 4.4% off two 60s, rounded down to a whole dollar
+- **3 × 60 capsules** — 8% off three 60s, rounded down to a whole dollar
 
-2 × 20, 3 × 20 and 3 × 60 packs are not offered. Single-size products (Revilab ML/SL, nutritionals, cosmetics) have no Buy More & Save control. Prime Peptide keeps its frozen 2/3-bottle card picker at $4 / $8 off each bottle.
+Rounding down means the saving is never below 4.4% / 8%. Labels show only the percent saved, floored to 0.1 (`shared/format-price.ts → savingsPercentLabel`), e.g. "2 × 60 capsules — $344 (save 4.4%)". Prices show no cents when they are whole dollars (`formatUSD`).
 
-Cerluten prices: 20-cap **$64.99**, 60-cap **$178.99**, 2 × 60 **$334.00**, 60 + 20 **$211.99**.
+The old **60 + 20** pack is retired: it still parses (old saved carts), but is never offered; the cart turns it back into single bottles and checkout rejects it. 2 × 20 and 3 × 20 packs are not offered. Single-size products (Revilab ML/SL, nutritionals, cosmetics) have no Buy More & Save control. Prime Peptide keeps its 2/3-bottle card picker at the same 4.4% / 8%.
 
-The larger-size guard in `getBundleOffer` still applies to Prime / legacy 2- and 3-bottle packs (hidden, never repriced; a hidden bundle at checkout → HTTP 400). Every legacy per-bottle discount must stay between **$3 and $9** (`BUNDLE_DISCOUNT_LIMITS_USD`).
+Deal prices: standard Khavinson ($180) **$344 / $496**; Bonomarlot ($234) $447 / $645; Endoluten ($288) $550 / $794; Prime $144 → $275 / $397, $162 → $309 / $447, $189 → $361 / $521.
+
+The larger-size guard in `getBundleOffer` still applies to Prime / legacy 2- and 3-bottle packs (hidden, never repriced; a hidden bundle at checkout → HTTP 400). Every per-product dollar override must stay between **$3 and $9** (`BUNDLE_DISCOUNT_LIMITS_USD`).
 
 Single-bottle prices are **not** in this file and are never changed by it.
 
 ### Per-product overrides (optional, Firestore `products/{id}` or `products.ts`)
 - `bundlesEnabled: false` → no bundles for that product
-- `bundleDiscountsUSD: { "2": 5, "3": 9 }` → per-bottle discount for that product (each $3–$9, `null` turns that size off)
+- `bundleDiscountsUSD: { "2": 5, "3": 9 }` → per-bottle dollar discount for that product instead of the percent (none set in Firestore as of 2026-11-20) (each $3–$9, `null` turns that size off)
 
 Writable through `PATCH /api/admin/products` (validated in `api/_lib/admin-products.ts`).
 
 ## How checkout prices a bundle (server-side)
-The cart sends `{ productId, size, quantity, bundle: "2x60" | "60+20" | 2 | 3 }`, **never a price**.
+The cart sends `{ productId, size, quantity, bundle: "2x60" | "3x60" | 2 | 3 }`, **never a price**.
 `shared/product-prices.ts → resolveLineForProduct` takes the live single-bottle price
 (Firestore, code-catalog fallback), applies `shared/bundle-pricing.ts`:
 
 ```
-bottleCents = singleBottleCents − discountPerBottleCents
-bundleCents = bottleCents × bottles      (Stripe unit_amount; quantity = number of bundles)
+bundleCents = floor(singleBottleCents × bottles × (1 − percentOff) / 100) × 100   (Stripe unit_amount; quantity = number of bundles)
 ```
+A per-product `bundleDiscountsUSD` override uses (single − override) × bottles instead.
 
 Bad `bundle` values (anything except missing/1/2/3) or a bundle the product does not
 offer → HTTP 400. Shipping is computed from the resolved merchandise total and sent as
-the only Stripe `shipping_options` entry ($19.95 or $0 "Free shipping").
+the only Stripe `shipping_options` entry ($11.98 or $0 "Free shipping").
 
 The Stripe line item carries `product_data.metadata` (`product_id`, `size`,
 `bundle_bottles`, `single_bottle_cents`, `discount_per_bottle_cents`); the session

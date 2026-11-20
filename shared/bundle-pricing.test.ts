@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   BUNDLE_DISCOUNT_LIMITS_USD,
   COMMERCE_CONFIG,
+  dealPriceCents,
   isAllowedBundleDiscount,
   type CommerceConfig,
 } from "./commerce-config";
@@ -40,19 +41,32 @@ const cytomax: PriceableProduct = {
 const singleSize: PriceableProduct = { id: "single-size", name: "Single size", priceUSD: 58.99 };
 
 describe("commerce config", () => {
-  it("uses the 2026-11-20 bundle discounts ($4.50 / $9 per bottle), all inside $3–$9", () => {
+  it("uses the 2026-11-20 bundle discounts (4.4% / 8%); dollar overrides stay inside $3–$9", () => {
     const tiers = COMMERCE_CONFIG.bundles.tiers;
-    expect(tiers.find((t) => t.bottles === 2)?.discountPerBottleUSD).toBe(4.5);
-    expect(tiers.find((t) => t.bottles === 3)?.discountPerBottleUSD).toBe(9);
-    for (const t of tiers) expect(isAllowedBundleDiscount(t.discountPerBottleUSD)).toBe(true);
+    expect(tiers.find((t) => t.bottles === 2)?.percentOff).toBe(4.4);
+    expect(tiers.find((t) => t.bottles === 3)?.percentOff).toBe(8);
     expect(BUNDLE_DISCOUNT_LIMITS_USD).toEqual({ min: 3, max: 9 });
   });
 
-  it("prices 20/60 packs at 2.5% (2 × 60) and 5% (3 × 60) off", () => {
+  it("prices 20/60 packs at 4.4% (2 × 60) and 8% (3 × 60) off", () => {
     expect(COMMERCE_CONFIG.bundles.sizePairPacks).toEqual([
-      { kind: "2x60", bottles: 2, percentOff: 2.5 },
-      { kind: "3x60", bottles: 3, percentOff: 5 },
+      { kind: "2x60", bottles: 2, percentOff: 4.4 },
+      { kind: "3x60", bottles: 3, percentOff: 8 },
     ]);
+  });
+
+  it("rounds every deal DOWN to a whole dollar so the saving is at least the percent", () => {
+    expect(dealPriceCents(36000, 4.4)).toBe(34400);
+    expect(dealPriceCents(54000, 8)).toBe(49600);
+    expect(dealPriceCents(28800, 4.4)).toBe(27500);
+    expect(dealPriceCents(43200, 8)).toBe(39700);
+    for (let regular = 100; regular <= 200000; regular += 137) {
+      for (const pct of [4.4, 8]) {
+        const deal = dealPriceCents(regular, pct);
+        expect(deal % 100).toBe(0);
+        expect((regular - deal) * 1000).toBeGreaterThanOrEqual(regular * pct * 10 - 1e-6);
+      }
+    }
   });
 
   it("rejects discounts outside $3–$9", () => {
@@ -66,18 +80,16 @@ describe("commerce config", () => {
 });
 
 describe("bundle price math (cents)", () => {
-  it("2 bottles = 2 × (price − $4.50)", () => {
+  it("2 bottles = 4.4% off 2 × price, rounded down to a whole dollar", () => {
     const offer = getBundleOffer(cytomax, 58.99, 2)!;
-    expect(offer.bottleCents).toBe(5449);
-    expect(offer.bundleCents).toBe(10898);
-    expect(offer.savingsCents).toBe(900);
+    expect(offer.bundleCents).toBe(11200); // $117.98 × 0.956 = $112.79 → $112
+    expect(offer.savingsCents).toBe(598);
   });
 
-  it("3 bottles = 3 × (price − $9)", () => {
+  it("3 bottles = 8% off 3 × price, rounded down to a whole dollar", () => {
     const offer = getBundleOffer(singleSize, 58.99, 3)!;
-    expect(offer.bottleCents).toBe(4999);
-    expect(offer.bundleCents).toBe(14997);
-    expect(offer.savingsCents).toBe(2700);
+    expect(offer.bundleCents).toBe(16200); // $176.97 × 0.92 = $162.81 → $162
+    expect(offer.savingsCents).toBe(1497);
   });
 
   it("Prime Peptide 2026-11-20 bundle prices", () => {
@@ -86,24 +98,24 @@ describe("bundle price math (cents)", () => {
       const p = prime(id);
       return [p.priceUSD, getCartLineUnitUSD(p, undefined, 2), getCartLineUnitUSD(p, undefined, 3)];
     };
-    expect(totals("prime-peptide-collagen")).toEqual([144, 279, 405]);
-    expect(totals("prime-peptide-omega")).toEqual([144, 279, 405]);
-    expect(totals("prime-peptide-brain")).toEqual([162, 315, 459]);
-    expect(totals("prime-peptide-joints")).toEqual([189, 369, 540]);
-    expect(totals("prime-peptide-protect")).toEqual([189, 369, 540]);
+    expect(totals("prime-peptide-collagen")).toEqual([144, 275, 397]);
+    expect(totals("prime-peptide-omega")).toEqual([144, 275, 397]);
+    expect(totals("prime-peptide-brain")).toEqual([162, 309, 447]);
+    expect(totals("prime-peptide-joints")).toEqual([189, 361, 521]);
+    expect(totals("prime-peptide-protect")).toEqual([189, 361, 521]);
   });
 
   it("applies to the 60-count price too (discount per bottle of that size)", () => {
-    expect(getBundleOffer(cytomax, 153.99, 3)!.bundleCents).toBe(3 * (15399 - 900));
+    expect(getBundleOffer(cytomax, 153.99, 3)!.bundleCents).toBe(42500); // $461.97 × 0.92 = $425.01 → $425
   });
 
   it("does not offer bundles that would take more than 20% off a low-priced bottle", () => {
-    expect(getBundleOffer({}, 8.99, 2)).toBeNull();
-    expect(getBundleOffer({}, 22.49, 2)).toBeNull(); // $4.50 off $22.49 = 20.01% off
-    expect(getBundleOffer({}, 22.5, 2)!.bottleCents).toBe(1800);
-    expect(getBundleOffer({}, 44.99, 3)).toBeNull();
-    expect(getBundleOffer({}, 45, 3)!.bottleCents).toBe(3600);
-    expect(getBundleOffers({}, 24.99).map((o) => o.bottles)).toEqual([2]);
+    // Rounding down to a whole dollar can take a big share off a tiny price.
+    expect(getBundleOffer({}, 2, 2)).toBeNull(); // $4 → $3 is 25% off
+    expect(getBundleOffer({}, 3, 2)!.bundleCents).toBe(500); // $6 → $5 (16.7%)
+    expect(getBundleOffer({}, 1, 3)).toBeNull(); // $3 → $2 is 33% off
+    expect(getBundleOffer({}, 8.99, 2)!.bundleCents).toBe(1700);
+    expect(getBundleOffers({}, 1.5).map((o) => o.bottles)).toEqual([3]); // $3 → $2 (33%) hidden; $4.50 → $4 kept
   });
 
   it("honours valid per-product overrides and ignores invalid ones", () => {
@@ -173,7 +185,7 @@ describe("bundle input validation", () => {
       [{ productId: "cerluten", size: "60", quantity: 1, bundle: "3x60", price: 1 } as never],
       async () => new Map([["cerluten", cerluten]])
     );
-    expect(line.unitAmountCents).toBe(51300);
+    expect(line.unitAmountCents).toBe(49600);
     expect(line.bundleBottles).toBe(3);
     expect(line.bundleKind).toBe("3x60");
     expect(line.name).toBe("Cerluten — 3 × 60 capsules");
@@ -191,7 +203,7 @@ describe("bundle input validation", () => {
       [{ productId: "vladonix", size: "20", quantity: 2, bundle: 3 }],
       async () => new Map([["vladonix", live]])
     );
-    expect(line.unitAmountCents).toBe(3 * (6000 - 900));
+    expect(line.unitAmountCents).toBe(16500); // $180 × 0.92 = $165.60 → $165
     expect(line.quantity).toBe(2);
   });
 
@@ -202,8 +214,8 @@ describe("bundle input validation", () => {
     expect(getCartLineUnitUSD(cerluten, "20", "3x60")).toBeUndefined();
     expect(getCartLineUnitUSD(cerluten, "20", 2)).toBeUndefined();
     expect(getCartLineUnitUSD(cerluten, "60", "60+20")).toBeUndefined();
-    expect(getCartLineUnitUSD(cerluten, "60", "2x60")).toBe(351);
-    expect(getCartLineUnitUSD(cerluten, "60", "3x60")).toBe(513);
+    expect(getCartLineUnitUSD(cerluten, "60", "2x60")).toBe(344);
+    expect(getCartLineUnitUSD(cerluten, "60", "3x60")).toBe(496);
     expect(getCartLineUnitUSD(cerluten, "20", 7)).toBeUndefined();
   });
 });
@@ -218,7 +230,7 @@ describe("Stripe session params (server-side amounts)", () => {
       async () => new Map([["cerluten", cerluten]])
     );
     const { params, merchandiseCents, shippingCents } = buildCheckoutSessionParams({ resolved, origin });
-    expect(params.line_items[0].price_data.unit_amount).toBe(35100);
+    expect(params.line_items[0].price_data.unit_amount).toBe(34400);
     expect(params.line_items[0].quantity).toBe(1);
     expect(params.line_items[0].price_data.product_data.name).toBe("Cerluten — 2 × 60 capsules");
     expect(params.line_items[0].price_data.product_data.metadata).toMatchObject({
@@ -228,8 +240,8 @@ describe("Stripe session params (server-side amounts)", () => {
       bundle_kind: "2x60",
     });
     expect(params.metadata.bundles).toBe("cerluten:60:2x60x1");
-    expect(merchandiseCents).toBe(35100);
-    // $351 is at/above $155 → free shipping
+    expect(merchandiseCents).toBe(34400);
+    // $344 is at/above $155 → free shipping
     expect(shippingCents).toBe(0);
     expect(params.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
   });
@@ -274,16 +286,16 @@ describe("Stripe session params (server-side amounts)", () => {
 
 describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
   // Live prices (code catalog, 2026-11-20): Gotratix 20 caps $72, 60 caps $180.
-  // 3 × 20 at $9 off ($189) stays above the 60-cap bottle, so the legacy math allows it
+  // 3 × 20 at 8% off ($198) stays above the 60-cap bottle, so the legacy math allows it
   // (the storefront and checkout still never offer legacy packs on 20/60 products).
   const gotratix = products.find((p) => p.id === "gotratix")! as PriceableProduct;
 
-  it("allows Gotratix 3 × 20 caps in the legacy math ($189 > one 60-cap bottle at $180)", () => {
-    expect(getBundleOffer(gotratix, 72, 3, { size: "20" })!.bundleCents).toBe(18900);
+  it("allows Gotratix 3 × 20 caps in the legacy math ($198 > one 60-cap bottle at $180)", () => {
+    expect(getBundleOffer(gotratix, 72, 3, { size: "20" })!.bundleCents).toBe(19800);
     expect(largerSizeFloorCents(gotratix, 72, 3, "20")).toBe(18000);
     expect(getBundleOffers(gotratix, 72, { size: "20" }).map((o) => o.bottles)).toEqual([2, 3]);
     // size inferred from the price when not passed
-    expect(getBundleOffer(gotratix, 72, 3)!.bundleCents).toBe(18900);
+    expect(getBundleOffer(gotratix, 72, 3)!.bundleCents).toBe(19800);
   });
 
   it("still hides a 3 × 20 bundle when the 20-cap price is low enough to undercut the 60", () => {
@@ -293,9 +305,9 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
   });
 
   it("keeps Gotratix 2 × 20 caps (40 caps — fewer than the 60-cap bottle) and the 60-cap bundles", () => {
-    expect(getBundleOffer(gotratix, 72, 2, { size: "20" })!.bundleCents).toBe(13500);
+    expect(getBundleOffer(gotratix, 72, 2, { size: "20" })!.bundleCents).toBe(13700);
     expect(largerSizeFloorCents(gotratix, 72, 2, "20")).toBeNull();
-    expect(getBundleOffer(gotratix, 180, 3, { size: "60" })!.bundleCents).toBe(51300);
+    expect(getBundleOffer(gotratix, 180, 3, { size: "60" })!.bundleCents).toBe(49600);
   });
 
   it("hides when the bundle EQUALS the bigger bottle, offers when it is a cent above", () => {
@@ -308,9 +320,9 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
         { id: "60-count", name: "60 Capsules", priceUSD: big },
       ],
     });
-    // 3 × (50 − 9) = 123.00
-    expect(getBundleOffer(p(123), 50, 3, { size: "20" })).toBeNull();
-    expect(getBundleOffer(p(122.99), 50, 3, { size: "20" })!.bundleCents).toBe(12300);
+    // $150 × 0.92 = $138.00
+    expect(getBundleOffer(p(138), 50, 3, { size: "20" })).toBeNull();
+    expect(getBundleOffer(p(137.99), 50, 3, { size: "20" })!.bundleCents).toBe(13800);
   });
 
   it("charges Gotratix 2 × 60 and 3 × 60; a 3 × 20 pack is not offered", () => {
@@ -320,7 +332,7 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
     );
     const two = getStorefrontBundleOffer(gotratix, "2x60")!;
     const three = getStorefrontBundleOffer(gotratix, "3x60")!;
-    expect([two.bundleCents, three.bundleCents]).toEqual([35100, 51300]);
+    expect([two.bundleCents, three.bundleCents]).toEqual([34400, 49600]);
     expect(resolveCheckoutLine({ productId: "gotratix", size: "60", quantity: 1, bundle: "2x60" }).unitAmountCents).toBe(
       two.bundleCents,
     );
@@ -341,7 +353,7 @@ describe("larger-size guard (a bundle never undercuts a bigger bottle)", () => {
   });
 
   it("keeps the low-price guard alongside it", () => {
-    expect(getBundleOffer({}, 19.99, 2)).toBeNull();
+    expect(getBundleOffer({}, 2, 2)).toBeNull();
   });
 
   it("reads capsule counts from variant id or name", () => {

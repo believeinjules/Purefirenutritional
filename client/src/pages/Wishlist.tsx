@@ -9,6 +9,7 @@ import { useCart } from '@/contexts/CartContext';
 import { products } from '@/data/products';
 import { getDefaultCartSize } from '@/lib/productSize';
 import { toast } from 'sonner';
+import { formatUSD } from "@shared/format-price";
 
 export default function Wishlist() {
   // Wishlist is stored in localStorage by WishlistContext ({ id, name, price, image })
@@ -107,7 +108,7 @@ export default function Wishlist() {
 
                       {Number.isFinite(item.price) && item.price > 0 && (
                         <p className="text-2xl font-bold text-primary mb-3">
-                          ${item.price.toFixed(2)}
+                          {formatUSD(item.price)}
                         </p>
                       )}
 

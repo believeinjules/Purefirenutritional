@@ -50,6 +50,7 @@ import { Helmet } from "react-helmet-async";
 import { responsiveImage } from "@/lib/responsiveImage";
 import { showsPreorderBadge, PREORDER_CART_NOTE } from "@shared/preorder";
 import { FULFILLMENT_PDP_LABEL, resolveFulfillment } from "@shared/fulfillment";
+import { formatUSD } from "@shared/format-price";
 const PepitaLauncher = lazy(() => import("@/components/peppy/PepitaLauncher"));
 
 function BulletList({ items }: { items: string[] }) {
@@ -176,7 +177,7 @@ export default function ProductDetail() {
       : undefined;
   const priceLabel =
     typeof currentPrice === "number" && Number.isFinite(currentPrice)
-      ? `$${currentPrice.toFixed(2)}`
+      ? formatUSD(currentPrice)
       : "Price unavailable";
   const facts = getProductFacts(product, selectedVariant ? selectedSize : undefined, currentPrice);
   // Bundle line total (display only; checkout recomputes it server-side).
@@ -346,7 +347,7 @@ export default function ProductDetail() {
                       {[
                         facts.sizeLabel,
                         facts.coverageLabel,
-                        facts.costPerDayUSD !== undefined ? `$${facts.costPerDayUSD.toFixed(2)}/day` : undefined,
+                        facts.costPerDayUSD !== undefined ? `${formatUSD(facts.costPerDayUSD)}/day` : undefined,
                       ]
                         .filter(Boolean)
                         .join(" · ")}
@@ -393,7 +394,7 @@ export default function ProductDetail() {
               />
 
               {/* Quantity + Add to cart. On a narrow screen the ATC button goes
-                  on its own row so long pack labels ("Add 3 × 60 · $513.00") fit. */}
+                  on its own row so long pack labels ("Add 3 × 60 · $496") fit. */}
               <div className="flex flex-wrap gap-3">
                 <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden shrink-0">
                   <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-3 py-2 hover:bg-gray-50 transition-colors">
@@ -422,7 +423,7 @@ export default function ProductDetail() {
                 >
                   <ShoppingCart className="mr-2" size={16} />
                   {activeBundle !== 1 && typeof bundleTotal === "number"
-                    ? `Add ${bundleLabel(activeBundle).replace(/ capsules$/, "")} · $${(bundleTotal * quantity).toFixed(2)}`
+                    ? `Add ${bundleLabel(activeBundle).replace(/ capsules$/, "")} · ${formatUSD(bundleTotal * quantity)}`
                     : "Add to Cart"}
                 </Button>
                 <Button onClick={handleWishlistToggle} variant="outline" size="icon" className="h-11 w-11 shrink-0" aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"} aria-pressed={inWishlist}>

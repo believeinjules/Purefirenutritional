@@ -13,6 +13,7 @@ import { formatVerificationSendFailureMessage } from "@/lib/emailVerification";
 import { toast } from "sonner";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 import { removeAppliedCode } from "@/lib/dailyFire";
+import { formatUSD } from "@shared/format-price";
 
 const MIN_PASSWORD = 6;
 
@@ -174,7 +175,7 @@ export default function CheckoutSuccess() {
                   <div className="border-t pt-4">
                     <p className="text-sm text-gray-600 mb-3">Total Amount</p>
                     <p className="text-2xl font-bold text-gray-900">
-                      ${((orderDetails.amount_total || 0) / 100).toFixed(2)}
+                      {formatUSD((orderDetails.amount_total || 0) / 100)}
                     </p>
                   </div>
                 </CardContent>

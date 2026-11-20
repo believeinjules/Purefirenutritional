@@ -9,6 +9,7 @@ import {
   defaultCartLine,
   useStoreProduct,
 } from "./ProductPreview";
+import { formatUSD } from "@shared/format-price";
 
 export default function ProductSuggestionCard({
   suggestion,
@@ -55,7 +56,7 @@ export default function ProductSuggestionCard({
           </Link>
           <PreorderBadge productId={product.id} fulfillment={product.fulfillment} />
           <span className="text-sm font-bold text-orange-600">
-            ${price.toFixed(2)}
+            {formatUSD(price)}
           </span>
         </div>
         <p className="mt-1 text-sm text-gray-700">{why}</p>

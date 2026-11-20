@@ -10,6 +10,7 @@ import { firstSentence } from "@/lib/pepitaPreview";
 import { cardPrice, cardSizeOptions, createCardAdder, purchaseState } from "@/lib/pepitaCart";
 import type { CartSize } from "@/lib/productSize";
 import { productPath } from "@/lib/seo";
+import { formatUSD } from "@shared/format-price";
 
 const canHover = () =>
   typeof window !== "undefined" && !!window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
@@ -104,7 +105,7 @@ export default function PepitaProductCard({
   const priceTag =
     typeof price === "number" ? (
       <span className={`shrink-0 font-bold text-orange-600 ${variant === "hero" ? "text-base" : "ml-auto text-sm"}`} data-testid="pepita-card-price">
-        ${price.toFixed(2)}
+        {formatUSD(price)}
       </span>
     ) : null;
 

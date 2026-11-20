@@ -16,10 +16,11 @@ import { shippingCentsForMerchandiseUSD } from "@shared/shipping-rate";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
 import { AppliedCodeNotice, useAppliedDiscount } from "@/components/promo/AppliedDiscount";
 import { dailyFireEmail, removeAppliedCode } from "@/lib/dailyFire";
+import { formatUSD } from "@shared/format-price";
 
 function formatCheckoutUSD(amount: number | undefined | null): string {
   if (typeof amount !== "number" || !Number.isFinite(amount)) return "Price unavailable";
-  return `$${amount.toFixed(2)}`;
+  return formatUSD(amount);
 }
 
 export default function Checkout() {

@@ -19,6 +19,7 @@ import {
   type BundleOverrideFields,
   type StorefrontBundle,
 } from "./bundle-pricing.js";
+import { savingsPercentLabel } from "./format-price.js";
 
 /** Cart convention: "20" = 20-count, "60" = 60-count. */
 export type CartSize = "20" | "60";
@@ -250,8 +251,8 @@ export function resolveLineForProduct(
   const title = bundleLineTitle(product.name, kind);
   const descPrefix =
     "kind" in offer && (isStorefrontBundle(kind))
-      ? `${offer.label}, you save $${(offer.savingsCents / 100).toFixed(2)}.`
-      : `${bottles} bottles, $${((offer as { discountPerBottleCents: number }).discountPerBottleCents / 100).toFixed(2)} off each.`;
+      ? `${offer.label}, save ${savingsPercentLabel(offer.regularCents, offer.bundleCents) ?? "0%"}.`
+      : `${bottles} bottles, save ${savingsPercentLabel((offer as { singleBottleCents: number }).singleBottleCents * bottles, offer.bundleCents) ?? "0%"}.`;
   return {
     productId: product.id,
     name: title,

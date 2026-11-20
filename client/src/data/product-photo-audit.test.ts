@@ -46,7 +46,7 @@ describe("verified product photo mapping", () => {
     ]) {
       expect(html, src).toContain(src);
     }
-    expect(html).toContain("$54.00");
+    expect(html).toMatch(/\$54(?![.\d])/);
     expect(html).not.toMatch(/felicita|bottle-front-a|mamiton-main-1000|reference_only/i);
     const ld = helmet.script.toString();
     expect(ld).toContain("mamiton-main-native");

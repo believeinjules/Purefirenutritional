@@ -11,6 +11,7 @@ import { Package, User, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import EmailVerificationBanner from "@/components/EmailVerificationBanner";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
+import { formatUSD } from "@shared/format-price";
 
 export default function Dashboard() {
   const { user, signOut, loading, refreshUser, resendVerificationEmail } = useAuth();
@@ -264,7 +265,7 @@ export default function Dashboard() {
                             {order.items?.length || 0} item(s)
                           </p>
                           <p className="font-bold text-orange-600">
-                            ${(order as any).total_amount?.toFixed(2) ?? order.total?.toFixed(2) ?? "0.00"}
+                            {formatUSD((order as any).total_amount ?? order.total ?? 0)}
                           </p>
                         </div>
                       </div>

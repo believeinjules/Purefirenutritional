@@ -19,6 +19,7 @@ import {
   hasMultipleSizes,
   SizeOption,
 } from "@/lib/productSize";
+import { formatUSD } from "@shared/format-price";
 
 /** Minimal product shape needed for listing ATC (storage + static catalog). */
 export type QuickAddProduct = {
@@ -175,7 +176,7 @@ export default function QuickAddToCart({
                         </div>
                         <div className="text-right">
                           <div className="font-bold text-orange-700">
-                            ${opt.priceUSD.toFixed(2)}
+                            {formatUSD(opt.priceUSD)}
                           </div>
                         </div>
                       </div>
@@ -189,7 +190,7 @@ export default function QuickAddToCart({
             <div>
               <div className="text-sm text-gray-500">Total</div>
               <div className="text-2xl font-bold text-orange-700">
-                ${selected?.priceUSD.toFixed(2) ?? "—"}
+                {selected ? formatUSD(selected.priceUSD) : "—"}
               </div>
             </div>
             <Button

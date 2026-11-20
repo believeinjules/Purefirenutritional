@@ -7,18 +7,20 @@
  * Storefront (20/60 products, price update 2026-11-20):
  *   Buy More & Save appears only when the 60-cap size is selected.
  *   Offers (COMMERCE_CONFIG.bundles.sizePairPacks):
- *     - "2x60" — two 60-cap bottles at 2.5% off, nearest whole dollar ($180 → $351).
- *     - "3x60" — three 60-cap bottles at 5% off, nearest whole dollar ($180 → $513).
+ *     - "2x60" — two 60-cap bottles at 4.4% off, rounded down to a whole dollar ($180 → $344).
+ *     - "3x60" — three 60-cap bottles at 8% off, rounded down to a whole dollar ($180 → $496).
  *   "60+20" (retired) still parses so old carts load, but is never offered:
  *   the cart turns it back into single bottles and checkout rejects it.
  *
  * Prime Peptide: 2- or 3-bottle cycle bundles of that product's single size,
- * at $4.50 / $9 off each bottle (COMMERCE_CONFIG.bundles.tiers), still subject
- * to the low-price and larger-size guards.
+ * at 4.4% / 8% off, rounded down to a whole dollar (COMMERCE_CONFIG.bundles.tiers),
+ * still subject to the low-price and larger-size guards. A per-product
+ * `bundleDiscountsUSD` override (dollars off each bottle) replaces the percent.
  */
 import {
   BUNDLE_SIZES,
   COMMERCE_CONFIG,
+  dealPriceCents,
   isAllowedBundleDiscount,
   toCents,
   type BundleSize,
@@ -135,20 +137,23 @@ export function bottlesInBundle(bundle: ParsedBundle | null | undefined): number
   return bundle;
 }
 
-/** Per-bottle discount (USD) for a legacy 2/3-bottle pack, or null when not offered. */
-export function bundleDiscountUSD(
+/**
+ * How a legacy 2/3-bottle pack is discounted, or null when it is not offered:
+ * a per-product dollar override (dollars off each bottle), else the tier percent.
+ */
+export function bundleDiscountRule(
   product: BundleOverrideFields,
   bottles: BundleSize,
   config: CommerceConfig = COMMERCE_CONFIG
-): number | null {
+): { kind: "percent"; percentOff: number } | { kind: "perBottleUSD"; usd: number } | null {
   if (!config.bundles.enabled) return null;
   if (product.bundlesEnabled === false) return null;
   const tier = config.bundles.tiers.find((t) => t.bottles === bottles);
   if (!tier) return null;
   const override = product.bundleDiscountsUSD?.[String(bottles) as "2" | "3"];
   if (override === null) return null;
-  const discount = override === undefined ? tier.discountPerBottleUSD : override;
-  return isAllowedBundleDiscount(discount) ? discount : null;
+  if (override !== undefined) return isAllowedBundleDiscount(override) ? { kind: "perBottleUSD", usd: override } : null;
+  return tier.percentOff > 0 && tier.percentOff < 100 ? { kind: "percent", percentOff: tier.percentOff } : null;
 }
 
 /** Capsules (or tablets) per bottle for a size variant, e.g. "60-count" / "60 Capsules" → 60. */
@@ -215,10 +220,9 @@ export function largerSizeFloorCents(
   return Math.max(...larger.map((v) => v.cents));
 }
 
-/** N × 60 pack price: percent off N × the 60-cap price, nearest whole dollar, in cents. */
+/** N × 60 pack price: percent off N × the 60-cap price, rounded down to a whole dollar, in cents. */
 export function sizePairPackCents(p60Cents: number, bottles: number, percentOff: number): number {
-  const regularCents = p60Cents * bottles;
-  return Math.round((regularCents * (100 - percentOff)) / 100 / 100) * 100;
+  return dealPriceCents(p60Cents * bottles, percentOff);
 }
 
 /** One storefront pack for a 20/60 product, or null if that pack is not offered. */
@@ -327,22 +331,27 @@ export function getBundleOffer(
   if (!(typeof singleBottlePriceUSD === "number" && Number.isFinite(singleBottlePriceUSD))) return null;
   const singleBottleCents = toCents(singleBottlePriceUSD);
   if (singleBottleCents <= 0) return null;
-  const discount = bundleDiscountUSD(product, bottles, config);
-  if (discount === null) return null;
-  const discountPerBottleCents = toCents(discount);
-  const bottleCents = singleBottleCents - discountPerBottleCents;
-  if (bottleCents < Math.ceil(singleBottleCents * config.bundles.minDiscountedShareOfPrice)) return null;
-  if (bottleCents <= 0) return null;
-  const bundleCents = bottleCents * bottles;
+  const rule = bundleDiscountRule(product, bottles, config);
+  if (rule === null) return null;
+  const regularCents = singleBottleCents * bottles;
+  const bundleCents =
+    rule.kind === "percent"
+      ? dealPriceCents(regularCents, rule.percentOff)
+      : (singleBottleCents - toCents(rule.usd)) * bottles;
+  if (bundleCents <= 0 || bundleCents >= regularCents) return null;
+  // Low-price guard: never more than (1 − minDiscountedShareOfPrice) off.
+  if (bundleCents < Math.ceil(regularCents * config.bundles.minDiscountedShareOfPrice)) return null;
   const floor = largerSizeFloorCents(product, singleBottlePriceUSD, bottles, options.size);
   if (floor !== null && bundleCents <= floor) return null;
+  const savingsCents = regularCents - bundleCents;
   return {
     bottles,
-    discountPerBottleCents,
+    // Informational (order metadata): average saving per bottle, rounded to a cent.
+    discountPerBottleCents: Math.round(savingsCents / bottles),
     singleBottleCents,
-    bottleCents,
+    bottleCents: Math.round(bundleCents / bottles),
     bundleCents,
-    savingsCents: discountPerBottleCents * bottles,
+    savingsCents,
   };
 }
 

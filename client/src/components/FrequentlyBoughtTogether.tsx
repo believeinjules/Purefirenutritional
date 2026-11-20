@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
+import { formatUSD } from "@shared/format-price";
 
 interface FrequentlyBoughtTogetherProps {
   currentProduct: Product;
@@ -53,7 +54,7 @@ export default function FrequentlyBoughtTogether({
         total += product.priceUSD;
       }
     });
-    return total.toFixed(2);
+    return formatUSD(total);
   };
 
   const handleAddAllToCart = () => {
@@ -104,7 +105,7 @@ export default function FrequentlyBoughtTogether({
                 </p>
               </div>
               <div className="text-right">
-                <p className="font-bold text-lg">${currentProduct.priceUSD.toFixed(2)}</p>
+                <p className="font-bold text-lg">{formatUSD(currentProduct.priceUSD)}</p>
               </div>
             </div>
           </div>
@@ -134,7 +135,7 @@ export default function FrequentlyBoughtTogether({
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-lg">${product.priceUSD.toFixed(2)}</p>
+                  <p className="font-bold text-lg">{formatUSD(product.priceUSD)}</p>
                 </div>
               </div>
             </div>
@@ -149,7 +150,7 @@ export default function FrequentlyBoughtTogether({
             <p className="text-sm text-muted-foreground">
               Total for {selectedProducts.size} {selectedProducts.size === 1 ? 'item' : 'items'}
             </p>
-            <p className="text-3xl font-bold">${calculateTotal()}</p>
+            <p className="text-3xl font-bold">{calculateTotal()}</p>
           </div>
           <Button
             size="lg"

@@ -8,6 +8,7 @@ import { responsiveImage, fetchPriority } from "@/lib/responsiveImage";
 import type { ReviewSummary } from "@shared/reviews";
 import { FormulaTypeTag } from "@/components/shop/FormulaTypeParts";
 import { isFormulaPreviewPdp } from "@/data/formulaType";
+import { formatUSD } from "@shared/format-price";
 
 /** The preview PDP (Bonomarlot) dropped its Key Benefits list, so its shop card hides them too. */
 function withoutPreviewBenefits<T extends { id: string; benefits?: string[] }>(product: T, formulaPreview: boolean): T {
@@ -248,7 +249,7 @@ export function ProductGridCard({
         <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50 gap-2">
           <div>
             <div className="text-base font-bold text-gray-900">
-              ${product.priceUSD.toFixed(2)}
+              {formatUSD(product.priceUSD)}
             </div>
           </div>
           <QuickAddToCart product={product} compact label="Add" />
@@ -335,7 +336,7 @@ export function ProductListRow({
           <div className="flex flex-col items-end gap-2 flex-shrink-0">
             <div className="text-right">
               <div className="text-base font-bold text-gray-900">
-                ${product.priceUSD.toFixed(2)}
+                {formatUSD(product.priceUSD)}
               </div>
             </div>
             <RatingStars summary={reviewSummary} />

@@ -2,6 +2,7 @@ import { Truck } from "lucide-react";
 import { COMMERCE_CONFIG } from "@shared/commerce-config";
 import { amountToFreeShippingUSD } from "@shared/shipping-rate";
 import { FREE_SHIPPING_THRESHOLD_LABEL } from "@/lib/shippingCopy";
+import { formatUSD } from "@shared/format-price";
 
 type Props = {
   /**
@@ -29,7 +30,7 @@ export default function FreeShippingBanner({ subtotalUSD, variant = "bar", class
     ? `Free shipping on orders of ${FREE_SHIPPING_THRESHOLD_LABEL} or more`
     : qualifies
       ? "Your order ships free"
-      : `You're $${remaining.toFixed(2)} away from free shipping`;
+      : `You're ${formatUSD(remaining)} away from free shipping`;
 
   if (variant === "bar") {
     return (

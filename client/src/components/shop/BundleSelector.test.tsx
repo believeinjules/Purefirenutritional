@@ -31,11 +31,11 @@ describe("storefrontOptionLabel", () => {
       "1 bottle (60 capsules) — $149.49",
     );
     expect(
-      storefrontOptionLabel({ title: "2 × 60 capsules", totalCents: 35100, savingsCents: 900, regularCents: 36000 }),
-    ).toBe("2 × 60 capsules — $351.00 (save $9.00)");
+      storefrontOptionLabel({ title: "2 × 60 capsules", totalCents: 34400, savingsCents: 1600, regularCents: 36000 }),
+    ).toBe("2 × 60 capsules — $344 (save 4.4%)");
     expect(
-      storefrontOptionLabel({ title: "3 × 60 capsules", totalCents: 51300, savingsCents: 2700, regularCents: 54000 }),
-    ).toBe("3 × 60 capsules — $513.00 (save $27.00)");
+      storefrontOptionLabel({ title: "3 × 60 capsules", totalCents: 49600, savingsCents: 4400, regularCents: 54000 }),
+    ).toBe("3 × 60 capsules — $496 (save 8.1%)");
   });
 });
 
@@ -72,9 +72,9 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     expect(select.value).toBe("1");
     expect(getStorefrontBundleOffers(cerluten).map((o) => o.kind)).toEqual(["2x60", "3x60"]);
     expect(optionTexts(select)).toEqual([
-      "1 bottle (60 capsules) — $180.00",
-      "2 × 60 capsules — $351.00 (save $9.00)",
-      "3 × 60 capsules — $513.00 (save $27.00)",
+      "1 bottle (60 capsules) — $180",
+      "2 × 60 capsules — $344 (save 4.4%)",
+      "3 × 60 capsules — $496 (save 8.1%)",
     ]);
   });
 
@@ -105,8 +105,8 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
   it("Prime Peptide (legacy) keeps the card picker and Cycle bundles legend", () => {
     render(
       <BundleSelector
-        product={{ id: "prime-peptide-brain", name: "Prime", priceUSD: 160.99, variants: [] } as Parameters<typeof BundleSelector>[0]["product"]}
-        singlePriceUSD={160.99}
+        product={{ id: "prime-peptide-brain", name: "Prime", priceUSD: 162, variants: [] } as Parameters<typeof BundleSelector>[0]["product"]}
+        singlePriceUSD={162}
         value={1}
         onChange={() => {}}
         legacy
@@ -115,7 +115,9 @@ describe("BundleSelector (Buy More & Save, 60-cap only)", () => {
     expect(screen.getByText("Cycle bundles")).toBeTruthy();
     expect(screen.queryByLabelText("Buy More & Save")).toBeNull();
     expect(screen.queryByRole("combobox")).toBeNull();
-    expect(screen.getAllByRole("radio")).toHaveLength(3);
+    const radios = screen.getAllByRole("radio").map((r) => r.textContent);
+    expect(radios).toEqual(["1 bottle$162Single bottle", "2 bottles$309save 4.6%", "3 bottles$447save 8%"]);
+    expect(document.body.textContent).not.toMatch(/per bottle|save \$/);
   });
 });
 
@@ -168,13 +170,13 @@ describe("product page Buy More & Save (60-cap only)", () => {
     await waitFor(() => expect(size.value).toBe(v60.id));
 
     const select = (await screen.findByLabelText("Buy More & Save")) as HTMLSelectElement;
-    expect(optionTexts(select)[2]).toBe("3 × 60 capsules — $513.00 (save $27.00)");
+    expect(optionTexts(select)[2]).toBe("3 × 60 capsules — $496 (save 8.1%)");
     await user.selectOptions(select, "3x60");
     await waitFor(() => expect(select.value).toBe("3x60"));
     const total = getCartLineUnitUSD(p, "60", "3x60")!;
-    expect(total).toBe(513);
+    expect(total).toBe(496);
     expect(screen.getByRole("button", { name: /add 3 × 60 ·/i }).textContent).toBe(
-      `Add 3 × 60 · $${total.toFixed(2)}`,
+      `Add 3 × 60 · $${total}`,
     );
 
     await user.click(screen.getByRole("button", { name: /add 3 × 60 ·/i }));

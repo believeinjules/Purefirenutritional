@@ -4,6 +4,7 @@ import { cleanup, render, screen, waitFor, within } from "@testing-library/react
 import userEvent from "@testing-library/user-event";
 import VariantSelector, { variantCountLabel } from "./VariantSelector";
 import { getProductById, type ProductVariant } from "@/data/products";
+import { formatUSD } from "@shared/format-price";
 
 afterEach(cleanup);
 
@@ -75,14 +76,14 @@ describe("product page size dropdown", () => {
       </HelmetProvider>,
     );
     const select = (await screen.findByLabelText("Size")) as HTMLSelectElement;
-    expect(document.body.textContent).toContain(`$${v20.priceUSD.toFixed(2)}`);
+    expect(document.body.textContent).toContain(formatUSD(v20.priceUSD));
     expect(screen.queryByText(/Select Size \/ Format/)).toBeNull();
 
     await user.selectOptions(select, v60.id);
     await waitFor(() => expect(select.value).toBe(v60.id));
     const priceBlock = screen.getByTestId("product-facts").parentElement!;
-    expect(priceBlock.textContent).toContain(`$${v60.priceUSD.toFixed(2)}`);
-    expect(priceBlock.textContent).not.toContain(`$${v20.priceUSD.toFixed(2)}`);
+    expect(priceBlock.textContent).toContain(formatUSD(v60.priceUSD));
+    expect(priceBlock.textContent).not.toContain(formatUSD(v20.priceUSD));
     expect(screen.getByTestId("product-facts").textContent).toBe("60 Capsules");
 
     await user.click(screen.getByRole("button", { name: /add to cart/i }));

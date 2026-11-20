@@ -9,19 +9,18 @@ import {
   type StorefrontBundle,
 } from "@shared/bundle-pricing";
 import type { ProductFacts } from "@/lib/productFacts";
+import { formatUSDCents, savingsPercentLabel } from "@shared/format-price";
 
 /** Storefront (20/60 products) or Prime/legacy (1 | 2 | 3). */
 export type BundleChoice = 1 | 2 | 3 | StorefrontBundle;
 
-function usd(cents: number): string {
-  return `$${(cents / 100).toFixed(2)}`;
-}
+const usd = formatUSDCents;
 
-/** e.g. "1 bottle (60 capsules) — $180.00" or "3 × 60 capsules — $513.00 (save $27.00)". */
+/** e.g. "1 bottle (60 capsules) — $180" or "3 × 60 capsules — $496 (save 8.1%)" (percent floored to 0.1). */
 export function storefrontOptionLabel(opt: { title: string; totalCents: number; savingsCents?: number; regularCents?: number }): string {
   const price = usd(opt.totalCents);
-  if (!opt.savingsCents || opt.savingsCents <= 0) return `${opt.title} — ${price}`;
-  return `${opt.title} — ${price} (save ${usd(opt.savingsCents)})`;
+  const pct = opt.regularCents ? savingsPercentLabel(opt.regularCents, opt.totalCents) : null;
+  return pct ? `${opt.title} — ${price} (save ${pct})` : `${opt.title} — ${price}`;
 }
 
 /**
@@ -72,16 +71,14 @@ export default function BundleSelector({
       bottles: 1 | 2 | 3;
       title: string;
       total: number;
-      perBottle?: number;
-      savings?: number;
+      savePct?: string | null;
     }> = [
       { bottles: 1, title: "1 bottle", total: singleCents },
       ...offers.map((o) => ({
         bottles: o.bottles as 2 | 3,
         title: `${o.bottles} bottles`,
         total: o.bundleCents,
-        perBottle: o.bottleCents,
-        savings: o.savingsCents,
+        savePct: savingsPercentLabel(o.singleBottleCents * o.bottles, o.bundleCents),
       })),
     ];
     return (
@@ -105,10 +102,8 @@ export default function BundleSelector({
               >
                 <div className="text-sm font-medium text-gray-900">{opt.title}</div>
                 <div className="text-base font-bold text-gray-900">{usd(opt.total)}</div>
-                {opt.perBottle !== undefined && opt.savings !== undefined ? (
-                  <div className="text-xs text-gray-500 leading-snug">
-                    {usd(opt.perBottle)} per bottle · save {usd(opt.savings)}
-                  </div>
+                {opt.savePct ? (
+                  <div className="text-xs text-gray-500 leading-snug">save {opt.savePct}</div>
                 ) : (
                   <div className="text-xs text-gray-500 leading-snug">Single bottle</div>
                 )}
