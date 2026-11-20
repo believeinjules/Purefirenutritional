@@ -70,6 +70,8 @@ export function buildCheckoutSessionParams(input: CheckoutSessionInput) {
           bundle_kind: item.bundleKind ?? "",
           single_bottle_cents: String(item.singleBottleCents),
           discount_per_bottle_cents: String(item.discountPerBottleCents),
+          // Mixed bundles: the bottles inside, e.g. "prime-peptide-brain+prime-peptide-omega".
+          bundle_contents: (item.bundleContents ?? []).join("+"),
         },
       },
       unit_amount: item.unitAmountCents,

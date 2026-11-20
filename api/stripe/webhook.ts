@@ -37,7 +37,9 @@ export function orderItemFromLineItem(item: Stripe.LineItem) {
     bundle_bottles: bundleBottles && bundleBottles > 1 ? bundleBottles : null,
     bottles_total: (bundleBottles ?? 1) * quantity,
     bundle_discount_per_bottle: discountCents && bundleBottles && bundleBottles > 1 ? discountCents / 100 : null,
-    single_bottle_price: singleCents !== null ? singleCents / 100 : null,
+    single_bottle_price: singleCents !== null && singleCents > 0 ? singleCents / 100 : null,
+    bundle_kind: md.bundle_kind || null,
+    bundle_contents: md.bundle_contents ? md.bundle_contents.split("+").filter(Boolean) : null,
   };
 }
 

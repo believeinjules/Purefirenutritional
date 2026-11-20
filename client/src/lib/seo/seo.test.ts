@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { liveMixedBundles } from "@shared/mixed-bundles";
 import fs from "node:fs";
 import path from "node:path";
 import { products } from "@/data/products";
@@ -182,6 +183,9 @@ describe("routes, robots and sitemap", () => {
     // /products/{system,collection,goal}/:slug: one page per browse page (CATEGORY_ROUTES).
     // /batch-passport/:key: one noindex page per batch (BATCH_ROUTES, shared/batches.ts).
     const prerenderedFromData = new Set(["/products/:id", "/authenticity/:slug", "/review/:slug", "/products/system/:slug", "/products/collection/:slug", "/products/goal/:slug", "/batch-passport/:key"]);
+    // /bundles/:slug: Prime mixed-bundle drafts (shared/mixed-bundles.ts), preview builds only
+    // while no bundle is live; once one goes live its page must be prerendered.
+    if (liveMixedBundles().length === 0) prerenderedFromData.add("/bundles/:slug");
     const prerendered = new Set([...PUBLIC_STATIC_ROUTES, ...UNLISTED_ROUTES, ...Object.keys(PRIVATE_ROUTES), ...CATEGORY_ROUTES]);
     const unserved = Array.from(appRoutes).filter(
       (r) => r !== "/404" && !r.startsWith("/__dev/") && !prerendered.has(r) && !prerenderedFromData.has(r) && !redirected.has(r)

@@ -65,6 +65,8 @@ import HowToSpotAFake from "./pages/HowToSpotAFake";
 import AuthorizedRetailer from "./pages/AuthorizedRetailer";
 import Contact from "./pages/Contact";
 import { BatchPassportLookup, BatchPassportDetail } from "./pages/BatchPassport";
+// Prime Peptide mixed bundles: draft (live: false) pages render only in a VITE_BUNDLE_PREVIEW=1 build.
+import BundleDetail from "./pages/BundleDetail";
 
 function Router() {
   return (
@@ -79,6 +81,7 @@ function Router() {
       <Route path="/khavinson-peptides-list" component={KhavinsonPeptidesList} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/products/:id" component={ProductDetail} />
+      <Route path="/bundles/:slug" component={BundleDetail} />
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/checkout/success" component={CheckoutSuccess} />

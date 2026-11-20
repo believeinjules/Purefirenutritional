@@ -20,6 +20,12 @@ import {
   type StorefrontBundle,
 } from "./bundle-pricing.js";
 import { savingsPercentLabel } from "./format-price.js";
+import {
+  MIXED_BUNDLES,
+  PRIME_PRODUCT_NAMES,
+  bundleSubtitle,
+  type MixedBundle,
+} from "./mixed-bundles.js";
 
 /** Cart convention: "20" = 20-count, "60" = 60-count. */
 export type CartSize = "20" | "60";
@@ -54,6 +60,13 @@ export type CheckoutLineInput = {
    * prices — never sent by the client.
    */
   bundle?: number | string | null;
+  /**
+   * Prime Peptide mixed bundle slug (shared/mixed-bundles.ts), e.g. "focus-pair".
+   * When set, `productId` / `size` / `bundle` are ignored: the line is charged
+   * at the static bundle price and records the bottles inside. Only `live`
+   * bundles are accepted.
+   */
+  mixedBundle?: string | null;
   /** Ignored for charging — kept for backwards compatibility with older clients */
   price?: number;
   description?: string;
@@ -74,7 +87,9 @@ export type ResolvedCheckoutLine = {
   /** Bottles per pack charged: 1, or 2 for a storefront pack / Prime 2-bottle, or 3 for Prime 3-bottle. */
   bundleBottles: number;
   /** Storefront pack kind, or "2" / "3" for Prime cycle bundles; omitted for a single bottle. */
-  bundleKind?: StorefrontBundle | 2 | 3;
+  bundleKind?: StorefrontBundle | 2 | 3 | `mixed:${string}`;
+  /** Mixed bundles: product ids of the bottles inside (one each). */
+  bundleContents?: string[];
   /** Single-bottle price in cents (the selected size, before any pack discount). */
   singleBottleCents: number;
   /** Legacy per-bottle discount in cents (0 for storefront packs and single bottles). */
@@ -293,6 +308,63 @@ export function getCartLineUnitUSD(
   return resolved ? resolved.offer.bundleCents / 100 : undefined;
 }
 
+export type ResolveCheckoutOptions = {
+  /** Mixed-bundle list to validate against (tests). Defaults to MIXED_BUNDLES. */
+  mixedBundles?: readonly MixedBundle[];
+};
+
+function hasMixedBundle(item: CheckoutLineInput | null | undefined): boolean {
+  return !!item && item.mixedBundle !== undefined && item.mixedBundle !== null && item.mixedBundle !== "";
+}
+
+/**
+ * Price a Prime Peptide mixed-bundle line from the static list only. The
+ * client sends the slug and a quantity; price and contents come from here.
+ * Throws CheckoutValidationError for unknown or not-live bundles.
+ */
+export function resolveMixedBundleLine(
+  item: CheckoutLineInput,
+  bundles: readonly MixedBundle[] = MIXED_BUNDLES
+): ResolvedCheckoutLine {
+  const slug = typeof item.mixedBundle === "string" ? item.mixedBundle.trim() : "";
+  const bundle = bundles.find((b) => b.slug === slug);
+  if (!bundle) {
+    throw new CheckoutValidationError(`Unknown bundle: ${slug || "(missing)"}`);
+  }
+  if (!bundle.live) {
+    throw new CheckoutValidationError(`${bundle.name} is not available yet`);
+  }
+  if (
+    !Number.isInteger(bundle.priceUSD) ||
+    bundle.priceUSD <= 0 ||
+    bundle.productIds.length < 2 ||
+    bundle.productIds.some((id) => !findProduct({ productId: id }))
+  ) {
+    throw new CheckoutValidationError(`${bundle.name} is not available`);
+  }
+  const qty = Number(item.quantity);
+  if (!Number.isFinite(qty) || qty < 1) {
+    throw new CheckoutValidationError(`Invalid quantity for ${bundle.name}`);
+  }
+  const quantity = Math.min(Math.floor(qty), MAX_QUANTITY_PER_LINE);
+  const cents = bundle.priceUSD * 100;
+  const first = findProduct({ productId: bundle.productIds[0] });
+  return {
+    productId: `bundle:${bundle.slug}`,
+    name: bundleSubtitle(bundle),
+    description: `One bottle each: ${bundle.productIds.map((id) => PRIME_PRODUCT_NAMES[id] ?? id).join(", ")}.`,
+    image: first?.image ?? undefined,
+    unitPriceUSD: bundle.priceUSD,
+    unitAmountCents: cents,
+    quantity,
+    bundleBottles: bundle.productIds.length,
+    bundleKind: `mixed:${bundle.slug}`,
+    bundleContents: [...bundle.productIds],
+    singleBottleCents: 0,
+    discountPerBottleCents: 0,
+  };
+}
+
 function assertItems(items: unknown): asserts items is CheckoutLineInput[] {
   if (!Array.isArray(items) || items.length === 0) {
     throw new CheckoutValidationError("Invalid or missing items");
@@ -314,9 +386,14 @@ export function resolveCheckoutLine(item: CheckoutLineInput): ResolvedCheckoutLi
 }
 
 /** Price a cart from the code catalog only (no Firestore). */
-export function resolveCheckoutLines(items: CheckoutLineInput[]): ResolvedCheckoutLine[] {
+export function resolveCheckoutLines(
+  items: CheckoutLineInput[],
+  options: ResolveCheckoutOptions = {}
+): ResolvedCheckoutLine[] {
   assertItems(items);
-  return items.map(resolveCheckoutLine);
+  return items.map((item) =>
+    hasMixedBundle(item) ? resolveMixedBundleLine(item, options.mixedBundles) : resolveCheckoutLine(item)
+  );
 }
 
 /**
@@ -326,13 +403,15 @@ export function resolveCheckoutLines(items: CheckoutLineInput[]): ResolvedChecko
  */
 export async function resolveCheckoutLinesWith(
   items: CheckoutLineInput[],
-  lookup: (productIds: string[]) => Promise<Map<string, PriceableProduct>>
+  lookup: (productIds: string[]) => Promise<Map<string, PriceableProduct>>,
+  options: ResolveCheckoutOptions = {}
 ): Promise<ResolvedCheckoutLine[]> {
   assertItems(items);
 
   const ids = Array.from(
     new Set(
       items
+        .filter((i) => !hasMixedBundle(i))
         .map((i) => (typeof i?.productId === "string" ? i.productId.trim() : ""))
         .filter(Boolean)
     )
@@ -348,6 +427,7 @@ export async function resolveCheckoutLinesWith(
   }
 
   return items.map((item) => {
+    if (hasMixedBundle(item)) return resolveMixedBundleLine(item, options.mixedBundles);
     const id = typeof item?.productId === "string" ? item.productId.trim() : "";
     const product = (id && live.get(id)) || findProduct(item);
     if (!product) {
