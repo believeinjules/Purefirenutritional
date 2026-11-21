@@ -17,6 +17,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { applyHead, checkLiveBundlePage } from "./scripts/prerender-html.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, "dist");
@@ -161,19 +162,6 @@ async function prerender() {
   const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
   const buildDate = new Date().toISOString().slice(0, 10);
 
-  function applyHead(page, helmet) {
-    if (!helmet) return page;
-    const title = helmet.title?.toString() ?? "";
-    // Only replace the default title when the page actually set one.
-    if (/<title[^>]*>[^<]+<\/title>/.test(title)) {
-      page = page.replace(/<title>[\s\S]*?<\/title>/, title);
-    }
-    const extra = ["meta", "link", "script"]
-      .map((key) => helmet[key]?.toString() ?? "")
-      .join("");
-    return extra ? page.replace("</head>", `${extra}</head>`) : page;
-  }
-
   /** SSR one route. `withBody: false` keeps an empty #root (head tags only). */
   function renderRoute(route, { product = null, withBody = true } = {}) {
     let html = "";
@@ -262,6 +250,34 @@ async function prerender() {
     console.warn(`Warning: no Product JSON-LD rendered for: ${missingLd.join(", ")}`);
   }
 
+  // ── Prime Peptide mixed bundles (/bundles/<slug>, shared/mixed-bundles.ts) ─
+  // Only bundles with live: true are prerendered, sitemap-listed and added to
+  // llms.txt; drafts get no file (Vercel serves 404.html). A live page that is
+  // missing its H1, head tags, canonical or valid JSON-LD fails the build.
+  const bundleProblems = [];
+  for (const route of ssr.liveBundleRoutes()) {
+    const bundle = ssr.getMixedBundle(route.split("/").pop());
+    const head = ssr.bundleHead(bundle);
+    const page = renderRoute(route);
+    for (const problem of checkLiveBundlePage(page, {
+      name: bundle.name,
+      title: head.title,
+      description: head.description,
+      canonical: ssr.canonicalUrl(route),
+      priceUSD: bundle.priceUSD,
+      imageCount: bundle.productIds.length,
+    })) bundleProblems.push(`${route}: ${problem}`);
+    writeFile(outPathFor(route), page);
+  }
+  if (bundleProblems.length) throw new Error(`Bundle pages:\n${bundleProblems.join("\n")}`);
+  console.log(`Prerendered: ${ssr.liveBundleRoutes().length} live bundle pages under /bundles/<slug>`);
+  const llmsExtra = ssr.llmsBundleSection();
+  if (llmsExtra) {
+    const llmsPath = path.join(distDir, "llms.txt");
+    fs.writeFileSync(llmsPath, fs.readFileSync(llmsPath, "utf8").replace(/\s*$/, "\n") + llmsExtra);
+    console.log("llms.txt: added live bundles");
+  }
+
   // ── Private routes (noindex) ──────────────────────────────────────────────
   for (const route of Object.keys(ssr.PRIVATE_ROUTES)) {
     writeFile(outPathFor(route), renderRoute(route, { withBody: PRIVATE_WITH_BODY.has(route) }));
@@ -286,6 +302,8 @@ async function prerender() {
     ...publicRoutes.map((route) => ({ path: route, lastmod: buildDate })),
     // Off until CATEGORY_PAGES_LIVE (client/src/data/bodySystems.ts) is true.
     ...(ssr.CATEGORY_PAGES_LIVE ? ssr.CATEGORY_ROUTES.map((route) => ({ path: route, lastmod: buildDate })) : []),
+    // Live bundles only (shared/mixed-bundles.ts).
+    ...ssr.liveBundleRoutes().map((route) => ({ path: route, lastmod: buildDate })),
     ...catalog.entries.map(({ product, updatedAt }) => ({
       path: ssr.productPath(product.id),
       lastmod: updatedAt ? ssr.w3cDate(updatedAt) : buildDate,

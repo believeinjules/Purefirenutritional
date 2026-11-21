@@ -36,10 +36,10 @@ const copyOf = (b: MixedBundle) =>
   [b.name, bundleSubtitle(b), b.intro, ...b.bullets, b.outro ?? ""].join(" ");
 
 describe("mixed bundles: static list", () => {
-  it("has exactly the seven approved bundles (All five dropped), none live", () => {
+  it("has exactly the seven approved bundles (All five dropped)", () => {
     expect(MIXED_BUNDLES.map((b) => b.slug)).toEqual(EXPECTED.map((e) => e[0]));
     expect(MIXED_BUNDLES.some((b) => /all.?five/i.test(b.slug + b.name))).toBe(false);
-    expect(liveMixedBundles()).toEqual([]);
+    expect(liveMixedBundles()).toEqual(MIXED_BUNDLES.filter((b) => b.live));
   });
 
   it.each(EXPECTED)("%s: subtitle, bought-separately sum and price", (slug, subtitle, separately, price) => {
@@ -87,11 +87,14 @@ describe("mixed bundles: static list", () => {
 describe("mixed bundles: checkout validation", () => {
   const liveList: MixedBundle[] = MIXED_BUNDLES.map((b) => ({ ...b, live: true }));
 
-  it("rejects every bundle while live is false", () => {
-    for (const b of MIXED_BUNDLES) {
-      expect(() => resolveMixedBundleLine({ mixedBundle: b.slug, quantity: 1 })).toThrow(CheckoutValidationError);
+  it("rejects every bundle whose live flag is false", () => {
+    const drafts: MixedBundle[] = MIXED_BUNDLES.map((b) => ({ ...b, live: false }));
+    for (const b of drafts) {
+      expect(() => resolveMixedBundleLine({ mixedBundle: b.slug, quantity: 1 }, drafts)).toThrow(/not available yet/);
     }
-    expect(() => resolveCheckoutLines([{ mixedBundle: "focus-pair", quantity: 1 }])).toThrow(/not available yet/);
+    for (const b of MIXED_BUNDLES.filter((x) => !x.live)) {
+      expect(() => resolveCheckoutLines([{ mixedBundle: b.slug, quantity: 1 }])).toThrow(CheckoutValidationError);
+    }
   });
 
   it("rejects unknown bundles", () => {
@@ -139,9 +142,10 @@ describe("mixed bundles: checkout validation", () => {
     expect(bundleSummary(lines)).toBe("bundle:foundation-trio:-:mixed:foundation-triox1");
   });
 
-  it("not-live bundles are rejected through resolveCheckoutLinesWith (production default)", async () => {
+  it("not-live bundles are rejected through resolveCheckoutLinesWith", async () => {
+    const drafts: MixedBundle[] = MIXED_BUNDLES.map((b) => ({ ...b, live: false }));
     await expect(
-      resolveCheckoutLinesWith([{ mixedBundle: "focus-pair", quantity: 1 }], async () => new Map())
+      resolveCheckoutLinesWith([{ mixedBundle: "focus-pair", quantity: 1 }], async () => new Map(), { mixedBundles: drafts })
     ).rejects.toThrow(CheckoutValidationError);
   });
 });

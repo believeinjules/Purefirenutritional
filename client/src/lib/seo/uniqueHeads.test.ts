@@ -14,6 +14,8 @@ import { CATEGORY_ROUTES } from "@/data/bodySystems";
 import { productHead, productPath } from "./index";
 import { PUBLIC_PAGE_HEADS } from "./publicHeads";
 import { PUBLIC_STATIC_ROUTES } from "./sitemap";
+import { bundleHead } from "./bundle";
+import { MIXED_BUNDLES, type MixedBundle } from "@shared/mixed-bundles";
 
 export type CollectedHead = { path: string; title: string; description: string; source: string };
 
@@ -22,7 +24,7 @@ function certificateDescription(record: (typeof publishedCertificates)[number]):
 }
 
 /** Source-of-truth heads for every indexable public route the prerender writes. */
-export function collectIndexableSeoHeads(): CollectedHead[] {
+export function collectIndexableSeoHeads(bundles: readonly MixedBundle[] = MIXED_BUNDLES): CollectedHead[] {
   const heads: CollectedHead[] = [];
   for (const [route, head] of Object.entries(PUBLIC_PAGE_HEADS)) {
     heads.push({ path: route, title: head.title, description: head.description, source: "publicHeads" });
@@ -36,6 +38,11 @@ export function collectIndexableSeoHeads(): CollectedHead[] {
   for (const product of products.filter((p) => !isHiddenProduct(p))) {
     const head = productHead(product as never);
     heads.push({ path: productPath(product.id), title: head.title, description: head.description, source: "product" });
+  }
+  // Prime mixed bundles: only live ones are indexable.
+  for (const bundle of bundles.filter((b) => b.live)) {
+    const head = bundleHead(bundle);
+    heads.push({ path: head.path, title: head.title, description: head.description, source: "bundle" });
   }
   for (const record of publishedCertificates) {
     heads.push({
@@ -154,6 +161,13 @@ describe("unique titles and descriptions across prerendered routes", () => {
     }
     expect(duplicates(heads, "title"), "duplicate titles").toEqual([]);
     expect(duplicates(heads, "description"), "duplicate descriptions").toEqual([]);
+  });
+
+  it("with every bundle simulated live, bundle titles and descriptions stay unique site-wide", () => {
+    const all = collectIndexableSeoHeads(MIXED_BUNDLES.map((b) => ({ ...b, live: true })));
+    expect(all.filter((h) => h.source === "bundle")).toHaveLength(MIXED_BUNDLES.length);
+    expect(duplicates(all, "title"), "duplicate titles").toEqual([]);
+    expect(duplicates(all, "description"), "duplicate descriptions").toEqual([]);
   });
 
   it("static public heads stay within the practical title/description budgets", () => {

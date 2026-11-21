@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageSeo from "@/components/seo/PageSeo";
+import { bundleHead } from "@/lib/seo/bundle";
 import NotFound from "@/pages/NotFound";
 import { getProductById } from "@/data/products";
 import { fetchProductById } from "@/lib/productsStorage";
@@ -17,7 +18,6 @@ import {
   PRIME_PRODUCT_NAMES,
   boughtSeparatelyCents,
   bottleAlt,
-  bundlePath,
   bundleSubtitle,
   getMixedBundle,
   type MixedBundle,
@@ -64,11 +64,6 @@ function useSinglePrices(ids: string[]): Record<string, number | undefined> {
   return prices;
 }
 
-/** Page title and OG title. */
-export function bundleTitle(bundle: MixedBundle): string {
-  return `${bundle.name} | Pure Fire Nutritional`;
-}
-
 export default function BundleDetail() {
   const params = useParams<{ slug: string }>();
   const bundle = getMixedBundle(params.slug);
@@ -88,12 +83,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-white" data-testid="bundle-page">
-      <PageSeo
-        title={bundleTitle(bundle)}
-        description={bundle.metaDescription}
-        path={bundle.live ? bundlePath(bundle.slug) : undefined}
-        noindex={!bundle.live}
-      />
+      <PageSeo {...bundleHead(bundle)} />
       <Navigation />
       <main className="flex-1">
         <div className="max-w-7xl mx-auto px-4 py-8">

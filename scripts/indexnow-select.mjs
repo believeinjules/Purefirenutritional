@@ -49,6 +49,9 @@ export const FILE_ROUTES = {
 
 const PATH_PREFIX_FILES = {
   "client/src/pages/ProductDetail.tsx": ["/products/"],
+  // Prime mixed bundles: only live ones are in the sitemap, so drafts never match.
+  "client/src/pages/BundleDetail.tsx": ["/bundles/"],
+  "shared/mixed-bundles.ts": ["/bundles/"],
   "client/src/pages/DocumentationDetail.tsx": ["/authenticity/"],
   "client/src/pages/BrowseCategoryPage.tsx": ["/products/system/", "/products/collection/", "/products/goal/"],
   "client/src/data/products.ts": ["/products", "/products/"],

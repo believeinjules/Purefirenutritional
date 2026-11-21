@@ -130,3 +130,19 @@ describe("selectIndexNowUrls", () => {
     expect(toAbsUrl(u("/about"))).toBe(u("/about"));
   });
 });
+
+describe("Prime mixed bundles", () => {
+  it("maps bundle files to live bundle URLs only (drafts are not in the sitemap)", () => {
+    const live = u("/bundles/focus-pair");
+    expect(selectIndexNowUrls({ changedFiles: ["client/src/pages/BundleDetail.tsx"], currentUrls: [...currUrls, live] })).toEqual({
+      urls: [live],
+      reason: "changed",
+      fallback: false,
+    });
+    expect(selectIndexNowUrls({ changedFiles: ["shared/mixed-bundles.ts"], currentUrls: currUrls })).toEqual({
+      urls: [],
+      reason: "no-indexable-changes",
+      fallback: false,
+    });
+  });
+});

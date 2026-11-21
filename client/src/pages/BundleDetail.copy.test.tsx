@@ -24,7 +24,8 @@ describe("bundle page copy (rendered)", () => {
       expect(head).toContain(`name="description" content="${esc}"`);
       expect(head).toContain(`property="og:description" content="${esc}"`);
       expect(head).toContain(`property="og:title" content="${b.name.replace(/&/g, "&amp;")} | Pure Fire Nutritional"`);
-      expect(head).toContain('name="robots" content="noindex, follow"');
+      if (b.live) expect(head).toContain(`rel="canonical" href="https://www.purefirenutritional.com/bundles/${b.slug}"`);
+      else expect(head).toContain('name="robots" content="noindex, follow"');
     }
   });
 
@@ -50,7 +51,7 @@ describe("bundle page copy (rendered)", () => {
 
   it("alt text is product names only", async () => {
     const { main } = await renderBundle("day-and-night-duo");
-    const alts = [...main.matchAll(/<img[^>]*\balt="([^"]*)"/g)].map((m) => m[1]);
+    const alts = Array.from(main.matchAll(/<img[^>]*\balt="([^"]*)"/g)).map((m) => m[1]);
     expect(alts).toContain("Prime Peptide Brain bottle");
     expect(alts).toContain("Prime Peptide Protect bottle");
     for (const a of alts) expect(a === "" || /^Prime Peptide (Brain|Collagen|Joints|Omega|Protect) bottle$/.test(a), a).toBe(true);
