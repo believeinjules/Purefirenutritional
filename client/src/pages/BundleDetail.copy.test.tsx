@@ -54,7 +54,12 @@ describe("bundle page copy (rendered)", () => {
     expect(alts).toContain("Prime Peptide Brain bottle");
     expect(alts).toContain("Prime Peptide Protect bottle");
     for (const a of alts) expect(a === "" || /^Prime Peptide (Brain|Collagen|Joints|Omega|Protect) bottle$/.test(a), a).toBe(true);
-    expect(main).toContain('aria-label="Lifestyle image coming"');
+    // Lifestyle images out for now (Julia, 2026-11-20): no placeholder on any page.
+    for (const b of MIXED_BUNDLES) {
+      const page = (await renderBundle(b.slug)).main;
+      expect(page).not.toMatch(/lifestyle/i);
+      expect(page).not.toContain("bundle-lifestyle-placeholder");
+    }
     expect(bottleAlt("prime-peptide-omega")).toBe("Prime Peptide Omega bottle");
     expect(groupBottlesAlt(getMixedBundle("day-and-night-duo")!)).toBe("Prime Peptide Brain and Prime Peptide Protect bottles");
     expect(groupBottlesAlt(getMixedBundle("glow-up-trio")!)).toBe(

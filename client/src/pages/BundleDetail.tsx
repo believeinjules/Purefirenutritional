@@ -103,7 +103,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
           </Link>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
-            {/* Bottle photos (every bottle in the bundle) + lifestyle slot */}
+            {/* Bottle photos (every bottle in the bundle). Lifestyle images removed for now (Julia, 2026-11-20). */}
             <div className="space-y-4">
               <div className={`grid gap-3 ${bottles.length === 3 ? "grid-cols-3" : "grid-cols-2"}`} data-testid="bundle-bottle-photos">
                 {bottles.map((b) => {
@@ -122,14 +122,6 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
                     </div>
                   );
                 })}
-              </div>
-              <div
-                role="img"
-                aria-label="Lifestyle image coming"
-                className="w-full aspect-[16/9] rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center"
-                data-testid="bundle-lifestyle-placeholder"
-              >
-                <span className="text-sm text-gray-500">Lifestyle image coming</span>
               </div>
             </div>
 
