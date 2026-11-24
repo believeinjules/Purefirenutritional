@@ -14,7 +14,7 @@ export { PUBLIC_STATIC_ROUTES, UNLISTED_ROUTES, buildSitemapXml, w3cDate } from 
 export { CATEGORY_ROUTES, CATEGORY_PAGES_LIVE } from "./data/bodySystems";
 export { BATCH_ROUTES } from "@shared/batches";
 export { canonicalUrl } from "./lib/seo";
-export { getMixedBundle } from "@shared/mixed-bundles";
+export { bundleLifestyleImage, getMixedBundle } from "@shared/mixed-bundles";
 export { bundleHead, liveBundleRoutes, llmsBundleSection } from "./lib/seo/bundle";
 export { isPublicReview, toPublicReview, summarize as summarizeReviews } from "@shared/reviews";
 

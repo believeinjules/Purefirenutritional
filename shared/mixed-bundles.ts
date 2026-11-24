@@ -187,6 +187,15 @@ export function bottleAlt(productId: string): string {
   return `${PRIME_PRODUCT_NAMES[productId] ?? productId} bottle`;
 }
 
+/**
+ * Lifestyle photo of the bundle's real bottles on stone (client/public/images/bundles/<slug>.webp,
+ * 1280x1280). Composites approved by Regulatory 2026-11-24.
+ */
+export const BUNDLE_LIFESTYLE_SIZE = 1280;
+export function bundleLifestyleImage(slug: string): string {
+  return `/images/bundles/${slug}.webp`;
+}
+
 /** Alt text for a group image of all bottles, e.g. "Prime Peptide Brain and Prime Peptide Protect bottles". */
 export function groupBottlesAlt(bundle: MixedBundle): string {
   const names = bundle.productIds.map((id) => PRIME_PRODUCT_NAMES[id] ?? id);

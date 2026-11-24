@@ -16,10 +16,13 @@ import {
   BUNDLE_MANUFACTURER_NOTE,
   BUNDLE_NOT_STUDIED_NOTE,
   PRIME_PRODUCT_NAMES,
+  BUNDLE_LIFESTYLE_SIZE,
   boughtSeparatelyCents,
   bottleAlt,
+  bundleLifestyleImage,
   bundleSubtitle,
   getMixedBundle,
+  groupBottlesAlt,
   type MixedBundle,
 } from "@shared/mixed-bundles";
 
@@ -93,7 +96,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
           </Link>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
-            {/* Bottle photos (every bottle in the bundle). Lifestyle images removed for now (Julia, 2026-11-20). */}
+            {/* Bottle photos (every bottle in the bundle) + lifestyle photo of the same bottles (Regulatory-approved 2026-11-24). */}
             <div className="space-y-4">
               <div className={`grid gap-3 ${bottles.length === 3 ? "grid-cols-3" : "grid-cols-2"}`} data-testid="bundle-bottle-photos">
                 {bottles.map((b) => {
@@ -113,6 +116,16 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
                   );
                 })}
               </div>
+              <img
+                src={bundleLifestyleImage(bundle.slug)}
+                width={BUNDLE_LIFESTYLE_SIZE}
+                height={BUNDLE_LIFESTYLE_SIZE}
+                // Above the fold at 1440 and 390 (it sits right under the bottle photos), so not lazy.
+                decoding="async"
+                alt={groupBottlesAlt(bundle)}
+                className="w-full aspect-[16/9] object-cover object-[50%_75%] rounded-lg border border-gray-200"
+                data-testid="bundle-lifestyle-image"
+              />
             </div>
 
             {/* Purchase panel */}
@@ -135,7 +148,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
 
               {/* Go-live: remove "Coming soon" and wire add-to-cart (checkout already accepts
                   { mixedBundle: slug } for live bundles); re-check "Bought separately" against
-                  live single prices that day; lifestyle images need Regulatory review first. */}
+                  live single prices that day. */}
               <div className="flex flex-wrap gap-3">
                 <Button
                   disabled

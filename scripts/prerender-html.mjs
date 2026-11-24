@@ -100,7 +100,7 @@ export function checkLiveBundlePage(html, expected) {
     if (prod.description !== expected.description) p.push("Product description is not the approved meta description");
     if (prod.url !== expected.canonical) p.push("Product url != canonical");
     if (!Array.isArray(prod.image) || prod.image.length !== expected.imageCount || !prod.image.every((u) => /^https:\/\//.test(u)))
-      p.push("Product image must list every bottle photo as absolute URLs");
+      p.push("Product image must list the lifestyle photo and every bottle photo as absolute URLs");
     if (!prod.brand?.name) p.push("Product brand missing");
     if (prod.aggregateRating || prod.review) p.push("Product must not carry ratings / reviews");
     const o = prod.offers;

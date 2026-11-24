@@ -18,8 +18,9 @@ import { resolveFulfillment } from "@shared/fulfillment";
 import {
   MIXED_BUNDLES,
   PRIME_PRODUCT_NAMES,
-  bottleAlt,
+  bundleLifestyleImage,
   bundlePath,
+  groupBottlesAlt,
   type MixedBundle,
 } from "@shared/mixed-bundles";
 import {
@@ -39,6 +40,11 @@ const BACK_ORDER = "https://schema.org/BackOrder";
 
 export function bundleTitle(bundle: Pick<MixedBundle, "name">): string {
   return `${bundle.name} | ${SITE_NAME}`;
+}
+
+/** Absolute URL of the bundle's lifestyle photo (all its bottles together). */
+export function bundleLifestyleUrl(bundle: MixedBundle): string {
+  return absoluteUrl(bundleLifestyleImage(bundle.slug));
 }
 
 /** Absolute URLs of every bottle photo in the bundle, in display order. */
@@ -69,7 +75,8 @@ export function bundleJsonLd(bundle: MixedBundle): Record<string, unknown> {
     description: bundle.metaDescription,
     url,
     sku: `bundle-${bundle.slug}`,
-    image: bundleImageUrls(bundle),
+    // Lifestyle photo first (all bottles together), then each bottle photo.
+    image: [bundleLifestyleUrl(bundle), ...bundleImageUrls(bundle)],
     category: "PEPTIDE BIOREGULATORS",
     isRelatedTo: bundle.productIds.map((id) => ({
       "@type": "Product",
@@ -109,13 +116,12 @@ export function bundleBreadcrumbJsonLd(bundle: MixedBundle): Record<string, unkn
 
 /** Everything PageSeo needs for a bundle page. Drafts: noindex, no canonical, no JSON-LD. */
 export function bundleHead(bundle: MixedBundle) {
-  const images = bundleImageUrls(bundle);
   return {
     title: bundleTitle(bundle),
     description: bundle.metaDescription,
     path: bundlePath(bundle.slug),
-    image: images[0],
-    imageAlt: bottleAlt(bundle.productIds[0]!),
+    image: bundleLifestyleUrl(bundle),
+    imageAlt: groupBottlesAlt(bundle),
     type: "product" as const,
     noindex: !bundle.live,
     jsonLd: bundle.live ? [bundleJsonLd(bundle), bundleBreadcrumbJsonLd(bundle)] : [],

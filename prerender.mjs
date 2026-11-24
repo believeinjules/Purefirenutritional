@@ -265,8 +265,10 @@ async function prerender() {
       description: head.description,
       canonical: ssr.canonicalUrl(route),
       priceUSD: bundle.priceUSD,
-      imageCount: bundle.productIds.length,
+      imageCount: bundle.productIds.length + 1, // lifestyle photo + every bottle photo
     })) bundleProblems.push(`${route}: ${problem}`);
+    const lifestyle = ssr.bundleLifestyleImage(bundle.slug);
+    if (!fs.existsSync(path.join(distDir, lifestyle))) bundleProblems.push(`${route}: lifestyle image ${lifestyle} missing from the build`);
     writeFile(outPathFor(route), page);
   }
   if (bundleProblems.length) throw new Error(`Bundle pages:\n${bundleProblems.join("\n")}`);

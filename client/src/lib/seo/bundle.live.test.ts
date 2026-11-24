@@ -6,7 +6,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import { MIXED_BUNDLES, bundlePath, getMixedBundle } from "@shared/mixed-bundles";
+import { MIXED_BUNDLES, bundlePath, getMixedBundle, groupBottlesAlt } from "@shared/mixed-bundles";
 import { render } from "../../entry-server";
 import { bundleHead, bundleJsonLd, liveBundleRoutes, llmsBundleSection } from "./bundle";
 import { buildSitemapXml, PUBLIC_STATIC_ROUTES } from "./sitemap";
@@ -34,7 +34,7 @@ function expectedFor(slug: string) {
     description: b.metaDescription,
     canonical: `https://www.purefirenutritional.com/bundles/${slug}`,
     priceUSD: b.priceUSD,
-    imageCount: b.productIds.length,
+    imageCount: b.productIds.length + 1,
   };
 }
 
@@ -97,7 +97,13 @@ describe.each(MIXED_BUNDLES.map((b) => b.slug))("bundle %s simulated live", (slu
     expect(product.offers.priceCurrency).toBe("USD");
     expect(product.offers.availability).toBe("https://schema.org/InStock");
     expect(product.brand).toEqual({ "@type": "Brand", name: "Prime Peptide" });
-    expect(product.image).toEqual(bundle.productIds.map((id) => `https://www.purefirenutritional.com/products/${id.replace("prime-peptide-", "pp-")}.png`));
+    expect(product.image).toEqual([
+      `https://www.purefirenutritional.com/images/bundles/${slug}.webp`,
+      ...bundle.productIds.map((id) => `https://www.purefirenutritional.com/products/${id.replace("prime-peptide-", "pp-")}.png`),
+    ]);
+    const page = prerenderPage(bundlePath(slug));
+    expect(page).toMatch(new RegExp(`<meta[^>]*property="og:image" content="https://www\\.purefirenutritional\\.com/images/bundles/${slug}\\.webp"`));
+    expect(page).toContain(`content="${groupBottlesAlt(bundle)}"`);
     expect(product.isRelatedTo.map((r: { url: string }) => r.url)).toEqual(bundle.productIds.map((id) => canonicalUrl(`/products/${id}`)));
     expect(product.aggregateRating).toBeUndefined();
     expect(product.review).toBeUndefined();

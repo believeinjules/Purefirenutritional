@@ -1,4 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
 import { MIXED_BUNDLES, bottleAlt, getMixedBundle, groupBottlesAlt } from "@shared/mixed-bundles";
 
 // Server-render a bundle page as a preview build would (VITE_BUNDLE_PREVIEW=1).
@@ -54,12 +56,23 @@ describe("bundle page copy (rendered)", () => {
     const alts = Array.from(main.matchAll(/<img[^>]*\balt="([^"]*)"/g)).map((m) => m[1]);
     expect(alts).toContain("Prime Peptide Brain bottle");
     expect(alts).toContain("Prime Peptide Protect bottle");
-    for (const a of alts) expect(a === "" || /^Prime Peptide (Brain|Collagen|Joints|Omega|Protect) bottle$/.test(a), a).toBe(true);
-    // Lifestyle images out for now (Julia, 2026-11-20): no placeholder on any page.
+    expect(alts).toContain("Prime Peptide Brain and Prime Peptide Protect bottles");
+    const groupAlts = new Set(MIXED_BUNDLES.map(groupBottlesAlt));
+    for (const a of alts) expect(a === "" || /^Prime Peptide (Brain|Collagen|Joints|Omega|Protect) bottle$/.test(a) || groupAlts.has(a), a).toBe(true);
+    // Lifestyle photo (Regulatory-approved 2026-11-24): one per page, name-only alt, sized, eager (above the fold), file exists.
     for (const b of MIXED_BUNDLES) {
       const page = (await renderBundle(b.slug)).main;
-      expect(page).not.toMatch(/lifestyle/i);
       expect(page).not.toContain("bundle-lifestyle-placeholder");
+      expect(page).not.toMatch(/Lifestyle image coming/i);
+      const tags = Array.from(page.matchAll(/<img[^>]*data-testid="bundle-lifestyle-image"[^>]*>/g)).map((m) => m[0]);
+      expect(tags).toHaveLength(1);
+      const tag = tags[0]!;
+      expect(tag).toContain(`src="/images/bundles/${b.slug}.webp"`);
+      expect(tag).toContain(`alt="${groupBottlesAlt(b)}"`);
+      expect(tag).toContain('width="1280"');
+      expect(tag).toContain('height="1280"');
+      expect(tag).not.toContain('loading="lazy"'); // above the fold on desktop and mobile
+      expect(fs.existsSync(path.resolve(__dirname, `../../public/images/bundles/${b.slug}.webp`)), b.slug).toBe(true);
     }
     expect(bottleAlt("prime-peptide-omega")).toBe("Prime Peptide Omega bottle");
     expect(groupBottlesAlt(getMixedBundle("day-and-night-duo")!)).toBe("Prime Peptide Brain and Prime Peptide Protect bottles");
