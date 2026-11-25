@@ -72,6 +72,10 @@ describe("bundle page copy (rendered)", () => {
       expect(tag).toContain('width="1280"');
       expect(tag).toContain('height="1280"');
       expect(tag).not.toContain('loading="lazy"'); // above the fold on desktop and mobile
+      // Square artwork shown whole (no 16:9 crop cutting bottle tops or labels).
+      expect(tag).toContain("aspect-square");
+      expect(tag).toContain("object-contain");
+      expect(tag).not.toMatch(/aspect-\[16\/9\]|object-cover/);
       expect(fs.existsSync(path.resolve(__dirname, `../../public/images/bundles/${b.slug}.webp`)), b.slug).toBe(true);
     }
     expect(bottleAlt("prime-peptide-omega")).toBe("Prime Peptide Omega bottle");

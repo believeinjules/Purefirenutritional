@@ -188,8 +188,10 @@ export function bottleAlt(productId: string): string {
 }
 
 /**
- * Lifestyle photo of the bundle's real bottles on stone (client/public/images/bundles/<slug>.webp,
- * 1280x1280). Composites approved by Regulatory 2026-11-24.
+ * Lifestyle photo of the bundle's bottles (client/public/images/bundles/<slug>.webp, 1280x1280, square).
+ * 2026-11-25: Julia's cream/logo artwork. focus-pair and day-and-night-duo are her art (Regulatory-approved,
+ * cut-out seams cleaned); the other five are rebuilt in her layout with the real Collagen / Joints renders
+ * (her art showed the wrong labels) and go back to Regulatory before anything goes live.
  */
 export const BUNDLE_LIFESTYLE_SIZE = 1280;
 export function bundleLifestyleImage(slug: string): string {

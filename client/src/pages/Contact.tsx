@@ -3,6 +3,7 @@ import PageSeo from "@/components/seo/PageSeo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
+import { BUSINESS_PHONE_DISPLAY, BUSINESS_PHONE_HREF } from "@shared/contact-phone";
 import { requirePageHead } from "@/lib/seo/publicHeads";
 
 const h2 = "text-[11px] uppercase tracking-[0.22em] text-stone-500";
@@ -50,8 +51,8 @@ export default function Contact() {
             <ul className={`${p} list-none space-y-2`}>
               <li>
                 Phone:{" "}
-                <a href="tel:+13155677931" className={a}>
-                  (315) 567-7931
+                <a href={BUSINESS_PHONE_HREF} className={a}>
+                  {BUSINESS_PHONE_DISPLAY}
                 </a>
               </li>
               <li>Brooklyn, NY</li>

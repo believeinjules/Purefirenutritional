@@ -17,7 +17,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { applyHead, checkLiveBundlePage } from "./scripts/prerender-html.mjs";
+import { applyHead, checkBusinessPhone, checkLiveBundlePage } from "./scripts/prerender-html.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, "dist");
@@ -298,6 +298,26 @@ async function prerender() {
   // ── 404 page (Vercel serves dist/404.html with status 404) ───────────────
   writeFile(path.join(distDir, "404.html"), renderRoute("/404"));
   console.log("Prerendered: 404.html");
+
+  // ── Business phone: new number on home (footer + Organization JSON-LD) and
+  //    /contact; the old (315) number must not appear in any built page. ────
+  {
+    const phone = ssr.BUSINESS_PHONE;
+    const problems = [];
+    const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+      const f = path.join(dir, e.name);
+      return e.isDirectory() ? walk(f) : f.endsWith(".html") ? [f] : [];
+    });
+    for (const f of walk(distDir)) {
+      for (const pr of checkBusinessPhone(fs.readFileSync(f, "utf8"), phone)) problems.push(`${path.relative(distDir, f)}: ${pr}`);
+    }
+    for (const [route, opts] of [["/", { link: true, jsonLd: true }], ["/contact", { link: true }]]) {
+      const html = fs.readFileSync(outPathFor(route), "utf8");
+      for (const pr of checkBusinessPhone(html, phone, opts)) problems.push(`${route}: ${pr}`);
+    }
+    if (problems.length) throw new Error(`Business phone:\n${problems.join("\n")}`);
+    console.log(`Business phone ${phone.display} checked on all prerendered pages`);
+  }
 
   // ── sitemap.xml ───────────────────────────────────────────────────────────
   const sitemapEntries = [

@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 import { CONTACT_EMAIL, mailto } from "@shared/contact-emails";
+import { BUSINESS_PHONE_DISPLAY, BUSINESS_PHONE_HREF } from "@shared/contact-phone";
 import { AUTHORIZED_RETAILER_PATH, AUTHORIZED_RETAILER_TITLE } from "@/data/retailerAuthorization";
 
 export default function Footer() {
@@ -222,8 +223,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <Phone className="w-5 h-5 text-orange-500" />
-                <a href="tel:+13155677931" className="inline-block py-1.5 hover:text-orange-500 transition-colors">
-                  (315) 567-7931
+                <a href={BUSINESS_PHONE_HREF} className="inline-block py-1.5 hover:text-orange-500 transition-colors">
+                  {BUSINESS_PHONE_DISPLAY}
                 </a>
               </li>
               <li className="flex items-center gap-2 text-gray-400">

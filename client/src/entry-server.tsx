@@ -15,6 +15,8 @@ export { CATEGORY_ROUTES, CATEGORY_PAGES_LIVE } from "./data/bodySystems";
 export { BATCH_ROUTES } from "@shared/batches";
 export { canonicalUrl } from "./lib/seo";
 export { bundleLifestyleImage, getMixedBundle } from "@shared/mixed-bundles";
+import { BUSINESS_PHONE_DISPLAY, BUSINESS_PHONE_HREF, BUSINESS_PHONE_SCHEMA } from "@shared/contact-phone";
+export const BUSINESS_PHONE = { display: BUSINESS_PHONE_DISPLAY, href: BUSINESS_PHONE_HREF, schema: BUSINESS_PHONE_SCHEMA };
 export { bundleHead, liveBundleRoutes, llmsBundleSection } from "./lib/seo/bundle";
 export { isPublicReview, toPublicReview, summarize as summarizeReviews } from "@shared/reviews";
 

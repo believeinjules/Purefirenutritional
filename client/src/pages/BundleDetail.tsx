@@ -96,7 +96,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
           </Link>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
-            {/* Bottle photos (every bottle in the bundle) + lifestyle photo of the same bottles (Regulatory-approved 2026-11-24). */}
+            {/* Bottle photos (every bottle in the bundle) + lifestyle photo of the same bottles (square, shown whole: no crop). */}
             <div className="space-y-4">
               <div className={`grid gap-3 ${bottles.length === 3 ? "grid-cols-3" : "grid-cols-2"}`} data-testid="bundle-bottle-photos">
                 {bottles.map((b) => {
@@ -123,7 +123,7 @@ function BundlePage({ bundle }: { bundle: MixedBundle }) {
                 // Above the fold at 1440 and 390 (it sits right under the bottle photos), so not lazy.
                 decoding="async"
                 alt={groupBottlesAlt(bundle)}
-                className="w-full aspect-[16/9] object-cover object-[50%_75%] rounded-lg border border-gray-200"
+                className="w-full aspect-square object-contain rounded-lg border border-gray-200"
                 data-testid="bundle-lifestyle-image"
               />
             </div>

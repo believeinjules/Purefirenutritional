@@ -124,3 +124,36 @@ export function checkLiveBundlePage(html, expected) {
   }
   return p;
 }
+
+/** Old business phone, replaced 2026-11-25; must not appear in any built page. */
+export const OLD_PHONE_PATTERNS = [/315\)?[\s.-]*567[\s.-]*7931/, /\+?1?3155677931/];
+
+/**
+ * Problems with the business phone on a prerendered page ([] = OK).
+ * phone: { display, href, schema }; opts.link: page must show the tel: link;
+ * opts.jsonLd: the page's Organization (OnlineStore) node must carry phone.schema.
+ */
+export function checkBusinessPhone(html, phone, opts = {}) {
+  const p = [];
+  if (OLD_PHONE_PATTERNS.some((re) => re.test(html))) p.push("old phone (315) 567-7931 still present");
+  if (opts.link) {
+    if (!html.includes(`href="${phone.href}"`)) p.push(`missing ${phone.href} link`);
+    if (!html.includes(phone.display)) p.push(`missing displayed phone ${phone.display}`);
+  }
+  if (opts.jsonLd) {
+    let blocks = [];
+    try {
+      blocks = jsonLdBlocks(html);
+    } catch (err) {
+      p.push(`JSON-LD does not parse: ${err.message}`);
+    }
+    const nodes = blocks.flatMap((b) => (Array.isArray(b["@graph"]) ? b["@graph"] : [b]));
+    const org = nodes.find((n) => n["@type"] === "OnlineStore" || n["@type"] === "Organization");
+    if (!org) p.push("no Organization JSON-LD");
+    else {
+      if (org.telephone !== phone.schema) p.push(`Organization telephone is ${JSON.stringify(org.telephone)}, expected ${phone.schema}`);
+      for (const c of org.contactPoint ?? []) if (c.telephone && c.telephone !== phone.schema) p.push(`ContactPoint telephone is ${c.telephone}`);
+    }
+  }
+  return p;
+}

@@ -16,6 +16,7 @@ import { resolveFulfillment } from "@shared/fulfillment";
 import { CATEGORY_PAGES_LIVE, systemPath, systemsForProduct } from "@/data/bodySystems";
 import { RETAILER_NUMBER } from "@/data/retailerAuthorization";
 import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@shared/contact-emails";
+import { BUSINESS_PHONE_SCHEMA } from "@shared/contact-phone";
 import { PUBLIC_PAGE_HEADS } from "./publicHeads";
 
 export const SITE_URL = "https://www.purefirenutritional.com";
@@ -740,13 +741,13 @@ export function organizationNode(founders: readonly PersonKey[] = []): Record<st
     description:
       "Authorized U.S. retailer of Khavinson peptide bioregulators (Cytomax and Cytogen). Sources directly from the manufacturer.",
     email: CONTACT_EMAIL,
-    telephone: "+1-315-567-7931",
+    telephone: BUSINESS_PHONE_SCHEMA,
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "customer support",
         email: SUPPORT_EMAIL,
-        telephone: "+1-315-567-7931",
+        telephone: BUSINESS_PHONE_SCHEMA,
         availableLanguage: "English",
       },
     ],

@@ -11,6 +11,7 @@ import { Link } from "wouter";
 import PepitaAvatar from "@/components/peppy/PepitaAvatar";
 import { SHIPPING_RULE_SENTENCE } from "@/lib/shippingCopy";
 import { CONTACT_EMAIL, SUPPORT_EMAIL, mailto } from "@shared/contact-emails";
+import { BUSINESS_PHONE_DISPLAY, BUSINESS_PHONE_HREF } from "@shared/contact-phone";
 
 const EMAIL_PATTERN = /([A-Za-z0-9._%+-]+@purefirenutritional\.com)/g;
 
@@ -273,9 +274,9 @@ export default function FAQ() {
                 Our team is here to help. Reach out to us through any of these channels.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <a href="tel:+13155677931" className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                <a href={BUSINESS_PHONE_HREF} className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
                   <Phone className="w-5 h-5" />
-                  (315) 567-7931
+                  {BUSINESS_PHONE_DISPLAY}
                 </a>
                 <a
                   href={mailto(SUPPORT_EMAIL)}
