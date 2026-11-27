@@ -4,7 +4,9 @@ import helmetPkg from "react-helmet-async";
 const { HelmetProvider } = helmetPkg as any;
 import App from "./App";
 import { SeoProductContext } from "./components/seo/SeoProductContext";
+import { ReviewSeedContext } from "./components/reviews/ReviewSeedContext";
 import type { SeoProduct } from "./lib/seo";
+import type { PublicReview } from "@shared/reviews";
 
 // Build-time helpers for prerender.mjs (sitemap, product pages, route lists).
 export { loadSeoCatalog } from "@shared/seo-catalog";
@@ -18,7 +20,7 @@ export { bundleLifestyleImage, getMixedBundle } from "@shared/mixed-bundles";
 import { BUSINESS_PHONE_DISPLAY, BUSINESS_PHONE_HREF, BUSINESS_PHONE_SCHEMA } from "@shared/contact-phone";
 export const BUSINESS_PHONE = { display: BUSINESS_PHONE_DISPLAY, href: BUSINESS_PHONE_HREF, schema: BUSINESS_PHONE_SCHEMA };
 export { bundleHead, liveBundleRoutes, llmsBundleSection } from "./lib/seo/bundle";
-export { isPublicReview, toPublicReview, summarize as summarizeReviews } from "@shared/reviews";
+export { isPublicReview, toPublicReview, summarize as summarizeReviews, visibleProductReviews } from "@shared/reviews";
 
 // Simple static location hook for SSR — no useSyncExternalStore needed
 function makeStaticHook(path: string) {
@@ -29,16 +31,18 @@ function makeStaticHook(path: string) {
 
 export function render(
   url: string,
-  options?: { product?: SeoProduct | null }
+  options?: { product?: SeoProduct | null; reviews?: PublicReview[] | null }
 ): { html: string; helmet: any } {
   const helmetContext: any = {};
 
   const html = ReactDOMServer.renderToString(
     <HelmetProvider context={helmetContext}>
       <SeoProductContext.Provider value={options?.product ?? null}>
-        <Router hook={makeStaticHook(url)}>
-          <App />
-        </Router>
+        <ReviewSeedContext.Provider value={options?.reviews ?? null}>
+          <Router hook={makeStaticHook(url)}>
+            <App />
+          </Router>
+        </ReviewSeedContext.Provider>
       </SeoProductContext.Provider>
     </HelmetProvider>
   );

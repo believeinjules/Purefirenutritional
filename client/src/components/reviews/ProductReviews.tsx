@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { BadgeCheck, PenLine } from "lucide-react";
-import { reviewsJsonLd, type PublicReview, type ReviewSummary } from "@shared/reviews";
+import { reviewsJsonLd, summarize, visibleProductReviews, type PublicReview, type ReviewSummary } from "@shared/reviews";
 import { fetchProductReviews } from "@/lib/reviewsApi";
 import { canonicalUrl, productPath } from "@/lib/seo";
 import RatingStars from "@/components/shop/RatingStars";
 import ReviewCard from "./ReviewCard";
+import { ReviewSeedContext } from "./ReviewSeedContext";
 
 export const INITIAL_VISIBLE = 3;
 
@@ -18,13 +19,17 @@ export const INITIAL_VISIBLE = 3;
  * it shares the Product "@id" so it merges with the page's Product node.
  */
 export default function ProductReviews({ productId, productName }: { productId: string; productName: string }) {
-  const [reviews, setReviews] = useState<PublicReview[]>([]);
-  const [summary, setSummary] = useState<ReviewSummary>({ count: 0, average: 0 });
+  const seed = useContext(ReviewSeedContext);
+  const seeded = visibleProductReviews(productId, seed ?? []);
+  const [reviews, setReviews] = useState<PublicReview[]>(seeded);
+  const [summary, setSummary] = useState<ReviewSummary>(() => summarize(seeded));
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    setReviews([]);
+    const next = visibleProductReviews(productId, seed ?? []);
+    setReviews(next);
+    setSummary(summarize(next));
     setExpanded(false);
     fetchProductReviews(productId).then((r) => {
       if (cancelled) return;
@@ -34,7 +39,7 @@ export default function ProductReviews({ productId, productName }: { productId: 
     return () => {
       cancelled = true;
     };
-  }, [productId]);
+  }, [productId, seed]);
 
   const writeHref = `/review/${productId}`;
   const writeLink = (

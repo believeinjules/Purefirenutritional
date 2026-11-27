@@ -3,9 +3,11 @@ import {
   hasHealthClaim,
   isPublicReview,
   reviewDisplayName,
+  reviewsJsonLd,
   summarize,
   summarizeByProduct,
   toPublicReview,
+  visibleProductReviews,
   type ReviewDoc,
 } from "./reviews";
 
@@ -72,5 +74,33 @@ describe("review visibility", () => {
       vladonix: { count: 1, average: 5 },
       x: { count: 1, average: 3 },
     });
+  });
+});
+
+describe("visibleProductReviews and reviewsJsonLd", () => {
+  const pub = toPublicReview("r1", base);
+
+  it("keeps only this product's text reviews", () => {
+    const other = { ...pub, id: "r2", productId: "endoluten" };
+    const empty = { ...pub, id: "r3", text: "   " };
+    const general = { ...pub, id: "r4", kind: "general" as const };
+    expect(visibleProductReviews("vladonix", [pub, other, empty, general])).toEqual([pub]);
+  });
+
+  it("emits AggregateRating only for those same visible reviews", () => {
+    const ld = reviewsJsonLd(
+      { id: "vladonix", name: "Vladonix", url: "https://www.purefirenutritional.com/products/vladonix" },
+      [pub, { ...pub, id: "r2", productId: "endoluten", text: "Other product" }],
+    );
+    expect(ld?.aggregateRating).toMatchObject({ ratingValue: 5, reviewCount: 1 });
+    expect(ld?.review).toEqual([
+      expect.objectContaining({ reviewBody: pub.text, author: { "@type": "Person", name: pub.displayName } }),
+    ]);
+    expect(
+      reviewsJsonLd(
+        { id: "vladonix", name: "Vladonix", url: "https://www.purefirenutritional.com/products/vladonix" },
+        [{ ...pub, productId: "endoluten" }],
+      ),
+    ).toBeNull();
   });
 });

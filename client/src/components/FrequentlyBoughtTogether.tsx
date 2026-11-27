@@ -7,6 +7,7 @@ import { Plus, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import { formatUSD } from "@shared/format-price";
+import { recommendationCardCopy } from "@/lib/recommendationCopy";
 
 interface FrequentlyBoughtTogetherProps {
   currentProduct: Product;
@@ -98,7 +99,7 @@ export default function FrequentlyBoughtTogether({
               <div>
                 <h3 className="font-semibold">{currentProduct.name}</h3>
                 <p className="text-sm text-muted-foreground line-clamp-1">
-                  {currentProduct.description}
+                  {recommendationCardCopy(currentProduct).description}
                 </p>
                 <p className="text-sm font-medium text-primary mt-1">
                   This item
@@ -125,7 +126,7 @@ export default function FrequentlyBoughtTogether({
                 <div>
                   <h3 className="font-semibold">{product.name}</h3>
                   <p className="text-sm text-muted-foreground line-clamp-1">
-                    {product.description}
+                    {recommendationCardCopy(product).description}
                   </p>
                   {reason && (
                     <p className="text-sm font-medium text-primary mt-1">

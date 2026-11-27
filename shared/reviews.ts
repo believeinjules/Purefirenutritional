@@ -219,13 +219,23 @@ export function parseReviewerName(raw: string): { firstName: string; lastInitial
   return { firstName, lastInitial: /^[A-Za-z\u00C0-\u024F]$/.test(initial) ? initial.toUpperCase() : "" };
 }
 
+/**
+ * Product reviews that may be shown and counted. General and service reviews
+ * never qualify, and a rating is never emitted for a review with no text.
+ */
+export function visibleProductReviews(productId: string, allReviews: PublicReview[]): PublicReview[] {
+  return allReviews.filter(
+    (r) => r.kind === "product" && r.productId === productId && r.rating >= 1 && r.text.trim().length > 0
+  );
+}
+
 /** schema.org AggregateRating + Review JSON-LD. Null when there are no reviews (never fabricated). */
 export function reviewsJsonLd(
   product: { id: string; name: string; url: string },
   allReviews: PublicReview[]
 ): Record<string, unknown> | null {
-  // Only approved product reviews for THIS product count (never general/service).
-  const reviews = allReviews.filter((r) => r.kind === "product" && r.productId === product.id && r.rating >= 1);
+  // Only the same product reviews the page can render (never general/service, never invented).
+  const reviews = visibleProductReviews(product.id, allReviews);
   if (reviews.length === 0) return null;
   const s = summarize(reviews);
   return {

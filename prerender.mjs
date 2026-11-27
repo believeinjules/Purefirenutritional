@@ -69,9 +69,15 @@ async function loadApprovedReviews(ssr) {
   }
 }
 
-/** Add aggregateRating to the page's existing Product JSON-LD block (no second Product block). */
-function withAggregateRating(page, summary) {
-  if (!summary || summary.count < 1) return page;
+function htmlHasText(page, text) {
+  const visible = page.replace(/<script[\s\S]*?<\/script>/gi, " ");
+  if (visible.includes(text)) return true;
+  const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return visible.includes(escaped);
+}
+
+/** Drop AggregateRating / Review nodes when the same reviews are not visible. */
+function stripUnsupportedRating(page) {
   return page.replace(
     /(<script[^>]*type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/g,
     (whole, open, body, close) => {
@@ -81,18 +87,14 @@ function withAggregateRating(page, summary) {
       } catch {
         return whole;
       }
-      if (!ld || ld["@type"] !== "Product" || ld.aggregateRating) return whole;
-      ld.aggregateRating = {
-        "@type": "AggregateRating",
-        ratingValue: summary.average,
-        reviewCount: summary.count,
-        bestRating: 5,
-        worstRating: 1,
-      };
-      return `${open}${JSON.stringify(ld).replace(/</g, "\\u003c")}${close}`;
+      if (!ld || (ld.aggregateRating == null && ld.review == null)) return whole;
+      delete ld.aggregateRating;
+      delete ld.review;
+      return `${open}${JSON.stringify(ld).replace(/</g, "\u003c")}${close}`;
     }
   );
 }
+
 
 
 function attr(tag, name) {
@@ -163,11 +165,11 @@ async function prerender() {
   const buildDate = new Date().toISOString().slice(0, 10);
 
   /** SSR one route. `withBody: false` keeps an empty #root (head tags only). */
-  function renderRoute(route, { product = null, withBody = true } = {}) {
+  function renderRoute(route, { product = null, reviews = null, withBody = true } = {}) {
     let html = "";
     let helmet = null;
     try {
-      const result = ssr.render(route, { product });
+      const result = ssr.render(route, { product, reviews });
       html = result.html;
       helmet = result.helmet;
     } catch (err) {
@@ -235,17 +237,16 @@ async function prerender() {
   const missingLd = [];
   for (const { product } of catalog.entries) {
     const route = ssr.productPath(product.id);
-    let page = renderRoute(route, { product });
-    const productReviews = reviews.byProduct.get(product.id);
-    if (productReviews?.length) {
-      page = withAggregateRating(page, ssr.summarizeReviews(productReviews));
-      rated.push(product.id);
-    }
+    const productReviews = ssr.visibleProductReviews(product.id, reviews.byProduct.get(product.id) ?? []);
+    let page = renderRoute(route, { product, reviews: productReviews });
+    const visible = productReviews.length > 0 && productReviews.every((r) => htmlHasText(page, r.text));
+    if (!visible) page = stripUnsupportedRating(page);
+    else rated.push(product.id);
     if (!page.includes('"@type":"Product"')) missingLd.push(product.id);
     writeFile(outPathFor(route), page);
   }
   console.log(`Prerendered: ${catalog.entries.length} product pages under /products/<id>`);
-  console.log(`AggregateRating added for ${rated.length} product(s)${rated.length ? `: ${rated.join(", ")}` : ""}`);
+  console.log(`AggregateRating kept for ${rated.length} product(s) whose reviews are visible${rated.length ? `: ${rated.join(", ")}` : ""}`);
   if (missingLd.length) {
     console.warn(`Warning: no Product JSON-LD rendered for: ${missingLd.join(", ")}`);
   }

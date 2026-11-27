@@ -133,6 +133,14 @@ describe("shop taxonomy", () => {
     expect(products.filter((p) => !listed.has(p.id)).map((p) => p.id)).toEqual([]);
   });
 
+  it("keeps Prime Peptide Omega in Heart & Circulation and on its immune overview", () => {
+    expect(PRODUCT_TAGS["prime-peptide-omega"].tags).toContain("system:heart-circulation");
+    expect(systemsForProduct("prime-peptide-omega").map((s) => s.slug)).toContain("heart-circulation");
+    const overview = getPdpContent("prime-peptide-omega")!.overview.join(" ");
+    expect(overview).toMatch(/formulated to support the immune system, with omega fatty acids/);
+    expect(overview).not.toMatch(/cardiovascular|blood-brain|heart muscle/i);
+  });
+
   it("blood / bone-marrow products are not filed under Heart & Circulation", () => {
     const heart = new Set(pageProducts(getBodySystem("heart-circulation")!, products).map((p) => p.id));
     for (const p of pageProducts(getBodySystem("blood-bone-marrow")!, products)) expect(heart.has(p.id), p.id).toBe(false);

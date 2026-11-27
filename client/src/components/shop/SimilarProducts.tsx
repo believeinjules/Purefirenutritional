@@ -1,5 +1,6 @@
 import { ProductGridCard, type ListingProduct } from "@/components/ProductListingCard";
 import { getSimilarProducts } from "@/lib/similarProducts";
+import { recommendationCardCopy } from "@/lib/recommendationCopy";
 import { useReviewSummaries } from "@/lib/reviewsApi";
 
 /** "Similar products" row (3–4 cards). Plain links, so it is crawlable in the prerendered HTML. */
@@ -13,13 +14,16 @@ export default function SimilarProducts({ productId }: { productId: string }) {
         Similar Products
       </h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        {items.map((p) => (
-          <ProductGridCard
-            key={p.id}
-            product={p as unknown as ListingProduct}
-            reviewSummary={reviewSummaries[p.id]}
-          />
-        ))}
+        {items.map((p) => {
+          const copy = recommendationCardCopy(p);
+          return (
+            <ProductGridCard
+              key={p.id}
+              product={{ ...p, description: copy.description, benefits: copy.benefits } as unknown as ListingProduct}
+              reviewSummary={reviewSummaries[p.id]}
+            />
+          );
+        })}
       </div>
     </section>
   );
